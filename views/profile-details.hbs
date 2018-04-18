@@ -1,0 +1,159 @@
+<section class="content-header">
+    <h1>Profile Details</h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="#">
+            <i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li class="active">{{user.user_name}}</li>
+    </ol>
+</section>
+<section class="content container-fluid">
+        <div class="profile-details">
+          <div class="row">
+            <div class="col-md-3">
+              <!-- Starts Profile Info -->
+              <div class="box">
+                <div class="box-body box-profile">
+                  <img class="profile-user-img img-responsive img-circle" src="{{image}}" alt="user profile picture">
+                  <h3 class="profile-username text-center">{{user.user_name}}</h3>
+                  <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                      <b>BTC</b>
+                      <a class="pull-right">2.53560000</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>USD</b>
+                      <a class="pull-right">16808108.44322</a>
+                    </li>
+                  </ul>
+                  <p>
+                    <a href="/deposit-funds" class="btn btn-primary btn-block">
+                      <b>Deposit Funds</b>
+                    </a>
+                  </p>
+                  <p>
+                    <a href="#" class="btn btn-primary btn-block">
+                      <b>Buy and Sell</b>
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <!-- Ends Profile Info -->
+              <!-- Starts Profile About -->
+              <div class="bio">
+                <div class="box">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">
+                      <i class="fa fa-user-circle margin-r-5"></i>About Me</h3>
+                  </div>
+                  <div class="box-body">
+                    <strong>
+                      <i class="fa fa-id-card margin-r-5"></i> ID
+                      <a href="{{identity_proof}}" target="_blank" style="float:right">View</a>
+                    </strong>
+                    <hr>
+                    <strong>
+                      <i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                    <p class="text-muted">{{user.city}}, {{user.state}}</p>
+                    <hr>
+
+
+                    <strong>
+                      <i class="fa fa fa-university margin-r-5"></i> Bank Information</strong>
+                    <p class="text-muted" style="margin-bottom: 0px;">
+                      <strong>Bank Name : </strong>J.P. Morgan Chase</p>
+
+                    <p class="text-muted" style="margin-bottom: 0px;">
+                      <strong>Bank Code : </strong>120491240</p>
+
+                    <p class="text-muted" style="margin-bottom: 0px;">
+                      <strong>Account Number : </strong>1920419401</p>
+
+
+                    <hr>
+                    <strong>
+                      <i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque</p>
+                    <hr>
+
+                  </div>
+                </div>
+              </div>
+              <!-- Starts Profile About -->
+            </div>
+            <div class="col-md-9">
+              <!-- Starts Bio  -->
+              <div class="bio">
+                <div class="box">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">
+                      <i class="fa fa-address-card margin-r-5"></i>Bio</h3>
+                  </div>
+                  <div class="box-body">
+                    <p class="text-muted" style="text-align: justify;">
+                      {{user.about_me}}</p>
+                  </div>            
+                </div>
+              </div>
+              <!-- Ends Bio  -->
+              <!-- Starts Latest News -->
+              <div class="ltst-news">
+                <div class="box">
+                  <div class="box-header">
+                    <h3 class="box-title ltns">
+                      <i class="fa fa-newspaper-o"></i> Latest News</h3>
+                  </div>
+                  <div class="box-body">
+                    <div class="row">
+                      <div class="col-md-6  recent_post_box">
+                        <a href="#" style="color: #000;">
+                          <p>
+                            <img src="dist/img/bitcoin-investing.jpg" style="width: 100%;">
+                          </p>
+                          <h5 class="post-title">What Percentage of Your Wealth Should Be Invested in Bitcoin?</h5>
+                        </a>
+                        <p class="subdetails">Coinjolt.com</p>
+                      </div>
+                      <div class="col-md-6  recent_post_box">
+                        <a href="#" style="color: #000;">
+                          <p>
+                            <img src="dist/img/investing-in-bitcoin-for-the-long-term.jpg" style="width: 100%;">
+                          </p>
+                          <h5 class="post-title">Bitcoin – Investing For The Long Term</h5>
+                        </a>
+                        <p class="subdetails">Coinjolt.com</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6  recent_post_box">
+                        <a href="#" style="color: #000;">
+                          <p>
+                            <img src="dist/img/bitcoin-mainstream.jpg" style="width: 100%;">
+                          </p>
+                          <h5 class="post-title">When Will Bitcoin Be Adopted by the Mainstream</h5>
+                        </a>
+                        <p class="subdetails">Coinjolt.com</p>
+                      </div>
+
+                      <div class="col-md-6  recent_post_box">
+                        <a href="#" style="color: #000;">
+                          <p>
+                            <img src="dist/img/how-bitcoin-is-changing-the-world.jpg" style="width: 100%;">
+                          </p>
+                          <h5 class="post-title">How Bitcoin is Changing The World</h5>
+                        </a>
+                        <p class="subdetails">Coinjolt.com</p>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- /.box-body -->
+                </div>
+              </div>
+              <!-- Ends Latest News -->
+            </div>
+          </div>
+        </div>
+      </section>

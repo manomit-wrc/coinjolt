@@ -1,14 +1,12 @@
 module.exports = function(app, passport, models) {
 
   app.get('/test-asso', async (req, res) => {
-    
-    let result = await models.User.findAll();
-    let countries = await models.Country.findAll({
-      where: {
-        id: result[0].country_id
-      }
+    models.User.belongsTo(models.Country,{foreignKey: 'country_id'});
+    let result = await models.User.findAll({
+      include: [{model: models.Country}]
     });
-    console.log(countries);
+    
+    console.log(result[0].Country.name);
   });
 
 	app.get('/', function(req, res) {

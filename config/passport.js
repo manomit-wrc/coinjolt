@@ -121,12 +121,12 @@ module.exports = (passport, User) => {
                             where: condition,
                             attributes: ['id']
                         }).then(function (user) {
-
+                            
                             User.create({
                                 email: req.body.email,
                                 password: bCrypt.hashSync(req.body.password),
                                 activation_key: activation_key,
-                                referral_id: user[0]
+                                referral_id: user.id
         
                             }).then(function(result){
                                 /* sendgrid mail sending code for activation link */

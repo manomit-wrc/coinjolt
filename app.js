@@ -216,6 +216,7 @@ app.use(function(req, res, next){
 });
 
 require('./routes/dashboard')(app, models.Country, models.User);
+require('./routes/deposit')(app, models.Deposit);
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

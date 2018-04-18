@@ -2,11 +2,19 @@ module.exports = function(app, passport, models) {
 
   app.get('/test-asso', async (req, res) => {
     models.User.belongsTo(models.Country,{foreignKey: 'country_id'});
+    let whereObj = {};
+    if(false) {
+      whereObj.id = '1';
+    }
+    else {
+      whereObj.email = 'sdfsdf';
+    }
     let result = await models.User.findAll({
+      where: whereObj,
       include: [{model: models.Country}]
     });
     
-    console.log(result[0].Country.name);
+    console.log(result[0]);
   });
 
 	app.get('/', function(req, res) {

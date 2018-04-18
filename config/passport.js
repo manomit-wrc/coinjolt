@@ -74,25 +74,6 @@ module.exports = (passport, User) => {
 
         ));
 
-
-    // count for existing email
-    /*
-        Author.count({ where: {name: item.trim()} }).then(function(count){
-        if (count != 0) {
-          console.log('Author already exists')
-          callback(); //assuming you want it to keep looping, if not use callback(new Error("Author already exists"))
-        } else {
-          console.log('Creating author...')
-          Author.create({
-            name: item.trim()
-          }).then(function(author){
-            callback();
-          })
-        }
-      })
-    */    
-    // end count
-
     passport.use('local-signup', new LocalStrategy({
 
         usernameField: 'email',
@@ -111,31 +92,61 @@ module.exports = (passport, User) => {
                         User.create({
                             email: req.body.email,
                             password: bCrypt.hashSync(req.body.password),
-                            activation_key: activation_key
+                            activation_key: activation_key,
+                            referral_id: 0
     
                         }).then(function(result){
                             /* sendgrid mail sending code for activation link */
     
                             return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account'));
                         }).catch(function(err){
-                            /* var validation_error = err.errors;
-                            res.render('admin/codecategory/add', {
-                            layout: 'dashboard',
-                            error_message: validation_error[0].message,
-                            body: req.body
-                            }); */
                             console.log('error');
                         });
     
                     }
                       else {
-                        var condition = '';
+                        const activation_key = encrypt(email);
+                        //var condition = '';
+                        let condition = {};
                         if(isNaN(parseInt(req.cookies.referral_id))) {
-                            condition = ' user_name="'+ req.cookies.referral_id + '"';
+                            //condition = ' user_name="'+ req.cookies.referral_id + '"';
+                            condition.user_name = req.cookies.referral_id;
                         }
                         else {
-                            condition = ' id="'+ req.cookies.referral_id + '"';
+                            //condition = ' id="'+ req.cookies.referral_id + '"';
+                            condition.id = req.cookies.referral_id;
                         }
+                      
+                        User.findOne({
+                            where: condition,
+                            attributes: ['id']
+                        }).then(function (user) {
+
+                            User.create({
+                                email: req.body.email,
+                                password: bCrypt.hashSync(req.body.password),
+                                activation_key: activation_key,
+                                referral_id: user[0]
+        
+                            }).then(function(result){
+                                /* sendgrid mail sending code for activation link */
+        
+                                return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account'));
+
+                            }).catch(function(err){
+                                console.log('error');
+                            });
+                            // end
+
+                        }).catch(function (err) {
+        
+                            console.log("Error:", err);
+        
+                            return done(null, false, req.flash('loginMessage', 'Something wrong.Please try again.'));
+        
+                        });
+                        // end find
+
                         //const getuserData = 'SELECT id FROM users WHERE '+condition;
                         /* connection.query(getuserData, function(err, rows, fields) {
                             const activation_key = encrypt(email);

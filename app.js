@@ -189,7 +189,7 @@ app.use(function(req, res, next){
      
       res.locals.identity_proof = "javascript:void(0)";
     }
-    if(req.user.user_name === "") {
+    if(req.user.user_name === null) {
       res.locals.reffer_link_id = req.user.id;
     }
     else {

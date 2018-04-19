@@ -675,6 +675,22 @@
         }
       });
 
+      function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect){
+            $.ajax({
+                type: 'POST',
+                url : "/confirm_coin_buy",
+                data : {amtVal: amtVal,currency_purchased: currency_purchased,coinRate: coinRate,actualAmtExpect:actualAmtExpect},
+                success:function(response) {
+                  if(response.success == true){
+                      window.location.href="/buy-and-sell-coins";
+                  }
+              },
+              error:function(xhr) {
+                console.log(xhr);
+              }
+            });
+      }
+
         // Dashboard display cryptocurrency list in table starts
         $tr = "";
         $.ajax({

@@ -1,6 +1,7 @@
 var bCrypt = require('bcrypt-nodejs');
+const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
-module.exports = function (app, Country, User, Currency, Support) {
+module.exports = function (app, Country, User, Currency, Support, Deposit) {
     var multer = require('multer');
     var fileExt = '';
     var fileName = '';
@@ -249,4 +250,61 @@ module.exports = function (app, Country, User, Currency, Support) {
             res.render('buy-and-sell-coins', {layout: 'dashboard', contents: values });
 		});
     });
+
+    app.post('/buy-coin', async (req, res) => {
+		var amtVal = req.body.amtVal;
+		var coinRate = req.body.coinRate;
+		var currencyType = req.body.currencyBuyType;
+		var curr_crypto_bal = 0;
+		var curr_brought = 0;
+        var curr_sold = 0;
+        
+        // calculating cryptocurrency wallet current balance
+        curr_brought = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 1, currency_purchased: currencyType},
+            attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
+        });
+
+        curr_sold = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 2, currency_purchased: currencyType},
+            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
+        });
+
+        curr_crypto_bal = parseFloat(curr_brought[0].get('TOT_BUY_AMT') - curr_sold[0].get('TOT_SOLD_AMT'));
+        curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
+        
+        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal});
+
+    });
+
+    app.post('/confirm_coin_buy', function(req, res){
+		
+		var digits = 9;	
+		var numfactor = Math.pow(10, parseInt(digits-1));	
+		var randomNum =  Math.floor(Math.random() * numfactor) + 1;
+		var today = new Date();	
+		
+		var buy_data = {
+			"checkout_id" : randomNum,
+			"transactionId" : randomNum,
+			"user_id": req.user.id,
+			"amount": req.body.amtVal?req.body.amtVal:0,
+			"currency_purchased": req.body.currency_purchased?req.body.currency_purchased:'',
+			"current_rate": req.body.coinRate?req.body.coinRate:0,
+			"converted_amount": req.body.actualAmtExpect?req.body.actualAmtExpect:0,
+			"deposit_type": "Buy",
+			"base_currency": "USD",
+			"dateadded": today?today:'0000-00-00',
+			"currency_purchased": req.body.currency_purchased?req.body.currency_purchased:''
+		};	
+			
+		/* connection.query('INSERT INTO deposit_funds SET ?', [buy_data], function (err, result) {
+			if (err) throw err; 
+			else { 
+				res.json({success: true});
+			} 
+		}); */
+	});
+
+    
 };

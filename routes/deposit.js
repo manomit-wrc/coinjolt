@@ -10,7 +10,10 @@ module.exports = function(app,Deposit,WireTransfer,User) {
             },
         	include: [{
 		    	model: User
-	  		}]
+	  		}],
+	  		order: [
+            	['id', 'DESC']
+        	]
 		}).then(function(result){
 			res.render('deposit/view',{layout: 'dashboard',all_data:result});
 		});

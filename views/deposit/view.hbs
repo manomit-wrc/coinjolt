@@ -20,15 +20,12 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <form action="" class="p-l-20">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Deposit Type</label>
-                    <select class="form-control">
+                    <select class="form-control" name="deposit_type" id="deposit_type">
                       <option value="" selected>Select from one of the available deposit methods below. </option>
-                      <!-- <option value="">Due to a high volume of requests, deposits will remain unavailable until March 7, 2018.</option> -->
-                      <!-- <option value="sq-ccbox">Credit Card </option> -->
                       <option value="1">Credit Card</option>
                       <option value="2">Bank Wire Transfer</option>
                     </select>
@@ -37,17 +34,15 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="">USD</label>
-                    <input type="text" class="form-control" id="" placeholder="Enter Amount (USD)">
+                    <input type="text" class="form-control" id="usd_amount" placeholder="Enter Amount (USD)">
                   </div>
                 </div>
                 <div class="col-md-4 col-md-offset-4">
                   <div class="form-group">
-                    <input class="btn btn-block btn-primary" type="submit" value="Deposit Funds" />
+                    <input class="btn btn-block btn-primary" id="deposit_funds_bwt" type="submit" value="Deposit Funds" />
                   </div>
                 </div>
               </div>
-
-            </form>
           </div>
           <!-- /.box-body -->
         </div>
@@ -57,3 +52,79 @@
   </div>
   <!-- Ends Deposit Funds -->
 </section>
+
+
+<!--  Starts Wire Transfer Successfull Modal -->
+
+
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="top-part">
+          <div class="sa-icon sa-success animate" id="success-animate" style="display: block;">
+            <span class="sa-line sa-tip animateAlertTip"></span>
+            <span class="sa-line sa-long animateAlertLong"></span>
+            <div class="sa-placeholder"></div>
+            <div class="sa-fix"></div>
+          </div>
+          <div class="swal-icon swal-icon--warning" id="warning-animate">
+            <span class="swal-icon--warning__body">
+              <span class="swal-icon--warning__dot"></span>
+            </span>
+          </div>
+        </div>
+        <!-- animateSuccessTip -->
+        <h2 style="text-align: center;">Success! A pending wire transfer has been added to your account.</h2>
+        <p style="text-align: left;">Wire transfers can take anywhere between 5-7 business days to be processed. Once the deposit have been received, our system will automatically credit your balance. Please write or print out the following information to provide to your local branch.</p>
+        <form method="post">
+        <div class="form-group">
+          <label>Total Amount (Pending Wire Transfer):</label>
+          <input type="text" class="form-control" placeholder="Total Amount" name="totalamount" id="totalamount" value="Bank of Nova Scotia" required="required" readonly>
+        </div>
+        <div class="form-group">
+          <label>Bank Name:</label>
+          <input type="text" class="form-control" placeholder="Bank of Nova Scotia" name="bankname" id="bankname" value="Bank of Nova Scotia" required="required" readonly>
+        </div>
+        <div class="form-group">
+          <label>Account Name:</label>
+          <input type="text" class="form-control" placeholder="Kano Investments Inc" name="accountnumber" id="accountnumber"  value="Kano Investments Inc" required="required" readonly>
+        </div>
+        <div class="form-group">
+          <label>Bank Address:</label>
+          <input type="text" class="form-control" placeholder="11666 Steveston Hwy #3020, Richmond, BC, V7A 5J3" name="bankaddress" id="bankaddress" value="11666 Steveston Hwy #3020, Richmond, BC, V7A 5J3" required="required" readonly>
+        </div>
+        <div class="form-group">
+          <label>Branch Number:</label>
+          <input type="text" class="form-control" placeholder="51920" name="branchnumber" id="branchnumber" required="required" value="51920" readonly>
+        </div>
+        <div class="form-group">
+          <label>Institution Number:</label>
+          <input type="text" class="form-control" placeholder="002" name="institutionnumber" id="institutionnumber" value="002" required="required" readonly>
+        </div>
+        <div class="form-group">
+          <label>Account Number:</label>
+          <input type="text" class="form-control" placeholder="0091782" name="accountnumber" id="accountnumber" value="0091782" required="required" readonly>
+        </div>
+        <div class="form-group">
+          <label>Routing Number (USA):</label>
+          <input type="text" class="form-control" placeholder="026002532" name="routingnumber" id="routingnumber" value="026002532" required="required" readonly>
+          </div>
+        <div class="form-group">
+          <label>Swift Code (International):</label>
+          <input type="text" class="form-control" placeholder="NOSCCATT" name="swiftcode" id="swiftcode" value="NOSCCATT" required="required" readonly>
+        </div>
+        <div class="form-group">
+          <label>Reference:</label>
+          <input type="text" class="form-control" placeholder="support@coinjolt.com" name="reference" id="reference" value="support@coinjolt.com" required="required" readonly>
+        </div>
+        </div>
+      <div style="margin-top: -10%;" class="modal-footer">
+        <button type="button" class="btn btn-default" id="ok" >OK</button>
+        <a href="https://coinjolt.com/dashboard/pdf" target="_blank" class="btn btn-primary" id="pdf" style="margin-top: 4.8%">Print as PDF</a>
+        <button type="button" class="btn btn-default" id="close">Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

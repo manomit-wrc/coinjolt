@@ -1,6 +1,6 @@
 var bCrypt = require('bcrypt-nodejs');
-
-module.exports = function (app, Country, User) {
+const Op = require('sequelize').Op;
+module.exports = function (app, Country, User, Currency) {
     var multer = require('multer');
     var fileExt = '';
 	var fileName = '';
@@ -146,7 +146,7 @@ module.exports = function (app, Country, User) {
                  $like: '%'+refName+'%'
                },
                id: {
-                $ne: req.user.id
+                [Op.ne]: req.user.id
               } 
 
             }
@@ -174,6 +174,15 @@ module.exports = function (app, Country, User) {
             }
      });
 
-	});
+    });
+    
+    app.get('/buy-and-sell-coins', function(req, res){
+
+        Currency.findAll({
+			attributes: ['alt_name','currency_id']
+		}).then(function(values){
+            res.render('buy-and-sell-coins', {layout: 'dashboard', contents: values });
+		});
+    });
 
 };

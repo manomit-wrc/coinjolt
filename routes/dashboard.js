@@ -1,6 +1,6 @@
 var bCrypt = require('bcrypt-nodejs');
-
-module.exports = function (app, Country, User, Support) {
+const Op = require('sequelize').Op;
+module.exports = function (app, Country, User, Currency, Support) {
     var multer = require('multer');
     var fileExt = '';
     var fileName = '';
@@ -68,6 +68,7 @@ module.exports = function (app, Country, User, Support) {
                 layout: 'dashboard',
                 message: msg,
                 countries: country
+
             });
         });
     });
@@ -87,6 +88,7 @@ module.exports = function (app, Country, User, Support) {
                     message: 'Password updated successfully'
                 });
             }).catch(function (err) {
+
                 console.log(err);
             });
         } else {
@@ -99,18 +101,21 @@ module.exports = function (app, Country, User, Support) {
 
     app.post('/update-id-proof', upload.single('async_uploads'), function (req, res) {
         User.update({
+
             identity_proof: fileName
         }, {
             where: {
                 id: req.user.id
             }
         }).then(function (result) {
+
             res.json({
                 success: true,
                 message: 'ID Proof uploaded successfully',
                 file_name: fileName
             });
         }).catch(function (err) {
+
             console.log(err);
         });
     });
@@ -135,6 +140,7 @@ module.exports = function (app, Country, User, Support) {
         }, {
             where: {
                 id: req.user.id
+
             }
         }).then(function (result) {
             if (result > 0) {
@@ -145,6 +151,7 @@ module.exports = function (app, Country, User, Support) {
                 res.redirect('/account-settings');
             }
         }).catch(function (err) {
+
             console.log(err);
         });
     });
@@ -152,23 +159,24 @@ module.exports = function (app, Country, User, Support) {
     app.post('/save-referral-name', function (req, res) {
         var refName = req.body.referral_name;
         User.findAndCountAll({
-                where: {
-                    user_name: {
-                        $like: '%' + refName + '%'
-                    },
-                    id: {
-                        $ne: req.user.id
-                    }
 
+            where: {
+                user_name: {
+                    $like: '%'+refName+'%'
+                },
+                id: {
+                    [Op.ne]: req.user.id
                 }
-            })
-            .then(function (result) {
-                var count = result.count;
-                if (count > 0) {
-                    res.json({
-                        status: 'false',
-                        message: 'User already exists, please enter another username'
-                    });
+            }
+        })
+        .then(function(result) {
+            var count = result.count;
+            if(count > 0) {
+                res.json({
+                    status: 'false',
+                    message: 'User already exists, please enter another username'
+                });
+
 
                 } else {
                     User.update({
@@ -233,4 +241,12 @@ module.exports = function (app, Country, User, Support) {
         });
     });
 
+    
+    app.get('/buy-and-sell-coins', function(req, res){
+        Currency.findAll({
+			attributes: ['alt_name','currency_id']
+		}).then(function(values){
+            res.render('buy-and-sell-coins', {layout: 'dashboard', contents: values });
+		});
+    });
 };

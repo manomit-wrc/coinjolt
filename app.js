@@ -32,7 +32,8 @@ app.use(allowCrossDomain);
 var passport = require('passport');
 
 
-require('./config/passport')(passport, models.User, models);
+
+require('./config/passport')(passport, models.User, models.Deposit, models.Currency);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -189,7 +190,7 @@ app.use(function(req, res, next){
      
       res.locals.identity_proof = "javascript:void(0)";
     }
-    if(req.user.user_name === "") {
+    if(req.user.user_name === null) {
       res.locals.reffer_link_id = req.user.id;
     }
     else {
@@ -209,7 +210,9 @@ app.use(function(req, res, next){
   res.redirect('/');
 });
 
-require('./routes/dashboard')(app, models.Country, models.User, models.Support);
+
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support);
+require('./routes/deposit')(app, models.Deposit);
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

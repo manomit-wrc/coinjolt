@@ -28,11 +28,14 @@
                         <strong>Balances:</strong>
                     </h6>
                     <ul class="list" id="blc">
-                        {{!-- {{#each currencyList}}
+                        <li>
+                            <strong>USD:</strong> {{user.currentUsdBalance}}</li>
+                        <li class="border">|</li>
+                        {{#each user.currency}}
                         <li>
                             <strong>{{this.currency_id}}:</strong> 7041.04</li>
                         <li class="border">|</li>
-                        {{/each}} --}}
+                        {{/each}}
                     </ul>
                 </div>
             </div>
@@ -47,11 +50,11 @@
                         <strong>Rates:</strong>
                     </h6>
                     <ul class="list" id="rtc">
-                        {{!-- {{#each currencyList}}
+                        {{#each user.currency}}
                         <li class="cr_{{this.currency_id}}">
                             <strong>{{this.currency_id}}:</strong></li>
                         <li class="border">|</li>
-                        {{/each}} --}}
+                        {{/each}}
                     </ul>
                 </div>
             </div>

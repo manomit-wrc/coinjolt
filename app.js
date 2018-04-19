@@ -215,7 +215,7 @@ app.use(function(req, res, next){
   res.redirect('/');
 });
 
-require('./routes/dashboard')(app, models.Country, models.User);
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency);
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

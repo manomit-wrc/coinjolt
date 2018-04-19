@@ -3,6 +3,7 @@ var LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
 const algorithm = 'aes-256-ctr';
 const password = 'd6F3Efeq';
+const sequelize = require('sequelize');
 module.exports = (passport, User) => {
     passport.serializeUser(function (user, done) {
         done(null, user.id);
@@ -10,18 +11,70 @@ module.exports = (passport, User) => {
 
     passport.deserializeUser(function (id, done) {
         User.findById(id).then(function (user) {
-
             if (user) {
-
                 done(null, user.get());
-
             } else {
 
                 done(user.errors, null);
-
             }
+        }); 
 
-        });
+        // async start
+        
+       /*  async function calUsdBalance(id) {
+            try {
+              
+              let userId =  await User.findOne({ where: {id: id} });       
+              var sold_amount = 0;
+              var withdraw_amount = 0;
+              var transaction_amount = 0;
+              var deposit_amount = 0;
+              var curr_brought = 0;
+              var curr_sold = 0;
+          
+              sold_amount = await Sell.findAll({   
+                  where: {id: id},
+              attributes: [[ sequelize.fn('SUM', sequelize.col('amount_in_usd')), 'SELL_TOTAL_AMT']]
+              });
+              
+              withdraw_amount = await Withdrawals.findAll({
+              where: {id: id},
+              attributes: [[ sequelize.fn('SUM', sequelize.col('amount_in_usd')), 'TOT_USD_AMT']]
+              });
+          
+              transaction_amount = await Deposit_funds.findAll({
+              where: {id: id},
+                  attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_AMT']],
+                  currency_purchased: 
+                      {
+                        [sequelize.Op.notIn] : 'usd'
+                      }   
+             });
+          
+              deposit_amount = await Deposit_funds.findAll({
+              where: {id: id},
+                  attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_DEP_AMT']],
+                  currency_purchased: 
+                      {
+                        [sequelize.Op.like] : '%'+'usd'+'%'
+                      }
+              });
+          
+              // calculation of usd balance
+               var cal_currusd = sold_amount - withdraw_amount;
+               var new_currusd = cal_currusd - transaction_amount;
+               var curr_usd = new_currusd + deposit_amount;
+               var final = parseFloat(Math.round(curr_usd * 100) / 100).toFixed(4);
+               console.log('Final usd balance is '+final);
+               done(final);
+               //done(err, rows[0]);
+            } catch (err) {
+              console.log('Opps, an error occurred', err);
+            }
+          }
+          calUsdBalance(id); */
+        // async end    
+         
     });
 
     passport.use(
@@ -106,14 +159,11 @@ module.exports = (passport, User) => {
                     }
                       else {
                         const activation_key = encrypt(email);
-                        //var condition = '';
                         let condition = {};
                         if(isNaN(parseInt(req.cookies.referral_id))) {
-                            //condition = ' user_name="'+ req.cookies.referral_id + '"';
                             condition.user_name = req.cookies.referral_id;
                         }
                         else {
-                            //condition = ' id="'+ req.cookies.referral_id + '"';
                             condition.id = req.cookies.referral_id;
                         }
                       

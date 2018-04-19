@@ -4,76 +4,77 @@ const crypto = require('crypto');
 const algorithm = 'aes-256-ctr';
 const password = 'd6F3Efeq';
 const sequelize = require('sequelize');
-module.exports = (passport, User) => {
+module.exports = (passport, User, Deposit) => {
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });
-
+    
     passport.deserializeUser(function (id, done) {
+
         User.findById(id).then(function (user) {
             if (user) {
-                done(null, user.get());
+
+                // async
+                async function calUsdBalance(id) {
+                    try {      
+                      //let userId =  await User.findOne({ where: {id: id} });       
+                      var sold_amount = 0;
+                      var withdraw_amount = 0;
+                      var transaction_amount = 0;
+                      var deposit_amount = 0;
+                      var curr_brought = 0;
+                      var curr_sold = 0;
+                  
+                      sold_amount = await Deposit.findAll({   
+                          where: {user_id: id, type: 2},
+                      attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'SELL_TOTAL_AMT']]
+                      });
+                    
+                      //console.log('Sold amount: '+sold_amount[0].get('SELL_TOTAL_AMT'));
+
+                      withdraw_amount = await Deposit.findAll({
+                      where: {user_id: id, type: 3},
+                      attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_USD_AMT']]
+                      });
+
+                      //console.log('Withdraw amount: '+withdraw_amount[0].get('TOT_USD_AMT'));
+                  
+                      transaction_amount = await Deposit.findAll({
+                      where: {user_id: id, type: 1},
+                          attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_AMT']]
+                     });
+
+                     //console.log('Transaction amount: '+transaction_amount[0].get('TOT_AMT'));
+                  
+                      deposit_amount = await Deposit.findAll({
+                      where: {user_id: id, type: 0},
+                          attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_DEP_AMT']]
+                      });
+
+                      //console.log('Deposit amount: '+deposit_amount[0].get('TOT_DEP_AMT'));
+                  
+                       var cal_currusd = sold_amount[0].get('SELL_TOTAL_AMT') - withdraw_amount[0].get('TOT_USD_AMT');
+                       var new_currusd = cal_currusd - transaction_amount[0].get('TOT_AMT');
+                       var curr_usd = new_currusd + deposit_amount[0].get('TOT_DEP_AMT');
+                       var final = parseFloat(Math.round(curr_usd * 100) / 100).toFixed(4);
+                       
+                       user = user.toJSON();
+                       user.currentUsdBalance = final;
+                       done(null, user);
+
+                    } catch (err) {
+                      console.log('Opps, an error occurred', err);
+                    }
+                    
+                  }
+                  calUsdBalance(id);
+                  
             } else {
 
                 done(user.errors, null);
             }
-        }); 
 
-        // async start
-        
-       /*  async function calUsdBalance(id) {
-            try {
-              
-              let userId =  await User.findOne({ where: {id: id} });       
-              var sold_amount = 0;
-              var withdraw_amount = 0;
-              var transaction_amount = 0;
-              var deposit_amount = 0;
-              var curr_brought = 0;
-              var curr_sold = 0;
-          
-              sold_amount = await Sell.findAll({   
-                  where: {id: id},
-              attributes: [[ sequelize.fn('SUM', sequelize.col('amount_in_usd')), 'SELL_TOTAL_AMT']]
-              });
-              
-              withdraw_amount = await Withdrawals.findAll({
-              where: {id: id},
-              attributes: [[ sequelize.fn('SUM', sequelize.col('amount_in_usd')), 'TOT_USD_AMT']]
-              });
-          
-              transaction_amount = await Deposit_funds.findAll({
-              where: {id: id},
-                  attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_AMT']],
-                  currency_purchased: 
-                      {
-                        [sequelize.Op.notIn] : 'usd'
-                      }   
-             });
-          
-              deposit_amount = await Deposit_funds.findAll({
-              where: {id: id},
-                  attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_DEP_AMT']],
-                  currency_purchased: 
-                      {
-                        [sequelize.Op.like] : '%'+'usd'+'%'
-                      }
-              });
-          
-              // calculation of usd balance
-               var cal_currusd = sold_amount - withdraw_amount;
-               var new_currusd = cal_currusd - transaction_amount;
-               var curr_usd = new_currusd + deposit_amount;
-               var final = parseFloat(Math.round(curr_usd * 100) / 100).toFixed(4);
-               console.log('Final usd balance is '+final);
-               done(final);
-               //done(err, rows[0]);
-            } catch (err) {
-              console.log('Opps, an error occurred', err);
-            }
-          }
-          calUsdBalance(id); */
-        // async end    
+        });  
          
     });
 

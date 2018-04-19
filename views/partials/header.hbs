@@ -29,19 +29,13 @@
                     </h6>
                     <ul class="list" id="blc">
                         <li>
-                            <strong>MCP:</strong> 7041.04</li>
+                            <strong>USD:</strong> {{user.currentUsdBalance}}</li>
                         <li class="border">|</li>
+                        {{#each user.currency}}
                         <li>
-                            <strong>BTC:</strong> 7041.04</li>
+                            <strong>{{this.currency_id}}:</strong> 7041.04</li>
                         <li class="border">|</li>
-                        <li>
-                            <strong>ETH:</strong> 7041.04</li>
-                        <li class="border">|</li>
-                        <li>
-                            <strong>LTC:</strong> 7041.04</li>
-                        <li class="border">|</li>
-                        <li>
-                            <strong>USD:</strong> 7041.04</li>
+                        {{/each}}
                     </ul>
                 </div>
             </div>
@@ -56,36 +50,11 @@
                         <strong>Rates:</strong>
                     </h6>
                     <ul class="list" id="rtc">
-                        <li>
-                            <strong>BTC:</strong> 7041.04</li>
+                        {{#each user.currency}}
+                        <li class="cr_{{this.currency_id}}">
+                            <strong>{{this.currency_id}}:</strong></li>
                         <li class="border">|</li>
-                        <li>
-                            <strong>ETH:</strong> 7041.04
-                        </li>
-                        <li class="border">|</li>
-                        <li>
-                            <strong>ETH:</strong> 7041.04
-                        </li>
-                        <li class="border">|</li>
-                        <li>
-                            <strong>ETH:</strong> 7041.04
-                        </li>
-                        <li class="border">|</li>
-                        <li>
-                            <strong>ETH:</strong> 7041.04
-                        </li>
-                        <li class="border">|</li>
-                        <li>
-                            <strong>ETH:</strong> 7041.04
-                        </li>
-                        <li class="border">|</li>
-                        <li>
-                            <strong>ETH:</strong> 7041.04
-                        </li>
-                        <li class="border">|</li>
-                        <li>
-                            <strong>ETH:</strong> 7041.04
-                        </li>
+                        {{/each}}
                     </ul>
                 </div>
             </div>

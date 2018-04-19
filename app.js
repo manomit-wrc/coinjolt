@@ -32,7 +32,8 @@ app.use(allowCrossDomain);
 var passport = require('passport');
 
 
-require('./config/passport')(passport, models.User, models.Deposit);
+
+require('./config/passport')(passport, models.User, models.Deposit, models.Currency);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -198,26 +199,20 @@ app.use(function(req, res, next){
 
     res.locals.user = req.user;
 
-    if (fs.existsSync("public/currency_list/currency.txt")) {
-      var currencyData = '';
-      var currencyArray = [];
-      fs.readFileSync("public/currency_list/currency.txt").toString().split("\n").forEach(function(line, index, arr) {
-        if (index === arr.length - 1 && line === "") { return; }
-          currencyData = line.split('-');
-          currencyArray.push(currencyData);
-      });
-      res.locals.currencyList =  currencyArray;
-    }	
-
+    // models.Currency.findAll().then(function(currencies) {
+    //   res.locals.currencyList =  currencies;
+    //   console.log(res.locals.currencyList);
+    // });
     
+
     return next();
   }
   res.redirect('/');
 });
 
-require('./routes/dashboard')(app, models.Country, models.User, models.Currency);
-require('./routes/deposit')(app, models.Deposit);
 
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support);
+require('./routes/deposit')(app, models.Deposit);
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

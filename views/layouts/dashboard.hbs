@@ -703,7 +703,30 @@
           error: function (xhr) {
           }
         });
-        // Dashboard display cryptocurrency list in table ends       
+        // Dashboard display cryptocurrency list in table ends     
+
+        // Support form validation starts
+        $("#submit-a-request").validate({
+          rules: {
+            subject: {
+              required: true
+            },
+            description: {
+              required: true
+            }
+
+          },
+          messages: {
+            subject: {
+              required: "Please enter a subject"
+            },
+            description: {
+              required: "PLease enter description"
+
+            }
+          }
+        });
+        // Support form validation ends  
 
       });
     </script>
@@ -793,6 +816,24 @@ function copyToClipboard() {
 
     </script>
     <!-- Ends Script for Propagation & Sliding -->
+    <!-- Starts Script for Header Rates -->
+    {{#each user.currency}}
+      <script>
+        $.ajax({
+          type: "GET",
+          crossDomain: true,
+          dataType: 'json',
+          url: "https://coincap.io/page/{{this.currency_id}}",
+          success: function (resp) {
+            $(".cr_{{this.currency_id}}").append(' ' + resp.price_usd.toFixed(2));
+          },
+          error: function (xhr) {
+          }
+        });
+
+      </script> 
+    {{/each}}
+    <!-- Ends Script for Header Rates -->
 
 </body>
 

@@ -3,7 +3,7 @@ module.exports = function(app, passport, models) {
   app.get('/test-asso', async (req, res) => {
     models.User.belongsTo(models.Country,{foreignKey: 'country_id'});
     let whereObj = {};
-    if(false) {
+    if(true) {
       whereObj.id = '1';
     }
     else {

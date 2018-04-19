@@ -281,23 +281,27 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
 		
 		var digits = 9;	
 		var numfactor = Math.pow(10, parseInt(digits-1));	
-		var randomNum =  Math.floor(Math.random() * numfactor) + 1;
-		var today = new Date();	
-		
-		var buy_data = {
-			"checkout_id" : randomNum,
-			"transactionId" : randomNum,
-			"user_id": req.user.id,
-			"amount": req.body.amtVal?req.body.amtVal:0,
-			"currency_purchased": req.body.currency_purchased?req.body.currency_purchased:'',
-			"current_rate": req.body.coinRate?req.body.coinRate:0,
-			"converted_amount": req.body.actualAmtExpect?req.body.actualAmtExpect:0,
-			"deposit_type": "Buy",
-			"base_currency": "USD",
-			"dateadded": today?today:'0000-00-00',
-			"currency_purchased": req.body.currency_purchased?req.body.currency_purchased:''
-		};	
-			
+		var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
+        
+        // insert    
+        Deposit.create({
+            user_id: req.user.id,
+            transaction_id: randomNum,
+            checkout_id: randomNum,
+            amount: req.body.amtVal,
+            currency_purchased: req.body.currency_purchased,
+            current_rate: req.body.coinRate,
+            converted_amount: req.body.actualAmtExpect,
+            type: 1,            
+            base_currency: 'USD'
+
+        }).then(function (result) {
+            res.json({success: true});
+        }).catch(function (err) {
+            console.log(err);
+        });
+
+
 		/* connection.query('INSERT INTO deposit_funds SET ?', [buy_data], function (err, result) {
 			if (err) throw err; 
 			else { 

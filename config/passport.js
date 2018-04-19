@@ -60,6 +60,7 @@ module.exports = (passport, User, Deposit) => {
                        
                        user = user.toJSON();
                        user.currentUsdBalance = final;
+                       console.log(user);
                        done(null, user);
 
                     } catch (err) {

@@ -32,7 +32,7 @@ app.use(allowCrossDomain);
 var passport = require('passport');
 
 
-require('./config/passport')(passport, models.User);
+require('./config/passport')(passport, models.User, models.Deposit);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

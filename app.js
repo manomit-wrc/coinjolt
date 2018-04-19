@@ -189,7 +189,7 @@ app.use(function(req, res, next){
      
       res.locals.identity_proof = "javascript:void(0)";
     }
-    if(req.user.user_name === "") {
+    if(req.user.user_name === null) {
       res.locals.reffer_link_id = req.user.id;
     }
     else {
@@ -215,7 +215,9 @@ app.use(function(req, res, next){
   res.redirect('/');
 });
 
-require('./routes/dashboard')(app, models.Country, models.User);
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency);
+require('./routes/deposit')(app, models.Deposit);
+
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

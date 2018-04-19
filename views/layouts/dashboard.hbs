@@ -528,11 +528,11 @@
           
           var currencyType =  $("#currency_purchased option:selected").val();
 
-          //var currentUsdBal = {{user.currentUsdBalance}};
+          var currentUsdBal = {{user.currentUsdBalance}};
 
-          //var errmsg = "Amount exceeds current balance of "+currentUsdBal+" USD, <a href='/deposit-funds'>click here to deposit funds.</a>";
+          var errmsg = "Amount exceeds current balance of "+currentUsdBal+" USD, <a href='/deposit-funds'>click here to deposit funds.</a>";
 
-        /*
+        
         if(parseFloat(amtVal) > parseFloat(currentUsdBal)){
           $('.expected').addClass('alert alert-danger');
           $('.expected').html(errmsg);
@@ -541,11 +541,10 @@
           $('#calculatedamount').css('display','none');
           $("#cc-submit").prop('disabled', true);
         }
-        */
 
 
-       // else if(!jQuery.isNumeric(jQuery("#payAmount").val())){
-        if(!jQuery.isNumeric(jQuery("#payAmount").val())){
+
+        else if(!jQuery.isNumeric(jQuery("#payAmount").val())){
           $('.expected').addClass('alert alert-danger');
           $('.expected').html('Please enter a valid number.');
           $('.expected').show();
@@ -587,6 +586,92 @@
               $('.expected').hide();
           }
 
+        }
+      });
+
+      //Script for handling submission of buy request of coin
+      $('#cc-submit').on('click', function(e){
+        e.preventDefault();
+        var amount = $('#payAmount').val();
+        var currencyBuyType = $('#currency_purchased').val();
+        if(amount === ''){
+          $('.expected').addClass('alert alert-danger');
+          $('.expected').html('Please enter amount');
+          $('.expected').show();
+        }
+        if(currencyBuyType === ''){
+          $('.expected').addClass('alert alert-danger');
+          $('.expected').html('Please choose a currency to buy');
+          $('.expected').show();
+
+          $('#currentratetext').html('');
+          $('#currentratetext').removeClass('alert alert-danger');
+          $('#currentratetext').hide();
+
+          $('#calculatedamount').html('');
+          $('#calculatedamount').removeClass('alert alert-success');
+          $('#calculatedamount').hide();
+        }
+          if(amount !== '' && currencyBuyType !== ''){
+            var amtVal = jQuery("#payAmount").val();
+            var coinRate = jQuery("#coinRate").val();
+            var actualAmtExpect = parseFloat(amtVal/coinRate);
+            var currency_purchased = jQuery("#currency_purchased").val();
+            var user_id = {{user.id}};
+            var currency_name = jQuery( "#currency_purchased option:selected" ).text();
+            var currency_value = jQuery("#currency_purchased option:selected").val();
+            var totalAmtExpect = 0;
+            var currentUsdBalance = {{user.currentUsdBalance}};
+            currentUsdBalance = parseFloat(Math.round(currentUsdBalance * 100) / 100).toFixed(2);
+            var finalusdBalance = parseFloat(currentUsdBalance - amtVal);
+
+            $('.expected').removeClass('alert alert-danger');
+            $('.expected').html('');
+            $('.expected').hide();
+    
+             $.ajax({
+              type: 'POST',
+              data: {amtVal: amtVal,coinRate: coinRate,currencyBuyType: currencyBuyType},
+              url: "/buy-coin", 
+              dataType: "json",
+              success: function(result){
+                if(result.message !=='' && result.status === true){ 
+                  var t_amt = parseFloat(result.crypto_balance)+parseFloat(actualAmtExpect);
+                  swal({
+                    title: "Transaction Confirmation",
+                    text: "You are buying " + actualAmtExpect + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +result.crypto_balance+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Confirm",
+                    cancelButtonText: "Cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: false,
+                    customClass: 'swal-wide'
+                  },
+                  function(isConfirm) {
+                    if (isConfirm) {
+                      swal({
+                            title: "Transaction successful",
+                            text: "USD Wallet: " + Number(finalusdBalance).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n" + currency_name + " Wallet: Balance: "+t_amt,
+                            type: "success"
+                        },
+                      function(isConfirm) {
+                        if (isConfirm) {
+                            buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect);  
+                        }
+                      });
+
+                    } else {
+                      swal("Cancelled", "You cancelled this transaction.", "error");
+                    }
+                  });
+              } 
+            },
+              error: function(error){
+                console.log(error);
+              }
+            });
         }
       });
 

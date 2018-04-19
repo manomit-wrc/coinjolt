@@ -8,7 +8,7 @@ module.exports = (passport, User, Deposit) => {
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });
-
+    
     passport.deserializeUser(function (id, done) {
 
         User.findById(id).then(function (user) {
@@ -57,21 +57,19 @@ module.exports = (passport, User, Deposit) => {
                        var new_currusd = cal_currusd - transaction_amount[0].get('TOT_AMT');
                        var curr_usd = new_currusd + deposit_amount[0].get('TOT_DEP_AMT');
                        var final = parseFloat(Math.round(curr_usd * 100) / 100).toFixed(4);
-                       //console.log('Final usd balance is '+final);
-                       //user.currentUsdBalance = final;
-
                        
+                       user = user.toJSON();
+                       user.currentUsdBalance = final;
+                       
+                       done(null, user);
 
                     } catch (err) {
                       console.log('Opps, an error occurred', err);
                     }
+                    
                   }
                   calUsdBalance(id);
-
                   
-                  console.log('---showing user object---');
-                  console.log(user.get());
-                done(null, user.get());
             } else {
 
                 done(user.errors, null);

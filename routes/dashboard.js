@@ -95,8 +95,8 @@ module.exports = function (app, Country, User, Currency) {
 
     app.post('/update-id-proof', upload.single('async_uploads'), function (req, res) {
         User.update({
-            identity_proof: fileName            
-        },{ where: { id: req.user.id } }).then(function(result){
+            identity_proof: fileName
+        },{ where: { id: req.user.id } }).then(function(result) {
             res.json({
                 success: true,
                 message: 'ID Proof uploaded successfully',
@@ -107,24 +107,35 @@ module.exports = function (app, Country, User, Currency) {
         });
     });
 
-    app.post('/account-settings', profile_upload.single('async_upload'), function (req, res) {
-
+    app.post('/update-profile-pic', profile_upload.single('async_upload'), function (req, res) {
         User.update({
+            image: fileName
+        },{ where: { id: req.user.id } }).then(function(result) {
+            res.json({
+                success: true,
+                message: 'profile pic uploaded successfully',
+                file_name: fileName
+            });
+        }).catch(function(err) {
+            console.log(err);
+        });
+    });
 
+    app.post('/account-settings', function (req, res) {
+        User.update({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             user_name: req.body.user_name,
             address: req.body.address,
             contact_no: req.body.contact_no,
             about_me: req.body.about_me,
-            image: fileName,
             dob: req.body.dob,
             city: req.body.city,
             state: req.body.state,
             country: req.body.country,
             postal_code: req.body.postcode             
 
-        },{ where: { id: req.user.id } }).then(function(result){
+        },{ where: { id: req.user.id } }).then(function(result) {
             if(result > 0){
                 req.flash('profileMessage', 'Profile updated successfully');
                 res.redirect('/account-settings');

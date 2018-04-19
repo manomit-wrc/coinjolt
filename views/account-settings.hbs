@@ -11,259 +11,213 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">
-                            <i class="fa fa-user margin-r-5"></i>Edit Profile </h3>
-                        </div>
-                        <div class="box-body">
-                            <div class="row">
-                                <form method="post" action="/account-settings" role="form" id="update_profile" name="update_profile" enctype="multipart/form-data">
-                                    {{#if message}}
-                                    <div class="alert alert-success">{{message}}</div>
-                                    {{/if}}
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="prev-box">
-                                                    <div class="prev-image-box">
-                                                        <img src="{{image}}" width="150" height="150" class="preview_image">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="account-upload">
-                                                    <label class="control-label cj-lbl">Change Picture</label>
-                                                    <input type="file" name="async_upload" id="async_upload"> 
-                                                    <div class="brsw-btn">Upload Picture</div>
-                                                </div>
+                        <h3 class="box-title"><i class="fa fa-user margin-r-5"></i>Edit Profile </h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            {{#if message}}
+                            <div class="alert alert-success">{{message}}</div>
+                            {{/if}}
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="prev-box">
+                                            <div class="prev-image-box">
+                                                <img src="{{image}}" width="150" height="150" class="preview_image">
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <div class="pdng">
-                                                    <label class="control-label cj-lbl">Change Password</label>
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePasswordModal">Change Password</button>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group col-md-12">
-                                                <label class="control-label">Nickname
-                                                    <span style="color:#ff0000"> *</span>
-                                                </label>
-                                                <input type="text" placeholder="Nick Name" class="form-control" name="user_name" id="user_name"  maxlength="100"
-                                                value="{{user.user_name}}">
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label class="control-label">Email Address</label>
-                                                <input type="text" placeholder="Email" class="form-control" name="user_email" id="user_email" disabled="disabled" maxlength="100"
-                                                value="{{user.email}}">
-                                            </div>
+                                    <div class="col-md-8">
+                                        <div class="account-upload">
+                                            <label class="control-label cj-lbl">Change Picture</label>
+                                            <input type="file" name="async_upload" id="async_upload"> 
+                                            <div class="brsw-btn">Upload Picture</div>
+                                            <p class="loaderImg" style="display:none; text-align:center;">
+                                                <img src="http://dev.coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif" class="loader-gif">
+                                            </p>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <h4>
-                                            <strong>Account Verification</strong>
-                                        </h4>
-                                        <hr>
-                                        <div class="form-group col-md-12">
-                                            <strong style="text-align:left;">
-                                                <i class="fa fa-id-card margin-r-5"></i> Upload Government Issued ID
-                                                {{!-- <a href="{{identity_proof}}" data-toggle="modal" data-target="#idProofModal">View</a> --}}
-                                                <a href="{{identity_proof}}" target="_blank">View</a>
-                    {{!-- <div class="modal fade" id="idProofModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <strong><h3 class="modal-title" style="color: #3b3f4a">Government Issued ID</h3></strong>
-                                </div>
-                                <div class="modal-body">
-                                    <img id="proofImg" src="{{identity_proof}}" alt="id-proof-image" width="300" height="200">  
-                                </div>
-                                <div class="modal-footer" style="clear: both">
-                                    
                                 </div>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <div class="pdng">
+                                            <label class="control-label cj-lbl">Change Password</label>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePasswordModal">Change Password</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <h4><strong>Account Verification</strong></h4>
+                                <hr>
+                                <div class="form-group col-md-12">
+                                    <strong style="text-align:left;">
+                                        <i class="fa fa-id-card margin-r-5"></i> Upload Government Issued ID
+                                        {{!-- <a href="{{identity_proof}}" data-toggle="modal" data-target="#idProofModal">View</a> --}}
+                                        <a href="{{identity_proof}}" target="_blank">View</a>
+                                        {{!-- <div class="modal fade" id="idProofModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <strong><h3 class="modal-title" style="color: #3b3f4a">Government Issued ID</h3></strong>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img id="proofImg" src="{{identity_proof}}" alt="id-proof-image" width="300" height="200">  
+                                                    </div>
+                                                    <div class="modal-footer" style="clear: both"></div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                        <a style="cursor:pointer; margin-left: 16px;" data-toggle="modal" data-target="#myModalIDProof">Change</a>
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <form method="post" action="/account-settings" role="form" id="update_profile" name="update_profile">
+                                <div class="col-md-12">
+                                    <div class="box-header with-border">
+                                        <h4><strong>Personal Details</strong></h4>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Nickname <span style="color:#ff0000">*</span></label>
+                                    <input type="text" placeholder="Nick Name" class="form-control" name="user_name" id="user_name" maxlength="100" value="{{user.user_name}}" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Email Address</label>
+                                    <input type="text" placeholder="Email" class="form-control" name="user_email" id="user_email" disabled="disabled" value="{{user.email}}" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">First Name <span style="color:#ff0000">*</span></label>
+                                    <input type="text" placeholder="Enter First Name" class="form-control" name="first_name" id="first_name" maxlength="100" value="{{user.first_name}}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Last Name <span style="color:#ff0000">*</span></label>
+                                    <input type="text" placeholder="Enter Last Name" class="form-control" name="last_name" id="last_name" maxlength="100" value="{{user.last_name}}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Phone Number <span style="color:#ff0000">*</span></label>
+                                    <input type="text" placeholder="Enter Phone Number" class="form-control" value="{{user.contact_no}}" name="contact_no" id="contact_no" maxlength="100">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Date of Birth <span style="color:#ff0000">*</span></label>
+                                    <input type="date" class="form-control" placeholder="Date of Birth" name="dob" id="dob" value="{{dateFormat user.dob "YYYY-MM-DD"}}">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="control-label">About Me</label>
+                                    <textarea  class="form-control" rows="4" name="about_me" id="about_me">{{user.about_me}}</textarea>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Address <span style="color:#ff0000">*</span></label>
+                                    <input class="form-control" id="address" type="text" name="address" placeholder="Enter Address" value="{{user.address}}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">City <span style="color:#ff0000">*</span></label>
+                                    <input id="city" class="form-control" type="text" name="city" value="{{user.city}}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Country <span style="color:#ff0000">*</span></label>
+                                    <!-- <input id="country" class="form-control" type="text" name="country" value="IN"> -->
+                                    <select class="form-control" name="country" id="country">
+                                        {{#each countries}}
+                                        <option value="{{this.iso}}" {{#if_eq this.iso ../user.country}} selected="selected" {{/if_eq}} >{{this.name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="state">State <span style="color:#ff0000">*</span></label>
+                                    <input class="form-control" value="{{user.state}}" id="state" type="text" name="state">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Postal Code <span style="color:#ff0000">*</span></label>
+                                    <input id="postcode" class="form-control" type="text" name="postcode" value="{{user.postal_code}}" maxlength="6">
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-2 col-md-offset-5 text-center">
+                                    <div class="updateMsg col-md-12" style="display: none"></div>
+                                    <p class="loaderImg" style="display:none; text-align:center;">
+                                        <img src="http://dev.coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif">
+                                    </p>
+                                    <button class="btn btn-primary subbtn" type="submit" name="updatesubmit" id="updatesubmit" style="margin-bottom: 40px;">Update</button>
+                                </div>
+                            </form>
                         </div>
-                    </div> --}}
-                    
-                    <a style="cursor:pointer; margin-left: 16px;" data-toggle="modal" data-target="#myModalIDProof">Change</a>
-                </strong>
+                    </div>
+                </div>
             </div>
         </div>
-
-
-        <div class="col-md-12">
-            <div class="box-header with-border">
-                <h4>
-                    <strong>Personal Details</strong>
-                </h4>
-            </div>
-        </div>
-        <div class="form-group col-md-6">
-            <label class="control-label">First Name
-                <span style="color:#ff0000"> *</span>
-            </label>
-            <input type="text" placeholder="Enter First Name" class="form-control" name="first_name" id="first_name" 
-            maxlength="100" value="{{user.first_name}}">
-        </div>
-        <div class="form-group col-md-6">
-            <label class="control-label">Last Name
-                <span style="color:#ff0000"> *</span>
-            </label>
-            <input type="text" placeholder="Enter Last Name" class="form-control" name="last_name" id="last_name" 
-            maxlength="100" value="{{user.last_name}}">
-        </div>
-        <div class="form-group col-md-6">
-            <label class="control-label" for="address">Address
-                <span style="color:#ff0000"> *</span>
-            </label>
-            <input value="{{user.address}}" class="form-control" id="address" type="text" name="address" placeholder="Address">
-        </div>
-        <div class="form-group col-md-6">
-            <label class="control-label">Phone Number
-                <span style="color:#ff0000"> *</span>
-            </label>
-            <input type="text" placeholder="Enter Phone Number" class="form-control" value="{{user.contact_no}}" name="contact_no" id="contact_no"
-            required="required" maxlength="100">
-        </div>
-        <div class="form-group col-md-12">
-            <label class="control-label">About Me</label>
-            <textarea  class="form-control" rows="4" name="about_me" id="about_me">
-                {{user.about_me}}
-            </textarea>
-        </div>
-        <div class="form-group col-md-6">
-            <label class="control-label">Date of Birth
-                <span style="color:#ff0000"> *</span>
-            </label>
-            <input type="date" class="form-control" placeholder="Date of Birth" name="dob" id="dob"  value="{{dateFormat user.dob "YYYY-MM-DD"}}">
-
-        </div>
-        <div class="form-group col-md-6">
-            <label class="control-label">City
-                <span style="color:#ff0000"> *</span>
-            </label>
-            <input id="city" class="form-control" type="text" name="city" value="{{user.city}}">
-        </div>
-        <div class="form-group col-md-6">
-            <label class="control-label" for="state">State
-                <span style="color:#ff0000"> *</span>
-            </label>
-            <input class="form-control" value="{{user.state}}" id="state" type="text" name="state">
-        </div>
-        <div class="form-group col-md-6">
-            <label class="control-label">Country
-                <span style="color:#ff0000"> *</span>
-            </label>
-            <!-- <input id="country" class="form-control" type="text" name="country" value="IN"> -->
-            <select class="form-control" name="country" id="country">
-                {{#each countries}}
-                <option value="{{this.iso}}" {{#if_eq this.iso ../user.country}} selected="selected" {{/if_eq}} >{{this.name}}</option>
-                {{/each}}
-            </select>
-        </div>
-
-        <div class="form-group col-md-6">
-            <label class="control-label">Postal Code
-                <span style="color:#ff0000"> *</span>
-            </label>
-            <input id="postcode" class="form-control" type="text" name="postcode" value="{{user.postal_code}}">
-        </div>
-
-
-        <div class="clearfix"></div>
-        <div class="col-md-2 col-md-offset-5 text-center">
-            <div class="updateMsg col-md-12" style="display: none"></div>
-            <p class="loaderImg" style="display:none; text-align:center;">
-                <img src="http://dev.coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif">
-            </p>
-
-            <button class="btn btn-primary subbtn" type="submit" name="updatesubmit" id="updatesubmit" style="margin-bottom: 40px;">Update</button>
-
-        </div>
-
-    </form>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+    </div>
 </section>
 
 <!-- Change Password Modal -->
 <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-     <div class="modal-content">
-        <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal">&times;</button>
-           <strong><h3 class="modal-title" style="color: #3b3f4a">Change Password</h3></strong>
-       </div>
-       <div class="modal-body">
-           <form method="post" name="frmUpdatePassword" id="frmUpdatePassword">
-              <div class="col-md-12 errorPass" style="display:none">
-              </div>
-              <div class="form-group col-md-12">
-                 <label class="control-label">Old Password</label>
-                 <input id="oldpassword" class="form-control" type="password" name="oldpassword" value="">
-             </div>
-             <div class="form-group col-md-12">
-                 <label class="control-label">New Password</label>
-                 <input id="newpassword" class="form-control" type="password" name="newpassword">
-             </div>
-             <div class="form-group col-md-12">
-                 <label class="control-label">Confirm New Password</label>
-                 <input id="confirmpassword" class="form-control" type="password" name="confirmpassword">
-             </div>
-         </form>
-     </div>
-     <div class="modal-footer" style="clear: both">
-        <p class="loaderImg" style="display:none; text-align:center;">
-            <img src="http://dev.coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif" class="loader-gif">
-        </p>
-        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel_password" name="cancel_password">Cancel</button>
-        <button type="button" id="changepassword" class="btn btn-primary" name="changepassword">Change Password</button>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <strong><h3 class="modal-title" style="color: #3b3f4a">Change Password</h3></strong>
+            </div>
+            <div class="modal-body">
+                <form method="post" name="frmUpdatePassword" id="frmUpdatePassword">
+                    <div class="col-md-12 errorPass" style="display:none">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Old Password</label>
+                        <input id="oldpassword" class="form-control" type="password" name="oldpassword" value="">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">New Password</label>
+                        <input id="newpassword" class="form-control" type="password" name="newpassword">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Confirm New Password</label>
+                        <input id="confirmpassword" class="form-control" type="password" name="confirmpassword">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="clear: both">
+                <p class="loaderImg" style="display:none; text-align:center;">
+                    <img src="http://dev.coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif" class="loader-gif">
+                </p>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel_password" name="cancel_password">Cancel</button>
+                <button type="button" id="changepassword" class="btn btn-primary" name="changepassword">Change Password</button>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 </div>
 <!-- End -->
 <!-- Change ID Proof Modal -->
 <div class="modal fade" id="myModalIDProof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-     <div class="modal-content">
-        <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal">&times;</button>
-           <strong><h3 class="modal-title" style="color: #3b3f4a">Change Password</h3></strong>
-       </div>
-       <div class="modal-body">
-           <form method="post" id="frmIDChange" name="frmIDChange" enctype="multipart/form-data">
-            <div class="col-md-12 errorIDProof" style="display:none">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <strong><h3 class="modal-title" style="color: #3b3f4a">Change Password</h3></strong>
             </div>
-            <div class="form-group col-md-12">
-                <div class="upld">
-                    <input type="file" name="async_uploads" id="async_uploads">
-
-                    <div class="load-idproof"><i class="fa fa-upload"></i> Upload ID Proof</div>
-                </div>
+            <div class="modal-body">
+                <form method="post" id="frmIDChange" name="frmIDChange" enctype="multipart/form-data">
+                    <div class="col-md-12 errorIDProof" style="display:none">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="upld">
+                            <input type="file" name="async_uploads" id="async_uploads">
+                            <div class="load-idproof"><i class="fa fa-upload"></i> Upload ID Proof</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 id-submit">
+                        <button type="submit" id="uploadidproof" class="btn btn-primary id-save" name="uploadidproof">Save</button>
+                        <img id="loaderimg" src="https://coinjolt.com/wp-content/uploads/2017/10/AjaxLoader.gif" class="vc_single_image-img attachment-full" alt="" style="width: 16px; margin: 0 auto; display: none;margin-left: 12px;">
+                    </div>
+                </form>
             </div>
-
-            <div class="form-group col-md-12 id-submit">
-                <button type="submit" id="uploadidproof" class="btn btn-primary id-save" name="uploadidproof">Save</button>
-                <img id="loaderimg" src="https://coinjolt.com/wp-content/uploads/2017/10/AjaxLoader.gif" class="vc_single_image-img attachment-full" alt="" style="width: 16px; margin: 0 auto; display: none;margin-left: 12px;">
-            </div>
-
-        </form>
+            <div class="modal-footer" style="clear: both"></div>
+        </div>
     </div>
-    <div class="modal-footer" style="clear: both">
-
-    </div>
-</div>
-</div>
 </div>
 <!-- End -->
 

@@ -78,6 +78,8 @@ $(document).ready(function (e) {
       	}
     });
     e.preventDefault();
+
+    $("#deposite_funds_transfer_table").DataTable();
 });
 
 $('#ok').click(function(event){
@@ -96,7 +98,7 @@ $('#ok').click(function(event){
 	//save value to the wire transfer table
 	$.ajax({
 		type : "POST",
-		url : "/wiretransfer",
+		url : "/wiretransfer-add",
 		data: {
 			amount: amount,
 			status: 0

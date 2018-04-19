@@ -174,7 +174,7 @@
                           <td>{{this.id}}</td>
                               <td>{{this.User.first_name}} {{this.User.last_name}}</td>
                               <td>{{this.amount_usd}}</td>
-                              <td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
+                              <td>{{dateFormat this.createdAt "MM-DD-YYYY h:mm:ss a"}}</td>
                               <td>
                                   {{#if_eq this.status 0}}
                                     Pending

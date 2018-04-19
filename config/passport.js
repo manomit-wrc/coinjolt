@@ -63,6 +63,7 @@ module.exports = (passport, User, Deposit, Currency) => {
                        user = user.toJSON();
                        user.currentUsdBalance = final;
                        user.currency = currency_list;
+
                        done(null, user);
 
                     } catch (err) {

@@ -1,6 +1,6 @@
 var bCrypt = require('bcrypt-nodejs');
 const Op = require('sequelize').Op;
-module.exports = function (app, Country, User, Currency) {
+module.exports = function (app, Country, User, Currency, Support) {
     var multer = require('multer');
     var fileExt = '';
     var fileName = '';
@@ -61,13 +61,14 @@ module.exports = function (app, Country, User, Currency) {
         });
     });
 
-    app.get('/account-settings', function (req ,res){
+    app.get('/account-settings', function (req, res) {
         const msg = req.flash('profileMessage')[0];
-        Country.findAll().then(function(country){
+        Country.findAll().then(function (country) {
             res.render('account-settings', {
                 layout: 'dashboard',
                 message: msg,
-                countries:country
+                countries: country
+
             });
         });
     });
@@ -76,13 +77,18 @@ module.exports = function (app, Country, User, Currency) {
         if (bCrypt.compareSync(req.body.oldpassword, req.user.password)) {
             const password = bCrypt.hashSync(req.body.newpassword);
             User.update({
-                password: password             
-            },{ where: { id: req.user.id } }).then(function(result){
+                password: password
+            }, {
+                where: {
+                    id: req.user.id
+                }
+            }).then(function (result) {
                 res.json({
                     success: true,
                     message: 'Password updated successfully'
                 });
-            }).catch(function(err){
+            }).catch(function (err) {
+
                 console.log(err);
             });
         } else {
@@ -95,14 +101,21 @@ module.exports = function (app, Country, User, Currency) {
 
     app.post('/update-id-proof', upload.single('async_uploads'), function (req, res) {
         User.update({
-            identity_proof: fileName            
-        },{ where: { id: req.user.id } }).then(function(result){
+
+            identity_proof: fileName
+        }, {
+            where: {
+                id: req.user.id
+            }
+        }).then(function (result) {
+
             res.json({
                 success: true,
                 message: 'ID Proof uploaded successfully',
                 file_name: fileName
             });
-        }).catch(function(err){
+        }).catch(function (err) {
+
             console.log(err);
         });
     });
@@ -122,18 +135,23 @@ module.exports = function (app, Country, User, Currency) {
             city: req.body.city,
             state: req.body.state,
             country: req.body.country,
-            postal_code: req.body.postcode             
+            postal_code: req.body.postcode
 
-        },{ where: { id: req.user.id } }).then(function(result){
-            if(result > 0){
+        }, {
+            where: {
+                id: req.user.id
+
+            }
+        }).then(function (result) {
+            if (result > 0) {
                 req.flash('profileMessage', 'Profile updated successfully');
                 res.redirect('/account-settings');
-            }
-            else{
+            } else {
                 req.flash('profileMessage', 'Already up to date');
                 res.redirect('/account-settings');
             }
-        }).catch(function(err){
+        }).catch(function (err) {
+
             console.log(err);
         });
     });
@@ -141,6 +159,7 @@ module.exports = function (app, Country, User, Currency) {
     app.post('/save-referral-name', function (req, res) {
         var refName = req.body.referral_name;
         User.findAndCountAll({
+
             where: {
                 user_name: {
                     $like: '%'+refName+'%'
@@ -158,22 +177,70 @@ module.exports = function (app, Country, User, Currency) {
                     message: 'User already exists, please enter another username'
                 });
 
-            } else{
-                User.update({
-                    user_name: refName            
 
-                },{ where: { id: req.user.id } }).then(function(result){
-                    res.json({
-                        status: 'true',
-                        message: 'Referral Name saved successfully'
+                } else {
+                    User.update({
+                        user_name: refName
+
+                    }, {
+                        where: {
+                            id: req.user.id
+                        }
+                    }).then(function (result) {
+                        res.json({
+                            status: 'true',
+                            message: 'Referral Name saved successfully'
+                        });
+                    }).catch(function (err) {
+                        console.log(err);
                     });
-                }).catch(function(err){
-                    console.log(err);
-                });
-            }
-        });
+                }
+            });
 
     });
+
+    app.get('/invite-friends', function (req, res) {
+        res.render('invite-friends', {
+            layout: 'dashboard'
+        });
+    });
+
+    app.get('/submit-a-request', function (req, res) {
+        const msg = req.flash('supportMessage')[0];
+        res.render('submit-a-request', {
+            layout: 'dashboard',
+            message: msg
+        });
+    });
+
+    app.post('/submit-a-request', function (req, res) {
+        Support.create({
+            user_id: req.user.id,
+            title: req.body.subject.trim(),
+            enquiry: req.body.description.trim()
+        }).then(function (result) {
+            req.flash('supportMessage', 'Request sent successfully');
+            res.redirect('/submit-a-request');
+        }).catch(function (err) {
+            console.log(err);
+        });
+    });
+
+    app.get('/requests-support', function (req, res) {
+        Support.findAll({
+            where: {
+                user_id: req.user.id
+            }
+        }).then(function (supports) {
+            res.render('requests-support', {
+				layout: 'dashboard',
+				supports: supports
+			});
+        }).catch(function (err) {
+            console.log(err);
+        });
+    });
+
     
     app.get('/buy-and-sell-coins', function(req, res){
         Currency.findAll({

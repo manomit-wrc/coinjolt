@@ -1,0 +1,75 @@
+<section class="content-header">
+  <h1>Invite Friends With Our Referral Program </h1>
+  <ol class="breadcrumb">
+    <li>
+      <a href="/dashboard">
+        <i class="fa fa-dashboard"></i> Home</a>
+      </li>
+      <li class="active">Invite Friends</li>
+    </ol>
+  </section>
+  <!-- Main content -->
+  <section class="content container-fluid">
+    <div class="referral-program">
+      <!-- Starts Summary -->
+      <div class="summary">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">
+                  <i class="fa fa-file margin-r-5"></i> Help grow the CoinJolt community and earn commissions! </h3>
+                </div>
+                <div class="box-body">
+                  <p class="text-muted" style="text-align: justify;">
+                    Investing is more fun with friends! Earn 2% of all referred user deposits added instantly in real time to your USD balance. There is no limit to the number of friends you can refer, although we do reserve the right to adjust or change the referral program rules at any time. Multiple accounts will lead to disqualification.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Ends Summary -->
+        <!-- Starts My Referrals Datatable -->
+        <div class="my-referrals-table">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">My Referrals</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <table id="my_referrals" class="table  table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email Address</th>
+                        <th>Payout (USD)</th>
+                        <th>Date & Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{#each invitefrnds}}
+                      <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.first_name}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.referral_amount}}</td>
+                        <td>{{dateFormat this.dateAdded "DD-MM-YYYY"}}</td>
+                      </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+            </div>
+          </div>
+        </div>
+        <!-- Ends My Referrals Datatable -->
+      </div>
+    </section>
+      <!-- /.content -->

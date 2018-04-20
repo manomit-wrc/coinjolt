@@ -277,13 +277,38 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
 
     });
 
+    app.post('/sell-coin', async (req, res) =>{
+		var amtVal = req.body.amtVal;
+		var coinRate = req.body.coinRate;
+		var currencyType = req.body.currencySellType;
+		var curr_crypto_bal = 0;
+		var curr_brought = 0;
+		var curr_sold = 0;
+
+        // calculating cryptocurrency wallet current balance
+        curr_brought = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 1, currency_purchased: currencyType},
+            attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
+        });
+
+        curr_sold = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 2, currency_purchased: currencyType},
+            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
+        });
+
+        curr_crypto_bal = parseFloat(curr_brought[0].get('TOT_BUY_AMT') - curr_sold[0].get('TOT_SOLD_AMT'));
+        curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
+        
+        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal});
+
+	});
+
     app.post('/confirm_coin_buy', function(req, res){
 		
 		var digits = 9;	
 		var numfactor = Math.pow(10, parseInt(digits-1));	
 		var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
-        
-        // insert    
+           
         Deposit.create({
             user_id: req.user.id,
             transaction_id: randomNum,
@@ -300,14 +325,27 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
         }).catch(function (err) {
             console.log(err);
         });
+    });
+    
+    app.post('/confirm_coin_sell', function(req, res){
+		var digits = 9;	
+		var numfactor = Math.pow(10, parseInt(digits-1));	
+		var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
+        
+        Deposit.create({
+            user_id: req.user.id,
+            transaction_id: randomNum,
+            checkout_id: randomNum,
+            amount: req.body.amtVal,
+            current_rate: req.body.coinRate,
+            type: 2,            
+            base_currency: req.body.currencySellType
 
-
-		/* connection.query('INSERT INTO deposit_funds SET ?', [buy_data], function (err, result) {
-			if (err) throw err; 
-			else { 
-				res.json({success: true});
-			} 
-		}); */
+        }).then(function (result) {
+            res.json({success: true});
+        }).catch(function (err) {
+            console.log(err);
+        });
 	});
 
     

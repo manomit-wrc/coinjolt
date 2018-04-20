@@ -346,7 +346,34 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
         }).catch(function (err) {
             console.log(err);
         });
-	});
+    });
+    
+    app.get('/transaction-history', async (req, res) =>{
+        buy_history = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 1},
+            limit: 1000,
+            order: [
+                ['id', 'DESC']
+            ]
+        });
+
+        sell_history = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 2},
+            limit: 1000,
+            order: [
+                ['id', 'DESC']
+            ]
+        });
+
+        deposit_history = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 0},
+            limit: 1000,
+            order: [
+                ['id', 'DESC']
+            ]
+        });
+        res.render('transaction-history', {layout: 'dashboard', buy_history:buy_history,sell_history:sell_history,deposit_history:deposit_history });
+    });
 
     
 };

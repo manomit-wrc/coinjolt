@@ -407,5 +407,109 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
         res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg });
     });
 
+    app.post('/save-invest', function(req, res){
+		var digits = 9;	
+		var numfactor = Math.pow(10, parseInt(digits-1));	
+		var randomNum =  Math.floor(Math.random() * numfactor) + 1;
+
+		var amountInvest = req.body.amount_invest;
+		var currency_purchased_code = req.body.currency_purchased;
+		var coinRate = 1;
+		var converted_amount = req.body.amount_invest;
+		var userid = req.user.id;
+		var status;
+		
+		/* var invest_transaction_data = {
+			"checkout_id" : randomNum,
+			"transactionId" : randomNum,
+			"user_id": userid,
+			"deposit_type": 'Invest',
+			"amount": amountInvest,
+			"current_rate": coinRate,
+			"converted_amount": converted_amount,
+			"base_currency": 'USD',
+			"currency_purchased": currency_purchased_code
+		};	
+		
+		connection.query('INSERT INTO deposit_funds SET ?', [invest_transaction_data], function (err, result) {
+			if (err) throw err; 
+			status = result.insertId;
+			if(status > 0){
+
+				var mcp_data = {
+					"checkout_id" : randomNum,
+					"transactionId" : randomNum,
+					"user_id": userid,
+					"type": 'Invest',
+					"amount_paid": amountInvest,
+					"current_rate": coinRate,
+					"converted_amount": converted_amount,
+					"base_currency": 'USD',
+					"currency_purchased": currency_purchased_code
+				};
+
+				connection.query('INSERT INTO user_mcptransaction SET ?', [mcp_data], function (err, result) {
+					if(err) throw err;
+					else{
+						req.flash('investStatusMessage', 'Your investment was made successfully!');
+						res.redirect('/managed-cryptocurrency-portfolio');
+					}
+				}); 
+			}
+		}); */
+    });
+    
+    app.post('/save-withdraw', function(req, res){
+		var digits = 9;	
+		var numfactor = Math.pow(10, parseInt(digits-1));	
+		var randomNum =  Math.floor(Math.random() * numfactor) + 1;
+
+		var amountWithdraw = req.body.amount_withdraw;
+		var currency_purchased_code = req.body.currency_purchased;
+		var coinRate = 1;
+		var converted_amount = req.body.amount_withdraw;
+		var userid = req.user.id;
+		var status;
+		
+		/* var withdraw_transaction_data = {
+			"checkout_id" : randomNum,
+			"transactionId" : randomNum,
+			"user_id": userid,
+			"deposit_type": 'Withdraw',
+			"amount": amountWithdraw,
+			"current_rate": coinRate,
+			"converted_amount": converted_amount,
+			"base_currency": 'USD',
+			"currency_purchased": currency_purchased_code
+		};	
+		
+		connection.query('INSERT INTO deposit_funds SET ?', [withdraw_transaction_data], function (err, result) {
+			if (err) throw err; 
+			status = result.insertId;
+			if(status > 0){
+
+				var mcp_data = {
+					"checkout_id" : randomNum,
+					"transactionId" : randomNum,
+					"user_id": userid,
+					"type": 'Withdraw',
+					"amount_paid": amountWithdraw,
+					"current_rate": coinRate,
+					"converted_amount": converted_amount,
+					"base_currency": 'USD',
+					"currency_purchased": currency_purchased_code
+				};
+
+				connection.query('INSERT INTO user_mcptransaction SET ?', [mcp_data], function (err, result) {
+					if(err) throw err;
+					else{
+						req.flash('investStatusMessage', 'Your withdraw was made successfully!');
+						res.redirect('/managed-cryptocurrency-portfolio');
+					}
+				}); 
+			}
+		}); */
+	});
+
     
 };

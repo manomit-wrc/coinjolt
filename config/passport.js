@@ -14,10 +14,9 @@ module.exports = (passport, User, Deposit, Currency) => {
         User.findById(id).then(function (user) {
             if (user) {
 
-                // async
+                
                 async function calUsdBalance(id) {
-                    try {      
-                      //let userId =  await User.findOne({ where: {id: id} });       
+                    try {         
                       var sold_amount = 0;
                       var withdraw_amount = 0;
                       var transaction_amount = 0;
@@ -30,28 +29,21 @@ module.exports = (passport, User, Deposit, Currency) => {
                       attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'SELL_TOTAL_AMT']]
                       });
                     
-                      //console.log('Sold amount: '+sold_amount[0].get('SELL_TOTAL_AMT'));
 
                       withdraw_amount = await Deposit.findAll({
                       where: {user_id: id, type: 3},
                       attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_USD_AMT']]
                       });
-
-                      //console.log('Withdraw amount: '+withdraw_amount[0].get('TOT_USD_AMT'));
                   
                       transaction_amount = await Deposit.findAll({
                       where: {user_id: id, type: 1},
                           attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_AMT']]
                      });
-
-                     //console.log('Transaction amount: '+transaction_amount[0].get('TOT_AMT'));
                   
                       deposit_amount = await Deposit.findAll({
                       where: {user_id: id, type: 0},
                           attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_DEP_AMT']]
                       });
-
-                      //console.log('Deposit amount: '+deposit_amount[0].get('TOT_DEP_AMT'));
                   
                        var cal_currusd = sold_amount[0].get('SELL_TOTAL_AMT') - withdraw_amount[0].get('TOT_USD_AMT');
                        var new_currusd = cal_currusd - transaction_amount[0].get('TOT_AMT');

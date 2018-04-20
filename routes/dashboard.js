@@ -375,5 +375,37 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
         res.render('transaction-history', {layout: 'dashboard', buy_history:buy_history,sell_history:sell_history,deposit_history:deposit_history });
     });
 
+    app.get('/managed-cryptocurrency-portfolio', async(req, res) => {
+        var investedamount = 0;
+		var firstyear = 0;
+		var secondyear = 0;
+		var thirdyear = 0;
+		var accumulatedInterest = 0;
+		var interest_earned = 0;
+        const msg = req.flash('investStatusMessage')[0];
+        investedamount = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 4},
+            attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_INVESTED_AMT']]
+        });
+        investedamount = parseFloat(investedamount[0].get('TOT_INVESTED_AMT'));
+        investedamount = parseFloat(Math.round(investedamount * 100) / 100).toFixed(2);
+
+        firstyear = parseFloat(parseFloat(200 * investedamount) / 100)+parseFloat(investedamount);
+        firstyear = parseFloat(Math.round(firstyear * 100) / 100).toFixed(2);
+
+		secondyear = parseFloat(parseFloat(200 * firstyear) / 100)+parseFloat(firstyear);
+        secondyear = parseFloat(Math.round(secondyear * 100) / 100).toFixed(2);
+
+		thirdyear = parseFloat(parseFloat(200 * secondyear) / 100) + parseFloat(secondyear);
+		thirdyear = parseFloat(Math.round(thirdyear * 100) / 100).toFixed(2);
+
+        accumulatedInterest =  parseFloat(0.005) * parseFloat(investedamount);
+        accumulatedInterest = parseFloat(Math.round(accumulatedInterest * 100) / 100).toFixed(2);
+        
+		interest_earned = accumulatedInterest;
+
+        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg });
+    });
+
     
 };

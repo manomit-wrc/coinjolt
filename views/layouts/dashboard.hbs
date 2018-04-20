@@ -215,6 +215,7 @@
         $('#calculatedamount').removeClass('alert alert-success');
         $('#sell_currentratetext').removeClass('alert alert-danger');
         $('#sell_calculatedamount').removeClass('alert alert-success');
+
         $('.expected').removeClass('alert alert-danger');
         $("#changereferralBtn").click(function(){
           $("#changeReferralFrm").slideToggle('slow');
@@ -741,80 +742,133 @@
         var coinRate = parseFloat(jQuery('#sell_coinRate').val());
         var selectopton = jQuery("#currency_sold").val();
         var currency_sold = jQuery("#currency_sold").val();
-        var currencySellType = jQuery("#currency_sold").val();
+        //var currencySellType = jQuery("#currency_sold").val();
+        var currencySellType = jQuery("#currency_sold option:selected").val();
+        
 
         var cryptocurrency_bal = 0;
         var astatus = 0;
-        if(jQuery("#sellAmount").val() !== ''){
-            $.ajax({
-                type: 'POST',
-                data: {amtVal: amtVal,coinRate: coinRate,currencySellType: currencySellType},
-                url: "/sell-coin", 
-                dataType: "json",
-                success: function(result){
-                  if(result.message !=='' && result.status === true){ 
-                    cryptocurrency_bal = result.crypto_balance;
 
-                    if(amtVal > cryptocurrency_bal){
-                      $('.sell_expected').addClass('alert alert-danger');
-                      $('.sell_expected').html('Amount exceeds currency balance.');
-                      $('.sell_expected').show();
-                      $('#cc-submit1').prop('disabled', true);
-                      astatus = 1;
-                    }
-                    else{
-                      $('#cc-submit1').prop('disabled', false);
-                    }
-                } 
-              },
+        // working on refining below block
+
+        if(!jQuery.isNumeric(jQuery("#sellAmount").val())){
+          $('.sell_expected').addClass('alert alert-danger');
+          $('.sell_expected').html('Please enter a valid number.');
+          $('.sell_expected').show();
+        }
+        else if(amtVal === 0){
+          $('.sell_expected').addClass('alert alert-danger');
+          $('.sell_expected').html('Currency amount should be more than 0');
+          $('.sell_expected').show();
+        }
+
+        else if(currencySellType === ''){
+          $('#sell_calculatedamount').html('');
+          $('#sell_calculatedamount').removeClass('alert alert-success');
+          $('#sell_calculatedamount').hide();
+
+        }
+        else{
+          //console.log('Currency sell type selected');
+          //console.log('Sell amount value given');
+          var amtExpect = parseFloat(amtVal*coinRate);
+          var calcultedSellAmount = parseFloat(Math.round(amtExpect * 100) / 100).toFixed(2);
+          var currencyType =  $("#currency_sold option:selected").val();
+          if(isNaN(amtExpect)){
+            $('#sell_calculatedamount').html('');
+            $('#sell_calculatedamount').removeClass('alert alert-success');
+            $('#sell_calculatedamount').hide();
+          }
+          $('#sell_converted_amount').val(amtExpect);
+          $('#sell_currentratetext').addClass('alert alert-danger');
+          $('#sell_calculatedamount').addClass('alert alert-success');
+          $('#sell_calculatedamount').show();
+          $('#sell_calculatedamount').html('Calculated Amount('+currencyType+')'+': $'+ parseFloat(calcultedSellAmount) );
+          
+          $('.sell_expected').removeClass('alert alert-danger');
+          $('.sell_expected').html('');
+          $('.sell_expected').hide();
+          $('#cc-submit1').prop('disabled', false);
+          
+          // ajax block
+            if(jQuery("#sellAmount").val() !== ''){
+              $.ajax({
+                  type: 'POST',
+                  data: {amtVal: amtVal,coinRate: coinRate,currencySellType: currencySellType},
+                  url: "/sell-coin", 
+                  dataType: "json",
+                  success: function(result){
+                    if(result.message !=='' && result.status === true){ 
+                      cryptocurrency_bal = result.crypto_balance;
+                     
+                      if(amtVal > cryptocurrency_bal){
+                        $('.sell_expected').addClass('alert alert-danger');
+                        $('.sell_expected').html('Amount exceeds currency balance.');
+                        $('.sell_expected').show();
+                        $('#cc-submit1').prop('disabled', true);
+                        astatus = 1;
+                      }  
+                      else{
+                        $('#cc-submit1').prop('disabled', false);
+                      }
+                  } 
+                },
                 error: function(error){
                   console.log(error);
                 }
-            });
-            if(astatus === '1'){
-              if(!jQuery.isNumeric(jQuery("#sellAmount").val())){
-                  $('.sell_expected').addClass('alert alert-danger');
-                  $('.sell_expected').html('Please enter a valid number.');
-                  $('.sell_expected').show();
-                  $('#cc-submit1').prop('disabled', true);
-              }   
-              else if(amtVal === '0'){
-                  $('.sell_expected').addClass('alert alert-danger');
-                  $('.sell_expected').html('Currency amount should be more than 0');
-                  $('.sell_expected').show();
-                  $('#cc-submit1').prop('disabled', true);
-              }
-              else{
-                  if(currency_sold === ''){      
-                      $('#sell_calculatedamount').html('');
-                      $('#sell_calculatedamount').removeClass('');
-                      $('#sell_calculatedamount').css('display','none');
+              });
+              if(astatus === '1'){
+                if(!jQuery.isNumeric(jQuery("#sellAmount").val())){
+                    $('.sell_expected').addClass('alert alert-danger');
+                    $('.sell_expected').html('Please enter a valid number.');
+                    $('.sell_expected').show();
+                    $('#cc-submit1').prop('disabled', true);
+                }   
+                else if(amtVal === '0'){
+                    $('.sell_expected').addClass('alert alert-danger');
+                    $('.sell_expected').html('Currency amount should be more than 0');
+                    $('.sell_expected').show();
+                    $('#cc-submit1').prop('disabled', true);
+                }
+                else{
+                    if(currency_sold === ''){      
+                        $('#sell_calculatedamount').html('');
+                        $('#sell_calculatedamount').removeClass('');
+                        $('#sell_calculatedamount').css('display','none');
 
-                    var amtExpect = parseFloat(amtVal*coinRate);
-                    if(isNaN(amtExpect)){
-                      $('#sell_calculatedamount').html('');
-                      $('#sell_calculatedamount').removeClass('');
-                      $('#sell_calculatedamount').css('display','none');
-                    }
-                  }
-                  else{
-                      //console.log('Inside sell else part ');
                       var amtExpect = parseFloat(amtVal*coinRate);
-                      var calcultedSellAmount = parseFloat(Math.round(amtExpect * 100) / 100).toFixed(2);
-                      var currencyType =  $("#currency_sold option:selected").val();
-                      $("#sell_converted_amount").val(amtExpect);
-                      $('#sell_currentratetext').addClass('alert alert-danger');
-                      $('#sell_calculatedamount').addClass('alert alert-success');
-                      jQuery('#sell_calculatedamount').show();
-                      jQuery('#sell_calculatedamount').html('Calculated Amount('+currencyType+')'+': $'+ parseFloat(calcultedSellAmount) );
-                      $('.sell_expected').removeClass('alert alert-danger');
-                      $('.sell_expected').html('');
-                      $('.sell_expected').hide();
-                      $('#cc-submit1').prop('disabled', false);
-                  }
+                      if(isNaN(amtExpect)){
+                        $('#sell_calculatedamount').html('');
+                        $('#sell_calculatedamount').removeClass('');
+                        $('#sell_calculatedamount').css('display','none');
+                      }
+                    }
+                    else{
+                        var amtExpect = parseFloat(amtVal*coinRate);
+                        var calcultedSellAmount = parseFloat(Math.round(amtExpect * 100) / 100).toFixed(2);
+                        var currencyType =  $("#currency_sold option:selected").val();
+                        $("#sell_converted_amount").val(amtExpect);
+                        $('#sell_currentratetext').addClass('alert alert-danger');
+                        $('#sell_calculatedamount').addClass('alert alert-success');
+                        jQuery('#sell_calculatedamount').show();
+                        jQuery('#sell_calculatedamount').html('Calculated Amount('+currencyType+')'+': $'+ parseFloat(calcultedSellAmount) );
+                        $('.sell_expected').removeClass('alert alert-danger');
+                        $('.sell_expected').html('');
+                        $('.sell_expected').hide();
+                        $('#cc-submit1').prop('disabled', false);
+                    }
+                }
               }
-            }
         }
+            // end ajax block
+
+
+        }
+
+            
+        
+
+        // end refining of block
       });
 
       // Script for handling submission of sell request of coin
@@ -831,6 +885,17 @@
             $('.sell_expected').addClass('alert alert-danger');
             $('.sell_expected').html('Please choose a currency to sell');
             $('.sell_expected').show();
+
+            // added later
+            $('#sell_currentratetext').html('');
+            $('#sell_currentratetext').removeClass('alert alert-danger');
+            $('#sell_currentratetext').hide();
+
+            $('#sell_calculatedamount').html('');
+            $('#sell_calculatedamount').removeClass('alert alert-success');
+            $('#sell_calculatedamount').hide();
+            // end
+
           }
           
           else{

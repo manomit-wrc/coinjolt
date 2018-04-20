@@ -554,6 +554,7 @@
           $('.expected').addClass('alert alert-danger');
           $('.expected').html('Please enter a valid number.');
           $('.expected').show();
+          $("#cc-submit").prop('disabled', true);
         }
 
 
@@ -561,6 +562,7 @@
           $('.expected').addClass('alert alert-danger');
           $('.expected').html('Amount should be atleast $1');
           $('.expected').show();
+          $("#cc-submit").prop('disabled', true);
         }
         else{
           
@@ -742,14 +744,11 @@
         var coinRate = parseFloat(jQuery('#sell_coinRate').val());
         var selectopton = jQuery("#currency_sold").val();
         var currency_sold = jQuery("#currency_sold").val();
-        //var currencySellType = jQuery("#currency_sold").val();
         var currencySellType = jQuery("#currency_sold option:selected").val();
         
 
         var cryptocurrency_bal = 0;
         var astatus = 0;
-
-        // working on refining below block
 
         if(!jQuery.isNumeric(jQuery("#sellAmount").val())){
           $('.sell_expected').addClass('alert alert-danger');
@@ -769,8 +768,6 @@
 
         }
         else{
-          //console.log('Currency sell type selected');
-          //console.log('Sell amount value given');
           var amtExpect = parseFloat(amtVal*coinRate);
           var calcultedSellAmount = parseFloat(Math.round(amtExpect * 100) / 100).toFixed(2);
           var currencyType =  $("#currency_sold option:selected").val();
@@ -805,6 +802,8 @@
                         $('.sell_expected').addClass('alert alert-danger');
                         $('.sell_expected').html('Amount exceeds currency balance.');
                         $('.sell_expected').show();
+                        $('#sell_calculatedamount').html('');  
+                        $('#sell_calculatedamount').css('display','none');
                         $('#cc-submit1').prop('disabled', true);
                         astatus = 1;
                       }  

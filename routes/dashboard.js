@@ -509,7 +509,31 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
 				}); 
 			}
 		}); */
-	});
+    });
+    
+    app.post('/crypto-balance', async (req, res) => {
+		var currencyType = req.body.currencyType;
+		var curr_crypto_bal = 0;
+		var curr_brought = 0;
+        var curr_sold = 0;
+        
+        // Query to get cryptocurrency balance
+        curr_brought = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 1, currency_purchased: currencyType},
+            attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
+        });
+
+        curr_sold = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 2, currency_purchased: currencyType},
+            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
+        });
+
+        curr_crypto_bal = parseFloat(curr_brought[0].get('TOT_BUY_AMT') - curr_sold[0].get('TOT_SOLD_AMT'));
+        curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
+        
+        res.json({cryptocurrency_balance: curr_crypto_bal});
+
+    });
 
     
 };

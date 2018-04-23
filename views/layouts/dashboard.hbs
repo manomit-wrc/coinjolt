@@ -1210,9 +1210,10 @@ function copyToClipboard() {
 
     </script>
     <!-- Ends Script for Propagation & Sliding -->
-    <!-- Starts Script for Header Rates -->
+    <!-- Starts Script for Header Rates & Balances -->
     {{#each user.currency}}
       <script>
+        //Rates
         $.ajax({
           type: "GET",
           crossDomain: true,
@@ -1224,10 +1225,66 @@ function copyToClipboard() {
           error: function (xhr) {
           }
         });
-
-      </script> 
+        //Balances
+        var currency = $("#blc_{{this.currency_id}} strong").html();
+        var currencyType = currency.substr(0, currency.indexOf(':'));
+        $.ajax({
+                type: 'POST',
+                url : "/crypto-balance",
+                data : {currencyType:currencyType},
+                success:function(response) {
+                  $("#blc_{{this.currency_id}}").append(' ' + nFormatter(response.cryptocurrency_balance, 1));
+              },
+              error:function(xhr) {
+              }
+            });
+      </script>
     {{/each}}
-    <!-- Ends Script for Header Rates -->
+    <!-- Ends Script for Header Rates & Balances -->
+
+    {{!-- Format numbers starts --}}
+    <script>
+      function nFormatter (num, digits) {
+        var si = [{
+            value: 1,
+            symbol: ""
+          },
+          {
+            value: 1E3,
+            symbol: "k"
+          },
+          {
+            value: 1E6,
+            symbol: "M"
+          },
+          {
+            value: 1E9,
+            symbol: "B"
+          },
+          {
+            value: 1E12,
+            symbol: "T"
+          },
+          {
+            value: 1E15,
+            symbol: "P"
+          },
+          {
+            value: 1E18,
+            symbol: "E"
+          }
+        ];
+        var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+        var i;
+        for (i = si.length - 1; i > 0; i--) {
+          if (num >= si[i].value) {
+            break;
+          }
+        }
+        return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+      }
+    </script>
+    {{!-- Format numbers ends --}}
 
 </body>
 

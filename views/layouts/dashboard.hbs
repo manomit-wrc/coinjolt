@@ -186,11 +186,24 @@
     <!-- Chart.js -->
     <script src="/bower_components/chart.js/Chart.js"></script>
     
-    <!--for deposite funds//-->
+    <!--for deposite funds,pending_wire_transfer//-->
     <script src="/js/deposite_funds.js"></script>
+    <script src="/js/pending_wire_transfer.js"></script>
     <!--end-->
+    <script type="text/javascript">
+      $(function () {
+        'use strict';
+        // SLIMSCROLL FOR CHAT WIDGET
+          var heightSidebar = $(".sidebar").height();
+          console.log("heightSidebar:" +heightSidebar);
+        $('.sidebar').slimScroll({
+           height: heightSidebar
+        });
+      });
+    </script>
     
     <script>
+
       $(function () {
         $('#example2').DataTable({
           'paging': true,

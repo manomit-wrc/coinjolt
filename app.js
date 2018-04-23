@@ -249,9 +249,8 @@ app.use(function(req, res, next){
   res.redirect('/');
 });
 
-
 require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit);
-require('./routes/deposit')(app, models.Deposit);
+require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User);
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

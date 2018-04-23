@@ -132,7 +132,7 @@ module.exports = function (app, Country, User, Currency) {
             dob: req.body.dob,
             city: req.body.city,
             state: req.body.state,
-            country: req.body.country,
+            country_id: req.body.country,
             postal_code: req.body.postcode             
 
         },{ where: { id: req.user.id } }).then(function(result) {

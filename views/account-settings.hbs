@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label class="control-label">About Me</label>
-                                    <textarea  class="form-control" rows="4" name="about_me" id="about_me">{{user.about_me}}</textarea>
+                                    <textarea  class="form-control" rows="3" name="about_me" id="about_me">{{user.about_me}}</textarea>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="control-label">Address <span style="color:#ff0000">*</span></label>
@@ -122,10 +122,9 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="control-label">Country <span style="color:#ff0000">*</span></label>
-                                    <!-- <input id="country" class="form-control" type="text" name="country" value="IN"> -->
                                     <select class="form-control" name="country" id="country">
                                         {{#each countries}}
-                                        <option value="{{this.iso}}" {{#if_eq this.iso ../user.country}} selected="selected" {{/if_eq}} >{{this.name}}</option>
+                                        <option value="{{this.id}}" {{#if_eq this.id ../user.country_id}} selected="selected" {{/if_eq}}>{{this.name}}</option>
                                         {{/each}}
                                     </select>
                                 </div>

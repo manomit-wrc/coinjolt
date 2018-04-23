@@ -211,6 +211,12 @@
     </script>
     <script>
       $(document).ready(function () {
+        $('#currentratetext').removeClass('alert alert-danger');
+        $('#calculatedamount').removeClass('alert alert-success');
+        $('#sell_currentratetext').removeClass('alert alert-danger');
+        $('#sell_calculatedamount').removeClass('alert alert-success');
+
+        $('.expected').removeClass('alert alert-danger');
         $("#changereferralBtn").click(function(){
           $("#changeReferralFrm").slideToggle('slow');
         });
@@ -528,11 +534,11 @@
           
           var currencyType =  $("#currency_purchased option:selected").val();
 
-          //var currentUsdBal = {{user.currentUsdBalance}};
+          var currentUsdBal = {{user.currentUsdBalance}};
 
-          //var errmsg = "Amount exceeds current balance of "+currentUsdBal+" USD, <a href='/deposit-funds'>click here to deposit funds.</a>";
+          var errmsg = "Amount exceeds current balance of "+currentUsdBal+" USD, <a href='/deposit-funds'>click here to deposit funds.</a>";
 
-        /*
+        
         if(parseFloat(amtVal) > parseFloat(currentUsdBal)){
           $('.expected').addClass('alert alert-danger');
           $('.expected').html(errmsg);
@@ -541,14 +547,14 @@
           $('#calculatedamount').css('display','none');
           $("#cc-submit").prop('disabled', true);
         }
-        */
 
 
-       // else if(!jQuery.isNumeric(jQuery("#payAmount").val())){
-        if(!jQuery.isNumeric(jQuery("#payAmount").val())){
+
+        else if(!jQuery.isNumeric(jQuery("#payAmount").val())){
           $('.expected').addClass('alert alert-danger');
           $('.expected').html('Please enter a valid number.');
           $('.expected').show();
+          $("#cc-submit").prop('disabled', true);
         }
 
 
@@ -556,6 +562,7 @@
           $('.expected').addClass('alert alert-danger');
           $('.expected').html('Amount should be atleast $1');
           $('.expected').show();
+          $("#cc-submit").prop('disabled', true);
         }
         else{
           
@@ -589,6 +596,465 @@
 
         }
       });
+
+      //Script for handling submission of buy request of coin
+      $('#cc-submit').on('click', function(e){
+        e.preventDefault();
+        var amount = $('#payAmount').val();
+        var currencyBuyType = $('#currency_purchased').val();
+        if(amount === ''){
+          $('.expected').addClass('alert alert-danger');
+          $('.expected').html('Please enter amount');
+          $('.expected').show();
+        }
+        if(currencyBuyType === ''){
+          $('.expected').addClass('alert alert-danger');
+          $('.expected').html('Please choose a currency to buy');
+          $('.expected').show();
+
+          $('#currentratetext').html('');
+          $('#currentratetext').removeClass('alert alert-danger');
+          $('#currentratetext').hide();
+
+          $('#calculatedamount').html('');
+          $('#calculatedamount').removeClass('alert alert-success');
+          $('#calculatedamount').hide();
+        }
+          if(amount !== '' && currencyBuyType !== ''){
+            var amtVal = jQuery("#payAmount").val();
+            var coinRate = jQuery("#coinRate").val();
+            var actualAmtExpect = parseFloat(amtVal/coinRate);
+            var currency_purchased = jQuery("#currency_purchased").val();
+            var user_id = {{user.id}};
+            var currency_name = jQuery( "#currency_purchased option:selected" ).text();
+            var currency_value = jQuery("#currency_purchased option:selected").val();
+            var totalAmtExpect = 0;
+            var currentUsdBalance = {{user.currentUsdBalance}};
+            currentUsdBalance = parseFloat(Math.round(currentUsdBalance * 100) / 100).toFixed(2);
+            var finalusdBalance = parseFloat(currentUsdBalance - amtVal);
+
+            $('.expected').removeClass('alert alert-danger');
+            $('.expected').html('');
+            $('.expected').hide();
+    
+             $.ajax({
+              type: 'POST',
+              data: {amtVal: amtVal,coinRate: coinRate,currencyBuyType: currencyBuyType},
+              url: "/buy-coin", 
+              dataType: "json",
+              success: function(result){
+                if(result.message !=='' && result.status === true){ 
+                  var t_amt = parseFloat(result.crypto_balance)+parseFloat(actualAmtExpect);
+                  swal({
+                    title: "Transaction Confirmation",
+                    text: "You are buying " + actualAmtExpect + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +result.crypto_balance+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Confirm",
+                    cancelButtonText: "Cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: false,
+                    customClass: 'swal-wide'
+                  },
+                  function(isConfirm) {
+                    if (isConfirm) {
+                      swal({
+                            title: "Transaction successful",
+                            text: "USD Wallet: " + Number(finalusdBalance).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n" + currency_name + " Wallet: Balance: "+t_amt,
+                            type: "success"
+                        },
+                      function(isConfirm) {
+                        if (isConfirm) {
+                            buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect);  
+                        }
+                      });
+
+                    } else {
+                      swal("Cancelled", "You cancelled this transaction.", "error");
+                    }
+                  });
+              } 
+            },
+              error: function(error){
+                console.log(error);
+              }
+            });
+        }
+      });
+
+      function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect){
+            $.ajax({
+                type: 'POST',
+                url : "/confirm_coin_buy",
+                data : {amtVal: amtVal,currency_purchased: currency_purchased,coinRate: coinRate,actualAmtExpect:actualAmtExpect},
+                success:function(response) {
+                  if(response.success == true){
+                      window.location.href="/buy-and-sell-coins";
+                  }
+              },
+              error:function(xhr) {
+                console.log(xhr);
+              }
+            });
+      }
+
+      // Script for getting current coin rate for selling coin
+      $('#currency_sold').on('change', function () {
+          var currencyType =  $("#currency_sold option:selected").text();
+          var msg = "Current Rate("+currencyType+")"+": "+"$ ";
+          var amtVal = parseFloat(jQuery("#payAmount").val());
+          if(currencyType !== ''){
+              $('.expected').removeClass('alert alert-danger');
+              $('.expected').html('');
+              $('.expected').hide();
+              $.ajax({
+                type: 'GET',
+                url: "https://coincap.io/page/"+currencyType, 
+                dataType: "json",
+                success: function(result){
+                  $('#sell_coinRate').val(result.price_usd);
+                  var roundUpPrice = parseFloat(Math.round(result.price_usd * 100) / 100).toFixed(2);
+                  $('.currentrateexpected').html(msg+roundUpPrice);
+                  $('#sell_currentratetext').addClass('alert alert-danger');
+                  $('#sell_currentratetext').show();
+                  $('#sell_currentratetext').html('Current Rate('+currencyType+')'+': $'+roundUpPrice);
+                  $('.currentrateexpected').show();
+                },
+                error: function(error){
+                  console.log(error);
+                }
+              });
+          }
+        });
+
+        // Script for validating amount field in sell coins
+      $('#sellAmount').on('keyup', function(event) {
+         $(this).val($(this).val().replace(/[^0-9\.]/g,''));
+         if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
+          event.preventDefault();
+          $('.sell_expected').addClass('alert alert-danger');
+          $('.sell_expected').html('Please enter a valid number.');
+          $('.sell_expected').show();
+          $('#sell_calculatedamount').html('');
+          $('#sell_calculatedamount').hide();
+        }
+
+        var amtVal = parseFloat(jQuery("#sellAmount").val());
+        var coinRate = parseFloat(jQuery('#sell_coinRate').val());
+        var selectopton = jQuery("#currency_sold").val();
+        var currency_sold = jQuery("#currency_sold").val();
+        var currencySellType = jQuery("#currency_sold option:selected").val();
+        
+
+        var cryptocurrency_bal = 0;
+        var astatus = 0;
+
+        if(!jQuery.isNumeric(jQuery("#sellAmount").val())){
+          $('.sell_expected').addClass('alert alert-danger');
+          $('.sell_expected').html('Please enter a valid number.');
+          $('.sell_expected').show();
+        }
+        else if(amtVal === 0){
+          $('.sell_expected').addClass('alert alert-danger');
+          $('.sell_expected').html('Currency amount should be more than 0');
+          $('.sell_expected').show();
+        }
+
+        else if(currencySellType === ''){
+          $('#sell_calculatedamount').html('');
+          $('#sell_calculatedamount').removeClass('alert alert-success');
+          $('#sell_calculatedamount').hide();
+
+        }
+        else{
+          var amtExpect = parseFloat(amtVal*coinRate);
+          var calcultedSellAmount = parseFloat(Math.round(amtExpect * 100) / 100).toFixed(2);
+          var currencyType =  $("#currency_sold option:selected").val();
+          if(isNaN(amtExpect)){
+            $('#sell_calculatedamount').html('');
+            $('#sell_calculatedamount').removeClass('alert alert-success');
+            $('#sell_calculatedamount').hide();
+          }
+          $('#sell_converted_amount').val(amtExpect);
+          $('#sell_currentratetext').addClass('alert alert-danger');
+          $('#sell_calculatedamount').addClass('alert alert-success');
+          $('#sell_calculatedamount').show();
+          $('#sell_calculatedamount').html('Calculated Amount('+currencyType+')'+': $'+ parseFloat(calcultedSellAmount) );
+          
+          $('.sell_expected').removeClass('alert alert-danger');
+          $('.sell_expected').html('');
+          $('.sell_expected').hide();
+          $('#cc-submit1').prop('disabled', false);
+          
+          // ajax block
+            if(jQuery("#sellAmount").val() !== ''){
+              $.ajax({
+                  type: 'POST',
+                  data: {amtVal: amtVal,coinRate: coinRate,currencySellType: currencySellType},
+                  url: "/sell-coin", 
+                  dataType: "json",
+                  success: function(result){
+                    if(result.message !=='' && result.status === true){ 
+                      cryptocurrency_bal = result.crypto_balance;
+                     
+                      if(amtVal > cryptocurrency_bal){
+                        $('.sell_expected').addClass('alert alert-danger');
+                        $('.sell_expected').html('Amount exceeds currency balance.');
+                        $('.sell_expected').show();
+                        $('#sell_calculatedamount').html('');  
+                        $('#sell_calculatedamount').css('display','none');
+                        $('#cc-submit1').prop('disabled', true);
+                        astatus = 1;
+                      }  
+                      else{
+                        $('#cc-submit1').prop('disabled', false);
+                      }
+                  } 
+                },
+                error: function(error){
+                  console.log(error);
+                }
+              });
+              if(astatus === '1'){
+                if(!jQuery.isNumeric(jQuery("#sellAmount").val())){
+                    $('.sell_expected').addClass('alert alert-danger');
+                    $('.sell_expected').html('Please enter a valid number.');
+                    $('.sell_expected').show();
+                    $('#cc-submit1').prop('disabled', true);
+                }   
+                else if(amtVal === '0'){
+                    $('.sell_expected').addClass('alert alert-danger');
+                    $('.sell_expected').html('Currency amount should be more than 0');
+                    $('.sell_expected').show();
+                    $('#cc-submit1').prop('disabled', true);
+                }
+                else{
+                    if(currency_sold === ''){      
+                        $('#sell_calculatedamount').html('');
+                        $('#sell_calculatedamount').removeClass('');
+                        $('#sell_calculatedamount').css('display','none');
+
+                      var amtExpect = parseFloat(amtVal*coinRate);
+                      if(isNaN(amtExpect)){
+                        $('#sell_calculatedamount').html('');
+                        $('#sell_calculatedamount').removeClass('');
+                        $('#sell_calculatedamount').css('display','none');
+                      }
+                    }
+                    else{
+                        var amtExpect = parseFloat(amtVal*coinRate);
+                        var calcultedSellAmount = parseFloat(Math.round(amtExpect * 100) / 100).toFixed(2);
+                        var currencyType =  $("#currency_sold option:selected").val();
+                        $("#sell_converted_amount").val(amtExpect);
+                        $('#sell_currentratetext').addClass('alert alert-danger');
+                        $('#sell_calculatedamount').addClass('alert alert-success');
+                        jQuery('#sell_calculatedamount').show();
+                        jQuery('#sell_calculatedamount').html('Calculated Amount('+currencyType+')'+': $'+ parseFloat(calcultedSellAmount) );
+                        $('.sell_expected').removeClass('alert alert-danger');
+                        $('.sell_expected').html('');
+                        $('.sell_expected').hide();
+                        $('#cc-submit1').prop('disabled', false);
+                    }
+                }
+              }
+        }
+            // end ajax block
+
+
+        }
+
+            
+        
+
+        // end refining of block
+      });
+
+      // Script for handling submission of sell request of coin
+      $('#cc-submit1').on('click', function(e){
+          e.preventDefault();
+          var amount = $('#sellAmount').val();
+          var currencySellType = $('#currency_sold').val();
+          if(amount === ''){
+            $('.sell_expected').addClass('alert alert-danger');
+            $('.sell_expected').html('Please enter amount');
+            $('.sell_expected').show();
+          }
+          else if(currencySellType === ''){
+            $('.sell_expected').addClass('alert alert-danger');
+            $('.sell_expected').html('Please choose a currency to sell');
+            $('.sell_expected').show();
+
+            // added later
+            $('#sell_currentratetext').html('');
+            $('#sell_currentratetext').removeClass('alert alert-danger');
+            $('#sell_currentratetext').hide();
+
+            $('#sell_calculatedamount').html('');
+            $('#sell_calculatedamount').removeClass('alert alert-success');
+            $('#sell_calculatedamount').hide();
+            // end
+
+          }
+          
+          else{
+              var amtVal = jQuery("#sellAmount").val();
+              var coinRate = jQuery("#sell_coinRate").val();
+              var actualAmtExpect = parseFloat(amtVal/coinRate);
+              var currency_sold = jQuery("#currency_sold").val();
+              var user_id = {{user.id}};
+              var currency_name = jQuery( "#currency_sold option:selected" ).text();
+              var currency_value = jQuery("#currency_sold option:selected").val();
+              var totalAmtExpect = 0;
+              var currentUsdBalance = {{user.currentUsdBalance}};
+              currentUsdBalance = parseFloat(Math.round(currentUsdBalance * 100) / 100).toFixed(2);
+              
+              var finalusdBalance = amtVal * Number(coinRate);
+              
+              finalusdBalance = parseFloat(finalusdBalance) + parseFloat(currentUsdBalance);
+              finalusdBalance = parseFloat(Math.round(finalusdBalance * 100) / 100).toFixed(2);
+              $('.sell_expected').removeClass('alert alert-danger');
+              $('.sell_expected').html('');
+              $('.sell_expected').hide();
+      
+              $.ajax({
+                type: 'POST',
+                data: {amtVal: amtVal,coinRate: coinRate,currencySellType: currencySellType},
+                url: "/sell-coin", 
+                dataType: "json",
+                success: function(result){
+                  if(result.message !=='' && result.status === true){ 
+                    totalAmtExpect = parseFloat(result.crypto_balance+actualAmtExpect);
+                    var t_amt = parseFloat(result.crypto_balance)-parseFloat(amtVal);
+                    swal({
+                      title: "Transaction Confirmation",
+                      text: "You are selling " + amtVal + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +result.crypto_balance+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
+                      type: "warning",
+                      showCancelButton: true,
+                      confirmButtonClass: "btn-danger",
+                      confirmButtonText: "Confirm",
+                      cancelButtonText: "Cancel",
+                      closeOnConfirm: false,
+                      closeOnCancel: false,
+                      customClass: 'swal-wide'
+                    },
+                    function(isConfirm) {
+                      if (isConfirm) {
+                        swal({
+                              title: "Transaction successful",
+                              text: "USD Wallet: " + Number(finalusdBalance).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n" + currency_name + " Wallet: Balance: "+t_amt,
+                              type: "success"
+                          },
+                        function(isConfirm) {
+                          if (isConfirm) {
+                               coinRate = parseFloat(Math.round(coinRate * 100) / 100).toFixed(2);
+                               sellFormSubmit(finalusdBalance, coinRate, amtVal, currencySellType);  
+                          }
+                        });
+
+                      } else {
+                        swal("Cancelled", "You cancelled this transaction.", "error");
+                      }
+                    });
+                } 
+              },
+                error: function(error){
+                  console.log(error);
+                }
+              });
+          }
+      });
+
+      function sellFormSubmit(finalusdBalance, coinRate, amtVal, currencySellType){
+            $.ajax({
+                type: 'POST',
+                url : "/confirm_coin_sell",
+                data : {finalusdBalance: finalusdBalance,coinRate: coinRate,amtVal: amtVal,currencySellType:currencySellType},
+                success:function(response) {
+                  if(response.success == true){
+                      window.location.href="/buy-and-sell-coins";
+                  }
+              },
+              error:function(xhr) {
+                console.log(xhr);
+              }
+            });
+      }
+
+      jQuery( "#amount_invest" ).click(function() {
+            jQuery( "#investerrormsg" ).empty();
+            jQuery( "#investerrormsg" ).hide();							
+			});
+
+      $('#amount_invest').on('keyup', function(event) {
+        $(this).val($(this).val().replace(/[^0-9\.]/g,''));
+        if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
+            event.preventDefault();
+              jQuery( "#investerrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number</p>');
+            $('#investerrormsg').show();
+        }
+        else{
+          $('#investerrormsg').hide();
+          $('#investerrormsg').html('');
+        }
+      });
+
+      jQuery( "#amt_invest_btn" ).click(function() {
+        var amountinvest =  jQuery( "#amount_invest" ).val();	
+        var useramountUSD =  jQuery( "#useramountUSD" ).val();	
+        jQuery( "#investerrormsg" ).show();
+        jQuery( "#investerrormsg" ).empty();
+        if(useramountUSD >=10000){
+          if(amountinvest >=10000){
+            return true;
+          }else{
+            jQuery( "#investerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be equal or greater than $10,000</p>');
+            return false; 
+
+          }
+
+        }else{								
+          jQuery( "#investerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Your USD account balance is too low i.e. ($'+useramountUSD+'). The minimum investment amount should be equal or greater then $10,000.</p>');
+          return false;
+        }
+
+			});
+
+      jQuery("#amount_withdraw").on('click', function(){
+          jQuery( "#withdrawerrormsg" ).empty();
+          jQuery( "#withdrawerrormsg" ).hide();							
+      });
+
+      $('#amount_withdraw').on('keyup', function(event) {
+        $(this).val($(this).val().replace(/[^0-9\.]/g,''));
+        if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
+            event.preventDefault();
+              jQuery( "#withdrawerrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number</p>');
+            $('#withdrawerrormsg').show();
+        }
+        else{
+          $('#withdrawerrormsg').hide();
+          $('#withdrawerrormsg').html('');
+        }
+      });
+
+      jQuery( "#amt_withd_btn" ).click(function() {
+        var amountwithdraw =  jQuery( "#amount_withdraw" ).val();	
+        var useramountUSD =  jQuery( "#useramountUSD" ).val();	
+        jQuery( "#withdrawerrormsg" ).show();
+        jQuery( "#withdrawerrormsg" ).empty();
+        if(useramountUSD >=10000){
+          if(amountwithdraw >=1000){
+            return true;
+          }else{
+            jQuery( "#withdrawerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be equal or greater than $1000</p>');
+            return false; 
+          }
+        }else{								
+          jQuery( "#withdrawerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Your USD account balance is too low i.e. ($'+useramountUSD+'). The minimum withdraw amount should be equal or greater then $1000.</p>');
+          return false;
+        }
+			});
 
         // Dashboard display cryptocurrency list in table starts
         $tr = "";

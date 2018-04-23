@@ -187,6 +187,9 @@ helpers: {
         }
       }
       return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+    },
+    toLowerCase: function(value){
+      return value.toLowerCase();
     }
 
   }

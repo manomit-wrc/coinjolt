@@ -70,6 +70,15 @@ $(document).ready(function (e) {
       		var cardexpyear = $('#cardexpyear').val();
       		var cvv = $('#cvv').val();
 
+      		if(card_number == ''){
+      			alert("Please enter your credit card number.");
+      			return false;
+      		}
+      		if(cvv == ''){
+      			alert("Please enter your cvv number.");
+      			return false;
+      		}
+
 			$.ajax({
 				type : "POST",
 				url : "/credit-card-add",
@@ -107,7 +116,7 @@ $(document).ready(function (e) {
 
 	        $('#exampleModalLong').modal('show');
       	}else{
-	      	alert ("error");
+	      	alert ("Please select deposit type.");
       	}
     });
     e.preventDefault();

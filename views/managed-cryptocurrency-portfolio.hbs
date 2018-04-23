@@ -1,0 +1,243 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Managed Cryptocurrency Portfolio</h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="#">
+                <i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li class="active">Managed Cryptocurrency Portfolio</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="mcp">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Portfolio Composition</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body pch">
+                        <div id="piechart_3d"></div>
+                        <p style="text-align: left;">Currently $3.78bn in assets under management.</p>
+                        <p style="text-align: left; font-weight: bold;"></p>
+                        <ul>
+                            <li>Bitcoin: 55.6%</li>
+                            <li>Ethereum: 16.7%</li>
+                            <li>Alternative Coins: 17.9%</li>
+                            <li>ICO Tokens: 13.9%</li>
+                            <p></p>
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <div class="col-md-8">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Digital Currency Asset Management</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="box-body">
+                            <p>Welcome to our managed investment portfolio where you can invest into our actively managed cryptocurrency portfolio and earn daily interest, as well as dividends each year on the profits from the returns we're able to generate with our investing and trading strategies. As initial coin offerings and a wide range of cryptocurrency are available, we found investors finding it extremely difficult to trade without the proper knowledge and experience so they can see high returns on their investments.</p>
+
+                            <p>We'd like to take that burden off your hands as the number one investment opportunity in the cryptocurrency space by allowing you to invest in our managed cryptocurrency portfolio.</p>
+
+                            <p style="font-weight: bold;">Benefits and Features:</p>
+
+                            <ol>
+                                <li style="font-size: 14px;">Earn 0.05% daily interest on your total amount invested.</li>
+                                <li style="font-size: 14px;">Annual dividend payouts.</li>
+                                <li style="font-size: 14px;">Initial amount invested insured and covered by corporate reserves.</li>
+                                <li style="font-size: 14px;">24/7/365 transparent access to the entire portfolio and trades (coming soon).</li>
+                            </ol>
+
+                            {{!-- <p style="font-weight: bold;">Currencies Accepted:</p>
+                            <ol>
+                                <li style="font-size: 14px;">98% of fiat currencies (USD, Yen, Euro, Yuan, etc)</li>
+                                <li style="font-size: 14px;">82% of digital currencies (Bitcoin, Ethereum, Litecoin, etc)</li>
+                            </ol> --}}
+
+                            <p style="font-weight: bold;">Requirements:</p>
+                            <ol>
+                                <li style="font-size: 14px;">$10,000 USD minimums.</li>
+                                <li style="font-size: 14px;">Institutional or individual verification.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box mcp_con">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Calculative Projections</h3>
+                    </div>
+                    <div class="box-body t-amt">
+                        <p>
+                            <strong>Total Amount Invested:</strong>
+                            <br> ${{formatCurrency (twoDecimalPoint amountInvested)}} </p>
+
+
+                        <p>
+                            <strong>Projected Minimum Returns:</strong>
+                            <br> 200% Annually</p>
+
+                        <p>
+                            <strong>First Year Earnings:</strong>
+                            <br> ${{formatCurrency (twoDecimalPoint firstYearEarning)}}
+                        </p>
+
+                        <p>
+                            <strong>Interest Earned (0.05%/Day):</strong>
+                            <br>
+                            
+                            ${{formatCurrency (twoDecimalPoint interestEarned)}} </p>
+
+                        <p>
+                            <strong>Dividend Payouts:</strong>
+                            <br> $0
+                        </p>
+
+                        <p>
+                            <strong>Total Amount Withdrawn:</strong>
+                            <br> $0
+                        </p>
+
+                        <!--<p><strong>Remaining Amount:</strong><br>
+                  $3222516419</p>
+
+                   <p><strong>Used Amount:</strong><br>
+                     $0</p>-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Enter an Amount</h3>
+                    </div>
+                    <div class="box-body">
+                       
+                            <div class="row">
+                                <form action="/save-invest" method="post" id="MCPinvest" style="width:100%; float:left; margin-bottom: 3px;">
+                                    <div class="alert alert-success" id="investerrmsg" style="margin-left:5px;width:70%;">{{message}}</div>
+                                    <div class="gap">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" name="amount_invest" id="amount_invest" class="form-control" placeholder="Enter Amount to Invest">
+                                                <input type="hidden" value="MCP" name="currency_purchased" style="margin-bottom: 0px;">
+                                                <input type="hidden" value="{{user.currentUsdBalance}}" name="useramountUSD" id="useramountUSD" style="margin-bottom: 0px;">	
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="gap">   
+                                        <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input class="btn btn-block btn-primary" type="submit" value="Confirm" id="amt_invest_btn" name="investSubmit" />
+                                        </div>
+                                        
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-12" id="investerrormsg" style="display:none;"> </div>  
+                                </form>
+                                <form action="/save-withdraw" method="post" id="MCPwithdraw">
+                                    <div class="gap">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" name="amount_withdraw" id="amount_withdraw" class="form-control" placeholder="Enter Amount to Withdraw">
+                                                <input type="hidden" value="MCP" name="currency_purchased" style="margin-bottom: 0px;">
+                                                <input type="hidden" value="{{user.currentUsdBalance}}" name="useramountUSD" id="useramountUSD" style="margin-bottom: 0px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="gap">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input class="btn btn-block btn-primary" id="amt_withd_btn" name="withdrawSubmit" type="submit" value="Confirm" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="withdrawerrormsg" style="display:none;"> </div> 
+                                </form>
+                                <div class="col-md-12 text-center">
+                                    <p style="text-align: center;">For more information about our managed cryptocurrency portfolio, <a href="/about-us" target="_blank" style="color: #4165b4;">click here.</a> 
+								    <br>
+                                    All funds are held for a minimum of 365 days before eligible for withdrawal.</p>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Starts Asset Class Comparison Graph  -->
+        <div class="portfolio-performance">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BAR CHART -->
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Asset Class Comparison Charts</h3>
+                        </div>
+                        <div class="box-body">
+                            {{!-- <div class="chart">
+                                <canvas id="barChart2" style="height:230px"></canvas>
+                            </div> --}}
+                            <p>Our managed cryptocurrency portfolio allows users the opportunity to invest in an new asset class while being able to earn an above average interest rate, as well as annual dividends based on the returns we generate from our investing and trading practices. The following chart displays the annual averages of traditional asset classes.</p>
+                            <p>At the pinnacle, the highest return was 79% , whereas our managed cryptocurrency portfolio does a conservative minimum of 200% each year, since 2011. We're glad to present our managed cryptocurrency portfolio as one of the leading investment opportunities in the world.</p>
+                            <center><img src="/dist/img/asset-class-returns.png" width="90%"></center>
+                            <br>
+                            <p>The following is another chart just with Bitcoin.</p>
+                            <center><img src="/dist/img/annual-average-returns.png" width="90%"></center>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+                </div>
+            </div>
+        </div>
+        <!-- Ends Asset Class Comparison Graph  -->
+        
+        <!-- Starts Follow the instructions  -->
+        <div class="portfolio-performance">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BAR CHART -->
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Follow the instructions to get started today</h3>
+                        </div>
+                        <div class="box-body">
+                            <ul>
+                                <p></p>
+                                <li>Verify your identification by uploading a government issued ID.</li>
+								<li>Fill out your personal or institutional information.</li>
+								<li>Deposit funds into your account using one of the available options.</li>
+								<li>Earn an above average return of 0.05% daily interest.</li>
+								<li>Get paid out annual dividends from the returns we're able to generate from our trading and investment strategies.</li>
+                                <p></p>
+								<p>More coming soon...</p>
+							</ul>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+                </div>
+            </div>
+        </div>
+        <!-- Ends Follow the instructions  -->
+    </div>
+
+</section>
+<!-- /.content -->

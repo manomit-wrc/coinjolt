@@ -60,9 +60,52 @@ $(document).ready(function (e) {
 		}
 	});
 
-	$("#deposit_funds_bwt").on('click', function () {
+	$("#deposit_funds_bwt").on('click', function (e) {
       	var deposit_type = $("#deposit_type").val();
-      	if(deposit_type == 2){
+
+      	if(deposit_type == 1){
+      		var amount = $('#usd_amount').val(); 
+      		var card_number = $('#cardnumber').val();
+      		var cardexpmonth = $('#cardexpmonth').val();
+      		var cardexpyear = $('#cardexpyear').val();
+      		var cvv = $('#cvv').val();
+
+      		if(card_number == ''){
+      			alert("Please enter your credit card number.");
+      			return false;
+      		}
+      		if(cvv == ''){
+      			alert("Please enter your cvv number.");
+      			return false;
+      		}
+
+      		if(card_number != '' & cvv!=''){
+      			$.ajax({
+					type : "POST",
+					url : "/credit-card-add",
+					data: {
+						amount: amount,
+						card_number: card_number,
+						cardexpmonth: cardexpmonth,
+						cardexpyear: cardexpyear,
+						cvv: cvv
+					},
+					success : function(resp){
+						if(resp.status == true){
+							swal({
+					            title: "Thank You",
+					            text: resp.message,
+					            type: "success",
+					            confirmButtonColor: "#DD6B55",
+					            confirmButtonText: "OK"
+					        },  function() {
+					            window.location.reload();
+					        });
+						}
+					}
+				});
+      		}
+      	}else if(deposit_type == 2){
       		var amount = $('#usd_amount').val();
       		$("#totalamount").val("$" + amount);
 
@@ -74,10 +117,12 @@ $(document).ready(function (e) {
 
 	        $('#exampleModalLong').modal('show');
       	}else{
-	      	alert ("error");
+	      	alert ("Please select deposit type.");
       	}
     });
     e.preventDefault();
+
+    $("#deposite_funds_transfer_table").DataTable();
 });
 
 $('#ok').click(function(event){
@@ -96,7 +141,7 @@ $('#ok').click(function(event){
 	//save value to the wire transfer table
 	$.ajax({
 		type : "POST",
-		url : "/wiretransfer",
+		url : "/wiretransfer-add",
 		data: {
 			amount: amount,
 			status: 0

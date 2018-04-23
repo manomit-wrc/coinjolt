@@ -32,7 +32,8 @@ app.use(allowCrossDomain);
 var passport = require('passport');
 
 
-require('./config/passport')(passport, models.User);
+
+require('./config/passport')(passport, models.User, models.Deposit, models.Currency);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -141,9 +142,54 @@ helpers: {
     },
     formatCurrency: function(value) {
       return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    },
+    twoDecimalPoint: function(value){
+      return parseFloat(Math.round(value * 100) / 100).toFixed(2);
+    },
+    fiveDecimalPoint: function(value){
+      return parseFloat(value).toFixed(5);
+    },
+    nFormatter: function (num, digits) {
+      var si = [{
+          value: 1,
+          symbol: ""
+        },
+        {
+          value: 1E3,
+          symbol: "k"
+        },
+        {
+          value: 1E6,
+          symbol: "M"
+        },
+        {
+          value: 1E9,
+          symbol: "B"
+        },
+        {
+          value: 1E12,
+          symbol: "T"
+        },
+        {
+          value: 1E15,
+          symbol: "P"
+        },
+        {
+          value: 1E18,
+          symbol: "E"
+        }
+      ];
+      var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+      var i;
+      for (i = si.length - 1; i > 0; i--) {
+        if (num >= si[i].value) {
+          break;
+        }
+      }
+      return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
     }
-}
 
+  }
 });
 app.engine('.hbs', hbs.engine);
 app.set('view engine', 'hbs');
@@ -198,26 +244,19 @@ app.use(function(req, res, next){
 
     res.locals.user = req.user;
 
-    if (fs.existsSync("public/currency_list/currency.txt")) {
-      var currencyData = '';
-      var currencyArray = [];
-      fs.readFileSync("public/currency_list/currency.txt").toString().split("\n").forEach(function(line, index, arr) {
-        if (index === arr.length - 1 && line === "") { return; }
-          currencyData = line.split('-');
-          currencyArray.push(currencyData);
-      });
-      res.locals.currencyList =  currencyArray;
-    }	
-
+    // models.Currency.findAll().then(function(currencies) {
+    //   res.locals.currencyList =  currencies;
+    //   console.log(res.locals.currencyList);
+    // });
     
+
     return next();
   }
   res.redirect('/');
 });
 
-require('./routes/dashboard')(app, models.Country, models.User, models.Currency);
-require('./routes/deposit')(app, models.Deposit);
-
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit);
+require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User);
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

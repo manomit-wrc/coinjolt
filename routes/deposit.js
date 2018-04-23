@@ -15,7 +15,8 @@ module.exports = function(app,Deposit,WireTransfer,User) {
             	['id', 'DESC']
         	]
 		}).then(function(result){
-			res.render('deposit/view',{layout: 'dashboard',all_data:result});
+			var user_details_only = result[0];
+			res.render('deposit/view',{layout: 'dashboard', all_data:result, User:user_details_only.User});
 		});
 	});
 

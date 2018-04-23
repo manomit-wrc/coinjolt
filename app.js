@@ -142,6 +142,12 @@ helpers: {
     },
     formatCurrency: function(value) {
       return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    },
+    twoDecimalPoint: function(value){
+      return parseFloat(Math.round(value * 100) / 100).toFixed(2);
+    },
+    fiveDecimalPoint: function(value){
+      return parseFloat(value).toFixed(5);
     }
 }
 

@@ -242,13 +242,34 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
         });
     });
 
-    
-    app.get('/buy-and-sell-coins', function(req, res){
-        Currency.findAll({
-			attributes: ['alt_name','currency_id']
-		}).then(function(values){
-            res.render('buy-and-sell-coins', {layout: 'dashboard', contents: values });
-		});
+    app.get('/buy-and-sell-coins', async (req, res) =>{
+
+        var values = '';
+        var buy_history = '';
+        var sell_history = '';
+
+        values = await Currency.findAll({
+            attributes: ['alt_name','currency_id']
+        });
+
+        buy_history = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 1},
+            limit: 5,
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        });
+
+        sell_history = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 2},
+            limit: 5,
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        });
+
+        res.render('buy-and-sell-coins', {layout: 'dashboard', recent_buy_activity: buy_history, recent_sell_activity: sell_history,contents: values });
+
     });
 
     app.post('/buy-coin', async (req, res) => {

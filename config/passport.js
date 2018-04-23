@@ -58,7 +58,7 @@ module.exports = (passport, User, Deposit, Currency) => {
                        var curr_usd = new_currusd + deposit_amount[0].get('TOT_DEP_AMT');
                        var final = parseFloat(Math.round(curr_usd * 100) / 100).toFixed(4);
 
-                       var currency_list = await Currency.findAll({});
+                       var currency_list = await Currency.findAll();
                        
                        user = user.toJSON();
                        user.currentUsdBalance = final;

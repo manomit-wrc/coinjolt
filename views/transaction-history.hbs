@@ -131,7 +131,7 @@
                                     {{#each buy_history}}
                                     <tr>
                                         <td>{{this.transaction_id}}</td>
-                                        <td>${{this.amount}}</td>
+                                        <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
                                         <td>{{this.converted_amount}}</td>
                                         <td>{{this.currency_purchased}}</td>
                                         <td>{{this.current_rate}}</td>
@@ -173,7 +173,7 @@
                                     {{#each sell_history}}
                                     <tr>
                                         <td>{{this.transaction_id}}</td>
-                                        <td>${{this.amount}}</td>
+                                        <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
                                         <td>{{this.converted_amount}}</td>
                                         <td>{{this.base_currency}}</td>
                                         <td>{{this.current_rate}}</td>
@@ -210,11 +210,11 @@
                                         <th>Date</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody>     
                                     {{#each deposit_history}}
                                     <tr>
                                         <td>{{this.transaction_id}}</td>
-                                        <td>${{this.amount}}</td>
+                                        <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
                                         <td>{{this.base_currency}}</td>
                                         <td>
                                             {{#if_eq this.payment_method '1'}} Credit Card {{else}} Wire Transfer {{/if_eq}}

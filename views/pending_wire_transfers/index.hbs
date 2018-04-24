@@ -35,8 +35,8 @@
 		                        <td>{{this.amount_usd}}</td>
 		                        <td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 		                        <td>
-		                        	<button value="{{this.id}}" class="btn approve-req">Approve</button>
-									<button value="{{this.id}}" class="btn reject-req" id="reject">Reject</button>
+		                        	<button class="btn approve-req pending_wire_transfer_approved" data-value="{{this.id}}" data-amount="{{this.amount_usd}}">Approve</button>
+									<button class="btn reject-req pending_wire_transfer_reject" data-value="{{this.id}}">Reject</button>
 								</td>
 	                		</tr>
 	                	{{/each}}

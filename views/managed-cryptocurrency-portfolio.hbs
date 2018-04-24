@@ -84,7 +84,7 @@
                     <div class="box-body t-amt">
                         <p>
                             <strong>Total Amount Invested:</strong>
-                            <br> ${{amountInvested}} </p>
+                            <br> ${{formatCurrency (twoDecimalPoint amountInvested)}} </p>
 
 
                         <p>
@@ -93,14 +93,14 @@
 
                         <p>
                             <strong>First Year Earnings:</strong>
-                            <br> ${{firstYearEarning}}
+                            <br> ${{formatCurrency (twoDecimalPoint firstYearEarning)}}
                         </p>
 
                         <p>
                             <strong>Interest Earned (0.05%/Day):</strong>
                             <br>
                             
-                            ${{interestEarned}} </p>
+                            ${{formatCurrency (twoDecimalPoint interestEarned)}} </p>
 
                         <p>
                             <strong>Dividend Payouts:</strong>

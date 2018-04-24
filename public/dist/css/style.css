@@ -832,6 +832,14 @@ h3.post-title {
 
     /* Starts css on 2018-04-10 */
 
+    .balnrates .left {
+        display: block;
+    }
+
+    .rates-box .right {
+        display: block;
+    }
+
     .toggle-nav {
         display: none;
     }
@@ -854,14 +862,80 @@ h3.post-title {
     }
 
     .rates-box {
-        float: right;
+        float: left;
         padding-top: 32px;
     }
 
     /* Closed css on 2018-04-10 */
 
+    /*Starts on css 23-04-2018*/
+
+    .bal-boxs {
+        float: left;
+        padding-top: 32px;
+        margin-left: 100px;
+        width: 500px;
+    }
+
+    .rates-boxs1 {
+        float: left;
+        padding-top: 32px;
+        width: 400px;
+    }
+
+    .bal-boxs .left-pan h6, .rates-content .right-pan h6 {
+        display: inline-block;
+        margin: 3px 5px 0 0px;
+        float: left;
+    }
+
+    .bal-boxs .left-pan ul, .rates-content .right-pan ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .bal-boxs .left-pan ul li, .rates-content .right-pan ul li {
+        display: inline-block;
+    }
+
+    .balance-box {
+        display: block;
+    }
+
+    .rates-box {
+        display: block;
+    }
+
+    /*Closed on css 23-04-2018*/
+
+    /*Starts on css 24-04-2018*/
+
+    .balnrates .list li:nth-of-type(1n+10) {
+        display: none;
+    }
+
+    .rates .right li:nth-of-type(1n+8) {
+        display: none;
+    }
+
+    /*Closed on css 24-04-2018*/
+
 
     @media screen and (max-width: 1366px) {
+
+        .balance-box {
+            display: block;
+        }
+
+        .rates-box {
+            display: block;
+        }
+
+
+        .balance-content, .rates-boxs1 {
+            display: none;
+        }
 
         .balance-box {
             position: relative;
@@ -1020,60 +1094,60 @@ h3.post-title {
             margin-left: 0px !important;
         }
     }
-/* Ends Responsive Table */
+    /* Ends Responsive Table */
 
-/*Starts css on 2018-03-23*/
+    /*Starts css on 2018-03-23*/
 
-#exampleModalLong .modal-content .top-part {
-    text-align: center;
-    margin-bottom: 40px;
-}
+    #exampleModalLong .modal-content .top-part {
+        text-align: center;
+        margin-bottom: 40px;
+    }
 
-#exampleModalLong .modal-content .top-part h2 {
-    font-weight: 600;
-    color: #555;
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
+    #exampleModalLong .modal-content .top-part h2 {
+        font-weight: 600;
+        color: #555;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
 
-#exampleModalLong .modal-content .top-part h5 {
-    color: #999;
-    font-size: 18px;
-}
+    #exampleModalLong .modal-content .top-part h5 {
+        color: #999;
+        font-size: 18px;
+    }
 
-#exampleModalLong p {
-    font-size: 16px;
-}
+    #exampleModalLong p {
+        font-size: 16px;
+    }
 
-#exampleModalLong .modal-footer {
-    text-align: center;
-}
+    #exampleModalLong .modal-footer {
+        text-align: center;
+    }
 
-#exampleModalLong .modal-footer .btn-default {
-   color: #fff;
-   border: none;
-   font-size: 16px;
-   font-weight: 500;
-   -webkit-border-radius: 4px;
-   -moz-border-radius: 4px;
-   -ms-border-radius: 4px;
-   -o-border-radius: 4px;
-   border-radius: 4px;
-   padding: 10px 18px;
-   margin: 26px 5px 0 5px;
-   cursor: pointer;
-   display: inline-block;
-   background-color: #009fff;
-   -webkit-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
-   -moz-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
-   -ms-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
-   -o-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
-   box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
-}
+    #exampleModalLong .modal-footer .btn-default {
+       color: #fff;
+       border: none;
+       font-size: 16px;
+       font-weight: 500;
+       -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+       -ms-border-radius: 4px;
+       -o-border-radius: 4px;
+       border-radius: 4px;
+       padding: 10px 18px;
+       margin: 26px 5px 0 5px;
+       cursor: pointer;
+       display: inline-block;
+       background-color: #009fff;
+       -webkit-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
+       -moz-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
+       -ms-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
+       -o-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
+       box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
+   }
 
-#exampleModalLong .modal-footer .btn-default:hover,
-#exampleModalLong .modal-footer .btn-default:focus
-{
+   #exampleModalLong .modal-footer .btn-default:hover,
+   #exampleModalLong .modal-footer .btn-default:focus
+   {
     background: #008fe5;
 }
 

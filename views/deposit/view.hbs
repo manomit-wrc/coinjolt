@@ -98,6 +98,11 @@
                     <p class="ecore_res"></p>
                   </div>
                 </div>
+
+                <div id="showing_warning">
+                  <p style="text-align:center;color:#ff0000;">Your personal details has not yet been completed in your account settings. <a href="/account-settings" style="color:#424975;font-weight: bold;">Click here to update your information.</a> </p>
+                </div>
+
                 <div class="personal-info" style="display:none">
                   <div class="form-group col-md-6">
                     <label>First Name:</label>
@@ -117,9 +122,8 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label>Date of Birth:</label>
-                    <input type="hidden" class="form-control" placeholder="Date of Birth" name="dob" id="dob" required="required" value="{{User.dob}}">
 
-                    <input type="date" class="form-control" placeholder="Date of Birth"  value="{{User.dob}}"  readonly>
+                    <input type="text" class="form-control" placeholder="Date of Birth"  value="{{dateFormat User.dob "MM/DD/YYYY"}}"  readonly>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Address:</label>

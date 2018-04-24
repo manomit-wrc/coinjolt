@@ -1,5 +1,21 @@
 $(document).ready(function (e) {
+	$("#showing_warning").hide();
+
 	$('#usd_amount').on('keypress', function (event) {
+		var charCode = (event.which) ? event.which : event.keyCode
+		if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+			return false;
+		return true;
+	});
+
+	$('#cardnumber').on('keypress', function (event) {
+		var charCode = (event.which) ? event.which : event.keyCode
+		if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+			return false;
+		return true;
+	});
+
+	$('#cvv').on('keypress', function (event) {
 		var charCode = (event.which) ? event.which : event.keyCode
 		if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
 			return false;
@@ -70,6 +86,19 @@ $(document).ready(function (e) {
       		var cardexpyear = $('#cardexpyear').val();
       		var cvv = $('#cvv').val();
 
+      		//user details
+      		var firstname = $("#firstname").val();
+      		var lastname = $("#lastname").val();
+      		var email = $("#email").val();
+      		var phone = $("#phone").val();
+      		var dob = $("#dob").val();
+      		var address = $("#address").val();
+      		var city = $("#city").val();
+      		var state = $("#state").val();
+      		var postcode = $("#postcode").val();
+      		var country = $("#country").val();
+      		//end
+
       		if(card_number == ''){
       			alert("Please enter your credit card number.");
       			return false;
@@ -79,7 +108,7 @@ $(document).ready(function (e) {
       			return false;
       		}
 
-      		if(card_number != '' & cvv!=''){
+      		if(card_number != '' && cvv!='' && firstname != '' && lastname != '' && email!='' && phone!='' && dob!='' && address!='' && city!='' && state!='' && postcode!='' && country!=''){
       			$.ajax({
 					type : "POST",
 					url : "/credit-card-add",
@@ -104,6 +133,8 @@ $(document).ready(function (e) {
 						}
 					}
 				});
+      		}else{
+      			$("#showing_warning").show();
       		}
       	}else if(deposit_type == 2){
       		var amount = $('#usd_amount').val();
@@ -161,19 +192,19 @@ $('#ok').click(function(event){
 	});
 });
 
-// $("#usd_amount").blur(function(){
-// 	var selectedeposit_type = $("#deposit_type").val();
-// 	if( selectedeposit_type =='1'){
-// 		var amt = $(this).val();
-// 		var interest = ((amt * 0) / 100);
-// 		var newamt = (amt - interest);
-// 		$(".expected").hide();
-// 		$(".expecteder").show();
-// 		$(".expecteder").empty();
-// 		$(".expecteder").append("You will be charged the total amount of $" + newamt);
-// 		$("#newamt").val(newamt);
-// 	}
-// });
+$("#usd_amount").blur(function(){
+	var selectedeposit_type = $("#deposit_type").val();
+	if( selectedeposit_type =='1'){
+		var amt = $('#usd_amount').val();
+		var interest = ((amt * 0) / 100);
+		var newamt = (amt - interest);
+		$(".expected").hide();
+		$(".expecteder").show();
+		$(".expecteder").empty();
+		$(".expecteder").append("You will be charged the total amount of $" + newamt);
+		$("#newamt").val(newamt);
+	}
+});
 
 
 // $( "#deposit_funds_bwt" ).click(function(event) {

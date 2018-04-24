@@ -142,7 +142,7 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data) {
 							var remainingAmount = (200 - amount);
 							if(referralAmount > remainingAmount){
 								referralAmount = remainingAmount;	
-							}
+							}			
 							Referral_data.create({
 								user_id: req.user.id,
 								referral_id: refId,

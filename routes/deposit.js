@@ -164,7 +164,6 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data) {
         }).catch(function (err) {
             console.log(err);
         });
-		// end
 
 	});
 };

@@ -352,7 +352,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
             amount: req.body.amtVal,
             current_rate: req.body.coinRate,
             type: 2,            
-            base_currency: req.body.currencySellType
+            base_currency: req.body.currencySellType,
+            balance: req.body.balance
         }).then(function (result) {
             res.json({success: true});
         }).catch(function (err) {

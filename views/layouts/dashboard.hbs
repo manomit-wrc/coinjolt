@@ -904,7 +904,7 @@
                                         function(isConfirm) {
                                             if (isConfirm) {
                                                 coinRate = parseFloat(Math.round(coinRate * 100) / 100).toFixed(2);
-                                                sellFormSubmit(finalusdBalance, coinRate, amtVal, currencySellType);  
+                                                sellFormSubmit(finalusdBalance, coinRate, amtVal, currencySellType, t_amt);  
                                             }
                                         });
                                     } else {
@@ -920,11 +920,11 @@
                 }
             });
 
-            function sellFormSubmit(finalusdBalance, coinRate, amtVal, currencySellType) {
+            function sellFormSubmit(finalusdBalance, coinRate, amtVal, currencySellType, balance) {
                 $.ajax({
                     type: 'POST',
                     url : "/confirm_coin_sell",
-                    data : {finalusdBalance: finalusdBalance,coinRate: coinRate,amtVal: amtVal,currencySellType:currencySellType},
+                    data : {finalusdBalance: finalusdBalance,coinRate: coinRate,amtVal: amtVal,currencySellType:currencySellType,balance:balance},
                     success:function(response) {
                         if (response.success == true) {
                             window.location.href="/buy-and-sell-coins";

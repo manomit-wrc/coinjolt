@@ -101,41 +101,41 @@
                 <div class="personal-info" style="display:none">
                   <div class="form-group col-md-6">
                     <label>First Name:</label>
-                    <input type="text" class="form-control" placeholder="First Name" name="firstname" id="firstname" value="CoinJolt.com" required="required" readonly>
+                    <input type="text" class="form-control" placeholder="First Name" name="firstname" id="firstname" value="{{User.first_name}}" required="required" readonly>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Last Name:</label>
-                    <input type="text" class="form-control" placeholder="Last Name" name="lastname" id="lastname" value="⚡" required="required" readonly>
+                    <input type="text" class="form-control" placeholder="Last Name" name="lastname" id="lastname" value="{{User.last_name}}" required="required" readonly>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Email Address:</label>
-                    <input type="text" class="form-control" placeholder="Email Address" name="email" id="email" value="support@coinjolt.com" required="required" readonly>
+                    <input type="text" class="form-control" placeholder="Email Address" name="email" id="email" value="{{User.email}}" required="required" readonly>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Phone Number:</label>
-                    <input type="text" class="form-control" placeholder="Phone Number" name="phone" id="phone" required="required" value="604-353-1042" readonly>
+                    <input type="text" class="form-control" placeholder="Phone Number" name="phone" id="phone" required="required" value="{{User.contact_no}}" readonly>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Date of Birth:</label>
-                    <input type="hidden" class="form-control" placeholder="Date of Birth" name="dob" id="dob" required="required" value="19931027">
+                    <input type="hidden" class="form-control" placeholder="Date of Birth" name="dob" id="dob" required="required" value="{{User.dob}}">
 
-                    <input type="date" class="form-control" placeholder="Date of Birth"  value="1993-10-27"  readonly>
+                    <input type="date" class="form-control" placeholder="Date of Birth"  value="{{User.dob}}"  readonly>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Address:</label>
-                    <input type="text" class="form-control" placeholder="Address" name="address" id="address" value="3085 Point Grey Road" required="required" readonly>
+                    <input type="text" class="form-control" placeholder="Address" name="address" id="address" value="{{User.address}}" required="required" readonly>
                   </div>
                   <div class="form-group col-md-6">
                     <label>City:</label>
-                    <input type="text" class="form-control" placeholder="City" name="city" id="city" value="Vancouver" required="required" readonly>
+                    <input type="text" class="form-control" placeholder="City" name="city" id="city" value="{{User.city}}" required="required" readonly>
                   </div>
                   <div class="form-group col-md-6">
                     <label>State or Province:</label>
-                    <input type="text" class="form-control" placeholder="State or Province" name="state" id="state" value="BC" required="required" readonly>
+                    <input type="text" class="form-control" placeholder="State or Province" name="state" id="state" value="{{User.state}}" required="required" readonly>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Postal Code:</label>
-                    <input type="text" class="form-control" placeholder="Postcode" name="postcode" id="postcode" value="V6K 1A7" required="required" readonly>
+                    <input type="text" class="form-control" placeholder="Postcode" name="postcode" id="postcode" value="{{User.postal_code}}" required="required" readonly>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Country:</l abel>

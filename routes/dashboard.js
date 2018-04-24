@@ -102,14 +102,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
 
     app.post('/update-id-proof', upload.single('async_uploads'), function (req, res) {
         User.update({
-
             identity_proof: fileName
         }, {
             where: {
                 id: req.user.id
             }
         }).then(function (result) {
-
             res.json({
                 success: true,
                 message: 'ID Proof uploaded successfully',
@@ -121,23 +119,33 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
         });
     });
 
-    app.post('/account-settings', profile_upload.single('async_upload'), function (req, res) {
-
+    app.post('/update-profile-pic', profile_upload.single('async_upload'), function (req, res) {
         User.update({
+            image: fileName
+        },{ where: { id: req.user.id } }).then(function(result) {
+            res.json({
+                success: true,
+                message: 'profile pic uploaded successfully',
+                file_name: fileName
+            });
+        }).catch(function(err) {
+            console.log(err);
+        });
+    });
 
+    app.post('/account-settings', function (req, res) {
+        User.update({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             user_name: req.body.user_name,
             address: req.body.address,
             contact_no: req.body.contact_no,
             about_me: req.body.about_me,
-            image: fileName,
             dob: req.body.dob,
             city: req.body.city,
             state: req.body.state,
             country: req.body.country,
             postal_code: req.body.postcode
-
         }, {
             where: {
                 id: req.user.id
@@ -152,7 +160,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
                 res.redirect('/account-settings');
             }
         }).catch(function (err) {
-
             console.log(err);
         });
     });
@@ -160,7 +167,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
     app.post('/save-referral-name', function (req, res) {
         var refName = req.body.referral_name;
         User.findAndCountAll({
-
             where: {
                 user_name: {
                     $like: '%'+refName+'%'
@@ -169,35 +175,30 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
                     [Op.ne]: req.user.id
                 }
             }
-        })
-        .then(function(result) {
+        }).then(function(result) {
             var count = result.count;
             if(count > 0) {
                 res.json({
                     status: 'false',
                     message: 'User already exists, please enter another username'
                 });
-
-
-                } else {
-                    User.update({
-                        user_name: refName
-
-                    }, {
-                        where: {
-                            id: req.user.id
-                        }
-                    }).then(function (result) {
-                        res.json({
-                            status: 'true',
-                            message: 'Referral Name saved successfully'
-                        });
-                    }).catch(function (err) {
-                        console.log(err);
+            } else {
+                User.update({
+                    user_name: refName
+                }, {
+                    where: {
+                        id: req.user.id
+                    }
+                }).then(function (result) {
+                    res.json({
+                        status: 'true',
+                        message: 'Referral Name saved successfully'
                     });
-                }
-            });
-
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            }
+        });
     });
 
     app.get('/invite-friends', function (req, res) {
@@ -242,16 +243,13 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
         });
     });
 
-    app.get('/buy-and-sell-coins', async (req, res) =>{
-
+    app.get('/buy-and-sell-coins', async (req, res) => {
         var values = '';
         var buy_history = '';
         var sell_history = '';
-
         values = await Currency.findAll({
             attributes: ['alt_name','currency_id']
         });
-
         buy_history = await Deposit.findAll({
             where: {user_id: req.user.id, type: 1},
             limit: 5,
@@ -259,7 +257,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
                 ['createdAt', 'DESC']
             ]
         });
-
         sell_history = await Deposit.findAll({
             where: {user_id: req.user.id, type: 2},
             limit: 5,
@@ -267,9 +264,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
                 ['createdAt', 'DESC']
             ]
         });
-
         res.render('buy-and-sell-coins', {layout: 'dashboard', recent_buy_activity: buy_history, recent_sell_activity: sell_history,contents: values });
-
     });
 
     app.post('/buy-coin', async (req, res) => {
@@ -295,10 +290,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
         curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
         
         res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal});
-
     });
 
-    app.post('/sell-coin', async (req, res) =>{
+    app.post('/sell-coin', async (req, res) => {
 		var amtVal = req.body.amtVal;
 		var coinRate = req.body.coinRate;
 		var currencyType = req.body.currencySellType;
@@ -321,11 +315,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
         curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
         
         res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal});
-
 	});
 
-    app.post('/confirm_coin_buy', function(req, res){
-		
+    app.post('/confirm_coin_buy', function(req, res) {
 		var digits = 9;	
 		var numfactor = Math.pow(10, parseInt(digits-1));	
 		var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
@@ -340,7 +332,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
             converted_amount: req.body.actualAmtExpect,
             type: 1,            
             base_currency: 'USD'
-
         }).then(function (result) {
             res.json({success: true});
         }).catch(function (err) {
@@ -361,7 +352,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
             current_rate: req.body.coinRate,
             type: 2,            
             base_currency: req.body.currencySellType
-
         }).then(function (result) {
             res.json({success: true});
         }).catch(function (err) {
@@ -377,7 +367,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
                 ['id', 'DESC']
             ]
         });
-
         sell_history = await Deposit.findAll({
             where: {user_id: req.user.id, type: 2},
             limit: 1000,
@@ -385,7 +374,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
                 ['id', 'DESC']
             ]
         });
-
         deposit_history = await Deposit.findAll({
             where: {user_id: req.user.id, type: 0},
             limit: 1000,
@@ -553,8 +541,5 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
         curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
         
         res.json({cryptocurrency_balance: curr_crypto_bal});
-
     });
-
-    
 };

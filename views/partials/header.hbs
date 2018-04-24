@@ -18,10 +18,51 @@
         </a>
 
         <!-- Starts Balances & Rates -->
+        <div class="balance-content">
+            <div class="bal-boxs">
+                <div class="left-pan">
+                    <h6>
+                        <strong>Balances:</strong>
+                    </h6>
+                    <ul class="list" id="blc">
+                        <li>
+                            <strong>USD:</strong> {{nFormatter user.currentUsdBalance 1}}
+                        </li>
+                        <li class="border">|</li>
+                        {{#each user.currency}}
+                        <li id="blc_{{this.currency_id}}">
+                            <strong>{{this.currency_id}}:</strong>
+                        </li>
+                        <li class="border">|</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="rates-boxs1">
+            <div class="rates-content">
+                <div class="right-pan">
+                    <h6>
+                        <strong>Rates:</strong>
+                    </h6>
+                    <ul class="list" id="rtc">
+                        {{#each user.currency}}
+                        <li class="cr_{{this.currency_id}}">
+                            <strong>{{this.currency_id}}:</strong></li>
+                        <li class="border">|</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Ends Balances & Rates -->
+
+        <!-- Starts Balances & Rates -->
         <div class="balance-box">
             <a class="toggle-nav" id="bal-anchor">
-                <i class="fa fa-caret-down"></i>Balances</a>
-
+                <i class="fa fa-caret-down"></i>Balances
+            </a>
             <div class="balnrates">
                 <div class="left">
                     <h6>
@@ -43,7 +84,8 @@
 
         <div class="rates-box">
             <a class="toggle-nav" id="rate-anchor">
-                <i class="fa fa-caret-down"></i>Rates</a>
+                <i class="fa fa-caret-down"></i>Rates
+            </a>
             <div class="rates">
                 <div class="right">
                     <h6>
@@ -59,11 +101,10 @@
                 </div>
             </div>
         </div>
-        <!-- Ends Balances & Rates -->
 
+        <!-- Ends Balances & Rates -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="clickme">

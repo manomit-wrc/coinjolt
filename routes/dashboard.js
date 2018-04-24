@@ -321,7 +321,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
 		var digits = 9;	
 		var numfactor = Math.pow(10, parseInt(digits-1));	
 		var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
-           
+        
         Deposit.create({
             user_id: req.user.id,
             transaction_id: randomNum,
@@ -331,7 +331,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
             current_rate: req.body.coinRate,
             converted_amount: req.body.actualAmtExpect,
             type: 1,            
-            base_currency: 'USD'
+            base_currency: 'USD',
+            balance: req.body.balance
         }).then(function (result) {
             res.json({success: true});
         }).catch(function (err) {

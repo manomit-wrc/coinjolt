@@ -16,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
     converted_amount: DataTypes.STRING,
     base_currency: DataTypes.STRING,
     currency_purchased: DataTypes.STRING,
+    balance: DataTypes.STRING,
     payment_method: DataTypes.STRING,
     credit_card_no: DataTypes.INTEGER,
     card_expmonth: DataTypes.INTEGER,

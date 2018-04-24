@@ -653,7 +653,7 @@
                                         },
                                         function(isConfirm) {
                                             if (isConfirm) {
-                                                buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect);  
+                                                buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, t_amt);  
                                             }
                                         });
 
@@ -670,11 +670,11 @@
                 }
             });
 
-            function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect) {
+            function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, balance) {
                 $.ajax({
                     type: 'POST',
                     url : "/confirm_coin_buy",
-                    data : {amtVal: amtVal,currency_purchased: currency_purchased,coinRate: coinRate,actualAmtExpect:actualAmtExpect},
+                    data : {amtVal: amtVal,currency_purchased: currency_purchased,coinRate: coinRate,actualAmtExpect:actualAmtExpect,balance:balance},
                     success:function(response) {
                         if(response.success == true){
                             window.location.href="/buy-and-sell-coins";

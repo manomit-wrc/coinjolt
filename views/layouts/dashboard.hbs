@@ -1228,6 +1228,7 @@ function copyToClipboard() {
         //Balances
         var currency = $("#blc_{{this.currency_id}} strong").html();
         var currencyType = currency.substr(0, currency.indexOf(':'));
+        console.log('Currency type '+currencyType);
         $.ajax({
                 type: 'POST',
                 url : "/crypto-balance",

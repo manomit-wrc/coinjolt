@@ -49,7 +49,9 @@ module.exports = (passport, User, Deposit, Currency) => {
                        var new_currusd = cal_currusd - transaction_amount[0].get('TOT_AMT');
                        var curr_usd = new_currusd + deposit_amount[0].get('TOT_DEP_AMT');
                        var final = parseFloat(Math.round(curr_usd * 100) / 100).toFixed(4);
-
+                    
+                       // Need to perform join on deposits table's currency_purchased and
+                       // currencies table's alt_name field
                        var currency_list = await Currency.findAll();
                        
                        user = user.toJSON();

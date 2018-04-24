@@ -46,24 +46,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
     });
 
     app.get('/dashboard', function (req, res) {
-        // calculating all cryptocurrency balances
-        Deposit.findAll({   
-            attributes: ['balance'],
-            where: sequelize.or(
-                { user_id: req.user.id, currency_purchased: 'btc'},
-                { base_currency: 'USD'}
-            ),
-            limit: 1,
-            order: [
-                ['id', 'DESC']
-            ]
-        }).then(function (result) {
-            console.log('--Balance--');
-            console.log(result[0].balance);
-        }).catch(function (err) {
-            console.log(err);
-        });
-        // end
 
         res.render('dashboard', {
             layout: 'dashboard'

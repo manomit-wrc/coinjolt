@@ -1229,13 +1229,27 @@
           url: "https://coinjolt.com/wp-json/wp/v2/posts?page=1&per_page=4",
           success: function (resp) {
             $(resp).each(function (i) {
-              $listing = $listing + '<div class="col-md-6 paddingleft recent_post_box"><a style="color: #000;" href="https://coinjolt.com/' + resp[i].slug + '" target="_blank"><p><img style="width:100%;" src="https://coinjolt.com/wp-content/uploads/2017/12/bitcoin-to-the-moon.jpg"></p><h3 class="post-title">' + resp[i].title.rendered + '</h3></a><p class="subdetails">CoinJolt.com</p></div>';
+              $listing = $listing + '<div class="col-md-6 paddingleft recent_post_box"><a style="color: #000;" href="https://coinjolt.com/' + resp[i].slug + '" target="_blank"><p><img class="img_' + resp[i].id +'" style="width:100%;" src=""></p><h3 class="post-title">' + resp[i].title.rendered + '</h3></a><p class="subdetails">CoinJolt.com</p></div>';
+              getPostImage(resp[i].id, resp[i].featured_media);
             });
             $(".ltnews").html($listing);
           },
           error: function (xhr) {
           }
         });
+        function getPostImage(postId, mediaId) {
+                $.ajax({
+                  type: "GET",
+                  crossDomain: true,
+                  dataType: 'json',
+                  url: "https://coinjolt.com/wp-json/wp/v2/media/" + mediaId,
+                  success: function (rsp) {
+                    $(".img_" + postId).attr("src",rsp.guid.rendered);
+                  },
+                  error: function (xhr) {
+                  }
+                });
+            }
     </script>
     {{!-- Dashboard display latest posts ends --}}
     {{!-- MCP Piechart starts --}}

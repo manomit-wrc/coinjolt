@@ -919,6 +919,18 @@ h3.post-title {
         display: none;
     }
 
+    .recent_post_box {
+        min-height: 240px;
+    }
+
+    .col-md-6.paddingleft.recent_post_box img {
+        height: 164px;
+    }
+
+    .dashboard-top .col-md-6.equal-hgt {
+        padding-left: 0 !important;
+    }
+
     /*Closed on css 24-04-2018*/
 
 

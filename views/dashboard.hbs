@@ -8,7 +8,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table">
+                    <table class="table scroll-minus">
                         <thead>
                             <tr>
                                 <th>SYMBOL</th>
@@ -18,68 +18,48 @@
                             </tr>
                         </thead>
                     </table>
-                    <table class="table">
-                        <tr>
-                            <td>
-                                <img src="http://dev.coinjolt.com/dashboard/img/usd.png" alt="">
-                            </td>
-                            <td>DOLLAR (USD)</td>
-                            <td>
-                                16,773,490.44
-                            </td>
-                            <td>
-                                $16,773,490.44
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="http://dev.coinjolt.com/dashboard/img/usd.png" alt="">
-                            </td>
-                            <td>DOLLAR (USD)</td>
-                            <td>
-                                16,773,490.44
-                            </td>
-                            <td>
-                                $16,773,490.44
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="http://dev.coinjolt.com/dashboard/img/usd.png" alt="">
-                            </td>
-                            <td>DOLLAR (USD)</td>
-                            <td>
-                                16,773,490.44
-                            </td>
-                            <td>
-                                $16,773,490.44
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="http://dev.coinjolt.com/dashboard/img/usd.png" alt="">
-                            </td>
-                            <td>DOLLAR (USD)</td>
-                            <td>
-                                16,773,490.44
-                            </td>
-                            <td>
-                                $16,773,490.44
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="http://dev.coinjolt.com/dashboard/img/usd.png" alt="">
-                            </td>
-                            <td>DOLLAR (USD)</td>
-                            <td>
-                                16,773,490.44
-                            </td>
-                            <td>
-                                $16,773,490.44
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="scroll-dashboard" style="height: 445.15px;">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <img src="http://dev.coinjolt.com/dashboard/img/usd.png" alt="">
+                                </td>
+                                <td>DOLLAR (USD)</td>
+                                <td>
+                                    16,773,490.44
+                                </td>
+                                <td>
+                                    $16,773,490.44
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="http://dev.coinjolt.com/dashboard/img/usd.png" alt="">
+                                </td>
+                                <td>DOLLAR (USD)</td>
+                                <td>
+                                    16,773,490.44
+                                </td>
+                                <td>
+                                    $16,773,490.44
+                                </td>
+                            </tr>
+                            {{#each user.currency}}
+                            <tr>    
+                                <td class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite">
+                                    
+                                </td>
+                                <td>{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
+                                <td class="wallet_crp_{{this.currency_id}}">
+                                    
+                                </td>
+                                <td class="wallet_dollar_{{this.currency_id}}">
+                                    
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>

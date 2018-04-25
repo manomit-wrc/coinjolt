@@ -187,6 +187,12 @@ helpers: {
         }
       }
       return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+    },
+    toLowerCase: function(value){
+      return value.toLowerCase();
+    },
+    toUpperCase: function(value){
+      return value.toUpperCase();
     }
 
   }
@@ -256,7 +262,7 @@ app.use(function(req, res, next){
 });
 
 require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit);
-require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User);
+require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data);
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

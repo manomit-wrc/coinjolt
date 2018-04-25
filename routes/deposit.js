@@ -1,6 +1,6 @@
-module.exports = function(app,Deposit,WireTransfer,User) {
+module.exports = function(app,Deposit,WireTransfer,User,Referral_data) {
 	const Op = require('sequelize').Op;
-
+	const sequelize = require('sequelize');
 	app.get('/deposit-funds', function (req,res) {
 		WireTransfer.belongsTo(User, {foreignKey: 'user_id'});
 
@@ -96,6 +96,8 @@ module.exports = function(app,Deposit,WireTransfer,User) {
 		var digits = 9;	
 		var numfactor = Math.pow(10, parseInt(digits-1));	
 		var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
+		var refId = 0;
+		var amount = 0;
 		//end//
 		Deposit.create({
 			user_id: req.user.id,
@@ -115,6 +117,51 @@ module.exports = function(app,Deposit,WireTransfer,User) {
 					message: "Credit card details added succesfully."
 				});
 			}
-		});
+		}); 
+
+		User.findAll({
+            where: {
+                id: req.user.id
+			},
+			attributes: ['referral_id']
+        }).then(function (result) {
+			refId = result[0].referral_id;
+			
+			if(refId !== 0){
+				Referral_data.findAll({
+					where: {user_id: req.user.id, referral_id: refId},
+					attributes: [[ sequelize.fn('SUM', sequelize.col('referral_amount')), 'SUM_REF_AMT']]
+				}).then(function(result){
+					amount = result[0].get('SUM_REF_AMT');
+					if(amount !== undefined){
+						if(amount < 200){
+							var depositAmount = req.body.amount;
+							var referralAmount = (1/100) * depositAmount;
+							var remainingAmount = (200 - amount);
+							if(referralAmount > remainingAmount){
+								referralAmount = remainingAmount;	
+							}			
+							Referral_data.create({
+								user_id: req.user.id,
+								referral_id: refId,
+								deposit_amount: depositAmount,
+								referral_amount: referralAmount
+							}).then(function (result) {
+								
+							}).catch(function (err) {
+								console.log(err);
+							});
+						}
+					}
+				}).catch(function (err) {
+					console.log(err);
+				});
+			}
+			
+
+        }).catch(function (err) {
+            console.log(err);
+        });
+
 	});
 };

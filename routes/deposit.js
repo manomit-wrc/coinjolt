@@ -65,7 +65,6 @@ module.exports = function(app,Deposit,WireTransfer,User) {
 					checkout_id: randomNum,
 					type: 0,
 					amount: amount,
-					base_currency: 'USD',
 					payment_method: 2
 				}).then (function (result) {
 					res.json({
@@ -104,7 +103,6 @@ module.exports = function(app,Deposit,WireTransfer,User) {
 			checkout_id: randomNum,
 			type: 0,
 			amount: req.body.amount,
-			base_currency: 'USD',
 			payment_method: 1,
 			credit_card_no: req.body.card_number,
 			card_expmonth: req.body.cardexpmonth,

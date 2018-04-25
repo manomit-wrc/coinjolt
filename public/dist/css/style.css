@@ -900,14 +900,38 @@ h3.post-title {
     }
 
     .balance-box {
-        display: none;
+        display: block;
     }
 
     .rates-box {
-        display: none;
+        display: block;
     }
 
     /*Closed on css 23-04-2018*/
+
+    /*Starts on css 24-04-2018*/
+
+    .balnrates .list li:nth-of-type(1n+10) {
+        display: none;
+    }
+
+    .rates .right li:nth-of-type(1n+8) {
+        display: none;
+    }
+
+    .recent_post_box {
+        min-height: 240px;
+    }
+
+    .col-md-6.paddingleft.recent_post_box img {
+        height: 164px;
+    }
+
+    .dashboard-top .col-md-6.equal-hgt {
+        padding-left: 0 !important;
+    }
+
+    /*Closed on css 24-04-2018*/
 
 
     @media screen and (max-width: 1366px) {

@@ -1122,9 +1122,9 @@
             e.stopPropagation();
         });
 
-        $(document).click(function () {
-            $(".balance-box .left,.rates-box .right").slideUp();
-        });
+        //$(document).click(function () {
+            //$(".balance-box .left,.rates-box .right").slideUp();
+        //});
 
         $("#bal-anchor").click(function (e) {
             $(".rates-box .right").slideUp();
@@ -1172,51 +1172,121 @@
                 error:function(xhr) {
                 }
             });
-        </script>
-        {{/each}}
-        <!-- Ends Script for Header Rates & Balances -->
+      </script>
+    {{/each}}
+    <!-- Ends Script for Header Rates & Balances -->
 
-        {{!-- Format numbers starts --}}
-        <script type="text/javascript">
-            function nFormatter (num, digits) {
-                var si = [{
-                    value: 1,
-                    symbol: ""
-                },
-                {
-                    value: 1E3,
-                    symbol: "k"
-                },
-                {
-                    value: 1E6,
-                    symbol: "M"
-                },
-                {
-                    value: 1E9,
-                    symbol: "B"
-                },
-                {
-                    value: 1E12,
-                    symbol: "T"
-                },
-                {
-                    value: 1E15,
-                    symbol: "P"
-                },
-                {
-                    value: 1E18,
-                    symbol: "E"
-                }];
-                var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-                var i;
-                for (i = si.length - 1; i > 0; i--) {
-                    if (num >= si[i].value) {
-                        break;
-                    }
-                }
-                return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+    {{!-- Format numbers starts --}}
+    <script>
+      function nFormatter (num, digits) {
+        var si = [{
+            value: 1,
+            symbol: ""
+          },
+          {
+            value: 1E3,
+            symbol: "k"
+          },
+          {
+            value: 1E6,
+            symbol: "M"
+          },
+          {
+            value: 1E9,
+            symbol: "B"
+          },
+          {
+            value: 1E12,
+            symbol: "T"
+          },
+          {
+            value: 1E15,
+            symbol: "P"
+          },
+          {
+            value: 1E18,
+            symbol: "E"
+          }
+        ];
+        var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+        var i;
+        for (i = si.length - 1; i > 0; i--) {
+          if (num >= si[i].value) {
+            break;
+          }
+        }
+        return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+      }
+    </script>
+    {{!-- Format numbers ends --}}
+    {{!-- Dashboard display latest posts starts --}}
+    <script>
+        $listing = "";
+        $.ajax({
+          type: "GET",
+          crossDomain: true,
+          dataType: 'json',
+          url: "https://coinjolt.com/wp-json/wp/v2/posts?page=1&per_page=4",
+          success: function (resp) {
+            $(resp).each(function (i) {
+              $listing = $listing + '<div class="col-md-6 paddingleft recent_post_box"><a style="color: #000;" href="https://coinjolt.com/' + resp[i].slug + '" target="_blank"><p><img class="img_' + resp[i].id +'" style="width:100%;" src=""></p><h3 class="post-title">' + resp[i].title.rendered + '</h3></a><p class="subdetails">CoinJolt.com</p></div>';
+              getPostImage(resp[i].id, resp[i].featured_media);
+            });
+            $(".ltnews").html($listing);
+          },
+          error: function (xhr) {
+          }
+        });
+        function getPostImage(postId, mediaId) {
+                $.ajax({
+                  type: "GET",
+                  crossDomain: true,
+                  dataType: 'json',
+                  url: "https://coinjolt.com/wp-json/wp/v2/media/" + mediaId,
+                  success: function (rsp) {
+                    $(".img_" + postId).attr("src",rsp.guid.rendered);
+                  },
+                  error: function (xhr) {
+                  }
+                });
             }
-        </script>
-        {{!-- Format numbers ends --}}
-    </body>
+    </script>
+    {{!-- Dashboard display latest posts ends --}}
+    {{!-- MCP Piechart starts --}}
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Language', 'Speakers (in millions)'],
+          ['Bitcoin', 4],
+          ['Ethereum',  1.2],
+          ['ICO Tokens', 1],
+          ['Alt Coins', 1],
+          ]);
+
+        var options = {
+          is3D: true,
+          slices: [{color: '#fc7c59'}, {color: '#ed5565'}, {color: '#ec87c0'}, {color: '#5d9cec'}],
+            // width:'100%',
+            // height:'100%',
+            // chartArea:{left: '0', top: '0%',height: '80%', width: '80%'}
+            // legend: 'none',
+            pieSliceText: 'label',
+            title: '',
+            // pieStartAngle: 100,
+            chartArea:{left:10,top:10,width:'100%',height:'100%'},
+            // slices: [{color: '#fc7c59'}, {color: '#ed5565'}, {color: '#ec87c0'}, {color: '#5d9cec'}],
+            tooltip:{'text':'percentage'},
+            width:'350',
+            height:'350',
+
+          };
+          var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+          chart.draw(data, options);
+        }
+      </script>
+      {{!-- MCP Piechart ends --}}
+
+</body>
 </html>

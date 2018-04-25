@@ -53,17 +53,37 @@ module.exports = (passport, User, Deposit, Currency) => {
                         // begin join
                         Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
                        
-                        let result = await Deposit.findOne({
+                        let result = await Deposit.findAll({
+                            raw: true,
                             where: {
-                                user_id: id,
-                                type: 0
+                                user_id: id
                             },
                             include: [{model: Currency}]
                         });
-                        console.log("balance: " + result[0]);
+                        console.log("balance: ");
+                        console.log(result);
+                        
                         // end
 
                         
+                        /* Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
+                       
+                        let result = await Deposit.findAll({
+                            //where: whereObj,
+                            raw: true,
+                            where: {
+                                user_id: id,
+                                type: 1
+                            },
+                            include: [{
+                                model: Currency
+                            }]
+                        });
+                        console.log(result);  */
+                        //return false;
+                       
+
+
                        /*Previous codes*/ 
                        var currency_list = await Currency.findAll();
                        user = user.toJSON();

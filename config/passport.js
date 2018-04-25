@@ -49,11 +49,19 @@ module.exports = (passport, User, Deposit, Currency) => {
                        var new_currusd = cal_currusd - transaction_amount[0].get('TOT_AMT');
                        var curr_usd = new_currusd + deposit_amount[0].get('TOT_DEP_AMT');
                        var final = parseFloat(Math.round(curr_usd * 100) / 100).toFixed(4);
-                    
-                       // Need to perform join on deposits table's currency_purchased and
-                       // currencies table's alt_name field
-                       var currency_list = await Currency.findAll();
                        
+                       let whereObj = {}; 
+                       whereObj.alt_name = 'btc';
+                       Currency.belongsTo(Deposit,{foreignKey: 'alt_name'});
+                        let currency_list = await Currency.findAll({
+                            where: whereObj,
+                            include: [{model: Deposit}]    
+                        });
+                        console.log('---Currency balance---');
+                        console.log(currency_list);
+
+
+                       //var currency_list = await Currency.findAll();
                        user = user.toJSON();
                        user.currentUsdBalance = final;
                        user.currency = currency_list;

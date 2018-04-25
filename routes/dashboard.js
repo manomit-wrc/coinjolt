@@ -275,22 +275,32 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
 		var curr_crypto_bal = 0;
 		var curr_brought = 0;
         var curr_sold = 0;
+        var curr_id = 0;
         
+        curr_id = await Currency.findAll({
+            where: {alt_name: currencyType },
+            attributes: ['id']
+        });
+        curr_id = curr_id[0].id;
+
         // calculating cryptocurrency wallet current balance
-        curr_brought = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1, currency_purchased: currencyType},
+         curr_brought = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 1, currency_id:curr_id},
             attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
         });
 
         curr_sold = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2, currency_purchased: currencyType},
+            where: {user_id: req.user.id, type: 2, currency_id:curr_id},
             attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
         });
 
         curr_crypto_bal = parseFloat(curr_brought[0].get('TOT_BUY_AMT') - curr_sold[0].get('TOT_SOLD_AMT'));
         curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
-        
-        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal});
+
+        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal, curr_id: curr_id}); 
+
+
+
     });
 
     app.post('/sell-coin', async (req, res) => {
@@ -299,23 +309,30 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
 		var currencyType = req.body.currencySellType;
 		var curr_crypto_bal = 0;
 		var curr_brought = 0;
-		var curr_sold = 0;
+        var curr_sold = 0;
+        var curr_id = 0;
+        
+        curr_id = await Currency.findAll({
+            where: {alt_name: currencyType },
+            attributes: ['id']
+        });
+        curr_id = curr_id[0].id;
 
         // calculating cryptocurrency wallet current balance
         curr_brought = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1, currency_purchased: currencyType},
+            where: {user_id: req.user.id, type: 1, currency_id:curr_id},
             attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
         });
 
         curr_sold = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2, currency_purchased: currencyType},
+            where: {user_id: req.user.id, type: 2, currency_id:curr_id},
             attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
         });
 
         curr_crypto_bal = parseFloat(curr_brought[0].get('TOT_BUY_AMT') - curr_sold[0].get('TOT_SOLD_AMT'));
         curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
         
-        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal});
+        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal, curr_id: curr_id});
 	});
 
     app.post('/confirm_coin_buy', function(req, res) {
@@ -328,12 +345,11 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
             transaction_id: randomNum,
             checkout_id: randomNum,
             amount: req.body.amtVal,
-            currency_purchased: req.body.currency_purchased,
             current_rate: req.body.coinRate,
             converted_amount: req.body.actualAmtExpect,
             type: 1,            
-            base_currency: 'USD',
-            balance: req.body.balance
+            balance: req.body.balance,
+            currency_id: req.body.currency_id
         }).then(function (result) {
             res.json({success: true});
         }).catch(function (err) {
@@ -354,7 +370,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
             current_rate: req.body.coinRate,
             type: 2,            
             base_currency: req.body.currencySellType,
-            balance: req.body.balance
+            balance: req.body.balance,
+            currency_id: req.body.currency_id
         }).then(function (result) {
             res.json({success: true});
         }).catch(function (err) {
@@ -531,12 +548,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit) {
         
         // Query to get cryptocurrency balance
         curr_brought = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1, currency_purchased: currencyType},
+            where: {user_id: req.user.id, type: 1},
             attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
         });
 
         curr_sold = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2, currency_purchased: currencyType},
+            where: {user_id: req.user.id, type: 2},
             attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
         });
 

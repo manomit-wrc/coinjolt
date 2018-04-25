@@ -632,6 +632,7 @@
                         success: function(result){
                             if(result.message !=='' && result.status === true){ 
                                 var t_amt = parseFloat(result.crypto_balance)+parseFloat(actualAmtExpect);
+                                var currency_id = result.curr_id;
                                 swal({
                                     title: "Transaction Confirmation",
                                     text: "You are buying " + actualAmtExpect + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +result.crypto_balance+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
@@ -653,7 +654,7 @@
                                         },
                                         function(isConfirm) {
                                             if (isConfirm) {
-                                                buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, t_amt);  
+                                                buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, t_amt, currency_id);  
                                             }
                                         });
 
@@ -670,11 +671,11 @@
                 }
             });
 
-            function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, balance) {
+            function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, balance, currency_id) {
                 $.ajax({
                     type: 'POST',
                     url : "/confirm_coin_buy",
-                    data : {amtVal: amtVal,currency_purchased: currency_purchased,coinRate: coinRate,actualAmtExpect:actualAmtExpect,balance:balance},
+                    data : {amtVal: amtVal,currency_purchased: currency_purchased,coinRate: coinRate,actualAmtExpect:actualAmtExpect,balance:balance,currency_id:currency_id},
                     success:function(response) {
                         if(response.success == true){
                             window.location.href="/buy-and-sell-coins";
@@ -882,6 +883,7 @@
                             if (result.message !=='' && result.status === true) { 
                                 totalAmtExpect = parseFloat(result.crypto_balance+actualAmtExpect);
                                 var t_amt = parseFloat(result.crypto_balance)-parseFloat(amtVal);
+                                var currency_id = result.curr_id;
                                 swal({
                                     title: "Transaction Confirmation",
                                     text: "You are selling " + amtVal + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +result.crypto_balance+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
@@ -904,7 +906,7 @@
                                         function(isConfirm) {
                                             if (isConfirm) {
                                                 coinRate = parseFloat(Math.round(coinRate * 100) / 100).toFixed(2);
-                                                sellFormSubmit(finalusdBalance, coinRate, amtVal, currencySellType, t_amt);  
+                                                sellFormSubmit(finalusdBalance, coinRate, amtVal, currencySellType, t_amt, currency_id);  
                                             }
                                         });
                                     } else {
@@ -920,11 +922,11 @@
                 }
             });
 
-            function sellFormSubmit(finalusdBalance, coinRate, amtVal, currencySellType, balance) {
+            function sellFormSubmit(finalusdBalance, coinRate, amtVal, currencySellType, balance, currency_id) {
                 $.ajax({
                     type: 'POST',
                     url : "/confirm_coin_sell",
-                    data : {finalusdBalance: finalusdBalance,coinRate: coinRate,amtVal: amtVal,currencySellType:currencySellType,balance:balance},
+                    data : {finalusdBalance: finalusdBalance,coinRate: coinRate,amtVal: amtVal,currencySellType:currencySellType,balance:balance,currency_id:currency_id},
                     success:function(response) {
                         if (response.success == true) {
                             window.location.href="/buy-and-sell-coins";

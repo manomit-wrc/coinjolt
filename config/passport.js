@@ -50,22 +50,24 @@ module.exports = (passport, User, Deposit, Currency) => {
                        var curr_usd = new_currusd + deposit_amount[0].get('TOT_DEP_AMT');
                        var final = parseFloat(Math.round(curr_usd * 100) / 100).toFixed(4);
                         
-                        // begin join
+                       
                         Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
                        
-                        let result = await Deposit.findAll({
+                        let currencyBalance = await Deposit.findAll({
                             raw: true,
                             where: {
                                 user_id: id
                             },
                             include: [{model: Currency}]
                         });
-                        console.log("balance: ");
-                        console.log(result);
-                        
+                        //console.log("balance: ");
+                        //console.log('********');
+                        //console.log(JSON.stringify(result));
+                        //console.log(currencyBalance);
+                        //return false;
                         // end
 
-                        
+
                         /* Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
                        
                         let result = await Deposit.findAll({
@@ -83,13 +85,11 @@ module.exports = (passport, User, Deposit, Currency) => {
                         //return false;
                        
 
-
-                       /*Previous codes*/ 
                        var currency_list = await Currency.findAll();
                        user = user.toJSON();
                        user.currentUsdBalance = final;
                        user.currency = currency_list;
-
+                       user.currencyBalance = currencyBalance;
                        done(null, user);
 
                     } catch (err) {

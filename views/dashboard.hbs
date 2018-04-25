@@ -1,10 +1,10 @@
 <section class="content container-fluid">
+    <div class="dashboard-top">
     <div class="row">
         <div class="col-md-6">
             <div class="box equal-box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Wallets</h3>
-                    
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -49,7 +49,11 @@
                                 <td class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite">
                                     
                                 </td>
+<<<<<<< HEAD
                                 <td>{{this.currency_id}}</td>
+=======
+                                <td>{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
+>>>>>>> coinjolt-nilesh
                                 <td class="wallet_crp_{{this.currency_id}}">
                                     
                                 </td>
@@ -65,53 +69,17 @@
             </div>
             <!-- /.box -->
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 equal-hgt">
             <div class="box equal-box">
                 <div style="margin-bottom: 4px;" class="box-header">
                     <h3 class="box-title">Latest News</h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body">
-                    <div class="col-md-6 paddingleft recent_post_box">
-                        <a style="color: #000;" href="#">
-                            <p>
-                                <img style="width:100%;" src="https://coinjolt.com/wp-content/uploads/2017/12/bitcoin-to-the-moon.jpg">
-                            </p>
-                            <h3 class="post-title">Should You Invest In Bitcoin?</h3>
-                        </a>
-                        <p class="subdetails">CoinJolt.com</p>
-                    </div>
-                    <div class="col-md-6 paddingleft recent_post_box">
-                        <a style="color: #000;" href="#">
-                            <p>
-                                <img style="width:100%;" src="https://coinjolt.com/wp-content/uploads/2017/12/investing-in-bitcoin-for-the-long-term.jpg">
-                            </p>
-                            <h3 class="post-title">Bitcoin &ndash; Investing For The Long Term</h3>
-                        </a>
-                        <p class="subdetails">CoinJolt.com</p>
-                    </div>
-                    <div class="col-md-6 paddingleft recent_post_box">
-                        <a style="color: #000;" href="#">
-                            <p>
-                                <img style="width:100%;" src="https://coinjolt.com/wp-content/uploads/2018/01/a-small-100-000-investment.jpg">
-                            </p>
-                            <h3 class="post-title">A Small $100,000 Bitcoin Investment</h3>
-                        </a>
-                        <p class="subdetails">CoinJolt.com</p>
-                    </div>
-                    <div class="col-md-6 paddingleft recent_post_box">
-                        <a style="color: #000;" href="#">
-                            <p>
-                                <img style="width:100%;" src="https://coinjolt.com/wp-content/uploads/2018/02/bitcoins-hedge-funds-and-institutional-investors.jpg">
-                            </p>
-                            <h3 class="post-title">Bitcoins, Hedge Funds, and Institutional Investors</h3>
-                        </a>
-                        <p class="subdetails">CoinJolt.com</p>
-                    </div>
-                </div>
+                <div class="box-body ltnews"></div>
                 <!-- /.box-body -->
             </div>
         </div>
+    </div>
     </div>
 
     <div class="row">

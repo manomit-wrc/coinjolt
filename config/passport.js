@@ -51,17 +51,16 @@ module.exports = (passport, User, Deposit, Currency) => {
                        var final = parseFloat(Math.round(curr_usd * 100) / 100).toFixed(4);
                         
                         // begin join
-                      /*   Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
+                        Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
                        
-                        let result = await Deposit.findAll({
-                            //where: whereObj,
+                        let result = await Deposit.findOne({
                             where: {
                                 user_id: id,
-                                type: 1
+                                type: 0
                             },
                             include: [{model: Currency}]
                         });
-                        console.log("balance: " + result[0].balance); */
+                        console.log("balance: " + result[0]);
                         // end
 
                         

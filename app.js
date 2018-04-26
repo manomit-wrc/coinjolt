@@ -255,7 +255,7 @@ app.use(function(req, res, next){
   res.redirect('/');
 });
 
-require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit);
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data);
 require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User);
 
 app.listen(port);

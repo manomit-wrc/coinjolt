@@ -1145,34 +1145,34 @@
 
     <!-- Starts Script for Header Rates & Balances -->
     {{#each user.currency}}
-    <script type="text/javascript">
-            //Rates
-            $.ajax({
-                type: "GET",
-                crossDomain: true,
-                dataType: 'json',
-                url: "https://coincap.io/page/{{this.currency_id}}",
-                success: function (resp) {
-                    $(".cr_{{this.currency_id}}").append(' ' + resp.price_usd.toFixed(2));
-                },
-                error: function (xhr) {
-                }
-            });
+        <script type="text/javascript">
+                //Rates
+                $.ajax({
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: 'json',
+                    url: "https://coincap.io/page/{{this.currency_id}}",
+                    success: function (resp) {
+                        $(".cr_{{this.currency_id}}").append(' ' + resp.price_usd.toFixed(2));
+                    },
+                    error: function (xhr) {
+                    }
+                });
 
-            //Balances
-            var currency = $("#blc_{{this.currency_id}} strong").html();
-            var currencyType = currency.substr(0, currency.indexOf(':'));
-            $.ajax({
-                type: 'POST',
-                url : "/crypto-balance",
-                data : {currencyType:currencyType},
-                success:function(response) {
-                    $("#blc_{{this.currency_id}}").append(' ' + nFormatter(response.cryptocurrency_balance, 1));
-                },
-                error:function(xhr) {
-                }
-            });
-      </script>
+                //Balances
+                var currency = $("#blc_{{this.currency_id}} strong").html();
+                var currencyType = currency.substr(0, currency.indexOf(':'));
+                $.ajax({
+                    type: 'POST',
+                    url : "/crypto-balance",
+                    data : {currencyType:currencyType},
+                    success:function(response) {
+                        $("#blc_{{this.currency_id}}").append(' ' + nFormatter(response.cryptocurrency_balance, 1));
+                    },
+                    error:function(xhr) {
+                    }
+                });
+        </script>
     {{/each}}
     <!-- Ends Script for Header Rates & Balances -->
 
@@ -1229,27 +1229,29 @@
           url: "https://coinjolt.com/wp-json/wp/v2/posts?page=1&per_page=4",
           success: function (resp) {
             $(resp).each(function (i) {
-              $listing = $listing + '<div class="col-md-6 paddingleft recent_post_box"><a style="color: #000;" href="https://coinjolt.com/' + resp[i].slug + '" target="_blank"><p><img class="img_' + resp[i].id +'" style="width:100%;" src=""></p><h3 class="post-title">' + resp[i].title.rendered + '</h3></a><p class="subdetails">CoinJolt.com</p></div>';
+              $listing = $listing + '<div class="col-md-6 paddingleft recent_post_box"><a style="color: #000;" href="https://coinjolt.com/' + resp[i].slug + '" target="_blank"><p><img class="img_' + resp[i].id +'" style="width:100%;" src="dist/img/lading_icon.gif"></p><h3 class="post-title">' + resp[i].title.rendered + '</h3></a><p class="subdetails">CoinJolt.com</p></div>';
               getPostImage(resp[i].id, resp[i].featured_media);
             });
             $(".ltnews").html($listing);
+            $(".blog-img").hide();
           },
           error: function (xhr) {
           }
         });
         function getPostImage(postId, mediaId) {
-                $.ajax({
-                  type: "GET",
-                  crossDomain: true,
-                  dataType: 'json',
-                  url: "https://coinjolt.com/wp-json/wp/v2/media/" + mediaId,
-                  success: function (rsp) {
+            $.ajax({
+                type: "GET",
+                crossDomain: true,
+                dataType: 'json',
+                url: "https://coinjolt.com/wp-json/wp/v2/media/" + mediaId,
+                success: function (rsp) {
                     $(".img_" + postId).attr("src",rsp.guid.rendered);
-                  },
-                  error: function (xhr) {
-                  }
-                });
-            }
+                },
+                error: function (xhr) {
+                    //$(".img_" + postId).hide();
+                }
+            });
+        }
     </script>
     {{!-- Dashboard display latest posts ends --}}
     {{!-- MCP Piechart starts --}}
@@ -1285,8 +1287,9 @@
           var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
           chart.draw(data, options);
         }
-      </script>
-      {{!-- MCP Piechart ends --}}
+    </script>
+    {{!-- MCP Piechart ends --}}
+      
 
 </body>
 </html>

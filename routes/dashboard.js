@@ -1,7 +1,7 @@
 var bCrypt = require('bcrypt-nodejs');
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
-module.exports = function (app, Country, User, Currency, Support, Deposit) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data) {
     var multer = require('multer');
     var fileExt = '';
     var fileName = '';

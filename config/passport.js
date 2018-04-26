@@ -83,8 +83,8 @@ module.exports = (passport, User, Deposit, Currency) => {
                                 }
                             ]
                         });     
-
-                       console.log(currencyBalance);
+                       console.log('**CURRENCY BALANCE**'); 
+                       console.log(currencyBalance[0].Currency.alt_name);
                        var currency_list = await Currency.findAll();
                        user = user.toJSON();
                        user.currentUsdBalance = final;

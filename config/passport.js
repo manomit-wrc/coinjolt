@@ -57,19 +57,22 @@ module.exports = (passport, User, Deposit, Currency) => {
                             raw: true,
                             group: ['currency_id'],
                             order: [
-                                sequelize.fn('max', sequelize.col('Deposit.id')),
+                                ['id', 'DESC'],
                             ],
+                            limit: 1,
                             where: {
                                 user_id: id
                             },
                             include: [{model: Currency}]
                         });
-                        
+
                        var currency_list = await Currency.findAll();
                        user = user.toJSON();
                        user.currentUsdBalance = final;
                        user.currency = currency_list;
                        user.currencyBalance = currencyBalance;
+                       //console.log('***updated***');
+                       //console.log('balance',JSON.stringify(user.currencyBalance));
                        done(null, user);
 
                     } catch (err) {

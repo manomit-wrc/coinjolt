@@ -65,7 +65,6 @@ module.exports = (passport, User, Deposit, Currency) => {
                          let currencyBalance = await Deposit.findAll({
                             logging : notOnlyALogger,
                             attributes: ['id','balance', [ sequelize.fn('MAX', sequelize.col('Deposit.id')), 'DEPOSIT_ID'] ],
-                            raw: true,
                             group: ['Deposit.currency_id'],
                             order: [
                                 ['id', 'DESC'],

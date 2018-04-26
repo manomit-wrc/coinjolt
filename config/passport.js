@@ -79,6 +79,7 @@ module.exports = (passport, User, Deposit, Currency) => {
                             include: [
                                 {
                                     model: Currency,
+                                    required: true,
                                     attributes: ['alt_name']
                                 }
                             ]

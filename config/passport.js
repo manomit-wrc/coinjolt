@@ -55,36 +55,16 @@ module.exports = (passport, User, Deposit, Currency) => {
                        
                         let currencyBalance = await Deposit.findAll({
                             raw: true,
+                            group: ['currency_id'],
+                            order: [
+                                sequelize.fn('max', sequelize.col('Deposit.id')),
+                            ],
                             where: {
                                 user_id: id
                             },
                             include: [{model: Currency}]
                         });
-                        //console.log("balance: ");
-                        //console.log('********');
-                        //console.log(JSON.stringify(result));
-                        //console.log(currencyBalance);
-                        //return false;
-                        // end
-
-
-                        /* Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
-                       
-                        let result = await Deposit.findAll({
-                            //where: whereObj,
-                            raw: true,
-                            where: {
-                                user_id: id,
-                                type: 1
-                            },
-                            include: [{
-                                model: Currency
-                            }]
-                        });
-                        console.log(result);  */
-                        //return false;
-                       
-
+                        
                        var currency_list = await Currency.findAll();
                        user = user.toJSON();
                        user.currentUsdBalance = final;

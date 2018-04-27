@@ -51,7 +51,7 @@
                                 </td>
                                 <td>{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
                                 <td class="wallet_crp_{{this.currency_id}}">            
-                                        {{checkCurrencies this.alt_name ../user.currencyBalance}}
+                                        {{formatCurrency (checkCurrencies this.alt_name ../user.currencyBalance)}}
                                 </td>
                                 <td class="wallet_dollar_{{this.currency_id}}">
                                     
@@ -59,13 +59,6 @@
                             </tr>
                             {{/each}}
                         </table>
-
-                        <div id="test">
-                            {{#each user.currencyBalance}}
-                            <span>{{this.balance}}</span>
-
-                            {{/each}}
-                        </div>
                     </div>
                 </div>
                 <!-- /.box-body -->

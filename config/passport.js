@@ -5,7 +5,7 @@ const algorithm = 'aes-256-ctr';
 const password = 'd6F3Efeq';
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
-module.exports = (passport, User, Deposit, Currency) => {
+module.exports = (passport, User, Deposit, Currency, models) => {
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });
@@ -60,32 +60,25 @@ module.exports = (passport, User, Deposit, Currency) => {
                             SELECT deposits.`id`, deposits.`balance`, currencies.`alt_name` FROM deposits INNER JOIN currencies ON deposits.`currency_id` = currencies.id WHERE deposits.`id` IN ( SELECT MAX(`id`) FROM deposits GROUP BY `currency_id` )
 
                          */
-                         Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
-                       
-                         let currencyBalance = await Deposit.findAll({
-                            logging : notOnlyALogger,
-                            attributes: ['id','balance', [ sequelize.fn('MAX', sequelize.col('Deposit.id')), 'DEPOSIT_ID'] ],
-                            group: ['Deposit.currency_id'],
-                            order: [
-                                ['id', 'DESC'],
-                            ],
-                            where: {
-                                user_id: id
-                            },
-                            id: {
-                                [Op.in]: [7]
-                            },
-                            include: [
-                                {
-                                    model: Currency,
-                                    required: true,
-                                    attributes: ['alt_name']
-                                }
-                            ]
-                        });
-
-                       console.log(currencyBalance);
-
+                        const tempSQL = models.sequelize.dialect.QueryGenerator.selectQuery('deposits',
+                            { 
+                            attributes: [ [sequelize.fn('MAX',sequelize.col('id')),'deposit_id'] ], 
+                            group: ['currency_id'] 
+                            })
+                            .slice(0,-1); 
+                        Deposit.belongsTo(Currency,{foreignKey: 'currency_id'}); 
+                        let currencyBalance = await Deposit.findAll(
+                            { 
+                                attributes: ['id','balance'], 
+                                logging: notOnlyALogger,
+                                order: [ ['id', 'DESC'], ], 
+                                where: { user_id: id, 
+                                    id: { $in: sequelize.literal('(' + tempSQL + ')') } 
+                                }, 
+                                include: [ { model: Currency, required: true, attributes: ['alt_name','currency_id','display_name'] } 
+                                ] 
+                            });      
+                            console.log(currencyBalance);
                        var currency_list = await Currency.findAll();
                        user = user.toJSON();
                        user.currentUsdBalance = final;

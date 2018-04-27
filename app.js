@@ -8,7 +8,7 @@ var port = 8080;
 var app = express();
 var path = require('path');
 var flash    = require('connect-flash');
-
+const lodash = require('lodash');
 var models = require("./models");
 
 
@@ -33,7 +33,7 @@ var passport = require('passport');
 
 
 
-require('./config/passport')(passport, models.User, models.Deposit, models.Currency);
+require('./config/passport')(passport, models.User, models.Deposit, models.Currency, models);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -193,6 +193,10 @@ helpers: {
     },
     toUpperCase: function(value){
       return value.toUpperCase();
+    },
+    checkCurrencies: function(value, arr) {
+      var tempArr = lodash.filter(arr, x => x.Currency.alt_name === value);
+      return tempArr.length > 0 ? tempArr[0].balance : '0.00';
     }
 
   }

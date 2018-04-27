@@ -1174,20 +1174,6 @@
                     error: function (xhr) {
                     }
                 });
-
-                //Balances
-                var currency = $("#blc_{{this.currency_id}} strong").html();
-                var currencyType = currency.substr(0, currency.indexOf(':'));
-                $.ajax({
-                    type: 'POST',
-                    url : "/crypto-balance",
-                    data : {currencyType:currencyType},
-                    success:function(response) {
-                        $("#blc_{{this.currency_id}}").append(' ' + nFormatter(response.cryptocurrency_balance, 1));
-                    },
-                    error:function(xhr) {
-                    }
-                });
         </script>
     {{/each}}
     <!-- Ends Script for Header Rates & Balances -->

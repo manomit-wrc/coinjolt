@@ -191,7 +191,6 @@ body {
     font-size: 16px;
 }
 
-
 /*Starts Header CSS*/
 
 .wrapper .main-header .navbar {
@@ -386,9 +385,7 @@ body {
     top: 83px;
 }
 
-
 /*Ends Header CSS*/
-
 
 /*Starts Body Css*/
 
@@ -412,9 +409,7 @@ body {
     -o-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.23) !important;
 }
 
-
 /*Ends Body Css*/
-
 
 /*Starts Footer Css*/
 
@@ -438,9 +433,7 @@ body {
     background: #4d5776 none repeat scroll 0 0;
 }
 
-
 /*Ends Footer Css*/
-
 
 /* Starts General Css  */
 
@@ -520,9 +513,7 @@ select.input-sm {
     font-size: 16px !important;
 }
 
-
 /* Ends General Css  */
-
 
 /* Starts css on 2018-03-05 */
 
@@ -555,11 +546,11 @@ h3.post-title {
 }
 
 .box.box-default.latest-box img {
-    box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23)!important;
-    -webkit-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23)!important;
-    -moz-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23)!important;
-    -ms-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23)!important;
-    -o-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23)!important;
+    box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
+    -webkit-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
+    -moz-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
+    -ms-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
+    -o-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
 }
 
 .table th {
@@ -570,7 +561,6 @@ h3.post-title {
     font-size: 16px;
 }
 
-
 /* .table>thead>tr>th,
 .table>tbody>tr>th,
 .table>tfoot>tr>th,
@@ -580,599 +570,731 @@ h3.post-title {
     border-top: 1px solid #ddd !important;
     } */
 
-    .buy-sell .form-control,
-    .mcp .form-control {
-        height: 40px;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        -ms-border-radius: 4px;
-        -o-border-radius: 4px;
-        border-radius: 4px;
-        border: 1px solid #999;
-    }
-
-    .box-body.pch {
-        display: table;
-        margin: 0 auto;
-        height: 482px;
-    }
-
-    .mcp_con .box-body.t-amt p {
-        float: left;
-        width: 50%;
-    }
-
-    #transactionDetailsHistory p {
-        font-size: 16px;
-        margin-bottom: 16px;
-    }
-
-    .notes-area textarea,
-    #unauthorizedReportModal textarea {
-        font-size: 16px;
-        resize: none;
-        margin-bottom: 20px;
-    }
-
-    .login-box,
-    .register-box {
-        width: 360px;
-        margin: 70px auto 0 !important;
-    }
-
-    .login-box-body,
-    .register-box-body {
-        position: relative;
-    }
-
-
-    /* Ends css on 2018-03-05 */
-    /* Starts css on 2018-03-07 */
-    .profile-user-img {
-        margin: 0 auto;
-        width: 100px;
-        padding: 3px;
-        border: 3px solid #d2d6de;
-        height: 100px !important;
-    }
-
-
-    .ltst-news img {
-        box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23);
-        -webkit-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23);
-        -moz-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23);
-        -ms-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23);
-        -o-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23);
-    }
-
-    .ltst-news .recent_post_box {
-        margin-bottom: 15px;
-    }
-
-    .account-settings .prev-box {
-        background: #fff;
-        padding: 3px;
-        border: 1px solid #ccc;
-        width: 160px;
-    }
-
-    .account-settings .prev-box .prev-image-box {
-        background: #F7F7F7;
-        overflow: hidden;
-    }
-
-    .account-settings .prev-box .prev-image-box .preview_image {
-        width: 100%;
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -o-border-radius: 50%;
-        width: 150px;
-        height: 150px;
-        padding: 3px;
-    }
-
-    .account-settings .account-upload {
-        overflow: visible;
-        position: relative;
-    }
-
-
-    .account-settings .account-upload input[type="file"] {errorPass
-        background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-        border: 0 none !important;
-        color: #fff;
-        cursor: pointer;
-        font-size: 0 !important;
-        height: 40px;
-        left: 0;
-        opacity: 0;
-        padding: 0 !important;
-        position: absolute;
-        top: 30px;
-        width: 171px !important;
-        z-index: 999999;
-    }
-
-    .account-settings .account-upload .brsw-btn {
-        background: #2a2f40 !important;
-        border-radius: 3px;
-        color: #fff;
-        left: 0;
-        padding: 10px 40px;
-        position: absolute;
-        top: 30px;
-    }
-
-    .account-settings .pdng {
-        clear: both;
-        overflow: hidden;
-        padding: 0;
-    }
-
-    .account-settings .pdng  button {
-        float: left;
-    }
-
-    .account-settings  .control-label {
-        display: block;
-        color: #666;
-        padding: 0;
-        margin-bottom: 10px;
-        width: 100%;
-        text-align: left;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        pointer-events: none;
-        font-weight: normal;
-        margin-bottom: 3px;
-        text-transform: uppercase;
-    }
-    .account-settings  .cj-lbl {
-        float: none !important;
-        display: block;
-        margin: 0 0 10px 0 !important;
-        width: auto !important;
-    }
-
-    /* Ends css on 2018-03-07 */
-
-    /* Starts Responsive Table */
-
-    table {
-        border-collapse: collapse;
-        margin: 0 auto;
-    }
-
-    tr:nth-of-type(odd) {
-        background: #eee;
-    }
-
-    td,
-    th {
-        padding: 10px;
-        text-align: left;
-        font-size: 14px;
-    }
-
-    label.error, .error {
-        color: #800000;
-    }
-    label.success, .success {
-        color: #006400;
-    }
-
-    .upld input[type="file"] {
-        background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-        border: 0 none !important;
-        color: #fff;
-        cursor: pointer;
-        font-size: 0 !important;
-        height: 40px;
-        left: 0;
-        opacity: 0;
-        padding: 0 !important;
-        position: absolute;
-        top: 0;
-        width: 171px !important;
-        z-index: 999999;
-    }
-
-    /*Starts css on 2018-03-29*/
-
-    .title-with-btn h1 {
-        font-size: 24px;
-        margin: 0 20px 0 0;
-    }
-
-    .pd-612 .btn-primary {
-        padding: 6px 12px !important;
-        font-size: 14px !important;
-    }
-
-    /*Ends css on 2018-03-29*/
-
-    /*Starts css on 2018-03-30*/
-
-    .red {
-        color: #FF0000;
-    }
-
-    .green {
-        color: #008000;
-    }
-
-    .balnrates {
-        float: left;
-        padding-top: 32px;
-        margin-left: 100px;
-    }
-
-    .balnrates .left {
-        float: left;
-        margin-right: 20px;
-    }
-
-    .balnrates .right {
-        float: left;
-    }
-
-    .balnrates span.title {
-        font-weight: bold;
-        margin-right: 10px;
-    }
-
-    /*Ends css on 2018-03-30*/
-
-    /* Starts css on 2018-04-10 */
-
-    .balnrates .left {
-        display: block;
-    }
-
-    .rates-box .right {
-        display: block;
-    }
-
-    .toggle-nav {
-        display: none;
-    }
-
-    .balnrates .left h6, .rates .right h6 {
-        margin: 0;
-        display: inline-block;
-        font-size: 14px;
-    }
-
-    .balnrates .left .list, .rates .right .list {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        display: inline-block;
-    }
-
-    .balnrates .left .list li, .rates .right .list li {
-        display: inline-block;
-    }
-
-    .rates-box {
-        float: left;
-        padding-top: 32px;
-    }
-
-    /* Closed css on 2018-04-10 */
-
-    /*Starts on css 23-04-2018*/
-
-    .bal-boxs {
-        float: left;
-        padding-top: 32px;
-        margin-left: 100px;
-        width: 500px;
-    }
-
-    .rates-boxs1 {
-        float: left;
-        padding-top: 32px;
-        width: 400px;
-    }
-
-    .bal-boxs .left-pan h6, .rates-content .right-pan h6 {
-        display: inline-block;
-        margin: 3px 5px 0 0px;
-        float: left;
-    }
-
-    .bal-boxs .left-pan ul, .rates-content .right-pan ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    .bal-boxs .left-pan ul li, .rates-content .right-pan ul li {
-        display: inline-block;
-    }
-
-    .balance-box {
-        display: block;
-    }
-
-    .rates-box {
-        display: block;
-    }
-
-    /*Closed on css 23-04-2018*/
-
-    /*Starts on css 24-04-2018*/
-
-    .balnrates .list li:nth-of-type(1n+10) {
-        display: none;
-    }
-
-    .rates .right li:nth-of-type(1n+8) {
-        display: none;
-    }
-
-    .recent_post_box {
-        min-height: 240px;
-    }
-
-    .col-md-6.paddingleft.recent_post_box img {
-        height: 164px;
-    }
-
-    .dashboard-top .col-md-6.equal-hgt {
-        padding-left: 0 !important;
-    }
-
-    .scroll-dashboard {
-        overflow-y: scroll;
-        height: 433px;
-    }
-
-    /*Closed on css 24-04-2018*/
-
-
-    @media screen and (max-width: 1366px) {
-
-        .balance-box {
-            display: block;
-        }
-
-        .rates-box {
-            display: block;
-        }
-
-
-        .balance-content, .rates-boxs1 {
-            display: none;
-        }
-
-        .balance-box {
-            position: relative;
-        }
-
-        .toggle-nav {
-            display: block;
-            cursor: pointer;
-        }
-
-        .balance-box a.toggle-nav {
-            position: absolute;
-            right: 210px;
-            top: 30px;
-            color: #000000;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .balnrates {
-            position: absolute;
-            margin-left: 0;
-            right: 210px;
-            top: 56px;
-            padding: 0;
-        }
-
-        .balance-box a.toggle-nav .fa, .rates-box a.toggle-nav .fa {
-            font-size: 16px;
-            margin-right: 5px;
-            display: inline-block;
-        }
-
-        .balnrates .left, .rates .right {
-            display: none;
-            margin: 0;
-            background: #426bb1;
-            padding: 10px;
-            width: 200px;
-            border: 2px solid #6286c4;
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
-            -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
-            -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
-            -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
-            -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
-            border-radius: 3px;
-            -webkit-border-radius: 3px;
-            -moz-border-radius: 3px;
-            -ms-border-radius: 3px;
-            -o-border-radius: 3px;
-            height: 185px;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-        .balnrates .left .list, .rates .right .list {
-            display: block;
-            text-align: left;
-        }
-
-        .balnrates .left .list li, .rates .right .list li {
-            display: block;
-            color: #fff;
-            border-bottom: 1px dashed #fff;
-            line-height: 32px;
-        }
-
-        .balnrates .left .list li:last-child, .rates .right .list li:last-child {
-            border: none;
-        }
-
-        .balnrates .left h6, .rates .right h6 {
-            display: none !important;
-        }
-
-        .balnrates .left .list li.border, .rates .right .list li.border {
-            display: none;
-        }
-
-        .balnrates .left h6, .rates .right h6 {
-            display: block;
-            color: #fff;
-        }
-
-        .rates .right {
-            display: none;
-        }
-
-        .rates-box a.toggle-nav {
-            position: absolute;
-            right: 130px;
-            top: 30px;
-            color: #000000;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .rates {
-            position: absolute;
-            margin-left: 0;
-            right: 130px;
-            top: 56px;
-            padding: 0;
-        }
-    }
-
-
-
-
-    @media screen and (max-width: 1024px) {
-        .res-table {
-            width: 100% !important;
-        }
-        /* Force table to not be like tables anymore */
-        .res-table table,
-        .res-table thead,
-        .res-table tbody,
-        .res-table th,
-        .res-table td,
-        .res-table tr {
-            display: block !important;
-        }
-        /* Hide table headers (but not display: none;, for accessibility) */
-        .res-table thead tr {
-            position: absolute !important;
-            top: -9999px !important;
-            left: -9999px !important;
-        }
-        .res-table tr {
-            border-bottom: 0.5px solid #ccc !important;
-            padding: 0 16px !important;
-        }
-        .res-table tr:first-child {
-            border-bottom: 0.5px solid #ccc !important;
-        }
-        .res-table td {
-            /* Behave  like a "row" */
-            border: none !important;
-            position: relative !important;
-            padding-left: 50% !important;
-        }
-        .res-table td:before {
-            /* Now like a table header */
-            position: absolute !important;
-            /* Top/left values mimic padding */
-            top: 6px !important;
-            left: 0 !important;
-            width: 45% !important;
-            padding-right: 10px !important;
-            white-space: nowrap !important;
-            /* Label the data */
-            content: attr(data-column) !important;
-            color: #000 !important;
-            font-weight: bold !important;
-        }
-        .content-wrapper,
-        .main-footer {
-            margin-left: 0px !important;
-        }
-    }
-    /* Ends Responsive Table */
-
-    /*Starts css on 2018-03-23*/
-
-    #exampleModalLong .modal-content .top-part {
-        text-align: center;
-        margin-bottom: 40px;
-    }
-
-    #exampleModalLong .modal-content .top-part h2 {
-        font-weight: 600;
-        color: #555;
-        margin-top: 30px;
-        margin-bottom: 15px;
-    }
-
-    #exampleModalLong .modal-content .top-part h5 {
-        color: #999;
-        font-size: 18px;
-    }
-
-    #exampleModalLong p {
-        font-size: 16px;
-    }
-
-    #exampleModalLong .modal-footer {
-        text-align: center;
-    }
-
-    #exampleModalLong .modal-footer .btn-default {
-       color: #fff;
-       border: none;
-       font-size: 16px;
-       font-weight: 500;
-       -webkit-border-radius: 4px;
-       -moz-border-radius: 4px;
-       -ms-border-radius: 4px;
-       -o-border-radius: 4px;
-       border-radius: 4px;
-       padding: 10px 18px;
-       margin: 26px 5px 0 5px;
-       cursor: pointer;
-       display: inline-block;
-       background-color: #009fff;
-       -webkit-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
-       -moz-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
-       -ms-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
-       -o-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
-       box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
-   }
-
-   #exampleModalLong .modal-footer .btn-default:hover,
-   #exampleModalLong .modal-footer .btn-default:focus
-   {
-    background: #008fe5;
+.buy-sell .form-control,
+.mcp .form-control {
+    height: 40px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #999;
+}
+
+.box-body.pch {
+    display: table;
+    margin: 0 auto;
+    height: 482px;
+}
+
+.mcp_con .box-body.t-amt p {
+    float: left;
+    width: 50%;
+}
+
+#transactionDetailsHistory p {
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.notes-area textarea,
+#unauthorizedReportModal textarea {
+    font-size: 16px;
+    resize: none;
+    margin-bottom: 20px;
+}
+
+.login-box,
+.register-box {
+    width: 360px;
+    margin: 70px auto 0 !important;
+}
+
+.login-box-body,
+.register-box-body {
+    position: relative;
+}
+
+/* Ends css on 2018-03-05 */
+
+/* Starts css on 2018-03-07 */
+
+.profile-user-img {
+    margin: 0 auto;
+    width: 100px;
+    padding: 3px;
+    border: 3px solid #d2d6de;
+    height: 100px !important;
+}
+
+.ltst-news img {
+    box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23);
+    -webkit-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23);
+    -ms-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23);
+    -o-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23);
+}
+
+.ltst-news .recent_post_box {
+    margin-bottom: 15px;
+}
+
+.account-settings .prev-box {
+    background: #fff;
+    padding: 3px;
+    border: 1px solid #ccc;
+    width: 160px;
+}
+
+.account-settings .prev-box .prev-image-box {
+    background: #F7F7F7;
+    overflow: hidden;
+}
+
+.account-settings .prev-box .prev-image-box .preview_image {
+    width: 100%;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    padding: 3px;
+}
+
+.account-settings .account-upload {
+    overflow: visible;
+    position: relative;
+}
+
+.account-settings .account-upload input[type="file"] {
+    errorPass background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 0 none !important;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0 !important;
+    height: 40px;
+    left: 0;
+    opacity: 0;
+    padding: 0 !important;
+    position: absolute;
+    top: 30px;
+    width: 171px !important;
+    z-index: 999999;
+}
+
+.account-settings .account-upload .brsw-btn {
+    background: #2a2f40 !important;
+    border-radius: 3px;
+    color: #fff;
+    left: 0;
+    padding: 10px 40px;
+    position: absolute;
+    top: 30px;
+}
+
+.account-settings .pdng {
+    clear: both;
+    overflow: hidden;
+    padding: 0;
+}
+
+.account-settings .pdng button {
+    float: left;
+}
+
+.account-settings .control-label {
+    display: block;
+    color: #666;
+    padding: 0;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    font-weight: normal;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+}
+
+.account-settings .cj-lbl {
+    float: none !important;
+    display: block;
+    margin: 0 0 10px 0 !important;
+    width: auto !important;
+}
+
+/* Ends css on 2018-03-07 */
+
+/* Starts Responsive Table */
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+tr:nth-of-type(odd) {
+    background: #eee;
+}
+
+td,
+th {
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+label.error,
+.error {
+    color: #800000;
+}
+
+label.success,
+.success {
+    color: #006400;
+}
+
+.upld input[type="file"] {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 0 none !important;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0 !important;
+    height: 40px;
+    left: 0;
+    opacity: 0;
+    padding: 0 !important;
+    position: absolute;
+    top: 0;
+    width: 171px !important;
+    z-index: 999999;
+}
+
+/*Starts css on 2018-03-29*/
+
+.title-with-btn h1 {
+    font-size: 24px;
+    margin: 0 20px 0 0;
+}
+
+.pd-612 .btn-primary {
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+}
+
+/*Ends css on 2018-03-29*/
+
+/*Starts css on 2018-03-30*/
+
+.red {
+    color: #FF0000;
+}
+
+.green {
+    color: #008000;
+}
+
+.balnrates {
+    float: left;
+    padding-top: 32px;
+    margin-left: 100px;
+}
+
+.balnrates .left {
+    float: left;
+    margin-right: 20px;
+}
+
+.balnrates .right {
+    float: left;
+}
+
+.balnrates span.title {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/*Ends css on 2018-03-30*/
+
+/* Starts css on 2018-04-10 */
+
+.balnrates .left {
+    display: block;
+}
+
+.rates-box .right {
+    display: block;
+}
+
+.toggle-nav {
+    display: none;
+}
+
+.balnrates .left h6,
+.rates .right h6 {
+    margin: 0;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.balnrates .left .list,
+.rates .right .list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline-block;
+}
+
+.balnrates .left .list li,
+.rates .right .list li {
+    display: inline-block;
+}
+
+.rates-box {
+    float: left;
+    padding-top: 32px;
+}
+
+/* Closed css on 2018-04-10 */
+
+/*Starts on css 23-04-2018*/
+
+.bal-boxs {
+    float: left;
+    padding-top: 32px;
+    margin-left: 100px;
+    width: 500px;
+}
+
+.rates-boxs1 {
+    float: left;
+    padding-top: 32px;
+    width: 400px;
+}
+
+.bal-boxs .left-pan h6,
+.rates-content .right-pan h6 {
+    display: inline-block;
+    margin: 3px 5px 0 0px;
+    float: left;
+}
+
+.bal-boxs .left-pan ul,
+.rates-content .right-pan ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.bal-boxs .left-pan ul li,
+.rates-content .right-pan ul li {
+    display: inline-block;
+}
+
+.balance-box {
+    display: block;
+}
+
+.rates-box {
+    display: block;
+}
+
+/*Closed on css 23-04-2018*/
+
+/*Starts on css 24-04-2018*/
+
+.balnrates .list li:nth-of-type(1n+10) {
+    display: none;
+}
+
+.rates .right li:nth-of-type(1n+8) {
+    display: none;
+}
+
+.recent_post_box {
+    min-height: 240px;
+}
+
+.col-md-6.paddingleft.recent_post_box img {
+    height: 164px;
+}
+
+.dashboard-top .col-md-6.equal-hgt {
+    padding-left: 0 !important;
+}
+
+.scroll-dashboard {
+    overflow-y: scroll;
+    height: 433px;
+}
+
+/*Closed on css 24-04-2018*/
+
+/* Starts on css 27-04-2018 */
+
+.profile-details .box {
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    -o-border-radius: 0 !important;
+}
+
+.box.cjbio-box {
+    padding: 10px;
+}
+
+.cjbio-box .box-header {
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.cjbio-box .box-body {
+    height: 110px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.cjbio-box .box-body p {
+    color: #333;
+}
+
+.col-md-12.paddingleft.recent_post_box .radio-btn {
+    float: left;
+    margin-right: 0;
+    padding: 15px;
+    text-align: center !important;
+    width: 100%;
+}
+
+.col-md-12.paddingleft.recent_post_box .radio-btn p {
+    margin: 0;
+}
+
+.col-md-12.paddingleft.recent_post_box input[type="radio"] {
+    margin-right: 5px;
+    vertical-align: text-top;
+}
+
+#institutional_form,
+#individual_form {
+    margin-top: 25px;
+}
+
+#institutional_form h2,
+#individual_form h2 {
+    font-size: 20px;
+    text-align: center;
+}
+
+#institutional_form .form-control,
+#individual_form .form-control {
+    border: 1px solid #999;
+    min-height: 40px;
+    min-width: 30px;
+    width: 100%;
+    font-size: 1.4rem;
+    color: #333;
+    -webkit-appearance: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    margin: 0px 0px 5px;
+}
+
+#institutional_form .btn,
+#individual_form .btn {
+    display: inline-block;
+    padding: 6px 12px !important;
+    margin-bottom: 0;
+    font-size: 14px !important;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.box-title.ltns .fa {
+    margin-right: 5px;
+}
+
+#institute_modal .modal-body .form-group,
+#individual_modal .modal-body .form-group {
+    height: 60px;
+}
+
+#institute_modal .modal-body .form-group label,
+#individual_modal .modal-body .form-group label {
+    font-size: 13px;
+}
+
+#institute_modal .modal-footer input, #individual_modal .modal-footer input {
+    width: 120px;
+    padding: 6px !important;
+    font-size: 14px !important;
+}
+
+#institute_modal .modal-body input[type="file"], #individual_modal .modal-body input[type="file"] {
+    height: auto;
+}
+
+.cjnews-box .box-body {
+    height: 582px !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#individual_form label, #institutional_form label {
+    font-size: 14px !important;
 }
 
 
+/* Ends on css 27-04-2018 */
+
+@media screen and (max-width: 1366px) {
+    .balance-box {
+        display: block;
+    }
+    .rates-box {
+        display: block;
+    }
+    .balance-content,
+    .rates-boxs1 {
+        display: none;
+    }
+    .balance-box {
+        position: relative;
+    }
+    .toggle-nav {
+        display: block;
+        cursor: pointer;
+    }
+    .balance-box a.toggle-nav {
+        position: absolute;
+        right: 210px;
+        top: 30px;
+        color: #000000;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .balnrates {
+        position: absolute;
+        margin-left: 0;
+        right: 210px;
+        top: 56px;
+        padding: 0;
+    }
+    .balance-box a.toggle-nav .fa,
+    .rates-box a.toggle-nav .fa {
+        font-size: 16px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+    .balnrates .left,
+    .rates .right {
+        display: none;
+        margin: 0;
+        background: #426bb1;
+        padding: 10px;
+        width: 200px;
+        border: 2px solid #6286c4;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
+        -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
+        -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
+        -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
+        -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
+        border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        -ms-border-radius: 3px;
+        -o-border-radius: 3px;
+        height: 185px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .balnrates .left .list,
+    .rates .right .list {
+        display: block;
+        text-align: left;
+    }
+    .balnrates .left .list li,
+    .rates .right .list li {
+        display: block;
+        color: #fff;
+        border-bottom: 1px dashed #fff;
+        line-height: 32px;
+    }
+    .balnrates .left .list li:last-child,
+    .rates .right .list li:last-child {
+        border: none;
+    }
+    .balnrates .left h6,
+    .rates .right h6 {
+        display: none !important;
+    }
+    .balnrates .left .list li.border,
+    .rates .right .list li.border {
+        display: none;
+    }
+    .balnrates .left h6,
+    .rates .right h6 {
+        display: block;
+        color: #fff;
+    }
+    .rates .right {
+        display: none;
+    }
+    .rates-box a.toggle-nav {
+        position: absolute;
+        right: 130px;
+        top: 30px;
+        color: #000000;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .rates {
+        position: absolute;
+        margin-left: 0;
+        right: 130px;
+        top: 56px;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .res-table {
+        width: 100% !important;
+    }
+    /* Force table to not be like tables anymore */
+    .res-table table,
+    .res-table thead,
+    .res-table tbody,
+    .res-table th,
+    .res-table td,
+    .res-table tr {
+        display: block !important;
+    }
+    /* Hide table headers (but not display: none;, for accessibility) */
+    .res-table thead tr {
+        position: absolute !important;
+        top: -9999px !important;
+        left: -9999px !important;
+    }
+    .res-table tr {
+        border-bottom: 0.5px solid #ccc !important;
+        padding: 0 16px !important;
+    }
+    .res-table tr:first-child {
+        border-bottom: 0.5px solid #ccc !important;
+    }
+    .res-table td {
+        /* Behave  like a "row" */
+        border: none !important;
+        position: relative !important;
+        padding-left: 50% !important;
+    }
+    .res-table td:before {
+        /* Now like a table header */
+        position: absolute !important;
+        /* Top/left values mimic padding */
+        top: 6px !important;
+        left: 0 !important;
+        width: 45% !important;
+        padding-right: 10px !important;
+        white-space: nowrap !important;
+        /* Label the data */
+        content: attr(data-column) !important;
+        color: #000 !important;
+        font-weight: bold !important;
+    }
+    .content-wrapper,
+    .main-footer {
+        margin-left: 0px !important;
+    }
+}
+
+/* Ends Responsive Table */
+
+/*Starts css on 2018-03-23*/
+
+#exampleModalLong .modal-content .top-part {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#exampleModalLong .modal-content .top-part h2 {
+    font-weight: 600;
+    color: #555;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+#exampleModalLong .modal-content .top-part h5 {
+    color: #999;
+    font-size: 18px;
+}
+
+#exampleModalLong p {
+    font-size: 16px;
+}
+
+#exampleModalLong .modal-footer {
+    text-align: center;
+}
+
+#exampleModalLong .modal-footer .btn-default {
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    padding: 10px 18px;
+    margin: 26px 5px 0 5px;
+    cursor: pointer;
+    display: inline-block;
+    background-color: #009fff;
+    -webkit-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
+    -moz-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
+    -ms-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
+    -o-box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
+    box-shadow: rgba(140, 212, 245, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;
+}
+
+#exampleModalLong .modal-footer .btn-default:hover,
+#exampleModalLong .modal-footer .btn-default:focus {
+    background: #008fe5;
+}
+
 .sweet-alert button:not(.cancel) {
-   background-color: #009fff !important;
+    background-color: #009fff !important;
 }
 
 #exampleModalLong .sa-icon {
@@ -1189,7 +1311,8 @@ h3.post-title {
     /* border-color: #4cae4c; */
 }
 
-#exampleModalLong .sa-icon.sa-success::before, #exampleModalLong .sa-icon.sa-success::after {
+#exampleModalLong .sa-icon.sa-success::before,
+#exampleModalLong .sa-icon.sa-success::after {
     content: '';
     border-radius: 50%;
     position: absolute;
@@ -1253,7 +1376,8 @@ h3.post-title {
     transform: rotate(-45deg);
 }
 
-#exampleModalLong .sa-icon.sa-success::before, #exampleModalLong .sa-icon.sa-success::after {
+#exampleModalLong .sa-icon.sa-success::before,
+#exampleModalLong .sa-icon.sa-success::after {
     content: '';
     border-radius: 50%;
     position: absolute;
@@ -1271,7 +1395,7 @@ h3.post-title {
     transform-origin: 0px 60px;
 }
 
-#exampleModalLong  .swal-icon--warning {
+#exampleModalLong .swal-icon--warning {
     border-color: #f8bb86;
     -webkit-animation: pulseWarning .75s infinite alternate;
     animation: pulseWarning .75s infinite alternate;
@@ -1289,12 +1413,11 @@ h3.post-title {
     margin: 20px auto;
 }
 
-
 #exampleModalLong .swal-icon:first-child {
     margin-top: 32px;
 }
 
-#exampleModalLong  .swal-icon--warning__body {
+#exampleModalLong .swal-icon--warning__body {
     width: 5px;
     height: 47px;
     top: 10px;
@@ -1302,13 +1425,14 @@ h3.post-title {
     margin-left: -2px;
 }
 
-#exampleModalLong .swal-icon--warning__body,#exampleModalLong .swal-icon--warning__dot {
+#exampleModalLong .swal-icon--warning__body,
+#exampleModalLong .swal-icon--warning__dot {
     position: absolute;
     left: 50%;
     background-color: #f8bb86;
 }
 
-#exampleModalLong  .swal-icon--warning__dot {
+#exampleModalLong .swal-icon--warning__dot {
     width: 7px;
     height: 7px;
     border-radius: 50%;
@@ -1331,8 +1455,5 @@ label.labelset {
     margin-top: 2px;
     margin-left: 4px;
 }
-
-
-
 
 /*Ends css on 2018-03-23*/

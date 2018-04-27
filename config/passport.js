@@ -82,7 +82,7 @@ module.exports = (passport, User, Deposit, Currency) => {
                                     attributes: ['alt_name']
                                 }
                             ]
-                        });      
+                        });
 
                        console.log(currencyBalance);
 

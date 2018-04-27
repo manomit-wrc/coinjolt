@@ -574,4 +574,19 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         
         res.json({cryptocurrency_balance: curr_crypto_bal});
     });
+
+    app.post('/save-notes', function (req, res) {
+        User.update({
+            notes: req.body.notes
+        }, {
+            where: {
+                id: req.user.id
+
+            }
+        }).then(function (result) {
+            res.redirect('/profile-details');
+        }).catch(function (err) {
+            console.log(err);
+        });
+    });
 };

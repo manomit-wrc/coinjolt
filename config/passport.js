@@ -72,6 +72,7 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                                 attributes: ['id','balance'], 
                                 logging: notOnlyALogger,
                                 order: [ ['id', 'DESC'], ], 
+                                //logging: notOnlyALogger,
                                 where: { user_id: id, 
                                     id: { $in: sequelize.literal('(' + tempSQL + ')') } 
                                 }, 

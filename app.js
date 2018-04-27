@@ -144,7 +144,7 @@ helpers: {
       return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     },
     twoDecimalPoint: function(value){
-      return parseFloat(Math.round(value * 100) / 100).toFixed(2);
+        return parseFloat(Math.round(value * 100) / 100).toFixed(2);  
     },
     fiveDecimalPoint: function(value){
       return parseFloat(value).toFixed(5);
@@ -196,7 +196,7 @@ helpers: {
     },
     checkCurrencies: function(value, arr) {
       var tempArr = lodash.filter(arr, x => x.Currency.alt_name === value);
-      return tempArr.length > 0 ? tempArr[0].balance : '0.00';
+      return tempArr.length > 0 ? tempArr[0].balance : '';
     }
 
   }

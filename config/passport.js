@@ -71,10 +71,11 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                             { 
                                 attributes: ['id','balance'], 
                                 order: [ ['id', 'DESC'], ], 
+                                //logging: notOnlyALogger,
                                 where: { user_id: id, 
                                     id: { $in: sequelize.literal('(' + tempSQL + ')') } 
                                 }, 
-                                include: [ { model: Currency, required: true, attributes: ['alt_name'] } 
+                                include: [ { model: Currency, required: true, attributes: ['alt_name','currency_id'] } 
                                 ] 
                             });      
 

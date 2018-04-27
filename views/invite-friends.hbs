@@ -54,10 +54,10 @@
                       {{#each invitefrnds}}
                       <tr>
                         <td>{{this.id}}</td>
-                        <td>{{this.first_name}}</td>
-                        <td>{{this.email}}</td>
+                        <td>{{this.User.first_name}}</td>
+                        <td>{{this.User.email}}</td>
                         <td>{{this.referral_amount}}</td>
-                        <td>{{dateFormat this.dateAdded "DD-MM-YYYY"}}</td>
+                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
                       </tr>
                       {{/each}}
                     </tbody>

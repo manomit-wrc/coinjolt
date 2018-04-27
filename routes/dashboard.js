@@ -46,6 +46,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.get('/dashboard', function (req, res) {
+
         res.render('dashboard', {
             layout: 'dashboard'
         });
@@ -201,11 +202,23 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/invite-friends', function (req, res) {
-        res.render('invite-friends', {
-            layout: 'dashboard'
-        });
-    });
+    app.get('/invite-friends', function (req,res) {
+		Referral_data.belongsTo(User, {foreignKey: 'user_id'});
+
+		Referral_data.findAll({
+			where: {
+                referral_id: req.user.id
+            },
+        	include: [{
+		    	model: User
+	  		}],
+	  		order: [
+            	['id', 'DESC']
+        	]
+		}).then(function(invitefrnds){
+			res.render('invite-friends',{layout: 'dashboard', invitefrnds: invitefrnds});
+		});
+	});
 
     app.get('/submit-a-request', function (req, res) {
         const msg = req.flash('supportMessage')[0];
@@ -274,22 +287,32 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 		var curr_crypto_bal = 0;
 		var curr_brought = 0;
         var curr_sold = 0;
+        var curr_id = 0;
         
+        curr_id = await Currency.findAll({
+            where: {alt_name: currencyType },
+            attributes: ['id']
+        });
+        curr_id = curr_id[0].id;
+
         // calculating cryptocurrency wallet current balance
-        curr_brought = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1, currency_purchased: currencyType},
+         curr_brought = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 1, currency_id:curr_id},
             attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
         });
 
         curr_sold = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2, currency_purchased: currencyType},
+            where: {user_id: req.user.id, type: 2, currency_id:curr_id},
             attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
         });
 
         curr_crypto_bal = parseFloat(curr_brought[0].get('TOT_BUY_AMT') - curr_sold[0].get('TOT_SOLD_AMT'));
         curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
-        
-        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal});
+
+        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal, curr_id: curr_id}); 
+
+
+
     });
 
     app.post('/sell-coin', async (req, res) => {
@@ -298,40 +321,47 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 		var currencyType = req.body.currencySellType;
 		var curr_crypto_bal = 0;
 		var curr_brought = 0;
-		var curr_sold = 0;
+        var curr_sold = 0;
+        var curr_id = 0;
+        
+        curr_id = await Currency.findAll({
+            where: {alt_name: currencyType },
+            attributes: ['id']
+        });
+        curr_id = curr_id[0].id;
 
         // calculating cryptocurrency wallet current balance
         curr_brought = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1, currency_purchased: currencyType},
+            where: {user_id: req.user.id, type: 1, currency_id:curr_id},
             attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
         });
 
         curr_sold = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2, currency_purchased: currencyType},
+            where: {user_id: req.user.id, type: 2, currency_id:curr_id},
             attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
         });
 
         curr_crypto_bal = parseFloat(curr_brought[0].get('TOT_BUY_AMT') - curr_sold[0].get('TOT_SOLD_AMT'));
         curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
         
-        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal});
+        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal, curr_id: curr_id});
 	});
 
     app.post('/confirm_coin_buy', function(req, res) {
 		var digits = 9;	
 		var numfactor = Math.pow(10, parseInt(digits-1));	
 		var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
-           
+        
         Deposit.create({
             user_id: req.user.id,
             transaction_id: randomNum,
             checkout_id: randomNum,
             amount: req.body.amtVal,
-            currency_purchased: req.body.currency_purchased,
             current_rate: req.body.coinRate,
             converted_amount: req.body.actualAmtExpect,
             type: 1,            
-            base_currency: 'USD'
+            balance: req.body.balance,
+            currency_id: req.body.currency_id
         }).then(function (result) {
             res.json({success: true});
         }).catch(function (err) {
@@ -351,7 +381,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             amount: req.body.amtVal,
             current_rate: req.body.coinRate,
             type: 2,            
-            base_currency: req.body.currencySellType
+            base_currency: req.body.currencySellType,
+            balance: req.body.balance,
+            currency_id: req.body.currency_id
         }).then(function (result) {
             res.json({success: true});
         }).catch(function (err) {
@@ -528,12 +560,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         
         // Query to get cryptocurrency balance
         curr_brought = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1, currency_purchased: currencyType},
+            where: {user_id: req.user.id, type: 1},
             attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
         });
 
         curr_sold = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2, currency_purchased: currencyType},
+            where: {user_id: req.user.id, type: 2},
             attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
         });
 

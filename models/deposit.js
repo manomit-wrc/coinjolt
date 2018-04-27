@@ -14,13 +14,13 @@ module.exports = function(sequelize, DataTypes) {
     payer_name: DataTypes.STRING,
     current_rate: DataTypes.STRING,
     converted_amount: DataTypes.STRING,
-    base_currency: DataTypes.STRING,
-    currency_purchased: DataTypes.STRING,
+    balance: DataTypes.STRING,
     payment_method: DataTypes.STRING,
     credit_card_no: DataTypes.INTEGER,
     card_expmonth: DataTypes.INTEGER,
     card_expyear: DataTypes.STRING,
-    cvv: DataTypes.INTEGER
+    cvv: DataTypes.INTEGER,
+    currency_id: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {

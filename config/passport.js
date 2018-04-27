@@ -60,7 +60,7 @@ module.exports = (passport, User, Deposit, Currency) => {
                             SELECT deposits.`id`, deposits.`balance`, currencies.`alt_name` FROM deposits INNER JOIN currencies ON deposits.`currency_id` = currencies.id WHERE deposits.`id` IN ( SELECT MAX(`id`) FROM deposits GROUP BY `currency_id` )
 
                          */
-                        Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
+                         Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
                        
                          let currencyBalance = await Deposit.findAll({
                             logging : notOnlyALogger,
@@ -82,9 +82,10 @@ module.exports = (passport, User, Deposit, Currency) => {
                                     attributes: ['alt_name']
                                 }
                             ]
-                        });     
-                       console.log('**CURRENCY BALANCE**'); 
-                       console.log(currencyBalance[0].Currency.alt_name);
+                        });      
+
+                       console.log(currencyBalance);
+
                        var currency_list = await Currency.findAll();
                        user = user.toJSON();
                        user.currentUsdBalance = final;

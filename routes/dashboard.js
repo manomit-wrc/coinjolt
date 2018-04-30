@@ -259,32 +259,19 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     app.get('/buy-and-sell-coins', async (req, res) => {
         var values = '';
         var buy_history = '';
-        //var sell_history = '';
         
         function notOnlyALogger(msg){
             console.log('****log****');
             console.log(msg);
         }
 
-
-        //Currency.hasMany(Deposit,{foreignKey: 'currency_id'}); // ok
         Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
-        //let currencyCodes = await Currency.findAll( // ok
         let currencyCodes = await Deposit.findAll(
         { 
-            //logging: notOnlyALogger, 
-            /* include: [{    // worked, ok
-                model: Deposit, required: true
-            }]  */
             include: [{ 
                 model: Currency, required: true
             }] 
         }); 
-
-        //console.log(currencyCodes[0].currency_id); // BTC  // worked, ok
-        //console.log(JSON.stringify(currencyCodes)); // BTC
-
-
         values = await Currency.findAll({
             attributes: ['alt_name','currency_id']
         });
@@ -300,14 +287,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 ['createdAt', 'DESC']
             ]
         });
-        /* sell_history = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2},
-            limit: 5,
-            order: [
-                ['createdAt', 'DESC']
-            ]
-        }); */
-        //res.render('buy-and-sell-coins', {layout: 'dashboard', recent_buy_sell_activity: buy_sell_history,contents: values,currencyCodes: currencyCodes });
         res.render('buy-and-sell-coins', {layout: 'dashboard',contents: values,currencyCodes: currencyCodes });
     });
 

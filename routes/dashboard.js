@@ -268,14 +268,27 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
         let currencyCodes = await Deposit.findAll(
         { 
+            //where: {id: req.user.id},
+            where: {
+                user_id: req.user.id,
+                type: {
+                    [Op.or]: [1, 2]
+                }
+            },
+            limit: 5,
+            order: [
+                ['createdAt', 'DESC']
+            ],
+            //logging: notOnlyALogger,
             include: [{ 
                 model: Currency, required: true
+                
             }] 
         }); 
         values = await Currency.findAll({
             attributes: ['alt_name','currency_id']
         });
-        buy_sell_history = await Deposit.findAll({
+        /* buy_sell_history = await Deposit.findAll({
             where: {
                 user_id: req.user.id,
                 type: {
@@ -286,7 +299,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             order: [
                 ['createdAt', 'DESC']
             ]
-        });
+        }); */
         res.render('buy-and-sell-coins', {layout: 'dashboard',contents: values,currencyCodes: currencyCodes });
     });
 

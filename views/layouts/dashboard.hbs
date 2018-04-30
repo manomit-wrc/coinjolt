@@ -1059,6 +1059,20 @@
                 }
             });
             // Support form validation ends
+            // Notes form validation starts
+            $("#notes_form").validate({
+                rules: {
+                    notes: {
+                        required: true
+                    }
+                },
+                messages: {
+                    notes: {
+                        required: "Please enter your notes"
+                    }
+                }
+            });
+            // Notes form validation ends
         });
     </script>
 
@@ -1161,23 +1175,32 @@
                     error: function (xhr) {
                     }
                 });
-
-                //Balances
-                var currency = $("#blc_{{this.currency_id}} strong").html();
-                var currencyType = currency.substr(0, currency.indexOf(':'));
-                $.ajax({
-                    type: 'POST',
-                    url : "/crypto-balance",
-                    data : {currencyType:currencyType},
-                    success:function(response) {
-                        $("#blc_{{this.currency_id}}").append(' ' + nFormatter(response.cryptocurrency_balance, 1));
-                    },
-                    error:function(xhr) {
-                    }
-                });
         </script>
     {{/each}}
     <!-- Ends Script for Header Rates & Balances -->
+
+    {{!-- Script for calculating balance in the dashboard page --}}
+    {{#each user.currencyBalance}}
+
+    <script type="text/javascript">
+        var usdPrice = 0;
+        $(".wallet_dollar").append('1234');
+        $.ajax({
+                type: "GET",
+                crossDomain: true,
+                dataType: 'json',
+                url: "https://coincap.io/page/{{this.Currency.currency_id}}",
+                success: function (resp) {
+                    usdPrice = {{this.balance}} * resp.price_usd.toFixed(2);
+
+                    $(".wallet_dollar_{{this.Currency.currency_id}}").append('$ ' + usdPrice);
+                },
+                error: function (xhr) {
+                }
+        });
+    </script>
+    {{/each}}
+    {{!-- Ends Script for calculating balance in the dashboard page --}}
 
     {{!-- Format numbers starts --}}
     <script>
@@ -1292,7 +1315,442 @@
         }
     </script>
     {{!-- MCP Piechart ends --}}
-      
+
+    {{!-- Profile Details Questionaries Script Starts --}}
+    <script type="text/javascript">
+	function showform(){
+		alert("loaded");
+	}
+	function institutionForm(){
+		var form = document.getElementById('institutional_form');
+		var individual_form = document.getElementById('individual_form');
+		form.style.display = "block";
+		individual_form.style.display = "none";
+	}
+	function individualForm(){
+		var form = document.getElementById('institutional_form');
+		var individual_form = document.getElementById('individual_form');
+		form.style.display = "none";
+		individual_form.style.display = "block";
+	}
+	function institutionValidation(){
+		var business_name = $('#business_name').val();
+		var business_number = $('#business_number').val();
+		var business_registration_country = $('#business_registration_country').val();
+		if(business_name == ""){
+			document.getElementById('business_name_err').innerHTML = "Business Name can not be null";
+			document.getElementById('institution_form_upload').removeAttribute('data-target','#institute_modal');
+			$('#business_name').focus();
+			return false;
+		}         
+		if(business_number == ""){
+			document.getElementById('business_number_err').innerHTML = "Business Number can not be null";
+			document.getElementById('institution_form_upload').removeAttribute('data-target','#institute_modal');
+			$('#business_number').focus();
+			return false;
+		} 
+		if(business_registration_country == ""){
+			document.getElementById('business_registration_country_err').innerHTML = "Business Registration Country can not be null";
+			document.getElementById('institution_form_upload').removeAttribute('data-target','#institute_modal');
+			$('#business_registration_country').focus();
+			return false;
+		}
+		if(business_name != "" & business_number != "" & business_registration_country != ""){
+			document.getElementById('institution_form_upload').setAttribute('data-target','#institute_modal');
+		}
+	}
+	function institutionValidationModal(){
+		var shareholder_name = $('#shareholder_name').val();
+		var account_name = $('#account_name').val();
+		var bank_country = $('#bank_country').val();
+		var account_number = $('#account_number').val();
+		var routing_number = $('#routing_number').val();
+		var phone_number = $('#phone_number').val();
+		var email_address = $('#email_address').val();
+		var valid_email = email_address;
+		var incorporation_certificate = $('#incorporation_certificate').val();
+		var articles_incorporation = $('#articles_incorporation').val();
+		var shareholder_id = $('#shareholder_id').val();
+		var bank_statement = $('#bank_statement').val();
+
+		var atpos = email_address.indexOf("@");
+		var dotpos = email_address.lastIndexOf(".");
+		
+        // var re = /^([a-z0-9@.])/gi;
+        if(incorporation_certificate == ""){
+        	document.getElementById('incorporation_certificate_err').innerHTML = "Please choose a file";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#incorporation_certificate').focus();
+        	return false;
+        }
+        
+        if(shareholder_name == ""){
+        	document.getElementById('shareholder_name_institution_err').innerHTML = "Please provide shareholder name";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#shareholder_name').focus();
+        	return false;
+        }
+        if(articles_incorporation == ""){
+        	document.getElementById('articles_incorporation_err').innerHTML = "Please choose a file";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#articles_incorporation').focus();
+        	return false;
+        }
+        if(shareholder_id == ""){
+        	document.getElementById('shareholder_id_err').innerHTML = "Please choose a file";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#shareholder_id').focus();
+        	return false;
+        }
+        if(bank_statement == ""){
+        	document.getElementById('bank_statement_err').innerHTML = "Please choose a file";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#bank_statement').focus();
+        	return false;
+        }
+        if(account_name == ""){
+        	document.getElementById('account_name_institution_err').innerHTML = "Please provide account name";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#account_name').focus();
+        	return false;
+        }
+        if(bank_country == ""){
+        	document.getElementById('bank_country_institution_err').innerHTML = "Please provide bank country";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#bank_country').focus();
+        	return false;
+        }
+        if(account_number == ""){
+        	document.getElementById('account_number_institution_err').innerHTML = "Please provide account number";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#account_number').focus();
+        	return false;
+        }
+        if(routing_number == ""){
+        	document.getElementById('routing_number_institution_err').innerHTML = "Please provide routing number";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#routing_number').focus();
+        	return false;
+        }
+        if(phone_number == ""){
+        	document.getElementById('phone_number_institution_err').innerHTML = "Please provide phone number";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#phone_number').focus();
+        	return false;
+        }
+        if(email_address == ""){
+        	document.getElementById('email_address_institution_err').innerHTML = "Please provide email address";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#email_address').focus();
+        	return false;
+        }
+        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email_address.length) {
+        	document.getElementById('email_address_institution_err').innerHTML = "Please provide valid email address";
+        	document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+        	$('#email_address').focus();
+        	return false;
+        }        
+        if(email_address != "" && phone_number != "" && routing_number != ""  && account_number != "" && bank_country != "" && account_name != "" && shareholder_name != ""  && incorporation_certificate != "" &&  articles_incorporation != "" && shareholder_id != "" && bank_statement != "" ){
+        	document.getElementsByClassName('submit_institution')[0].setAttribute('id','submit_institution');
+        	return true;
+        }
+
+
+
+        
+/*if(re.match(email_address)){
+       
+      return true;
+    }
+    */
+
+}
+function individualValidationModal(){
+	var address_proof = jQuery('#address_proof').val();
+	var government_issued_id = jQuery('#government_issued_id').val();
+	var bank_statement = jQuery('#bank_statement_individual').val();
+	var account_name = $('#account_name_individual').val();
+	var bank_country = $('#bank_country_individual').val();
+	var account_number = $('#account_number_individual').val();
+	var routing_number = $('#routing_number_individual').val();
+	var phone_number = $('#phone_number_individual').val();
+	var email_address = $('#email_address_individual').val();
+	var valid_email  = email_address;
+	var atpos = email_address.indexOf("@");
+	var dotpos = email_address.lastIndexOf(".");
+
+	if(address_proof == ""){
+		document.getElementById('address_proof_individual_err').innerHTML = "Please choose a file";
+		document.getElementsByClassName('submit_individual')[0].removeAttribute('id','submit_individual');
+		$("#address_proof").focus();
+		return false;
+	}
+	if(government_issued_id == ""){
+		document.getElementById('government_issued_id_individual_err').innerHTML = "Please choose a file";
+		document.getElementsByClassName('submit_individual')[0].removeAttribute('id','submit_individual');
+		$('#government_issued_id').focus();
+		return false;
+	}
+	if(bank_statement == ""){
+		document.getElementById('bank_statement_individual_err').innerHTML = "Please choose a file";
+		document.getElementsByClassName('submit_individual')[0].removeAttribute('id','submit_individual');
+		$('#bank_statement').focus();
+		return false;
+	}
+	if(account_name == ""){
+		document.getElementById('account_name_individual_err').innerHTML = "Please provide the account name";
+		document.getElementsByClassName('submit_individual')[0].removeAttribute('id','submit_individual');
+		$('#account_name').focus();
+		return false;
+	}
+	if(bank_country == ""){
+		document.getElementById('bank_country_individual_err').innerHTML = "Please provide the country of bank";
+		document.getElementsByClassName('submit_individual')[0].removeAttribute('id','submit_individual');
+		$('#bank_country').focus();
+		return false;
+	}
+	if(account_number == ""){
+		document.getElementById('account_number_individual_err').innerHTML = "Please provide the account number";
+		document.getElementsByClassName('submit_individual')[0].removeAttribute('id','submit_individual');
+		$('#account_number').focus();
+		return false;
+	}
+	if(routing_number == ""){
+		document.getElementById('routing_number_individual_err').innerHTML = "Please provide the routing number";
+		document.getElementsByClassName('submit_individual')[0].removeAttribute('id','submit_individual');
+		$('#routing_number').focus();
+		return false;
+	}
+	if(phone_number == ""){
+		document.getElementById('phone_number_individual_err').innerHTML = "Please provide the phone number";
+		document.getElementsByClassName('submit_individual')[0].removeAttribute('id','submit_individual');
+		$('#phone_number').focus();
+		return false;
+	}
+	if(email_address == ""){
+		document.getElementById('email_address_individual_err').innerHTML = "Please provide the email address";
+		document.getElementsByClassName('submit_individual')[0].removeAttribute('id','submit_individual');
+		$('#email_address').focus();
+		return false;
+	}
+	if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email_address.length) {
+		document.getElementById('email_address_institution_err').innerHTML = "Please provide valid email address";
+		document.getElementsByClassName('submit_institution')[0].removeAttribute('id','submit_institution');
+		$('#email_address').focus();
+		return false;
+	}   
+	if(government_issued_id != "" && address_proof != "" && bank_statement != ""  &&account_name != "" && bank_country != "" && account_number != "" && routing_number != "" && phone_number != "" && email_address != ""){
+		document.getElementsByClassName('submit_individual')[0].setAttribute('id','submit_individual');
+
+	}
+
+}
+function individualValidation(){
+	var first_name = $('#first_name').val();
+	var last_name = $('#last_name').val();
+        // var residence_country  = document.getElementById('residence_country_individual').value;
+        var residence_country_individual = $('#residence_country_individual').val();
+        // alert(residence_country_individual);
+        if(first_name == ""){
+        	document.getElementById('first_name_err').innerHTML = "First Name can not be null";
+        	document.getElementById('individual_form_upload').removeAttribute('data-target','#individual_modal');
+        	$('#first_name').focus();
+        	return false;
+        }         
+        if(last_name == ""){
+        	document.getElementById('last_name_err').innerHTML = "Last Name can not be null";
+        	document.getElementById('individual_form_upload').removeAttribute('data-target','#individual_modal');
+        	$('#last_name').focus();
+        	return false;
+        } 
+        if(residence_country_individual == ""){
+        	document.getElementById('residence_country_individual_err').innerHTML = "Residence Country can not be null";
+        	document.getElementById('individual_form_upload').removeAttribute('data-target','#individual_modal');
+        	$('#residence_country_individual').focus();
+        	return false;
+        }
+        if(first_name != "" & last_name != "" & residence_country_individual != ""){
+        	document.getElementById('individual_form_upload').setAttribute('data-target','#individual_modal');
+        }
+    }
+    /* individual ajax starts */
+    $(document).ready(function(){
+    	$(document).on('click','#submit_individual',function(){
+
+    		var fd = new FormData();
+            // var incorporation_certificate = jQuery('#incorporation_certificate')[0].files[0];
+            var address_proof = jQuery('#address_proof')[0].files[0];
+            var government_issued_id = jQuery('#government_issued_id')[0].files[0];
+            var bank_statement = jQuery('#bank_statement_individual')[0].files[0];
+           /* var settlement_statement = jQuery('#settlement_statement')[0].files[0];
+           var contact_information = jQuery('#contact_information')[0].files[0];*/
+
+           var type = $('#individual-radio').val();
+           var user_id = $('#user_Id').val();
+           var id = $('#individual_id').val();
+           var first_name = $('#first_name').val();
+           var last_name = $('#last_name').val();
+           var residence_country = $('#residence_country_individual').val();
+           var investques_individual = $('#investques_individual').val();
+           var settlement_currency_individual = $('#settlement_currency_individual').val();
+
+           /* var shareholder_name = $('#shareholder_name').val();*/
+           var account_name = $('#account_name_individual').val();
+           var bank_country = $('#bank_country_individual').val();
+           var account_number = $('#account_number_individual').val();
+           var routing_number = $('#routing_number_individual').val();
+           var phone_number = $('#phone_number_individual').val();
+           var email_address = $('#email_address_individual').val();
+
+
+              // alert(business_name);
+              fd.append('address_proof',address_proof);
+
+              fd.append('government_issued_id',government_issued_id);
+              fd.append('bank_statement',bank_statement);
+            /*fd.append('shareholder_name',shareholder_name);
+
+            fd.append('bank_statement',bank_statement);*/
+           /* fd.append('settlement_statement',settlement_statement);
+            fd.append('contact_information',contact_information);
+            */
+            fd.append('user_id',user_id);
+            fd.append('id',id);
+            fd.append('type',type);
+            fd.append('first_name',first_name);
+            fd.append('last_name',last_name);
+            fd.append('residence_country',residence_country);
+            fd.append('investques_individual',investques_individual);
+            fd.append('settlement_currency_individual',settlement_currency_individual);
+
+            fd.append('account_name',account_name);
+            fd.append('bank_country',bank_country);
+            fd.append('account_number',account_number);
+            fd.append('routing_number',routing_number);
+            fd.append('phone_number',phone_number);
+            fd.append('email_address',email_address);
+            // alert(user_id);
+            $.ajax({
+            	url: '<?php echo getDashboardURL();?>addform-individual.php',
+            	type: 'POST',
+            	data: fd,
+            	contentType: false,
+            	processData: false,
+
+            	success : function(response){
+                // alert("SUCCESS");
+                swal("Successfully Applied");
+                swal({
+                	icon: "success",
+                	title: "Applied Successfully",
+                	confirmButtonClass: "btn-success",
+                	confirmButtonText: "OK"
+                },function(isConfirm){
+                	if(isConfirm){
+                		setTimeout(function(){
+                			window.location.href = "<?php echo getDashboardURL(); ?>profile-details";
+                		},30);
+                	}
+                });                
+            },
+            error : function(xhr){
+            	alert("ERR");
+            }
+        });
+        });
+    }); 
+    /* individual ajax ends */
+
+
+    /*institution ajax starts*/
+    $(document).ready(function(){
+    	$(document).on('click','#submit_institution',function(){
+
+    		var fd = new FormData();
+    		var incorporation_certificate = jQuery('#incorporation_certificate')[0].files[0];
+    		var articles_incorporation = jQuery('#articles_incorporation')[0].files[0];
+    		var shareholder_id = jQuery('#shareholder_id')[0].files[0];
+    		var bank_statement = jQuery('#bank_statement')[0].files[0];
+           /* var settlement_statement = jQuery('#settlement_statement')[0].files[0];
+           var contact_information = jQuery('#contact_information')[0].files[0];*/
+
+           var type = $('#institution-radio').val();
+           var user_id = $('#userId').val();
+           var id = $('#id').val();
+           var business_name = $('#business_name').val();
+           var business_number = $('#business_number').val();
+           var business_registration_country = $('#business_registration_country').val();
+           var investques = $('#investques').val();
+           var settlement_currency = $('#settlement_currency').val();
+
+           var shareholder_name = $('#shareholder_name').val();
+           var account_name = $('#account_name').val();
+           var bank_country = $('#bank_country').val();
+           var account_number = $('#account_number').val();
+           var routing_number = $('#routing_number').val();
+           var phone_number = $('#phone_number').val();
+           var email_address = $('#email_address').val();
+
+              // alert(business_name);
+              fd.append('incorporation_certificate',incorporation_certificate);
+
+              fd.append('articles_incorporation',articles_incorporation);
+              fd.append('shareholder_id',shareholder_id);
+              fd.append('shareholder_name',shareholder_name);
+
+              fd.append('bank_statement',bank_statement);
+           /* fd.append('settlement_statement',settlement_statement);
+            fd.append('contact_information',contact_information);
+            */
+            fd.append('user_id',user_id);
+            fd.append('id',id);
+            fd.append('type',type);
+            fd.append('business_name',business_name);
+            fd.append('business_number',business_number);
+            fd.append('business_registration_country',business_registration_country);
+            fd.append('investques',investques);
+            fd.append('settlement_currency',settlement_currency);
+
+            fd.append('account_name',account_name);
+            fd.append('bank_country',bank_country);
+            fd.append('account_number',account_number);
+            fd.append('routing_number',routing_number);
+            fd.append('phone_number',phone_number);
+            fd.append('email_address',email_address);
+            // alert(user_id);
+            $.ajax({
+            	url: '<?php echo getDashboardURL();?>addform.php',
+            	type: 'POST',
+            	data: fd,
+            	contentType: false,
+            	processData: false,
+
+            	success : function(response){
+                // alert("SUCCESS");
+                 // swal(response);
+                 swal({
+
+                 	icon: "success",
+                 	title: "Applied Successfully",
+                 	confirmButtonClass: "btn-success",
+                 	confirmButtonText: "OK"
+                 },function(isConfirm){
+                 	if(isConfirm){
+                 		setTimeout(function(){
+                 			window.location.href = "/profile-details";
+                 		},30);
+                 	}
+                 });                
+             },
+             error : function(xhr){
+             	alert("ERR");
+             }
+         });
+        });
+    }); 
+    /*institution ajax ends*/
+</script>
+{{!-- Profile Details Questionaries Script Ends --}}      
 
 </body>
 </html>

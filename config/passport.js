@@ -70,16 +70,15 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                         let currencyBalance = await Deposit.findAll(
                             { 
                                 attributes: ['id','balance'], 
-                                logging: notOnlyALogger,
-                                order: [ ['id', 'DESC'], ], 
                                 //logging: notOnlyALogger,
+                                order: [ ['id', 'DESC'], ], 
                                 where: { user_id: id, 
                                     id: { $in: sequelize.literal('(' + tempSQL + ')') } 
                                 }, 
                                 include: [ { model: Currency, required: true, attributes: ['alt_name','currency_id','display_name'] } 
                                 ] 
                             });      
-                            console.log(currencyBalance);
+                            //console.log(currencyBalance);
                        var currency_list = await Currency.findAll();
                        user = user.toJSON();
                        user.currentUsdBalance = final;

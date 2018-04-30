@@ -133,31 +133,21 @@
                       <th>Type</th>
                       <th>Date</th>
                     </tr>
-                 
-                      {{#each recent_buy_activity}}
-                      <tr>
-                          <td>{{this.currency_purchased}}</td>
-                          <td>${{formatCurrency (twoDecimalPoint this.current_rate)}}</td>
-                          <td>${{formatCurrency (fiveDecimalPoint this.converted_amount)}}</td>
+                    {{#each currencyCodes}}
+                    <tr>
+                        <td>{{this.Currency.currency_id}}</td>
+                        <td>${{formatCurrency (twoDecimalPoint this.current_rate)}}</td>
+                        <td>${{formatCurrency (fiveDecimalPoint this.amount)}}</td>
 
-                          <td>{{twoDecimalPoint this.amount }}</td>
-                          <td>{{#if_eq this.type '1'}} Buy {{/if_eq}}</td>
-                          <td>{{dateFormat this.createdAt "DD-MM-YYYY"}}</td>
-                      </tr>
-                      {{/each}}     
-
-                      {{#each recent_sell_activity}}
-                      <tr>
-                          <td>{{this.currency_purchased}}</td>
-                          <td>${{formatCurrency (twoDecimalPoint this.current_rate)}}</td>
-                         <td>${{formatCurrency (fiveDecimalPoint this.converted_amount)}}</td>
-
-                          <td>{{twoDecimalPoint this.amount }}</td>
-                          <td>{{#if_eq this.type '2'}} Sell {{/if_eq}}</td>
-                          <td>{{dateFormat this.createdAt "DD-MM-YYYY"}}</td>
-                      </tr>
-                      {{/each}}
-
+                        <td>{{twoDecimalPoint this.converted_amount }}</td>
+                        <td>{{#if_eq this.type '1'}}
+                            Buy 
+                            {{else}}
+                            Sell
+                            {{/if_eq}}</td>
+                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                    </tr>
+                    {{/each}}
                   </tbody>
                 </table>
               </div>

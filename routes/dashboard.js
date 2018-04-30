@@ -259,25 +259,56 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     app.get('/buy-and-sell-coins', async (req, res) => {
         var values = '';
         var buy_history = '';
-        var sell_history = '';
+        //var sell_history = '';
+        
+        function notOnlyALogger(msg){
+            console.log('****log****');
+            console.log(msg);
+        }
+
+
+        //Currency.hasMany(Deposit,{foreignKey: 'currency_id'}); // ok
+        Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
+        //let currencyCodes = await Currency.findAll( // ok
+        let currencyCodes = await Deposit.findAll(
+        { 
+            //logging: notOnlyALogger, 
+            /* include: [{    // worked, ok
+                model: Deposit, required: true
+            }]  */
+            include: [{ 
+                model: Currency, required: true
+            }] 
+        }); 
+
+        //console.log(currencyCodes[0].currency_id); // BTC  // worked, ok
+        //console.log(JSON.stringify(currencyCodes)); // BTC
+
+
         values = await Currency.findAll({
             attributes: ['alt_name','currency_id']
         });
-        buy_history = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1},
+        buy_sell_history = await Deposit.findAll({
+            where: {
+                user_id: req.user.id,
+                type: {
+                    [Op.or]: [1, 2]
+                }
+            },
             limit: 5,
             order: [
                 ['createdAt', 'DESC']
             ]
         });
-        sell_history = await Deposit.findAll({
+        /* sell_history = await Deposit.findAll({
             where: {user_id: req.user.id, type: 2},
             limit: 5,
             order: [
                 ['createdAt', 'DESC']
             ]
-        });
-        res.render('buy-and-sell-coins', {layout: 'dashboard', recent_buy_activity: buy_history, recent_sell_activity: sell_history,contents: values });
+        }); */
+        //res.render('buy-and-sell-coins', {layout: 'dashboard', recent_buy_sell_activity: buy_sell_history,contents: values,currencyCodes: currencyCodes });
+        res.render('buy-and-sell-coins', {layout: 'dashboard',contents: values,currencyCodes: currencyCodes });
     });
 
     app.post('/buy-coin', async (req, res) => {
@@ -373,15 +404,16 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 		var digits = 9;	
 		var numfactor = Math.pow(10, parseInt(digits-1));	
 		var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
-        
+        var currencyAmount = parseFloat(req.body.amtVal * req.body.coinRate);
         Deposit.create({
             user_id: req.user.id,
             transaction_id: randomNum,
             checkout_id: randomNum,
-            amount: req.body.amtVal,
+            amount: currencyAmount,
             current_rate: req.body.coinRate,
             type: 2,            
             base_currency: req.body.currencySellType,
+            converted_amount: req.body.amtVal,
             balance: req.body.balance,
             currency_id: req.body.currency_id
         }).then(function (result) {

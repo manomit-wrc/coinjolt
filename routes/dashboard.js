@@ -475,49 +475,25 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
 		var amountInvest = req.body.amount_invest;
 		var currency_purchased_code = req.body.currency_purchased;
-		var coinRate = 1;
+        var coinRate = 1;
+        var type = 4;
 		var converted_amount = req.body.amount_invest;
 		var userid = req.user.id;
-		var status;
-		
-		/* var invest_transaction_data = {
-			"checkout_id" : randomNum,
-			"transactionId" : randomNum,
-			"user_id": userid,
-			"deposit_type": 'Invest',
-			"amount": amountInvest,
-			"current_rate": coinRate,
-			"converted_amount": converted_amount,
-			"base_currency": 'USD',
-			"currency_purchased": currency_purchased_code
-		};	
-		
-		connection.query('INSERT INTO deposit_funds SET ?', [invest_transaction_data], function (err, result) {
-			if (err) throw err; 
-			status = result.insertId;
-			if(status > 0){
-
-				var mcp_data = {
-					"checkout_id" : randomNum,
-					"transactionId" : randomNum,
-					"user_id": userid,
-					"type": 'Invest',
-					"amount_paid": amountInvest,
-					"current_rate": coinRate,
-					"converted_amount": converted_amount,
-					"base_currency": 'USD',
-					"currency_purchased": currency_purchased_code
-				};
-
-				connection.query('INSERT INTO user_mcptransaction SET ?', [mcp_data], function (err, result) {
-					if(err) throw err;
-					else{
-						req.flash('investStatusMessage', 'Your investment was made successfully!');
-						res.redirect('/managed-cryptocurrency-portfolio');
-					}
-				}); 
-			}
-		}); */
+        var status;
+        
+        Deposit.create({
+            checkout_id: randomNum,
+			transaction_id: randomNum,
+			user_id: userid,
+			amount: amountInvest,
+			current_rate: coinRate,
+			converted_amount: converted_amount,
+			type: type
+        }).then(function (result) {
+            req.flash('investStatusMessage', 'Your investment was made successfully!');
+            res.redirect('/managed-cryptocurrency-portfolio');
+        }).catch(function (err) {
+        });
     });
     
     app.post('/save-withdraw', function(req, res){

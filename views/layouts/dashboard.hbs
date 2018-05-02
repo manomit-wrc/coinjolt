@@ -179,7 +179,6 @@
     <!--for deposite funds,pending_wire_transfer//-->
     <script src="/js/deposite_funds.js"></script>
     <script src="/js/pending_wire_transfer.js"></script>
-    <script src="/js/request_withdrawal.js"></script>
     <!--end-->
     <script type="text/javascript">
         $(function () {
@@ -1075,34 +1074,7 @@
             // Notes form validation ends
         });
     </script>
-    {{#each user.currencyBalance}}
-        
-    <script>    
-        
-                $(function () {
-                 "use strict"; 
-                 //DONUT CHART 
-                 var donut = new Morris.Donut({ 
-                     element: 'sales-chart', 
-                     resize: true,
-                     colors: [ "#f51f17",
-                      "#1C3E85", 
-                      "#1C3E85", 
-                      "#1C3E85", 
-                      "#1C3E85", 
-                      "#1C3E85" ], 
-                      data: [
-                       {label: "USD", value: {{user.currentUsdBalance}} }, 
-                       {label: "MCP", value: 3138397419.00 }
-                     ], 
-                    hideHover: 'auto',
-                    formatter: function (value, data) { 
-                        return nFormatter(value, 2); 
-                    } 
-                }); 
-            }); 
-    </script> <!-- Currency balance chart ends -->
-    {{/each}}
+
     <script type="text/javascript"> 
         var copyBtn = $("#clipboardBtn");
         input = $("#copy-me");
@@ -1675,7 +1647,7 @@ function individualValidation(){
                 			window.location.href = "<?php echo getDashboardURL(); ?>profile-details";
                 		},30);
                 	}
-                });                
+                });
             },
             error : function(xhr){
             	alert("ERR");

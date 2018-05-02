@@ -1,16 +1,12 @@
 <section class="content-header">
-        <h1>Pending Wire Transfers List</h1>
+        <h1>Pending Wire Transfers History List</h1>
         <ol class="breadcrumb">
           <li>
             <a href="/admin/dashboard">
               <i class="fa fa-dashboard"></i> Home</a>
           </li>
-          <li class="active">Pending Wire Transfers List</li>
+          <li class="active">Pending Wire Transfers History List</li>
         </ol>
-
-        <div class="box-footer">
-	      <a href="/admin/pending-wire-transfers-history"><button type="button" class="btn btn-success m-r-5 m-b-5">History</button></a>
-	    </div>
 </section>
 
 <section class="content container-fluid">
@@ -28,7 +24,7 @@
 	                        <th>Name</th>
 	                        <th>Amount</th>
 	                        <th>Date</th>
-	                        <th>Action</th>
+	                        <th>Status</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
@@ -39,8 +35,13 @@
 		                        <td>{{this.amount_usd}}</td>
 		                        <td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 		                        <td>
-		                        	<button class="btn approve-req pending_wire_transfer_approved" data-value="{{this.id}}" data-amount="{{this.amount_usd}}">Approve</button>
-									<button class="btn reject-req pending_wire_transfer_reject" data-value="{{this.id}}">Reject</button>
+		                        	{{#if_eq this.status 1}}
+		                        		Approved
+	                        		{{/if_eq}}
+
+	                        		{{#if_eq this.status 2}}
+		                        		Rejected
+	                        		{{/if_eq}}
 								</td>
 	                		</tr>
 	                	{{/each}}

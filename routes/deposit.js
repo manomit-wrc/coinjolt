@@ -167,4 +167,19 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data) {
         });
 
 	});
+
+	app.get('/admin/pending-wire-transfers-history', (req,res) => {
+		WireTransfer.belongsTo(User, {foreignKey: 'user_id'});
+
+		WireTransfer.findAll({
+			where: {
+             	status: { $not: 0} 
+            },
+        	include: [{
+		    	model: User
+	  		}]
+		}).then(function(result){
+			res.render('admin/pending_wire_transfers/history',{layout: 'dashboard',all_data:result});
+		});
+	});
 };

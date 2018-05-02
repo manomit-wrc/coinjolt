@@ -118,7 +118,9 @@
                        
                             <div class="row">
                                 <form action="/save-invest" method="post" id="MCPinvest" style="width:100%; float:left; margin-bottom: 3px;">
-                                    <div class="alert alert-success" id="investerrmsg" style="margin-left:5px;width:70%;">{{message}}</div>
+                                    {{#if message}}
+                                        <div class="alert alert-success" id="investsuccessmsg" style="margin-left:5px;width:70%;">{{message}}</div>
+                                    {{/if}}
                                     <div class="gap">
                                         <div class="col-md-6">
                                             <div class="form-group">

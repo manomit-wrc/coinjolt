@@ -9,7 +9,7 @@ $(document).ready(function(){
 		});
 
 		$("#withdrawAmount").keyup(function(){
-
+			console.log("Withdraw");
 			var balVal = $("#balVal").val();
 			var amtVal = $("#withdrawAmount").val();
 			amtVal = parseFloat(amtVal);

@@ -75,6 +75,7 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                                 ] 
                             });                 
                        var currency_list = await Currency.findAll();
+                       console.log(currency_list);
                        user = user.toJSON();
                        user.currentUsdBalance = final;
                        user.currency = currency_list;

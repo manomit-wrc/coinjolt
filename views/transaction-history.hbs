@@ -135,7 +135,7 @@
                                         <td>{{this.converted_amount}}</td>
                                         <td>{{this.currency_purchased}}</td>
                                         <td>{{this.current_rate}}</td>
-                                        <td>{{dateFormat this.createdAt "DD-MM-YYYY"}}</td>
+                                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
                                     </tr>
                                     {{/each}}
                                 </tbody>
@@ -177,7 +177,7 @@
                                         <td>{{this.converted_amount}}</td>
                                         <td>{{this.base_currency}}</td>
                                         <td>{{this.current_rate}}</td>
-                                        <td>{{dateFormat this.createdAt "DD-MM-YYYY"}}</td>
+                                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
                                     </tr>
                                     {{/each}}
                                 </tbody>
@@ -219,7 +219,7 @@
                                         <td>
                                             {{#if_eq this.payment_method '1'}} Credit Card {{else}} Wire Transfer {{/if_eq}}
                                         </td>   
-                                        <td>{{dateFormat this.createdAt "DD-MM-YYYY"}}</td>
+                                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
                                     </tr>
                                     {{/each}}
                                 </tbody>
@@ -252,36 +252,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>125804503</td>
-                                        <td>$320</td>
-                                        <td>USD</td>
-                                        <td>07-01-2018 12:33 AM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>125804503</td>
-                                        <td>$320</td>
-                                        <td>USD</td>
-                                        <td>07-01-2018 12:33 AM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>125804503</td>
-                                        <td>$320</td>
-                                        <td>USD</td>
-                                        <td>07-01-2018 12:33 AM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>125804503</td>
-                                        <td>$320</td>
-                                        <td>USD</td>
-                                        <td>07-01-2018 12:33 AM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>125804503</td>
-                                        <td>$320</td>
-                                        <td>USD</td>
-                                        <td>07-01-2018 12:33 AM</td>
-                                    </tr>
+                                    {{#each withdrawal_history}}
+                                        <tr>
+                                            <td>{{this.transaction_id}}</td>
+                                            <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
+                                            <td>USD</td>
+                                            <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                                        </tr>
+                                    {{/each}}
                                 </tbody>
                             </table>
                         </div>

@@ -1075,6 +1075,32 @@
         });
     </script>
 
+    <script>    
+        
+                $(function () {
+                 "use strict"; 
+                 //DONUT CHART 
+                 var donut = new Morris.Donut({ 
+                     element: 'sales-chart', 
+                     resize: true,              
+                     colors: [ "#f51f17",
+                      "#1C3E85", 
+                      "#1C3E85",                
+                      "#1C3E85", 
+                      "#1C3E85", 
+                      "#1C3E85" ], 
+                      data: [
+                       {label: "USD", value: {{user.currentUsdBalance}} }, 
+                       {label: "MCP", value: 3138397419.00 }
+                     ], 
+                    hideHover: 'auto',
+                    formatter: function (value, data) { 
+                        return nFormatter(value, 2); 
+                    } 
+                }); 
+            }); 
+    </script> <!-- Currency balance chart ends -->
+
     <script type="text/javascript"> 
         var copyBtn = $("#clipboardBtn");
         input = $("#copy-me");

@@ -179,6 +179,7 @@
     <!--for deposite funds,pending_wire_transfer//-->
     <script src="/js/deposite_funds.js"></script>
     <script src="/js/pending_wire_transfer.js"></script>
+    <script src="/js/request_withdrawal.js"></script>
     <!--end-->
     <script type="text/javascript">
         $(function () {
@@ -1046,7 +1047,7 @@
                     },
                     description: {
                         required: true
-                    }
+                    }           
                 },
                 messages: {
                     subject: {
@@ -1074,13 +1075,10 @@
             // Notes form validation ends
         });
     </script>
-
+    
     <script>    
-        
-                $(function () {
-                 "use strict"; 
-                 //DONUT CHART 
-                 var donut = new Morris.Donut({ 
+                function load_donut_chart(chart_data) {
+                    var donut = new Morris.Donut({ 
                      element: 'sales-chart', 
                      resize: true,              
                      colors: [ "#f51f17",
@@ -1089,15 +1087,20 @@
                       "#1C3E85", 
                       "#1C3E85", 
                       "#1C3E85" ], 
-                      data: [
-                       {label: "USD", value: {{user.currentUsdBalance}} }, 
-                       {label: "MCP", value: 3138397419.00 }
-                     ], 
+                    data: chart_data, 
                     hideHover: 'auto',
                     formatter: function (value, data) { 
                         return nFormatter(value, 2); 
                     } 
                 }); 
+                }
+                $(function () {
+                 "use strict"; 
+                 //DONUT CHART 
+                 $.get("/get-donut-chart", function( data ) {
+                    load_donut_chart(data.chart_array);
+                });
+                 
             }); 
     </script> <!-- Currency balance chart ends -->
 
@@ -1207,6 +1210,12 @@
     {{!-- Script for calculating balance in the dashboard page --}}
     {{#each user.currencyBalance}}
         <script type="text/javascript">
+
+            function formatNumber(num) {
+                return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+
+            }
+            
             var usdPrice = 0;
             $.ajax({
                     type: "GET",
@@ -1215,7 +1224,7 @@
                     url: "https://coincap.io/page/{{this.Currency.currency_id}}",
                     success: function (resp) {
                         usdPrice = parseFloat({{this.balance}} * resp.price_usd).toFixed(2);
-                        $(".wallet_dollar_{{this.Currency.currency_id}}").append('$' + usdPrice);
+                        $(".wallet_dollar_{{this.Currency.currency_id}}").append('$' + formatNumber(usdPrice));
                     },
                     error: function (xhr) {
                     }

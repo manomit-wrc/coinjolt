@@ -24,6 +24,8 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                       var deposit_amount = 0;
                       var curr_brought = 0;
                       var curr_sold = 0;
+                      var mcp_invest = 0;
+                      var mcp_withdraw = 0;
                   
                       sold_amount = await Deposit.findAll({   
                           where: {user_id: id, type: 2},
@@ -75,11 +77,28 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                                 ] 
                             });                 
                        var currency_list = await Currency.findAll();
-                       console.log(currency_list);
+                       //console.log(currency_list);
+
+                       mcp_invest = await Deposit.findAll({   
+                            where: {user_id: id, type: 4},
+                            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'MCP_INVEST_AMT']]
+                        });
+                  
+
+                        mcp_withdraw = await Deposit.findAll({
+                            where: {user_id: id, type: 5},
+                            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'MCP_WITHDRAW_AMT']]
+                        });
+
+                        var mcp_final = mcp_invest[0].get('MCP_INVEST_AMT') - mcp_withdraw[0].get('MCP_WITHDRAW_AMT');
+                        var mcp_final_blnc = parseFloat(Math.round(mcp_final * 100) / 100).toFixed(4);
+
                        user = user.toJSON();
                        user.currentUsdBalance = final;
                        user.currency = currency_list;
                        user.currencyBalance = currencyBalance;
+                       //console.log(user.currencyBalance.length);
+                       user.mcpTotalBalance = mcp_final_blnc;
                        done(null, user);
 
                     } catch (err) {

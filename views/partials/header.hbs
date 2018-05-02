@@ -32,6 +32,9 @@
                         <li>
                             <strong>USD:</strong> {{nFormatter user.currentUsdBalance 1}}</li>
                         <li class="border">|</li>
+                        <li>
+                            <strong>MCP:</strong> {{nFormatter user.mcpTotalBalance 1}}</li>
+                        <li class="border">|</li>
                         {{#each user.currencyBalance}}
                         <li id="blc_{{this.Currency.currency_id}}">
                             <strong>{{this.Currency.currency_id}}:</strong> {{nFormatter this.balance 2}}</li>

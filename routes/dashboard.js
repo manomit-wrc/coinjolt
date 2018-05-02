@@ -1,6 +1,7 @@
 var bCrypt = require('bcrypt-nodejs');
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
+const lodash = require('lodash');
 module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data) {
     var multer = require('multer');
     var fileExt = '';
@@ -304,22 +305,32 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             attributes: ['id']
         });
         curr_id = curr_id[0].id;
+        console.log("buy");
+        console.log(curr_id);
+
+        function notOnlyALogger(msg){
+            console.log('****log****');
+            console.log(msg);
+        }
 
         // calculating cryptocurrency wallet current balance
-         curr_brought = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1, currency_id:curr_id},
-            attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
-        });
 
-        curr_sold = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2, currency_id:curr_id},
-            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
-        });
-
-        curr_crypto_bal = parseFloat(curr_brought[0].get('TOT_BUY_AMT') - curr_sold[0].get('TOT_SOLD_AMT'));
-        curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
-
-        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal, curr_id: curr_id}); 
+        let currCrypto_bal = await Deposit.findAll(
+            { 
+                attributes: ['balance'],
+                //logging: notOnlyALogger,
+                where: {
+                    user_id: req.user.id,
+                    currency_id: curr_id
+                },
+                limit: 1,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+                
+            }); 
+        currCrypto_bal = currCrypto_bal[0].balance;
+        res.json({message: 'Success', status: true, crypto_balance: currCrypto_bal, curr_id: curr_id}); 
 
     });
 
@@ -337,22 +348,27 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             attributes: ['id']
         });
         curr_id = curr_id[0].id;
+        console.log("sell");
+        console.log(curr_id);
+
+        let currCrypto_bal = await Deposit.findAll(
+            { 
+                attributes: ['balance'],
+                //logging: notOnlyALogger,
+                where: {
+                    user_id: req.user.id,
+                    currency_id: curr_id
+                },
+                limit: 1,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+                
+            });
 
         // calculating cryptocurrency wallet current balance
-        curr_brought = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1, currency_id:curr_id},
-            attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
-        });
-
-        curr_sold = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2, currency_id:curr_id},
-            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
-        });
-
-        curr_crypto_bal = parseFloat(curr_brought[0].get('TOT_BUY_AMT') - curr_sold[0].get('TOT_SOLD_AMT'));
-        curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
-        
-        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal, curr_id: curr_id});
+        currCrypto_bal = currCrypto_bal[0].balance;
+        res.json({message: 'Success', status: true, crypto_balance: currCrypto_bal, curr_id: curr_id});
 	});
 
     app.post('/confirm_coin_buy', function(req, res) {
@@ -475,49 +491,25 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
 		var amountInvest = req.body.amount_invest;
 		var currency_purchased_code = req.body.currency_purchased;
-		var coinRate = 1;
+        var coinRate = 1;
+        var type = 4;
 		var converted_amount = req.body.amount_invest;
 		var userid = req.user.id;
-		var status;
-		
-		/* var invest_transaction_data = {
-			"checkout_id" : randomNum,
-			"transactionId" : randomNum,
-			"user_id": userid,
-			"deposit_type": 'Invest',
-			"amount": amountInvest,
-			"current_rate": coinRate,
-			"converted_amount": converted_amount,
-			"base_currency": 'USD',
-			"currency_purchased": currency_purchased_code
-		};	
-		
-		connection.query('INSERT INTO deposit_funds SET ?', [invest_transaction_data], function (err, result) {
-			if (err) throw err; 
-			status = result.insertId;
-			if(status > 0){
-
-				var mcp_data = {
-					"checkout_id" : randomNum,
-					"transactionId" : randomNum,
-					"user_id": userid,
-					"type": 'Invest',
-					"amount_paid": amountInvest,
-					"current_rate": coinRate,
-					"converted_amount": converted_amount,
-					"base_currency": 'USD',
-					"currency_purchased": currency_purchased_code
-				};
-
-				connection.query('INSERT INTO user_mcptransaction SET ?', [mcp_data], function (err, result) {
-					if(err) throw err;
-					else{
-						req.flash('investStatusMessage', 'Your investment was made successfully!');
-						res.redirect('/managed-cryptocurrency-portfolio');
-					}
-				}); 
-			}
-		}); */
+        var status;
+        
+        Deposit.create({
+            checkout_id: randomNum,
+			transaction_id: randomNum,
+			user_id: userid,
+			amount: amountInvest,
+			current_rate: coinRate,
+			converted_amount: converted_amount,
+			type: type
+        }).then(function (result) {
+            req.flash('investStatusMessage', 'Your investment was made successfully!');
+            res.redirect('/managed-cryptocurrency-portfolio');
+        }).catch(function (err) {
+        });
     });
     
     app.post('/save-withdraw', function(req, res){
@@ -585,5 +577,24 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }).catch(function (err) {
             console.log(err);
         });
+    });
+
+    app.get('/get-donut-chart', (req, res)=> {
+        var response_arr = [];
+        lodash.each(req.user.currencyBalance, x => {
+            response_arr.push({
+                label: x.Currency.currency_id,
+                value: parseFloat(x.balance).toFixed(2)
+            });
+        });
+        response_arr.push({
+            label: "USD",
+            value: parseFloat(req.user.currentUsdBalance).toFixed(2)
+        });
+        response_arr.push({
+            label: "MCP",
+            value: parseFloat(req.user.mcpTotalBalance).toFixed(2)
+        });
+        res.json({'chart_array':response_arr});
     });
 };

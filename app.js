@@ -268,8 +268,8 @@ app.use(function(req, res, next){
 
 require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data);
 require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data);
-require('./routes/request_withdrawal')(app, models.withdraw);
 require('./routes/admin_dashboard')(app, models.Deposit, models.withdraw, models.User);
+require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details);
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

@@ -9,7 +9,7 @@
 		});
 
 		$("#withdrawAmount").keyup(function(){
-
+			console.log("Withdraw");
 			var balVal = $("#balVal").val();
 			var amtVal = $("#withdrawAmount").val();
 			amtVal = parseFloat(amtVal);
@@ -85,15 +85,19 @@
 			}else{
 				dataString = "action=withdrawCoin&withdrawAmount="+withdrawAmount+"&balVal="+balVal+"&payment_type="+payment_type+"&customerName="+customerName+"&bankName="+bankName+"&accountNumber="+accountNumber+"&ifsc="+ifsc+"&swiftCode="+swiftCode+"&bankAddress="+bankAddress;
 
-				console.log("action=withdrawCoin&withdrawAmount="+withdrawAmount+"&balVal="+balVal);
-
 				$(".errormsg").hide();
 				$.ajax({
 					type : "POST",
 					url  :  "/withdraw-amount",
 					data : {
 						withdrawAmount: withdrawAmount,
-						type: payment_type
+						type: payment_type,
+						customerName: customerName,
+						bankName: bankName,
+						accountNumber: accountNumber,
+						ifsc: ifsc,
+						swiftCode: swiftCode,
+						bankAddress: bankAddress
 					},
 					success : function(resp){
 						console.log(resp);

@@ -147,7 +147,7 @@ helpers: {
         return parseFloat(Math.round(value * 100) / 100).toFixed(2);  
     },
     fiveDecimalPoint: function(value){
-      return parseFloat(value).toFixed(5);
+      return parseFloat(Math.round(value * 100) / 100).toFixed(5);
     },
     nFormatter: function (num, digits) {
       var si = [{

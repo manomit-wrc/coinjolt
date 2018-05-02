@@ -1,0 +1,217 @@
+<section class="content-header">
+        <h1>Request Withdrawal</h1>
+        <ol class="breadcrumb">
+          <li>
+            <a href="/dashboard">
+              <i class="fa fa-dashboard"></i> Home</a>
+          </li>
+          <li class="active">Request Withdrawal</li>
+        </ol>
+      </section>
+      <!-- Main content -->
+      <section class="content container-fluid">
+
+        <div class="row wpb_row row-fluid dt-default" style="margin-top: 0px; margin-bottom: 0px; min-height: 0px;">
+      <div class="wpb_column column_container col-sm-12">
+        <div class="column-inner">
+          <div class="wpb_wrapper buySellTab">
+            <div class="box req-boxs">
+              <div class="tab-content tabData">
+                <div id="sell" class="tab-pane fade in active">
+                  <div class="box-header">
+                    <h3 class="box-title"><span class="leftbox" style="float:left">Withdraw Funds</span>
+                    </h3>
+                          </div>
+
+      
+          <div class="box-body tp-box">
+            <div class="form-group">
+              <div style="display:block;" class="returnMsg1 form-group col-md-8"></div>
+              <form method="post" name="CoinSell" class="coinSell">
+                <input type="hidden" name="coinRate" id="coinRate" value="">
+                <div class="form-group col-md-6">
+                  <input type="text" placeholder="Enter Amount" class="form-control" value="" name="withdrawAmount" id="withdrawAmount" required="required">
+                </div>
+                <div class="form-group col-md-6">
+                  <select name="payment_type" id="payment_type" class="form-control">
+                    <option value="">Select payout type</option>
+                    <option value="Bank">Bank Wire Transfer (1-2 Business Days)</option>
+                    <option value="Check">Check by Mail (14 Business Days)</option>
+                  </select>
+                </div>
+                <div class="bank_details" style="display: none">
+                  <div class="col-md-12">
+                    <h4 class="headings" style="padding-bottom: 12px">Bank Details</h4>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" placeholder="Account Holder Name" class="form-control" value="" name="customerName" id="customerName" required="required">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" placeholder="Bank Name" class="form-control" value="" name="bankName" id="bankName" required="required">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" placeholder="Bank Address ie:// 270 Park Ave, New York, NY 10017, USA" class="form-control" value="" name="bankAddress" id="bankAddress" required="required">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" placeholder="Account Number" class="form-control" value="" name="accountNumber" id="accountNumber" required="required">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" placeholder="Confirm Account Number" class="form-control" value="" name="ifsc" id="ifsc" required="required">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" placeholder="Routing Number/SWIFT Code" class="form-control" value="" name="swiftCode" id="swiftCode" required="required">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" placeholder="Branch Number" class="form-control" value="" name="branchnumber" id="branchnumber" required="required">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" placeholder="Institution Number" class="form-control" value="" name="institutionnumber" id="institutionnumber" required="required">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <p style="display:none" class='errormsg'></p>
+                </div>
+                <div class="col-md-4 col-md-offset-5">
+                  <p class="expected" style="display: none;color: #008000;"></p>
+                  <div class="btnall">
+                    <input type="submit" name="Submit" value="Withdraw" id="cc-submit1" class="btn btn-primary" >
+                    <p style="display:none;padding-right: 85px;" class="loaderImg"><img src="https://coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif" ></p>
+                  </div>
+                </div>
+                <div class="check" style="display:none;">
+                  <div class="personal-info" style="display: block;">
+                    <div class="form-group col-md-6">
+                      <label>First Name:</label>
+                      <input type="text" class="form-control" placeholder="First Name" name="firstname" id="firstname" value="Ken" required="required" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>Last Name:</label>
+                      <input type="text" class="form-control" placeholder="Last Name" name="lastname" id="lastname" value="Russell" required="required" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>Email Address:</label>
+                      <input type="text" class="form-control" placeholder="Email Address" name="email" id="email" value="support@coinjolt.com" required="required" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>Phone Number:</label>
+                      <input type="text" class="form-control" placeholder="Phone Number" name="phone" id="phone" required="required" value="604-353-1042" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>Date of Birth:</label>
+                      <input type="hidden" class="form-control" placeholder="Date of Birth" name="dob" id="dob" required="required" value="19931027">
+                      <!-- <input type="date" class="form-control" placeholder="Date of Birth" name="dob" id="dob" required="required" value="19931027"> -->
+                      <input type="date" class="form-control" placeholder="Date of Birth"  value="1993-10-27"  readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>Address:</label>
+                      <input type="text" class="form-control" placeholder="Address" name="address" id="address" value="3085 Point Grey Road" required="required" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>City:</label>
+                      <input type="text" class="form-control" placeholder="City" name="city" id="city" value="Vancouver" required="required" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>State or Province:</label>
+                      <input type="text" class="form-control" placeholder="State or Province" name="state" id="state" value="BC" required="required" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>Postal Code:</label>
+                      <input type="text" class="form-control" placeholder="Postcode" name="postcode" id="postcode" value="V6K 1A7" required="required" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>Country:</label>
+                      <input type="text" class="form-control" placeholder="Country" name="country" id="country" value="CA" required="required" readonly>
+                    </div>
+                  </div>
+                </div>
+                            <!-- <div class="bank_details" style="display: none">
+                              <div class="col-md-12">
+                                <h4 class="headings" style="padding-bottom: 12px">Bank Details</h4>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <input type="text" placeholder="Account Holder Name" class="form-control" value="" name="customerName" id="customerName" required="required">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <input type="text" placeholder="Bank Name" class="form-control" value="" name="bankName" id="bankName" required="required">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <input type="text" placeholder="Bank Address ie:// 270 Park Ave, New York, NY 10017, USA" class="form-control" value="" name="bankAddress" id="bankAddress" required="required">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <input type="text" placeholder="Account Number" class="form-control" value="" name="accountNumber" id="accountNumber" required="required">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <input type="text" placeholder="Confirm Account Number" class="form-control" value="" name="ifsc" id="ifsc" required="required">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <input type="text" placeholder="Routing Number/SWIFT Code" class="form-control" value="" name="swiftCode" id="swiftCode" required="required">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <input type="text" placeholder="Branch Number" class="form-control" value="" name="branchnumber" id="branchnumber" required="required">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <input type="text" placeholder="Institution Number" class="form-control" value="" name="institutionnumber" id="institutionnumber" required="required">
+                              </div>
+                              <p style="text-align: center;"><span style="color: red;">*</span> Wire transfers can anywhere between 1-7 business days to be processed. A incurrance fee of $15 - $30 is applied for every wire transfer.</p>
+                            </div> -->
+                            <!-- <div class="col-md-4 col-md-offset-5">
+                              <p class="expected" style="display: none;color: #008000;"></p>
+                              <p style="display:none" class='errormsg'></p>
+                              <div class="btnall">
+                                <input type="submit" name="Submit" value="Withdraw" id="cc-submit1" class="btn btn-primary" >
+                                <p style="display:none;padding-right: 85px;" class="loaderImg"><img src="https://coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif" ></p>
+                              </div>
+                            </div> -->
+                            <input type="hidden" id="PayType" value="withdraw">
+                            <input type="hidden" id="balVal" value="137.5K">
+                          </form>
+                        </div>
+                      </div>
+
+                      <!-- Pending Wire Transfer -->
+
+                      
+  <!-- <td></td> 
+  <th>Transaction Id</th> -->
+
+  <!-- Pending Wire Transfer -->
+
+</div>
+</div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">Withdrawal History</h3>
+      </div>
+      <div class="box-body">
+        <div class="table-responsive">      
+          <table id="request-withdrawal-table" class="table table-bordered table-striped" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>ID</th>
+
+                <th>Amount</th>
+                <th>Date</th>
+
+              </tr>
+            </thead>
+
+            <tbody>
+                  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+        <!-- Ends Withdrawal Funds -->
+      </section>

@@ -80,7 +80,6 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                        user.currentUsdBalance = final;
                        user.currency = currency_list;
                        user.currencyBalance = currencyBalance;
-                       console.log(user.currencyBalance.length);
                        done(null, user);
 
                     } catch (err) {

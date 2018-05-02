@@ -1209,6 +1209,11 @@
     {{!-- Script for calculating balance in the dashboard page --}}
     {{#each user.currencyBalance}}
         <script type="text/javascript">
+
+            function formatNumber(num) {
+                return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+            }
+
             var usdPrice = 0;
             $.ajax({
                     type: "GET",
@@ -1217,7 +1222,9 @@
                     url: "https://coincap.io/page/{{this.Currency.currency_id}}",
                     success: function (resp) {
                         usdPrice = parseFloat({{this.balance}} * resp.price_usd).toFixed(2);
-                        $(".wallet_dollar_{{this.Currency.currency_id}}").append('$' + usdPrice);
+                        //usdPrice.replace(/(\d)(?=(\d{3})+(?1\d))g, "$1,");
+                        //usdPrice.replace(/\d(?=(?:\d{3})+(?:\.|$));
+                        $(".wallet_dollar_{{this.Currency.currency_id}}").append('$' + formatNumber(usdPrice));
                     },
                     error: function (xhr) {
                     }

@@ -77,7 +77,7 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                                 }, 
                                 include: [ { model: Currency, required: true, attributes: ['alt_name','currency_id','display_name'] } 
                                 ] 
-                            });      
+                            });                 
                             //console.log(currencyBalance);
                        var currency_list = await Currency.findAll();
                        user = user.toJSON();

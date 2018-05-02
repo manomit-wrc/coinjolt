@@ -1,6 +1,6 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="/dashboard" class="logo">
+    <a {{#if_eq user.type 1}} href="/admin/dashboard" {{/if_eq}} {{#if_eq user.type 2}} href="/dashboard" {{/if_eq}} class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini">
             <img alt="-lg-logo" src="/dist/img/mini-logo.png">
@@ -16,48 +16,8 @@
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
-
-        <!-- Starts Balances & Rates -->
-        {{!-- <div class="balance-content">
-            <div class="bal-boxs">
-                <div class="left-pan">
-                    <h6>
-                        <strong>Balances:</strong>
-                    </h6>
-                    <ul class="list" id="blc">
-                        <li>
-                            <strong>USD:</strong> {{nFormatter user.currentUsdBalance 1}}
-                        </li>
-                        <li class="border">|</li>
-                        {{#each user.currency}}
-                        <li id="blc_{{this.currency_id}}">
-                            <strong>{{this.currency_id}}:</strong>
-                        </li>
-                        <li class="border">|</li>
-                        {{/each}}
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="rates-boxs1">
-            <div class="rates-content">
-                <div class="right-pan">
-                    <h6>
-                        <strong>Rates:</strong>
-                    </h6>
-                    <ul class="list" id="rtc">
-                        {{#each user.currency}}
-                        <li class="cr_{{this.currency_id}}">
-                            <strong>{{this.currency_id}}:</strong></li>
-                        <li class="border">|</li>
-                        {{/each}}
-                    </ul>
-                </div>
-            </div>
-        </div> --}}
-        <!-- Ends Balances & Rates -->
-
+        
+        {{#if_eq user.type 2}}
         <!-- Starts Balances & Rates -->
         <div class="balance-box">
             <a class="toggle-nav" id="bal-anchor">
@@ -101,6 +61,7 @@
                 </div>
             </div>
         </div>
+        {{/if_eq}}
 
         <!-- Ends Balances & Rates -->
         <div class="navbar-custom-menu">

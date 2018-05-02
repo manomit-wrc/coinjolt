@@ -2,77 +2,82 @@
     <section class="sidebar">
 
         <ul class="sidebar-menu" data-widget="tree">
-            <li>
-                <a href="/buy-and-sell-coins">
-                    <i class="fa fa-bitcoin"></i>
-                    <span>Buy and Sell Coins</span>
-                </a>
-            </li>
-            <li>
-                <a href="/managed-cryptocurrency-portfolio">
-                    <i class="fa fa-pie-chart"></i>
-                    <span> Managed Cryptocurrency
-                        <br>
-                        <span style="margin-left: 19%;">Portfolio</span>
-                    </span>
-                </a>
-            </li>
+            {{#if_eq user.type 2}}
+                <li>
+                    <a href="/buy-and-sell-coins">
+                        <i class="fa fa-bitcoin"></i>
+                        <span>Buy and Sell Coins</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/managed-cryptocurrency-portfolio">
+                        <i class="fa fa-pie-chart"></i>
+                        <span> Managed Cryptocurrency
+                            <br>
+                            <span style="margin-left: 19%;">Portfolio</span>
+                        </span>
+                    </a>
+                </li>
 
-            <li>
-                <a href="/transaction-history">
-                    <i class="fa fa-book"></i>
-                    <span>Transaction History</span>
-                </a>
-            </li>
+                <li>
+                    <a href="/transaction-history">
+                        <i class="fa fa-book"></i>
+                        <span>Transaction History</span>
+                    </a>
+                </li>
 
-            <li>
-                <a href="/profile-details">
-                    <i class="fa fa-user"></i>
-                    <span>Profile Details</span>
-                </a>
-            </li>
+                <li>
+                    <a href="/profile-details">
+                        <i class="fa fa-user"></i>
+                        <span>Profile Details</span>
+                    </a>
+                </li>
 
-            <li>
-                <a href="/account-settings">
-                    <i class="fa fa-cog"></i>
-                    <span>Account Settings</span>
-                </a>
-            </li>
+                <li>
+                    <a href="/account-settings">
+                        <i class="fa fa-cog"></i>
+                        <span>Account Settings</span>
+                    </a>
+                </li>
 
-            <li>
-                <a href="/deposit-funds">
-                    <i class="fa fa-money"></i>
-                    <span>Deposit Funds</span>
-                </a>
-            </li>
+                <li>
+                    <a href="/deposit-funds">
+                        <i class="fa fa-money"></i>
+                        <span>Deposit Funds</span>
+                    </a>
+                </li>
 
-            <li>
-                <a href="/request-withdrawal">
-                    <img alt="" src="dist/img/withdraw.png">
-                    <span> Request Withdrawal</span>
-                </a>
-            </li>
+                <li>
+                    <a href="/request-withdrawal">
+                        <img alt="" src="dist/img/withdraw.png">
+                        <span> Request Withdrawal</span>
+                    </a>
+                </li>
 
-            <li>
-                <a href="/invite-friends">
-                    <img alt="" src="dist/img/referrals.png">
-                    <span> Invite Friends</span>
-                </a>
-            </li>
+                <li>
+                    <a href="/invite-friends">
+                        <img alt="" src="dist/img/referrals.png">
+                        <span> Invite Friends</span>
+                    </a>
+                </li>
 
-            <li>
-                <a href="/pending-wire-transfers">
-                    <i class="fa fa-money"></i>
-                    <span> Pending Wire Transfers</span>
-                </a>
-            </li>
+                <li>
+                    <a href="/logout">
+                        <i class="fa fa-sign-out"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            {{/if_eq}}
 
-            <li>
-                <a href="/logout">
-                    <i class="fa fa-sign-out"></i>
-                    <span>Logout</span>
-                </a>
-            </li>
+            {{#if_eq user.type 1 }}
+
+                <li>
+                    <a href="/admin/pending-wire-transfers">
+                        <i class="fa fa-money"></i>
+                        <span> Pending Wire Transfers</span>
+                    </a>
+                </li>
+            {{/if_eq}}
         </ul>
     </section>
 </aside>

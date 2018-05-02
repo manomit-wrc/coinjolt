@@ -28,7 +28,7 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data) {
 		});
 	});
 
-	app.get('/pending-wire-transfers', (req,res) => {
+	app.get('/admin/pending-wire-transfers', (req,res) => {
 		WireTransfer.belongsTo(User, {foreignKey: 'user_id'});
 
 		WireTransfer.findAll({
@@ -37,9 +37,12 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data) {
             },
         	include: [{
 		    	model: User
-	  		}]
+	  		}],
+	  		order: [
+            	['id', 'DESC']
+        	]
 		}).then(function(result){
-			res.render('pending_wire_transfers/index',{layout: 'dashboard',all_data:result});
+			res.render('admin/pending_wire_transfers/index',{layout: 'dashboard',all_data:result});
 		});
 	});
 

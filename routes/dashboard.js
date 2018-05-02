@@ -1,6 +1,7 @@
 var bCrypt = require('bcrypt-nodejs');
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
+const lodash = require('lodash');
 module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data) {
     var multer = require('multer');
     var fileExt = '';
@@ -585,5 +586,20 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }).catch(function (err) {
             console.log(err);
         });
+    });
+
+    app.get('/get-donut-chart', (req, res)=> {
+        var response_arr = [];
+        lodash.each(req.user.currencyBalance, x => {
+            response_arr.push({
+                label: x.Currency.currency_id,
+                value: parseFloat(x.balance).toFixed(2)
+            });
+        });
+        response_arr.push({
+            label: "USD",
+            value: parseFloat(req.user.currentUsdBalance).toFixed(2)
+        })
+        res.json({'chart_array':response_arr});
     });
 };

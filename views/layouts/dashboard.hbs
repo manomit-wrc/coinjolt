@@ -179,7 +179,6 @@
     <!--for deposite funds,pending_wire_transfer//-->
     <script src="/js/deposite_funds.js"></script>
     <script src="/js/pending_wire_transfer.js"></script>
-    <script src="/js/request_withdrawal.js"></script>
     <!--end-->
     <script type="text/javascript">
         $(function () {
@@ -1075,34 +1074,7 @@
             // Notes form validation ends
         });
     </script>
-    {{#each user.currencyBalance}}
-        
-    <script>    
-        
-                $(function () {
-                 "use strict"; 
-                 //DONUT CHART 
-                 var donut = new Morris.Donut({ 
-                     element: 'sales-chart', 
-                     resize: true,
-                     colors: [ "#f51f17",
-                      "#1C3E85", 
-                      "#1C3E85", 
-                      "#1C3E85", 
-                      "#1C3E85", 
-                      "#1C3E85" ], 
-                      data: [
-                       {label: "USD", value: {{user.currentUsdBalance}} }, 
-                       {label: "MCP", value: 3138397419.00 }
-                     ], 
-                    hideHover: 'auto',
-                    formatter: function (value, data) { 
-                        return nFormatter(value, 2); 
-                    } 
-                }); 
-            }); 
-    </script> <!-- Currency balance chart ends -->
-    {{/each}}
+
     <script type="text/javascript"> 
         var copyBtn = $("#clipboardBtn");
         input = $("#copy-me");
@@ -1208,21 +1180,24 @@
 
     {{!-- Script for calculating balance in the dashboard page --}}
     {{#each user.currencyBalance}}
-        <script type="text/javascript">
-            var usdPrice = 0;
-            $.ajax({
-                    type: "GET",
-                    crossDomain: true,
-                    dataType: 'json',
-                    url: "https://coincap.io/page/{{this.Currency.currency_id}}",
-                    success: function (resp) {
-                        usdPrice = parseFloat({{this.balance}} * resp.price_usd).toFixed(2);
-                        $(".wallet_dollar_{{this.Currency.currency_id}}").append('$ ' + usdPrice);
-                    },
-                    error: function (xhr) {
-                    }
-            });
-        </script>
+
+    <script type="text/javascript">
+        var usdPrice = 0;
+        $(".wallet_dollar").append('1234');
+        $.ajax({
+                type: "GET",
+                crossDomain: true,
+                dataType: 'json',
+                url: "https://coincap.io/page/{{this.Currency.currency_id}}",
+                success: function (resp) {
+                    usdPrice = {{this.balance}} * resp.price_usd.toFixed(2);
+
+                    $(".wallet_dollar_{{this.Currency.currency_id}}").append('$ ' + usdPrice);
+                },
+                error: function (xhr) {
+                }
+        });
+    </script>
     {{/each}}
     {{!-- Ends Script for calculating balance in the dashboard page --}}
 

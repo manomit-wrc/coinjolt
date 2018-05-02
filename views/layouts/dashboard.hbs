@@ -1216,7 +1216,7 @@
                     url: "https://coincap.io/page/{{this.Currency.currency_id}}",
                     success: function (resp) {
                         usdPrice = parseFloat({{this.balance}} * resp.price_usd).toFixed(2);
-                        $(".wallet_dollar_{{this.Currency.currency_id}}").append('$ ' + usdPrice);
+                        $(".wallet_dollar_{{this.Currency.currency_id}}").append('$' + usdPrice);
                     },
                     error: function (xhr) {
                     }

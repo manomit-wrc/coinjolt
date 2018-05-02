@@ -1207,24 +1207,22 @@
 
     {{!-- Script for calculating balance in the dashboard page --}}
     {{#each user.currencyBalance}}
-
-    <script type="text/javascript">
-        var usdPrice = 0;
-        $(".wallet_dollar").append('1234');
-        $.ajax({
-                type: "GET",
-                crossDomain: true,
-                dataType: 'json',
-                url: "https://coincap.io/page/{{this.Currency.currency_id}}",
-                success: function (resp) {
-                    usdPrice = {{this.balance}} * resp.price_usd.toFixed(2);
-
-                    $(".wallet_dollar_{{this.Currency.currency_id}}").append('$ ' + usdPrice);
-                },
-                error: function (xhr) {
-                }
-        });
-    </script>
+        <script type="text/javascript">
+            var usdPrice = 0;
+            $(".wallet_dollar").append('1234');
+            $.ajax({
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: 'json',
+                    url: "https://coincap.io/page/{{this.Currency.currency_id}}",
+                    success: function (resp) {
+                        usdPrice = parseFloat({{this.balance}} * resp.price_usd).toFixed(2);
+                        $(".wallet_dollar_{{this.Currency.currency_id}}").append('$ ' + usdPrice);
+                    },
+                    error: function (xhr) {
+                    }
+            });
+        </script>
     {{/each}}
     {{!-- Ends Script for calculating balance in the dashboard page --}}
 

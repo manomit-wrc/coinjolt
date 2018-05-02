@@ -1092,7 +1092,7 @@
                       "#1C3E85" ], 
                       data: [
                        {label: "USD", value: {{user.currentUsdBalance}} }, 
-                       {label: "MCP", value: 3138397419.00 }//,
+                       {label: "MCP", value: 3138397419.00 }
                      ], 
                     hideHover: 'auto',
                     formatter: function (value, data) { 
@@ -1209,7 +1209,6 @@
     {{#each user.currencyBalance}}
         <script type="text/javascript">
             var usdPrice = 0;
-            $(".wallet_dollar").append('1234');
             $.ajax({
                     type: "GET",
                     crossDomain: true,

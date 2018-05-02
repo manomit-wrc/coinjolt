@@ -128,10 +128,7 @@
                                 </td>
                                 <td>DOLLAR <span style="color:red;">(USD)</span></td>
                                 <td>
-                                    {{user.currentUsdBalance}}
-                                </td>
-                                <td>
-                                    ${{user.currentUsdBalance}}
+                                    {{twoDecimalPoint user.currentUsdBalance}}
                                 </td>
                             </tr>
                             <tr>
@@ -139,12 +136,6 @@
                                     <img src="http://dev.coinjolt.com/dashboard/img/usd.png" alt="">
                                 </td>
                                 <td>MANAGED PORTFOLIO<span style="color:red;">(MCP)</span></td>
-                                <td>
-                                    16,773,490.44
-                                </td>
-                                <td>
-                                    $16,773,490.44
-                                </td>
                             </tr>
                             {{#each user.currency}}
                             <tr>    
@@ -153,10 +144,7 @@
                                 </td>
                                 <td>{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
                                 <td class="wallet_crp">
-                                        {{checkCurrencies this.alt_name ../user.currencyBalance}}
-                                </td>
-                                <td class="wallet_dollar_{{this.currency_id}}">
-                                    
+                                        {{twoDecimalPoint (checkCurrencies this.alt_name ../user.currencyBalance)}}
                                 </td>
                             </tr>
                             {{/each}}

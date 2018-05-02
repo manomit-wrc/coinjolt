@@ -306,21 +306,29 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
         curr_id = curr_id[0].id;
 
+        function notOnlyALogger(msg){
+            console.log('****log****');
+            console.log(msg);
+        }
+
         // calculating cryptocurrency wallet current balance
-         curr_brought = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1, currency_id:curr_id},
-            attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
-        });
 
-        curr_sold = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2, currency_id:curr_id},
-            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
-        });
-
-        curr_crypto_bal = parseFloat(curr_brought[0].get('TOT_BUY_AMT') - curr_sold[0].get('TOT_SOLD_AMT'));
-        curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
-
-        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal, curr_id: curr_id}); 
+        let currCrypto_bal = await Deposit.findAll(
+            { 
+                attributes: ['balance'],
+                //logging: notOnlyALogger,
+                where: {
+                    user_id: req.user.id,
+                    currency_id: curr_id
+                },
+                limit: 1,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+                
+            }); 
+        currCrypto_bal = currCrypto_bal[0].balance;
+        res.json({message: 'Success', status: true, crypto_balance: currCrypto_bal, curr_id: curr_id}); 
 
     });
 
@@ -339,21 +347,24 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
         curr_id = curr_id[0].id;
 
+        let currCrypto_bal = await Deposit.findAll(
+            { 
+                attributes: ['balance'],
+                //logging: notOnlyALogger,
+                where: {
+                    user_id: req.user.id,
+                    currency_id: curr_id
+                },
+                limit: 1,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+                
+            });
+
         // calculating cryptocurrency wallet current balance
-        curr_brought = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1, currency_id:curr_id},
-            attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_BUY_AMT']]
-        });
-
-        curr_sold = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2, currency_id:curr_id},
-            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_SOLD_AMT']]
-        });
-
-        curr_crypto_bal = parseFloat(curr_brought[0].get('TOT_BUY_AMT') - curr_sold[0].get('TOT_SOLD_AMT'));
-        curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
-        
-        res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal, curr_id: curr_id});
+        currCrypto_bal = currCrypto_bal[0].balance;
+        res.json({message: 'Success', status: true, crypto_balance: currCrypto_bal, curr_id: curr_id});
 	});
 
     app.post('/confirm_coin_buy', function(req, res) {

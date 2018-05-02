@@ -25,13 +25,16 @@ module.exports = function(app, passport, models) {
     });
 
     app.post('/', passport.authenticate('local-login', {
-
-        successRedirect : '/dashboard',
+        //successRedirect : '/dashboard',
         failureRedirect : '/',
         failureFlash : true 
     }),
     function(req, res) {
-
+        if (req.user.type === "1") {
+            res.redirect('/admin/dashboard');
+        } else {
+            res.redirect('/dashboard');
+        }
     });
 
     app.post('/signup', passport.authenticate('local-signup', {

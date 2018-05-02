@@ -56,10 +56,6 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                             console.log(msg);
                         }
 
-                        /*
-                            SELECT deposits.`id`, deposits.`balance`, currencies.`alt_name` FROM deposits INNER JOIN currencies ON deposits.`currency_id` = currencies.id WHERE deposits.`id` IN ( SELECT MAX(`id`) FROM deposits GROUP BY `currency_id` )
-
-                         */
                         const tempSQL = models.sequelize.dialect.QueryGenerator.selectQuery('deposits',
                             { 
                             attributes: [ [sequelize.fn('MAX',sequelize.col('id')),'deposit_id'] ], 
@@ -70,16 +66,14 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                         let currencyBalance = await Deposit.findAll(
                             { 
                                 attributes: ['id','balance'], 
-                                logging: notOnlyALogger,
-                                order: [ ['id', 'DESC'], ], 
                                 //logging: notOnlyALogger,
+                                order: [ ['id', 'DESC'], ], 
                                 where: { user_id: id, 
                                     id: { $in: sequelize.literal('(' + tempSQL + ')') } 
                                 }, 
                                 include: [ { model: Currency, required: true, attributes: ['alt_name','currency_id','display_name'] } 
                                 ] 
-                            });      
-                            console.log(currencyBalance);
+                            });                 
                        var currency_list = await Currency.findAll();
                        user = user.toJSON();
                        user.currentUsdBalance = final;

@@ -110,7 +110,48 @@
 									  <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
 									</div>
                 </div>
-                <div class="col-md-8"></div>
+                <div class="col-md-8">
+                    <table class="table scroll-minus">
+                        <thead>
+                            <tr>
+                                <th>SYMBOL</th>
+                                <th>NAME</th>
+                                <th>BALANCE</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="scroll-dashboard" style="height: 445.15px;">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <img src="http://dev.coinjolt.com/dashboard/img/usd.png" alt="">
+                                </td>
+                                <td>DOLLAR <span style="color:red;">(USD)</span></td>
+                                <td>
+                                    {{twoDecimalPoint user.currentUsdBalance}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="http://dev.coinjolt.com/dashboard/img/usd.png" alt="">
+                                </td>
+                                <td>MANAGED PORTFOLIO<span style="color:red;">(MCP)</span></td>
+                            </tr>
+                            {{#each user.currency}}
+                            <tr>    
+                                <td class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite">
+                                    
+                                </td>
+                                <td>{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
+                                <td class="wallet_crp">
+                                        {{twoDecimalPoint (checkCurrencies this.alt_name ../user.currencyBalance)}}
+                                </td>
+                            </tr>
+                            {{/each}}
+
+                        </table>
+                    </div>
+                </div>
               </div>
             </div>
           </div>
@@ -133,31 +174,20 @@
                       <th>Type</th>
                       <th>Date</th>
                     </tr>
-                 
-                      {{#each recent_buy_activity}}
-                      <tr>
-                          <td>{{this.currency_purchased}}</td>
-                          <td>${{formatCurrency (twoDecimalPoint this.current_rate)}}</td>
-                          <td>${{formatCurrency (fiveDecimalPoint this.converted_amount)}}</td>
-
-                          <td>{{twoDecimalPoint this.amount }}</td>
-                          <td>{{#if_eq this.type '1'}} Buy {{/if_eq}}</td>
-                          <td>{{dateFormat this.createdAt "DD-MM-YYYY"}}</td>
-                      </tr>
-                      {{/each}}     
-
-                      {{#each recent_sell_activity}}
-                      <tr>
-                          <td>{{this.currency_purchased}}</td>
-                          <td>${{formatCurrency (twoDecimalPoint this.current_rate)}}</td>
-                         <td>${{formatCurrency (fiveDecimalPoint this.converted_amount)}}</td>
-
-                          <td>{{twoDecimalPoint this.amount }}</td>
-                          <td>{{#if_eq this.type '2'}} Sell {{/if_eq}}</td>
-                          <td>{{dateFormat this.createdAt "DD-MM-YYYY"}}</td>
-                      </tr>
-                      {{/each}}
-
+                    {{#each currencyCodes}}
+                    <tr>
+                        <td>{{this.Currency.currency_id}}</td>
+                        <td>${{formatCurrency (twoDecimalPoint this.current_rate)}}</td>
+                        <td>${{formatCurrency (fiveDecimalPoint this.amount)}}</td>
+                        <td>{{fiveDecimalPoint this.converted_amount }}</td>
+                        <td>{{#if_eq this.type '1'}}
+                            Buy 
+                            {{else}}
+                            Sell
+                            {{/if_eq}}</td>
+                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                    </tr>
+                    {{/each}}
                   </tbody>
                 </table>
               </div>

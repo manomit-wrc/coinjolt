@@ -259,25 +259,35 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     app.get('/buy-and-sell-coins', async (req, res) => {
         var values = '';
         var buy_history = '';
-        var sell_history = '';
+        
+        function notOnlyALogger(msg){
+            console.log('****log****');
+            console.log(msg);
+        }
+
+        Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
+        let currencyCodes = await Deposit.findAll(
+        { 
+            where: {
+                user_id: req.user.id,
+                type: {
+                    [Op.or]: [1, 2]
+                }
+            },
+            limit: 5,
+            order: [
+                ['createdAt', 'DESC']
+            ],
+            //logging: notOnlyALogger,
+            include: [{ 
+                model: Currency, required: true
+                
+            }] 
+        }); 
         values = await Currency.findAll({
             attributes: ['alt_name','currency_id']
         });
-        buy_history = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1},
-            limit: 5,
-            order: [
-                ['createdAt', 'DESC']
-            ]
-        });
-        sell_history = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2},
-            limit: 5,
-            order: [
-                ['createdAt', 'DESC']
-            ]
-        });
-        res.render('buy-and-sell-coins', {layout: 'dashboard', recent_buy_activity: buy_history, recent_sell_activity: sell_history,contents: values });
+        res.render('buy-and-sell-coins', {layout: 'dashboard',contents: values,currencyCodes: currencyCodes });
     });
 
     app.post('/buy-coin', async (req, res) => {
@@ -310,8 +320,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         curr_crypto_bal = parseFloat(Math.round(curr_crypto_bal * 100) / 100).toFixed(4);
 
         res.json({message: 'Success', status: true, crypto_balance: curr_crypto_bal, curr_id: curr_id}); 
-
-
 
     });
 
@@ -373,15 +381,16 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 		var digits = 9;	
 		var numfactor = Math.pow(10, parseInt(digits-1));	
 		var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
-        
+        var currencyAmount = parseFloat(req.body.amtVal * req.body.coinRate);
         Deposit.create({
             user_id: req.user.id,
             transaction_id: randomNum,
             checkout_id: randomNum,
-            amount: req.body.amtVal,
+            amount: currencyAmount,
             current_rate: req.body.coinRate,
             type: 2,            
             base_currency: req.body.currencySellType,
+            converted_amount: req.body.amtVal,
             balance: req.body.balance,
             currency_id: req.body.currency_id
         }).then(function (result) {

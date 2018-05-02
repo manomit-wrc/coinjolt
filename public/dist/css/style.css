@@ -1152,6 +1152,10 @@ label.success,
     .rates .right .list li:last-child {
         border: none;
     }
+    .balnrates .left .list li:nth-last-child(2),
+    .rates .right .list li:nth-last-child(2) {
+        border: none;
+    }
     .balnrates .left h6,
     .rates .right h6 {
         display: none !important;

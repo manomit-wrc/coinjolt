@@ -39,10 +39,10 @@
                                 </td>
                                 <td>MANAGED PORTFOLIO<span style="color:red;">(MCP)</span></td>
                                 <td>
-                                    
+                                    {{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}
                                 </td>
                                 <td>
-                                    
+                                    ${{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}
                                 </td>
                             </tr>
                             {{#each user.currency}}

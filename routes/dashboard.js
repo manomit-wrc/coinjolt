@@ -305,6 +305,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             attributes: ['id']
         });
         curr_id = curr_id[0].id;
+        console.log("buy");
+        console.log(curr_id);
 
         // calculating cryptocurrency wallet current balance
          curr_brought = await Deposit.findAll({
@@ -338,6 +340,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             attributes: ['id']
         });
         curr_id = curr_id[0].id;
+        console.log("sell");
+        console.log(curr_id);
 
         // calculating cryptocurrency wallet current balance
         curr_brought = await Deposit.findAll({
@@ -575,7 +579,11 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         response_arr.push({
             label: "USD",
             value: parseFloat(req.user.currentUsdBalance).toFixed(2)
-        })
+        });
+        response_arr.push({
+            label: "MCP",
+            value: parseFloat(req.user.mcpTotalBalance).toFixed(2)
+        });
         res.json({'chart_array':response_arr});
     });
 };

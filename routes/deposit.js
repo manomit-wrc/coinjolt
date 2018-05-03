@@ -63,7 +63,7 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data) {
 		}).then (function (result) {
 			if(result > 0){
 				Deposit.create({
-					user_id: req.user.id,
+					user_id: req.body.user_id,
 					transaction_id: randomNum,
 					checkout_id: randomNum,
 					type: 0,
@@ -177,7 +177,10 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data) {
             },
         	include: [{
 		    	model: User
-	  		}]
+	  		}],
+	  		order: [
+            	['id', 'DESC']
+        	]
 		}).then(function(result){
 			res.render('admin/pending_wire_transfers/history',{layout: 'dashboard',all_data:result});
 		});

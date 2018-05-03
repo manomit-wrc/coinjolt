@@ -1,15 +1,10 @@
-$(document).ready(function () {
- 	$('#pending_wire_transfer_table').DataTable({
-        "aaSorting": []
-    });
+$(document).ready(function() {
+	$('.kyc_approved').on('click', function () {
+		var row_id = $(this).data('value');
 
- 	$(".pending_wire_transfer_approved").on('click', function () {
- 		var row_id = $(this).data('value');
-        var amount = $(this).data('amount');
- 		var user_id = $(this).data('user_id');
- 		swal({
- 			title: "Transaction Confirmation",
- 			text: "Are you sure you want to accept this wire transfer?",
+		swal({
+ 			title: "KYC Confirmation",
+ 			text: "Are you sure you want to accept?",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
@@ -18,30 +13,27 @@ $(document).ready(function () {
  		}, function () {
  			$.ajax ({
  				type: "POST",
- 				url : "/pending-wire-transfer-approved",
+ 				url : "/admin/kyc-approved",
  				data :{
- 					row_id: row_id,
- 					amount:amount,
-                    user_id: user_id
+ 					row_id: row_id
  				},
  				success : function (response) {
  					if(response.status == true){
  						var title = "Approval Successful";
- 						var text = "You have successfully approved the wire transfer.";
+ 						var text = "You have successfully approved the KYC.";
  						sweetAlertSuccessPopUp(title,text);
  					}
  				}
  			});
  		});
- 	});
+	});
 
- 	$(".pending_wire_transfer_reject").on('click', function () {
- 		var row_id = $(this).data('value');
- 		var amount = $(this).data('amount');
+	$('.kyc_reject').on('click', function () {
+		var row_id = $(this).data('value');
 
- 		swal({
- 			title: "Transaction Confirmation",
- 			text: "Are you sure you want to reject this wire transfer?",
+		swal({
+ 			title: "KYC Confirmation",
+ 			text: "Are you sure you want to reject?",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
@@ -50,22 +42,22 @@ $(document).ready(function () {
  		}, function () {
  			$.ajax({
  				type: "POST",
- 				url: "/pending-wire-transfer-reject",
+ 				url: "/admin/kyc-reject",
  				data:{
  					row_id : row_id
  				},
  				success : function (response) {
  					if(response.status == true){
  						var title = "Rejection Successful";
- 						var text = "You have successfully reject the wire transfer.";
+ 						var text = "You have successfully reject the KYC.";
  						sweetAlertSuccessPopUp(title,text);
  					}
  				}
  			});
  		});
- 	});
+	});
 
- 	// sweet alert success function //
+	// sweet alert success function //
  	function sweetAlertSuccessPopUp (title='',text='') {
         swal({
             title: title,

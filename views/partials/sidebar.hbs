@@ -69,6 +69,7 @@
                 </li>
             {{/if_eq}}
 
+            {{!-- for admin section --}}
             {{#if_eq user.type 1 }}
 
                 <li>
@@ -82,6 +83,20 @@
                     <a href="/admin/pending-withdrawals">
                         <img alt="" src="../dist/img/withdraw.png">
                         <span> Manage Withdrawals</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/kyc">
+                        {{!-- <img alt="" src="../dist/img/withdraw.png"> --}}
+                        <span>KYC</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/support">
+                        {{!-- <img alt="" src="../dist/img/withdraw.png"> --}}
+                        <span>Support</span>
                     </a>
                 </li>
             {{/if_eq}}

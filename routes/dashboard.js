@@ -136,6 +136,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.post('/account-settings', function (req, res) {
+        var countryId = req.body.country;
+        if(countryId === "226"){
+            state = req.body.usa_states;
+        } else {
+            state = req.body.state;
+        }
         User.update({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -145,13 +151,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             about_me: req.body.about_me,
             dob: req.body.dob,
             city: req.body.city,
-            state: req.body.state,
-            country: req.body.country,
+            state: state,
+            country_id: countryId,
             postal_code: req.body.postcode
         }, {
             where: {
                 id: req.user.id
-
             }
         }).then(function (result) {
             if (result > 0) {

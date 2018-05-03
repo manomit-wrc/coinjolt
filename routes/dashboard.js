@@ -453,7 +453,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 
             }] 
         }); 
-        
+
         deposit_history = await Deposit.findAll({
             where: {user_id: req.user.id, type: 0},
             limit: 1000,
@@ -619,5 +619,14 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             value: parseFloat(req.user.mcpTotalBalance).toFixed(2)
         });
         res.json({'chart_array':response_arr});
+    });
+
+    app.post('/save-questionnaire', (req, res) => {
+        console.log('User id: ',req.user.id);
+        // fetch questions alongwith options
+
+        // save selected answers to db
+        
+
     });
 };

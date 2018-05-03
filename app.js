@@ -267,7 +267,7 @@ app.use(function(req, res, next){
 
 
 require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data);
-require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data,models.Currency);
+require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data,models.Currency,models.Country);
 require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details);
 require('./routes/admin_dashboard')(app);
 

@@ -1,7 +1,7 @@
-module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency) {
+module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,Country) {
 	const Op = require('sequelize').Op;
 	const sequelize = require('sequelize');
-	app.get('/deposit-funds', (req,res) => {
+	app.get('/deposit-funds', async (req,res) => {
 		/* WireTransfer.belongsTo(User, {foreignKey: 'user_id'});
 
 		WireTransfer.findAll({
@@ -37,7 +37,7 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency) 
             }] 
 		}); */
 		
-		Deposit.findAll({
+		let depositHistory = await Deposit.findAll({
 			where: {
 				user_id: req.user.id,
                 type: 0
@@ -46,9 +46,11 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency) 
             order: [
                 ['id', 'DESC']
             ]
-		}).then(function(result){
-			res.render('deposit/view',{layout: 'dashboard', depositHistory: result});
 		});
+
+		let countries = await Country.findAll();
+
+		res.render('deposit/view',{layout: 'dashboard', depositHistory: depositHistory, countries: countries});
 
 	});
 

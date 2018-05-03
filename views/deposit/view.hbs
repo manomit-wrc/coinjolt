@@ -143,8 +143,16 @@
                     <input type="text" class="form-control" placeholder="Postcode" name="postcode" id="postcode" value="{{user.postal_code}}" required="required" readonly>
                   </div>
                   <div class="form-group col-md-6">
-                    <label>Country:</l abel>
-                    <input type="text" class="form-control" placeholder="Country" name="country" id="country" value="CA" required="required" readonly>
+                    <label>Country:</label>
+                    
+                    {{!-- <input type="text" class="form-control" placeholder="Country" name="country" id="country" value="CA" required="required" readonly> --}}
+
+                    {{#each countries}}
+                        {{#if_eq this.id ../user.country_id}}
+                          <input type="text" value="{{this.name}}" class="form-control" placeholder="Country" name="country" id="country" required="required" readonly>
+                        {{/if_eq}}
+                    {{/each}}
+
                   </div>
                 </div>
                     <div id="wr-transfer" style="display:none"><p style="margin-left: 2%; text-align: center;"><span style="color: red;">*</span>Enter the deposit amount and print out the information on the following PDF to provide to your local branch. Wire transfers typically take between 5-7 business days to be processed. There may be a $30 - $50 wire transfer fee depending on your financial institution.</p></div>

@@ -415,20 +415,45 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
     
     app.get('/transaction-history', async (req, res) =>{
-        buy_history = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1},
+
+        Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
+        let buy_history = await Deposit.findAll(
+        { 
+            where: {
+                user_id: req.user.id,
+                type: 1
+            },
             limit: 1000,
             order: [
                 ['id', 'DESC']
-            ]
-        });
-        sell_history = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2},
+            ],
+            //logging: notOnlyALogger,
+            include: [{ 
+                model: Currency, required: true,
+                attributes: ['currency_id']
+                
+            }] 
+        }); 
+
+        Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
+        let sell_history = await Deposit.findAll(
+        { 
+            where: {
+                user_id: req.user.id,
+                type: 2
+            },
             limit: 1000,
             order: [
                 ['id', 'DESC']
-            ]
-        });
+            ],
+            //logging: notOnlyALogger,
+            include: [{ 
+                model: Currency, required: true,
+                attributes: ['currency_id']
+                
+            }] 
+        }); 
+        
         deposit_history = await Deposit.findAll({
             where: {user_id: req.user.id, type: 0},
             limit: 1000,

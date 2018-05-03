@@ -348,8 +348,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             attributes: ['id']
         });
         curr_id = curr_id[0].id;
-        console.log("sell");
-        console.log(curr_id);
 
         let currCrypto_bal = await Deposit.findAll(
             { 

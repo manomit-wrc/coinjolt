@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return [
       queryInterface.changeColumn(
-        'countries',
+        'Countries',
         'iso',
         {
           type: Sequelize.STRING(2),
@@ -12,7 +12,7 @@ module.exports = {
         }
       ),
       queryInterface.changeColumn(
-        'countries',
+        'Countries',
         'name',
         {
           type: Sequelize.STRING(80),
@@ -20,7 +20,7 @@ module.exports = {
         }
       ),
       queryInterface.changeColumn(
-        'countries',
+        'Countries',
         'nicename',
         {
           type: Sequelize.STRING(80),
@@ -28,7 +28,7 @@ module.exports = {
         }
       ),
       queryInterface.changeColumn(
-        'countries',
+        'Countries',
         'iso3',
         {
           type: Sequelize.STRING(3),
@@ -36,7 +36,7 @@ module.exports = {
         }
       ),
       queryInterface.changeColumn(
-        'countries',
+        'Countries',
         'numcode',
         {
           type: Sequelize.INTEGER(6),
@@ -44,7 +44,7 @@ module.exports = {
         }
       ),
       queryInterface.changeColumn(
-        'countries',
+        'Countries',
         'phonecode',
         {
           type: Sequelize.INTEGER(5),

@@ -11,8 +11,7 @@ module.exports = function (app, Deposit, Withdraw, User) {
 		Withdraw.belongsTo(User, {foreignKey: 'user_id'});
 		Withdraw.findAll({
 			where: {
-                status:0,
-                withdraw_type:1
+                status:0
             },
         	include: [{
 		    	model: User
@@ -42,12 +41,12 @@ module.exports = function (app, Deposit, Withdraw, User) {
 		}).then (function (result) {
 			if(result > 0){
 				Deposit.create({
-					user_id: req.user.id,
+					user_id: req.body.row_id,
 					transaction_id: randomNum,
 					checkout_id: randomNum,
-					type: 0,
+					type: 3,
 					amount: amount,
-					payment_method: 2
+					payment_method: 0
 				}).then (function (result) {
 					res.json({
 	                    status: true,
@@ -70,6 +69,20 @@ module.exports = function (app, Deposit, Withdraw, User) {
 	            status: true,
 	            message: 'Rejected succesfully.'
 	        });
+		});
+	});
+
+	app.get('/admin/pending-withdrawals-history', (req, res) => {
+		Withdraw.belongsTo(User, {foreignKey: 'user_id'});
+		Withdraw.findAll({
+			where: {
+             	status: { $not: 0 }
+            },
+        	include: [{
+		    	model: User
+	  		}]
+		}).then(function(result) {
+			res.render('admin/pending_withdrawals/history', { layout: 'dashboard', all_data: result });
 		});
 	});
 };

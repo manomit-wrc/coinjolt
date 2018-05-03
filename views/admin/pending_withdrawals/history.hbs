@@ -1,10 +1,10 @@
 <section class="content-header">
-	<h1>Pending Wire Transfers History List</h1>
+	<h1>Pending Withdrawals History List</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">Pending Wire Transfers History List</li>
+		<li class="active">Pending Withdrawals History List</li>
 	</ol>
 </section>
 
@@ -23,6 +23,7 @@
 									<th>Name</th>
 									<th>Amount</th>
 									<th>Date</th>
+									<th>Type</th>
 									<th>Status</th>
 								</tr>
 							</thead>
@@ -33,6 +34,17 @@
 									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
 									<td>{{this.amount_usd}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
+									<td>
+										{{#if_eq this.withdraw_type 1}}
+										Bank Wire Transfer
+										{{/if_eq}}
+										{{#if_eq this.withdraw_type 2}}
+										Check by Mail
+										{{/if_eq}}
+										{{#if_eq this.withdraw_type 3}}
+										MCP Withdraw
+										{{/if_eq}}
+									</td>
 									<td>
 										{{#if_eq this.status 1}}
 										Approved

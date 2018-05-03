@@ -49,6 +49,14 @@ helpers: {
             return opts.inverse(this);
 
     },
+    if_neq: function (a, b, opts) {
+        
+      if (a != b) // Or === depending on your needs
+          return opts.fn(this);
+      else
+          return opts.inverse(this);
+
+  },
     inArray: function(array, value, block) {
       if (array.indexOf(value) !== -1) {
         return block.fn(this);

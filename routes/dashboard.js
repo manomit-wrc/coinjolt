@@ -641,14 +641,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         res.json({'chart_array':response_arr});
     });
 
-    app.post('/save-questionnaire', (req, res) => {
-        //console.log('User id: ',req.user.id);      
+    app.post('/save-questionnaire', (req, res) => {  
 
         for (var i in req.body.finalcialData) {
             financeData = req.body.finalcialData[i];
-            //console.log('Question title',financeData.name);
-            //console.log('Answer',financeData.value);
-            console.log('LOGGED IN USER ID', req.user.id);
             Answer.create({
                 user_id: req.user.id,
                 question_id: financeData.name,

@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return[
       queryInterface.addColumn(
-        'referral_data',
+        'Referral_data',
         'referral_id',
         {
           type: Sequelize.INTEGER,
@@ -12,7 +12,7 @@ module.exports = {
         }
       ),
       queryInterface.addColumn(
-        'referral_data',
+        'Referral_data',
         'deposit_amount',
         {
           type: Sequelize.DECIMAL(10, 2),
@@ -20,7 +20,7 @@ module.exports = {
         }
       ),
       queryInterface.addColumn(
-        'referral_data',
+        'Referral_data',
         'referral_amount',
         {
           type: Sequelize.DECIMAL(10, 2),

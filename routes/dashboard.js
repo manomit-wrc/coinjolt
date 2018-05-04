@@ -2,7 +2,7 @@ var bCrypt = require('bcrypt-nodejs');
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
 const lodash = require('lodash');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, Question, Option) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, Question, Option, Answer) {
     var multer = require('multer');
     var fileExt = '';
     var fileName = '';
@@ -642,11 +642,24 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.post('/save-questionnaire', (req, res) => {
-        console.log('User id: ',req.user.id);
-        // fetch questions alongwith options
+        //console.log('User id: ',req.user.id);      
 
-        // save selected answers to db
-        
+        for (var i in req.body.finalcialData) {
+            financeData = req.body.finalcialData[i];
+            //console.log('Question title',financeData.name);
+            //console.log('Answer',financeData.value);
+            console.log('LOGGED IN USER ID', req.user.id);
+            Answer.create({
+                user_id: req.user.id,
+                question_id: financeData.name,
+                option_id: financeData.value
+            }).then(function (result) {
+                res.json({success: 1, msg: 'Questionnaire saved successfully'});
+            }).catch(function (err) {
+                console.log(err);
+            });
 
+        }
+  
     });
 };

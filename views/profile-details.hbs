@@ -615,15 +615,16 @@
                             </div>
                         </div> --}}
                         <!-- /.box-body -->
-                                    <form id="regForm" method="post" action="/save-questionnaire">
+                                    <form id="financialForm" method="post">
                                         <h3>Answer the following questions</h3>
                                         <!-- One "tab" for each step in the form: -->
                                         {{#each questionAnswers as |ques|}}
-                                            <div class="tab" id="ques_{{ques.id}}">
+                                            <div class="tab" id="{{ques.id}}">
+                                                {{!-- <input type="hidden" class="questionIDs" name="questionIDs[]" id="questionID_{{ques.id}}" value="{{ques.id}}" /> --}}
                                                 <h4>{{ques.question}}</h4>
                                                 {{#each Options}}
-                                                    <input type="radio" name="ques_{{ques.id}}" value="{{this.id}}">{{this.option}}<br>
-                                                        
+                                                    <input type="radio" name="{{ques.id}}" value="{{this.id}}" id="answeroption">{{this.option}}<br>
+                                                    {{!-- <input type="hidden" class="answerIDs" name="answerIDs[]" id="answerID" value="{{ques.id}}" />     --}}
                                                 {{/each}}
 
                                             </div>
@@ -672,8 +673,33 @@
             x[currentTab].style.display = "none";
             currentTab = currentTab + n;
             if (currentTab >= x.length) {
-                document.getElementById("regForm").submit();
-                return false;
+                //document.getElementById("regForm").submit();
+                //return false;
+  
+                var finalcialData = $('#financialForm').serializeArray();
+                $.ajax({
+                    type: 'POST',
+                    url : "/save-questionnaire",
+                    data : {finalcialData: finalcialData},
+                    success:function(response) {
+                         if(response.success == 1){
+                            //window.location.href="/buy-and-sell-coins";
+                            //console.log('Financial Data saved!!');
+                            swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                            });
+                        } 
+                        //console.log('success');
+                    },
+                    error:function(xhr) {
+                        console.log(xhr);
+                    }
+                });
+
+
             }
             showTab(currentTab);
         }

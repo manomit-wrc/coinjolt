@@ -67,12 +67,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
        Question.hasMany(Option, {foreignKey: 'question_id'});
 		Question.findAll({
-            attributes: [['id','questionid'],'question'],
             include: [{
                 model: Option
             }]
         }).then(function(qadata){
-            console.log(JSON.stringify(qadata));
             res.render('profile-details', {
                 layout: 'dashboard',
                 questionAnswers: qadata

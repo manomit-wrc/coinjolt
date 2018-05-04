@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return [
       queryInterface.addColumn(
-        'deposits',
+        'Deposits',
         'currency_id',
         {
           type: Sequelize.INTEGER,

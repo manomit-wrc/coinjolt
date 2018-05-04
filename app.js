@@ -266,13 +266,14 @@ app.use(function(req, res, next){
 });
 
 
-require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data);
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw);
 require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data);
 require('./routes/admin_dashboard')(app, models.Deposit, models.withdraw, models.User);
-require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details);
+require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details, models.Deposit);
 require('./routes/admin_kyc')(app, models.Kyc_details, models.User);
 require('./routes/admin_support')(app, models.Support, models.User);
 require('./routes/admin_crypto_profile')(app);
+
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

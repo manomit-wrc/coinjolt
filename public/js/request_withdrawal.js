@@ -1,5 +1,13 @@
 	$(document).ready(function(){
-		$("#request-withdrawal-table").DataTable();
+		$("#request-withdrawal-table").DataTable({
+			'aaSorting': []
+		});
+		$("#pending_transactions_table").DataTable({
+			'aaSorting': []
+		});
+		$("#pending_withdrawals_table").DataTable({
+			'aaSorting': []
+		});
 
 		$("#cc-submit1").prop("disabled", "disabled");
 
@@ -136,6 +144,8 @@
 	$(".pending_withdrawals_approved").on('click', function () {
  		var row_id = $(this).data('value');
  		var amount = $(this).data('amount');
+ 		var user_id = $(this).data('user_id');
+ 		var wtype = $(this).data('wtype');
  		swal({
  			title: "Transaction Confirmation",
  			text: "Are you sure you want to accept this withdrawal request?",
@@ -150,13 +160,15 @@
  				url : "/pending-withdrawals-approved",
  				data :{
  					row_id: row_id,
- 					amount:amount
+ 					amount: amount,
+ 					user_id: user_id,
+ 					wtype: wtype
  				},
  				success : function (response) {
- 					if(response.status == true){
+ 					if (response.status == true) {
  						var title = "Approval Successful";
  						var text = "You have successfully approved the withdrawal request.";
- 						sweetAlertSuccessPopUp(title,text);
+ 						sweetAlertSuccessPopUp(title, text);
  					}
  				}
  			});
@@ -166,7 +178,6 @@
  	$(".pending_withdrawals_reject").on('click', function () {
  		var row_id = $(this).data('value');
  		var amount = $(this).data('amount');
-
  		swal({
  			title: "Transaction Confirmation",
  			text: "Are you sure you want to reject this withdrawal request?",
@@ -180,13 +191,13 @@
  				type: "POST",
  				url: "/pending-withdrawals-reject",
  				data:{
- 					row_id : row_id
+ 					row_id: row_id
  				},
  				success : function (response) {
- 					if(response.status == true){
+ 					if (response.status == true) {
  						var title = "Rejection Successful";
  						var text = "You have successfully reject the withdrawal request.";
- 						sweetAlertSuccessPopUp(title,text);
+ 						sweetAlertSuccessPopUp(title, text);
  					}
  				}
  			});
@@ -194,7 +205,7 @@
  	});
 
  	// sweet alert success function //
- 	function sweetAlertSuccessPopUp (title='',text='') {
+ 	function sweetAlertSuccessPopUp (title = '', text = '') {
         swal({
             title: title,
             text: text,

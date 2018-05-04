@@ -20,7 +20,7 @@
 				<div class="box">
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table id="pending_wire_transfer_table" class="table table-striped res-table">
+						<table id="pending_withdrawals_table" class="table table-striped res-table">
 							<thead>
 								<tr>
 									<th>ID</th>
@@ -50,7 +50,7 @@
 										{{/if_eq}}
 									</td>
 									<td>
-										<button class="btn approve-req pending_withdrawals_approved" data-value="{{this.id}}" data-amount="{{this.amount_usd}}">Approve</button>
+										<button class="btn approve-req pending_withdrawals_approved" data-value="{{this.id}}" data-user_id="{{this.user_id}}" data-amount="{{this.amount_usd}}" data-wtype="{{this.withdraw_type}}">Approve</button>
 										<button class="btn reject-req pending_withdrawals_reject" data-value="{{this.id}}">Reject</button>
 									</td>
 								</tr>

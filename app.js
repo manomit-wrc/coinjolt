@@ -49,6 +49,14 @@ helpers: {
             return opts.inverse(this);
 
     },
+    if_neq: function (a, b, opts) {
+        
+      if (a != b) // Or === depending on your needs
+          return opts.fn(this);
+      else
+          return opts.inverse(this);
+
+  },
     inArray: function(array, value, block) {
       if (array.indexOf(value) !== -1) {
         return block.fn(this);
@@ -266,10 +274,14 @@ app.use(function(req, res, next){
 });
 
 
-require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data);
-require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data);
-require('./routes/request_withdrawal')(app, models.withdraw);
-require('./routes/admin_dashboard')(app);
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer);
+require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data,models.Currency,models.Country);
+require('./routes/admin_dashboard')(app, models.Deposit, models.withdraw, models.User);
+require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details, models.Deposit);
+require('./routes/admin_kyc')(app, models.Kyc_details, models.User);
+require('./routes/admin_support')(app, models.Support, models.User);
+require('./routes/admin_crypto_profile')(app);
+
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

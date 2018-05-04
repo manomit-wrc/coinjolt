@@ -180,9 +180,10 @@
 </div>
 </div>
 
+<div class="request-withdrawal">
 
 <div class="row">
-  <div class="col-md-12">
+  {{!-- <div class="col-md-12">
     <div class="box">
       <div class="box-header">
         <h3 class="box-title">Withdrawal History</h3>
@@ -207,7 +208,108 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
+  <div class="col-md-6">
+          <div class="box equal-hgt">
+            <div class="box-header">
+              <h3 class="box-title">Balance</h3>
+            </div>
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="chart-responsive">
+									  <div class="chart" id="sales-chart" style="height: 150px; position: relative;"></div>
+									</div>
+                </div>
+                <div class="col-md-8">
+                    <table class="table scroll-minus">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-4 paddingleft">SYMBOL</th>
+                                <th class="col-xs-4 paddingleft">NAME</th>
+                                <th class="col-xs-4 paddingleft">BALANCE</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="scroll-dashboard">
+                        <table class="table">
+                            <tr>
+                                <td class="col-xs-4">
+                                    <img src="dist/img/usd.png" alt="">
+                                </td>
+                                <td class="col-xs-4">DOLLAR <span style="color:red;">(USD)</span></td>
+                                <td class="col-xs-4">
+                                    {{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-4">
+                                    <img src="dist/img/mcpicon.png" alt="" width="34">
+                                </td>
+                                <td class="col-xs-4">MANAGED PORTFOLIO<span style="color:red;">(MCP)</span></td>
+                                <td class="col-xs-4">{{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}</td>
+                            </tr>
+                            {{#each user.currency}}
+                            <tr>    
+                                <td class="col-xs-4">
+                                    <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
+                                </td>
+                                <td class="col-xs-4">{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
+                                <td class="wallet_crp col-xs-4">
+                                        {{twoDecimalPoint (checkCurrencies this.alt_name ../user.currencyBalance)}}
+                                </td>
+                            </tr>
+                            {{/each}}
+
+                        </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Most Recent Activity</h3>
+            </div>
+            <div class="box-body">
+
+              <div class="table-responsive buy-section">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th>Transaction ID</th>
+                      <th>Amount</th>
+                      <th>Type</th>
+                      <th>Date & Time</th>
+                    </tr>
+                    {{#each withdrawal_history}}
+                    <tr>
+                        <td>{{this.transaction_id}}</td>
+                        <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
+                        <td>
+                          {{#if_eq this.payment_method '3'}}
+                            Bank Wire Transfer 
+                          {{/if_eq}}
+                          {{#if_eq this.payment_method '4'}}
+                            Check By Mail 
+                          {{/if_eq}}
+                          {{#if_eq this.payment_method '5'}}
+                            MCP Withdraw 
+                          {{/if_eq}}
+                         </td>
+                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+
 </div>
 
 </div>

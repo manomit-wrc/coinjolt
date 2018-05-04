@@ -1,10 +1,10 @@
 <section class="content-header">
-	<h1>Pending Wire Transfers History List</h1>
+	<h1>Investments List</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">Pending Wire Transfers History List</li>
+		<li class="active">Investments List</li>
 	</ol>
 </section>
 
@@ -16,31 +16,24 @@
 				<div class="box">
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table id="pending_wire_transfer_table" class="table table-striped res-table">
+						<table id="pending_investments_table" class="table table-striped res-table">
 							<thead>
 								<tr>
 									<th>ID</th>
 									<th>Name</th>
-									<th>Amount</th>
-									<th>Date</th>
-									<th>Status</th>
+									<th>Invest Amount ($)</th>
+									<th>Withdraw Amount ($)</th>
+									<th>Balance ($)</th>
 								</tr>
 							</thead>
 							<tbody>
 								{{#each all_data}}
 								<tr>
-									<td>{{this.id}}</td>
-									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
-									<td>{{this.amount_usd}}</td>
-									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
-									<td>
-										{{#if_eq this.status 1}}
-										Approved
-										{{/if_eq}}
-										{{#if_eq this.status 2}}
-										Rejected
-										{{/if_eq}}
-									</td>
+									<td>{{inc @index}}</td>
+									<td>{{this.name}}</td>
+									<td>{{this.deposit_amount}}</td>
+									<td>{{this.withdraw_amount}}</td>
+									<td>{{this.balance}}</td>
 								</tr>
 								{{/each}}
 							</tbody>

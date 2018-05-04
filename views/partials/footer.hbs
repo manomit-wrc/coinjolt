@@ -13,7 +13,7 @@
                 <div class="pull-right">
                     {{#if_eq user.type 2 }}
                         <a href="/submit-a-request">Submit a Request</a>
-                        <a href="#" target="_blank">Privacy Policy</a>
+                        <a href="#">Privacy Policy</a>
                         {{!-- <input type="text" name="Element To Be Copied" id="copy-me" value="https://coinjolt.com?user={{reffer_link_id}}" style="display: none;"/> --}} 
                         <input type="text" name="Element To Be Copied" id="copy-me" value="http://localhost:8080/user/{{reffer_link_id}}" style="display: none;"/>
                         <a href="#" id="clipboardBtn" data-toggle="modal" data-target="#referralModal">Referral Link</a>
@@ -22,7 +22,7 @@
                     {{/if_eq}}
 
                     {{#if_eq user.type 1}}
-                        <a href="#" target="_blank">Privacy Policy</a>
+                        <a href="#">Privacy Policy</a>
                     {{/if_eq}}
                     
                 </div>

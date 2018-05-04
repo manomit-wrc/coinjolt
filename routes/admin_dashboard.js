@@ -1,6 +1,8 @@
 const Op = require('sequelize').Op;
 const sequelize = require('sequelize');
 var excel = require('node-excel-export');
+const lodash = require('lodash');
+
 
 module.exports = function (app, Deposit, Withdraw, User) {
 	const styles = {
@@ -130,10 +132,16 @@ module.exports = function (app, Deposit, Withdraw, User) {
 		var amount = req.body.amount;
 		var user_id = req.body.user_id;
 		var wtype = req.body.wtype;
-		if (wtype == 1 || wtype == 2) {
+		var type, payment_method;
+		if (wtype == 1) {
 			type = 3;
+			payment_method = 3;
+		} else if (wtype == 2) {
+			type = 3;
+			payment_method = 4;
 		} else if (wtype == 3) {
 			type = 5;
+			payment_method = 5;
 		}
 		//for generate 8 digits random number//
 		var digits = 9;
@@ -155,7 +163,7 @@ module.exports = function (app, Deposit, Withdraw, User) {
 					checkout_id: randomNum,
 					type: type,
 					amount: amount,
-					payment_method: 0
+					payment_method: payment_method
 				}).then (function (result) {
 					res.json({
 						status: true,
@@ -227,6 +235,52 @@ module.exports = function (app, Deposit, Withdraw, User) {
 			);
 			res.attachment('report.xlsx');
 			return res.send(report);
+		});
+	});
+
+	app.get('/admin/investments', async (req, res) => {
+		var user_list = await User.findAll({
+			where: {
+				type: 2
+			}
+		});
+		var user_list_arr = [];
+		lodash.each(user_list, (x, index) => {
+			Promise.all([
+				Deposit.findAll({
+					attributes: [ [sequelize.fn('SUM',sequelize.col('amount')),'deposit_amount'] ],
+					group: ['user_id'],
+					where: {
+						user_id: x.id,
+						type: {
+							$in: [0, 1, 4]
+						}
+					}
+				}),
+				Deposit.findAll({
+					attributes: [ [sequelize.fn('SUM',sequelize.col('amount')),'withdraw_amount'] ],
+					group: ['user_id'],
+					where: {
+						user_id: x.id,
+						type: {
+							$in: [2, 3, 5]
+						}
+					}
+				})
+			]).then(values => {
+				var result = JSON.parse(JSON.stringify(values));
+				d_amount = result[0].length > 0 ? result[0][0].deposit_amount : 0;
+				w_amount = result[1].length > 0 ? result[1][0].withdraw_amount : 0;
+				user_list_arr.push({
+					name: x.first_name + " " + x.last_name,
+					deposit_amount: d_amount,
+					withdraw_amount: w_amount,
+					balance: parseFloat(d_amount) - parseFloat(w_amount)
+				});
+				if (index === user_list.length - 1) {
+					res.render('admin/investments/index', { layout: 'dashboard', 'all_data': user_list_arr });
+				}
+			});
 		});
 	});
 };

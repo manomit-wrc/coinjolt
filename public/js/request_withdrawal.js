@@ -8,6 +8,9 @@
 		$("#pending_withdrawals_table").DataTable({
 			'aaSorting': []
 		});
+		$("#pending_investments_table").DataTable({
+			'aaSorting': []
+		});
 
 		$("#cc-submit1").prop("disabled", "disabled");
 

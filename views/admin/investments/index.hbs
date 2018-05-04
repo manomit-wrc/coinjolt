@@ -1,0 +1,49 @@
+<section class="content-header">
+	<h1>Investments List</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
+		</li>
+		<li class="active">Investments List</li>
+	</ol>
+</section>
+
+<section class="content container-fluid">
+	<!-- Starts Deposit Funds -->
+	<div class="deposit-funds">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<!-- /.box-header -->
+					<div class="box-body">
+						<table id="pending_investments_table" class="table table-striped res-table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Invest Amount ($)</th>
+									<th>Withdraw Amount ($)</th>
+									<th>Balance ($)</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each all_data}}
+								<tr>
+									<td>{{inc @index}}</td>
+									<td>{{this.name}}</td>
+									<td>{{this.deposit_amount}}</td>
+									<td>{{this.withdraw_amount}}</td>
+									<td>{{this.balance}}</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+	<!-- Ends Deposit Funds -->
+</section>

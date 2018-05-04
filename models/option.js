@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Option = sequelize.define('option', {
+  var Option = sequelize.define('Option', {
     option: DataTypes.STRING,
     question_id: DataTypes.INTEGER
   }, {});

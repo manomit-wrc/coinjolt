@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('options', [
+    return queryInterface.bulkInsert('Options', [
       {
           "id": "1",
           "option": "I want to have enough money to retire.",

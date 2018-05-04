@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Question = sequelize.define('question', {
+  var Question = sequelize.define('Question', {
     question: DataTypes.STRING
   }, {});
   Question.associate = function(models) {

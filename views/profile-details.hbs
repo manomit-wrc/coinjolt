@@ -683,8 +683,6 @@
                     data : {finalcialData: finalcialData},
                     success:function(response) {
                          if(response.success == 1){
-                            //window.location.href="/buy-and-sell-coins";
-                            //console.log('Financial Data saved!!');
                             swal({
                                 icon: "success",
                                 title: response.msg,
@@ -698,24 +696,7 @@
                                 }
                             });
 
-                            /**/
-                            /*
-                            swal({
-                            icon: "success",
-                            title: "Applied Successfully",
-                            confirmButtonClass: "btn-success",
-                            confirmButtonText: "OK"
-                            },function(isConfirm){
-                                if(isConfirm){
-                                    setTimeout(function(){
-                                        window.location.href = "<?php echo getDashboardURL(); ?>profile-details";
-                                    },30);
-                                }
-                            }); */
-                            /**/
-
                         } 
-                        //console.log('success');
                     },
                     error:function(xhr) {
                         console.log(xhr);

@@ -621,15 +621,25 @@
                                     <form id="regForm" method="post" action="/save-questionnaire">
                                         <h3>Answer the following questions</h3>
                                         <!-- One "tab" for each step in the form: -->
-                                        <div class="tab" id="tab-1">
-                                            <h4>What are your financial tab-1?</h4>
-                                            <input type="radio" name="tab-1" value="a">I want to have enough money to retire.<br>
-                                            <input type="radio" name="tab-1" value="b">I'm looking to create a strong financial asset portfolio.<br>
+                                        {{#each questionAnswers}}
+                                            <div class="tab" id="{{this.questionid}}">
+
+                                                <h4>{{this.question}}</h4>
+                                                {{#each Options}}
+                                                    <input type="radio" name="{{questionid}}" value="{{this.id}}">{{this.option}}<br>
+                                                
+                                                {{/each}}
+                                            {{!-- <input type="radio" name="tab-1" value="b">I'm looking to create a strong financial asset portfolio.<br>
+
                                             <input type="radio" name="tab-1" value="c">I want to have passive income paid out monthly as form of dividends.<br>
+
                                             <input type="radio" name="tab-1" value="d">I'm looking to double my investment.<br>
-                                            <input type="radio" name="tab-1" value="e">I'm interested in creating wealth.  
-                                        </div>
-                                        <div class="tab" id="tab-2">
+
+                                            <input type="radio" name="tab-1" value="e">I'm interested in creating wealth.  --}} 
+
+                                            </div>
+                                        {{/each}}
+                                      {{!--   <div class="tab" id="tab-2">
                                             <h4>What sort of tab-2 preference would you like for us to allocate your capital?</h4>
                                             <input type="radio" name="tab-2" value="low">Low<br>
                                             <input type="radio" name="tab-2" value="medium">Medium<br>
@@ -647,7 +657,7 @@
                                             <input type="radio" name="tab-4" value="10000">$10,000<br>
                                             <input type="radio" name="tab-4" value="100000">$100,000<br>
                                             <input type="radio" name="tab-4" value="1000000">$1,000,000 or more<br>
-                                        </div>
+                                        </div> --}}
                                         <div style="overflow:auto;">
                                             <div style="float:right;margin-top:20px;">
                                                 <input type="button" id="nextBtn" name="save" onclick="nextPrev(1)" value="Next">

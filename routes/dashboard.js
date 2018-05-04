@@ -65,32 +65,19 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             console.log(msg);
         }
 
-        /*
-            Referral_data.belongsTo(User, {foreignKey: 'user_id'});
-            Referral_data.findAll({
-                where: {
-                    referral_id: req.user.id
-                },
-                include: [{
-                    model: User
-                }],
-                order: [
-                    ['id', 'DESC']
-                ]
-            }).then(function(invitefrnds){
-                res.render('invite-friends',{layout: 'dashboard', invitefrnds: invitefrnds});
-            });
-        */
-
-       //Question.hasMany(Option, {foreignKey: 'question_id'});
-		Question.findAll().then(function(qadata){
+       Question.hasMany(Option, {foreignKey: 'question_id'});
+		Question.findAll({
+            attributes: [['id','questionid'],'question'],
+            include: [{
+                model: Option
+            }]
+        }).then(function(qadata){
             console.log(JSON.stringify(qadata));
             res.render('profile-details', {
                 layout: 'dashboard',
-                qadata: qadata
+                questionAnswers: qadata
             });
 		});
-
        
     });
 

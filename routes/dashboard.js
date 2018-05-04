@@ -151,7 +151,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }, {
             where: {
                 id: req.user.id
-
             }
         }).then(function (result) {
             if (result > 0) {

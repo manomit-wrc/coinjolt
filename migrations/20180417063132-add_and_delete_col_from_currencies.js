@@ -9,7 +9,7 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    queryInterface.addColumn('currencies', 'currency_id', {
+    queryInterface.addColumn('Currencies', 'currency_id', {
       allowNull: true,
       type: Sequelize.STRING(150)
     })
@@ -23,6 +23,6 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-    queryInterface.removeColumn('currencies', 'coin_id');
+    queryInterface.removeColumn('Currencies', 'coin_id');
   }
 };

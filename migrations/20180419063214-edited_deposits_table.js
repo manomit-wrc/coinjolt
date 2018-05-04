@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return [
       queryInterface.changeColumn(
-        'deposits',
+        'Deposits',
         'payment_method',
         {
           type: Sequelize.INTEGER(1),

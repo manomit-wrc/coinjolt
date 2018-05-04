@@ -272,6 +272,7 @@ require('./routes/admin_dashboard')(app, models.Deposit, models.withdraw, models
 require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details);
 require('./routes/admin_kyc')(app, models.Kyc_details, models.User);
 require('./routes/admin_support')(app, models.Support, models.User);
+require('./routes/admin_crypto_profile')(app);
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

@@ -1,85 +1,94 @@
 <section class="content container-fluid">
     <div class="dashboard-top">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Wallets</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <table class="table scroll-minus">
-                        <thead>
-                            <tr>
-                                <th>SYMBOL</th>
-                                <th>NAME</th>
-                                <th>BALANCE</th>
-                                <th>USD</th>
-                            </tr>
-                        </thead>
-                    </table>
-
-                    <div class="scroll-dashboard" style="height: 445.15px;">
-                        <table class="table">
-                            <tr>
-                                <td>
-                                    <img src="dist/img/usd.png" alt="">
-                                </td>
-                                <td>DOLLAR <span style="color:red;">(USD)</span></td>
-                                <td>
-                                    {{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
-                                </td>
-                                <td>
-                                    ${{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="dist/img/mcpicon.png" alt="" width="34" height="40">
-                                </td>
-                                <td>MANAGED PORTFOLIO<span style="color:red;">(MCP)</span></td>
-                                <td>
-                                    {{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}
-                                </td>
-                                <td>
-                                    ${{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}
-                                </td>
-                            </tr>
-                            {{#each user.currency}}
-                            <tr>    
-                                <td class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite">
-                                            
-                                </td>
-                                <td>{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
-                                <td class="wallet_crp">
-                                        {{formatCurrency (twoDecimalPoint ( checkCurrencies this.alt_name ../user.currencyBalance))}}
-                                </td>
-                                <td class="wallet_dollar_{{this.currency_id}}">
-                                    
-                                </td>
-                            </tr>
-                            {{/each}}
-
-                        </table>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Wallets</h3>
                     </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table scroll-minus">
+                            <thead>
+                                <tr>
+                                    <th class="col-xs-2 paddingleft">SYMBOL</th>
+
+                                    <th class="col-xs-4 paddingleft">NAME</th>
+
+                                    <th class="col-xs-3 paddingleft">BALANCE</th>
+
+                                    <th class="col-xs-3 paddingleft">USD</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <div class="scroll-dashboard">
+                            <table class="table">
+                                <tr>
+                                    <td class="col-xs-2">
+                                        <img src="dist/img/usd.png" alt="">
+                                    </td>
+                                    <td class="col-xs-4 padding16">DOLLAR
+                                        <span style="color:red;">(USD)</span>
+                                    </td>
+                                    <td class="col-xs-3 padding16">
+                                        {{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
+                                    </td>
+                                    <td class="col-xs-3 padding16">
+                                        ${{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-2">
+                                        <img src="dist/img/mcpicon.png" alt="" width="34">
+                                    </td>
+                                    <td class="col-xs-4 padding16">MANAGED PORTFOLIO
+                                        <span style="color:red;">(MCP)</span>
+                                    </td>
+                                    <td class="col-xs-3 padding16">
+                                        {{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}
+                                    </td>
+                                    <td class="col-xs-3 padding16">
+                                        ${{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}
+                                    </td>
+                                </tr>
+                                {{#each user.currency}}
+                                <tr>
+                                    <td class="col-xs-2">
+                                        <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
+                                    </td>
+                                    <td class="col-xs-4 padding16">{{this.display_name}}
+                                        <span style="color:red;">({{toUpperCase this.alt_name}})</span>
+                                    </td>
+                                    <td class="col-xs-3 padding16 wallet_crp">
+                                        {{formatCurrency (twoDecimalPoint ( checkCurrencies this.alt_name ../user.currencyBalance))}}
+                                    </td>
+                                    <td class="col-xs-3 padding16 wallet_dollar_{{this.currency_id}}">
+
+                                    </td>
+                                </tr>
+                                {{/each}}
+
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
                 </div>
-                <!-- /.box-body -->
+                <!-- /.box -->
             </div>
-            <!-- /.box -->
-        </div>
-        <div class="col-md-6 equal-hgt">
-            <div class="box equal-box">
-                <div style="margin-bottom: 4px;" class="box-header">
-                    <h3 class="box-title">Latest News</h3>
+            <div class="col-md-6 equal-hgt">
+                <div class="box equal-box">
+                    <div style="margin-bottom: 4px;" class="box-header">
+                        <h3 class="box-title">Latest News</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body ltnews">
+                        <img class="img_' + resp[i].id +'" style="width:100%;" src="dist/img/lading_icon.gif">
+                    </div>
+                    <!-- /.box-body -->
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body ltnews">
-                    <img class="img_' + resp[i].id +'" style="width:100%;" src="dist/img/lading_icon.gif">
-                </div>
-                <!-- /.box-body -->
             </div>
         </div>
-    </div>
     </div>
 
     <div class="row">

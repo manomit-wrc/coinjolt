@@ -3,12 +3,13 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return [
-      queryInterface.changeColumn(
-        'Users',
-        'notes',
+      queryInterface.addColumn(
+        'supports',
+        'status',
         {
-          type: Sequelize.STRING(),
-          allowNull: true
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          after: "enquiry"
         }
       )
     ];

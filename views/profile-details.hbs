@@ -19,12 +19,12 @@
                         <h3 class="profile-username text-center">{{user.user_name}}</h3>
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <b>BTC</b>
-                                <a class="pull-right">2.53560000</a>
+                                <b>USD</b>
+                                <a class="pull-right">{{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>USD</b>
-                                <a class="pull-right">16808108.44322</a>
+                                <b>MCP</b>
+                                <a class="pull-right">{{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}</a>
                             </li>
                         </ul>
                         <p>
@@ -33,7 +33,7 @@
                             </a>
                         </p>
                         <p>
-                            <a href="#" class="btn btn-primary btn-block">
+                            <a href="/buy-and-sell-coins" class="btn btn-primary btn-block">
                                 <b>Buy and Sell</b>
                             </a>
                         </p>

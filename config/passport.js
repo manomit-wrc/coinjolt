@@ -58,7 +58,7 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                             console.log(msg);
                         }
 
-                        const tempSQL = models.sequelize.dialect.QueryGenerator.selectQuery('deposits',
+                        const tempSQL = models.sequelize.dialect.QueryGenerator.selectQuery('Deposits',
                             { 
                             attributes: [ [sequelize.fn('MAX',sequelize.col('id')),'deposit_id'] ], 
                             group: ['currency_id'] 

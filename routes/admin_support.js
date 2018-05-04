@@ -5,6 +5,9 @@ module.exports = function(app, Support, User){
 		Support.belongsTo(User, {foreignKey: 'user_id'});
 
 		Support.findAll({
+			where:{
+				status: 0
+			},
 			include: [{
 		    	model: User
 	  		}],
@@ -29,6 +32,7 @@ module.exports = function(app, Support, User){
 	});
 
 	app.post('/admin/support-details-reply-send', (req,res) => {
+		var row_id = req.body.user_row_id;
 		var subject = req.body.subject;
 		var description = req.body.description;
 		var user_email = req.body.user_email;
@@ -39,7 +43,7 @@ module.exports = function(app, Support, User){
 		const sendmail = require('sendmail')();
  
 		sendmail({
-		    from: 'sobhan@wrctpl.com',
+		    from: '"Coinjolt Support Team" <support@coinjolt.com>',
 		    to: user_email,
 		    subject: subject,
 		    html: admin_reply,
@@ -47,10 +51,41 @@ module.exports = function(app, Support, User){
 		    if (err) {
 		    	console.log(err);
 		  	} else {
-		  		req.flash('emailMessage', 'Email send to the user successfully.');
-		    	res.redirect('/admin/support');
+		  		//UPDATE SUPPORT TABLE
+
+		  			Support.update({
+						status : 1
+					},{
+						where :{
+							id : row_id
+						}
+					}).then (function (result) {
+						if(result > 0){
+							req.flash('emailMessage', 'Email send to the user successfully.');
+		    				res.redirect('/admin/support');
+						}
+					});
+		  		//END
 		  	}
 		});
 		//end
+	});
+
+	app.get('/admin/supports-history', (req,res) => {
+		Support.belongsTo(User, {foreignKey: 'user_id'});
+
+		Support.findAll({
+			where:{
+				status: 1
+			},
+			include: [{
+		    	model: User
+	  		}],
+	  		order:[
+	  			['id','DESC']
+	  		]
+		}).then(function (result) {
+			res.render('admin/support/history',{layout: 'dashboard', all_data:result});
+		});
 	});
 };

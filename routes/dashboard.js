@@ -2,7 +2,7 @@ var bCrypt = require('bcrypt-nodejs');
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
 const lodash = require('lodash');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw) {
     var multer = require('multer');
     var fileExt = '';
     var fileName = '';
@@ -494,7 +494,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var type = 4;
 		var converted_amount = req.body.amount_invest;
 		var userid = req.user.id;
-        var status;
         
         Deposit.create({
             checkout_id: randomNum,
@@ -512,55 +511,22 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
     
     app.post('/save-withdraw', function(req, res){
-		var digits = 9;	
-		var numfactor = Math.pow(10, parseInt(digits-1));	
-		var randomNum =  Math.floor(Math.random() * numfactor) + 1;
-
 		var amountWithdraw = req.body.amount_withdraw;
-		var currency_purchased_code = req.body.currency_purchased;
-		var coinRate = 1;
-		var converted_amount = req.body.amount_withdraw;
-		var userid = req.user.id;
-		var status;
-		
-		/* var withdraw_transaction_data = {
-			"checkout_id" : randomNum,
-			"transactionId" : randomNum,
-			"user_id": userid,
-			"deposit_type": 'Withdraw',
-			"amount": amountWithdraw,
-			"current_rate": coinRate,
-			"converted_amount": converted_amount,
-			"base_currency": 'USD',
-			"currency_purchased": currency_purchased_code
-		};	
-		
-		connection.query('INSERT INTO deposit_funds SET ?', [withdraw_transaction_data], function (err, result) {
-			if (err) throw err; 
-			status = result.insertId;
-			if(status > 0){
-
-				var mcp_data = {
-					"checkout_id" : randomNum,
-					"transactionId" : randomNum,
-					"user_id": userid,
-					"type": 'Withdraw',
-					"amount_paid": amountWithdraw,
-					"current_rate": coinRate,
-					"converted_amount": converted_amount,
-					"base_currency": 'USD',
-					"currency_purchased": currency_purchased_code
-				};
-
-				connection.query('INSERT INTO user_mcptransaction SET ?', [mcp_data], function (err, result) {
-					if(err) throw err;
-					else{
-						req.flash('investStatusMessage', 'Your withdraw was made successfully!');
-						res.redirect('/managed-cryptocurrency-portfolio');
-					}
-				}); 
-			}
-		}); */
+        var coinRate = 1;
+        var type = 3;
+        var status = 0;
+        var userid = req.user.id;
+        
+        withdraw.create({
+			user_id: userid,
+            amount_usd: amountWithdraw,
+            status: status,
+			withdraw_type: type
+        }).then(function (result) {
+            req.flash('investStatusMessage', 'Your withdraw request received successfully!');
+            res.redirect('/managed-cryptocurrency-portfolio');
+        }).catch(function (err) {
+        });
     });
 
     app.post('/save-notes', function (req, res) {

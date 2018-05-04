@@ -740,9 +740,9 @@ table {
     margin: 0 auto;
 }
 
-tr:nth-of-type(odd) {
+/* tr:nth-of-type(odd) {
     background: #eee;
-}
+} */
 
 td,
 th {
@@ -930,7 +930,7 @@ label.success,
     padding-left: 0 !important;
 }
 
-.scroll-dashboard {
+.dashboard-top .scroll-dashboard {
     overflow-y: scroll;
     height: 433px;
 }
@@ -1052,13 +1052,15 @@ label.success,
     font-size: 13px;
 }
 
-#institute_modal .modal-footer input, #individual_modal .modal-footer input {
+#institute_modal .modal-footer input,
+#individual_modal .modal-footer input {
     width: 120px;
     padding: 6px !important;
     font-size: 14px !important;
 }
 
-#institute_modal .modal-body input[type="file"], #individual_modal .modal-body input[type="file"] {
+#institute_modal .modal-body input[type="file"],
+#individual_modal .modal-body input[type="file"] {
     height: auto;
 }
 
@@ -1068,12 +1070,89 @@ label.success,
     overflow-x: hidden;
 }
 
-#individual_form label, #institutional_form label {
+#individual_form label,
+#institutional_form label {
     font-size: 14px !important;
 }
 
-
 /* Ends on css 27-04-2018 */
+
+/* Starts on css 03-05-2018 */
+
+.dashboard-top .box.box-default,
+.dashboard-top .box.equal-box {
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    -o-border-radius: 0 !important;
+}
+
+.scroll-dashboard td {
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd !important;
+}
+
+/* Starts on css 03-05-2018 */
+
+/* Starts on css 04-05-2018 */
+
+.balnrecent .box,
+.request-withdrawal .box {
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    -o-border-radius: 0 !important;
+}
+
+.scroll-dashboard {
+    height: 175px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.request-withdrawal .scroll-dashboard {
+    height: 160px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.balnrecent .col-md-6 .box.equal-hgt,
+.request-withdrawal .col-md-6 .box.equal-hgt {
+    height: 260px !important;
+    overflow: hidden;
+}
+
+.balnrecent .box .table-responsive.buy-section,
+.request-withdrawal .box .table-responsive.buy-section {
+    height: 199px !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+table.table.scroll-minus {
+    margin-bottom: 0;
+}
+
+.scroll-dashboard.buy-and-sell-coins .currency-logo-sprite {
+    margin-left: 15px;
+}
+
+.chart-responsive {
+    position: relative;
+    top: 40px;
+}
+
+.box.req-boxs {
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    -o-border-radius: 0 !important;
+}
+
+/* Closed on css 04-05-2018 */
 
 @media screen and (max-width: 1366px) {
     .balance-box {

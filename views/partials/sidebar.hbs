@@ -71,6 +71,19 @@
 
             {{!-- for admin section --}}
             {{#if_eq user.type 1 }}
+                <li>
+                    <a href="/admin/investments">
+                        <i class="fa fa-line-chart"></i>
+                        <span> Total Investments</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/transactions">
+                        <i class="fa fa-handshake-o"></i>
+                        <span> Transactions</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="/admin/pending-wire-transfers">

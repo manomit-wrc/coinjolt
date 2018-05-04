@@ -1,15 +1,11 @@
 <section class="content-header">
-	<h1>All Support List</h1>
+	<h1>Transactions List</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">All Support List</li>
+		<li class="active">Transactions List</li>
 	</ol>
-
-	{{#if message}}
-    	<div class="alert alert-success">{{message}}</div>
-    {{/if}}
 </section>
 
 <section class="content container-fluid">
@@ -20,14 +16,14 @@
 				<div class="box">
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table id="all_support_table" class="table table-striped res-table">
+						<table id="pending_transactions_table" class="table table-striped res-table">
 							<thead>
 								<tr>
 									<th>ID</th>
 									<th>Name</th>
-									<th>Subject</th>
+									<th>Amount ($)</th>
 									<th>Date</th>
-									<th>Action</th>
+									<th>Type</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -35,10 +31,27 @@
 								<tr>
 									<td>{{this.id}}</td>
 									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
-									<td>{{this.title}}</td>
+									<td>{{this.amount}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 									<td>
-										<a href="/admin/support_details/{{this.id}}">View Details</a>
+										{{#if_eq this.type 0}}
+										Deposit
+										{{/if_eq}}
+										{{#if_eq this.type 1}}
+										Buy
+										{{/if_eq}}
+										{{#if_eq this.type 2}}
+										Sell
+										{{/if_eq}}
+										{{#if_eq this.type 3}}
+										Withdraw
+										{{/if_eq}}
+										{{#if_eq this.type 4}}
+										MCP Invest
+										{{/if_eq}}
+										{{#if_eq this.type 5}}
+										MCP Withdraw
+										{{/if_eq}}
 									</td>
 								</tr>
 								{{/each}}
@@ -46,6 +59,7 @@
 						</table>
 					</div>
 				</div>
+				<a href="/admin/transactions/generate" class="btn btn-info">Generate Excel</a>
 			</div>
 			<!-- /.box-body -->
 		</div>

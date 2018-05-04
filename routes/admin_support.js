@@ -1,6 +1,7 @@
 module.exports = function(app, Support, User){
 
 	app.get('/admin/support', (req,res) => {
+		const msg = req.flash('emailMessage')[0];
 		Support.belongsTo(User, {foreignKey: 'user_id'});
 
 		Support.findAll({
@@ -11,7 +12,7 @@ module.exports = function(app, Support, User){
 	  			['id','DESC']
 	  		]
 		}).then(function (result) {
-			res.render('admin/support/index',{layout: 'dashboard', all_data:result});
+			res.render('admin/support/index',{layout: 'dashboard', all_data:result, message: msg});
 		});
 	});
 
@@ -44,9 +45,9 @@ module.exports = function(app, Support, User){
 		    html: admin_reply,
 		  }, function(err, reply) {
 		    if (err) {
-		    	console.log(error);
+		    	console.log(err);
 		  	} else {
-		  		
+		  		req.flash('emailMessage', 'Email send to the user successfully.');
 		    	res.redirect('/admin/support');
 		  	}
 		});

@@ -16,6 +16,7 @@
                         <div class="row">
 
                             <form method="post" action="/admin/support-details-reply-send" role="form" id="individual_support_form" name="individual_support_form">
+                                <input type="hidden" name="user_row_id" value="{{all_data.id}}">
                                 <div class="form-group col-md-6">
                                     <label class="control-label">First Name <span style="color:#ff0000">*</span></label>
                                     <input type="text" readonly="readonly" placeholder="Enter First Name" class="form-control" name="first_name" id="first_name" maxlength="100" value="{{all_data.User.first_name}}">

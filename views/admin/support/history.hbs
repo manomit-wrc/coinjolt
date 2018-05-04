@@ -1,19 +1,11 @@
 <section class="content-header">
-	<h1>All Support List</h1>
+	<h1>Supports History List</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">All Support List</li>
+		<li class="active">Supports History List</li>
 	</ol>
-
-	<div class="box-footer" style="margin: 10px 0;">
-		<a href="/admin/supports-history"><button type="button" class="btn btn-success">History</button></a>
-	</div>
-
-	{{#if message}}
-    	<div class="alert alert-success">{{message}}</div>
-    {{/if}}
 </section>
 
 <section class="content container-fluid">
@@ -24,14 +16,14 @@
 				<div class="box">
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table id="all_support_table" class="table table-striped res-table">
+						<table id="pending_withdrawals_table" class="table table-striped res-table">
 							<thead>
 								<tr>
 									<th>ID</th>
 									<th>Name</th>
 									<th>Subject</th>
-									<th>Date</th>
-									<th>Action</th>
+									<th>Solved Date</th>
+									<th>Status</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -40,10 +32,8 @@
 									<td>{{this.id}}</td>
 									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
 									<td>{{this.title}}</td>
-									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
-									<td>
-										<a href="/admin/support_details/{{this.id}}">View Details</a>
-									</td>
+									<td>{{dateFormat this.updatedAt "MM-DD-YY"}}</td>
+									<td>Closed</td>
 								</tr>
 								{{/each}}
 							</tbody>

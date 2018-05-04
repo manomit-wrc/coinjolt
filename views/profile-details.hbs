@@ -690,7 +690,30 @@
                                 title: response.msg,
                                 confirmButtonClass: "btn-success",
                                 confirmButtonText: "OK"
+                            },function(isConfirm){
+                                if(isConfirm){
+                                    setTimeout(function(){
+                                        window.location.href = "/profile-details";
+                                    },30);
+                                }
                             });
+
+                            /**/
+                            /*
+                            swal({
+                            icon: "success",
+                            title: "Applied Successfully",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "OK"
+                            },function(isConfirm){
+                                if(isConfirm){
+                                    setTimeout(function(){
+                                        window.location.href = "<?php echo getDashboardURL(); ?>profile-details";
+                                    },30);
+                                }
+                            }); */
+                            /**/
+
                         } 
                         //console.log('success');
                     },

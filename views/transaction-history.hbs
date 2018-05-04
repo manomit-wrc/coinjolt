@@ -132,7 +132,7 @@
                                         <td>{{this.transaction_id}}</td>
                                         <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
                                         <td>{{this.converted_amount}}</td>
-                                        <td>{{this.currency_purchased}}</td>
+                                        <td>{{this.Currency.currency_id}}</td>
                                         <td>{{this.current_rate}}</td>
                                         <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
                                     </tr>
@@ -174,7 +174,7 @@
                                         <td>{{this.transaction_id}}</td>
                                         <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
                                         <td>{{this.converted_amount}}</td>
-                                        <td>{{this.base_currency}}</td>
+                                        <td>{{this.Currency.currency_id}}</td>
                                         <td>{{this.current_rate}}</td>
                                         <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
                                     </tr>
@@ -214,7 +214,7 @@
                                     <tr>
                                         <td>{{this.transaction_id}}</td>
                                         <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
-                                        <td>{{this.base_currency}}</td>
+                                        <td>USD</td>
                                         <td>
                                             {{#if_eq this.payment_method '1'}} Credit Card {{else}} Wire Transfer {{/if_eq}}
                                         </td>   

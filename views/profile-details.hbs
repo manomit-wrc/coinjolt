@@ -1,3 +1,54 @@
+<style type="text/css">
+    #regForm {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    .tab{
+        padding:10px;	
+    }
+    #regForm input[type=radio] {
+        margin: 6px 6px 0;
+    }
+    /* Mark input boxes that gets an error on validation: */
+    input.invalid {
+    background-color: #ffdddd;
+    }
+    /* Hide all steps by default: */
+    .tab {
+    display: none;
+    }
+    button {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: Raleway;
+    cursor: pointer;
+    }
+    button:hover {
+    opacity: 0.8;
+    }
+        .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;  
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+    }
+    .step.active {
+    opacity: 1;
+    }
+    .step.finish {
+    background-color: #4CAF50;
+    }
+</style>
 <section class="content-header">
     <h1>Profile Details</h1>
     <ol class="breadcrumb">
@@ -170,9 +221,9 @@
                     <div class="box cjnews-box">
                         <div class="box-header">
                             <h3 class="box-title ltns">
-                                <i class="fa fa-question-circle-o"></i> Identification Verification</h3>
+                                <i class="fa fa-question-circle-o"></i> Financial Questionnaire</h3>
                         </div>
-                        <div class="box-body profile-details">
+                        {{!-- <div class="box-body profile-details">
                             <div class="col-md-12 paddingleft recent_post_box">
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12">
@@ -562,8 +613,37 @@
                                 <!-- Individual form modal ends -->
                                 <!-- Individual form -->
                             </div>
-                        </div>
+                        </div> --}}
                         <!-- /.box-body -->
+                                    <form id="financialForm" method="post">
+                                        <h3>Answer the following questions</h3>
+                                        <!-- One "tab" for each step in the form: -->
+                                        {{#each questionAnswers as |ques|}}
+                                            <div class="tab" id="{{ques.id}}">
+                                                {{!-- <input type="hidden" class="questionIDs" name="questionIDs[]" id="questionID_{{ques.id}}" value="{{ques.id}}" /> --}}
+                                                <h4>{{ques.question}}</h4>
+                                                {{#each Options}}
+                                                    <input type="radio" name="{{ques.id}}" value="{{this.id}}" id="answeroption">{{this.option}}<br>
+                                                    {{!-- <input type="hidden" class="answerIDs" name="answerIDs[]" id="answerID" value="{{ques.id}}" />     --}}
+                                                {{/each}}
+
+                                            </div>
+                                        {{/each}}
+                                        <div style="overflow:auto;">
+                                            <div style="float:right;margin-top:20px;">
+                                                <input type="button" id="nextBtn" name="save" onclick="nextPrev(1)" value="Next">
+                                            </div>
+                                        </div>
+                                        <div style="text-align:center;margin-top:20px;">
+                                            <span class="step"></span>
+                                            <span class="step"></span>
+                                            <span class="step"></span>
+                                            <span class="step"></span>
+                                        </div>
+                                    </form>
+                                {{!-- <div class="col-md-2">&nbsp;</div> --}}
+                            {{!-- </div> --}}
+	                    {{!-- </section> --}}
                     </div>
                 </div>
                 <!-- Ends Latest News -->
@@ -571,3 +651,100 @@
         </div>
     </div>
 </section>
+<script>
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the crurrent tab
+    function showTab(n) {
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    if (n == (x.length - 1)) {
+        document.getElementById("nextBtn").value = "Submit";
+    } else {
+        document.getElementById("nextBtn").value = "Next";
+    }
+    fixStepIndicator(n)
+    }
+
+    function nextPrev(n) {	
+        var x = document.getElementsByClassName("tab");
+        var id = x[currentTab].id;
+        if (jQuery('input[name='+id+']:checked').length > 0) {
+            x[currentTab].style.display = "none";
+            currentTab = currentTab + n;
+            if (currentTab >= x.length) {
+                //document.getElementById("regForm").submit();
+                //return false;
+  
+                var finalcialData = $('#financialForm').serializeArray();
+                $.ajax({
+                    type: 'POST',
+                    url : "/save-questionnaire",
+                    data : {finalcialData: finalcialData},
+                    success:function(response) {
+                         if(response.success == 1){
+                            swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                            },function(isConfirm){
+                                if(isConfirm){
+                                    setTimeout(function(){
+                                        window.location.href = "/profile-details";
+                                    },30);
+                                }
+                            });
+
+                        } 
+                    },
+                    error:function(xhr) {
+                        console.log(xhr);
+                    }
+                });
+
+
+            }
+            showTab(currentTab);
+        }
+        else
+        {
+            //alert('select option');
+            x[currentTab].style.border="1px solid red";
+        return false;
+        }
+        
+    }
+
+    function validateForm() {
+    // This function deals with validation of the form fields
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+    // A loop that checks every input field in the current tab:
+    for (i = 0; i < y.length; i++) {
+        // If a field is empty...
+        if (y[i].value == "") {
+        // add an "invalid" class to the field:
+        y[i].className += " invalid";
+        // and set the current valid status to false
+        valid = false;
+        }
+    }
+    // If the valid status is true, mark the step as finished and valid:
+    if (valid) {
+        document.getElementsByClassName("step")[currentTab].className += " finish";
+    }
+    return valid; // return the valid status
+    }
+
+    function fixStepIndicator(n) {
+    // This function removes the "active" class of all steps...
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+        x[i].className = x[i].className.replace(" active", "");
+    }
+    //... and adds the "active" class on the current step:
+    x[n].className += " active";
+    }
+</script>

@@ -1074,6 +1074,28 @@
                 }
             });
             // Notes form validation ends
+
+            $('#country').on('change', function() {
+                var countryCode = $(this).val();
+                if(countryCode === '226'){
+                    $('#usa_states').css('display','block');
+                    $('#state').css('display','none');
+                }
+                else{
+                    $('#usa_states').css('display','none');
+                    $('#state').css('display','block');
+                }
+            });
+            
+            /* Display selected country value */
+            $("#usa_states option").each(function() {
+            // alert(this.text + ' ' + this.value);
+                 if(this.value == "{{user.state}}"){
+                    $(this).attr("selected", "selected");
+                 } 
+            });  
+
+
         });
     </script>
     
@@ -1212,7 +1234,7 @@
                 return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 
             }
-            
+                    
             var usdPrice = 0;
             $.ajax({
                     type: "GET",

@@ -1,8 +1,8 @@
-module.exports = function(app,Deposit,WireTransfer,User,Referral_data) {
+module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,Country) {
 	const Op = require('sequelize').Op;
 	const sequelize = require('sequelize');
-	app.get('/deposit-funds', function (req,res) {
-		WireTransfer.belongsTo(User, {foreignKey: 'user_id'});
+	app.get('/deposit-funds', async (req,res) => {
+		/* WireTransfer.belongsTo(User, {foreignKey: 'user_id'});
 
 		WireTransfer.findAll({
 			where: {
@@ -17,7 +17,41 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data) {
 		}).then(function(result){
 			var user_details_only = result[0];
 			res.render('deposit/view',{layout: 'dashboard', all_data:result, User:user_details_only.User});
+		}); */
+
+		/* Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
+        let depositHistory = await Deposit.findAll(
+        { 
+            where: {
+                user_id: req.user.id,
+                type: 0
+            },
+            limit: 5,
+            order: [
+                ['createdAt', 'DESC']
+            ],
+            //logging: notOnlyALogger,
+            include: [{ 
+                model: Currency, required: true
+                
+            }] 
+		}); */
+		
+		let depositHistory = await Deposit.findAll({
+			where: {
+				user_id: req.user.id,
+                type: 0
+			},
+			limit: 5,
+            order: [
+                ['id', 'DESC']
+            ]
 		});
+
+		let countries = await Country.findAll();
+
+		res.render('deposit/view',{layout: 'dashboard', depositHistory: depositHistory, countries: countries});
+
 	});
 
 	app.post('/wiretransfer-add', (req,res) => {

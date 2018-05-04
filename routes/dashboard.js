@@ -2,7 +2,8 @@ var bCrypt = require('bcrypt-nodejs');
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
 const lodash = require('lodash');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer) {
+
     var multer = require('multer');
     var fileExt = '';
     var fileName = '';
@@ -59,9 +60,24 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.get('/profile-details', function (req, res) {
-        res.render('profile-details', {
-            layout: 'dashboard'
-        });
+
+        function notOnlyALogger(msg){
+            console.log('****log****');
+            console.log(msg);
+        }
+
+       Question.hasMany(Option, {foreignKey: 'question_id'});
+		Question.findAll({
+            include: [{
+                model: Option
+            }]
+        }).then(function(qadata){
+            res.render('profile-details', {
+                layout: 'dashboard',
+                questionAnswers: qadata
+            });
+		});
+       
     });
 
     app.get('/account-settings', function (req, res) {
@@ -136,6 +152,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.post('/account-settings', function (req, res) {
+        var countryId = req.body.country;
+        if(countryId === "226"){
+            state = req.body.usa_states;
+        } else {
+            state = req.body.state;
+        }
         User.update({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -145,13 +167,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             about_me: req.body.about_me,
             dob: req.body.dob,
             city: req.body.city,
-            state: req.body.state,
-            country: req.body.country,
+            state: state,
+            country_id: countryId,
             postal_code: req.body.postcode
         }, {
             where: {
                 id: req.user.id
-
             }
         }).then(function (result) {
             if (result > 0) {
@@ -348,8 +369,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             attributes: ['id']
         });
         curr_id = curr_id[0].id;
-        console.log("sell");
-        console.log(curr_id);
 
         let currCrypto_bal = await Deposit.findAll(
             { 
@@ -417,20 +436,45 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
     
     app.get('/transaction-history', async (req, res) =>{
-        buy_history = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 1},
+
+        Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
+        let buy_history = await Deposit.findAll(
+        { 
+            where: {
+                user_id: req.user.id,
+                type: 1
+            },
             limit: 1000,
             order: [
                 ['id', 'DESC']
-            ]
-        });
-        sell_history = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 2},
+            ],
+            //logging: notOnlyALogger,
+            include: [{ 
+                model: Currency, required: true,
+                attributes: ['currency_id']
+                
+            }] 
+        }); 
+
+        Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
+        let sell_history = await Deposit.findAll(
+        { 
+            where: {
+                user_id: req.user.id,
+                type: 2
+            },
             limit: 1000,
             order: [
                 ['id', 'DESC']
-            ]
-        });
+            ],
+            //logging: notOnlyALogger,
+            include: [{ 
+                model: Currency, required: true,
+                attributes: ['currency_id']
+                
+            }] 
+        }); 
+
         deposit_history = await Deposit.findAll({
             where: {user_id: req.user.id, type: 0},
             limit: 1000,
@@ -562,5 +606,23 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             value: parseFloat(req.user.mcpTotalBalance).toFixed(2)
         });
         res.json({'chart_array':response_arr});
+    });
+
+    app.post('/save-questionnaire', (req, res) => {  
+
+        for (var i in req.body.finalcialData) {
+            financeData = req.body.finalcialData[i];
+            Answer.create({
+                user_id: req.user.id,
+                question_id: financeData.name,
+                option_id: financeData.value
+            }).then(function (result) {
+                res.json({success: 1, msg: 'Questionnaire saved successfully'});
+            }).catch(function (err) {
+                console.log(err);
+            });
+
+        }
+  
     });
 };

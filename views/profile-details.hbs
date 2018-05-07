@@ -683,13 +683,18 @@
             event.preventDefault();
 
             var countTotalquestions = $('.questionaireGroup').length;
-                    
-            for(var i=1; i<=countTotalquestions; i++){
 
-                // get not checked radio button's value
+           
+            $(".questionaireGroup").each(function(){
+                var radioElement = $('.questionaireGroup #answeroption').val();
+                //console.log(radioElement);
 
-                console.log($(".questionaireGroup > .name_"+i).val());
-            }
+                  var getValue = $(this).find('input[type="radio"]:checked').map(function() {
+                    return this.value;
+                  }).get();
+                console.log(getValue);
+
+            });
                        
         });
 

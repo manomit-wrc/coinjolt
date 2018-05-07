@@ -165,7 +165,7 @@
     <div class="balnrecent">
       <div class="row">
         <div class="col-md-6">
-          <div class="box">
+          <div class="box equal-hgt">
             <div class="box-header">
               <h3 class="box-title">Balance</h3>
             </div>
@@ -173,32 +173,32 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="chart-responsive">
-									  <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+									  <div class="chart" id="sales-chart" style="height: 150px; position: relative;"></div>
 									</div>
                 </div>
                 <div class="col-md-8">
                     <table class="table scroll-minus">
                         <thead>
                             <tr>
-                                <th>SYMBOL</th>
-                                <th>NAME</th>
-                                <th>BALANCE</th>
+                                <th class="col-xs-4 paddingleft">SYMBOL</th>
+                                <th class="col-xs-4 paddingleft">NAME</th>
+                                <th class="col-xs-4 paddingleft">BALANCE</th>
                             </tr>
                         </thead>
                     </table>
-                    <div class="scroll-dashboard" style="height: 445.15px;">
+                    <div class="scroll-dashboard">
                         <table class="table">
                             <tr>
-                                <td>
+                                <td class="col-xs-4">
                                     <img src="dist/img/usd.png" alt="">
                                 </td>
                                 <td>DOLLAR <span style="color:red;">(USD)</span></td>
-                                <td>
+                                <td class="col-xs-4">
                                     {{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td class="col-xs-4">
                                     <img src="dist/img/mcpicon.png" alt="" width="34" height="40">
                                 </td>
                                 <td>MANAGED PORTFOLIO<span style="color:red;">(MCP)</span></td>
@@ -206,11 +206,11 @@
                             </tr>
                             {{#each user.currency}}
                             <tr>    
-                                <td class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite">
-                                    
+                                <td class="col-xs-4">
+                                   <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite" ></div>
                                 </td>
-                                <td>{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
-                                <td class="wallet_crp">
+                                <td class="col-xs-4">{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
+                                <td class="wallet_crp col-xs-4">
                                         {{twoDecimalPoint (checkCurrencies this.alt_name ../user.currencyBalance)}}
                                 </td>
                             </tr>

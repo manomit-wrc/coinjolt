@@ -683,12 +683,12 @@
             event.preventDefault();
 
             var countTotalquestions = $('.questionaireGroup').length;
-            //console.log(countTotalquestions);
+             
             for(var i=1; i<=countTotalquestions; i++){
-                $('.questionaireGroup').find("input:checkbox:not(:checked)").each(function() {
-                    // console.log('VALUE OF NOT GIVEN answer:: '+$(this).val()); 
-                    console.log($(this).html());
-                }); 
+
+                // get not checked radio button's value
+
+                console.log($(".questionaireGroup > .name_"+i).val());
             }
                        
         });

@@ -158,6 +158,9 @@ module.exports = (passport, User, Deposit, Currency, models) => {
 
                     }
 
+                    if(user.status != "1") {
+                        return done(null, false, req.flash('loginMessage', 'Account not activated. Please contact administrator')); 
+                    }
 
                     var userinfo = user.get();
                     return done(null, userinfo);

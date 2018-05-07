@@ -609,8 +609,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.post('/save-questionnaire', (req, res) => {  
-
-        for (var i in req.body.finalcialData) {
+         for (var i in req.body.finalcialData) {
             financeData = req.body.finalcialData[i];
             Answer.create({
                 user_id: req.user.id,
@@ -622,7 +621,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 console.log(err);
             });
 
-        }
+        } 
   
     });
 };

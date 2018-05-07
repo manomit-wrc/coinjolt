@@ -1,4 +1,5 @@
-module.exports = function(app, Support, User){
+var keys = require('../config/key');
+module.exports = function(app, Support, User, AWS){
 
 	app.get('/admin/support', (req,res) => {
 		const msg = req.flash('emailMessage')[0];
@@ -39,36 +40,28 @@ module.exports = function(app, Support, User){
 		var admin_email = 'support@coinjolt.com';
 		var admin_reply = req.body.reply;
 
-		//email sending using sendmail
-		const sendmail = require('sendmail')();
- 
-		sendmail({
-		    from: '"Coinjolt Support Team" <support@coinjolt.com>',
-		    to: user_email,
-		    subject: subject,
-		    html: admin_reply,
-		  }, function(err, reply) {
-		    if (err) {
-		    	console.log(err);
-		  	} else {
-		  		//UPDATE SUPPORT TABLE
+		//email sending using ses
 
-		  			Support.update({
-						status : 1
-					},{
-						where :{
-							id : row_id
-						}
-					}).then (function (result) {
-						if(result > 0){
-							req.flash('emailMessage', 'Email send to the user successfully.');
-		    				res.redirect('/admin/support');
-						}
-					});
-		  		//END
-		  	}
-		});
-		//end
+		var ses = new AWS.SES({apiVersion: '2010-12-01'});
+		ses.sendEmail( { 
+			   Source: keys.senderEmail, 
+			   Destination: { ToAddresses: [user_email] },
+			   Message: {
+			       Subject: {
+			          Data: subject
+			       },
+			       Body: {
+			           Text: {
+			               Data: admin_reply
+			           }
+			        }
+			   }
+			}
+			, function(err, data) {
+			    if(err) throw err;
+			    req.flash('emailMessage', 'Email send to the user successfully.');
+				res.redirect('/admin/support');
+		 });
 	});
 
 	app.get('/admin/supports-history', (req,res) => {

@@ -10,6 +10,8 @@ var path = require('path');
 var flash    = require('connect-flash');
 const lodash = require('lodash');
 var models = require("./models");
+var AWS = require('aws-sdk');
+AWS.config.update({region: 'us-east-1'});
 
 
 var allowCrossDomain = function(req, res, next) {
@@ -279,7 +281,7 @@ require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.Use
 require('./routes/admin_dashboard')(app, models.Deposit, models.withdraw, models.User);
 require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details, models.Deposit);
 require('./routes/admin_kyc')(app, models.Kyc_details, models.User);
-require('./routes/admin_support')(app, models.Support, models.User);
+require('./routes/admin_support')(app, models.Support, models.User, AWS);
 require('./routes/admin_crypto_profile')(app);
 
 

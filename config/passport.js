@@ -5,6 +5,7 @@ const algorithm = 'aes-256-ctr';
 const password = 'd6F3Efeq';
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
+const keys = require('./key');
 module.exports = (passport, User, Deposit, Currency, models) => {
     passport.serializeUser(function (user, done) {
         done(null, user.id);
@@ -196,6 +197,8 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                             email: req.body.email,
                             password: bCrypt.hashSync(req.body.password),
                             activation_key: activation_key,
+                            image: keys.S3_URL + 'profile/nobody.jpg',
+                            identity_proof: 'javascript:void(0)',
                             referral_id: 0
     
                         }).then(function(result){

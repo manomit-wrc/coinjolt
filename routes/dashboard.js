@@ -2,49 +2,51 @@ var bCrypt = require('bcrypt-nodejs');
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
 const lodash = require('lodash');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer) {
+const keys = require('../config/key');
+var multer = require('multer');
+var multerS3 = require('multer-s3');
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS) {
 
-    var multer = require('multer');
+    var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var fileExt = '';
     var fileName = '';
-    var storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, 'public/id-proof');
+    var userUrl = '';
+    var profile_upload = multer({
+      storage: multerS3({
+        s3: s3,
+        bucket: 'coinjoltdev2018/profile',
+        acl: 'public-read',
+        cacheControl: 'max-age=31536000',
+        metadata: function (req, file, cb) {
+          cb(null, {fieldName: file.fieldname});
         },
-
-        filename: function (req, file, cb) {
+        key: function (req, file, cb) {
             fileExt = file.mimetype.split('/')[1];
             if (fileExt == 'jpeg') fileExt = 'jpg';
             fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+            userUrl = keys.S3_URL + 'profile/'+fileName;
             cb(null, fileName);
         }
-    })
-
-    var upload = multer({
-        storage: storage,
-        limits: {
-            fileSize: 3000000
-        }
+      })
     });
 
-    var profile = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, 'public/profile');
+    var upload = multer({
+      storage: multerS3({
+        s3: s3,
+        bucket: 'coinjoltdev2018/id-proof',
+        acl: 'public-read',
+        cacheControl: 'max-age=31536000',
+        metadata: function (req, file, cb) {
+          cb(null, {fieldName: file.fieldname});
         },
-
-        filename: function (req, file, cb) {
+        key: function (req, file, cb) {
             fileExt = file.mimetype.split('/')[1];
             if (fileExt == 'jpeg') fileExt = 'jpg';
             fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+            userUrl = keys.S3_URL + 'id-proof/'+fileName;
             cb(null, fileName);
         }
-    })
-
-    var profile_upload = multer({
-        storage: profile,
-        limits: {
-            fileSize: 3000000
-        }
+      })
     });
 
     app.get('/dashboard', function (req, res) {
@@ -120,7 +122,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.post('/update-id-proof', upload.single('async_uploads'), function (req, res) {
         User.update({
-            identity_proof: fileName
+            identity_proof: userUrl
         }, {
             where: {
                 id: req.user.id
@@ -139,7 +141,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.post('/update-profile-pic', profile_upload.single('async_upload'), function (req, res) {
         User.update({
-            image: fileName
+            image: userUrl
         },{ where: { id: req.user.id } }).then(function(result) {
             res.json({
                 success: true,

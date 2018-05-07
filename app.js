@@ -10,6 +10,7 @@ var path = require('path');
 var flash    = require('connect-flash');
 const lodash = require('lodash');
 var models = require("./models");
+const keys = require('./config/key');
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
 
@@ -241,27 +242,14 @@ app.use(function(req, res, next){
 
     //delete req.user.password;
     
-    if (fs.existsSync("public/profile/"+req.user.image) && req.user.image != "") {
-      res.locals.image = "/profile/"+req.user.image;
-    }
-    else {
-     
-      res.locals.image = "/profile/nobody.jpg";
-    }
-    if (fs.existsSync("public/id-proof/"+req.user.identity_proof) && req.user.identity_proof != "") {
-      res.locals.identity_proof = "/id-proof/"+req.user.identity_proof;
-    }
-    else {
-     
-      res.locals.identity_proof = "javascript:void(0)";
-    }
     if(req.user.user_name === null) {
       res.locals.reffer_link_id = req.user.id;
     }
     else {
       res.locals.reffer_link_id = req.user.user_name;
     }
-
+    res.locals.image = req.user.image;
+    res.locals.identity_proof = req.user.identity_proof;
     res.locals.user = req.user;
 
     // models.Currency.findAll().then(function(currencies) {
@@ -276,7 +264,7 @@ app.use(function(req, res, next){
 });
 
 
-require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer);
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer, AWS);
 require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data,models.Currency,models.Country);
 require('./routes/admin_dashboard')(app, models.Deposit, models.withdraw, models.User);
 require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details, models.Deposit);

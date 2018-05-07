@@ -2,7 +2,7 @@
     <h1>Account Settings</h1>
     <ol class="breadcrumb">
         <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">{{user.user_name}}</li>
+        <li class="active">Account Settings</li>
     </ol>
 </section>
 <section class="content container-fluid">
@@ -55,10 +55,10 @@
                                 <h4><strong>Account Verification</strong></h4>
                                 <hr>
                                 <div class="form-group col-md-12">
-                                    <strong style="text-align:left;">
-                                        <i class="fa fa-id-card margin-r-5"></i> Upload Government Issued ID
+                                    <strong style="text-align: left;">
+                                        <span style="margin-right: 10px;"><i class="fa fa-id-card margin-r-5"></i> Upload Government Issued ID</span>
                                         {{!-- <a href="{{identity_proof}}" data-toggle="modal" data-target="#idProofModal">View</a> --}}
-                                        <a href="{{identity_proof}}" target="_blank">View</a>
+                                        <a href="{{kyc_details.0.files}}" target="_blank">View</a>
                                         {{!-- <div class="modal fade" id="idProofModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -75,6 +75,15 @@
                                         </div> --}}
                                         <a style="cursor:pointer; margin-left: 16px;" data-toggle="modal" data-target="#myModalIDProof">Change</a>
                                     </strong>
+                                    {{#if_eq kyc_details.0.status 1}}
+                                    <span style="float: right; font-weight: bold;">ID Proof Submitted</span>
+                                    {{/if_eq}}
+                                    {{#if_eq kyc_details.0.status 2}}
+                                    <span style="float: right; font-weight: bold;">ID Proof Approved</span>
+                                    {{/if_eq}}
+                                    {{#if_eq kyc_details.0.status 3}}
+                                    <span style="float: right; font-weight: bold;">ID Proof Rejected</span>
+                                    {{/if_eq}}
                                 </div>
                             </div>
 

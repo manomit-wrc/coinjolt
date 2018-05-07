@@ -5,7 +5,7 @@ const lodash = require('lodash');
 const keys = require('../config/key');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var fileExt = '';
@@ -50,7 +50,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.get('/dashboard', function (req, res) {
-
         res.render('dashboard', {
             layout: 'dashboard'
         });
@@ -62,7 +61,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.get('/profile-details', function (req, res) {
-
         function notOnlyALogger(msg){
             console.log('****log****');
             console.log(msg);
@@ -82,15 +80,23 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
        
     });
 
-    app.get('/account-settings', function (req, res) {
+    app.get('/account-settings', async function (req, res) {
+        var kyc_details = await Kyc_details.findAll({
+            where: {
+                user_id: req.user.id
+            },
+            limit: 1,
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        });
         const msg = req.flash('profileMessage')[0];
-        Country.findAll().then(function (country) {
-            res.render('account-settings', {
-                layout: 'dashboard',
-                message: msg,
-                countries: country
-
-            });
+        var country = await Country.findAll();
+        res.render('account-settings', {
+            layout: 'dashboard',
+            message: msg,
+            countries: country,
+            kyc_details: kyc_details
         });
     });
 
@@ -121,12 +127,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.post('/update-id-proof', upload.single('async_uploads'), function (req, res) {
-        User.update({
-            identity_proof: userUrl
-        }, {
-            where: {
-                id: req.user.id
-            }
+        Kyc_details.create({
+            user_id: req.user.id,
+            files: userUrl,
+            status: 1
         }).then(function (result) {
             res.json({
                 success: true,
@@ -142,7 +146,11 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     app.post('/update-profile-pic', profile_upload.single('async_upload'), function (req, res) {
         User.update({
             image: userUrl
-        },{ where: { id: req.user.id } }).then(function(result) {
+        }, {
+            where: {
+                id: req.user.id
+            }
+        }).then(function(result) {
             res.json({
                 success: true,
                 message: 'profile pic uploaded successfully',
@@ -155,7 +163,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.post('/account-settings', function (req, res) {
         var countryId = req.body.country;
-        if(countryId === "226"){
+        if (countryId === "226") {
             state = req.body.usa_states;
         } else {
             state = req.body.state;

@@ -678,6 +678,21 @@
 <script>
 
     $(document).ready(function(){
+
+        $('#submitQuestionaireBtn').on('click', function(event) {
+            event.preventDefault();
+
+            var countTotalquestions = $('.questionaireGroup').length;
+            //console.log(countTotalquestions);
+            for(var i=1; i<=countTotalquestions; i++){
+                $('.questionaireGroup').find("input:checkbox:not(:checked)").each(function() {
+                    // console.log('VALUE OF NOT GIVEN answer:: '+$(this).val()); 
+                    console.log($(this).html());
+                }); 
+            }
+                       
+        });
+
         //$('#submitQuestionaireBtn').on('click', function(e){
             //e.preventDefault();
             /*
@@ -840,30 +855,5 @@
     }
 
     */
-
-</script>
-
-<script type="text/javascript">
-   $(document).ready(function() {
-
-        $('#financialForm').on('submit', function(event) {
-
-            // adding rules for inputs with class 'comment'
-            $('.questionaireGroup').each(function() {
-                $(this).rules("add", 
-                    {
-                        required: true
-                    })
-            });            
-
-            // prevent default submit action         
-            event.preventDefault();
-        })
-
-        // initialize the validator
-        $('#financialForm').validate();
-
-   });
-
 
 </script>

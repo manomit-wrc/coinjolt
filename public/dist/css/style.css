@@ -937,6 +937,7 @@ label.success,
 
 /*Closed on css 24-04-2018*/
 
+
 /* Starts on css 27-04-2018 */
 
 .profile-details .box {
@@ -1106,7 +1107,7 @@ label.success,
     -o-border-radius: 0 !important;
 }
 
-.scroll-dashboard {
+.scroll-dashboard, .eposit-funds .scroll-dashboard {
     height: 175px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -1119,13 +1120,13 @@ label.success,
 }
 
 .balnrecent .col-md-6 .box.equal-hgt,
-.request-withdrawal .col-md-6 .box.equal-hgt {
+.request-withdrawal .col-md-6 .box.equal-hgt, .deposit-funds .col-md-6 .box.equal-hgt {
     height: 260px !important;
     overflow: hidden;
 }
 
 .balnrecent .box .table-responsive.buy-section,
-.request-withdrawal .box .table-responsive.buy-section {
+.request-withdrawal .box .table-responsive.buy-section, .deposit-funds .box .table-responsive {
     height: 199px !important;
     overflow-y: auto;
     overflow-x: hidden;
@@ -1135,7 +1136,7 @@ table.table.scroll-minus {
     margin-bottom: 0;
 }
 
-.scroll-dashboard.buy-and-sell-coins .currency-logo-sprite {
+.scroll-dashboard.buy-and-sell-coins .currency-logo-sprite, .deposit-funds .scroll-dashboard .currency-logo-sprite {
     margin-left: 15px;
 }
 
@@ -1153,6 +1154,29 @@ table.table.scroll-minus {
 }
 
 /* Closed on css 04-05-2018 */
+
+/* Starts on css 08-05-2018 */
+
+.inves {
+    clear: both;
+    overflow: hidden;
+}
+
+.form-group.has-feedback.invester-type {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+.iradio_square-blue.checked {
+        margin-right: 5px;
+    }
+
+.iradio_square-blue {
+        margin-right: 5px !important;
+    }
+
+/* Ends on css 08-05-2018 */
 
 @media screen and (max-width: 1366px) {
     .balance-box {

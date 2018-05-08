@@ -2,6 +2,8 @@ const Op = require('sequelize').Op;
 const sequelize = require('sequelize');
 var excel = require('node-excel-export');
 const lodash = require('lodash');
+const unix = require('to-unix-timestamp');
+const dateFormat = require('dateformat');
 
 
 module.exports = function (app, Deposit, Withdraw, User) {
@@ -281,6 +283,32 @@ module.exports = function (app, Deposit, Withdraw, User) {
 					res.render('admin/investments/index', { layout: 'dashboard', 'all_data': user_list_arr });
 				}
 			});
+		});
+	});
+
+	app.get('/create-chart-data/:id', (req, res) => {
+		var cond;
+		if(req.params['id'] === 'Investment') {
+			cond = [0, 1, 4];
+		}
+		else {
+			cond = [2, 3, 5]
+		}
+		Deposit.findAll({
+			attributes: [ 'amount', 'createdAt' ],
+			where: {
+				type: {
+					$in: cond
+				}
+			}
+		}).then(depsoit_data => {
+			var chart_data = [];
+			for(var i=0;i < depsoit_data.length; i++) {
+				var temp_Date = new Date(dateFormat(depsoit_data[i].createdAt, "yyyy-mm-dd hh:MM:ss").split(' ').join('T'));
+				var amount = depsoit_data[i].amount;
+				chart_data.push([temp_Date.getTime(),parseFloat(amount)]);
+			}
+			res.send(chart_data);
 		});
 	});
 };

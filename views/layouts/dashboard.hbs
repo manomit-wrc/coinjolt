@@ -181,7 +181,75 @@
     <script src="/js/pending_wire_transfer.js"></script>
     <script src="/js/request_withdrawal.js"></script>
     <script src="/js/kyc.js"></script>
+
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+
     <!--end-->
+    <script type="text/javascript">
+        var seriesOptions = [],
+            seriesCounter = 0,
+            names = ['Investment', 'Withdrawls'];
+        function createChart() {
+            Highcharts.stockChart('divChart', {
+            credits: {
+                enabled: false
+            },    
+            exporting: { enabled: false },
+            rangeSelector: {
+                selected: 4
+            },
+
+            yAxis: {
+                opposite:false,
+                labels: {
+                    formatter: function () {
+                        return (this.value > 0 ? ' + ' : '') + this.value;
+                    }
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 2,
+                    color: 'silver'
+                }]
+            },
+
+            plotOptions: {
+                series: {
+                    compare: 'value',
+                    showInNavigator: true
+                }
+            },
+
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change})<br/>',
+                valueDecimals: 2,
+                split: true
+            },
+
+            series: seriesOptions
+        });
+    }
+
+    $(document).ready(function(){
+        $.each(names, function (i, name) {
+            
+            $.getJSON('/create-chart-data/'+name,    function (data) {
+                
+                seriesOptions[i] = {
+                    name: name,
+                    data: data
+                };
+                seriesCounter += 1;
+
+                if (seriesCounter === names.length) {
+                    createChart();
+                }
+            });
+        });
+    });
+    </script>
     <script type="text/javascript">
         $(function () {
             'use strict';

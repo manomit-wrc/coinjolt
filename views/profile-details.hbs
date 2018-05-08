@@ -109,18 +109,19 @@
                             <p class="text-muted">{{user.city}}, {{user.state}}</p>
                             <hr>
                             <strong>
-                                <i class="fa fa fa-university margin-r-5"></i> Bank Information</strong>
-                            <a href="" data-toggle="modal" data-target="#myModal" style="float: right; ">
+                                <i class="fa fa fa-university margin-r-5"></i> Bank Information
+                            </strong>
+                            {{!-- <a href="" data-toggle="modal" data-target="#myModal" style="float: right; ">
                                 <i class="fa fa-pencil"></i>
-                            </a>
+                            </a> --}}
                             <p class="text-muted" style="margin-bottom: 0px;">
-                                <strong>Bank Name : </strong>J.P. Morgan Chase
+                                <strong>Bank Name : </strong>{{user.bankInfo.bank_name}}
                             </p>
                             <p class="text-muted" style="margin-bottom: 0px;">
-                                <strong>Bank Code : </strong>120491240
+                                <strong>Bank Code : </strong>{{user.bankInfo.branch_no}}
                             </p>
                             <p class="text-muted" style="margin-bottom: 0px;">
-                                <strong>Account Number : </strong>1920419401
+                                <strong>Account Number : </strong>{{user.bankInfo.acc_no}}
                             </p>
 
                             <!-- modal ahead -->
@@ -184,7 +185,7 @@
                                                     <input type="text" name="notes" class="form-control" id="notes" value="{{user.notes}}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="submit" name="notes-save" class="btn btn-success notes" value="Save">
+                                                    <input type="submit" name="notes-save" class="btn btn-primary notes" value="Save">
                                                 </div>
                                             </form>
                                         </div>
@@ -225,8 +226,7 @@
                         </div>
                         <section class="content mcp_con">
                             <div class="row">
-                                <div class="col-md-2">&nbsp;</div>
-                                <div class="col-md-8">
+                                <div class="col-md-12">
                                      <form id="financialForm" method="post">
                                         <h3>Answer the following questions</h3>
                                         <!-- One "tab" for each step in the form: -->
@@ -250,7 +250,6 @@
                                         </div>
 				                    </form>
                                 </div>
-                                <div class="col-md-2">&nbsp;</div>
                             </div>
                         </section>
                         

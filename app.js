@@ -36,7 +36,7 @@ var passport = require('passport');
 
 
 
-require('./config/passport')(passport, models.User, models.Deposit, models.Currency, models);
+require('./config/passport')(passport, models.User, models.Deposit, models.Currency, models, AWS);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

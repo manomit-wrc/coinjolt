@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,9 +30,10 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- Google Font -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+
 <body class="hold-transition login-page">
   <header>
     <div class="header-top">
@@ -47,12 +49,12 @@
           <div class="col-md-9">
             <div class="top-menu pull-right">
               <ul>
-                  <li>
-                      <a href="/">Sign In</a>
-                    </li>
-                    <li>
-                      <a href="/signup">Create Account</a>
-                    </li>
+                <li>
+                  <a href="/">Sign In</a>
+                </li>
+                <li>
+                  <a href="/signup">Create Account</a>
+                </li>
               </ul>
             </div>
           </div>
@@ -66,17 +68,106 @@
       <form action="/signup" method="post" name="frmSignup" id="frmSignup">
         <img src="/dist/img/img-icon.png" alt="logo">
         <h4 style="color: #000;">Create an account</h4>
-         {{#if message}}
-            <div class="alert alert-success">{{message}}</div>
-         {{/if}}
+        {{#if message}}
+        <div class="alert alert-success">{{message}}</div>
+        {{/if}} {{#if errorMsg}}
+        <div class="alert alert-danger">{{errorMsg}}</div>
+        {{/if}}
 
-         {{#if errorMsg}}
-            <div class="alert alert-danger">{{errorMsg}}</div>
-         {{/if}}
+  			<div class="form-group has-feedback">
+  				<p>Are you an Institutional Investor?</p>
+  				<div class="intitution">
+  					<input name="investor_type" id="institution-radio" value="1" checked="checked" type="radio">Yes
+  				</div>
+  			</div>
+  			<div class="form-group has-feedback">
+  				<p>Are you an Individual Investor?</p>
+  				<div class="intitution-radio">
+  					<input name="investor_type" id="individual-radio" value="2" type="radio">Yes
+  				</div>
+  			</div>
 
         <div class="form-group has-feedback">
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           <input type="email" class="form-control" placeholder="Email" id="email" name="email">
+        </div>
+        <div class="form-group has-feedback">
+          <input type="text" class="form-control" placeholder="Phone Number" id="phone" name="phone">
+        </div>
+        <div class="form-group has-feedback">
+          <input type="text" class="form-control" placeholder="Address" id="address" name="address">
+        </div>
+        <div class="form-group has-feedback">
+          <input type="text" class="form-control" placeholder="City" id="city" name="city">
+        </div>
+        <div class="form-group has-feedback">
+          <input type="text" class="form-control" placeholder="State / Province" value="{{user.state}}" id="state" name="state" {{#if_eq user.country_id "226"}} style="display: none;" {{/if_eq}}>
+          <select class="form-control" name="usa_states" id="usa_states" {{#if_neq user.country_id "226"}} style="display: none;" {{/if_neq}}>
+            <option value="AL">Alabama (AL) </option>
+            <option value="AK">Alaska (AK) </option>
+            <option value="AZ">Arizona (AZ) </option>
+            <option value="AR">Arkansas (AR) </option>
+            <option value="AA">Armed Forces America (AA) </option>
+            <option value="AE">Armed Forces Europe (AE) </option>
+            <option value="AP">Armed Forces Pacific (AP) </option>
+            <option value="CA">California (CA) </option>
+            <option value="CO">Colorado (CO) </option>
+            <option value="CT">Connecticut (CT) </option>
+            <option value="DE">Delaware (DE) </option>
+            <option value="DC">District of Columbia (DC) </option>
+            <option value="FL">Florida (FL) </option>
+            <option value="GA">Georgia (GA) </option>
+            <option value="HI">Hawaii (HI) </option>
+            <option value="ID">Idaho (ID) </option>
+            <option value="IL">Illinois (IL) </option>
+            <option value="IN">Indiana (IN) </option>
+            <option value="IA">Iowa (IA) </option>
+            <option value="KS">Kansas (KS) </option>
+            <option value="KY">Kentucky (KY) </option>
+            <option value="LA">Louisiana (LA) </option>
+            <option value="ME">Maine (ME) </option>
+            <option value="MD">Maryland (MD) </option>
+            <option value="MA">Massachusetts (MA) </option>
+            <option value="MI">Michigan (MI) </option>
+            <option value="MN">Minnesota (MN) </option>
+            <option value="MS">Mississippi (MS) </option>
+            <option value="MO">Missouri (MO) </option>
+            <option value="MT">Montana (MT) </option>
+            <option value="NE">Nebraska (NE) </option>
+            <option value="NV">Nevada (NV) </option>
+            <option value="NH">New Hampshire (NH) </option>
+            <option value="NJ">New Jersey (NJ) </option>
+            <option value="NM">New Mexico (NM) </option>
+            <option value="NY">New York (NY) </option>
+            <option value="NC">North Carolina (NC) </option>
+            <option value="ND">North Dakota (ND) </option>
+            <option value="OH">Ohio (OH) </option>
+            <option value="OK">Oklahoma (OK) </option>
+            <option value="OR">Oregon (OR) </option>
+            <option value="PA">Pennsylvania (PA) </option>
+            <option value="RI">Rhode Island (RI) </option>
+            <option value="SC">South Carolina (SC) </option>
+            <option value="SD">South Dakota (SD) </option>
+            <option value="TN">Tennessee (TN) </option>
+            <option value="TX">Texas (TX) </option>
+            <option value="UT">Utah (UT) </option>
+            <option value="VT">Vermont (VT) </option>
+            <option value="VA">Virginia (VA) </option>
+            <option value="WA">Washington (WA) </option>
+            <option value="WV">West Virginia (WV) </option>
+            <option value="WI">Wisconsin (WI) </option>
+            <option value="WY">Wyoming (WY) </option>
+          </select>
+        </div>
+        <div class="form-group has-feedback">
+          <select class="form-control" name="country" id="country">
+            {{#each countries}}
+            <option value="{{this.id}}">{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="text" class="form-control" placeholder="Zip Code / Postal Code" id="zip" name="zip">
         </div>
         <p>Choose Your Password</p>
         <div class="form-group pass">
@@ -87,8 +178,8 @@
           <input type="password" placeholder="Confirm Password" id="confirm_password" name="confirm_password">
           <p class="msg confirm_password redcolor"></p>
         </div>
-      
-      <!-- /.social-auth-links -->
+
+        <!-- /.social-auth-links -->
 
         <div class="reg-main">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Register Now</button>
@@ -97,81 +188,137 @@
 
       <div class="form-group terms">
         <input type="checkbox" id="termcondition" name="termcondition">
-        <label>I read and agree to the <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
+        <label>I read and agree to the
+          <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
         <p class="msg termcondition redcolor"></p>
       </div>
 
-      <div class="bot-sign up"><a href="/">Already have an account?
-        <span>Sign in</span>
-      </a>
+      <div class="bot-sign up">
+        <a href="/">Already have an account?
+          <span>Sign in</span>
+        </a>
+      </div>
+
     </div>
-
+    <!-- /.login-box-body -->
   </div>
-  <!-- /.login-box-body -->
-</div>
-<!-- /.login-box -->
+  <!-- /.login-box -->
 
-<!-- jQuery 3 -->
-<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="/plugins/iCheck/icheck.min.js"></script>
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
+  <!-- jQuery 3 -->
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- iCheck -->
+  <script src="/plugins/iCheck/icheck.min.js"></script>
+  <script>
+    $(function () {
+      $('input').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' /* optional */
+      });
     });
-  });
-</script>
-<script>
+  </script>
+  <script>
     $(document).ready(function () {
-      
+
       $('.login-box-body').show();
       $('.login-box-body').animate({
         'top': '0px'
       }, 500);
 
-      $(".alert").fadeTo(2000, 500).slideUp(500, function(){
-            $(".alert").slideUp(500);
-        });
-      $("#frmSignup").validate({
-          rules: {
-              email: {
-                  required: true
-              },
-              password: {
-                  required: true
-              },
-              confirm_password: {
-                  required: true,
-                  equalTo: "#password"
-              },
-              termcondition: {
-                  required: true
-              }
-          },
-          messages: {
-              email: {
-                  required: "Please enter email"
-              },
-              password: {
-                  required: "Please enter password"
-              },
-              confirm_password: {
-                  required: "Please enter confirm password",
-                  equalTo: "Should be match with password"
-              },
-              termcondition: {
-                  required: "Please check terms and condition box"
-              }
-          }
+      $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+        $(".alert").slideUp(500);
       });
+      $("#frmSignup").validate({
+        rules: {
+          email: {
+            required: true
+          },
+          password: {
+            required: true
+          },
+          confirm_password: {
+            required: true,
+            equalTo: "#password"
+          },
+          termcondition: {
+            required: true
+          },
+          phone: {
+            required: true,
+            number: true
+          },
+          address: {
+            required: true
+          },
+          city: {
+            required: true
+          },
+          state: {
+            required: true
+          },
+          country: {
+            required: true
+          },
+          zip: {
+            required: true,
+            number: true
+          }
+        },
+        messages: {
+          email: {
+            required: "Please enter email"
+          },
+          password: {
+            required: "Please enter password"
+          },
+          confirm_password: {
+            required: "Please enter confirm password",
+            equalTo: "Should be match with password"
+          },
+          termcondition: {
+            required: "Please check terms and condition box"
+          },
+          phone: {
+            required: "Please enter phone number",
+            number: "Phone number should be numeric"
+          },
+          address: {
+            required: "Please enter address"
+          },
+          city: {
+            required: "Please enter city"
+          },
+          state: {
+            required: "Please enter state"
+          },
+          country: {
+            required: "Please enter country"
+          },
+          zip: {
+            required: "Please enter zip",
+            number: "Zip code should be numeric"
+          }
+        }
+      });
+
+      $('#country').on('change', function () {
+        var countryCode = $(this).val();
+        if (countryCode === '226') {
+          $('#usa_states').css('display', 'block');
+          $('#state').css('display', 'none');
+        }
+        else {
+          $('#usa_states').css('display', 'none');
+          $('#state').css('display', 'block');
+        }
+      });
+
     });
   </script>
 </body>
+
 </html>

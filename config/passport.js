@@ -6,7 +6,7 @@ const password = 'd6F3Efeq';
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
 const keys = require('./key');
-module.exports = (passport, User, Deposit, Currency, models) => {
+module.exports = (passport, User, Deposit, Currency, models, AWS) => {
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });
@@ -97,7 +97,6 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                         var bank_details = await models.Bank_Details.findAll({
                             where: {user_id: id}
                         });
-                        var mcp_final = mcp_invest[0].get('MCP_INVEST_AMT') - mcp_withdraw[0].get('MCP_WITHDRAW_AMT');
 
                        user = user.toJSON();
                        user.currentUsdBalance = final;
@@ -190,6 +189,12 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                     if (count > 0) {
                       return done(null, false, req.flash('signupErrorMessage', 'That email is already taken.'));
                     } else {
+                        var countryId = req.body.country;
+                        if(countryId === "226"){
+                            state = req.body.usa_states;
+                        } else {
+                            state = req.body.state;
+                        }
                       if (req.cookies.referral_id === undefined) {
                         const activation_key = encrypt(email);
     
@@ -199,12 +204,55 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                             activation_key: activation_key,
                             image: keys.S3_URL + 'profile/nobody.jpg',
                             identity_proof: 'javascript:void(0)',
-                            referral_id: 0
+                            referral_id: 0,
+                            type: 2,
+                            contact_no: req.body.phone,
+                            address: req.body.address,
+                            city: req.body.city,
+                            state: state,
+                            country_id: countryId,
+                            postal_code: req.body.zip,
+                            investor_type: req.body.investor_type
     
                         }).then(function(result){
-                            /* sendgrid mail sending code for activation link */
+                            /* SES mail sending code for activation link */
+                            var ses = new AWS.SES({apiVersion: '2010-12-01'});
+                            var user_email = req.body.email;
+                            var subject = 'Registration Complete';
+                            var admin_reply = `
+                            <html>
+                            <body>
+                            <div style="text-align: center;">
+                            Thank you for registering with us. Please copy the below link and paste into your browser.
+                            <br />
+                            <a href="http://localhost:8080/activated/"${activation_key}>
+                            http://localhost:8080/activated/${activation_key}
+                            </a>
+                            </div>
+                            </body>
+                            </html>
+                        `;
+                            ses.sendEmail({ 
+                                Source: keys.senderEmail, 
+                                Destination: { ToAddresses: [user_email] },
+                                Message: {
+                                    Subject: {
+                                       Data: subject
+                                    },
+                                    Body: {
+                                        Html: {
+                                            Charset: "UTF-8",
+                                            Data: admin_reply
+                                        }
+                                     }
+                                }
+                             }, function(err, data) {
+                                 if(err) throw err;
+                            }
+                            );
     
                             return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account'));
+
                         }).catch(function(err){
                             console.log('error');
                         });
@@ -229,10 +277,53 @@ module.exports = (passport, User, Deposit, Currency, models) => {
                                 email: req.body.email,
                                 password: bCrypt.hashSync(req.body.password),
                                 activation_key: activation_key,
-                                referral_id: user.id
+                                referral_id: user.id,
+                                image: keys.S3_URL + 'profile/nobody.jpg',
+                                identity_proof: 'javascript:void(0)',
+                                type: 2,
+                                contact_no: req.body.phone,
+                                address: req.body.address,
+                                city: req.body.city,
+                                state: state,
+                                country_id: countryId,
+                                postal_code: req.body.zip,
+                                investor_type: req.body.investor_type
         
                             }).then(function(result){
-                                /* sendgrid mail sending code for activation link */
+                            /* SES mail sending code for activation link */
+                            var ses = new AWS.SES({apiVersion: '2010-12-01'});
+                            var user_email = req.body.email;
+                            var subject = 'Registration Complete';
+                            var admin_reply = `
+                            <html>
+                            <body>
+                            <div style="text-align: center;">
+                            Thank you for registering with us. Please copy the below link and paste into your browser.
+                            <br />
+                            <a href="http://localhost:8080/activated/"${activation_key}>
+                            http://localhost:8080/activated/${activation_key}
+                            </a>
+                            </div>
+                            </body>
+                            </html>
+                        `;
+                            ses.sendEmail({ 
+                                Source: keys.senderEmail, 
+                                Destination: { ToAddresses: [user_email] },
+                                Message: {
+                                    Subject: {
+                                       Data: subject
+                                    },
+                                    Body: {
+                                        Html: {
+                                            Charset: "UTF-8",
+                                            Data: admin_reply
+                                        }
+                                     }
+                                }
+                             }, function(err, data) {
+                                if(err) throw err;
+                           });
         
                                 return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account'));
 
@@ -249,57 +340,6 @@ module.exports = (passport, User, Deposit, Currency, models) => {
         
                         });
                         // end find
-
-                        //const getuserData = 'SELECT id FROM users WHERE '+condition;
-                        /* connection.query(getuserData, function(err, rows, fields) {
-                            const activation_key = encrypt(email);
-                            var today = new Date();
-                            var users = {
-                                "email": email,
-                                "password": bCrypt.hashSync(password),
-                                "status": 1,
-                                "created_at": today,
-                                "updated_at": today,
-                                "activation_key": activation_key,
-                                "referral_id": rows[0].id
-                            }
-                            var newUserMysql = new Object();
-                            newUserMysql.email = email;
-                            newUserMysql.password = password;
-                            connection.query('INSERT INTO users SET ?', users, function (error, rows, fields) {
-                                var fromEmail = new helper.Email('nilesh@wrctpl.com');
-                                var toEmail = new helper.Email(email);
-                                var subject = 'Registration Complete';
-                                const emailUrl = `
-                                                <html>
-                                                <body>
-                                                <div style="text-align: center;">
-                                                Thank you for registered with us. Please copy the below link and paste into your browser
-                                                <br />
-                                                <a href="http://localhost:8080/activated/"${activation_key}>
-                                                http://localhost:8080/activated/${activation_key}
-                                                </a>
-                                                </div>
-                                                </body>
-                                                </html>
-                                            `;
-                                var content = new helper.Content('text/html', emailUrl);
-                                var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-                                var request = sg.emptyRequest({
-                                    method: 'POST',
-                                    path: '/v3/mail/send',
-                                    body: mail.toJSON()
-                                });
-                                sg.API(request, function (error, response) {
-                                    if (error) {
-                                        console.log("In Error");
-                                        return done(null, false, req.flash('signupErrorMessage', 'Something not right. Please try again'));
-                                    }
-                                    return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account'));
-                                });
-                            });  
-                            
-                        }); */
                         }
                     }
                   })

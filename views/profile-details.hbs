@@ -56,7 +56,7 @@
             <a href="/dashboard">
                 <i class="fa fa-dashboard"></i> Home</a>
         </li>
-        <li class="active">{{user.user_name}}</li>
+        <li class="active">Profile Details</li>
     </ol>
 </section>
 <section class="content container-fluid">
@@ -224,26 +224,37 @@
                             <h3 class="box-title ltns">
                                 <i class="fa fa-question-circle-o"></i> Financial Questionnaire</h3>
                         </div>
-                         <form id="financialForm" method="post">
-                            <h3>Answer the following questions</h3>
-                            <!-- One "tab" for each step in the form: -->
+                        <section class="content mcp_con">
+                            <div class="row">
+                                <div class="col-md-2">&nbsp;</div>
+                                <div class="col-md-8">
+                                     <form id="financialForm" method="post">
+                                        <h3>Answer the following questions</h3>
+                                        <!-- One "tab" for each step in the form: -->
 
                             {{#each questionAnswers as |ques|}}
-                                <div class="questionaireGroup" id="{{ques.id}}">
+                                
+                                <div class="questionaireGroup" id="{{ques.id}}" >
                                     <h4>{{ques.question}}</h4>
                                     {{#each Options}}
-                                        <input type="radio" name="{{ques.id}}" value="{{this.id}}" id="answeroption" class="name_{{ques.id}}">{{this.option}}<br>
+                                        <input type="radio" name="{{ques.id}}" value="{{this.id}}" id="{{this.id}}" class="radio-active" {{#if this.answer_status}} checked="checked" {{/if}} >{{this.option}}<br>
                                     {{/each}}
 
                                 </div>
+                                <label for="{{ques.id}}" generated="true" class="error"></label>
                             {{/each}}
 
-                            <div style="overflow:auto;">
-                                <div style="float:right;margin-top:20px;">
-                                    <input type="button" id="submitQuestionaireBtn" name="save" value="Submit">
+                                        <div style="overflow:auto;">
+                                            <div style="float:right;margin-top:20px;">
+                                                <input type="button" id="submitQuestionaireBtn" name="save" value="Submit">
+                                            </div>
+                                        </div>
+				                    </form>
                                 </div>
+                                <div class="col-md-2">&nbsp;</div>
                             </div>
-				        </form>
+                        </section>
+                        
                     </div>
                         {{!-- <div class="box-body profile-details">
                             <div class="col-md-12 paddingleft recent_post_box">
@@ -680,24 +691,6 @@
 
     $(document).ready(function(){
 
-        $('#submitQuestionaireBtn').on('click', function(event) {
-            event.preventDefault();
-
-            var countTotalquestions = $('.questionaireGroup').length;
-
-           
-            $(".questionaireGroup").each(function(){
-                var radioElement = $('.questionaireGroup #answeroption').val();
-                //console.log(radioElement);
-
-                  var getValue = $(this).find('input[type="radio"]:checked').map(function() {
-                    return this.value;
-                  }).get();
-                console.log(getValue);
-
-            });
-                       
-        });
 
         //$('#submitQuestionaireBtn').on('click', function(e){
             //e.preventDefault();
@@ -727,31 +720,7 @@
             });  */
             
                 /*
-                var finalcialData = $('#financialForm').serializeArray();
-                $.ajax({
-                    type: 'POST',
-                    url : "/save-questionnaire",
-                    data : {finalcialData: finalcialData},
-                    success:function(response) {
-                            if(response.success == 1){
-                                swal({
-                                    icon: "success",
-                                    title: response.msg,
-                                    confirmButtonClass: "btn-success",
-                                    confirmButtonText: "OK"
-                                },function(isConfirm){
-                                    if(isConfirm){
-                                        setTimeout(function(){
-                                            window.location.href = "/profile-details";
-                                        },30);
-                                    }
-                                });
-                            } 
-                    },
-                    error:function(xhr) {
-                        console.log(xhr);
-                    }
-                });
+                
 
                 */
           

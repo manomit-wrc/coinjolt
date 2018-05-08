@@ -1155,10 +1155,28 @@ table.table.scroll-minus {
 
 /* Closed on css 04-05-2018 */
 
-/* Starts on css 07-05-2018 */
+/* Starts on css 08-05-2018 */
 
+.inves {
+    clear: both;
+    overflow: hidden;
+}
 
-/* Ends on css 07-05-2018 */
+.form-group.has-feedback.invester-type {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+.iradio_square-blue.checked {
+        margin-right: 5px;
+    }
+
+.iradio_square-blue {
+        margin-right: 5px !important;
+    }
+
+/* Ends on css 08-05-2018 */
 
 @media screen and (max-width: 1366px) {
     .balance-box {

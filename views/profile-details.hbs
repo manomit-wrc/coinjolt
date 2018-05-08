@@ -228,13 +228,15 @@
                             <!-- One "tab" for each step in the form: -->
 
                             {{#each questionAnswers as |ques|}}
-                                <div class="questionaireGroup" id="{{ques.id}}">
+                                
+                                <div class="questionaireGroup" id="{{ques.id}}" >
                                     <h4>{{ques.question}}</h4>
                                     {{#each Options}}
-                                        <input type="radio" name="{{ques.id}}" value="{{this.id}}" id="answeroption" class="name_{{ques.id}}">{{this.option}}<br>
+                                        <input type="radio" name="{{ques.id}}" value="{{this.id}}" id="{{this.id}}" class="radio-active" {{#if this.answer_status}} checked="checked" {{/if}} >{{this.option}}<br>
                                     {{/each}}
 
                                 </div>
+                                <label for="{{ques.id}}" generated="true" class="error"></label>
                             {{/each}}
 
                             <div style="overflow:auto;">
@@ -679,24 +681,6 @@
 
     $(document).ready(function(){
 
-        $('#submitQuestionaireBtn').on('click', function(event) {
-            event.preventDefault();
-
-            var countTotalquestions = $('.questionaireGroup').length;
-
-           
-            $(".questionaireGroup").each(function(){
-                var radioElement = $('.questionaireGroup #answeroption').val();
-                //console.log(radioElement);
-
-                  var getValue = $(this).find('input[type="radio"]:checked').map(function() {
-                    return this.value;
-                  }).get();
-                console.log(getValue);
-
-            });
-                       
-        });
 
         //$('#submitQuestionaireBtn').on('click', function(e){
             //e.preventDefault();
@@ -726,31 +710,7 @@
             });  */
             
                 /*
-                var finalcialData = $('#financialForm').serializeArray();
-                $.ajax({
-                    type: 'POST',
-                    url : "/save-questionnaire",
-                    data : {finalcialData: finalcialData},
-                    success:function(response) {
-                            if(response.success == 1){
-                                swal({
-                                    icon: "success",
-                                    title: response.msg,
-                                    confirmButtonClass: "btn-success",
-                                    confirmButtonText: "OK"
-                                },function(isConfirm){
-                                    if(isConfirm){
-                                        setTimeout(function(){
-                                            window.location.href = "/profile-details";
-                                        },30);
-                                    }
-                                });
-                            } 
-                    },
-                    error:function(xhr) {
-                        console.log(xhr);
-                    }
-                });
+                
 
                 */
           

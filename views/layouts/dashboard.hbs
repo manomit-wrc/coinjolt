@@ -1073,8 +1073,44 @@
                     }
                 }
             });
-            // Notes form validation ends
-
+            
+            $("#submitQuestionaireBtn").click(function(){
+                $("#financialForm").submit();
+            });
+            $('#financialForm').validate({
+                submitHandler: function (form) { 
+                    var finalcialData = $('#financialForm').serializeArray();
+                    $.ajax({
+                        type: 'POST',
+                        url : "/save-questionnaire",
+                        data : {finalcialData: finalcialData},
+                        success:function(response) {
+                                if(response.success == 1){
+                                    swal({
+                                        icon: "success",
+                                        title: response.msg,
+                                        confirmButtonClass: "btn-success",
+                                        confirmButtonText: "OK"
+                                    },function(isConfirm){
+                                        
+                                    });
+                                } 
+                        },
+                        error:function(xhr) {
+                            console.log(xhr);
+                        }
+                    });
+                    return false;
+                }
+            });
+             $('.radio-active').each(function(index) {
+                $(this).rules('add', {
+                    required: true,
+                    messages: {
+                        required:  "Please select an option"
+                    }
+                });
+            }); 
             $('#country').on('change', function() {
                 var countryCode = $(this).val();
                 if(countryCode === '226'){

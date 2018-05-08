@@ -63,21 +63,37 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.get('/profile-details', function (req, res) {
 
-        function notOnlyALogger(msg){
-            console.log('****log****');
-            console.log(msg);
-        }
-
        Question.hasMany(Option, {foreignKey: 'question_id'});
 		Question.findAll({
             include: [{
                 model: Option
             }]
         }).then(function(qadata){
-            res.render('profile-details', {
-                layout: 'dashboard',
-                questionAnswers: qadata
+            Answer.findAll({
+                attributes: ['option_id'],
+                where: {
+                    user_id: req.user.id
+                }
+            }).then((answer_data) => {
+                for(var i=0;i<qadata.length;i++) {
+                    for(var j=0;j<qadata[i].Options.length;j++) {
+                        var tempArr = lodash.filter(answer_data, x => x.option_id === qadata[i].Options[j].id);
+                        if(tempArr.length > 0) {
+                            qadata[i].Options[j].answer_status = true;
+                        }
+                        else {
+                            qadata[i].Options[j].answer_status = false;
+                        }
+                    }
+                }
+                
+                res.render('profile-details', {
+                    layout: 'dashboard',
+                    questionAnswers: qadata,
+                    answer_data: answer_data
+                });
             });
+            
 		});
        
     });

@@ -288,11 +288,11 @@ module.exports = function (app, Deposit, Withdraw, User) {
 
 	app.get('/create-chart-data/:id', (req, res) => {
 		var cond;
-		if(req.params['id'] === 'Investment') {
+		if(req.params['id'] === 'Investments') {
 			cond = [0, 1, 4];
 		}
 		else {
-			cond = [2, 3, 5]
+			cond = [2, 3, 5];
 		}
 		Deposit.findAll({
 			attributes: [ 'amount', 'createdAt' ],
@@ -304,7 +304,7 @@ module.exports = function (app, Deposit, Withdraw, User) {
 		}).then(depsoit_data => {
 			var chart_data = [];
 			for(var i=0;i < depsoit_data.length; i++) {
-				var temp_Date = new Date(dateFormat(depsoit_data[i].createdAt, "yyyy-mm-dd hh:MM:ss").split(' ').join('T'));
+				var temp_Date = new Date(dateFormat(depsoit_data[i].createdAt, "yyyy-mm-dd").split(' ').join('T'));
 				var amount = depsoit_data[i].amount;
 				chart_data.push([temp_Date.getTime(),parseFloat(amount)]);
 			}

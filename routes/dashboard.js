@@ -636,19 +636,24 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.post('/save-questionnaire', (req, res) => {  
-         for (var i in req.body.finalcialData) {
-            financeData = req.body.finalcialData[i];
-            Answer.create({
-                user_id: req.user.id,
-                question_id: financeData.name,
-                option_id: financeData.value
-            }).then(function (result) {
-                res.json({success: 1, msg: 'Questionnaire saved successfully'});
-            }).catch(function (err) {
-                console.log(err);
-            });
 
-        } 
-  
+        Answer.destroy({
+            where: {
+                user_id: req.user.id
+            }
+        }).then(function (result) {
+            for (var i in req.body.finalcialData) {
+                financeData = req.body.finalcialData[i];
+                Answer.create({
+                    user_id: req.user.id,
+                    question_id: financeData.name,
+                    option_id: financeData.value
+                }).then(function (result) {
+                    res.json({success: 1, msg: 'Questionnaire saved successfully'});
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            } 
+        });
     });
 };

@@ -1255,6 +1255,69 @@
                 }
             });
 
+            /*Script for validating individual form in Managed cryptocurrency page */
+            $("#individual_form_save").click(function(e){
+                $("#individualForm").submit();
+            });
+
+            $("#individualForm").validate({
+                rules: {
+                    first_name: {
+                        required: true
+                    },
+                    last_name: {
+                        required: true
+                    },
+                    residence_country_individual: {
+                        required: true
+                    }
+                },
+                messages: {
+                    first_name: {
+                        required: "Please enter first name"
+                    },
+                    last_name: {
+                        required: "Please enter last name"
+                    },
+                    residence_country_individual: {
+                        required: "Please enter country of residence"
+                    }
+                },
+                submitHandler:function(form) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/save-institutionalIndividual-data",
+                        data: {
+                            first_name: $("#first_name").val(),
+                            last_name: $("#last_name").val(),
+                            residence_country_individual: $("#residence_country_individual").val(),
+                            invest_amount_individual: $("#investques_individual").val(),
+                            settlement_currency_individual: $("#settlement_currency_individual").val()
+                        
+                        },
+                        success:function(response) {
+                            console.log('Saved successfully');
+                            swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                            },function(isConfirm){
+                                if(isConfirm){
+                                    window.location.href = "/managed-cryptocurrency-portfolio";
+                                }
+                            });
+
+                        },
+                        error: function(xhr) {
+                            console.log('Error');
+                        }
+                    }); 
+
+
+                }
+            });
+
         });
     </script>
     

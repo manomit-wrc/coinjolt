@@ -5,7 +5,7 @@ const lodash = require('lodash');
 const keys = require('../config/key');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var fileExt = '';
@@ -552,6 +552,18 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             investedamount = 0;
         }
 
+        // get all institutional data
+       /*  portfolio_composition.findOne({
+            where: {
+                user_id: req.user.id,
+                investor_type: 1
+            }
+        }).then(function (result) {
+            req.flash('investStatusMessage', 'Your investment was made successfully!');
+            res.redirect('/managed-cryptocurrency-portfolio');
+        }); */
+        // end
+
         res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg });
     });
 
@@ -655,5 +667,57 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 });
             } 
         });
+    });
+
+    app.post('/save-institutionalIndividual-data', (req, res) => {
+        var businessName = req.body.business_name;
+        var businessNumber = req.body.business_number;
+        var businessCountry = req.body.business_registration_country;
+        var investedAmount = req.body.invest_amount;
+        var settlementCurrency = req.body.settlement_currency;
+        
+        User.findOne({
+            where: {
+                id: req.user.id,
+                investor_type: 1 // institutional
+            }
+        }).then(function(result) {
+            var investorType = JSON.stringify(result.investor_type);
+
+            portfolio_composition.findAndCountAll({
+                where: {user_id: req.user.id}
+              }).then(res => {
+                var count = res.count;
+                if(count >0){
+                    portfolio_composition.update({
+                        investor_type: investorType,
+                        business_name: businessName,
+                        business_number: businessNumber,
+                        business_registration_country: businessCountry,
+                        investques: investedAmount,
+                        settlement_currency: settlementCurrency
+                    }, {
+                        where: {
+                            user_id: req.user.id
+                        }
+                    });
+                }
+                else{
+                    portfolio_composition.create({
+                        user_id: req.user.id,
+                        investor_type: investorType,
+                        business_name: businessName,
+                        business_number: businessNumber,
+                        business_registration_country: businessCountry,
+                        investques: investedAmount,
+                        settlement_currency: settlementCurrency
+                    });
+                }
+
+            });
+
+            res.json({ msg: 'Saved' });
+        });
+
     });
 };

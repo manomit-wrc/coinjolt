@@ -63,34 +63,28 @@
 						</div>
 					</div>
 				</div>
-				<!-- <div class="radio-btn">
-					<input type="radio" name="type" id="institution" value="Institution" checked="checked" onclick="institutionForm()">Institution
-				</div> -->
-				<!-- <div class="radio-btn">
-					<input type="radio" name="type" id="individual" value="Individual" onclick="individualForm()">Individual
-				</div> -->
 			</div>
 			<!-- Institutional form -->
 			<div class="row" id="institutional_form" style="display: block;">
 				<div class="col-md-12 col-sm-12 col-xs-12">
-					<form id="form" class="form" name="" method="post" enctype="multipart/form-data">
+					<form id="institutionalForm" class="form" name="" action="" method="post">
 						<input name="" id="userId" value="1" type="hidden">
 						<input name="" id="id" value="59" type="hidden">
 						<h2>Institutional Verification</h2>
 						<div class="form-group">
 							<label for="business_name">Registered Business Name <span style="color: red;">*</span></label>
-							<input class="form-control" id="business_name" placeholder="Enter Business Name" name="business_name" value="CoinJolt" type="text">
-							<span id="business_name_err" style="color: tomato;"></span>
+							<input class="form-control" id="business_name" placeholder="Enter Business Name" name="business_name" value="" type="text">
+							{{!-- <span id="business_name_err" style="color: tomato;"></span> --}}
 						</div>
 						<div class="form-group">
 							<label for="business_number">Registered Business Number <span style="color: red;">*</span></label>
-							<input class="form-control" id="business_number" placeholder="Enter Business Number" name="business_number" value="19284910" type="text">
-							<span id="business_number_err" style="color: tomato;"></span>
+							<input class="form-control" id="business_number" placeholder="Enter Business Number" name="business_number" value="" type="text">
+							{{!-- <span id="business_number_err" style="color: tomato;"></span> --}}
 						</div>
 						<div class="form-group">
 							<label for="business_registration_country">Country of Business Registration <span style="color: red;">*</span></label>
-							<input class="form-control" id="business_registration_country" placeholder="Enter Country of Business Registration" name="business_registration_country" value="Canada" type="text">
-							<span id="business_registration_country_err" style="color: tomato;"></span>
+							<input class="form-control" id="business_registration_country" placeholder="Enter Country of Business Registration" name="business_registration_country" value="" type="text">
+							{{!-- <span id="business_registration_country_err" style="color: tomato;"></span> --}}
 						</div>
 						<div class="form-group">
 							<label for="investques">How Much Are You Looking To Invest? <span style="color: red;">*</span></label>
@@ -108,8 +102,9 @@
 								<option value="cryptocurrency">Digital Currency (Bitcoin, Ethereum, etc)</option>
 							</select>
 						</div>
-						<button type="button" class="btn btn-primary" id="institution_form_upload" data-toggle="modal" data-target="#institute_modal">Upload Documents</button>
-						<input class="btn btn-primary" id="institution_form_save" value="Save" onclick="institutionValidation()" type="button">
+						<button type="button" class="btn btn-primary" id="institution_form_upload" data-toggle="modal" data-target="#institute_modal" disabled>Upload Documents</button>
+						{{!-- <input class="btn btn-primary" id="institution_form_save" value="Save" onclick="institutionValidation()" type="button"> --}}
+						<input class="btn btn-primary" id="institution_form_save" value="Save" type="button">
 						<!-- <button type="submit" class="btn btn-success" id="submit_institution">Submit</button>id="institution_form_upload" -->
 					</form>
 				</div>
@@ -246,7 +241,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+			</div>
 		<!-- Institution form modal ends  id="submit_institution"-->
 		<!-- Institutional form -->
 		<!-- Individual form -->

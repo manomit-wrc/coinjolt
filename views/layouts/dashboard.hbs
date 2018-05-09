@@ -691,11 +691,17 @@
                         dataType: "json",
                         success: function(result){
                             if(result.message !=='' && result.status === true){ 
-                                var t_amt = parseFloat(result.crypto_balance)+parseFloat(actualAmtExpect);
+                                if(result.crypto_balance > 0) {
+                                    var crp_blnc = result.crypto_balance;
+                                    var t_amt = parseFloat(result.crypto_balance)+parseFloat(actualAmtExpect);
+                                } else {
+                                    var crp_blnc = 0;
+                                    var t_amt = parseFloat(actualAmtExpect);
+                                }
                                 var currency_id = result.curr_id;
                                 swal({
                                     title: "Transaction Confirmation",
-                                    text: "You are buying " + actualAmtExpect + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +result.crypto_balance+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
+                                    text: "You are buying " + actualAmtExpect + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +crp_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
                                     type: "warning",
                                     showCancelButton: true,
                                     confirmButtonClass: "btn-danger",
@@ -833,8 +839,13 @@
                             url: "/sell-coin", 
                             dataType: "json",
                             success: function(result) {
-                                if (result.message !=='' && result.status === true) { 
-                                    cryptocurrency_bal = result.crypto_balance;
+                                if (result.message !=='' && result.status === true) {
+                                    if(result.crypto_balance > 0){
+                                        cryptocurrency_bal = result.crypto_balance;
+                                    } else {
+                                        cryptocurrency_bal = "0";
+                                    }
+                                    
                                     if (amtVal > cryptocurrency_bal) {
                                         $('.sell_expected').addClass('alert alert-danger');
                                         $('.sell_expected').html('Amount exceeds currency balance.');
@@ -940,13 +951,20 @@
                         url: "/sell-coin", 
                         dataType: "json",
                         success: function(result){
-                            if (result.message !=='' && result.status === true) { 
+                            if (result.message !=='' && result.status === true) {
+                                if(result.crypto_balance > 0){
+                                    var crp_blnc = result.crypto_balance;
+                                    var t_amt = parseFloat(result.crypto_balance)-parseFloat(amtVal);
+                                } else {
+                                    var crp_blnc = "0";
+                                    var t_amt = "0";
+                                }
                                 totalAmtExpect = parseFloat(result.crypto_balance+actualAmtExpect);
-                                var t_amt = parseFloat(result.crypto_balance)-parseFloat(amtVal);
+                                
                                 var currency_id = result.curr_id;
                                 swal({
                                     title: "Transaction Confirmation",
-                                    text: "You are selling " + amtVal + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +result.crypto_balance+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
+                                    text: "You are selling " + amtVal + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +crp_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
                                     type: "warning",
                                     showCancelButton: true,
                                     confirmButtonClass: "btn-danger",

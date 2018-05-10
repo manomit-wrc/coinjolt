@@ -140,25 +140,27 @@
                                     </div>  
                                     <div class="col-md-12" id="investerrormsg" style="display:none;"> </div>  
                                 </form>
-                                <form action="/save-withdraw" method="post" id="MCPwithdraw">
-                                    <div class="gap">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" name="amount_withdraw" id="amount_withdraw" class="form-control" placeholder="Enter Amount to Withdraw">
-                                                <input type="hidden" value="MCP" name="currency_purchased" style="margin-bottom: 0px;">
-                                                <input type="hidden" value="{{user.currentUsdBalance}}" name="useramountUSD" id="useramountUSD" style="margin-bottom: 0px;">
+                                {{#if_eq user.kycApproved "2"}}
+                                    <form action="/save-withdraw" method="post" id="MCPwithdraw">
+                                        <div class="gap">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="amount_withdraw" id="amount_withdraw" class="form-control" placeholder="Enter Amount to Withdraw">
+                                                    <input type="hidden" value="MCP" name="currency_purchased" style="margin-bottom: 0px;">
+                                                    <input type="hidden" value="{{user.currentUsdBalance}}" name="useramountUSD" id="useramountUSD" style="margin-bottom: 0px;">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="gap">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input class="btn btn-block btn-primary" id="amt_withd_btn" name="withdrawSubmit" type="submit" value="Confirm" />
+                                        <div class="gap">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input class="btn btn-block btn-primary" id="amt_withd_btn" name="withdrawSubmit" type="submit" value="Confirm" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12" id="withdrawerrormsg" style="display:none;"> </div> 
-                                </form>
+                                        <div class="col-md-12" id="withdrawerrormsg" style="display:none;"> </div> 
+                                    </form>
+                                {{/if_eq}}    
                                 <div class="col-md-12 text-center">
                                     <p style="text-align: center;">For more information about our managed cryptocurrency portfolio, <a href="/about-us" target="_blank" style="color: #4165b4;">click here.</a> 
 								    <br>

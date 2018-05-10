@@ -363,22 +363,32 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
         // calculating cryptocurrency wallet current balance
 
-        let currCrypto_bal = await Deposit.findAll(
-            { 
-                attributes: ['balance'],
-                //logging: notOnlyALogger,
-                where: {
-                    user_id: req.user.id,
-                    currency_id: curr_id
-                },
-                limit: 1,
-                order: [
-                    ['createdAt', 'DESC']
-                ]
-                
-            }); 
-        currCrypto_bal = currCrypto_bal[0].balance;
-        res.json({message: 'Success', status: true, crypto_balance: currCrypto_bal, curr_id: curr_id}); 
+        var balance_count = await Deposit.count({
+            where: {
+                user_id: req.user.id,
+                currency_id: curr_id
+            }
+        });
+        if(balance_count > 0) {
+            let currCrypto_bal = await Deposit.findAll(
+                { 
+                    attributes: ['balance'],
+                    //logging: notOnlyALogger,
+                    where: {
+                        user_id: req.user.id,
+                        currency_id: curr_id
+                    },
+                    limit: 1,
+                    order: [
+                        ['createdAt', 'DESC']
+                    ]
+                    
+                }); 
+            var cryptoBalance = currCrypto_bal[0].balance;
+        } else {
+            let cryptoBalance = 0;
+        }
+        res.json({message: 'Success', status: true, crypto_balance: cryptoBalance, curr_id: curr_id}); 
 
     });
 
@@ -397,24 +407,32 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
         curr_id = curr_id[0].id;
 
-        let currCrypto_bal = await Deposit.findAll(
-            { 
-                attributes: ['balance'],
-                //logging: notOnlyALogger,
-                where: {
-                    user_id: req.user.id,
-                    currency_id: curr_id
-                },
-                limit: 1,
-                order: [
-                    ['createdAt', 'DESC']
-                ]
-                
-            });
-
-        // calculating cryptocurrency wallet current balance
-        currCrypto_bal = currCrypto_bal[0].balance;
-        res.json({message: 'Success', status: true, crypto_balance: currCrypto_bal, curr_id: curr_id});
+        var balance_count = await Deposit.count({
+            where: {
+                user_id: req.user.id,
+                currency_id: curr_id
+            }
+        });
+        if(balance_count > 0) {
+            let currCrypto_bal = await Deposit.findAll(
+                { 
+                    attributes: ['balance'],
+                    //logging: notOnlyALogger,
+                    where: {
+                        user_id: req.user.id,
+                        currency_id: curr_id
+                    },
+                    limit: 1,
+                    order: [
+                        ['createdAt', 'DESC']
+                    ]
+                    
+                });
+                var cryptoBalance = currCrypto_bal[0].balance;
+        } else {
+            let cryptoBalance = 0;
+        }
+        res.json({message: 'Success', status: true, crypto_balance: cryptoBalance, curr_id: curr_id});
 	});
 
     app.post('/confirm_coin_buy', function(req, res) {
@@ -649,7 +667,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     question_id: financeData.name,
                     option_id: financeData.value
                 }).then(function (result) {
-                    res.json({success: 1, msg: 'Questionnaire saved successfully'});
+                    res.json({success: 1, msg: 'Questionaire saved successfully'});
                 }).catch(function (err) {
                     console.log(err);
                 });

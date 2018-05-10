@@ -59,6 +59,7 @@
                 </form>
               </div>
               <div class="col-md-6">
+                {{#if_eq user.kycApproved "2"}}
                 <form action="" method="post" class="p-r-20">
                   <div class="form-group">
                     <label>Sell</label>
@@ -87,6 +88,24 @@
                     </div>
                   </div>
                 </form>
+                {{/if_eq}} {{#if_eq user.kycApproved "1"}}
+                <div class="form-group">
+                  <label>Sell</label>
+                  <p>Sell is disabled because your ID Proof is submitted but not verified yet.</p>
+                </div>
+                {{/if_eq}} {{#if_eq user.kycApproved "3"}}
+                <div class="form-group">
+                  <label>Sell</label>
+                  <p>Sell is disabled because your ID Proof is rejected. Please upload correct ID Proof in
+                    <a href="/account-settings">Account Settings</a>.</p>
+                </div>
+                {{/if_eq}} {{#if_eq user.kycApproved "0"}}
+                <div class="form-group">
+                  <label>Sell</label>
+                  <p>Sell is disabled because your ID Proof is not uploaded yet. Please upload your ID Proof in
+                    <a href="/account-settings">Account Settings</a>.</p>
+                </div>
+                {{/if_eq}}
               </div>
             </div>
           </div>
@@ -107,51 +126,57 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="chart-responsive">
-									  <div class="chart" id="sales-chart" style="height: 150px; position: relative;"></div>
-									</div>
+                    <div class="chart" id="sales-chart" style="height: 150px; position: relative;"></div>
+                  </div>
                 </div>
                 <div class="col-md-8">
-                    <table class="table scroll-minus">
-                        <thead>
-                            <tr>
-                                <th class="col-xs-4 paddingleft">SYMBOL</th>
-                                <th class="col-xs-4 paddingleft">NAME</th>
-                                <th class="col-xs-4 paddingleft">BALANCE</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    <div class="scroll-dashboard buy-and-sell-coins">
-                        <table class="table">
-                            <tr>
-                                <td class="col-xs-4">
-                                    <img src="dist/img/usd.png" alt="">
-                                </td>
-                                <td class="col-xs-4">DOLLAR <span style="color:red;">(USD)</span></td>
-                                <td class="col-xs-4">
-                                    {{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-xs-4">
-                                    <img src="dist/img/mcpicon.png" alt="" width="34">
-                                </td>
-                                <td class="col-xs-4">MANAGED PORTFOLIO<span style="color:red;">(MCP)</span></td>
-                                <td class="col-xs-4">{{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}</td>
-                            </tr>
-                            {{#each user.currency}}
-                            <tr>    
-                                <td class="col-xs-4">
-                                    <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
-                                </td>
-                                <td class="col-xs-4">{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
-                                <td class="wallet_crp col-xs-4">
-                                        {{twoDecimalPoint (checkCurrencies this.alt_name ../user.currencyBalance)}}
-                                </td>
-                            </tr>
-                            {{/each}}
+                  <table class="table scroll-minus">
+                    <thead>
+                      <tr>
+                        <th class="col-xs-4 paddingleft">SYMBOL</th>
+                        <th class="col-xs-4 paddingleft">NAME</th>
+                        <th class="col-xs-4 paddingleft">BALANCE</th>
+                      </tr>
+                    </thead>
+                  </table>
+                  <div class="scroll-dashboard buy-and-sell-coins">
+                    <table class="table">
+                      <tr>
+                        <td class="col-xs-4">
+                          <img src="dist/img/usd.png" alt="">
+                        </td>
+                        <td class="col-xs-4">DOLLAR
+                          <span style="color:red;">(USD)</span>
+                        </td>
+                        <td class="col-xs-4">
+                          {{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-xs-4">
+                          <img src="dist/img/mcpicon.png" alt="" width="34">
+                        </td>
+                        <td class="col-xs-4">MANAGED PORTFOLIO
+                          <span style="color:red;">(MCP)</span>
+                        </td>
+                        <td class="col-xs-4">{{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}</td>
+                      </tr>
+                      {{#each user.currency}}
+                      <tr>
+                        <td class="col-xs-4">
+                          <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
+                        </td>
+                        <td class="col-xs-4">{{this.display_name}}
+                          <span style="color:red;">({{toUpperCase this.alt_name}})</span>
+                        </td>
+                        <td class="wallet_crp col-xs-4">
+                          {{twoDecimalPoint (checkCurrencies this.alt_name ../user.currencyBalance)}}
+                        </td>
+                      </tr>
+                      {{/each}}
 
-                        </table>
-                    </div>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -177,16 +202,13 @@
                     </tr>
                     {{#each currencyCodes}}
                     <tr>
-                        <td>{{this.Currency.currency_id}}</td>
-                        <td>${{formatCurrency (twoDecimalPoint this.current_rate)}}</td>
-                        <td>${{formatCurrency (fiveDecimalPoint this.amount)}}</td>
-                        <td>{{fiveDecimalPoint this.converted_amount }}</td>
-                        <td>{{#if_eq this.type '1'}}
-                            Buy 
-                            {{else}}
-                            Sell
-                            {{/if_eq}}</td>
-                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                      <td>{{this.Currency.currency_id}}</td>
+                      <td>${{formatCurrency (twoDecimalPoint this.current_rate)}}</td>
+                      <td>${{formatCurrency (fiveDecimalPoint this.amount)}}</td>
+                      <td>{{fiveDecimalPoint this.converted_amount }}</td>
+                      <td>{{#if_eq this.type '1'}} Buy {{else}} Sell {{/if_eq}}
+                      </td>
+                      <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
                     </tr>
                     {{/each}}
                   </tbody>

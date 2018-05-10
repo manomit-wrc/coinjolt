@@ -98,13 +98,31 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             where: {user_id: id}
                         });
 
+                        var kyc_count = await models.Kyc_details.count({
+                            where: {
+                                user_id: id
+                            }
+                        });
+                        if(kyc_count > 0) {
+                            var kyc = await models.Kyc_details.findAll({ 
+                                attributes: ['status'],
+                                where: {
+                                    user_id: id
+                                },
+                                limit: 1
+                            });
+                            kyc_status = kyc[0].get('status');
+                        } else {
+                            kyc_status = 0;
+                        }
+
                        user = user.toJSON();
                        user.currentUsdBalance = final;
                        user.currency = currency_list;
                        user.currencyBalance = currencyBalance;
-                       //console.log(user.currencyBalance.length);
                        user.mcpTotalBalance = mcp_final_blnc;
                        user.bankInfo = bank_details[0];
+                       user.kycApproved = kyc_status;
 
                        done(null, user);
 

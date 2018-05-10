@@ -1654,6 +1654,13 @@ socket.on('hello', function(serverResponseToHello){
 
     {{!-- Profile Details Questionaries Script Starts --}}
     <script type="text/javascript">
+    var investor_type = '{{investor_type}}';
+    if(investor_type == 2) {
+        individualForm();
+    }
+    else {
+        institutionForm();
+    }
 	function showform(){
 		alert("loaded");
 	}

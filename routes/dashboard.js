@@ -5,7 +5,7 @@ const lodash = require('lodash');
 const keys = require('../config/key');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var fileExt = '';
@@ -353,8 +353,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             attributes: ['id']
         });
         curr_id = curr_id[0].id;
-        console.log("buy");
-        console.log(curr_id);
 
         function notOnlyALogger(msg){
             console.log('****log****');
@@ -451,7 +449,34 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             balance: req.body.balance,
             currency_id: req.body.currency_id
         }).then(function (result) {
-            res.json({success: true});
+
+            currency_balance.findAndCountAll({
+                where: {user_id: req.user.id, currency_id: req.body.currency_id}
+              }).then(results => {
+                var count = results.count;
+                if(count >0){
+                    currency_balance.update({
+
+                        balance: req.body.balance
+                        
+
+                    }, {
+                        where: {
+                            user_id: req.user.id, currency_id: req.body.currency_id
+                        }
+                    });
+                }
+                else{
+                    currency_balance.create({
+
+                        user_id: req.user.id,
+                        balance: req.body.balance,
+                        currency_id: req.body.currency_id
+
+                    });
+                }
+                res.json({success: true});
+            });
         }).catch(function (err) {
             console.log(err);
         });
@@ -474,7 +499,34 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             balance: req.body.balance,
             currency_id: req.body.currency_id
         }).then(function (result) {
-            res.json({success: true});
+            
+            currency_balance.findAndCountAll({
+                where: {user_id: req.user.id, currency_id: req.body.currency_id}
+              }).then(results => {
+                var count = results.count;
+                if(count >0){
+                    currency_balance.update({
+
+                        balance: req.body.balance
+                        
+
+                    }, {
+                        where: {
+                            user_id: req.user.id, currency_id: req.body.currency_id
+                        }
+                    });
+                }
+                else{
+                    currency_balance.create({
+
+                        user_id: req.user.id,
+                        balance: req.body.balance,
+                        currency_id: req.body.currency_id
+
+                    });
+                }
+                res.json({success: true});
+            });
         }).catch(function (err) {
             console.log(err);
         });

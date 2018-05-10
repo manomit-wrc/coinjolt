@@ -324,22 +324,20 @@ socket.on('hello', function(serverResponseToHello){
             $('#sell_calculatedamount').removeClass('alert alert-success');
             $('.expected').removeClass('alert alert-danger');
 
-            var selectedRadioValue = $("input[name='type']:checked").val();
+            /* Script for handling change of Institutional or individual investor */
+            $('input:radio[name="investor_type"]').on('change', function(){
+                // get which form is being displayed
+                if($('#institutionalForm').css('display') == 'block'){ 
+                    // clear it's contents
+                    console.log('');                    
 
-            //var selectedRadioValue = $("input[type=radio][name='type']:checked").val();
+                } else { 
+                    // clear it's contents
+                    console.log('');
 
-            
-            if(selectedRadioValue === 'Institution'){
-                console.log('inside institution');
-                $('#institutionalForm').css('display','block');
-                $('#individualForm').css('display','none');
-            }
-
-            else if(selectedRadioValue === 'Individual'){
-                console.log('inside individual');
-                $('#institutionalForm').css('display','none');
-                $('#individualForm').css('display','block');
-            } 
+                }
+                
+            });
 
             $("#changereferralBtn").click(function(){
                 $("#changeReferralFrm").slideToggle('slow');
@@ -1679,6 +1677,8 @@ socket.on('hello', function(serverResponseToHello){
 		form.style.display = "none";
 		individual_form.style.display = "block";
 	}
+    // start
+    /*
 	function institutionValidation(){
 		var business_name = $('#business_name').val();
 		var business_number = $('#business_number').val();
@@ -1801,15 +1801,7 @@ socket.on('hello', function(serverResponseToHello){
         	return true;
         }
 
-
-
-        
-/*if(re.match(email_address)){
-       
-      return true;
-    }
-    */
-
+    
 }
 function individualValidationModal(){
 	var address_proof = jQuery('#address_proof').val();
@@ -1919,6 +1911,8 @@ function individualValidation(){
         	document.getElementById('individual_form_upload').setAttribute('data-target','#individual_modal');
         }
     }
+    */
+    // end
     /* individual ajax starts */
     $(document).ready(function(){
     	$(document).on('click','#submit_individual',function(){

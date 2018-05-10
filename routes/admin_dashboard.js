@@ -5,7 +5,6 @@ const lodash = require('lodash');
 const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
 
-
 module.exports = function (app, Deposit, Withdraw, User) {
 	const styles = {
 		headerDark: {

@@ -28,7 +28,7 @@ module.exports = function(app, Support, User, AWS){
 		    	model: User
 	  		}]
 		}).then(function (result) {
-			res.render('admin/support/details',{layout: 'dashboard', all_data:result});
+			res.render('admin/support/details',{ layout: 'dashboard', all_data: result });
 		});
 	});
 
@@ -41,32 +41,29 @@ module.exports = function(app, Support, User, AWS){
 		var admin_reply = req.body.reply;
 
 		//email sending using ses
-
 		var ses = new AWS.SES({apiVersion: '2010-12-01'});
-		ses.sendEmail( { 
-			   Source: keys.senderEmail, 
-			   Destination: { ToAddresses: [user_email] },
-			   Message: {
-			       Subject: {
-			          Data: subject
-			       },
-			       Body: {
-			           Text: {
-			               Data: admin_reply
-			           }
-			        }
-			   }
-			}
-			, function(err, data) {
-			    if(err) throw err;
-			    req.flash('emailMessage', 'Email send to the user successfully.');
-				res.redirect('/admin/support');
-		 });
+		ses.sendEmail({
+		   	Source: keys.senderEmail, 
+		   	Destination: { ToAddresses: [user_email] },
+		   	Message: {
+		       	Subject: {
+		          	Data: subject
+		       	},
+		       	Body: {
+		           	Text: {
+		               	Data: admin_reply
+		           	}
+		        }
+		   }
+		}, function(err, data) {
+	    	if(err) throw err;
+		    req.flash('emailMessage', 'Email send to the user successfully.');
+			res.redirect('/admin/support');
+		});
 	});
 
 	app.get('/admin/supports-history', (req,res) => {
 		Support.belongsTo(User, {foreignKey: 'user_id'});
-
 		Support.findAll({
 			where:{
 				status: 1

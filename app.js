@@ -14,10 +14,9 @@ const keys = require('./config/key');
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
 
-
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
       
     // intercept OPTIONS method
@@ -30,11 +29,7 @@ var allowCrossDomain = function(req, res, next) {
 };
 app.use(allowCrossDomain);
 
-
-
 var passport = require('passport');
-
-
 
 require('./config/passport')(passport, models.User, models.Deposit, models.Currency, models, AWS);
 
@@ -45,25 +40,20 @@ var hbs = exphbs.create({
 extname: '.hbs', //we will be creating this layout shortly
 helpers: {
     if_eq: function (a, b, opts) {
-        
-        if (a == b) // Or === depending on your needs
-            return opts.fn(this);
-        else
-            return opts.inverse(this);
-
+      if (a == b) // Or === depending on your needs
+        return opts.fn(this);
+      else
+        return opts.inverse(this);
     },
     if_neq: function (a, b, opts) {
-        
       if (a != b) // Or === depending on your needs
-          return opts.fn(this);
+        return opts.fn(this);
       else
-          return opts.inverse(this);
-
-  },
+        return opts.inverse(this);
+    },
     inArray: function(array, value, block) {
       if (array.indexOf(value) !== -1) {
         return block.fn(this);
-
 	    }
 	    else {
 	      return block.inverse(this);
@@ -75,13 +65,13 @@ helpers: {
 	    for(var i = from; i < to; i += incr)
 	        accum += block.fn(i);
 	    return accum;
-	},
+    },
     total_price: function(v1, v2) {
       return v1 * v2;
     },
     ternary: (exp, ...a) => {
       return eval(exp);
-    } ,
+    },
     eq: function (v1, v2) {
         return v1 == v2;
     },
@@ -104,24 +94,20 @@ helpers: {
         return v1 && v2;
     },
     or: function (v1, v2) {
-
         return v1 || v2;
-
     },
     dateFormat: require('handlebars-dateformat'),
     inc: function(value, options) {
       return parseInt(value) + 1;
     },
     perc: function(value, total, options) {
-
-        return Math.round((parseInt(value)/parseInt(total)*100)*100)/100;
+        return Math.round((parseInt(value) / parseInt(total) * 100) * 100) / 100;
     },
     img_src: function(value, options) {
       if (fs.existsSync("public/events/"+value) && value != "") {
         return "/events/"+value;
       }
       else {
-        
         return "/admin/assets/img/pattern-cover.png";
       }
     },
@@ -136,20 +122,16 @@ helpers: {
         return "/profile/"+value;
       }
       else {
-        
         return "/admin/assets/img/pattern-cover.png";
       }
-
     },
     product_img: function(value, options) {
       if (fs.existsSync("public/product/"+value) && value != "") {
         return "/product/"+value;
       }
       else {
-        
         return "/admin/assets/img/pattern-cover.png";
       }
-
     },
     formatCurrency: function(value) {
       return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
@@ -210,19 +192,15 @@ helpers: {
       return tempArr.length > 0 ? tempArr[0].balance : '';
     },
     checkAnswer: function(value, arr) {
-      
       var tempArr = lodash.filter(arr, x => x.option_id === value);
-      
       return tempArr.length > 0 ? true : false;
     }
-
   }
 });
 app.engine('.hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
 app.use(cookieParser());
-
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -245,7 +223,6 @@ require('./routes/index')(app, passport, models);
 app.use(function(req, res, next){
   if (req.isAuthenticated())
   {
-
     //delete req.user.password;
     
     if(req.user.user_name === null) {
@@ -262,13 +239,11 @@ app.use(function(req, res, next){
     //   res.locals.currencyList =  currencies;
     //   console.log(res.locals.currencyList);
     // });
-    
 
     return next();
   }
   res.redirect('/');
 });
-
 
 require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer, AWS, models.Kyc_details);
 require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data,models.Currency,models.Country);
@@ -278,9 +253,7 @@ require('./routes/admin_kyc')(app, models.Kyc_details, models.User);
 require('./routes/admin_support')(app, models.Support, models.User, AWS);
 require('./routes/admin_crypto_profile')(app);
 
-
 app.listen(port);
 console.log('The magic happens on port ' + port);
-
 
 module.exports = app;

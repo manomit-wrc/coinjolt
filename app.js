@@ -271,18 +271,18 @@ app.use(function(req, res, next){
 });
 
 //push notification with socket 
-var pushNotifications = require("push-notifications");
-var io = require('socket.io')(8088); //same port for the client to connect, e.g. 3000
-io.on('connection', function (socket) {
-  var tweets = setInterval(function () {
-    socket.emit("hello", "hello to all who listen to hello topic"); 
-  }, 100);
+// var pushNotifications = require("push-notifications");
+// var io = require('socket.io')(8088); //same port for the client to connect, e.g. 3000
+// io.on('connection', function (socket) {
+//   var tweets = setInterval(function () {
+//     socket.emit("hello", "hello to all who listen to hello topic"); 
+//   }, 100);
 
-  socket.on('disconnect', function () {
-    clearInterval(tweets);
-  });
-  pushNotifications.push(io, {body : "Only body :)"});
-});
+//   socket.on('disconnect', function () {
+//     clearInterval(tweets);
+//   });
+//   pushNotifications.push(io, {body : "Only body :)"});
+// });
 //end
 
 

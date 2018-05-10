@@ -30,7 +30,7 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <form method="post" action="/submit-a-request" role="form" id="submit-a-request" name="submit-a-request">
+            <form method="post" action="javasript:void(0)" role="form" id="submit-a-request" name="submit-a-request">
                 {{#if message}}
                 <div class="alert alert-success">{{message}}</div>
                 {{/if}}
@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-md-2 col-md-offset-5 pd-612">
                         <div class="form-group">
-                            <input class="btn btn-primary" type="submit" value="Submit Ticket" />
+                            <input class="btn btn-primary btn-support-disabled" type="button" id="support_saubmit_from_user" value="Submit Ticket" />
                         </div>
                     </div>
                 </div>

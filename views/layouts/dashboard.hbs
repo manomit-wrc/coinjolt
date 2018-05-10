@@ -193,45 +193,45 @@
      <script src="/socket/socket.io.js"></script>
 <script>
 //$(document).ready(() => {
-var socket = io.connect('http://localhost:8088');
-socket.on('hello', function(serverResponseToHello){
+// var socket = io.connect('http://localhost:8088');
+// socket.on('hello', function(serverResponseToHello){
     // do something when server sends back something on hello 
-    console.log(serverResponseToHello);
-  });
+    // console.log(serverResponseToHello);
+  // });
 
  // send a hello to the server
-  socket.emit("hello", "Sending hello to server");
+  // socket.emit("hello", "Sending hello to server");
 
 
   //push notification
-    if(socket) {
-        if(socket.on) {
-            socket.on('pushNotification', function(options) {
-                pushNotification.notify(options);
-            })
-        }
-    }
+    // if(socket) {
+    //     if(socket.on) {
+    //         socket.on('pushNotification', function(options) {
+    //             pushNotification.notify(options);
+    //         })
+    //     }
+    // }
 
-    (function() {
-        Notification.requestPermission();
-        function notify(options) {
-            var title = options.title || "Notification";
-            if (!("Notification" in window)) {
-                alert("This browser does not support desktop notification");
-            } else if (Notification.permission === "granted") {
-                new Notification(title ,options);
-            } else if (Notification.permission !== 'denied') {
-                Notification.requestPermission(function (permission) {
-                    if (permission === "granted") {
-                        new Notification("title" ,{body: body});
-                    }
-            });
-          }
-        }
-        window.pushNotification = {
-            notify: notify
-        }
-    })();
+    // (function() {
+    //     Notification.requestPermission();
+    //     function notify(options) {
+    //         var title = options.title || "Notification";
+    //         if (!("Notification" in window)) {
+    //             alert("This browser does not support desktop notification");
+    //         } else if (Notification.permission === "granted") {
+    //             new Notification(title ,options);
+    //         } else if (Notification.permission !== 'denied') {
+    //             Notification.requestPermission(function (permission) {
+    //                 if (permission === "granted") {
+    //                     new Notification("title" ,{body: body});
+    //                 }
+    //         });
+    //       }
+    //     }
+    //     window.pushNotification = {
+    //         notify: notify
+    //     }
+    // })();
     
 </script>
     {{!-- //end --}}
@@ -289,6 +289,74 @@ socket.on('hello', function(serverResponseToHello){
         });
     </script>
     <script type="text/javascript">
+
+        //support request save with ajax
+            
+        $('#support_saubmit_from_user').on('click', function () {
+            var subject = $('#subject').val();
+            var details = $('#description').val();
+
+            if(subject != '' && details != ''){
+                $.ajax({
+                    type: "POST",
+                    url: '/submit-a-request',
+                    data:{
+                        subject: subject,
+                        description: details
+                    },
+                    success: function (response){
+                        if(response.success == true){
+                            //start socket
+                            var socket = io.connect('http://localhost:8088');
+                            socket.emit('pushNotification', $('#description').val());
+                            $('#description').val();
+                            socket.on('pushNotification', function(msg){
+                              /*$('#messages').append($('<li>').text(msg));
+                              window.scrollTo(0, document.body.scrollHeight);*/
+                              pushNotification.notify(options);
+                            });
+                            //end
+
+                            swal({
+                                title: 'ThankYou',
+                                text: 'Request submit successfully.',
+                                type: "success",
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "OK"
+                            },  function() {
+                                window.location.reload();
+                            });
+                        }
+                    }
+                });
+            }else{
+                alert ("Please fill up Subject & Description section.");
+                return false;
+            }
+        });
+
+        (function() {
+            Notification.requestPermission();
+            function notify(options) {
+                var title = options.title || "Notification";
+                if (!("Notification" in window)) {
+                    alert("This browser does not support desktop notification");
+                } else if (Notification.permission === "granted") {
+                    new Notification(title ,options);
+                } else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission(function (permission) {
+                        if (permission === "granted") {
+                            new Notification("title" ,{body: body});
+                        }
+                });
+              }
+            }
+            window.pushNotification = {
+                notify: notify
+            }
+        })(); 
+        //end
+
         $(function () {
             'use strict';
                 // SLIMSCROLL FOR CHAT WIDGET

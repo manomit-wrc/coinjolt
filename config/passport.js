@@ -215,7 +215,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                         }
                       if (req.cookies.referral_id === undefined) {
                         const activation_key = encrypt(email);
-    
+                        var email_key = '';
                         User.create({
                             email: req.body.email,
                             password: bCrypt.hashSync(req.body.password),
@@ -237,14 +237,15 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             var ses = new AWS.SES({apiVersion: '2010-12-01'});
                             var user_email = req.body.email;
                             var subject = 'Registration Complete';
+                            email_key = activation_key+"/";
                             var admin_reply = `
                             <html>
                             <body>
                             <div style="text-align: center;">
                             Thank you for registering with us. Please copy the below link and paste into your browser.
                             <br />
-                            <a href="http://localhost:8080/activated/"${activation_key}>
-                            http://localhost:8080/activated/${activation_key}
+                            <a href="${keys.BASE_URL}activated/"${email_key}>
+                            ${keys.BASE_URL}activated/${email_key}
                             </a>
                             </div>
                             </body>
@@ -277,7 +278,8 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
     
                     }
                       else {
-                        const activation_key = encrypt(email);
+                        var activation_key = encrypt(email);
+                        var email_key = '';
                         let condition = {};
                         if(isNaN(parseInt(req.cookies.referral_id))) {
                             condition.user_name = req.cookies.referral_id;
@@ -312,14 +314,15 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             var ses = new AWS.SES({apiVersion: '2010-12-01'});
                             var user_email = req.body.email;
                             var subject = 'Registration Complete';
+                            email_key = activation_key+"/";    
                             var admin_reply = `
                             <html>
                             <body>
                             <div style="text-align: center;">
                             Thank you for registering with us. Please copy the below link and paste into your browser.
                             <br />
-                            <a href="http://localhost:8080/activated/"${activation_key}>
-                            http://localhost:8080/activated/${activation_key}
+                            <a href="${keys.BASE_URL}activated/"${email_key}>
+                            ${keys.BASE_URL}activated/${email_key}
                             </a>
                             </div>
                             </body>

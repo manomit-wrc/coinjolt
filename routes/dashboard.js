@@ -5,7 +5,7 @@ const lodash = require('lodash');
 const keys = require('../config/key');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var fileExt = '';
@@ -366,8 +366,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             attributes: ['id']
         });
         curr_id = curr_id[0].id;
-        console.log("buy");
-        console.log(curr_id);
 
         function notOnlyALogger(msg){
             console.log('****log****');
@@ -464,7 +462,34 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             balance: req.body.balance,
             currency_id: req.body.currency_id
         }).then(function (result) {
-            res.json({success: true});
+
+            currency_balance.findAndCountAll({
+                where: {user_id: req.user.id, currency_id: req.body.currency_id}
+              }).then(results => {
+                var count = results.count;
+                if(count >0){
+                    currency_balance.update({
+
+                        balance: req.body.balance
+                        
+
+                    }, {
+                        where: {
+                            user_id: req.user.id, currency_id: req.body.currency_id
+                        }
+                    });
+                }
+                else{
+                    currency_balance.create({
+
+                        user_id: req.user.id,
+                        balance: req.body.balance,
+                        currency_id: req.body.currency_id
+
+                    });
+                }
+                res.json({success: true});
+            });
         }).catch(function (err) {
             console.log(err);
         });
@@ -487,13 +512,44 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             balance: req.body.balance,
             currency_id: req.body.currency_id
         }).then(function (result) {
-            res.json({success: true});
+            
+            currency_balance.findAndCountAll({
+                where: {user_id: req.user.id, currency_id: req.body.currency_id}
+              }).then(results => {
+                var count = results.count;
+                if(count >0){
+                    currency_balance.update({
+
+                        balance: req.body.balance
+                        
+
+                    }, {
+                        where: {
+                            user_id: req.user.id, currency_id: req.body.currency_id
+                        }
+                    });
+                }
+                else{
+                    currency_balance.create({
+
+                        user_id: req.user.id,
+                        balance: req.body.balance,
+                        currency_id: req.body.currency_id
+
+                    });
+                }
+                res.json({success: true});
+            });
         }).catch(function (err) {
             console.log(err);
         });
     });
     
     app.get('/transaction-history', async (req, res) =>{
+        var buy_amt = 0;
+        var sell_amt = 0;
+        var deposit_amt = 0;
+        var withdraw_amt = 0;
 
         Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
         let buy_history = await Deposit.findAll(
@@ -547,6 +603,31 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 ['id', 'DESC']
             ]
         });
+
+        // var d = new Date();
+        // var m = d.getMonth();
+        // console.log("month");
+        // console.log(m);
+
+        // for(var i in buy_history){
+        //     buy_amt = buy_amt + parseFloat(buy_history[i].amount);
+
+        // }
+
+        // for(var i in sell_history){
+        //     sell_amt = sell_amt + parseFloat(sell_history[i].amount);
+        // }
+
+        // for(var i in deposit_history){
+        //     deposit_amt = deposit_amt + parseFloat(deposit_history[i].amount);
+        // }
+
+        // for(var i in withdrawal_history){
+        //     withdraw_amt = withdraw_amt + parseFloat(withdrawal_history[i].amount);
+        // }
+        // console.log("withdraw_amt");
+        // console.log(withdraw_amt);
+
         res.render('transaction-history', {layout: 'dashboard', buy_history:buy_history,sell_history:sell_history,deposit_history:deposit_history,withdrawal_history:withdrawal_history });
     });
 

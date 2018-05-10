@@ -78,7 +78,6 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 ] 
                             });                 
                        var currency_list = await Currency.findAll();
-                       //console.log(currency_list);
 
                        mcp_invest = await Deposit.findAll({   
                             where: {user_id: id, type: 4},

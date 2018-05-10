@@ -283,7 +283,7 @@
 						{{!-- <span id="residence_country_individual_err" style="color: tomato;"></span> --}}
 					</div>
 					<div class="form-group">
-						<label for="investques">How Much Are You Looking To Invest? <span style="color: red">*</span></label>
+						<label for="investques_individual">How Much Are You Looking To Invest? <span style="color: red">*</span></label>
 						<select name="investques_individual" class="form-control" id="investques_individual">
 							<option value="0 - $100,000+" {{#if_eq p_composition_arr.0.field_4 '0 - $100,000+'}} selected="selected" {{/if_eq}}>0 - $100,000+</option>
 								<option value="1,000,000+" {{#if_eq p_composition_arr.0.field_4 '1,000,000+'}} selected="selected" {{/if_eq}}>$1,000,000+</option>
@@ -292,7 +292,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="settlement_currency">Settlement Currency <span style="color: red"> *</span></label>
+						<label for="settlement_currency_individual">Settlement Currency <span style="color: red"> *</span></label>
 						<select name="settlement_currency_individual" class="form-control" id="settlement_currency_individual">
 							<option value="flat" {{#if_eq p_composition_arr.0.field_5 'flat'}} selected="selected" {{/if_eq}}>Flat (USD, EUR, YEN)</option>
 							<option value="cryptocurrency" {{#if_eq p_composition_arr.0.field_5 'cryptocurrency'}} selected="selected" {{/if_eq}}>Digital Currency (Bitcoin, Ethereum, etc)</option>

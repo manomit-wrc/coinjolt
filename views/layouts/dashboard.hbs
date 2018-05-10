@@ -326,16 +326,31 @@ socket.on('hello', function(serverResponseToHello){
 
             /* Script for handling change of Institutional or individual investor */
             $('input:radio[name="investor_type"]').on('change', function(){
+
+                // new    
+                if($('#institutionalForm').css('display') == 'block'){
+                    console.log('institutionalForm is displayed');        
+
+                    
+
+                }   
+                else if($('#individualForm').css('display') == 'block'){
+                    console.log('individual Form is displayed');
+                } 
+                // end new
+
                 // get which form is being displayed
+                /*
                 if($('#institutionalForm').css('display') == 'block'){ 
                     // clear it's contents
-                    console.log('');                    
+                    console.log('institutionalForm is displayed');                    
 
-                } else { 
+                } else if($('#individualForm').css('display') == 'block'){ 
                     // clear it's contents
-                    console.log('');
+                    console.log('individualForm is displayed');
 
                 }
+                */
                 
             });
 

@@ -297,7 +297,7 @@
                 $("#changeReferralFrm").slideToggle('slow');
             });
 
-            // Account settings validation
+            // Account settings validationselectedRadioValue
             $("#update_profile").validate({
                 rules: {
                     user_name: {
@@ -708,17 +708,11 @@
                         dataType: "json",
                         success: function(result){
                             if(result.message !=='' && result.status === true){ 
-                                if(result.crypto_balance > 0) {
-                                    var crp_blnc = result.crypto_balance;
-                                    var t_amt = parseFloat(result.crypto_balance)+parseFloat(actualAmtExpect);
-                                } else {
-                                    var crp_blnc = 0;
-                                    var t_amt = parseFloat(actualAmtExpect);
-                                }
+                                var t_amt = parseFloat(result.crypto_balance)+parseFloat(actualAmtExpect);
                                 var currency_id = result.curr_id;
                                 swal({
                                     title: "Transaction Confirmation",
-                                    text: "You are buying " + actualAmtExpect + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +crp_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
+                                    text: "You are buying " + actualAmtExpect + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +result.crypto_balance+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
                                     type: "warning",
                                     showCancelButton: true,
                                     confirmButtonClass: "btn-danger",
@@ -856,13 +850,8 @@
                             url: "/sell-coin", 
                             dataType: "json",
                             success: function(result) {
-                                if (result.message !=='' && result.status === true) {
-                                    if(result.crypto_balance > 0){
-                                        cryptocurrency_bal = result.crypto_balance;
-                                    } else {
-                                        cryptocurrency_bal = "0";
-                                    }
-                                    
+                                if (result.message !=='' && result.status === true) { 
+                                    cryptocurrency_bal = result.crypto_balance;
                                     if (amtVal > cryptocurrency_bal) {
                                         $('.sell_expected').addClass('alert alert-danger');
                                         $('.sell_expected').html('Amount exceeds currency balance.');
@@ -968,20 +957,13 @@
                         url: "/sell-coin", 
                         dataType: "json",
                         success: function(result){
-                            if (result.message !=='' && result.status === true) {
-                                if(result.crypto_balance > 0){
-                                    var crp_blnc = result.crypto_balance;
-                                    var t_amt = parseFloat(result.crypto_balance)-parseFloat(amtVal);
-                                } else {
-                                    var crp_blnc = "0";
-                                    var t_amt = "0";
-                                }
+                            if (result.message !=='' && result.status === true) { 
                                 totalAmtExpect = parseFloat(result.crypto_balance+actualAmtExpect);
-                                
+                                var t_amt = parseFloat(result.crypto_balance)-parseFloat(amtVal);
                                 var currency_id = result.curr_id;
                                 swal({
                                     title: "Transaction Confirmation",
-                                    text: "You are selling " + amtVal + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +crp_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
+                                    text: "You are selling " + amtVal + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +result.crypto_balance+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
                                     type: "warning",
                                     showCancelButton: true,
                                     confirmButtonClass: "btn-danger",
@@ -1264,6 +1246,7 @@
                             business_number: $("#business_number").val(),
                             business_registration_country: $("#business_registration_country").val(),
                             invest_amount: $("#investques").val(),
+                            individualOrInstitutional_type: $("input:radio[name=investor_type]:checked").val(),
                             settlement_currency: $("#settlement_currency").val()
                         
                         },
@@ -1327,11 +1310,11 @@
                             last_name: $("#last_name").val(),
                             residence_country_individual: $("#residence_country_individual").val(),
                             invest_amount_individual: $("#investques_individual").val(),
-                            settlement_currency_individual: $("#settlement_currency_individual").val()
+                            settlement_currency_individual: $("#settlement_currency_individual").val(),
+                            individualOrInstitutional_type: $("input:radio[name=investor_type]:checked").val()
                         
                         },
                         success:function(response) {
-                            console.log('Saved successfully');
                             swal({
                                 icon: "success",
                                 title: response.msg,

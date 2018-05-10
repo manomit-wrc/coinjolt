@@ -693,33 +693,31 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var businessCountry = req.body.business_registration_country;
         var investedAmount = req.body.invest_amount;
         var settlementCurrency = req.body.settlement_currency;
+        var typeOfSelection = req.body.individualOrInstitutional_type;
 
+        
         var firstName = req.body.first_name;
         var lastName = req.body.last_name;
         var individualCountry = req.body.residence_country_individual;
         var individualInvestAmount = req.body.invest_amount_individual;
         var individualSettlementCurrency = req.body.settlement_currency_individual;
         
-        User.findOne({
-            where: {
-                id: req.user.id,
-                investor_type: 1 
-            }
-        }).then(function(result) {
-            var investorType = JSON.stringify(result.investor_type);
-
+        if(typeOfSelection === 'Institution'){
             portfolio_composition.findAndCountAll({
                 where: {user_id: req.user.id}
-              }).then(res => {
-                var count = res.count;
+              }).then(results => {
+                var count = results.count;
                 if(count >0){
                     portfolio_composition.update({
-                        investor_type: investorType,
+
+                        user_id: req.user.id,
+                        investor_type: 1,
                         business_name: businessName,
                         business_number: businessNumber,
                         business_registration_country: businessCountry,
                         investques: investedAmount,
                         settlement_currency: settlementCurrency
+
                     }, {
                         where: {
                             user_id: req.user.id
@@ -728,41 +726,37 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 }
                 else{
                     portfolio_composition.create({
+
                         user_id: req.user.id,
-                        investor_type: investorType,
+                        investor_type: 1,
                         business_name: businessName,
                         business_number: businessNumber,
                         business_registration_country: businessCountry,
                         investques: investedAmount,
                         settlement_currency: settlementCurrency
+
                     });
                 }
-
+                res.json({ msg: 'Saved' });
             });
-
-            res.json({ msg: 'Saved' });
-        });
-
-        User.findOne({
-            where: {
-                id: req.user.id,
-                investor_type: 2 
-            }
-        }).then(function(result) {
-            var investorType = JSON.stringify(result.investor_type);
-
+        }
+        else{
             portfolio_composition.findAndCountAll({
                 where: {user_id: req.user.id}
-              }).then(res => {
-                var count = res.count;
+              }).then(results => {
+                var count = results.count;
                 if(count >0){
                     portfolio_composition.update({ 
-                        investor_type: investorType,
+
+                        user_id: req.user.id,
+                        investor_type: 2,
                         first_name: firstName,
                         last_name: lastName,
                         residence_country: individualCountry,
                         investques: individualInvestAmount,
                         settlement_currency: individualSettlementCurrency
+
+
                     }, {
                         where: {
                             user_id: req.user.id
@@ -771,20 +765,21 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 }
                 else{
                     portfolio_composition.create({
+
                         user_id: req.user.id,
-                        investor_type: investorType,
+                        investor_type: 2,
                         first_name: firstName,
                         last_name: lastName,
                         residence_country: individualCountry,
                         investques: individualInvestAmount,
                         settlement_currency: individualSettlementCurrency
+
+
                     });
                 }
-
+                res.json({ msg: 'Saved' });
             });
-
-            res.json({ msg: 'Saved' });
-        });
+        }
 
     });
 };

@@ -25,6 +25,7 @@
 
       
           <div class="box-body tp-box">
+            {{#if_eq user.kycApproved "2"}}
             <div class="form-group">
               <div style="display:block;" class="returnMsg1 form-group col-md-8"></div>
               <form method="post" name="CoinSell" class="coinSell">
@@ -166,6 +167,16 @@
                             <input type="hidden" id="balVal" value="137.5K">
                           </form>
                         </div>
+                        {{/if_eq}}
+                        {{#if_eq user.kycApproved "1"}}
+                          <p>Withdrawal is disabled because your ID Proof is submitted but not verified yet.</p>
+                        {{/if_eq}}
+                        {{#if_eq user.kycApproved "3"}}
+                          <p>Withdrawal is disabled because your ID Proof is rejected. Please upload correct ID Proof in <a href="/account-settings">Account Settings</a>.</p>
+                        {{/if_eq}}
+                        {{#if_eq user.kycApproved "0"}}
+                          <p>Withdrawal is disabled because your ID Proof is not uploaded yet. Please upload your ID Proof in <a href="/account-settings">Account Settings</a>.</p>
+                        {{/if_eq}}
                       </div>
 
                       <!-- Pending Wire Transfer -->

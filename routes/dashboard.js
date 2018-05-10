@@ -5,7 +5,7 @@ const lodash = require('lodash');
 const keys = require('../config/key');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var fileExt = '';
@@ -363,22 +363,32 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
         // calculating cryptocurrency wallet current balance
 
-        let currCrypto_bal = await Deposit.findAll(
-            { 
-                attributes: ['balance'],
-                //logging: notOnlyALogger,
-                where: {
-                    user_id: req.user.id,
-                    currency_id: curr_id
-                },
-                limit: 1,
-                order: [
-                    ['createdAt', 'DESC']
-                ]
-                
-            }); 
-        currCrypto_bal = currCrypto_bal[0].balance;
-        res.json({message: 'Success', status: true, crypto_balance: currCrypto_bal, curr_id: curr_id}); 
+        var balance_count = await Deposit.count({
+            where: {
+                user_id: req.user.id,
+                currency_id: curr_id
+            }
+        });
+        if(balance_count > 0) {
+            let currCrypto_bal = await Deposit.findAll(
+                { 
+                    attributes: ['balance'],
+                    //logging: notOnlyALogger,
+                    where: {
+                        user_id: req.user.id,
+                        currency_id: curr_id
+                    },
+                    limit: 1,
+                    order: [
+                        ['createdAt', 'DESC']
+                    ]
+                    
+                }); 
+            var cryptoBalance = currCrypto_bal[0].balance;
+        } else {
+            let cryptoBalance = 0;
+        }
+        res.json({message: 'Success', status: true, crypto_balance: cryptoBalance, curr_id: curr_id}); 
 
     });
 
@@ -397,24 +407,32 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
         curr_id = curr_id[0].id;
 
-        let currCrypto_bal = await Deposit.findAll(
-            { 
-                attributes: ['balance'],
-                //logging: notOnlyALogger,
-                where: {
-                    user_id: req.user.id,
-                    currency_id: curr_id
-                },
-                limit: 1,
-                order: [
-                    ['createdAt', 'DESC']
-                ]
-                
-            });
-
-        // calculating cryptocurrency wallet current balance
-        currCrypto_bal = currCrypto_bal[0].balance;
-        res.json({message: 'Success', status: true, crypto_balance: currCrypto_bal, curr_id: curr_id});
+        var balance_count = await Deposit.count({
+            where: {
+                user_id: req.user.id,
+                currency_id: curr_id
+            }
+        });
+        if(balance_count > 0) {
+            let currCrypto_bal = await Deposit.findAll(
+                { 
+                    attributes: ['balance'],
+                    //logging: notOnlyALogger,
+                    where: {
+                        user_id: req.user.id,
+                        currency_id: curr_id
+                    },
+                    limit: 1,
+                    order: [
+                        ['createdAt', 'DESC']
+                    ]
+                    
+                });
+                var cryptoBalance = currCrypto_bal[0].balance;
+        } else {
+            let cryptoBalance = 0;
+        }
+        res.json({message: 'Success', status: true, crypto_balance: cryptoBalance, curr_id: curr_id});
 	});
 
     app.post('/confirm_coin_buy', function(req, res) {
@@ -552,6 +570,18 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             investedamount = 0;
         }
 
+        // get all institutional data
+       /*  portfolio_composition.findOne({
+            where: {
+                user_id: req.user.id,
+                investor_type: 1
+            }
+        }).then(function (result) {
+            req.flash('investStatusMessage', 'Your investment was made successfully!');
+            res.redirect('/managed-cryptocurrency-portfolio');
+        }); */
+        // end
+
         res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg });
     });
 
@@ -649,11 +679,107 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     question_id: financeData.name,
                     option_id: financeData.value
                 }).then(function (result) {
-                    res.json({success: 1, msg: 'Questionnaire saved successfully'});
+                    res.json({success: 1, msg: 'Questionaire saved successfully'});
                 }).catch(function (err) {
                     console.log(err);
                 });
             } 
         });
+    });
+
+    app.post('/save-institutionalIndividual-data', (req, res) => {
+        var businessName = req.body.business_name;
+        var businessNumber = req.body.business_number;
+        var businessCountry = req.body.business_registration_country;
+        var investedAmount = req.body.invest_amount;
+        var settlementCurrency = req.body.settlement_currency;
+        var typeOfSelection = req.body.individualOrInstitutional_type;
+
+        
+        var firstName = req.body.first_name;
+        var lastName = req.body.last_name;
+        var individualCountry = req.body.residence_country_individual;
+        var individualInvestAmount = req.body.invest_amount_individual;
+        var individualSettlementCurrency = req.body.settlement_currency_individual;
+        
+        if(typeOfSelection === 'Institution'){
+            portfolio_composition.findAndCountAll({
+                where: {user_id: req.user.id}
+              }).then(results => {
+                var count = results.count;
+                if(count >0){
+                    portfolio_composition.update({
+
+                        user_id: req.user.id,
+                        investor_type: 1,
+                        business_name: businessName,
+                        business_number: businessNumber,
+                        business_registration_country: businessCountry,
+                        investques: investedAmount,
+                        settlement_currency: settlementCurrency
+
+                    }, {
+                        where: {
+                            user_id: req.user.id
+                        }
+                    });
+                }
+                else{
+                    portfolio_composition.create({
+
+                        user_id: req.user.id,
+                        investor_type: 1,
+                        business_name: businessName,
+                        business_number: businessNumber,
+                        business_registration_country: businessCountry,
+                        investques: investedAmount,
+                        settlement_currency: settlementCurrency
+
+                    });
+                }
+                res.json({ msg: 'Saved' });
+            });
+        }
+        else{
+            portfolio_composition.findAndCountAll({
+                where: {user_id: req.user.id}
+              }).then(results => {
+                var count = results.count;
+                if(count >0){
+                    portfolio_composition.update({ 
+
+                        user_id: req.user.id,
+                        investor_type: 2,
+                        first_name: firstName,
+                        last_name: lastName,
+                        residence_country: individualCountry,
+                        investques: individualInvestAmount,
+                        settlement_currency: individualSettlementCurrency
+
+
+                    }, {
+                        where: {
+                            user_id: req.user.id
+                        }
+                    });
+                }
+                else{
+                    portfolio_composition.create({
+
+                        user_id: req.user.id,
+                        investor_type: 2,
+                        first_name: firstName,
+                        last_name: lastName,
+                        residence_country: individualCountry,
+                        investques: individualInvestAmount,
+                        settlement_currency: individualSettlementCurrency
+
+
+                    });
+                }
+                res.json({ msg: 'Saved' });
+            });
+        }
+
     });
 };

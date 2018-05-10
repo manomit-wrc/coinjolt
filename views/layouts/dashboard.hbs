@@ -276,11 +276,28 @@
             $('#sell_calculatedamount').removeClass('alert alert-success');
             $('.expected').removeClass('alert alert-danger');
 
+            var selectedRadioValue = $("input[name='type']:checked").val();
+
+            //var selectedRadioValue = $("input[type=radio][name='type']:checked").val();
+
+            
+            if(selectedRadioValue === 'Institution'){
+                console.log('inside institution');
+                $('#institutionalForm').css('display','block');
+                $('#individualForm').css('display','none');
+            }
+
+            else if(selectedRadioValue === 'Individual'){
+                console.log('inside individual');
+                $('#institutionalForm').css('display','none');
+                $('#individualForm').css('display','block');
+            } 
+
             $("#changereferralBtn").click(function(){
                 $("#changeReferralFrm").slideToggle('slow');
             });
 
-            // Account settings validation
+            // Account settings validationselectedRadioValue
             $("#update_profile").validate({
                 rules: {
                     user_name: {
@@ -1189,6 +1206,135 @@
                  } 
             });  
 
+            /*Script for validating institutional form in Managed cryptocurrency page */
+
+			 $("#institution_form_save").click(function(e) {
+                $("#institutionalForm").submit();
+            });
+
+            $("#institutionalForm").validate({
+                rules: {
+                    business_name: {
+                        required: true
+                    },
+                    business_number: {
+                        required: true,
+                        number: true,
+                    },
+                    business_registration_country: {
+                        required: true
+                    }
+                },
+                messages: {
+                    business_name: {
+                        required: "Please enter registered business name"
+                    },
+                    business_number: {
+                        required: "Please enter business number",
+                        number: "It must be number"
+                    },
+                    business_registration_country: {
+                        required: "Please enter business country"
+                    }
+                },
+                submitHandler:function(form) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/save-institutionalIndividual-data",
+                        data: {
+                            business_name: $("#business_name").val(),
+                            business_number: $("#business_number").val(),
+                            business_registration_country: $("#business_registration_country").val(),
+                            invest_amount: $("#investques").val(),
+                            individualOrInstitutional_type: $("input:radio[name=investor_type]:checked").val(),
+                            settlement_currency: $("#settlement_currency").val()
+                        
+                        },
+                        success:function(response) {
+                            console.log('Saved successfully');
+                            swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                            },function(isConfirm){
+                                if(isConfirm){
+                                    window.location.href = "/managed-cryptocurrency-portfolio";
+                                }
+                            });
+
+                        },
+                        error: function(xhr) {
+                            console.log('Error');
+                        }
+                    }); 
+
+
+                }
+            });
+
+            /*Script for validating individual form in Managed cryptocurrency page */
+            $("#individual_form_save").click(function(e){
+                $("#individualForm").submit();
+            });
+
+            $("#individualForm").validate({
+                rules: {
+                    first_name: {
+                        required: true
+                    },
+                    last_name: {
+                        required: true
+                    },
+                    residence_country_individual: {
+                        required: true
+                    }
+                },
+                messages: {
+                    first_name: {
+                        required: "Please enter first name"
+                    },
+                    last_name: {
+                        required: "Please enter last name"
+                    },
+                    residence_country_individual: {
+                        required: "Please enter country of residence"
+                    }
+                },
+                submitHandler:function(form) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/save-institutionalIndividual-data",
+                        data: {
+                            first_name: $("#first_name").val(),
+                            last_name: $("#last_name").val(),
+                            residence_country_individual: $("#residence_country_individual").val(),
+                            invest_amount_individual: $("#investques_individual").val(),
+                            settlement_currency_individual: $("#settlement_currency_individual").val(),
+                            individualOrInstitutional_type: $("input:radio[name=investor_type]:checked").val()
+                        
+                        },
+                        success:function(response) {
+                            swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                            },function(isConfirm){
+                                if(isConfirm){
+                                    window.location.href = "/managed-cryptocurrency-portfolio";
+                                }
+                            });
+
+                        },
+                        error: function(xhr) {
+                            console.log('Error');
+                        }
+                    }); 
+
+
+                }
+            });
 
         });
     </script>
@@ -1449,9 +1595,7 @@
             // pieStartAngle: 100,
             chartArea:{left:10,top:10,width:'100%',height:'100%'},
             // slices: [{color: '#fc7c59'}, {color: '#ed5565'}, {color: '#ec87c0'}, {color: '#5d9cec'}],
-            tooltip:{'text':'percentage'},
-            width:'350',
-            height:'350',
+            tooltip:{'text':'percentage'}
 
           };
           var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));

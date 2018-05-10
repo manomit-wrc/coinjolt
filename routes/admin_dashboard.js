@@ -5,7 +5,7 @@ const lodash = require('lodash');
 const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
 
-module.exports = function (app, Deposit, Withdraw, User) {
+module.exports = function (app, Deposit, Withdraw, User, Currency) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -95,6 +95,30 @@ module.exports = function (app, Deposit, Withdraw, User) {
 	app.get('/admin/dashboard', function (req, res) {
 		res.render('admin/dashboard', {
 			layout: 'dashboard'
+		});
+	});
+
+	app.get('/admin/crypto_investments', async (req, res) => {
+		Deposit.belongsTo(Currency, {foreignKey: 'currency_id'});
+		Deposit.findAll({
+			attributes: [ 'Currency.display_name', [sequelize.fn('SUM',sequelize.col('balance')),'total_balance'] ],
+			include: [{
+				model: Currency
+			}],
+			group: ['Deposit.currency_id'],
+			order: [
+				['id', 'DESC']
+			]
+		}).then(result => {
+			console.log(result);
+			var coin_list_arr = [];
+			for (var i = 0; i < result.length; i++) {
+				coin_list_arr.push({
+					coin_name: result[i].Currency.display_name,
+					total_balance: result[i].total_balance
+				});
+			}
+			res.render('admin/crypto_investments/index', { layout: 'dashboard', 'all_data': coin_list_arr });
 		});
 	});
 

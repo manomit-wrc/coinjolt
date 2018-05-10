@@ -258,6 +258,7 @@ app.use(function(req, res, next){
     res.locals.identity_proof = req.user.identity_proof;
     res.locals.investor_type = req.user.investor_type;
     res.locals.user = req.user;
+    res.locals.base_url = keys.BASE_URL;
 
     // models.Currency.findAll().then(function(currencies) {
     //   res.locals.currencyList =  currencies;

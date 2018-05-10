@@ -94,6 +94,7 @@ module.exports = function (app, Deposit, Withdraw, User) {
 	}
 
 	app.get('/admin/dashboard', function (req, res) {
+		
 		res.render('admin/dashboard', {
 			layout: 'dashboard'
 		});

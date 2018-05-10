@@ -256,6 +256,7 @@ app.use(function(req, res, next){
     }
     res.locals.image = req.user.image;
     res.locals.identity_proof = req.user.identity_proof;
+    res.locals.investor_type = req.user.investor_type;
     res.locals.user = req.user;
 
     // models.Currency.findAll().then(function(currencies) {
@@ -285,7 +286,7 @@ io.on('connection', function (socket) {
 //end
 
 
-require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer, AWS, models.Kyc_details);
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer, AWS, models.Kyc_details, models.portfolio_composition);
 require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data,models.Currency,models.Country);
 require('./routes/admin_dashboard')(app, models.Deposit, models.withdraw, models.User);
 require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details, models.Deposit);

@@ -481,6 +481,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
     
     app.get('/transaction-history', async (req, res) =>{
+        var buy_amt = 0;
+        var sell_amt = 0;
+        var deposit_amt = 0;
+        var withdraw_amt = 0;
 
         Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
         let buy_history = await Deposit.findAll(
@@ -534,6 +538,31 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 ['id', 'DESC']
             ]
         });
+
+        // var d = new Date();
+        // var m = d.getMonth();
+        // console.log("month");
+        // console.log(m);
+
+        // for(var i in buy_history){
+        //     buy_amt = buy_amt + parseFloat(buy_history[i].amount);
+
+        // }
+
+        // for(var i in sell_history){
+        //     sell_amt = sell_amt + parseFloat(sell_history[i].amount);
+        // }
+
+        // for(var i in deposit_history){
+        //     deposit_amt = deposit_amt + parseFloat(deposit_history[i].amount);
+        // }
+
+        // for(var i in withdrawal_history){
+        //     withdraw_amt = withdraw_amt + parseFloat(withdrawal_history[i].amount);
+        // }
+        // console.log("withdraw_amt");
+        // console.log(withdraw_amt);
+
         res.render('transaction-history', {layout: 'dashboard', buy_history:buy_history,sell_history:sell_history,deposit_history:deposit_history,withdrawal_history:withdrawal_history });
     });
 

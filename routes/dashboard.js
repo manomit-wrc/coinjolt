@@ -847,6 +847,14 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     });
                 }
                 res.json({ msg: 'Saved' });
+            }).then(insertStatus => {
+                User.update({ 
+                    investor_type: 1
+                }, {
+                    where: {
+                        id: req.user.id
+                    }
+                });
             });
         }
         else{
@@ -874,7 +882,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 }
                 else{
                     portfolio_composition.create({
-
                         user_id: req.user.id,
                         investor_type: 2,
                         first_name: firstName,
@@ -883,10 +890,18 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         investques: individualInvestAmount,
                         settlement_currency: individualSettlementCurrency
 
-
                     });
                 }
                 res.json({ msg: 'Saved' });
+            }).then(updateStatus => {
+                User.update({ 
+                    investor_type: 2
+                }, {
+                    where: {
+                        id: req.user.id
+                    }
+                });
+
             });
         }
 

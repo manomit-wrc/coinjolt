@@ -398,9 +398,12 @@
 
                 // new    
                 if($('#institutionalForm').css('display') == 'block'){
-                    console.log('institutionalForm is displayed');        
-
-                    
+                    console.log('institutionalForm is displayed');   
+                    $('#business_name').val('');
+                    $('#business_number').val('');
+                    $('#business_registration_country').val('');     
+                    $('#investques').prop('selectedIndex',0);
+                    $('#settlement_currency').prop('selectedIndex',0);
 
                 }   
                 else if($('#individualForm').css('display') == 'block'){

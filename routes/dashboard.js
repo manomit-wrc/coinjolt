@@ -294,7 +294,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
                 pushNotifications.push(io, {title: req.body.subject.trim(), body : req.body.description.trim()});  
             });
-
+            
             res.json({
                 success: true
             });

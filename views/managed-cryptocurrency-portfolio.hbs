@@ -43,26 +43,45 @@
 		<h3 class="box-title">Application Form and Verification Required</h3>
 	</div>
 	<div class="box-body profile-details">
-		<!--        -->
 		<div class="col-md-12 paddingleft recent_post_box">
 			
 			<div class="row">
-				<div class="col-sm-6 col-xs-12">
-					<div class="radio-btn">
-						<p>Are you an Institutional Investor?</p>
-						<div class="intitution">
-							<input name="type" id="institution-radio" value="Institution" checked="checked" onclick="institutionForm()" type="radio">Select
+				{{#if_eq investor_type '1'}}
+					<div class="col-sm-6 col-xs-12">
+						<div class="radio-btn">
+							<p>Are you an Institutional Investor?</p>
+							<div class="intitution">
+								<input name="type" id="institution-radio" value="Institution" checked="checked" onclick="institutionForm()" type="radio">Select
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-sm-6 col-xs-12">
-					<div class="radio-btn">
-						<p>Are you an Individual Investor?</p>
-						<div class="intitution-radio">
-							<input name="type" id="individual-radio" value="Individual" onclick="individualForm()" type="radio">Select
+					<div class="col-sm-6 col-xs-12">
+						<div class="radio-btn">
+							<p>Are you an Individual Investor?</p>
+							<div class="intitution-radio">
+								<input name="type" id="individual-radio" value="Individual" onclick="individualForm()" type="radio">Select
+							</div>
 						</div>
 					</div>
-				</div>
+				{{/if_eq}}
+				{{#if_eq investor_type '2'}}
+					<div class="col-sm-6 col-xs-12">
+						<div class="radio-btn">
+							<p>Are you an Institutional Investor?</p>
+							<div class="intitution">
+								<input name="type" id="institution-radio" value="Institution" onclick="institutionForm()" type="radio">Select
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xs-12">
+						<div class="radio-btn">
+							<p>Are you an Individual Investor?</p>
+							<div class="intitution-radio">
+								<input name="type" checked="checked" id="individual-radio" value="Individual" onclick="individualForm()" type="radio">Select
+							</div>
+						</div>
+					</div>
+				{{/if_eq}}
 			</div>
 			<!-- Institutional form -->
 			<div class="row" id="institutional_form" style="display: block;">

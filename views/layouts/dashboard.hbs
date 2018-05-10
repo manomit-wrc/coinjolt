@@ -276,6 +276,23 @@
             $('#sell_calculatedamount').removeClass('alert alert-success');
             $('.expected').removeClass('alert alert-danger');
 
+            var selectedRadioValue = $("input[name='type']:checked").val();
+
+            //var selectedRadioValue = $("input[type=radio][name='type']:checked").val();
+
+            
+            if(selectedRadioValue === 'Institution'){
+                console.log('inside institution');
+                $('#institutionalForm').css('display','block');
+                $('#individualForm').css('display','none');
+            }
+
+            else if(selectedRadioValue === 'Individual'){
+                console.log('inside individual');
+                $('#institutionalForm').css('display','none');
+                $('#individualForm').css('display','block');
+            } 
+
             $("#changereferralBtn").click(function(){
                 $("#changeReferralFrm").slideToggle('slow');
             });

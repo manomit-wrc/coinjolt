@@ -256,6 +256,7 @@ app.use(function(req, res, next){
     }
     res.locals.image = req.user.image;
     res.locals.identity_proof = req.user.identity_proof;
+    res.locals.investor_type = req.user.investor_type;
     res.locals.user = req.user;
 
     // models.Currency.findAll().then(function(currencies) {

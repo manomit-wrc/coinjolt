@@ -271,21 +271,6 @@ app.use(function(req, res, next){
   res.redirect('/');
 });
 
-//push notification with socket 
-// var pushNotifications = require("push-notifications");
-// var io = require('socket.io')(8088); //same port for the client to connect, e.g. 3000
-// io.on('connection', function (socket) {
-//   var tweets = setInterval(function () {
-//     socket.emit("hello", "hello to all who listen to hello topic"); 
-//   }, 100);
-
-//   socket.on('disconnect', function () {
-//     clearInterval(tweets);
-//   });
-//   pushNotifications.push(io, {body : "Only body :)"});
-// });
-//end
-
 
 require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer, AWS, models.Kyc_details, models.portfolio_composition, models.currency_balance);
 require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data,models.Currency,models.Country);

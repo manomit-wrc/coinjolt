@@ -283,8 +283,21 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             title: req.body.subject.trim(),
             enquiry: req.body.description.trim()
         }).then(function (result) {
-            req.flash('supportMessage', 'Request sent successfully');
-            res.redirect('/submit-a-request');
+            // req.flash('supportMessage', 'Request sent successfully');
+            // res.redirect('/submit-a-request');
+            var pushNotifications = require("push-notifications");
+            var io = require('socket.io')(8088);
+            io.on('connection', function(socket){
+                socket.on('pushNotification', function(msg){
+                    io.emit('pushNotification', msg);
+                });
+
+                pushNotifications.push(io, {title: req.body.subject.trim(), body : req.body.description.trim()});  
+            });
+            
+            res.json({
+                success: true
+            });
         }).catch(function (err) {
             console.log(err);
         });
@@ -619,7 +632,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.get('/managed-cryptocurrency-portfolio', async(req, res) => {
-        var investedamount;
+        var investedamount = 0;
 		var firstyear = 0;
 		var secondyear = 0;
 		var thirdyear = 0;
@@ -650,33 +663,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         } else {
             investedamount = 0;
         }
-        var p_composition_arr = [];
-        var p_composition = await portfolio_composition.findAll({
-            where: {
-                user_id: req.user.id
-            }
-        });
-        if(p_composition.length > 0) {
-            if(p_composition[0].get('investor_type') === 2) {
-                p_composition_arr.push({
-                    field_1: p_composition[0].get('first_name'),
-                    field_2: p_composition[0].get('last_name'),
-                    field_3: p_composition[0].get('residence_country'),
-                    field_4: p_composition[0].get('investques'),
-                    field_5: p_composition[0].get('settlement_currency')
-                })
-            }
-            else {
-                p_composition_arr.push({
-                    field_1: p_composition[0].get('business_name'),
-                    field_2: p_composition[0].get('business_number'),
-                    field_3: p_composition[0].get('business_registration_country'),
-                    field_4: p_composition[0].get('investques'),
-                    field_5: p_composition[0].get('settlement_currency')
-                })
-            }
-        }
-        
 
         // get all institutional data
        /*  portfolio_composition.findOne({
@@ -690,7 +676,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }); */
         // end
 
-        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_composition_arr:p_composition_arr, p_composition_length:p_composition_arr.length });
+        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg });
     });
 
     app.post('/save-invest', function(req, res){

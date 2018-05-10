@@ -187,6 +187,54 @@
     <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
 
     <!--end-->
+
+
+    {{!-- //for socket io --}}
+     <script src="/socket/socket.io.js"></script>
+<script>
+//$(document).ready(() => {
+var socket = io.connect('http://localhost:8088');
+socket.on('hello', function(serverResponseToHello){
+    // do something when server sends back something on hello 
+    console.log(serverResponseToHello);
+  });
+
+ // send a hello to the server
+  socket.emit("hello", "Sending hello to server");
+
+
+  //push notification
+    if(socket) {
+        if(socket.on) {
+            socket.on('pushNotification', function(options) {
+                pushNotification.notify(options);
+            })
+        }
+    }
+
+    (function() {
+        Notification.requestPermission();
+        function notify(options) {
+            var title = options.title || "Notification";
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notification");
+            } else if (Notification.permission === "granted") {
+                new Notification(title ,options);
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission(function (permission) {
+                    if (permission === "granted") {
+                        new Notification("title" ,{body: body});
+                    }
+            });
+          }
+        }
+        window.pushNotification = {
+            notify: notify
+        }
+    })();
+    
+</script>
+    {{!-- //end --}}
     <script type="text/javascript">
         var seriesOptions = [],
         seriesCounter = 0,
@@ -1673,7 +1721,6 @@
           }
         ]
       }
-
       //-------------
       //- BAR CHART -
       //-------------
@@ -1710,12 +1757,36 @@
         responsive: true,
         maintainAspectRatio: true
       }
-
       barChartOptions.datasetFill = false
       barChart1.Bar(barChartData, barChartOptions)
-    })
+    });
+
+
+    var investor_type = '{{investor_type}}';
+    if(investor_type == 2) {
+        individualForm();
+    }
+    else {
+        institutionForm();
+    }
+	function showform(){
+		alert("loaded");
+	}
+	function institutionForm(){
+		var form = document.getElementById('institutional_form');
+		var individual_form = document.getElementById('individual_form');
+		form.style.display = "block";
+		individual_form.style.display = "none";
+	}
+	function individualForm(){
+		var form = document.getElementById('institutional_form');
+		var individual_form = document.getElementById('individual_form');
+		form.style.display = "none";
+		individual_form.style.display = "block";
+	}
+
+      
   </script>
-  {{!-- Transaction Graph ends --}}
 
 </body>
 </html>

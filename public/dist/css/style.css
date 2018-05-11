@@ -1226,6 +1226,54 @@ table.table.scroll-minus {
 
 /* Ends on css 09-05-2018 */
 
+/* Starts on css 11-05-2018 */
+
+ul.selectbar {
+    margin-top: 16px;
+    clear: both;
+    width: 100% !important;
+}
+
+.selectbar li {
+    list-style: none;
+    float: left;
+    margin: 14px;
+}
+
+.buyindicator {
+    background: #d2d6de;
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin-right: 10px;
+}
+
+.sellindicator {
+    background: #00a65a;
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin-right: 10px;
+}
+
+.depositindicator {
+    background: #F08080;
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin-right: 10px;
+}
+
+.withdrawindicator {
+    background: #335EFF;
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin-right: 10px;
+}
+
+/* Ends on css 11-05-2018 */
+
 @media screen and (max-width: 1366px) {
     .balance-box {
         display: block;

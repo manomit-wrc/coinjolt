@@ -394,37 +394,27 @@
             $('.expected').removeClass('alert alert-danger');
 
             /* Script for handling change of Institutional or individual investor */
-            $('input:radio[name="investor_type"]').on('change', function(){
+            /*
+            $('input[type=radio][name="investor_type"]').on('change', function(){
+                  var i = $(this).val();
 
-                // new    
-                if($('#institutionalForm').css('display') == 'block'){
-                    console.log('institutionalForm is displayed');   
-                    $('#business_name').val('');
-                    $('#business_number').val('');
-                    $('#business_registration_country').val('');     
-                    $('#investques').prop('selectedIndex',0);
-                    $('#settlement_currency').prop('selectedIndex',0);
+                  if( i == 'Institution'){
+                        $('#business_name').val('');
+                        $('#business_number').val('');
+                        $('#business_registration_country').val('');     
+                        $('#investques').prop('selectedIndex',0);
+                        $('#settlement_currency').prop('selectedIndex',0);
+                  }  
+                  if(i == 'Individual'){
+                        $('#first_name').val('');
+                        $('#last_name').val('');
+                        $('#residence_country_individual').val('');
+                        $('#investques_individual').prop('selectedIndex',0);
+                        $('#settlement_currency_individual').prop('selectedIndex',0);  
+                  }
 
-                }   
-                else if($('#individualForm').css('display') == 'block'){
-                    console.log('individual Form is displayed');
-                } 
-                // end new
+            });  */
 
-                // get which form is being displayed
-                /*
-                if($('#institutionalForm').css('display') == 'block'){ 
-                    // clear it's contents
-                    console.log('institutionalForm is displayed');                    
-
-                } else if($('#individualForm').css('display') == 'block'){ 
-                    // clear it's contents
-                    console.log('individualForm is displayed');
-
-                }
-                */
-                
-            });
 
             $("#changereferralBtn").click(function(){
                 $("#changeReferralFrm").slideToggle('slow');
@@ -1812,12 +1802,12 @@
       //-------------
       //- BAR CHART -
       //-------------
-      var barChartCanvas1 = $('#barChart1').get(0).getContext('2d')
-      var barChart1 = new Chart(barChartCanvas1)
-      var barChartData = areaChartData
-      barChartData.datasets[1].fillColor = '#00a65a'
-      barChartData.datasets[1].strokeColor = '#00a65a'
-      barChartData.datasets[1].pointColor = '#00a65a'
+      var barChartCanvas1 = $('#barChart1').get(0).getContext('2d');
+      var barChart1 = new Chart(barChartCanvas1);
+      var barChartData = areaChartData;
+      barChartData.datasets[1].fillColor = '#00a65a';
+      barChartData.datasets[1].strokeColor = '#00a65a';
+      barChartData.datasets[1].pointColor = '#00a65a';
       var barChartOptions = {
         //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
         scaleBeginAtZero: true,

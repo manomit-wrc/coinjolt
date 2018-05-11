@@ -136,16 +136,16 @@
 							<h4 class="modal-title" id="myModalLabel">Upload The Following  Documents</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form">
+							<form class="form" id="instituteModalForm">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Certificate of Incorporation <span style="color: red">*</span></label>
 											
 											<input name="incorporation_certificate" class="form-control incorporation_certificate" id="incorporation_certificate" value="" type="file">
-											<span id="incorporation_certificate_err" style="color: tomato;"></span>
+											
 									
-											<img src="../dashboard/portfolio_documents/_1Hydrangeas.jpg" id="blah3" height="20px" width="20px">
+											<img src="" id="blah3" height="20px" width="20px">
 										</div>
 									</div>
 									<!-- <div class="col-md-6">
@@ -173,50 +173,50 @@
 										<div class="form-group">
 											<label>Recent Bank Account Statement <span style="color: red">*</span></label>
 											<input name="bank_statement" class="form-control bank_statement" id="bank_statement" type="file">
-											<span id="bank_statement_err" style="color: tomato;"></span>
-											<img src="../dashboard/portfolio_documents/_1Lighthouse.jpg" id="blah1" height="20px" width="20px">
+											
+											<img src="" id="blah1" height="20px" width="20px">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Bank Account Holder Name <span style="color: red">*</span></label>
-											<input placeholder="Enter Name on Bank Account" name="account_name" class="form-control" id="account_name" value="Test" onkeypress="return validateBankAccHolder();" type="text">
-											<span id="account_name_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Name on Bank Account" name="account_name" class="form-control" id="account_name" value="" type="text">
+											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Country of Bank Account <span style="color: red">*</span></label>
-											<input placeholder="Enter Country of Bank" name="bank_country" class="form-control" id="bank_country" value="Test" onkeypress="return validateBank();" type="text">
-											<span id="bank_country_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Country of Bank" name="bank_country" class="form-control" id="bank_country" value="" type="text">
+											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Account Number (7 Digits) <span style="color: red">*</span></label>
-											<input placeholder="Enter Account Number" name="account_number" class="form-control" id="account_number" value="test" onkeypress="return validate();" type="text">
-											<span id="account_number_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Account Number" name="account_number" class="form-control" id="account_number" value="" type="text">
+											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Routing Number (9 Digits) <span style="color: red">*</span></label>
-											<input placeholder="Enter Routing Number" name="routing_number" class="form-control" id="routing_number" value="test" onkeypress="return validateRoute();" type="text">
-											<span id="routing_number_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Routing Number" name="routing_number" class="form-control" id="routing_number" value="" type="text">
+										
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Phone Number <span style="color: red">*</span></label>
-											<input placeholder="Enter Phone Number" name="phone_number" class="form-control" id="phone_number" value="188899989980" onkeypress="return validatePhone();" type="text">
-											<span id="phone_number_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Phone Number" name="phone_number" class="form-control" id="phone_number" value="" type="text">
+											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Email Address <span style="color: red">*</span></label>
-											<input placeholder="Enter Email Address" name="email_address" class="form-control" id="email_address" value="support@coinjolt.com" onkeypress="return validateEmail();" type="text">
-											<span id="email_address_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Email Address" name="email_address" class="form-control" id="email_address" value="" type="text">
+											
 										</div>
 									</div>
 									<div id="shareholder_div">
@@ -252,7 +252,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<input value="Save" name="Save" class="form-control btn btn-primary submit_institution" onclick="institutionValidationModal()" type="button">
+								<input value="Save" name="Save" class="form-control btn btn-primary submit_institution_modal" id="submit_institution_modal" type="button">
 							</div>
 						</form>
 					</div>

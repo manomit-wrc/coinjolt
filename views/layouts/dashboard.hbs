@@ -1477,6 +1477,116 @@
                 }
             });
 
+            /* Script for validating institute modal form */
+            $('#submit_institution_modal').on('click', function(){
+                $('#instituteModalForm').submit();
+            });
+
+            $('#instituteModalForm').validate({
+                 rules: {
+                    account_name: {
+                        required: true
+                    },
+                    bank_country: {
+                        required: true
+                    },
+                    account_number: {
+                        required: true,
+                        number: true,
+                        minlength: 7,
+                        maxlength: 7
+                    },
+                    routing_number: {
+                        required: true,
+                        number: true,
+                        minlength: 9,
+                        maxlength: 9
+                    },
+                    phone_number: {
+                        required: true,
+                        number: true
+                    },
+                    email_address: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    account_name: {
+                        required: "Please enter bank account holder name"
+                    },
+                    bank_country: {
+                        required: "Please enter country of bank account"
+                    },
+                    account_number: {
+                       required: "Please enter account number",
+                       number: "Only numbers are accepted",
+                       minlength: "Account number can have exactly 7 digits",
+                       maxlength: "Account number can have exactly 7 digits"
+                    },
+                    routing_number: {
+                        required: "Please enter routing number",
+                        number: "Only numbers are accepted",
+                        minlength: "Routing number can have exactly 9 digits",
+                        maxlength: "Routing number can have exactly 9 digits"
+                    },
+                    phone_number: {
+                        required: "Please enter phone number",
+                        number: "Only numbers are accepted"
+                    },
+                    email_address: {
+                        required: "Please enter email address",
+                        email: "Please enter valid email address"
+                    }
+                },
+                submitHandler:function(form) {
+                    alert('Form submitted');
+                    /*
+                    $.ajax({
+                        type: "POST",
+                        url: "/save-institutionalIndividual-data",
+                        data: {
+                            first_name: $("#first_name").val(),
+                            last_name: $("#last_name").val(),
+                            residence_country_individual: $("#residence_country_individual").val(),
+                            invest_amount_individual: $("#investques_individual").val(),
+                            settlement_currency_individual: $("#settlement_currency_individual").val(),
+                            individualOrInstitutional_type: $("input:radio[name=investor_type]:checked").val()
+                        
+                        },
+                        success:function(response) {
+                            swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                            },function(isConfirm){
+                                if(isConfirm){
+                                    window.location.href = "/managed-cryptocurrency-portfolio";
+                                }
+                            });
+
+                        },
+                        error: function(xhr) {
+                            console.log('Error');
+                        }
+                    }); 
+                    */
+
+                }
+            });
+            // validation for dynamically generated elements in institutional user's form
+            $('.multiple_div > #shareholder_div > #name .appnd').find('.shareholder_name').each(function(index) {
+                $(this).rules('add', {
+                    required: true,
+                    messages: {
+                        required:  "Please enter first and last name"
+                    }
+                });
+            }); 
+
+            // end validation
+
         });
     </script>
     
@@ -1864,7 +1974,35 @@
 		individual_form.style.display = "block";
 	}
 
-      
+    /* Function for adding dynamic fields in institutional form's shareholder */
+    function append(event){
+        event.preventDefault();
+        var shareholder = document.getElementById('test');
+
+        $('#shareholder_div').append('<div class="multiple_div"><div class="col-md-4" id="name"><div class="form-group appnd"><label for="shareholder_name">First and Last Name:</label><input type="text" name="shareholder_name" class="form-control shareholder_name" id="shareholder_name" value=""><label for="shareholder_name" generated="true" class="error"></label></div></div><div class="col-md-4 " id="address"><div class="form-group articles_incorporation_div appnd" ><label>Proof of Address:</label><input type="file" name="articles_incorporation" class="form-control articles_incorporation" id=""><label for="articles_incorporation" generated="true" class="error"></label></div></div><div class="col-md-4 " id="government_id"  ><div class="form-group appnd"><label>Government Issued ID:</label><input type="file" name="shareholder_id" class="form-control shareholder_id" id="shareholder_id" value=""><label for="shareholder_id" generated="true" class="error"></label></div></div></div>');
+        document.getElementById('remove').removeAttribute('disabled','disabled');
+    }
+
+        function remove(event){
+            event.preventDefault();
+            var multiple_div = document.getElementsByClassName('multiple_div');
+            var x = multiple_div.length;
+            // alert(x);  
+            if(x == 1 ){
+                document.getElementById('remove').setAttribute('disabled','disabled');
+                multiple_div[x-1].parentNode.removeChild(multiple_div[x-1]);
+            // multiple_div[0].style.display = "block";
+            }else if(x == 2){
+                multiple_div[x-1].parentNode.removeChild(multiple_div[x-1]);
+                document.getElementById('remove').setAttribute('disabled','disabled');
+            }else if(x > 1){               
+                multiple_div[x-1].parentNode.removeChild(multiple_div[x-1]);
+                if(x == 1){
+                    document.getElementById('remove').setAttribute('disabled','disabled');
+                }
+            }
+        }
+
   </script>
 
 </body>

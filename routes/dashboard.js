@@ -664,8 +664,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             investedamount = 0;
         }
 
-        var p_composition_arr = [];
-
         var p_institutional_arr = [];
 
         var p_individual_arr = [];
@@ -676,15 +674,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }
         });
         if(p_composition.length > 0) {
-            //if(p_composition[0].get('investor_type') === 2) {
-               /*  p_composition_arr.push({
-                    field_1: p_composition[0].get('first_name'),
-                    field_2: p_composition[0].get('last_name'),
-                    field_3: p_composition[0].get('residence_country'),
-                    field_4: p_composition[0].get('investques'),
-                    field_5: p_composition[0].get('settlement_currency')
-                }) */
-
                 p_individual_arr.push({
                     field_1: p_composition[0].get('first_name'),
                     field_2: p_composition[0].get('last_name'),
@@ -693,16 +682,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     field_5: p_composition[0].get('settlement_currency')
                 });
 
-            //}
-            //else {
-                /* p_composition_arr.push({
-                    field_1: p_composition[0].get('business_name'),
-                    field_2: p_composition[0].get('business_number'),
-                    field_3: p_composition[0].get('business_registration_country'),
-                    field_4: p_composition[0].get('investques'),
-                    field_5: p_composition[0].get('settlement_currency')
-                }) */
-
                 p_institutional_arr.push({
                     field_1: p_composition[0].get('business_name'),
                     field_2: p_composition[0].get('business_number'),
@@ -710,11 +689,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     field_4: p_composition[0].get('investques'),
                     field_5: p_composition[0].get('settlement_currency')
                 });
-
-            //}
         }
-        
-        //res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_composition_arr:p_composition_arr, p_composition_length:p_composition_arr.length });
         res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length });
 
     });

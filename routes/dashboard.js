@@ -283,8 +283,21 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             title: req.body.subject.trim(),
             enquiry: req.body.description.trim()
         }).then(function (result) {
-            req.flash('supportMessage', 'Request sent successfully');
-            res.redirect('/submit-a-request');
+            // req.flash('supportMessage', 'Request sent successfully');
+            // res.redirect('/submit-a-request');
+            var pushNotifications = require("push-notifications");
+            var io = require('socket.io')(8088);
+            io.on('connection', function(socket){
+                socket.on('pushNotification', function(msg){
+                    io.emit('pushNotification', msg);
+                });
+
+                pushNotifications.push(io, {title: req.body.subject.trim(), body : req.body.description.trim()});  
+            });
+            
+            res.json({
+                success: true
+            });
         }).catch(function (err) {
             console.log(err);
         });
@@ -619,7 +632,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.get('/managed-cryptocurrency-portfolio', async(req, res) => {
-        var investedamount;
+        var investedamount = 0;
 		var firstyear = 0;
 		var secondyear = 0;
 		var thirdyear = 0;
@@ -650,6 +663,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         } else {
             investedamount = 0;
         }
+
         var p_composition_arr = [];
         var p_composition = await portfolio_composition.findAll({
             where: {
@@ -677,19 +691,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }
         }
         
-
-        // get all institutional data
-       /*  portfolio_composition.findOne({
-            where: {
-                user_id: req.user.id,
-                investor_type: 1
-            }
-        }).then(function (result) {
-            req.flash('investStatusMessage', 'Your investment was made successfully!');
-            res.redirect('/managed-cryptocurrency-portfolio');
-        }); */
-        // end
-
         res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_composition_arr:p_composition_arr, p_composition_length:p_composition_arr.length });
     });
 

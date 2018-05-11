@@ -1963,6 +1963,16 @@
        * Here we will create a few charts using ChartJS
        */
 
+       var buy_arr = $("#buy_arr").val();
+       var sell_arr = $("#sell_arr").val();
+       var deposit_arr = $("#deposit_arr").val();
+       var withdraw_arr = $("#withdraw_arr").val();
+       console.log("jquery");
+       console.log(buy_arr);
+       console.log(sell_arr);
+       console.log(deposit_arr);
+       console.log(withdraw_arr);
+
       var areaChartData = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets: [{
@@ -1973,7 +1983,7 @@
             pointStrokeColor: '#c1c7d1',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(220,220,220,1)',
-            data: [65, 59, 80, 81, 56, 10, 40, 50, 60, 55, 45, 66]
+            data: [{{buy_arr}}]
           },
           {
             label: 'Sell',
@@ -1983,7 +1993,7 @@
             pointStrokeColor: 'rgba(60,141,188,1)',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(60,141,188,1)',
-            data: [28, 48, 40, 19, 5, 27, 90, 82, 49, 51, 24, 63]
+            data: [{{sell_arr}}]
           },
           {
             label: 'Deposit',
@@ -1993,7 +2003,7 @@
      		pointStrokeColor: '#F08080',
      		pointHighlightFill: '#fff',
      		pointHighlightStroke: '#F08080',
-            data: [10, 68, 60, 39, 56, 47, 60, 81, 69, 31, 0, 69]
+            data: [{{deposit_arr}}]
           },
           {
             label: 'Withdraw',
@@ -2003,7 +2013,7 @@
      		pointStrokeColor: '#335EFF',
      		pointHighlightFill: '#fff',
      		pointHighlightStroke: '#335EFF',
-            data: [60, 42, 9, 79, 66, 24, 83, 56, 87, 63, 46, 67]
+            data: [{{withdraw_arr}}]
           }
         ]
       }
@@ -2041,7 +2051,10 @@
         legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
         //Boolean - whether to make the chart responsive
         responsive: true,
-        maintainAspectRatio: true
+        maintainAspectRatio: true,
+        scaleLabel: function (valuePayload) {
+            return nFormatter(valuePayload.value, 2);
+        }
       }
       barChartOptions.datasetFill = false
       barChart1.Bar(barChartData, barChartOptions)

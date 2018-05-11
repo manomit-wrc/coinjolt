@@ -546,10 +546,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
     
     app.get('/transaction-history', async (req, res) =>{
-        var buy_amt = 0;
-        var sell_amt = 0;
-        var deposit_amt = 0;
-        var withdraw_amt = 0;
+        var buy_arr = [];
+        var sell_arr = [];
+        var deposit_arr = [];
+        var withdraw_arr = [];
 
         Deposit.belongsTo(Currency,{foreignKey: 'currency_id'});
         let buy_history = await Deposit.findAll(
@@ -604,31 +604,52 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             ]
         });
 
-        // var d = new Date();
-        // var m = d.getMonth();
-        // console.log("month");
-        // console.log(m);
+        // var currentYear = "2017";    
+        var currentYear = (new Date).getFullYear();
+        for(var j = 1; j <= 12; j++){
+            var buy_amt = 0;
+            var sell_amt = 0;
+            var deposit_amt = 0;
+            var withdraw_amt = 0;
+            for(var i in buy_history){
+                var buy_date = new Date(buy_history[i].createdAt).getMonth() + 1;
+                var buy_year = new Date(buy_history[i].createdAt).getFullYear();
+                if(buy_date === j && buy_year === currentYear){
+                    buy_amt = buy_amt + parseFloat(buy_history[i].amount);
+                }
+            }
 
-        // for(var i in buy_history){
-        //     buy_amt = buy_amt + parseFloat(buy_history[i].amount);
+            for(var i in sell_history){
+                var sell_date = new Date(sell_history[i].createdAt).getMonth() + 1;
+                var sell_year = new Date(sell_history[i].createdAt).getFullYear();
+                if(sell_date == j && sell_year === currentYear){
+                    sell_amt = sell_amt + parseFloat(sell_history[i].amount);
+                }
+            }
 
-        // }
+            for(var i in deposit_history){
+                var deposit_date = new Date(deposit_history[i].createdAt).getMonth() + 1;
+                var deposit_year = new Date(deposit_history[i].createdAt).getFullYear();
+                if(deposit_date == j && deposit_year === currentYear){
+                    deposit_amt = deposit_amt + parseFloat(deposit_history[i].amount);
+                }
+            }
 
-        // for(var i in sell_history){
-        //     sell_amt = sell_amt + parseFloat(sell_history[i].amount);
-        // }
+            for(var i in withdrawal_history){
+                var withdraw_date = new Date(withdrawal_history[i].createdAt).getMonth() + 1;
+                var withdraw_year = new Date(withdrawal_history[i].createdAt).getFullYear();
+                if(withdraw_date == j && withdraw_year === currentYear){
+                    withdraw_amt = withdraw_amt + parseFloat(withdrawal_history[i].amount);
+                }
+            }
+            buy_arr.push(buy_amt);
+            sell_arr.push(sell_amt);
+            deposit_arr.push(deposit_amt);
+            withdraw_arr.push(withdraw_amt);
+            
+        }
 
-        // for(var i in deposit_history){
-        //     deposit_amt = deposit_amt + parseFloat(deposit_history[i].amount);
-        // }
-
-        // for(var i in withdrawal_history){
-        //     withdraw_amt = withdraw_amt + parseFloat(withdrawal_history[i].amount);
-        // }
-        // console.log("withdraw_amt");
-        // console.log(withdraw_amt);
-
-        res.render('transaction-history', {layout: 'dashboard', buy_history:buy_history,sell_history:sell_history,deposit_history:deposit_history,withdrawal_history:withdrawal_history });
+        res.render('transaction-history', {layout: 'dashboard', buy_history:buy_history,sell_history:sell_history,deposit_history:deposit_history,withdrawal_history:withdrawal_history,buy_arr:buy_arr,sell_arr:sell_arr,deposit_arr:deposit_arr,withdraw_arr:withdraw_arr });
     });
 
     app.get('/managed-cryptocurrency-portfolio', async(req, res) => {

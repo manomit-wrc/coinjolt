@@ -668,12 +668,15 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
         var p_individual_arr = [];
 
+        var p_institutional_modal_arr = [];
+
         var p_composition = await portfolio_composition.findAll({
             where: {
                 user_id: req.user.id
             }
         });
         if(p_composition.length > 0) {
+                //console.log(JSON.stringify(p_composition));
                 p_individual_arr.push({
                     field_1: p_composition[0].get('first_name'),
                     field_2: p_composition[0].get('last_name'),
@@ -689,8 +692,17 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     field_4: p_composition[0].get('investques'),
                     field_5: p_composition[0].get('settlement_currency')
                 });
+
+                p_institutional_modal_arr.push({
+                    field_1: p_composition[0].get('account_name'),
+                    field_2: p_composition[0].get('bank_country'),
+                    field_3: p_composition[0].get('account_number'),
+                    field_4: p_composition[0].get('routing_number'),
+                    field_5: p_composition[0].get('phone_number'),
+                    field_6: p_composition[0].get('email_address')
+                });
         }
-        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length });
+        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length, p_institutional_modal_arr: p_institutional_modal_arr });
 
     });
 
@@ -906,4 +918,78 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }
 
     });
+
+    app.post('/save-institutionalModalData', (req, res) => {
+
+        portfolio_composition.findAndCountAll({
+            where: {user_id: req.user.id}
+          }).then(results => {
+            var count = results.count;
+            if(count >0){
+                portfolio_composition.update({
+                    account_name: req.body.account_Holdername,
+                    bank_country: req.body.bank_country,
+                    account_number: req.body.account_number,
+                    routing_number: req.body.routing_number,
+                    phone_number: req.body.phone_number,
+                    email_address: req.body.email_address
+
+                }, {
+                    where: {
+                        user_id: req.user.id
+                    }
+                });
+            }
+            else{
+                portfolio_composition.create({
+
+                    account_name: req.body.account_Holdername,
+                    bank_country: req.body.bank_country,
+                    account_number: req.body.account_number,
+                    routing_number: req.body.routing_number,
+                    phone_number: req.body.phone_number,
+                    email_address: req.body.email_address
+
+                });
+            }
+            res.json({ msg: 'Saved' });
+        });
+    });
+
+    app.post('/save-individualModalData', (req, res) => {
+        portfolio_composition.findAndCountAll({
+            where: {user_id: req.user.id}
+          }).then(results => {
+            var count = results.count;
+            if(count >0){
+                portfolio_composition.update({
+                    account_name: req.body.account_Holdername,
+                    bank_country: req.body.bank_country,
+                    account_number: req.body.account_number,
+                    routing_number: req.body.routing_number,
+                    phone_number: req.body.phone_number,
+                    email_address: req.body.email_address
+
+                }, {
+                    where: {
+                        user_id: req.user.id
+                    }
+                });
+            }
+            else{
+                portfolio_composition.create({
+
+                    account_name: req.body.account_Holdername,
+                    bank_country: req.body.bank_country,
+                    account_number: req.body.account_number,
+                    routing_number: req.body.routing_number,
+                    phone_number: req.body.phone_number,
+                    email_address: req.body.email_address
+
+                });
+            }
+            res.json({ msg: 'Saved' });
+        });
+    });
+
 };

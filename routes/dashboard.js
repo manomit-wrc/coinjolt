@@ -5,7 +5,7 @@ const lodash = require('lodash');
 const keys = require('../config/key');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var fileExt = '';
@@ -283,8 +283,21 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             title: req.body.subject.trim(),
             enquiry: req.body.description.trim()
         }).then(function (result) {
-            req.flash('supportMessage', 'Request sent successfully');
-            res.redirect('/submit-a-request');
+            // req.flash('supportMessage', 'Request sent successfully');
+            // res.redirect('/submit-a-request');
+            var pushNotifications = require("push-notifications");
+            var io = require('socket.io')(8088);
+            io.on('connection', function(socket){
+                socket.on('pushNotification', function(msg){
+                    io.emit('pushNotification', msg);
+                });
+
+                pushNotifications.push(io, {title: req.body.subject.trim(), body : req.body.description.trim()});  
+            });
+            
+            res.json({
+                success: true
+            });
         }).catch(function (err) {
             console.log(err);
         });
@@ -353,8 +366,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             attributes: ['id']
         });
         curr_id = curr_id[0].id;
-        console.log("buy");
-        console.log(curr_id);
 
         function notOnlyALogger(msg){
             console.log('****log****');
@@ -451,7 +462,34 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             balance: req.body.balance,
             currency_id: req.body.currency_id
         }).then(function (result) {
-            res.json({success: true});
+
+            currency_balance.findAndCountAll({
+                where: {user_id: req.user.id, currency_id: req.body.currency_id}
+              }).then(results => {
+                var count = results.count;
+                if(count >0){
+                    currency_balance.update({
+
+                        balance: req.body.balance
+                        
+
+                    }, {
+                        where: {
+                            user_id: req.user.id, currency_id: req.body.currency_id
+                        }
+                    });
+                }
+                else{
+                    currency_balance.create({
+
+                        user_id: req.user.id,
+                        balance: req.body.balance,
+                        currency_id: req.body.currency_id
+
+                    });
+                }
+                res.json({success: true});
+            });
         }).catch(function (err) {
             console.log(err);
         });
@@ -474,7 +512,34 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             balance: req.body.balance,
             currency_id: req.body.currency_id
         }).then(function (result) {
-            res.json({success: true});
+            
+            currency_balance.findAndCountAll({
+                where: {user_id: req.user.id, currency_id: req.body.currency_id}
+              }).then(results => {
+                var count = results.count;
+                if(count >0){
+                    currency_balance.update({
+
+                        balance: req.body.balance
+                        
+
+                    }, {
+                        where: {
+                            user_id: req.user.id, currency_id: req.body.currency_id
+                        }
+                    });
+                }
+                else{
+                    currency_balance.create({
+
+                        user_id: req.user.id,
+                        balance: req.body.balance,
+                        currency_id: req.body.currency_id
+
+                    });
+                }
+                res.json({success: true});
+            });
         }).catch(function (err) {
             console.log(err);
         });
@@ -588,7 +653,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.get('/managed-cryptocurrency-portfolio', async(req, res) => {
-        var investedamount;
+        var investedamount = 0;
 		var firstyear = 0;
 		var secondyear = 0;
 		var thirdyear = 0;
@@ -619,47 +684,35 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         } else {
             investedamount = 0;
         }
-        var p_composition_arr = [];
+
+        var p_institutional_arr = [];
+
+        var p_individual_arr = [];
+
         var p_composition = await portfolio_composition.findAll({
             where: {
                 user_id: req.user.id
             }
         });
         if(p_composition.length > 0) {
-            if(p_composition[0].get('investor_type') === 2) {
-                p_composition_arr.push({
+                p_individual_arr.push({
                     field_1: p_composition[0].get('first_name'),
                     field_2: p_composition[0].get('last_name'),
                     field_3: p_composition[0].get('residence_country'),
                     field_4: p_composition[0].get('investques'),
                     field_5: p_composition[0].get('settlement_currency')
-                })
-            }
-            else {
-                p_composition_arr.push({
+                });
+
+                p_institutional_arr.push({
                     field_1: p_composition[0].get('business_name'),
                     field_2: p_composition[0].get('business_number'),
                     field_3: p_composition[0].get('business_registration_country'),
                     field_4: p_composition[0].get('investques'),
                     field_5: p_composition[0].get('settlement_currency')
-                })
-            }
+                });
         }
-        
+        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length });
 
-        // get all institutional data
-       /*  portfolio_composition.findOne({
-            where: {
-                user_id: req.user.id,
-                investor_type: 1
-            }
-        }).then(function (result) {
-            req.flash('investStatusMessage', 'Your investment was made successfully!');
-            res.redirect('/managed-cryptocurrency-portfolio');
-        }); */
-        // end
-
-        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_composition_arr:p_composition_arr, p_composition_length:p_composition_arr.length });
     });
 
     app.post('/save-invest', function(req, res){
@@ -815,6 +868,14 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     });
                 }
                 res.json({ msg: 'Saved' });
+            }).then(insertStatus => {
+                User.update({ 
+                    investor_type: 1
+                }, {
+                    where: {
+                        id: req.user.id
+                    }
+                });
             });
         }
         else{
@@ -842,7 +903,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 }
                 else{
                     portfolio_composition.create({
-
                         user_id: req.user.id,
                         investor_type: 2,
                         first_name: firstName,
@@ -851,10 +911,18 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         investques: individualInvestAmount,
                         settlement_currency: individualSettlementCurrency
 
-
                     });
                 }
                 res.json({ msg: 'Saved' });
+            }).then(updateStatus => {
+                User.update({ 
+                    investor_type: 2
+                }, {
+                    where: {
+                        id: req.user.id
+                    }
+                });
+
             });
         }
 

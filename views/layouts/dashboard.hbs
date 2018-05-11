@@ -86,7 +86,7 @@
                     <div class="modal-body">
                         <p>
                             Your link has been successfully copied to clipboard! Earn 2% for every deposit made by your friends for life. Here is your referral link for reference:
-                            <a href="" style="color: #4165b4;" target="_blank">{{base_url}}?user={{reffer_link_id}}</a>
+                            <a href="" style="color: #4165b4;" target="_blank">https://coinjolt.com?user={{reffer_link_id}}</a>
                         </p>
                         <p>For more information about our referral program,
                             <a style="color: #4165b4;" href="invite-friends">click here.</a>
@@ -102,7 +102,7 @@
                                 <form method="post" class="change-rf-form" action="/save-referral-name" name="referralNameFrm">
                                     <div class="col-md-5">
                                         <div class="refer-id">
-                                            {{base_url}}?user=
+                                            https://coinjolt.com?user=
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -193,45 +193,45 @@
      <script src="/socket/socket.io.js"></script>
 <script>
 //$(document).ready(() => {
-var socket = io.connect('http://localhost:8088');
-socket.on('hello', function(serverResponseToHello){
+// var socket = io.connect('http://localhost:8088');
+// socket.on('hello', function(serverResponseToHello){
     // do something when server sends back something on hello 
-    console.log(serverResponseToHello);
-  });
+    // console.log(serverResponseToHello);
+  // });
 
  // send a hello to the server
-  socket.emit("hello", "Sending hello to server");
+  // socket.emit("hello", "Sending hello to server");
 
 
   //push notification
-    if(socket) {
-        if(socket.on) {
-            socket.on('pushNotification', function(options) {
-                pushNotification.notify(options);
-            })
-        }
-    }
+    // if(socket) {
+    //     if(socket.on) {
+    //         socket.on('pushNotification', function(options) {
+    //             pushNotification.notify(options);
+    //         })
+    //     }
+    // }
 
-    (function() {
-        Notification.requestPermission();
-        function notify(options) {
-            var title = options.title || "Notification";
-            if (!("Notification" in window)) {
-                alert("This browser does not support desktop notification");
-            } else if (Notification.permission === "granted") {
-                new Notification(title ,options);
-            } else if (Notification.permission !== 'denied') {
-                Notification.requestPermission(function (permission) {
-                    if (permission === "granted") {
-                        new Notification("title" ,{body: body});
-                    }
-            });
-          }
-        }
-        window.pushNotification = {
-            notify: notify
-        }
-    })();
+    // (function() {
+    //     Notification.requestPermission();
+    //     function notify(options) {
+    //         var title = options.title || "Notification";
+    //         if (!("Notification" in window)) {
+    //             alert("This browser does not support desktop notification");
+    //         } else if (Notification.permission === "granted") {
+    //             new Notification(title ,options);
+    //         } else if (Notification.permission !== 'denied') {
+    //             Notification.requestPermission(function (permission) {
+    //                 if (permission === "granted") {
+    //                     new Notification("title" ,{body: body});
+    //                 }
+    //         });
+    //       }
+    //     }
+    //     window.pushNotification = {
+    //         notify: notify
+    //     }
+    // })();
     
 </script>
     {{!-- //end --}}
@@ -289,6 +289,75 @@ socket.on('hello', function(serverResponseToHello){
         });
     </script>
     <script type="text/javascript">
+
+        //support request save with ajax
+            
+        $('#support_saubmit_from_user').on('click', function () {
+            var subject = $('#subject').val();
+            var details = $('#description').val();
+
+            if(subject != '' && details != ''){
+                $.ajax({
+                    type: "POST",
+                    url: '/submit-a-request',
+                    data:{
+                        subject: subject,
+                        description: details
+                    },
+                    success: function (response){
+                        if(response.success == true){
+                            //start socket
+                            var socket = io.connect('http://localhost:8088');
+                            socket.emit('pushNotification', $('#description').val());
+                            $('#description').val();
+                            socket.on('pushNotification', function(msg){
+                              /*$('#messages').append($('<li>').text(msg));
+                              window.scrollTo(0, document.body.scrollHeight);*/
+                              
+                              pushNotification.notify(msg);
+                            });
+                            //end
+
+                            swal({
+                                title: 'ThankYou',
+                                text: 'Request submit successfully.',
+                                type: "success",
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "OK"
+                            },  function() {
+                                window.location.reload();
+                            });
+                        }
+                    }
+                });
+            }else{
+                alert ("Please fill up Subject & Description section.");
+                return false;
+            }
+        });
+
+        (function() {
+            Notification.requestPermission();
+            function notify(options) {
+                var title = options.title || "Notification";
+                if (!("Notification" in window)) {
+                    alert("This browser does not support desktop notification");
+                } else if (Notification.permission === "granted") {
+                    new Notification(title ,options);
+                } else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission(function (permission) {
+                        if (permission === "granted") {
+                            new Notification("title" ,{body: body});
+                        }
+                });
+              }
+            }
+            window.pushNotification = {
+                notify: notify
+            }
+        })(); 
+        //end
+
         $(function () {
             'use strict';
                 // SLIMSCROLL FOR CHAT WIDGET
@@ -324,22 +393,28 @@ socket.on('hello', function(serverResponseToHello){
             $('#sell_calculatedamount').removeClass('alert alert-success');
             $('.expected').removeClass('alert alert-danger');
 
-            var selectedRadioValue = $("input[name='type']:checked").val();
+            /* Script for handling change of Institutional or individual investor */
+            /*
+            $('input[type=radio][name="investor_type"]').on('change', function(){
+                  var i = $(this).val();
 
-            //var selectedRadioValue = $("input[type=radio][name='type']:checked").val();
+                  if( i == 'Institution'){
+                        $('#business_name').val('');
+                        $('#business_number').val('');
+                        $('#business_registration_country').val('');     
+                        $('#investques').prop('selectedIndex',0);
+                        $('#settlement_currency').prop('selectedIndex',0);
+                  }  
+                  if(i == 'Individual'){
+                        $('#first_name').val('');
+                        $('#last_name').val('');
+                        $('#residence_country_individual').val('');
+                        $('#investques_individual').prop('selectedIndex',0);
+                        $('#settlement_currency_individual').prop('selectedIndex',0);  
+                  }
 
-            
-            if(selectedRadioValue === 'Institution'){
-                console.log('inside institution');
-                $('#institutionalForm').css('display','block');
-                $('#individualForm').css('display','none');
-            }
+            });  */
 
-            else if(selectedRadioValue === 'Individual'){
-                console.log('inside individual');
-                $('#institutionalForm').css('display','none');
-                $('#individualForm').css('display','block');
-            } 
 
             $("#changereferralBtn").click(function(){
                 $("#changeReferralFrm").slideToggle('slow');
@@ -1402,6 +1477,116 @@ socket.on('hello', function(serverResponseToHello){
                 }
             });
 
+            /* Script for validating institute modal form */
+            $('#submit_institution_modal').on('click', function(){
+                $('#instituteModalForm').submit();
+            });
+
+            $('#instituteModalForm').validate({
+                 rules: {
+                    account_name: {
+                        required: true
+                    },
+                    bank_country: {
+                        required: true
+                    },
+                    account_number: {
+                        required: true,
+                        number: true,
+                        minlength: 7,
+                        maxlength: 7
+                    },
+                    routing_number: {
+                        required: true,
+                        number: true,
+                        minlength: 9,
+                        maxlength: 9
+                    },
+                    phone_number: {
+                        required: true,
+                        number: true
+                    },
+                    email_address: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    account_name: {
+                        required: "Please enter bank account holder name"
+                    },
+                    bank_country: {
+                        required: "Please enter country of bank account"
+                    },
+                    account_number: {
+                       required: "Please enter account number",
+                       number: "Only numbers are accepted",
+                       minlength: "Account number can have exactly 7 digits",
+                       maxlength: "Account number can have exactly 7 digits"
+                    },
+                    routing_number: {
+                        required: "Please enter routing number",
+                        number: "Only numbers are accepted",
+                        minlength: "Routing number can have exactly 9 digits",
+                        maxlength: "Routing number can have exactly 9 digits"
+                    },
+                    phone_number: {
+                        required: "Please enter phone number",
+                        number: "Only numbers are accepted"
+                    },
+                    email_address: {
+                        required: "Please enter email address",
+                        email: "Please enter valid email address"
+                    }
+                },
+                submitHandler:function(form) {
+                    alert('Form submitted');
+                    /*
+                    $.ajax({
+                        type: "POST",
+                        url: "/save-institutionalIndividual-data",
+                        data: {
+                            first_name: $("#first_name").val(),
+                            last_name: $("#last_name").val(),
+                            residence_country_individual: $("#residence_country_individual").val(),
+                            invest_amount_individual: $("#investques_individual").val(),
+                            settlement_currency_individual: $("#settlement_currency_individual").val(),
+                            individualOrInstitutional_type: $("input:radio[name=investor_type]:checked").val()
+                        
+                        },
+                        success:function(response) {
+                            swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                            },function(isConfirm){
+                                if(isConfirm){
+                                    window.location.href = "/managed-cryptocurrency-portfolio";
+                                }
+                            });
+
+                        },
+                        error: function(xhr) {
+                            console.log('Error');
+                        }
+                    }); 
+                    */
+
+                }
+            });
+            // validation for dynamically generated elements in institutional user's form
+            $('.multiple_div > #shareholder_div > #name .appnd').find('.shareholder_name').each(function(index) {
+                $(this).rules('add', {
+                    required: true,
+                    messages: {
+                        required:  "Please enter first and last name"
+                    }
+                });
+            }); 
+
+            // end validation
+
         });
     </script>
     
@@ -1652,14 +1837,17 @@ socket.on('hello', function(serverResponseToHello){
         var options = {
           is3D: true,
           slices: [{color: '#fc7c59'}, {color: '#ed5565'}, {color: '#ec87c0'}, {color: '#5d9cec'}],
-            // width:'100%',
-            // height:'100%',
+             width:'100%',
+             height:'100%',
             // chartArea:{left: '0', top: '0%',height: '80%', width: '80%'}
             // legend: 'none',
             pieSliceText: 'label',
             title: '',
             // pieStartAngle: 100,
+            
             chartArea:{left:10,top:10,width:'100%',height:'100%'},
+
+            
             // slices: [{color: '#fc7c59'}, {color: '#ed5565'}, {color: '#ec87c0'}, {color: '#5d9cec'}],
             tooltip:{'text':'percentage'}
 
@@ -1734,12 +1922,12 @@ socket.on('hello', function(serverResponseToHello){
       //-------------
       //- BAR CHART -
       //-------------
-      var barChartCanvas1 = $('#barChart1').get(0).getContext('2d')
-      var barChart1 = new Chart(barChartCanvas1)
-      var barChartData = areaChartData
-      barChartData.datasets[1].fillColor = '#00a65a'
-      barChartData.datasets[1].strokeColor = '#00a65a'
-      barChartData.datasets[1].pointColor = '#00a65a'
+      var barChartCanvas1 = $('#barChart1').get(0).getContext('2d');
+      var barChart1 = new Chart(barChartCanvas1);
+      var barChartData = areaChartData;
+      barChartData.datasets[1].fillColor = '#00a65a';
+      barChartData.datasets[1].strokeColor = '#00a65a';
+      barChartData.datasets[1].pointColor = '#00a65a';
       var barChartOptions = {
         //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
         scaleBeginAtZero: true,
@@ -1774,14 +1962,15 @@ socket.on('hello', function(serverResponseToHello){
       barChart1.Bar(barChartData, barChartOptions)
     });
 
-
     var investor_type = '{{investor_type}}';
+    
     if(investor_type == 2) {
         individualForm();
     }
     else {
         institutionForm();
     }
+
 	function showform(){
 		alert("loaded");
 	}
@@ -1798,7 +1987,35 @@ socket.on('hello', function(serverResponseToHello){
 		individual_form.style.display = "block";
 	}
 
-      
+    /* Function for adding dynamic fields in institutional form's shareholder */
+    function append(event){
+        event.preventDefault();
+        var shareholder = document.getElementById('test');
+
+        $('#shareholder_div').append('<div class="multiple_div"><div class="col-md-4" id="name"><div class="form-group appnd"><label for="shareholder_name">First and Last Name:</label><input type="text" name="shareholder_name" class="form-control shareholder_name" id="shareholder_name" value=""><label for="shareholder_name" generated="true" class="error"></label></div></div><div class="col-md-4 " id="address"><div class="form-group articles_incorporation_div appnd" ><label>Proof of Address:</label><input type="file" name="articles_incorporation" class="form-control articles_incorporation" id=""><label for="articles_incorporation" generated="true" class="error"></label></div></div><div class="col-md-4 " id="government_id"  ><div class="form-group appnd"><label>Government Issued ID:</label><input type="file" name="shareholder_id" class="form-control shareholder_id" id="shareholder_id" value=""><label for="shareholder_id" generated="true" class="error"></label></div></div></div>');
+        document.getElementById('remove').removeAttribute('disabled','disabled');
+    }
+
+        function remove(event){
+            event.preventDefault();
+            var multiple_div = document.getElementsByClassName('multiple_div');
+            var x = multiple_div.length;
+            // alert(x);  
+            if(x == 1 ){
+                document.getElementById('remove').setAttribute('disabled','disabled');
+                multiple_div[x-1].parentNode.removeChild(multiple_div[x-1]);
+            // multiple_div[0].style.display = "block";
+            }else if(x == 2){
+                multiple_div[x-1].parentNode.removeChild(multiple_div[x-1]);
+                document.getElementById('remove').setAttribute('disabled','disabled');
+            }else if(x > 1){               
+                multiple_div[x-1].parentNode.removeChild(multiple_div[x-1]);
+                if(x == 1){
+                    document.getElementById('remove').setAttribute('disabled','disabled');
+                }
+            }
+        }
+
   </script>
 
 </body>

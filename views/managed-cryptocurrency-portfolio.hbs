@@ -90,36 +90,36 @@
 						<h2>Institutional Verification</h2>
 						<div class="form-group">
 							<label for="business_name">Registered Business Name <span style="color: red;">*</span></label>
-							<input class="form-control" id="business_name" placeholder="Enter Business Name" name="business_name" value="{{p_composition_arr.0.field_1}}" type="text">
+							<input class="form-control" id="business_name" placeholder="Enter Business Name" name="business_name" value="{{p_institutional_arr.0.field_1}}" type="text">
 							
 						</div>
 						<div class="form-group">
 							<label for="business_number">Registered Business Number <span style="color: red;">*</span></label>
-							<input class="form-control" id="business_number" placeholder="Enter Business Number" name="business_number" value="{{p_composition_arr.0.field_2}}" type="text">
+							<input class="form-control" id="business_number" placeholder="Enter Business Number" name="business_number" value="{{p_institutional_arr.0.field_2}}" type="text">
 							
 						</div>
 						<div class="form-group">
 							<label for="business_registration_country">Country of Business Registration <span style="color: red;">*</span></label>
-							<input class="form-control" id="business_registration_country" placeholder="Enter Country of Business Registration" name="business_registration_country" value="{{p_composition_arr.0.field_3}}" type="text">
+							<input class="form-control" id="business_registration_country" placeholder="Enter Country of Business Registration" name="business_registration_country" value="{{p_institutional_arr.0.field_3}}" type="text">
 						
 						</div>
 						<div class="form-group">
 							<label for="investques">How Much Are You Looking To Invest? <span style="color: red;">*</span></label>
 							<select name="investques" class="form-control" id="investques">
-								<option value="0 - $100,000+" {{#if_eq p_composition_arr.0.field_4 '0 - $100,000+'}} selected="selected" {{/if_eq}}>0 - $100,000+</option>
-								<option value="1,000,000+" {{#if_eq p_composition_arr.0.field_4 '1,000,000+'}} selected="selected" {{/if_eq}}>$1,000,000+</option>
-								<option value="10,000,000+" {{#if_eq p_composition_arr.0.field_4 '10,000,000+'}} selected="selected" {{/if_eq}}>$10,000,000+</option>
-								<option value="100,000,000+" {{#if_eq p_composition_arr.0.field_4 '100,000,000+'}} selected="selected" {{/if_eq}}>$100,000,000+</option>
+								<option value="0 - $100,000+" {{#if_eq p_institutional_arr.0.field_4 '0 - $100,000+'}} selected="selected" {{/if_eq}}>0 - $100,000+</option>
+								<option value="1,000,000+" {{#if_eq p_institutional_arr.0.field_4 '1,000,000+'}} selected="selected" {{/if_eq}}>$1,000,000+</option>
+								<option value="10,000,000+" {{#if_eq p_institutional_arr.0.field_4 '10,000,000+'}} selected="selected" {{/if_eq}}>$10,000,000+</option>
+								<option value="100,000,000+" {{#if_eq p_institutional_arr.0.field_4 '100,000,000+'}} selected="selected" {{/if_eq}}>$100,000,000+</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="settlement_currency">Settlement Currency <span style="color: red;">*</span></label>
 							<select name="settlement_currency" class="form-control" id="settlement_currency">
-								<option value="flat" {{#if_eq p_composition_arr.0.field_5 'flat'}} selected="selected" {{/if_eq}}>Flat (USD, EUR, YEN)</option>
-								<option value="cryptocurrency" {{#if_eq p_composition_arr.0.field_5 'cryptocurrency'}} selected="selected" {{/if_eq}}>Digital Currency (Bitcoin, Ethereum, etc)</option>
+								<option value="flat" {{#if_eq p_institutional_arr.0.field_5 'flat'}} selected="selected" {{/if_eq}}>Flat (USD, EUR, YEN)</option>
+								<option value="cryptocurrency" {{#if_eq p_institutional_arr.0.field_5 'cryptocurrency'}} selected="selected" {{/if_eq}}>Digital Currency (Bitcoin, Ethereum, etc)</option>
 							</select>
 						</div>
-						<button type="button" class="btn btn-primary" id="institution_form_upload" data-toggle="modal" data-target="#institute_modal" disabled>Upload Documents</button>
+						<button type="button" class="btn btn-primary" id="institution_form_upload" data-toggle="modal" data-target="#institute_modal" {{#if_eq p_institutional_arr_length '0' }}disabled{{/if_eq}}>Upload Documents</button>
 					
 						<input class="btn btn-primary" id="institution_form_save" value="Save" type="button">
 				
@@ -136,16 +136,16 @@
 							<h4 class="modal-title" id="myModalLabel">Upload The Following  Documents</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form">
+							<form class="form" id="instituteModalForm">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Certificate of Incorporation <span style="color: red">*</span></label>
 											
 											<input name="incorporation_certificate" class="form-control incorporation_certificate" id="incorporation_certificate" value="" type="file">
-											<span id="incorporation_certificate_err" style="color: tomato;"></span>
+											
 									
-											<img src="../dashboard/portfolio_documents/_1Hydrangeas.jpg" id="blah3" height="20px" width="20px">
+											<img src="" id="blah3" height="20px" width="20px">
 										</div>
 									</div>
 									<!-- <div class="col-md-6">
@@ -173,50 +173,50 @@
 										<div class="form-group">
 											<label>Recent Bank Account Statement <span style="color: red">*</span></label>
 											<input name="bank_statement" class="form-control bank_statement" id="bank_statement" type="file">
-											<span id="bank_statement_err" style="color: tomato;"></span>
-											<img src="../dashboard/portfolio_documents/_1Lighthouse.jpg" id="blah1" height="20px" width="20px">
+											
+											<img src="" id="blah1" height="20px" width="20px">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Bank Account Holder Name <span style="color: red">*</span></label>
-											<input placeholder="Enter Name on Bank Account" name="account_name" class="form-control" id="account_name" value="Test" onkeypress="return validateBankAccHolder();" type="text">
-											<span id="account_name_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Name on Bank Account" name="account_name" class="form-control" id="account_name" value="" type="text">
+											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Country of Bank Account <span style="color: red">*</span></label>
-											<input placeholder="Enter Country of Bank" name="bank_country" class="form-control" id="bank_country" value="Test" onkeypress="return validateBank();" type="text">
-											<span id="bank_country_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Country of Bank" name="bank_country" class="form-control" id="bank_country" value="" type="text">
+											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Account Number (7 Digits) <span style="color: red">*</span></label>
-											<input placeholder="Enter Account Number" name="account_number" class="form-control" id="account_number" value="test" onkeypress="return validate();" type="text">
-											<span id="account_number_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Account Number" name="account_number" class="form-control" id="account_number" value="" type="text">
+											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Routing Number (9 Digits) <span style="color: red">*</span></label>
-											<input placeholder="Enter Routing Number" name="routing_number" class="form-control" id="routing_number" value="test" onkeypress="return validateRoute();" type="text">
-											<span id="routing_number_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Routing Number" name="routing_number" class="form-control" id="routing_number" value="" type="text">
+										
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Phone Number <span style="color: red">*</span></label>
-											<input placeholder="Enter Phone Number" name="phone_number" class="form-control" id="phone_number" value="188899989980" onkeypress="return validatePhone();" type="text">
-											<span id="phone_number_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Phone Number" name="phone_number" class="form-control" id="phone_number" value="" type="text">
+											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Email Address <span style="color: red">*</span></label>
-											<input placeholder="Enter Email Address" name="email_address" class="form-control" id="email_address" value="support@coinjolt.com" onkeypress="return validateEmail();" type="text">
-											<span id="email_address_institution_err" style="color: tomato;"></span>
+											<input placeholder="Enter Email Address" name="email_address" class="form-control" id="email_address" value="" type="text">
+											
 										</div>
 									</div>
 									<div id="shareholder_div">
@@ -252,7 +252,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<input value="Save" name="Save" class="form-control btn btn-primary submit_institution" onclick="institutionValidationModal()" type="button">
+								<input value="Save" name="Save" class="form-control btn btn-primary submit_institution_modal" id="submit_institution_modal" type="button">
 							</div>
 						</form>
 					</div>
@@ -269,36 +269,36 @@
 					<h2>Individual Verification</h2>
 					<div class="form-group">
 						<label for="last_name">First Name <span style="color: red">*</span></label>
-						<input class="form-control" id="first_name" placeholder="Enter First Name" name="first_name" value="{{p_composition_arr.0.field_1}}" type="text">
+						<input class="form-control" id="first_name" placeholder="Enter First Name" name="first_name" value="{{p_individual_arr.0.field_1}}" type="text">
 						{{!-- <span id="first_name_err" style="color: tomato;"></span> --}}
 					</div>
 					<div class="form-group">
 						<label for="last_name">Last Name <span style="color: red">*</span></label>
-						<input class="form-control" id="last_name" placeholder="Enter Last Name" name="last_name" value="{{p_composition_arr.0.field_2}}" type="text">
+						<input class="form-control" id="last_name" placeholder="Enter Last Name" name="last_name" value="{{p_individual_arr.0.field_2}}" type="text">
 						{{!-- <span id="last_name_err" style="color: tomato;"></span> --}}
 					</div>
 					<div class="form-group">
 						<label for="residence_country">Country of Residence <span style="color: red">*</span></label>
-						<input class="form-control residence_country_individual" placeholder="Enter Country of Residence" name="residence_country_individual" id="residence_country_individual" value="{{p_composition_arr.0.field_3}}" type="text">
+						<input class="form-control residence_country_individual" placeholder="Enter Country of Residence" name="residence_country_individual" id="residence_country_individual" value="{{p_individual_arr.0.field_3}}" type="text">
 						{{!-- <span id="residence_country_individual_err" style="color: tomato;"></span> --}}
 					</div>
 					<div class="form-group">
-						<label for="investques">How Much Are You Looking To Invest? <span style="color: red">*</span></label>
+						<label for="investques_individual">How Much Are You Looking To Invest? <span style="color: red">*</span></label>
 						<select name="investques_individual" class="form-control" id="investques_individual">
-							<option value="0 - $100,000+" {{#if_eq p_composition_arr.0.field_4 '0 - $100,000+'}} selected="selected" {{/if_eq}}>0 - $100,000+</option>
-								<option value="1,000,000+" {{#if_eq p_composition_arr.0.field_4 '1,000,000+'}} selected="selected" {{/if_eq}}>$1,000,000+</option>
-								<option value="10,000,000+" {{#if_eq p_composition_arr.0.field_4 '10,000,000+'}} selected="selected" {{/if_eq}}>$10,000,000+</option>
-								<option value="100,000,000+" {{#if_eq p_composition_arr.0.field_4 '100,000,000+'}} selected="selected" {{/if_eq}}>$100,000,000+</option>
+							<option value="0 - $100,000+" {{#if_eq p_individual_arr.0.field_4 '0 - $100,000+'}} selected="selected" {{/if_eq}}>0 - $100,000+</option>
+								<option value="1,000,000+" {{#if_eq p_individual_arr.0.field_4 '1,000,000+'}} selected="selected" {{/if_eq}}>$1,000,000+</option>
+								<option value="10,000,000+" {{#if_eq p_individual_arr.0.field_4 '10,000,000+'}} selected="selected" {{/if_eq}}>$10,000,000+</option>
+								<option value="100,000,000+" {{#if_eq p_individual_arr.0.field_4 '100,000,000+'}} selected="selected" {{/if_eq}}>$100,000,000+</option>
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="settlement_currency">Settlement Currency <span style="color: red"> *</span></label>
+						<label for="settlement_currency_individual">Settlement Currency <span style="color: red"> *</span></label>
 						<select name="settlement_currency_individual" class="form-control" id="settlement_currency_individual">
-							<option value="flat" {{#if_eq p_composition_arr.0.field_5 'flat'}} selected="selected" {{/if_eq}}>Flat (USD, EUR, YEN)</option>
-							<option value="cryptocurrency" {{#if_eq p_composition_arr.0.field_5 'cryptocurrency'}} selected="selected" {{/if_eq}}>Digital Currency (Bitcoin, Ethereum, etc)</option>
+							<option value="flat" {{#if_eq p_individual_arr.0.field_5 'flat'}} selected="selected" {{/if_eq}}>Flat (USD, EUR, YEN)</option>
+							<option value="cryptocurrency" {{#if_eq p_individual_arr.0.field_5 'cryptocurrency'}} selected="selected" {{/if_eq}}>Digital Currency (Bitcoin, Ethereum, etc)</option>
 						</select>
 					</div>
-					<button type="button" class="btn btn-primary" id="individual_form_upload" data-toggle="modal" data-target="#individual_modal" {{#if_eq p_composition_length '0' }}disabled{{/if_eq}}>Upload Documents</button>
+					<button type="button" class="btn btn-primary" id="individual_form_upload" data-toggle="modal" data-target="#individual_modal" {{#if_eq p_individual_arr_length '0' }}disabled{{/if_eq}}>Upload Documents</button>
 					<input class="btn btn-primary" id="individual_form_save" value="Save" type="button">
 				</form>
 			</div>

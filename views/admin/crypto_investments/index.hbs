@@ -21,9 +21,9 @@
 								<tr>
 									<th>ID</th>
 									<th>Name</th>
-									<th>Invest Amount ($)</th>
-									<th>Withdraw Amount ($)</th>
+									<th>Current Value ($)</th>
 									<th>Balance ($)</th>
+									<th>Total Amount ($)</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -31,9 +31,9 @@
 								<tr>
 									<td>{{inc @index}}</td>
 									<td>{{this.coin_name}}</td>
-									<td>0.00</td>
-									<td>0.00</td>
+									<td>{{this.coin_rate}}</td>
 									<td>{{this.total_balance}}</td>
+									<td>{{this.total_amt}}</td>
 								</tr>
 								{{/each}}
 							</tbody>

@@ -4,8 +4,9 @@ var excel = require('node-excel-export');
 const lodash = require('lodash');
 const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
+var request = require('sync-request')
 
-module.exports = function (app, Deposit, Withdraw, User, Currency) {
+module.exports = function (app, Deposit, Withdraw, User, Currency, currency_balance) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -93,30 +94,43 @@ module.exports = function (app, Deposit, Withdraw, User, Currency) {
 	}
 
 	app.get('/admin/dashboard', function (req, res) {
-		
 		res.render('admin/dashboard', {
 			layout: 'dashboard'
 		});
 	});
 
-	app.get('/admin/crypto_investments', async (req, res) => {
-		Deposit.belongsTo(Currency, {foreignKey: 'currency_id'});
-		Deposit.findAll({
+	app.get('/admin/crypto_investments', (req, res) => {
+		currency_balance.belongsTo(Currency, {foreignKey: 'currency_id'});
+		currency_balance.findAll({
 			attributes: [ 'Currency.display_name', [sequelize.fn('SUM',sequelize.col('balance')),'total_balance'] ],
 			include: [{
 				model: Currency
 			}],
-			group: ['Deposit.currency_id'],
+			group: ['currency_balance.currency_id'],
 			order: [
-				['id', 'DESC']
+				['id', 'ASC']
 			]
-		}).then(result => {
-			console.log(result);
+		}).then(values => {
+			var result = JSON.parse(JSON.stringify(values));
 			var coin_list_arr = [];
+			var coin_rate = 0;
+			var balance = 0;
+			var total_amt = 0;
 			for (var i = 0; i < result.length; i++) {
+				var coin_name = result[i].Currency.alt_name.toUpperCase();
+				var response = request(
+				    'GET',
+				    'https://coincap.io/page/'+coin_name
+			    );
+			    let coin_rate_res = JSON.parse(response.body);
+			    coin_rate = coin_rate_res.price_usd;
+				balance = result[i].total_balance;
+				total_amt = parseFloat(coin_rate) * parseFloat(balance);
 				coin_list_arr.push({
 					coin_name: result[i].Currency.display_name,
-					total_balance: result[i].total_balance
+					total_balance: result[i].total_balance,
+					coin_rate: coin_rate,
+					total_amt: total_amt
 				});
 			}
 			res.render('admin/crypto_investments/index', { layout: 'dashboard', 'all_data': coin_list_arr });

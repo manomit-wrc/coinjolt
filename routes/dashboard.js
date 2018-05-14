@@ -5,9 +5,11 @@ const lodash = require('lodash');
 const keys = require('../config/key');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
+const async = require('async');
 module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
+    var s3bucket = new AWS.S3({accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey, params: {Bucket: 'coinjoltdev2018'}});
     var fileExt = '';
     var fileName = '';
     var userUrl = '';
@@ -71,7 +73,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
       var shareholder_id = multer({
         storage: multerS3({
           s3: s3,
-          bucket: 'coinjoltdev2018/government-id',
+          bucket: 'coinjoltdev2018',
           acl: 'public-read',
           cacheControl: 'max-age=31536000',
           metadata: function (req, file, cb) {
@@ -80,7 +82,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
           key: function (req, file, cb) {
               fileExt = file.mimetype.split('/')[1];
               if (fileExt == 'jpeg') fileExt = 'jpg';
-              fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+              fileName = 'government-id/'+req.user.id + '-' + Date.now() + '.' + fileExt;
               userUrl = keys.S3_URL + 'government-id/'+fileName;
               cb(null, fileName);
           }
@@ -1033,43 +1035,74 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             res.json({ msg: 'Saved' });
         });
     });
-    const upload_docs = multer();
-    app.post('/save-individualModalData', upload_docs.any(),  (req, res) => {
+    var upload_docs = multer();
+    app.post('/save-individualModalData',upload_docs.array('upload_docs'),  (req, res) => {
         portfolio_composition.findAndCountAll({
             where: {user_id: req.user.id}
           }).then(results => {
             var count = results.count;
-            console.log(req.files);
-            // if(count >0){
-            //     portfolio_composition.update({
-            //         account_name: req.body.account_name_individual,
-            //         bank_country: req.body.bank_country_individual,
-            //         account_number: req.body.account_number_individual,
-            //         routing_number: req.body.routing_number_individual,
-            //         phone_number: req.body.phone_number_individual,
-            //         email_address: req.body.email_address_individual,
-            //         address_proof: (req.file === undefined ? results.address_proof : req.file.location)
+            var address_proof_url = '';
+            var government_issued_id_url = '';
+            var bank_statement_url = '';
+            async.eachSeries(req.files, function(item, cb) {
+                var tempArr = lodash.filter(JSON.parse(req.body.upload_file_name), x => x.temp_file_name === item.originalname);
+                var upload_path = tempArr[0].folder_name+"/"+item.originalname;
+                
+                var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
+                if(tempArr[0].folder_name === "address_proof") {
+                    address_proof_url = keys.S3_URL + upload_path;
+                }
+                if(tempArr[0].folder_name === "govt_id") {
+                    government_issued_id_url = keys.S3_URL + upload_path;
+                }
+                if(tempArr[0].folder_name === "bank_statement") {
+                    bank_statement_url = keys.S3_URL + upload_path;
+                }
+                s3bucket.upload(params, function(err, data) {
+                    if (err) {
+                        console.log("Error uploading data. ", err);
+                        cb(err)
+                    } else {
+                        console.log("Success uploading data");
+                        cb()
+                    }
+                })
+            }, function(err) {
+                if(count >0){
+                    portfolio_composition.update({
+                        account_name: req.body.account_name_individual,
+                        bank_country: req.body.bank_country_individual,
+                        account_number: req.body.account_number_individual,
+                        routing_number: req.body.routing_number_individual,
+                        phone_number: req.body.phone_number_individual,
+                        email_address: req.body.email_address_individual,
+                        address_proof: address_proof_url,
+                        government_issued_id: government_issued_id_url,
+                        bank_statement: bank_statement_url
 
-            //     }, {
-            //         where: {
-            //             user_id: req.user.id
-            //         }
-            //     });
-            // }
-            // else{
-            //     portfolio_composition.create({
+                    }, {
+                        where: {
+                            user_id: req.user.id
+                        }
+                    });
+                }
+                else{
+                    portfolio_composition.create({
 
-            //         account_name: req.body.account_name_individual,
-            //         bank_country: req.body.bank_country_individual,
-            //         account_number: req.body.account_number_individual,
-            //         routing_number: req.body.routing_number_individual,
-            //         phone_number: req.body.phone_number_individual,
-            //         email_address: req.body.email_address_individual,
-            //         address_proof: (req.file === undefined ? null : req.file.location)
+                        account_name: req.body.account_name_individual,
+                        bank_country: req.body.bank_country_individual,
+                        account_number: req.body.account_number_individual,
+                        routing_number: req.body.routing_number_individual,
+                        phone_number: req.body.phone_number_individual,
+                        email_address: req.body.email_address_individual,
+                        address_proof: address_proof_url,
+                        government_issued_id: government_issued_id_url,
+                        bank_statement: bank_statement_url
 
-            //     });
-            // }
-            res.json({ msg: 'Saved', success: "true" });
+                    });
+                }
+                res.json({ msg: 'Saved', success: "true" });
+            });
         });
     });
 

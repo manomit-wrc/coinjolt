@@ -313,27 +313,27 @@
 						<h4 class="modal-title" id="myModalLabel">Upload The Following  Documents</h4>
 					</div>
 					<div class="modal-body">
-						<form class="form" id="individualModalForm">
+						<form class="form" id="individualModalForm" enctype="multipart/form-data">
 							<div class="alert alert-success" id="div_individual_modal" style="display: none;">Information updated successfully</div>
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Proof of Address<span style="color: red"> *</span></label>
-										<input name="address_proof" class="form-control" id="address_proof" value="" type="file">
+										<input name="address_proof" class="form-control file" id="address_proof" data-temp-name="address_proof" value="" type="file">
 										<img src="" id="blah1" height="20px" width="20px">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Government Issued ID<span style="color: red"> *</span></label>
-										<input name="shareholder_id" class="form-control" id="government_issued_id" type="file">
+										<input name="shareholder_id" class="form-control file" id="government_issued_id" data-temp-name="govt_id" type="file">
 										<img src="" id="blah1" height="20px" width="20px">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Recent Bank Account Statement<span style="color: red"> *</span></label>
-										<input name="bank_statement" class="form-control" id="bank_statement_individual" type="file">
+										<input name="bank_statement" class="form-control file" id="bank_statement_individual" data-temp-name="bank_statement" type="file">
 										<img src="" id="blah1" height="20px" width="20px">
 									</div>
 								</div>

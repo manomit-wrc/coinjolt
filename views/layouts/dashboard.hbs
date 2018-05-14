@@ -1545,6 +1545,7 @@
             */
 
             /* Script for validating individual modal form */
+            
             $('#submit_individual_modal_data').on('click', function(){
                 $('#individualModalForm').submit();
             });
@@ -1608,7 +1609,25 @@
                 },
                 submitHandler:function(form) {
 
-                    var form_data = new FormData($("#individualModalForm").get(0));
+                    var form_data = new FormData();
+                    var upload_file_name = [];
+                    $(".file").each(function(index) {
+                        if(this.files[0]) {
+                            upload_file_name.push({
+                                folder_name: $(this).data('temp-name'),
+                                temp_file_name: this.files[0].name
+                            })
+                            form_data.append('upload_docs', this.files[0]);
+                        }
+                    });
+                    form_data.append('upload_file_name',JSON.stringify(upload_file_name));
+                    
+                    form_data.append('account_name_individual', $("#account_name_individual").val());
+                    form_data.append('bank_country_individual', $("#bank_country_individual").val());
+                    form_data.append('account_number_individual', $("#account_number_individual").val());
+                    form_data.append('routing_number_individual', $("#routing_number_individual").val());
+                    form_data.append('phone_number_individual', $("#phone_number_individual").val());
+                    form_data.append('email_address_individual', $("#email_address_individual").val());
 
                     $.ajax({
                         type: "POST",

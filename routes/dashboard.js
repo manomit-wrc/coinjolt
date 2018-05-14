@@ -1076,9 +1076,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         routing_number: req.body.routing_number_individual,
                         phone_number: req.body.phone_number_individual,
                         email_address: req.body.email_address_individual,
-                        address_proof: address_proof_url,
-                        government_issued_id: government_issued_id_url,
-                        bank_statement: bank_statement_url
+                        address_proof: address_proof_url ? address_proof_url: results.address_proof,
+                        government_issued_id: government_issued_id_url ? government_issued_id_url : results.government_issued_id,
+                        bank_statement: bank_statement_url ? bank_statement_url : results.bank_statement
 
                     }, {
                         where: {

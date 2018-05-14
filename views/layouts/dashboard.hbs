@@ -458,6 +458,36 @@
                     },
                     async_upload: {
                         extension: 'jpg|JPG|jpeg|JPEG|png|PNG|tiff|TIFF'
+                    },
+                    business_name: {
+                        required: true
+                    },
+                    business_number: {
+                        required: true,
+                        number: true,
+                    },
+                    business_registration_country: {
+                        required: true
+                    },
+                    street: {
+                        required: true
+                    },
+                    city_ins: {
+                        required: true
+                    },
+                    state_ins: {
+                        required: true
+                    },
+                    phone_number: {
+                        required: true
+                    },
+                    postal_code: {
+                        required: true,
+                        number: true
+                    },
+                    email_address: {
+                        required: true,
+                        email: true
                     }
                 },
                 messages: {
@@ -496,6 +526,36 @@
                     },
                     async_upload: {
                         extension: 'Must be image type'
+                    },
+                      business_name: {
+                        required: "Please enter registered business name"
+                    },
+                    business_number: {
+                        required: "Please enter business number",
+                        number: "It must be number",
+                    },
+                    business_registration_country: {
+                        required: "Please enter business country"
+                    },
+                    street: {
+                        required: "Please enter street"
+                    },
+                    city_ins: {
+                        required: "Please enter city"
+                    },
+                    state_ins: {
+                        required: "Please enter state"
+                    },
+                    phone_number: {
+                        required: "Please enter phone number"
+                    },
+                    postal_code: {
+                        required: "Please enter postal code",
+                        number: "It must be number"
+                    },
+                    email_address: {
+                        required: "Please enter email address",
+                        email: "Please enter valid email address"
                     }
                 }
             });

@@ -210,6 +210,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         } else {
             state = req.body.state;
         }
+
         User.update({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -226,14 +227,56 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             where: {
                 id: req.user.id
             }
-        }).then(function (result) {
-            if (result > 0) {
-                req.flash('profileMessage', 'Profile updated successfully');
-                res.redirect('/account-settings');
-            } else {
-                req.flash('profileMessage', 'Already up to date');
-                res.redirect('/account-settings');
-            }
+        }).then(function (status) {
+
+            portfolio_composition.findAndCountAll({
+                where: {user_id: req.user.id}
+              }).then(results => {
+                var count = results.count;
+                if(count >0){
+                    portfolio_composition.update({
+
+                        user_id: req.user.id,
+                        business_name: req.body.business_name,
+                        business_number: req.body.business_number,
+                        business_registration_country: req.body.business_registration_country,
+                        investques: req.body.investques,
+                        settlement_currency: req.body.settlement_currency,
+                        street: req.body.street,
+                        city: req.body.city_ins,
+                        state: req.body.state_ins,
+                        phone_number: req.body.phone_number,
+                        postal_code: req.body.postal_code,
+                        email_address: req.body.email_address
+
+                    }, {
+                        where: {
+                            user_id: req.user.id
+                        }
+                    });
+                }
+                else{
+                    portfolio_composition.create({
+
+                        user_id: req.user.id,
+                        business_name: req.body.business_name,
+                        business_number: req.body.business_number,
+                        business_registration_country: req.body.business_registration_country,
+                        investques: req.body.investques,
+                        settlement_currency: req.body.settlement_currency,
+                        street: req.body.street,
+                        city: req.body.city_ins,
+                        state: req.body.state_ins,
+                        phone_number: req.body.phone_number,
+                        postal_code: req.body.postal_code,
+                        email_address: req.body.email_address
+
+                    });
+                }
+            }).then(function(result){
+                    req.flash('profileMessage', 'Profile updated successfully');
+                    res.redirect('/account-settings');
+            });
         }).catch(function (err) {
             console.log(err);
         });

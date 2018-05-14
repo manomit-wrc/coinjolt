@@ -174,7 +174,7 @@
 											<label>Recent Bank Account Statement <span style="color: red">*</span></label>
 											<input name="bank_statement" class="form-control bank_statement" id="bank_statement" type="file">
 											
-											<img src="" id="blah1" height="20px" width="20px">
+											<img src="" id="bank_statement_document" height="20px" width="20px">
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -320,21 +320,26 @@
 									<div class="form-group">
 										<label>Proof of Address<span style="color: red"> *</span></label>
 										<input name="address_proof" class="form-control file" id="address_proof" data-temp-name="address_proof" value="" type="file">
-										<img src="" id="blah1" height="20px" width="20px">
+
+										{{!-- <h2>{{getUploadedFileExtension p_institutional_modal_arr.0.address_proof}}</h2> --}}
+
+										{{#if_eq (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'jpg'}}
+											<img src="{{p_institutional_modal_arr.0.address_proof}}" id="address_proof_document" height="20px" width="20px">
+										{{/if_eq}}
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Government Issued ID<span style="color: red"> *</span></label>
 										<input name="shareholder_id" class="form-control file" id="government_issued_id" data-temp-name="govt_id" type="file">
-										<img src="" id="blah1" height="20px" width="20px">
+										<img src="" id="government_issued_document" height="20px" width="20px">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Recent Bank Account Statement<span style="color: red"> *</span></label>
 										<input name="bank_statement" class="form-control file" id="bank_statement_individual" data-temp-name="bank_statement" type="file">
-										<img src="" id="blah1" height="20px" width="20px">
+										<img src="" id="bank_statement_document" height="20px" width="20px">
 									</div>
 								</div>
 								<div class="col-md-6">

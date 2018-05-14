@@ -839,14 +839,15 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     field_4: p_composition[0].get('investques'),
                     field_5: p_composition[0].get('settlement_currency')
                 });
-
+                
                 p_institutional_modal_arr.push({
                     field_1: p_composition[0].get('account_name'),
                     field_2: p_composition[0].get('bank_country'),
                     field_3: p_composition[0].get('account_number'),
                     field_4: p_composition[0].get('routing_number'),
                     field_5: p_composition[0].get('phone_number'),
-                    field_6: p_composition[0].get('email_address')
+                    field_6: p_composition[0].get('email_address'),
+                    address_proof: p_composition[0].get('address_proof')
                 });
         }
         res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length, p_institutional_modal_arr: p_institutional_modal_arr });

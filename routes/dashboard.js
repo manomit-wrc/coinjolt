@@ -328,8 +328,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         state: req.body.state_ins,
                         phone_number: req.body.phone_number,
                         postal_code: req.body.postal_code,
-                        email_address: req.body.email_address
-
+                        email_address: req.body.email_address,
+                        status: 0
                     });
                 }
             }).then(function(result){
@@ -1001,8 +1001,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         business_number: businessNumber,
                         business_registration_country: businessCountry,
                         investques: investedAmount,
-                        settlement_currency: settlementCurrency
-
+                        settlement_currency: settlementCurrency,
+                        status: 0
                     });
                 }
                 res.json({ msg: 'Saved' });
@@ -1047,8 +1047,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         last_name: lastName,
                         residence_country: individualCountry,
                         investques: individualInvestAmount,
-                        settlement_currency: individualSettlementCurrency
-
+                        settlement_currency: individualSettlementCurrency,
+                        status: 0
                     });
                 }
                 res.json({ msg: 'Saved' });
@@ -1095,7 +1095,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     account_number: req.body.account_number,
                     routing_number: req.body.routing_number,
                     phone_number: req.body.phone_number,
-                    email_address: req.body.email_address
+                    email_address: req.body.email_address,
+                    status: 0
 
                 });
             }

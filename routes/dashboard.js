@@ -49,6 +49,63 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
       })
     });
 
+    var address_proof = multer({
+        storage: multerS3({
+          s3: s3,
+          bucket: 'coinjoltdev2018/id-proof',
+          acl: 'public-read',
+          cacheControl: 'max-age=31536000',
+          metadata: function (req, file, cb) {
+            cb(null, {fieldName: file.fieldname});
+          },
+          key: function (req, file, cb) {
+              fileExt = file.mimetype.split('/')[1];
+              if (fileExt == 'jpeg') fileExt = 'jpg';
+              fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+              userUrl = keys.S3_URL + 'id-proof/'+fileName;
+              cb(null, fileName);
+          }
+        })
+      });
+
+      var shareholder_id = multer({
+        storage: multerS3({
+          s3: s3,
+          bucket: 'coinjoltdev2018/government-id',
+          acl: 'public-read',
+          cacheControl: 'max-age=31536000',
+          metadata: function (req, file, cb) {
+            cb(null, {fieldName: file.fieldname});
+          },
+          key: function (req, file, cb) {
+              fileExt = file.mimetype.split('/')[1];
+              if (fileExt == 'jpeg') fileExt = 'jpg';
+              fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+              userUrl = keys.S3_URL + 'government-id/'+fileName;
+              cb(null, fileName);
+          }
+        })
+      });
+
+      var bank_statement = multer({
+        storage: multerS3({
+          s3: s3,
+          bucket: 'coinjoltdev2018/bank-account-statement',
+          acl: 'public-read',
+          cacheControl: 'max-age=31536000',
+          metadata: function (req, file, cb) {
+            cb(null, {fieldName: file.fieldname});
+          },
+          key: function (req, file, cb) {
+              fileExt = file.mimetype.split('/')[1];
+              if (fileExt == 'jpeg') fileExt = 'jpg';
+              fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+              userUrl = keys.S3_URL + 'bank-account-statement/'+fileName;
+              cb(null, fileName);
+          }
+        })
+      });
+
     app.get('/dashboard', function (req, res) {
         res.render('dashboard', {
             layout: 'dashboard'
@@ -976,40 +1033,43 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             res.json({ msg: 'Saved' });
         });
     });
-
-    app.post('/save-individualModalData', (req, res) => {
+    const upload_docs = multer();
+    app.post('/save-individualModalData', upload_docs.any(),  (req, res) => {
         portfolio_composition.findAndCountAll({
             where: {user_id: req.user.id}
           }).then(results => {
             var count = results.count;
-            if(count >0){
-                portfolio_composition.update({
-                    account_name: req.body.account_Holdername,
-                    bank_country: req.body.bank_country,
-                    account_number: req.body.account_number,
-                    routing_number: req.body.routing_number,
-                    phone_number: req.body.phone_number,
-                    email_address: req.body.email_address
+            console.log(req.files);
+            // if(count >0){
+            //     portfolio_composition.update({
+            //         account_name: req.body.account_name_individual,
+            //         bank_country: req.body.bank_country_individual,
+            //         account_number: req.body.account_number_individual,
+            //         routing_number: req.body.routing_number_individual,
+            //         phone_number: req.body.phone_number_individual,
+            //         email_address: req.body.email_address_individual,
+            //         address_proof: (req.file === undefined ? results.address_proof : req.file.location)
 
-                }, {
-                    where: {
-                        user_id: req.user.id
-                    }
-                });
-            }
-            else{
-                portfolio_composition.create({
+            //     }, {
+            //         where: {
+            //             user_id: req.user.id
+            //         }
+            //     });
+            // }
+            // else{
+            //     portfolio_composition.create({
 
-                    account_name: req.body.account_Holdername,
-                    bank_country: req.body.bank_country,
-                    account_number: req.body.account_number,
-                    routing_number: req.body.routing_number,
-                    phone_number: req.body.phone_number,
-                    email_address: req.body.email_address
+            //         account_name: req.body.account_name_individual,
+            //         bank_country: req.body.bank_country_individual,
+            //         account_number: req.body.account_number_individual,
+            //         routing_number: req.body.routing_number_individual,
+            //         phone_number: req.body.phone_number_individual,
+            //         email_address: req.body.email_address_individual,
+            //         address_proof: (req.file === undefined ? null : req.file.location)
 
-                });
-            }
-            res.json({ msg: 'Saved' });
+            //     });
+            // }
+            res.json({ msg: 'Saved', success: "true" });
         });
     });
 

@@ -191,50 +191,7 @@
 
     {{!-- //for socket io --}}
      <script src="/socket/socket.io.js"></script>
-<script>
-//$(document).ready(() => {
-// var socket = io.connect('http://localhost:8088');
-// socket.on('hello', function(serverResponseToHello){
-    // do something when server sends back something on hello 
-    // console.log(serverResponseToHello);
-  // });
 
- // send a hello to the server
-  // socket.emit("hello", "Sending hello to server");
-
-
-  //push notification
-    // if(socket) {
-    //     if(socket.on) {
-    //         socket.on('pushNotification', function(options) {
-    //             pushNotification.notify(options);
-    //         })
-    //     }
-    // }
-
-    // (function() {
-    //     Notification.requestPermission();
-    //     function notify(options) {
-    //         var title = options.title || "Notification";
-    //         if (!("Notification" in window)) {
-    //             alert("This browser does not support desktop notification");
-    //         } else if (Notification.permission === "granted") {
-    //             new Notification(title ,options);
-    //         } else if (Notification.permission !== 'denied') {
-    //             Notification.requestPermission(function (permission) {
-    //                 if (permission === "granted") {
-    //                     new Notification("title" ,{body: body});
-    //                 }
-    //         });
-    //       }
-    //     }
-    //     window.pushNotification = {
-    //         notify: notify
-    //     }
-    // })();
-    
-</script>
-    {{!-- //end --}}
     <script type="text/javascript">
         var seriesOptions = [],
         seriesCounter = 0,
@@ -1650,38 +1607,32 @@
                     }
                 },
                 submitHandler:function(form) {
-                   
+
+                    var form_data = new FormData($("#individualModalForm").get(0));
+
                     $.ajax({
                         type: "POST",
                         url: "/save-individualModalData",
-                        data: {
-                            account_Holdername: $("#account_name_individual").val(),
-                            bank_country: $("#bank_country_individual").val(),
-                            account_number: $("#account_number_individual").val(),
-                            routing_number: $("#routing_number_individual").val(),
-                            phone_number: $("#phone_number_individual").val(),
-                            email_address: $("#email_address_individual").val()
-                        
+                        data: form_data,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function() {
+                            $(".loader-gif").css('display', 'block');
+                            $("#submit_individual_modal_data").prop('disabled', true);
                         },
-                        success:function(response) {
-                            swal({
-                                icon: "success",
-                                title: response.msg,
-                                confirmButtonClass: "btn-success",
-                                confirmButtonText: "OK"
-                            },function(isConfirm){
-                                if(isConfirm){
-                                    window.location.href = "/managed-cryptocurrency-portfolio";
-                                }
-                            });
-
+                        success: function(response) {
+                            //window.location.href = "/managed-cryptocurrency-portfolio";
+                            $("#div_individual_modal").css('display', 'block');
+                            $(".loader-gif").css('display', 'none');
+                            $("#submit_individual_modal_data").prop('disabled', false);
+                            $('#div_individual_modal').delay(5000).fadeOut();
                         },
                         error: function(xhr) {
-                            console.log('Error');
+                            $(".loader-gif").css('display', 'none');
+                            $("#submit_individual_modal_data").prop('disabled', false);
                         }
-                    }); 
-                   
-
+                    });
                 }
             });
 

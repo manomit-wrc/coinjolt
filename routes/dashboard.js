@@ -107,13 +107,38 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 ['createdAt', 'DESC']
             ]
         });
+        var p_composition = await portfolio_composition.findAll({
+            where: {
+                user_id: req.user.id
+            }
+        });
+
+        var p_institutional_arr = [];
+
+        p_institutional_arr.push({
+            field_1: p_composition[0].get('business_name'),
+            field_2: p_composition[0].get('business_number'),
+            field_3: p_composition[0].get('business_registration_country'),
+            field_4: p_composition[0].get('investques'),
+            field_5: p_composition[0].get('settlement_currency'),
+            field_6: p_composition[0].get('street'),
+            field_7: p_composition[0].get('city'),
+            field_8: p_composition[0].get('state'),
+            field_9: p_composition[0].get('phone_number'),
+            field_10: p_composition[0].get('postal_code'),
+            field_11: p_composition[0].get('email_address')
+        });
+
+
+
         const msg = req.flash('profileMessage')[0];
         var country = await Country.findAll();
         res.render('account-settings', {
             layout: 'dashboard',
             message: msg,
             countries: country,
-            kyc_details: kyc_details
+            kyc_details: kyc_details,
+            p_institutional_arr: p_institutional_arr
         });
     });
 
@@ -697,7 +722,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }
         });
         if(p_composition.length > 0) {
-                //console.log(JSON.stringify(p_composition));
                 p_individual_arr.push({
                     field_1: p_composition[0].get('first_name'),
                     field_2: p_composition[0].get('last_name'),

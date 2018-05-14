@@ -30,6 +30,7 @@
                     <th>ID</th>
                     <th>Subject</th>
                     <th>Description</th>
+                    <th>Status</th>
                     <th>Date</th>
                   </tr>
                 </thead>
@@ -39,6 +40,7 @@
                     <td>{{this.id}}</td>
                     <td>{{this.title}}</td>
                     <td>{{this.enquiry}}</td>
+                    <td>{{#if_eq this.status '0'}} Opened {{else}} Closed {{/if_eq}}</td>
                     <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
                   </tr>
                   {{/each}}

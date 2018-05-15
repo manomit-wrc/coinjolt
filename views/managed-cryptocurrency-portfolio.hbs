@@ -321,11 +321,16 @@
 										<label>Proof of Address<span style="color: red"> *</span></label>
 										<input name="address_proof" class="form-control file" id="address_proof" data-temp-name="address_proof" value="" type="file">
 
-										{{!-- <h2>{{getUploadedFileExtension p_institutional_modal_arr.0.address_proof}}</h2> --}}
 
-										{{#if_eq (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'jpg'}}
-											<img src="{{p_institutional_modal_arr.0.address_proof}}" id="address_proof_document" height="20px" width="20px">
-										{{/if_eq}}
+										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'jpg' ) }}
+												<img src="{{p_institutional_modal_arr.0.address_proof}}" id="address_proof_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'png' )}}
+												<img src="{{p_institutional_modal_arr.0.address_proof}}" id="address_proof_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'jpeg' )}}
+												<img src="{{p_institutional_modal_arr.0.address_proof}}" id="address_proof_document" height="20px" width="20px">
+											{{else}}
+												<a href="{{p_institutional_modal_arr.0.address_proof}}" target="_blank">Link To Address Proof</a>
+										{{/if}}
 									</div>
 								</div>
 								<div class="col-md-6">

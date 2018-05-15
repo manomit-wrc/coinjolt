@@ -197,7 +197,56 @@ helpers: {
     },
     getUploadedFileExtension: function(value){
       return value.substr(value.lastIndexOf('.') + 1);
-    }
+    },
+
+    multiple_if: function(){
+      const args = Array.prototype.slice.call(arguments, 0, -1);
+      return args.every(function (expression) {
+          return args[0] === expression;
+      });
+    }//,
+
+    /* multiple_if: function(v1,o1,v2,mainOperator,v3,o2,v4,options){
+          var operators = {
+            '==': function(a, b){ return a==b},
+            '===': function(a, b){ return a===b},
+            '!=': function(a, b){ return a!=b},
+            '!==': function(a, b){ return a!==b},
+            '<': function(a, b){ return a<b},
+            '<=': function(a, b){ return a<=b},
+            '>': function(a, b){ return a>b},
+            '>=': function(a, b){ return a>=b},
+            '&&': function(a, b){ return a&&b},
+            '||': function(a, b){ return a||b},
+          };
+        var a1 = operators[o1](v1,v2);
+        var a2 = operators[o2](v3,v4);
+        var isTrue = operators[mainOperator](a1, a2);
+        return isTrue ? options.fn(this) : options.inverse(this);
+    }, */
+
+    /* multiple_if: function(lvalue, operator, rvalue ,options){
+        var operators, result;
+        operators = {
+          '==': function (l, r) { return l == r; },
+          '===': function (l, r) { return l === r; },
+          '!=': function (l, r) { return l != r; },
+          '!==': function (l, r) { return l !== r; },
+          '<': function (l, r) { return l < r; },
+          '>': function (l, r) { return l > r; },
+          '<=': function (l, r) { return l <= r; },
+          '>=': function (l, r) { return l >= r; },
+          'typeof': function (l, r) { return typeof l == r; }
+        };
+        result = operators[operator](lvalue, rvalue);
+        if (result) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+
+    } */
+
   }
 });
 app.engine('.hbs', hbs.engine);

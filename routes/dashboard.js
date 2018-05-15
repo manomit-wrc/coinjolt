@@ -6,7 +6,7 @@ const keys = require('../config/key');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
 const async = require('async');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var s3bucket = new AWS.S3({accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey, params: {Bucket: 'coinjoltdev2018'}});
@@ -998,41 +998,122 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }
 
     });
-
-    app.post('/save-institutionalModalData', (req, res) => {
+    var upload_docs_inst = multer();
+    app.post('/save-institutionalModalData', upload_docs_inst.any(), (req, res) => {
 
         portfolio_composition.findAndCountAll({
             where: {user_id: req.user.id}
           }).then(results => {
             var count = results.count;
-            if(count >0){
-                portfolio_composition.update({
-                    account_name: req.body.account_Holdername,
-                    bank_country: req.body.bank_country,
-                    account_number: req.body.account_number,
-                    routing_number: req.body.routing_number,
-                    phone_number: req.body.phone_number,
-                    email_address: req.body.email_address
+            var bank_statement_url = '';
+            var cert_incorp_url = '';
+            var upload_docs = lodash.filter(req.files, x => x.fieldname === "upload_docs");
+            var upload_docs_dynmc = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc");
+            var upload_docs_dynmc_1 = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc-1");
+            async.eachSeries(upload_docs, ( item, cb ) => {
+                console.log("Here");
+                var tempArr = lodash.filter(JSON.parse(req.body.upload_file_name), x => x.temp_file_name === item.originalname);
+                var upload_path = tempArr[0].folder_name+"/"+item.originalname;
+                
+                var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
 
-                }, {
-                    where: {
-                        user_id: req.user.id
+                if(tempArr[0].folder_name === "cert_incorp") {
+                    cert_incorp_url = keys.S3_URL + upload_path;
+                }
+                if(tempArr[0].folder_name === "bank_statement") {
+                    bank_statement_url = keys.S3_URL + upload_path;
+                }
+
+                s3bucket.upload(params, function(err, data) {
+                    if (err) {
+                        console.log("Error uploading data. ", err);
+                        cb(err)
+                    } else {
+                        console.log("Success uploading data");
+                        cb()
                     }
-                });
-            }
-            else{
-                portfolio_composition.create({
+                })
+            }, function(err) {
+                async.eachSeries(upload_docs_dynmc, ( item, cb ) => {
+                    
+                    var tempArr = lodash.filter(JSON.parse(req.body.proof_of_address), x => x.temp_file_name === item.originalname);
+                    var upload_path = tempArr[0].folder_name+"/"+item.originalname;
 
-                    account_name: req.body.account_Holdername,
-                    bank_country: req.body.bank_country,
-                    account_number: req.body.account_number,
-                    routing_number: req.body.routing_number,
-                    phone_number: req.body.phone_number,
-                    email_address: req.body.email_address
+                    var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
 
+                    s3bucket.upload(params, function(err, data) {
+                        if (err) {
+                            console.log("Error uploading data. ", err);
+                            cb(err)
+                        } else {
+                            console.log("Success uploading data");
+                            cb()
+                        }
+                    })
+                }, function(err) {
+                    async.eachSeries(upload_docs_dynmc_1, (item, cb ) => {
+                        var index = upload_docs_dynmc_1.indexOf(item);
+
+                        var tempArr = lodash.filter(JSON.parse(req.body.proof_of_address), x => x.temp_file_name === item.originalname);
+                        var upload_path = "govt_id/"+item.originalname;
+
+                        shareholder.create({
+                            user_id: req.user.id,
+                            shareholder_name: req.body.shareholder_name[index] ,
+                            address_proof: keys.S3_URL + "address_proof/"+upload_docs_dynmc[index].originalname,
+                            government_issued_id: keys.S3_URL + upload_path
+                        });
+
+                        var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
+
+
+
+                        s3bucket.upload(params, function(err, data) {
+                            if (err) {
+                                console.log("Error uploading data. ", err);
+                                cb(err)
+                            } else {
+                                console.log("Success uploading data");
+                                cb()
+                            }
+                        })
+                    }, function(err) {
+                        if(count >0){
+                            portfolio_composition.update({
+                                account_name: req.body.account_name,
+                                bank_country: req.body.bank_country,
+                                account_number: req.body.account_number,
+                                routing_number: req.body.routing_number,
+                                phone_number: req.body.phone_number,
+                                email_address: req.body.email_address,
+                                bank_statement: bank_statement_url ? bank_statement_url : results.bank_statement,
+                                incorporation_certificate: cert_incorp_url ? cert_incorp_url : results.incorporation_certificate
+            
+                            }, {
+                                where: {
+                                    user_id: req.user.id
+                                }
+                            });
+                        }
+                        else{
+                            portfolio_composition.create({
+            
+                                account_name: req.body.account_name,
+                                bank_country: req.body.bank_country,
+                                account_number: req.body.account_number,
+                                routing_number: req.body.routing_number,
+                                phone_number: req.body.phone_number,
+                                email_address: req.body.email_address,
+                                bank_statement: bank_statement_url,
+                                incorporation_certificate: cert_incorp_url
+            
+                            });
+                        }
+                        res.json({ msg: 'Saved', success: "true" });
+                    })
+                    
                 });
-            }
-            res.json({ msg: 'Saved' });
+            });
         });
     });
     var upload_docs = multer();

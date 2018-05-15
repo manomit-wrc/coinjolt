@@ -191,50 +191,7 @@
 
     {{!-- //for socket io --}}
      <script src="/socket/socket.io.js"></script>
-<script>
-//$(document).ready(() => {
-// var socket = io.connect('http://localhost:8088');
-// socket.on('hello', function(serverResponseToHello){
-    // do something when server sends back something on hello 
-    // console.log(serverResponseToHello);
-  // });
 
- // send a hello to the server
-  // socket.emit("hello", "Sending hello to server");
-
-
-  //push notification
-    // if(socket) {
-    //     if(socket.on) {
-    //         socket.on('pushNotification', function(options) {
-    //             pushNotification.notify(options);
-    //         })
-    //     }
-    // }
-
-    // (function() {
-    //     Notification.requestPermission();
-    //     function notify(options) {
-    //         var title = options.title || "Notification";
-    //         if (!("Notification" in window)) {
-    //             alert("This browser does not support desktop notification");
-    //         } else if (Notification.permission === "granted") {
-    //             new Notification(title ,options);
-    //         } else if (Notification.permission !== 'denied') {
-    //             Notification.requestPermission(function (permission) {
-    //                 if (permission === "granted") {
-    //                     new Notification("title" ,{body: body});
-    //                 }
-    //         });
-    //       }
-    //     }
-    //     window.pushNotification = {
-    //         notify: notify
-    //     }
-    // })();
-    
-</script>
-    {{!-- //end --}}
     <script type="text/javascript">
         var seriesOptions = [],
         seriesCounter = 0,
@@ -1479,7 +1436,7 @@
             });
 
             /* Script for validating institute modal form */
-            $('#submit_institution_modal').on('click', function(){
+            $('#submit_institution_modal_data').on('click', function(){
                 $('#instituteModalForm').submit();
             });
 
@@ -1541,18 +1498,17 @@
                     }
                 },
                 submitHandler:function(form) {
-                    alert('Form submitted');
-                    /*
+                    
                     $.ajax({
                         type: "POST",
-                        url: "/save-institutionalIndividual-data",
+                        url: "/save-institutionalModalData",
                         data: {
-                            first_name: $("#first_name").val(),
-                            last_name: $("#last_name").val(),
-                            residence_country_individual: $("#residence_country_individual").val(),
-                            invest_amount_individual: $("#investques_individual").val(),
-                            settlement_currency_individual: $("#settlement_currency_individual").val(),
-                            individualOrInstitutional_type: $("input:radio[name=investor_type]:checked").val()
+                            account_Holdername: $("#account_name").val(),
+                            bank_country: $("#bank_country").val(),
+                            account_number: $("#account_number").val(),
+                            routing_number: $("#routing_number").val(),
+                            phone_number: $("#phone_number").val(),
+                            email_address: $("#email_address").val()
                         
                         },
                         success:function(response) {
@@ -1572,11 +1528,13 @@
                             console.log('Error');
                         }
                     }); 
-                    */
+                   
 
                 }
             });
             // validation for dynamically generated elements in institutional user's form
+
+            /*
             $('.multiple_div > #shareholder_div > #name .appnd').find('.shareholder_name').each(function(index) {
                 $(this).rules('add', {
                     required: true,
@@ -1585,8 +1543,118 @@
                     }
                 });
             }); 
+            */
 
-            // end validation
+            /* Script for validating individual modal form */
+            
+            $('#submit_individual_modal_data').on('click', function(){
+                $('#individualModalForm').submit();
+            });
+
+            $('#individualModalForm').validate({
+                 rules: {
+                    account_name_individual: {
+                        required: true
+                    },
+                    bank_country_individual: {
+                        required: true
+                    },
+                    account_number_individual: {
+                        required: true,
+                        number: true,
+                        minlength: 7,
+                        maxlength: 7
+                    },
+                    routing_number_individual: {
+                        required: true,
+                        number: true,
+                        minlength: 9,
+                        maxlength: 9
+                    },
+                    phone_number_individual: {
+                        required: true,
+                        number: true
+                    },
+                    email_address_individual: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    account_name_individual: {
+                        required: "Please enter bank account holder name"
+                    },
+                    bank_country_individual: {
+                        required: "Please enter country of bank account"
+                    },
+                    account_number_individual: {
+                       required: "Please enter account number",
+                       number: "Only numbers are accepted",
+                       minlength: "Account number can have exactly 7 digits",
+                       maxlength: "Account number can have exactly 7 digits"
+                    },
+                    routing_number_individual: {
+                        required: "Please enter routing number",
+                        number: "Only numbers are accepted",
+                        minlength: "Routing number can have exactly 9 digits",
+                        maxlength: "Routing number can have exactly 9 digits"
+                    },
+                    phone_number_individual: {
+                        required: "Please enter phone number",
+                        number: "Only numbers are accepted"
+                    },
+                    email_address_individual: {
+                        required: "Please enter email address",
+                        email: "Please enter valid email address"
+                    }
+                },
+                submitHandler:function(form) {
+
+                    var form_data = new FormData();
+                    var upload_file_name = [];
+                    $(".file").each(function(index) {
+                        if(this.files[0]) {
+                            upload_file_name.push({
+                                folder_name: $(this).data('temp-name'),
+                                temp_file_name: this.files[0].name
+                            })
+                            form_data.append('upload_docs', this.files[0]);
+                        }
+                    });
+                    form_data.append('upload_file_name',JSON.stringify(upload_file_name));
+                    
+                    form_data.append('account_name_individual', $("#account_name_individual").val());
+                    form_data.append('bank_country_individual', $("#bank_country_individual").val());
+                    form_data.append('account_number_individual', $("#account_number_individual").val());
+                    form_data.append('routing_number_individual', $("#routing_number_individual").val());
+                    form_data.append('phone_number_individual', $("#phone_number_individual").val());
+                    form_data.append('email_address_individual', $("#email_address_individual").val());
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/save-individualModalData",
+                        data: form_data,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function() {
+                            $(".loader-gif").css('display', 'block');
+                            $("#submit_individual_modal_data").prop('disabled', true);
+                        },
+                        success: function(response) {
+                            //window.location.href = "/managed-cryptocurrency-portfolio";
+                            $("#div_individual_modal").css('display', 'block');
+                            $(".loader-gif").css('display', 'none');
+                            $("#submit_individual_modal_data").prop('disabled', false);
+                            $('#div_individual_modal').delay(5000).fadeOut();
+                        },
+                        error: function(xhr) {
+                            $(".loader-gif").css('display', 'none');
+                            $("#submit_individual_modal_data").prop('disabled', false);
+                        }
+                    });
+                }
+            });
 
         });
     </script>

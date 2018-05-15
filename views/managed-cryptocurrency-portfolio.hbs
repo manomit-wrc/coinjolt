@@ -180,42 +180,42 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Bank Account Holder Name <span style="color: red">*</span></label>
-											<input placeholder="Enter Name on Bank Account" name="account_name" class="form-control" id="account_name" value="" type="text">
+											<input placeholder="Enter Name on Bank Account" name="account_name" class="form-control" id="account_name" value="{{p_institutional_modal_arr.0.field_1}}" type="text">
 											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Country of Bank Account <span style="color: red">*</span></label>
-											<input placeholder="Enter Country of Bank" name="bank_country" class="form-control" id="bank_country" value="" type="text">
+											<input placeholder="Enter Country of Bank" name="bank_country" class="form-control" id="bank_country" value="{{p_institutional_modal_arr.0.field_2}}" type="text">
 											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Account Number (7 Digits) <span style="color: red">*</span></label>
-											<input placeholder="Enter Account Number" name="account_number" class="form-control" id="account_number" value="" type="text">
+											<input placeholder="Enter Account Number" name="account_number" class="form-control" id="account_number" value="{{p_institutional_modal_arr.0.field_3}}" type="text">
 											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Routing Number (9 Digits) <span style="color: red">*</span></label>
-											<input placeholder="Enter Routing Number" name="routing_number" class="form-control" id="routing_number" value="" type="text">
+											<input placeholder="Enter Routing Number" name="routing_number" class="form-control" id="routing_number" value="{{p_institutional_modal_arr.0.field_4}}" type="text">
 										
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Phone Number <span style="color: red">*</span></label>
-											<input placeholder="Enter Phone Number" name="phone_number" class="form-control" id="phone_number" value="" type="text">
+											<input placeholder="Enter Phone Number" name="phone_number" class="form-control" id="phone_number" value="{{p_institutional_modal_arr.0.field_5}}" type="text">
 											
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Email Address <span style="color: red">*</span></label>
-											<input placeholder="Enter Email Address" name="email_address" class="form-control" id="email_address" value="" type="text">
+											<input placeholder="Enter Email Address" name="email_address" class="form-control" id="email_address" value="{{p_institutional_modal_arr.0.field_6}}" type="text">
 											
 										</div>
 									</div>
@@ -252,7 +252,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<input value="Save" name="Save" class="form-control btn btn-primary submit_institution_modal" id="submit_institution_modal" type="button">
+								<input value="Save" name="Save" class="form-control btn btn-primary submit_institution_modal_data" id="submit_institution_modal_data" type="button">
 							</div>
 						</form>
 					</div>
@@ -313,79 +313,72 @@
 						<h4 class="modal-title" id="myModalLabel">Upload The Following  Documents</h4>
 					</div>
 					<div class="modal-body">
-						<form class="form">
+						<form class="form" id="individualModalForm" enctype="multipart/form-data">
+							<div class="alert alert-success" id="div_individual_modal" style="display: none;">Information updated successfully</div>
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Proof of Address<span style="color: red"> *</span></label>
-										<input name="address_proof" class="form-control" id="address_proof" value="" type="file">
-										<span id="address_proof_individual_err" style="color: tomato;"></span>
-										<img src="../dashboard/portfolio_documents/" id="blah1" height="20px" width="20px">
+										<input name="address_proof" class="form-control file" id="address_proof" data-temp-name="address_proof" value="" type="file">
+										<img src="" id="blah1" height="20px" width="20px">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Government Issued ID<span style="color: red"> *</span></label>
-										<input name="shareholder_id" class="form-control" id="government_issued_id" type="file">
-										<span id="government_issued_id_individual_err" style="color: tomato;"></span>
-										<img src="../dashboard/portfolio_documents/" id="blah1" height="20px" width="20px">
+										<input name="shareholder_id" class="form-control file" id="government_issued_id" data-temp-name="govt_id" type="file">
+										<img src="" id="blah1" height="20px" width="20px">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Recent Bank Account Statement<span style="color: red"> *</span></label>
-										<input name="bank_statement" class="form-control" id="bank_statement_individual" type="file">
-										<span id="bank_statement_individual_err" style="color: tomato;"></span>
-										<img src="../dashboard/portfolio_documents/" id="blah1" height="20px" width="20px">
+										<input name="bank_statement" class="form-control file" id="bank_statement_individual" data-temp-name="bank_statement" type="file">
+										<img src="" id="blah1" height="20px" width="20px">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Bank Account Holder Name<span style="color: red"> *</span></label>
-										<input placeholder="Enter Name on Bank Account" name="account_name" class="form-control" id="account_name_individual" value="" type="text">
-										<span id="account_name_individual_err" style="color: tomato;"></span>
+										<input placeholder="Enter Name on Bank Account" name="account_name_individual" class="form-control" id="account_name_individual" value="{{p_institutional_modal_arr.0.field_1}}" type="text">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Country of Bank Account<span style="color: red"> *</span></label>
-										<input placeholder="Enter Country of Bank" name="bank_country" class="form-control" id="bank_country_individual" value="" type="text">
-										<span id="bank_country_individual_err" style="color: tomato;"></span>
+										<input placeholder="Enter Country of Bank" name="bank_country_individual" class="form-control" id="bank_country_individual" value="{{p_institutional_modal_arr.0.field_2}}" type="text">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Account Number (7 Digits)<span style="color: red"> *</span></label>
-										<input placeholder="Enter Account Number" name="account_number" class="form-control" id="account_number_individual" value="" type="text">
-										<span id="account_number_individual_err" style="color: tomato;"></span>
+										<input placeholder="Enter Account Number" name="account_number_individual" class="form-control" id="account_number_individual" value="{{p_institutional_modal_arr.0.field_3}}" type="text">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Routing Number (9 Digits)<span style="color: red"> *</span></label>
-										<input placeholder="Enter Routing Number" name="routing_number" class="form-control" id="routing_number_individual" value="" type="text">
-										<span id="routing_number_individual_err" style="color: tomato;"></span>
+										<input placeholder="Enter Routing Number" name="routing_number_individual" class="form-control" id="routing_number_individual" value="{{p_institutional_modal_arr.0.field_4}}" type="text">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Phone Number<span style="color: red"> *</span></label>
-										<input placeholder="Enter Phone Number" name="phone_number" class="form-control" id="phone_number_individual" value="" type="text">
-										<span id="phone_number_individual_err" style="color: tomato;"></span>
+										<input placeholder="Enter Phone Number" name="phone_number_individual" class="form-control" id="phone_number_individual" value="{{p_institutional_modal_arr.0.field_5}}" type="text">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Email Address<span style="color: red"> *</span></label>
-										<input placeholder="Enter Email Address" name="email_address" class="form-control" id="email_address_individual" value="" type="email">
-										<span id="email_address_individual_err" style="color: tomato;"></span>
+										<input placeholder="Enter Email Address" name="email_address_individual" class="form-control" id="email_address_individual" value="{{p_institutional_modal_arr.0.field_6}}" type="email">
 									</div>
 								</div>
 							</div>
 						</form>
 					</div>
 					<div class="modal-footer">
-						<input value="Select" name="Select" class="form-control btn btn-primary submit_individual" onclick="individualValidationModal()" type="button">
+						<img src="/ajax-loader-1.gif" class="loader-gif" style="display: none;">
+						<input value="Save" name="Select" class="form-control btn btn-primary submit_individual_modal_data" id="submit_individual_modal_data" type="button">
 					</div>
 				</div>
 			</div>

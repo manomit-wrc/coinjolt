@@ -849,7 +849,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     field_6: p_composition[0].get('email_address'),
                     address_proof: p_composition[0].get('address_proof'),
                     bank_statement: p_composition[0].get('bank_statement'),
-                    government_issued_id: p_composition[0].get('government_issued_id')
+                    government_issued_id: p_composition[0].get('government_issued_id'),
+                    incorporation_certificate: p_composition[0].get('incorporation_certificate'),
+                    bank_statement: p_composition[0].get('bank_statement')
                 });
         }
         res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length, p_institutional_modal_arr: p_institutional_modal_arr });

@@ -145,7 +145,19 @@
 											<input name="incorporation_certificate" class="form-control incorporation_certificate" id="incorporation_certificate" value="" type="file">
 											
 									
-											<img src="" id="blah3" height="20px" width="20px">
+											{{!-- <img src="" id="blah3" height="20px" width="20px"> --}}
+
+											{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.incorporation_certificate) 'jpg' ) }}
+												<img src="{{p_institutional_modal_arr.0.incorporation_certificate}}" id="incorporation_certificate" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.incorporation_certificate) 'png' )}}
+												<img src="{{p_institutional_modal_arr.0.incorporation_certificate}}" id="incorporation_certificate" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.incorporation_certificate) 'jpeg' )}}
+												<img src="{{p_institutional_modal_arr.0.incorporation_certificate}}" id="incorporation_certificate" height="20px" width="20px">
+											{{else}}
+												<a href="{{p_institutional_modal_arr.0.incorporation_certificate}}" target="_blank">Link To Incorporation Certificate</a>
+										{{/if}}
+
+
 										</div>
 									</div>
 									<!-- <div class="col-md-6">
@@ -174,7 +186,18 @@
 											<label>Recent Bank Account Statement <span style="color: red">*</span></label>
 											<input name="bank_statement" class="form-control bank_statement" id="bank_statement" type="file">
 											
-											<img src="" id="bank_statement_document" height="20px" width="20px">
+											{{!-- <img src="" id="bank_statement_document" height="20px" width="20px"> --}}
+
+											{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpg' ) }}
+													<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+												{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'png' )}}
+													<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+												{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpeg' )}}
+													<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+												{{else}}
+													<a href="{{p_institutional_modal_arr.0.bank_statement}}" target="_blank">Link To Bank Statement</a>
+											{{/if}}
+
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -337,7 +360,6 @@
 									<div class="form-group">
 										<label>Government Issued ID<span style="color: red"> *</span></label>
 										<input name="shareholder_id" class="form-control file" id="government_issued_id" data-temp-name="govt_id" type="file">
-										{{!-- <img src="" id="government_issued_document" height="20px" width="20px"> --}}
 
 										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.government_issued_id) 'jpg' ) }}
 												<img src="{{p_institutional_modal_arr.0.government_issued_id}}" id="government_issued_document" height="20px" width="20px">
@@ -356,7 +378,6 @@
 									<div class="form-group">
 										<label>Recent Bank Account Statement<span style="color: red"> *</span></label>
 										<input name="bank_statement" class="form-control file" id="bank_statement_individual" data-temp-name="bank_statement" type="file">
-										{{!-- <img src="" id="bank_statement_document" height="20px" width="20px"> --}}
 
 										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpg' ) }}
 												<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">

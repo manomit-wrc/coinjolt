@@ -166,13 +166,38 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 ['createdAt', 'DESC']
             ]
         });
+        var p_composition = await portfolio_composition.findAll({
+            where: {
+                user_id: req.user.id
+            }
+        });
+
+        var p_institutional_arr = [];
+
+        p_institutional_arr.push({
+            field_1: p_composition[0].get('business_name'),
+            field_2: p_composition[0].get('business_number'),
+            field_3: p_composition[0].get('business_registration_country'),
+            field_4: p_composition[0].get('investques'),
+            field_5: p_composition[0].get('settlement_currency'),
+            field_6: p_composition[0].get('street'),
+            field_7: p_composition[0].get('city'),
+            field_8: p_composition[0].get('state'),
+            field_9: p_composition[0].get('phone_number'),
+            field_10: p_composition[0].get('postal_code'),
+            field_11: p_composition[0].get('email_address')
+        });
+
+
+
         const msg = req.flash('profileMessage')[0];
         var country = await Country.findAll();
         res.render('account-settings', {
             layout: 'dashboard',
             message: msg,
             countries: country,
-            kyc_details: kyc_details
+            kyc_details: kyc_details,
+            p_institutional_arr: p_institutional_arr
         });
     });
 
@@ -244,6 +269,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         } else {
             state = req.body.state;
         }
+
         User.update({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -260,14 +286,56 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             where: {
                 id: req.user.id
             }
-        }).then(function (result) {
-            if (result > 0) {
-                req.flash('profileMessage', 'Profile updated successfully');
-                res.redirect('/account-settings');
-            } else {
-                req.flash('profileMessage', 'Already up to date');
-                res.redirect('/account-settings');
-            }
+        }).then(function (status) {
+
+            portfolio_composition.findAndCountAll({
+                where: {user_id: req.user.id}
+              }).then(results => {
+                var count = results.count;
+                if(count >0){
+                    portfolio_composition.update({
+
+                        user_id: req.user.id,
+                        business_name: req.body.business_name,
+                        business_number: req.body.business_number,
+                        business_registration_country: req.body.business_registration_country,
+                        investques: req.body.investques,
+                        settlement_currency: req.body.settlement_currency,
+                        street: req.body.street,
+                        city: req.body.city_ins,
+                        state: req.body.state_ins,
+                        phone_number: req.body.phone_number,
+                        postal_code: req.body.postal_code,
+                        email_address: req.body.email_address
+
+                    }, {
+                        where: {
+                            user_id: req.user.id
+                        }
+                    });
+                }
+                else{
+                    portfolio_composition.create({
+
+                        user_id: req.user.id,
+                        business_name: req.body.business_name,
+                        business_number: req.body.business_number,
+                        business_registration_country: req.body.business_registration_country,
+                        investques: req.body.investques,
+                        settlement_currency: req.body.settlement_currency,
+                        street: req.body.street,
+                        city: req.body.city_ins,
+                        state: req.body.state_ins,
+                        phone_number: req.body.phone_number,
+                        postal_code: req.body.postal_code,
+                        email_address: req.body.email_address,
+                        status: 0
+                    });
+                }
+            }).then(function(result){
+                    req.flash('profileMessage', 'Profile updated successfully');
+                    res.redirect('/account-settings');
+            });
         }).catch(function (err) {
             console.log(err);
         });
@@ -756,7 +824,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }
         });
         if(p_composition.length > 0) {
-                //console.log(JSON.stringify(p_composition));
                 p_individual_arr.push({
                     field_1: p_composition[0].get('first_name'),
                     field_2: p_composition[0].get('last_name'),
@@ -779,22 +846,15 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     field_3: p_composition[0].get('account_number'),
                     field_4: p_composition[0].get('routing_number'),
                     field_5: p_composition[0].get('phone_number'),
-                    field_6: p_composition[0].get('email_address')
+                    field_6: p_composition[0].get('email_address'),
+                    address_proof: p_composition[0].get('address_proof'),
+                    bank_statement: p_composition[0].get('bank_statement'),
+                    government_issued_id: p_composition[0].get('government_issued_id'),
+                    incorporation_certificate: p_composition[0].get('incorporation_certificate'),
+                    bank_statement: p_composition[0].get('bank_statement')
                 });
         }
-
-        var total_mcp_withdrawal = await Deposit.findAll({
-            where: {user_id: req.user.id, type: 5},
-            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_MCP_INVESTED_AMT']]
-        });
-        var mcp_withdraw_final = parseFloat(total_mcp_withdrawal[0].get('TOT_MCP_INVESTED_AMT'));
-        if (!isNaN(mcp_withdraw_final)) {
-            var mcp_withdraw_amt = parseFloat(Math.round(mcp_withdraw_final * 100) / 100).toFixed(2);
-        } else {
-            var mcp_withdraw_amt = 0;
-        }
-
-        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length, mcp_withdraw_amt: mcp_withdraw_amt });
+        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length, p_institutional_modal_arr: p_institutional_modal_arr });
 
     });
 
@@ -946,8 +1006,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         business_number: businessNumber,
                         business_registration_country: businessCountry,
                         investques: investedAmount,
-                        settlement_currency: settlementCurrency
-
+                        settlement_currency: settlementCurrency,
+                        status: 0
                     });
                 }
                 res.json({ msg: 'Saved' });
@@ -992,8 +1052,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         last_name: lastName,
                         residence_country: individualCountry,
                         investques: individualInvestAmount,
-                        settlement_currency: individualSettlementCurrency
-
+                        settlement_currency: individualSettlementCurrency,
+                        status: 0
                     });
                 }
                 res.json({ msg: 'Saved' });
@@ -1104,7 +1164,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                                 phone_number: req.body.phone_number,
                                 email_address: req.body.email_address,
                                 bank_statement: bank_statement_url ? bank_statement_url : results.bank_statement,
-                                incorporation_certificate: cert_incorp_url ? cert_incorp_url : results.incorporation_certificate
+                                incorporation_certificate: cert_incorp_url ? cert_incorp_url : results.incorporation_certificate,
+                                status: 0
             
                             }, {
                                 where: {

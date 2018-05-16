@@ -194,6 +194,16 @@ helpers: {
     checkAnswer: function(value, arr) {
       var tempArr = lodash.filter(arr, x => x.option_id === value);
       return tempArr.length > 0 ? true : false;
+    },
+    getUploadedFileExtension: function(value){
+      return value.substr(value.lastIndexOf('.') + 1);
+    },
+
+    multiple_if: function(){
+      const args = Array.prototype.slice.call(arguments, 0, -1);
+      return args.every(function (expression) {
+          return args[0] === expression;
+      });
     }
   }
 });

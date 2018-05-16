@@ -425,7 +425,17 @@
                                                                                         <label>Proof of Address: </label>
                                                                                     </div>
                                                                                     <div class="col-md-6">	
-                                                                                        <a href="{{this.address_proof}}"><img src="{{this.address_proof}}" width="100px" height="100px"></a>
+                                                                                        
+                                                                                        {{#if (multiple_if (getUploadedFileExtension this.address_proof) 'jpg' ) }}
+                                                                                                <img src="{{this.address_proof}}" width="100px" height="100px">
+                                                                                            {{else if (multiple_if (getUploadedFileExtension this.address_proof) 'png' )}}
+                                                                                                <img src="{{this.address_proof}}" width="100px" height="100px">
+                                                                                            {{else if (multiple_if (getUploadedFileExtension this.address_proof) 'jpeg' )}}
+                                                                                                <img src="{{this.address_proof}}" width="100px" height="100px">
+                                                                                            {{else}}
+                                                                                                <a href="{{this.address_proof}}" target="_blank">Link To Proof Of Address</a>
+                                                                                        {{/if}}
+
                                                                                     </div>
                                                                                     
                                                                                 </div>
@@ -436,7 +446,18 @@
                                                                                         <label>Government Issued ID: </label>
                                                                                     </div>
                                                                                     <div class="col-md-6">	
-                                                                                        <a href="{{this.government_issued_id}}">	<img src="{{this.government_issued_id}}" width="100px" height="100px"></a>
+
+                                                                                        {{#if (multiple_if (getUploadedFileExtension this.government_issued_id) 'jpg' ) }}
+                                                                                                <img src="{{this.government_issued_id}}" width="100px" height="100px">
+                                                                                            {{else if (multiple_if (getUploadedFileExtension this.government_issued_id) 'png' )}}
+                                                                                                <img src="{{this.government_issued_id}}" width="100px" height="100px">
+                                                                                            {{else if (multiple_if (getUploadedFileExtension this.government_issued_id) 'jpeg' )}}
+                                                                                                <img src="{{this.government_issued_id}}" width="100px" height="100px">
+                                                                                            {{else}}
+                                                                                                <a href="{{this.government_issued_id}}" target="_blank">Link To Government Issued Id</a>
+                                                                                        {{/if}}
+
+
                                                                                     </div>
                                                                                     
                                                                                 </div>
@@ -450,7 +471,7 @@
                                                             <tr>
                                                                 <td>{{this.shareholder_name}}</td>
                                                                 <td><a href="javascript:void(0)" class="btn btn-primary" id="showShareholderInfo" data-toggle="modal" data-target="#{{this.id}}">View</a>
-                                                                    <button class="btn btn-primary" onclick="deleteShare(121)">Delete</button></td>
+                                                                    <button class="btn btn-primary deleteShareholderInfo" type="button" data-sid="{{this.id}}" >Delete</button></td>
                                                             </tr>
                                                         {{/each}}
                                                         {{!-- <tr>
@@ -469,7 +490,7 @@
 								</div>
 						    </div>
 						        </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12" id="shareholder_div">
+                                {{!-- <div class="col-md-12 col-sm-12 col-xs-12" id="shareholder_div">
                                     <div class="col-md-2 col-md-offset-10">
                                         <div class="plus-btn">
                                             <button class="btn btn-primary" onclick="append(event)">+</button>
@@ -497,7 +518,7 @@
                                         </div>
                                     </div>
 
-								</div>
+								</div> --}}
                                 <!-- end institutional details form -->
                                 <div class="clearfix"></div>
                                 <div class="col-md-2 col-md-offset-5 text-center">

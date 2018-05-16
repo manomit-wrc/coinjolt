@@ -1270,4 +1270,16 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
+    app.post('/remove-shareholderInfo', (req, res) =>{
+        var shareHolderId = req.body.shareholderId;
+        shareholder.destroy({
+            where: {
+                user_id: req.user.id,
+                id: shareHolderId
+            }
+        }).then(function (result) {
+            res.json({success: "true"});
+        });
+    });
+
 };

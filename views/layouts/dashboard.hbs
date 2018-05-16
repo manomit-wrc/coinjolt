@@ -1222,6 +1222,25 @@
                 }
             });
 
+            /*Script for handling deletion of shareholder details */
+            $('.deleteShareholderInfo').on('click', function(){
+                var shareholderId = $(this).data("sid");
+                
+                $.ajax({
+                    type: 'POST',
+                    data: {shareholderId: shareholderId},
+                    url: "/remove-shareholderInfo", 
+                    dataType: "json",
+                    success: function(response) {
+                        window.location.href = "/account-settings";
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+
+            });
+
             // Dashboard display cryptocurrency list in table starts
             $tr = "";
             $.ajax({

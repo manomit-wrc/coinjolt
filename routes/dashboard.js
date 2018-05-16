@@ -188,7 +188,11 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             field_11: p_composition[0].get('email_address')
         });
 
-
+        var shareholders_info = await shareholder.findAll({
+            where: {
+                user_id: req.user.id
+            }
+        });
 
         const msg = req.flash('profileMessage')[0];
         var country = await Country.findAll();
@@ -197,7 +201,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             message: msg,
             countries: country,
             kyc_details: kyc_details,
-            p_institutional_arr: p_institutional_arr
+            p_institutional_arr: p_institutional_arr,
+            shareholders_info: shareholders_info
         });
     });
 

@@ -352,29 +352,6 @@
 
             $('#profileSaveMsg').delay(2000).fadeOut();
 
-            /* Script for handling change of Institutional or individual investor */
-            /*
-            $('input[type=radio][name="investor_type"]').on('change', function(){
-                  var i = $(this).val();
-
-                  if( i == 'Institution'){
-                        $('#business_name').val('');
-                        $('#business_number').val('');
-                        $('#business_registration_country').val('');     
-                        $('#investques').prop('selectedIndex',0);
-                        $('#settlement_currency').prop('selectedIndex',0);
-                  }  
-                  if(i == 'Individual'){
-                        $('#first_name').val('');
-                        $('#last_name').val('');
-                        $('#residence_country_individual').val('');
-                        $('#investques_individual').prop('selectedIndex',0);
-                        $('#settlement_currency_individual').prop('selectedIndex',0);  
-                  }
-
-            });  */
-
-
             $("#changereferralBtn").click(function(){
                 $("#changeReferralFrm").slideToggle('slow');
             });

@@ -131,7 +131,7 @@
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <script src="/dist/js/jquery.validate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
@@ -1497,11 +1497,13 @@
             });
 
             /* Script for validating institute modal form */
+            
             $('#submit_institution_modal_data').on('click', function(){
                 $('#instituteModalForm').submit();
             });
 
             $('#instituteModalForm').validate({
+                ignore: [],
                  rules: {
                     account_name: {
                         required: true
@@ -1528,6 +1530,17 @@
                     email_address: {
                         required: true,
                         email: true
+                    },
+                    'shareholder_name[]': {
+                        required: true
+                    },
+                    'articles_incorporation[]': {
+                        required: true,
+                        extension: 'jpg|JPG|jpeg|JPEG|png|PNG|pdf|PDF|doc|docx|DOC|DOCX'
+                    },
+                    'shareholder_id[]': {
+                        required: true,
+                        extension: 'jpg|JPG|jpeg|JPEG|png|PNG|pdf|PDF|doc|docx|DOC|DOCX'
                     }
                 },
                 messages: {
@@ -1556,23 +1569,76 @@
                     email_address: {
                         required: "Please enter email address",
                         email: "Please enter valid email address"
+                    },
+                    'shareholder_name[]': {
+                        required: "Please enter shareholder name"
+                    },
+                    'articles_incorporation[]': {
+                        required: "Please upload address proof",
+                        extension: 'Invalid file type'
+                    },
+                    'shareholder_id[]': {
+                        required: "Please upload govt issue id",
+                        extension: 'Invalid file type'
                     }
                 },
                 submitHandler:function(form) {
+
+                    var form_data = new FormData();
+                    var upload_file_name = [];
+                    var proof_of_address = [];
+                    var shareholder_name = [];
+                    $(".file-institute").each(function(index) {
+                        
+                        if(this.files[0]) {
+                            upload_file_name.push({
+                                folder_name: $(this).data('temp-name'),
+                                temp_file_name: this.files[0].name
+                            })
+                            form_data.append('upload_docs', this.files[0]);
+                        }
+                    });
+                    $(".file-dynmc").each(function(index) {
+                        if(this.files[0]) {
+                            proof_of_address.push({
+                                folder_name: $(this).data('temp-name'),
+                                folder_name_another: $(".file-dynmc-1").data('temp-name'),
+                                temp_file_name: this.files[0].name
+                            })
+                            form_data.append('upload_docs_dynmc', this.files[0]);
+                            form_data.append('upload_docs_dynmc-1', $(".file-dynmc-1")[index].files[0]);
+                            
+                        }
+                    });
+                    $(".shareholder_name").each(function(index) {
+                        form_data.append('shareholder_name', $(this).val());
+                    });
+                    form_data.append('upload_file_name',JSON.stringify(upload_file_name));
+                    form_data.append('proof_of_address',JSON.stringify(proof_of_address));
                     
+                    form_data.append('account_name', $("#account_name").val());
+                    form_data.append('bank_country', $("#bank_country").val());
+                    form_data.append('account_number', $("#account_number").val());
+                    form_data.append('routing_number', $("#routing_number").val());
+                    form_data.append('phone_number', $("#phone_number").val());
+                    form_data.append('email_address', $("#email_address").val());
+
                     $.ajax({
                         type: "POST",
                         url: "/save-institutionalModalData",
-                        data: {
-                            account_Holdername: $("#account_name").val(),
-                            bank_country: $("#bank_country").val(),
-                            account_number: $("#account_number").val(),
-                            routing_number: $("#routing_number").val(),
-                            phone_number: $("#phone_number").val(),
-                            email_address: $("#email_address").val()
-                        
+                        data: form_data,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function() {
+                            $(".loader-gif").css('display', 'block');
+                            $("#submit_institution_modal_data").prop('disabled', true);
                         },
-                        success:function(response) {
+                        success: function(response) {
+                            
+                            $(".loader-gif").css('display', 'none');
+                            $("#submit_institution_modal_data").prop('disabled', false);
+                            
                             swal({
                                 icon: "success",
                                 title: response.msg,
@@ -1583,16 +1649,16 @@
                                     window.location.href = "/managed-cryptocurrency-portfolio";
                                 }
                             });
-
+                            
                         },
                         error: function(xhr) {
-                            console.log('Error');
+                            $(".loader-gif").css('display', 'none');
+                            $("#submit_institution_modal_data").prop('disabled', false);
                         }
-                    }); 
-                   
-
+                    });
                 }
             });
+            
             // validation for dynamically generated elements in institutional user's form
 
             /*
@@ -2117,22 +2183,18 @@
         event.preventDefault();
         var shareholder = document.getElementById('test');
 
-        $('#shareholder_div').append('<div class="multiple_div"><div class="col-md-4" id="name"><div class="form-group appnd"><label for="shareholder_name">First and Last Name:</label><input type="text" name="shareholder_name" class="form-control shareholder_name" id="shareholder_name" value=""><label for="shareholder_name" generated="true" class="error"></label></div></div><div class="col-md-4 " id="address"><div class="form-group articles_incorporation_div appnd" ><label>Proof of Address:</label><input type="file" name="articles_incorporation" class="form-control articles_incorporation" id=""><label for="articles_incorporation" generated="true" class="error"></label></div></div><div class="col-md-4 " id="government_id"  ><div class="form-group appnd"><label>Government Issued ID:</label><input type="file" name="shareholder_id" class="form-control shareholder_id" id="shareholder_id" value=""><label for="shareholder_id" generated="true" class="error"></label></div></div></div>');
+        $('#shareholder_div').append('<div class="multiple_div"><div class="col-md-4" id="name"><div class="form-group appnd"><label for="shareholder_name">Name:</label><input type="text" name="shareholder_name[]" class="form-control shareholder_name" id="shareholder_name" value=""><label for="shareholder_name" generated="true" class="error"></label></div></div><div class="col-md-4 " id="address"><div class="form-group articles_incorporation_div appnd" ><label>Proof of Address:</label><input type="file" name="articles_incorporation[]" class="form-control articles_incorporation file-dynmc" id="" data-temp-name="address_proof"><label for="articles_incorporation" generated="true" class="error"></label></div></div><div class="col-md-4 " id="government_id"  ><div class="form-group appnd"><label>Government Issued ID:</label><input type="file" name="shareholder_id[]" class="form-control shareholder_id file-dynmc-1" id="shareholder_id" value="" data-temp-name="govt_id"><label for="shareholder_id" generated="true" class="error"></label></div></div></div>');
         document.getElementById('remove').removeAttribute('disabled','disabled');
     }
 
         function remove(event){
             event.preventDefault();
             var multiple_div = document.getElementsByClassName('multiple_div');
-            var x = multiple_div.length;
-            // alert(x);  
+            var x = multiple_div.length; 
             if(x == 1 ){
                 document.getElementById('remove').setAttribute('disabled','disabled');
                 multiple_div[x-1].parentNode.removeChild(multiple_div[x-1]);
             // multiple_div[0].style.display = "block";
-            }else if(x == 2){
-                multiple_div[x-1].parentNode.removeChild(multiple_div[x-1]);
-                document.getElementById('remove').setAttribute('disabled','disabled');
             }else if(x > 1){               
                 multiple_div[x-1].parentNode.removeChild(multiple_div[x-1]);
                 if(x == 1){

@@ -136,13 +136,13 @@
 							<h4 class="modal-title" id="myModalLabel">Upload The Following  Documents</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form" id="instituteModalForm">
+							<form class="form" id="instituteModalForm" method="POST" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Certificate of Incorporation <span style="color: red">*</span></label>
 											
-											<input name="incorporation_certificate" class="form-control incorporation_certificate" id="incorporation_certificate" value="" type="file">
+											<input name="incorporation_certificate" class="form-control incorporation_certificate file-institute" id="incorporation_certificate" value="" type="file" data-temp-name="cert_incorp">
 											
 									
 											{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.incorporation_certificate) 'jpg' ) }}
@@ -180,7 +180,7 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Recent Bank Account Statement <span style="color: red">*</span></label>
-											<input name="bank_statement" class="form-control bank_statement" id="bank_statement" type="file">
+											<input name="bank_statement" class="form-control bank_statement file-institute" id="bank_statement" type="file" data-temp-name="bank_statement">
 											
 											{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpg' ) }}
 													<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
@@ -268,6 +268,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
+								<img src="/ajax-loader-1.gif" class="loader-gif" style="display: none;">
 								<input value="Save" name="Save" class="form-control btn btn-primary submit_institution_modal_data" id="submit_institution_modal_data" type="button">
 							</div>
 						</form>

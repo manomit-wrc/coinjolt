@@ -205,7 +205,6 @@ helpers: {
           return args[0] === expression;
       });
     }
-
   }
 });
 app.engine('.hbs', hbs.engine);

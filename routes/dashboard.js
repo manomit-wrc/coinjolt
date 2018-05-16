@@ -782,7 +782,19 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     field_6: p_composition[0].get('email_address')
                 });
         }
-        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length, p_institutional_modal_arr: p_institutional_modal_arr });
+
+        var total_mcp_withdrawal = await Deposit.findAll({
+            where: {user_id: req.user.id, type: 5},
+            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_MCP_INVESTED_AMT']]
+        });
+        var mcp_withdraw_final = parseFloat(total_mcp_withdrawal[0].get('TOT_MCP_INVESTED_AMT'));
+        if (!isNaN(mcp_withdraw_final)) {
+            var mcp_withdraw_amt = parseFloat(Math.round(mcp_withdraw_final * 100) / 100).toFixed(2);
+        } else {
+            var mcp_withdraw_amt = 0;
+        }
+
+        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length, mcp_withdraw_amt: mcp_withdraw_amt });
 
     });
 

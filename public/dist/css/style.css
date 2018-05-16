@@ -1274,6 +1274,332 @@ ul.selectbar {
 
 /* Ends on css 11-05-2018 */
 
+/*Starts TAB css on 16-05-2018*/
+
+.box.tabs .panel .nav li.active a {
+    background: #2a2f40;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.box.tabs .panel .nav li.active a:hover {
+    background: #2a2f40;
+}
+
+.box.tabs .panel .nav li a:hover {
+    background: #eeeeee;
+}
+
+.box.tabs .panel .nav li a {
+    background: #ffffff;
+    border: 0 none;
+    color: #2a2f40;
+    text-transform: uppercase;
+    padding: 10px 35px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+.box.tabs .panel .nav li.active a .fa {
+    color: #FFFFFF;
+}
+
+.box.tabs .panel .nav li.active a .glyphicon {
+  color: #fff;
+}
+
+.box.tabs .panel .nav li a .glyphicon {
+  color: #333333;
+  display: table;
+  margin: 0 auto 2px;
+  padding-right: 0;
+}
+
+.box.tabs .panel .nav.nav-tabs  {
+    border-bottom: 0;
+}
+
+.box.tabs .panel .panel-body .tab-content .tab-pane.active.in .heading-wallet, .box.tabs .panel .panel-body .tab-content .tab-pane.active.in .value {
+    color: #176EBE;
+    font-size: 15px;
+}
+
+.box.tabs .panel .panel-body .tab-content .tab-pane.active.in .heading-wallet .fa, .box.tabs .panel .panel-body .tab-content .tab-pane.active.in .value .fa {
+    margin-right: 5px;
+}
+
+.box.tabs .panel .panel-body .tab-content .tab-pane.active.in .heading-wallet .fa.rgt {
+    margin-left: 5px;
+}
+
+.box.tabs .panel .panel-body .tab-content .tab-pane.active.in .body-wallets {
+    padding: 10px;
+}
+
+.box.tabs .panel .panel-body .tab-content .tab-pane.active.in .body-wallets .fa {
+    color: #cccccc;
+    font-size: 24px;
+    margin: 0;
+    display: inline-block;
+    margin-right: 15px;
+    vertical-align: top;
+}
+
+.box.tabs .panel .panel-body .tab-content .tab-pane.active.in .body-wallets a {
+    color: #2a2f40;
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0;
+    display: inline-block;
+    position: relative;
+    line-height: 24px;
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+
+.box.tabs .panel .panel-body .tab-content .tab-pane.active.in .body-wallets a:after {
+    color: #2a2f40;
+    content: "";
+    font-family: "FontAwesome";
+    position: absolute;
+    right: -15px;
+    top: 2px;
+    font-size: 14px;
+}
+
+.box.tabs .panel .panel-body .tab-content .tab-pane.active.in .body-wallets span {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.box.tabs .panel .panel-body .tab-content .tab-pane.active.in .body-wallets .list-group span {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.box.tabs .panel .panel-body .tab-content .tab-pane.active.in .body-wallets .claculate p {
+    font-weight: normal;
+    margin: 0;
+}
+
+.box.tabs .panel .panel-body .tab-content .tab-pane.active.in .body-wallets strong {
+    font-weight: normal;
+    font-size: 18px;
+    color: #5c5c5c;
+}
+
+.mywallt {
+    margin-bottom: 15px;
+}
+
+.all-coin ul {
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    columns: 2;
+}
+
+.content-box {
+    overflow: hidden;
+    clear: both;
+    padding: 15px 0;
+}
+
+.collaps {
+    display: table;
+    margin-top: 10px;
+}
+
+.fltrgt-box {
+
+}
+
+.mywallt .all-btn .btn-primary {
+    background: none !important;
+    border: 1px solid #2a2f40 !important;
+    color: #2a2f40;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -ms-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s; 
+    transition: all 0.3s ease 0s; 
+}
+
+.mywallt .all-btn .btn-primary:hover {
+    background: #2a2f40 !important;
+    border: 1px solid #2a2f40 !important;
+    color: #FFFFFF; 
+}
+
+.mywallt .all-btn .btn-primary:hover .fa {
+    color: #FFFFFF !important; 
+}
+
+.mywallt .all-btn .btn-primary .fa {
+    color: #2a2f40 !important; 
+}
+
+.bit-tabs {
+    border-bottom: 1px solid #ccc;
+}
+
+.panel-body #tab3primary .fa {
+  display: table;
+  font-size: 50px;
+  color: #ccc;
+  margin: 109px auto 0;
+  cursor: default;
+}
+
+.panel-body #tab3primary .btn-primary {
+  display: table;
+  margin: 0 auto;
+  margin-top: 55px;
+}
+
+.wallets-panel {
+  border-bottom: 1px solid #d2d2d2;
+  padding-bottom: 25px;
+}
+
+.wallets-panel h3 {
+  font-weight: 600;
+}
+
+#tab3primary .last h3 {
+  text-align: right;
+}
+
+#tab3primary .last label {
+  float: right;
+}
+
+.wallets-panel.bottom .usdvalue {
+    background: #c8c8c8;
+}
+
+#bitconaddress label {
+  display: block;
+  font-size: 18px;
+  text-align: center;
+}
+
+#bitconaddress label .fa {
+  color: #2a2f40;
+}
+
+#bitconaddress .form-control {
+  height: 40px;
+}
+
+#bitconaddress .modal-header {
+    color: #FFFFFF;
+    background: #2a2f40;
+}
+
+#bitconaddress .modal-header .close {
+    color: #FFFFFF;
+    opacity: 0.5;
+}
+
+.wallets-panel .form-control {
+  height: 40px;
+}
+
+.wallets-panel .form-control.usdvalue {
+  color: #000 !important;
+}
+
+.wallets-panel .form-control.usdvalue::-moz-placeholder {
+  color: #000 !important;
+}
+
+.wallets-panel .form-control.usdvalue::-ms-placeholder {
+  color: #000 !important;
+}
+
+.wallets-panel.bottom {
+  border: 0 none;
+}
+
+.send-box .dropdown {
+    margin-top: 25px;
+}
+
+.box.tabs .tab-content .form-control {
+    height: 40px;
+}
+
+.box.tabs .send-box button {
+    background: transparent;
+    height: 40px;
+}
+
+.box.tabs .send-box button:hover {
+    background: #e6e6e6;
+}
+
+.box.tabs .tab-content #comment, .box.tabs .tab-content #save-template-label {
+    display: none;
+}
+
+.box.tabs .tab-content label.note {
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.box.tabs .tab-content label.note input {
+    margin-right: 8px;
+    vertical-align: baseline;
+}
+
+#tab2primary .send-box textarea {
+    resize: vertical;
+}
+
+#tab2primary .send-box .btn-primary.btn-lg {
+    margin-top: 15px;
+}
+
+#tab2primary .send-box .col-md-2 .form-control {
+  background: #eeeeee none repeat scroll 0 0;
+}
+
+#preview-transaction label {
+    display: block;
+    font-weight: normal;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#preview-transaction .form-control {
+    height: 40px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#preview-transaction .form-group {
+  display: table;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.amtgrss {
+    color: #232c3d;
+}
+
+#clickedYes {
+  display: none;
+}
+
+/*Ends TAB css on 16-05-2018*/
+
 @media screen and (max-width: 1366px) {
     .balance-box {
         display: block;

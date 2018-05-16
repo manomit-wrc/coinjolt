@@ -1057,6 +1057,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         var tempArr = lodash.filter(JSON.parse(req.body.proof_of_address), x => x.temp_file_name === item.originalname);
                         var upload_path = "govt_id/"+item.originalname;
 
+                        shareholder.destroy({
+                            where: {
+                                user_id: req.user.id
+                            }
+                        });
+
                         shareholder.create({
                             user_id: req.user.id,
                             shareholder_name: req.body.shareholder_name[index] ,

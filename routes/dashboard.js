@@ -6,6 +6,7 @@ const keys = require('../config/key');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
 const async = require('async');
+const request = require('request');
 module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
@@ -1280,6 +1281,36 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }).then(function (result) {
             res.json({success: "true"});
         });
+    });
+
+    app.get('/test', (req, res) =>{
+
+        /* request({
+            url: 'http://localhost:8080/ecorepay.php',
+            method: 'POST',
+            json: {mes: 'heydude'}
+          }, function(error, response, body){
+            console.log(body);
+          }); */
+
+        //   request.post({
+        //     headers: {'content-type' : 'application/x-www-form-urlencoded'},
+        //     url:     'http://localhost:8080/ecorepay.php',
+        //     body:    "mes=heydude"
+        //   }, function(error, response, body){
+        //     console.log(body);
+        //   });
+        
+        request({
+            uri: "http://localhost:8080/ecorepay.php",
+            method: "POST",
+            form: {
+              mes: "Test message"
+            }
+          }, function(error, response, body) {
+            console.log(body);
+          });
+
     });
 
 };

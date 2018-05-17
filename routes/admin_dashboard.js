@@ -4,7 +4,7 @@ var excel = require('node-excel-export');
 const lodash = require('lodash');
 const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
-var request = require('sync-request')
+var request = require('sync-request');
 
 module.exports = function (app, Deposit, Withdraw, User, Currency, currency_balance) {
 	const styles = {

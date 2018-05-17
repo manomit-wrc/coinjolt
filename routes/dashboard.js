@@ -1309,6 +1309,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         request({
             uri: "http://localhost/ecorepay.php",
             method: "POST",
+            //json: true,
             form: {
                 userid: userID,
                 amount: amount,
@@ -1328,20 +1329,17 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 cvv: cvv
             }
           }, function(error, response, body) {
-             //var obj = JSON.parse(body);
+             var obj = JSON.parse(body);
              //console.dir(obj);
+             //console.log(body);
+             //console.log('BODY: ',body);
+            console.log(body);
+            if(obj.msg === 'success'){
+                res.json({ 'message': 'Successul' });
+            }
 
-            // console.log(obj);
-             /* if(body.message === 'success'){
-
-             }
-             else{
-
-             } */
-             console.log('BODY: ',JSON.stringify(response));
-             //console.log('RESPONSE: ', JSON.stringify(response.body));
           }); 
-
+          //res.json({ 'msg': 'Success' });
     });
 
 };

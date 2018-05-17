@@ -145,7 +145,10 @@ $(document).ready(function (e) {
 					},
 					success : function(response){
 						$(".loader_gif").hide();
-						console.log('success');
+						console.log(response);
+						if(response.message === 'Successul'){
+							alert('successul');
+						}
 					}
 			
 				});  	

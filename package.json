@@ -14,6 +14,7 @@
     "aws-sdk": "^2.238.1",
     "bcrypt": "^2.0.0",
     "bcrypt-nodejs": "0.0.3",
+    "bitgo": "^4.23.0",
     "body-parser": "^1.18.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",

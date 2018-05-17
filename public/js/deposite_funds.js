@@ -148,36 +148,37 @@ $(document).ready(function (e) {
 						console.log(response);
 						if(response.message === 'Successul'){
 							alert('successul');
+							/*	$.ajax({
+									type : "POST",
+									url : "/credit-card-add",
+									data: {
+										amount: amount,
+										card_number: card_number,
+										cardexpmonth: cardexpmonth,
+										cardexpyear: cardexpyear,
+										cvv: cvv
+									},
+									success : function(resp){
+										if(resp.status == true){
+											swal({
+												title: "Thank You",
+												text: resp.message,
+												type: "success",
+												confirmButtonColor: "#DD6B55",
+												confirmButtonText: "OK"
+											},  function() {
+												window.location.reload();
+											});
+										}
+									}
+							}); */
 						}
 					}
 			
 				});  	
 
 
-      		/*	$.ajax({
-					type : "POST",
-					url : "/credit-card-add",
-					data: {
-						amount: amount,
-						card_number: card_number,
-						cardexpmonth: cardexpmonth,
-						cardexpyear: cardexpyear,
-						cvv: cvv
-					},
-					success : function(resp){
-						if(resp.status == true){
-							swal({
-					            title: "Thank You",
-					            text: resp.message,
-					            type: "success",
-					            confirmButtonColor: "#DD6B55",
-					            confirmButtonText: "OK"
-					        },  function() {
-					            window.location.reload();
-					        });
-						}
-					}
-				}); */
+      		
       		}else{
       			$("#showing_warning").show();
 			  } 

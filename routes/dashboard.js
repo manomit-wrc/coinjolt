@@ -1283,35 +1283,64 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/test', (req, res) =>{
+    app.post('/ecorepay-payment', (req, res) =>{
 
-        /* request({
-            url: 'http://localhost:8080/ecorepay.php',
-            method: 'POST',
-            json: {mes: 'heydude'}
-          }, function(error, response, body){
-            console.log(body);
-          }); */
+        //console.log('Ecorepay called');
 
-        //   request.post({
-        //     headers: {'content-type' : 'application/x-www-form-urlencoded'},
-        //     url:     'http://localhost:8080/ecorepay.php',
-        //     body:    "mes=heydude"
-        //   }, function(error, response, body){
-        //     console.log(body);
-        //   });
-        
+        var firstname = req.body.firstname; 
+        var lastname = req.body.lastname;
+        var email = req.body.email;
+        var phone = req.body.phone;
+        var dob = req.body.dob;
+        var address = req.body.address;
+        var city = req.body.city;
+        var state = req.body.state;
+        var postcode = req.body.postcode;
+        var country = req.body.country;
+        var card_number = req.body.card_number;
+        var cardexpmonth = req.body.cardexpmonth;
+        var cardexpyear = req.body.cardexpyear;
+        var cvv = req.body.cvv;
+        var amount = req.body.amount;
+        var userID = req.body.userID;
+
+        //console.log('FIRSTNAME: ',firstname);
+
         request({
             uri: "http://localhost/ecorepay.php",
             method: "POST",
             form: {
-              mes: "Test message"
+                userid: userID,
+                amount: amount,
+                fname: firstname,
+                lname: lastname,
+                email: email,
+                phn: phone,
+                dob: dob,
+                add: address,
+                city: city,
+                state: state,
+                postcode: postcode,
+                country: country,
+                cardno: card_number,
+                cardexpmonth: cardexpmonth,
+                cardexpyear: cardexpyear,
+                cvv: cvv
             }
           }, function(error, response, body) {
-             var obj = JSON.parse(body);
-             console.dir(obj);
-            
-          });
+             //var obj = JSON.parse(body);
+             //console.dir(obj);
+
+            // console.log(obj);
+             /* if(body.message === 'success'){
+
+             }
+             else{
+
+             } */
+             console.log('BODY: ',JSON.stringify(response));
+             //console.log('RESPONSE: ', JSON.stringify(response.body));
+          }); 
 
     });
 

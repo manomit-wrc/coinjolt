@@ -136,45 +136,40 @@
 							<h4 class="modal-title" id="myModalLabel">Upload The Following  Documents</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form" id="instituteModalForm">
+							<form class="form" id="instituteModalForm" method="POST" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Certificate of Incorporation <span style="color: red">*</span></label>
 											
-											<input name="incorporation_certificate" class="form-control incorporation_certificate" id="incorporation_certificate" value="" type="file">
+											<input name="incorporation_certificate" class="form-control incorporation_certificate file-institute" id="incorporation_certificate" value="" type="file" data-temp-name="cert_incorp">
 											
 									
-											<img src="" id="blah3" height="20px" width="20px">
+											{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.incorporation_certificate) 'jpg' ) }}
+												<img src="{{p_institutional_modal_arr.0.incorporation_certificate}}" id="incorporation_certificate" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.incorporation_certificate) 'png' )}}
+												<img src="{{p_institutional_modal_arr.0.incorporation_certificate}}" id="incorporation_certificate" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.incorporation_certificate) 'jpeg' )}}
+												<img src="{{p_institutional_modal_arr.0.incorporation_certificate}}" id="incorporation_certificate" height="20px" width="20px">
+											{{else}}
+												<a href="{{p_institutional_modal_arr.0.incorporation_certificate}}" target="_blank">Link To Incorporation Certificate</a>
+											{{/if}}
 										</div>
 									</div>
-									<!-- <div class="col-md-6">
-										<div class="form-group">
-											<label>Shareholder(s) <span style="color: red">*</span></label>
-											<input type="text" name="shareholder_name" class="form-control" id="shareholder_name" value="">
-											<span id="shareholder_name_institution_err" style="color: tomato;"></span>
-										</div>
-									</div> -->
-									<!-- <div class="col-md-6">
-										<div class="form-group">
-											<label>Proof of Address for Shareholder(s) <span style="color: red">*</span></label>
-											<input type="file" name="articles_incorporation" class="form-control" id="articles_incorporation">
-											<span id="articles_incorporation_err" style="color: tomato;"></span>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Government Issued ID for Shareholder(s) <span style="color: red">*</span></label>
-											<input type="file" name="shareholder_id" class="form-control" id="shareholder_id">
-											<span id="shareholder_id_err" style="color: tomato;"></span>
-										</div>
-									</div> -->
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Recent Bank Account Statement <span style="color: red">*</span></label>
-											<input name="bank_statement" class="form-control bank_statement" id="bank_statement" type="file">
+											<input name="bank_statement" class="form-control bank_statement file-institute" id="bank_statement" type="file" data-temp-name="bank_statement">
 											
-											<img src="" id="blah1" height="20px" width="20px">
+											{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpg' ) }}
+													<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+												{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'png' )}}
+													<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+												{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpeg' )}}
+													<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+												{{else}}
+													<a href="{{p_institutional_modal_arr.0.bank_statement}}" target="_blank">Link To Bank Statement</a>
+											{{/if}}
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -221,27 +216,7 @@
 									</div>
 									<div id="shareholder_div">
 										<div class="">
-											<!-- <div class="col-md-3" id="test">
-												<div class="form-group">
-													<label>Shareholder(s):</label>
-													<input type="text" name="shareholder_name" class="form-control shareholder_name" id="shareholder_name" placeholder="Full Name" value="">
-													<span id="shareholder_name_institution_err" style="color: tomato;"></span>
-												</div>
-											</div>
-											<div class="col-md-3">
-												<div class="form-group articles_incorporation_div" >
-													<label>Proof of Address:</label>
-													<input type="file" name="articles_incorporation" class="form-control articles_incorporation" id="articles_incorporation">
-													<span id="articles_incorporation_err" style="color: tomato;"></span>
-												</div>
-											</div>
-											<div class="col-md-3">
-												<div class="form-group">
-													<label>Government Issued ID:</label>
-													<input type="file" name="shareholder_id" class="form-control shareholder_id" id="shareholder_id" value="">
-													<span id="shareholder_id_err" style="color: tomato;"></span>
-												</div>
-											</div> -->
+											
 											<div class="col-md-12"><label class="shareholders-box">Add or Remove Shareholders</label>
 											<button class="btn btn-primary" onclick="append(event)">+</button>
 											<button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
@@ -252,6 +227,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
+								<img src="/ajax-loader-1.gif" class="loader_gif" style="display: none;">
 								<input value="Save" name="Save" class="form-control btn btn-primary submit_institution_modal_data" id="submit_institution_modal_data" type="button">
 							</div>
 						</form>
@@ -313,27 +289,52 @@
 						<h4 class="modal-title" id="myModalLabel">Upload The Following  Documents</h4>
 					</div>
 					<div class="modal-body">
-						<form class="form" id="individualModalForm">
+						<form class="form" id="individualModalForm" enctype="multipart/form-data">
+							<div class="alert alert-success" id="div_individual_modal" style="display: none;">Information updated successfully</div>
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Proof of Address<span style="color: red"> *</span></label>
-										<input name="address_proof" class="form-control" id="address_proof" value="" type="file">
-										<img src="" id="blah1" height="20px" width="20px">
+										<input name="address_proof" class="form-control file" id="address_proof" data-temp-name="address_proof" value="" type="file">
+										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'jpg' ) }}
+												<img src="{{p_institutional_modal_arr.0.address_proof}}" id="address_proof_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'png' )}}
+												<img src="{{p_institutional_modal_arr.0.address_proof}}" id="address_proof_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'jpeg' )}}
+												<img src="{{p_institutional_modal_arr.0.address_proof}}" id="address_proof_document" height="20px" width="20px">
+											{{else}}
+												<a href="{{p_institutional_modal_arr.0.address_proof}}" target="_blank">Link To Address Proof</a>
+										{{/if}}
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Government Issued ID<span style="color: red"> *</span></label>
-										<input name="shareholder_id" class="form-control" id="government_issued_id" type="file">
-										<img src="" id="blah1" height="20px" width="20px">
+										<input name="shareholder_id" class="form-control file" id="government_issued_id" data-temp-name="govt_id" type="file">
+										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.government_issued_id) 'jpg' ) }}
+												<img src="{{p_institutional_modal_arr.0.government_issued_id}}" id="government_issued_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.government_issued_id) 'png' )}}
+												<img src="{{p_institutional_modal_arr.0.government_issued_id}}" id="government_issued_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.government_issued_id) 'jpeg' )}}
+												<img src="{{p_institutional_modal_arr.0.government_issued_id}}" id="government_issued_document" height="20px" width="20px">
+											{{else}}
+												<a href="{{p_institutional_modal_arr.0.government_issued_id}}" target="_blank">Link To Government Issued Id</a>
+										{{/if}}
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Recent Bank Account Statement<span style="color: red"> *</span></label>
-										<input name="bank_statement" class="form-control" id="bank_statement_individual" type="file">
-										<img src="" id="blah1" height="20px" width="20px">
+										<input name="bank_statement" class="form-control file" id="bank_statement_individual" data-temp-name="bank_statement" type="file">
+										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpg' ) }}
+												<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'png' )}}
+												<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpeg' )}}
+												<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+											{{else}}
+												<a href="{{p_institutional_modal_arr.0.bank_statement}}" target="_blank">Link To Bank Account Statement</a>
+										{{/if}}
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -376,6 +377,7 @@
 						</form>
 					</div>
 					<div class="modal-footer">
+						<img src="/ajax-loader-1.gif" class="loader-gif" style="display: none;">
 						<input value="Save" name="Select" class="form-control btn btn-primary submit_individual_modal_data" id="submit_individual_modal_data" type="button">
 					</div>
 				</div>

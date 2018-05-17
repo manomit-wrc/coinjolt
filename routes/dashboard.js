@@ -5,9 +5,12 @@ const lodash = require('lodash');
 const keys = require('../config/key');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance) {
+const async = require('async');
+const request = require('request');
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
+    var s3bucket = new AWS.S3({accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey, params: {Bucket: 'coinjoltdev2018'}});
     var fileExt = '';
     var fileName = '';
     var userUrl = '';
@@ -48,6 +51,63 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }
       })
     });
+
+    var address_proof = multer({
+        storage: multerS3({
+          s3: s3,
+          bucket: 'coinjoltdev2018/id-proof',
+          acl: 'public-read',
+          cacheControl: 'max-age=31536000',
+          metadata: function (req, file, cb) {
+            cb(null, {fieldName: file.fieldname});
+          },
+          key: function (req, file, cb) {
+              fileExt = file.mimetype.split('/')[1];
+              if (fileExt == 'jpeg') fileExt = 'jpg';
+              fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+              userUrl = keys.S3_URL + 'id-proof/'+fileName;
+              cb(null, fileName);
+          }
+        })
+      });
+
+      var shareholder_id = multer({
+        storage: multerS3({
+          s3: s3,
+          bucket: 'coinjoltdev2018',
+          acl: 'public-read',
+          cacheControl: 'max-age=31536000',
+          metadata: function (req, file, cb) {
+            cb(null, {fieldName: file.fieldname});
+          },
+          key: function (req, file, cb) {
+              fileExt = file.mimetype.split('/')[1];
+              if (fileExt == 'jpeg') fileExt = 'jpg';
+              fileName = 'government-id/'+req.user.id + '-' + Date.now() + '.' + fileExt;
+              userUrl = keys.S3_URL + 'government-id/'+fileName;
+              cb(null, fileName);
+          }
+        })
+      });
+
+      var bank_statement = multer({
+        storage: multerS3({
+          s3: s3,
+          bucket: 'coinjoltdev2018/bank-account-statement',
+          acl: 'public-read',
+          cacheControl: 'max-age=31536000',
+          metadata: function (req, file, cb) {
+            cb(null, {fieldName: file.fieldname});
+          },
+          key: function (req, file, cb) {
+              fileExt = file.mimetype.split('/')[1];
+              if (fileExt == 'jpeg') fileExt = 'jpg';
+              fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+              userUrl = keys.S3_URL + 'bank-account-statement/'+fileName;
+              cb(null, fileName);
+          }
+        })
+      });
 
     app.get('/dashboard', function (req, res) {
         res.render('dashboard', {
@@ -107,13 +167,43 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 ['createdAt', 'DESC']
             ]
         });
+        var p_composition = await portfolio_composition.findAll({
+            where: {
+                user_id: req.user.id
+            }
+        });
+
+        var p_institutional_arr = [];
+
+        p_institutional_arr.push({
+            field_1: p_composition[0].get('business_name'),
+            field_2: p_composition[0].get('business_number'),
+            field_3: p_composition[0].get('business_registration_country'),
+            field_4: p_composition[0].get('investques'),
+            field_5: p_composition[0].get('settlement_currency'),
+            field_6: p_composition[0].get('street'),
+            field_7: p_composition[0].get('city'),
+            field_8: p_composition[0].get('state'),
+            field_9: p_composition[0].get('phone_number'),
+            field_10: p_composition[0].get('postal_code'),
+            field_11: p_composition[0].get('email_address')
+        });
+
+        var shareholders_info = await shareholder.findAll({
+            where: {
+                user_id: req.user.id
+            }
+        });
+
         const msg = req.flash('profileMessage')[0];
         var country = await Country.findAll();
         res.render('account-settings', {
             layout: 'dashboard',
             message: msg,
             countries: country,
-            kyc_details: kyc_details
+            kyc_details: kyc_details,
+            p_institutional_arr: p_institutional_arr,
+            shareholders_info: shareholders_info
         });
     });
 
@@ -185,6 +275,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         } else {
             state = req.body.state;
         }
+
         User.update({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -201,14 +292,56 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             where: {
                 id: req.user.id
             }
-        }).then(function (result) {
-            if (result > 0) {
-                req.flash('profileMessage', 'Profile updated successfully');
-                res.redirect('/account-settings');
-            } else {
-                req.flash('profileMessage', 'Already up to date');
-                res.redirect('/account-settings');
-            }
+        }).then(function (status) {
+
+            portfolio_composition.findAndCountAll({
+                where: {user_id: req.user.id}
+              }).then(results => {
+                var count = results.count;
+                if(count >0){
+                    portfolio_composition.update({
+
+                        user_id: req.user.id,
+                        business_name: req.body.business_name,
+                        business_number: req.body.business_number,
+                        business_registration_country: req.body.business_registration_country,
+                        investques: req.body.investques,
+                        settlement_currency: req.body.settlement_currency,
+                        street: req.body.street,
+                        city: req.body.city_ins,
+                        state: req.body.state_ins,
+                        phone_number: req.body.phone_number,
+                        postal_code: req.body.postal_code,
+                        email_address: req.body.email_address
+
+                    }, {
+                        where: {
+                            user_id: req.user.id
+                        }
+                    });
+                }
+                else{
+                    portfolio_composition.create({
+
+                        user_id: req.user.id,
+                        business_name: req.body.business_name,
+                        business_number: req.body.business_number,
+                        business_registration_country: req.body.business_registration_country,
+                        investques: req.body.investques,
+                        settlement_currency: req.body.settlement_currency,
+                        street: req.body.street,
+                        city: req.body.city_ins,
+                        state: req.body.state_ins,
+                        phone_number: req.body.phone_number,
+                        postal_code: req.body.postal_code,
+                        email_address: req.body.email_address,
+                        status: 0
+                    });
+                }
+            }).then(function(result){
+                    req.flash('profileMessage', 'Profile updated successfully');
+                    res.redirect('/account-settings');
+            });
         }).catch(function (err) {
             console.log(err);
         });
@@ -697,7 +830,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }
         });
         if(p_composition.length > 0) {
-                //console.log(JSON.stringify(p_composition));
                 p_individual_arr.push({
                     field_1: p_composition[0].get('first_name'),
                     field_2: p_composition[0].get('last_name'),
@@ -720,7 +852,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     field_3: p_composition[0].get('account_number'),
                     field_4: p_composition[0].get('routing_number'),
                     field_5: p_composition[0].get('phone_number'),
-                    field_6: p_composition[0].get('email_address')
+                    field_6: p_composition[0].get('email_address'),
+                    address_proof: p_composition[0].get('address_proof'),
+                    bank_statement: p_composition[0].get('bank_statement'),
+                    government_issued_id: p_composition[0].get('government_issued_id'),
+                    incorporation_certificate: p_composition[0].get('incorporation_certificate'),
+                    bank_statement: p_composition[0].get('bank_statement')
                 });
         }
         res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length, p_institutional_modal_arr: p_institutional_modal_arr });
@@ -875,8 +1012,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         business_number: businessNumber,
                         business_registration_country: businessCountry,
                         investques: investedAmount,
-                        settlement_currency: settlementCurrency
-
+                        settlement_currency: settlementCurrency,
+                        status: 0
                     });
                 }
                 res.json({ msg: 'Saved' });
@@ -921,8 +1058,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         last_name: lastName,
                         residence_country: individualCountry,
                         investques: individualInvestAmount,
-                        settlement_currency: individualSettlementCurrency
-
+                        settlement_currency: individualSettlementCurrency,
+                        status: 0
                     });
                 }
                 res.json({ msg: 'Saved' });
@@ -939,78 +1076,272 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }
 
     });
-
-    app.post('/save-institutionalModalData', (req, res) => {
+    var upload_docs_inst = multer();
+    app.post('/save-institutionalModalData', upload_docs_inst.any(), (req, res) => {
 
         portfolio_composition.findAndCountAll({
             where: {user_id: req.user.id}
           }).then(results => {
             var count = results.count;
-            if(count >0){
-                portfolio_composition.update({
-                    account_name: req.body.account_Holdername,
-                    bank_country: req.body.bank_country,
-                    account_number: req.body.account_number,
-                    routing_number: req.body.routing_number,
-                    phone_number: req.body.phone_number,
-                    email_address: req.body.email_address
+            var bank_statement_url = '';
+            var cert_incorp_url = '';
+            var upload_docs = lodash.filter(req.files, x => x.fieldname === "upload_docs");
+            var upload_docs_dynmc = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc");
+            var upload_docs_dynmc_1 = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc-1");
+            async.eachSeries(upload_docs, ( item, cb ) => {
+                console.log("Here");
+                var tempArr = lodash.filter(JSON.parse(req.body.upload_file_name), x => x.temp_file_name === item.originalname);
+                var upload_path = tempArr[0].folder_name+"/"+item.originalname;
+                
+                var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
 
-                }, {
-                    where: {
-                        user_id: req.user.id
+                if(tempArr[0].folder_name === "cert_incorp") {
+                    cert_incorp_url = keys.S3_URL + upload_path;
+                }
+                if(tempArr[0].folder_name === "bank_statement") {
+                    bank_statement_url = keys.S3_URL + upload_path;
+                }
+
+                s3bucket.upload(params, function(err, data) {
+                    if (err) {
+                        console.log("Error uploading data. ", err);
+                        cb(err)
+                    } else {
+                        console.log("Success uploading data");
+                        cb()
                     }
-                });
-            }
-            else{
-                portfolio_composition.create({
+                })
+            }, function(err) {
+                async.eachSeries(upload_docs_dynmc, ( item, cb ) => {
+                    
+                    var tempArr = lodash.filter(JSON.parse(req.body.proof_of_address), x => x.temp_file_name === item.originalname);
+                    var upload_path = tempArr[0].folder_name+"/"+item.originalname;
 
-                    account_name: req.body.account_Holdername,
-                    bank_country: req.body.bank_country,
-                    account_number: req.body.account_number,
-                    routing_number: req.body.routing_number,
-                    phone_number: req.body.phone_number,
-                    email_address: req.body.email_address
+                    var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
 
+                    s3bucket.upload(params, function(err, data) {
+                        if (err) {
+                            console.log("Error uploading data. ", err);
+                            cb(err)
+                        } else {
+                            console.log("Success uploading data");
+                            cb()
+                        }
+                    })
+                }, function(err) {
+                    shareholder.destroy({
+                        where: {
+                            user_id: req.user.id
+                        }
+                    });
+                    async.eachSeries(upload_docs_dynmc_1, (item, cb ) => {
+                        var index = upload_docs_dynmc_1.indexOf(item);
+
+                        var tempArr = lodash.filter(JSON.parse(req.body.proof_of_address), x => x.temp_file_name === item.originalname);
+                        var upload_path = "govt_id/"+item.originalname;
+
+                        shareholder.create({
+                            user_id: req.user.id,
+                            shareholder_name: req.body.shareholder_name[index] ,
+                            address_proof: keys.S3_URL + "address_proof/"+upload_docs_dynmc[index].originalname,
+                            government_issued_id: keys.S3_URL + upload_path
+                        });
+
+                        var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
+
+
+
+                        s3bucket.upload(params, function(err, data) {
+                            if (err) {
+                                console.log("Error uploading data. ", err);
+                                cb(err)
+                            } else {
+                                console.log("Success uploading data");
+                                cb()
+                            }
+                        })
+                    }, function(err) {
+                        if(count >0){
+                            portfolio_composition.update({
+                                account_name: req.body.account_name,
+                                bank_country: req.body.bank_country,
+                                account_number: req.body.account_number,
+                                routing_number: req.body.routing_number,
+                                phone_number: req.body.phone_number,
+                                email_address: req.body.email_address,
+                                bank_statement: bank_statement_url ? bank_statement_url : results.bank_statement,
+                                incorporation_certificate: cert_incorp_url ? cert_incorp_url : results.incorporation_certificate,
+                                status: 0
+            
+                            }, {
+                                where: {
+                                    user_id: req.user.id
+                                }
+                            });
+                        }
+                        else{
+                            portfolio_composition.create({
+            
+                                account_name: req.body.account_name,
+                                bank_country: req.body.bank_country,
+                                account_number: req.body.account_number,
+                                routing_number: req.body.routing_number,
+                                phone_number: req.body.phone_number,
+                                email_address: req.body.email_address,
+                                bank_statement: bank_statement_url,
+                                incorporation_certificate: cert_incorp_url
+            
+                            });
+                        }
+                        res.json({ msg: 'Saved', success: "true" });
+                    })
+                    
                 });
-            }
-            res.json({ msg: 'Saved' });
+            });
+        });
+    });
+    var upload_docs = multer();
+    app.post('/save-individualModalData',upload_docs.array('upload_docs'),  (req, res) => {
+        portfolio_composition.findAndCountAll({
+            where: {user_id: req.user.id}
+          }).then(results => {
+            var count = results.count;
+            var address_proof_url = '';
+            var government_issued_id_url = '';
+            var bank_statement_url = '';
+            async.eachSeries(req.files, function(item, cb) {
+                var tempArr = lodash.filter(JSON.parse(req.body.upload_file_name), x => x.temp_file_name === item.originalname);
+                var upload_path = tempArr[0].folder_name+"/"+item.originalname;
+                
+                var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
+                if(tempArr[0].folder_name === "address_proof") {
+                    address_proof_url = keys.S3_URL + upload_path;
+                }
+                if(tempArr[0].folder_name === "govt_id") {
+                    government_issued_id_url = keys.S3_URL + upload_path;
+                }
+                if(tempArr[0].folder_name === "bank_statement") {
+                    bank_statement_url = keys.S3_URL + upload_path;
+                }
+                s3bucket.upload(params, function(err, data) {
+                    if (err) {
+                        console.log("Error uploading data. ", err);
+                        cb(err)
+                    } else {
+                        console.log("Success uploading data");
+                        cb()
+                    }
+                })
+            }, function(err) {
+                if(count >0){
+                    portfolio_composition.update({
+                        account_name: req.body.account_name_individual,
+                        bank_country: req.body.bank_country_individual,
+                        account_number: req.body.account_number_individual,
+                        routing_number: req.body.routing_number_individual,
+                        phone_number: req.body.phone_number_individual,
+                        email_address: req.body.email_address_individual,
+                        address_proof: address_proof_url ? address_proof_url: results.address_proof,
+                        government_issued_id: government_issued_id_url ? government_issued_id_url : results.government_issued_id,
+                        bank_statement: bank_statement_url ? bank_statement_url : results.bank_statement
+
+                    }, {
+                        where: {
+                            user_id: req.user.id
+                        }
+                    });
+                }
+                else{
+                    portfolio_composition.create({
+
+                        account_name: req.body.account_name_individual,
+                        bank_country: req.body.bank_country_individual,
+                        account_number: req.body.account_number_individual,
+                        routing_number: req.body.routing_number_individual,
+                        phone_number: req.body.phone_number_individual,
+                        email_address: req.body.email_address_individual,
+                        address_proof: address_proof_url,
+                        government_issued_id: government_issued_id_url,
+                        bank_statement: bank_statement_url
+
+                    });
+                }
+                res.json({ msg: 'Saved', success: "true" });
+            });
         });
     });
 
-    app.post('/save-individualModalData', (req, res) => {
-        portfolio_composition.findAndCountAll({
-            where: {user_id: req.user.id}
-          }).then(results => {
-            var count = results.count;
-            if(count >0){
-                portfolio_composition.update({
-                    account_name: req.body.account_Holdername,
-                    bank_country: req.body.bank_country,
-                    account_number: req.body.account_number,
-                    routing_number: req.body.routing_number,
-                    phone_number: req.body.phone_number,
-                    email_address: req.body.email_address
-
-                }, {
-                    where: {
-                        user_id: req.user.id
-                    }
-                });
+    app.post('/remove-shareholderInfo', (req, res) =>{
+        var shareHolderId = req.body.shareholderId;
+        shareholder.destroy({
+            where: {
+                user_id: req.user.id,
+                id: shareHolderId
             }
-            else{
-                portfolio_composition.create({
-
-                    account_name: req.body.account_Holdername,
-                    bank_country: req.body.bank_country,
-                    account_number: req.body.account_number,
-                    routing_number: req.body.routing_number,
-                    phone_number: req.body.phone_number,
-                    email_address: req.body.email_address
-
-                });
-            }
-            res.json({ msg: 'Saved' });
+        }).then(function (result) {
+            res.json({success: "true"});
         });
+    });
+
+    app.post('/ecorepay-payment', (req, res) =>{
+
+        //console.log('Ecorepay called');
+
+        var firstname = req.body.firstname; 
+        var lastname = req.body.lastname;
+        var email = req.body.email;
+        var phone = req.body.phone;
+        var dob = req.body.dob;
+        var address = req.body.address;
+        var city = req.body.city;
+        var state = req.body.state;
+        var postcode = req.body.postcode;
+        var country = req.body.country;
+        var card_number = req.body.card_number;
+        var cardexpmonth = req.body.cardexpmonth;
+        var cardexpyear = req.body.cardexpyear;
+        var cvv = req.body.cvv;
+        var amount = req.body.amount;
+        var userID = req.body.userID;
+
+        //console.log('FIRSTNAME: ',firstname);
+
+        request({
+            uri: "http://localhost/ecorepay.php",
+            method: "POST",
+            form: {
+                userid: userID,
+                amount: amount,
+                fname: firstname,
+                lname: lastname,
+                email: email,
+                phn: phone,
+                dob: dob,
+                add: address,
+                city: city,
+                state: state,
+                postcode: postcode,
+                country: country,
+                cardno: card_number,
+                cardexpmonth: cardexpmonth,
+                cardexpyear: cardexpyear,
+                cvv: cvv
+            }
+          }, function(error, response, body) {
+             //var obj = JSON.parse(body);
+             //console.dir(obj);
+
+            // console.log(obj);
+             /* if(body.message === 'success'){
+
+             }
+             else{
+
+             } */
+             console.log('BODY: ',JSON.stringify(response));
+             //console.log('RESPONSE: ', JSON.stringify(response.body));
+          }); 
+
     });
 
 };

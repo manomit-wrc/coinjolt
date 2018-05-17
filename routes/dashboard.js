@@ -1302,13 +1302,15 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         //   });
         
         request({
-            uri: "http://localhost:8080/ecorepay.php",
+            uri: "http://localhost/ecorepay.php",
             method: "POST",
             form: {
               mes: "Test message"
             }
           }, function(error, response, body) {
-            console.log(body);
+             var obj = JSON.parse(body);
+             console.dir(obj);
+            
           });
 
     });

@@ -37,8 +37,7 @@ $(document).ready(function (e) {
 
 		var current_cad_to_usd_rate = $("#cadtousdcoinRate").val();
 		var new_amount = parseFloat(enterval*current_cad_to_usd_rate);
-		console.log(enterval+"--enterval--"+current_cad_to_usd_rate+"--currentrate--"+new_amount);
-
+		
 		$("#amount").val(enterval);
 
 		if(enterval == 0){
@@ -104,8 +103,9 @@ $(document).ready(function (e) {
       		var city = $("#city").val();
       		var state = $("#state").val();
       		var postcode = $("#postcode").val();
-      		var country = $("#country").val();
-      		//end
+			var country = $("#country").val();
+			var userID = $("#userId").val();
+			//end
 
       		if(card_number == ''){
       			alert("Please enter your credit card number.");
@@ -116,8 +116,42 @@ $(document).ready(function (e) {
       			return false;
       		}
 
-      		if(card_number != '' && cvv!='' && firstname != '' && lastname != '' && email!='' && phone!='' && dob!='' && address!='' && city!='' && state!='' && postcode!='' && country!=''){
-      			$.ajax({
+      		 if(card_number != '' && cvv!='' && firstname != '' && lastname != '' && email!='' && phone!='' && dob!='' && address!='' && city!='' && state!='' && postcode!='' && country!=''){
+
+				// calling ecorepay api endpoint
+				$.ajax({
+					type : "POST",
+					url : "/ecorepay-payment",
+					data: {
+						firstname: firstname,
+						lastname: lastname,
+						email: email,
+						phone: phone,
+						dob: dob,
+						address: address,
+						city: city,
+						state: state,
+						postcode: postcode,
+						country: country,
+						card_number: card_number,
+						cardexpmonth: cardexpmonth,
+						cardexpyear: cardexpyear,
+						cvv: cvv,
+						amount: amount,
+						userID: userID
+					},
+					beforeSend:function(){
+						$(".loader_gif").show();
+					},
+					success : function(response){
+						$(".loader_gif").hide();
+						console.log('success');
+					}
+			
+				});  	
+
+
+      		/*	$.ajax({
 					type : "POST",
 					url : "/credit-card-add",
 					data: {
@@ -140,10 +174,11 @@ $(document).ready(function (e) {
 					        });
 						}
 					}
-				});
+				}); */
       		}else{
       			$("#showing_warning").show();
-      		}
+			  } 
+			  
       	}else if(deposit_type == 2){
       		var amount = $('#usd_amount').val();
       		$("#totalamount").val("$" + amount);
@@ -157,7 +192,9 @@ $(document).ready(function (e) {
 	        $('#exampleModalLong').modal('show');
       	}else{
 	      	alert ("Please select deposit type.");
-      	}
+		  }
+		  
+
     });
     e.preventDefault();
 

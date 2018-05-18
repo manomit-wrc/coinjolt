@@ -1305,7 +1305,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         //console.log('FIRSTNAME: ',firstname);
 
         request({
-            uri: "http://localhost/test.php",
+            uri: "http://localhost/ecorepay.php",
             method: "POST",
             //json: true,
             form: {

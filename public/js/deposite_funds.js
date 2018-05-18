@@ -106,17 +106,25 @@ $(document).ready(function (e) {
 			var country = $("#country").val();
 			var userID = $("#userId").val();
 			//end
+			
+			if(amount == ''){
+				alert("Please enter amount.");
+				$('#usd_amount').focus();
+      			return false;
+			}
 
       		if(card_number == ''){
-      			alert("Please enter your credit card number.");
+				alert("Please enter your credit card number.");
+				$('#cardnumber').focus();
       			return false;
       		}
       		if(cvv == ''){
-      			alert("Please enter your cvv number.");
+				alert("Please enter your cvv number.");
+				$('#cvv').focus();
       			return false;
       		}
 
-      		 if(card_number != '' && cvv!='' && firstname != '' && lastname != '' && email!='' && phone!='' && dob!='' && address!='' && city!='' && state!='' && postcode!='' && country!=''){
+      		 if(amount !='' && card_number != '' && cvv!='' && firstname != '' && lastname != '' && email!='' && phone!='' && dob!='' && address!='' && city!='' && state!='' && postcode!='' && country!=''){
 
 				// calling ecorepay api endpoint
 				$.ajax({
@@ -195,7 +203,8 @@ $(document).ready(function (e) {
 
 	        $('#exampleModalLong').modal('show');
       	}else{
-	      	alert ("Please select deposit type.");
+			  alert ("Please select deposit type.");
+			  $("#deposit_type").focus();
 		  }
 		  
 

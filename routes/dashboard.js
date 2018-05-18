@@ -1285,8 +1285,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.post('/ecorepay-payment', (req, res) =>{
 
-        //console.log('Ecorepay called');
-
         var firstname = req.body.firstname; 
         var lastname = req.body.lastname;
         var email = req.body.email;
@@ -1330,18 +1328,13 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }
           }, function(error, response, body) {
              var obj = JSON.parse(body);
-             //console.dir(obj);
-             //console.log(body);
-             //console.log('BODY: ',body);
-            //console.log(body);
 
             if(obj.msg === 'success'){
                 res.json({ 'message': 'Successul' });
             }
 
-           /*  if(body.msg === 'success'){
-                res.json({ 'message': 'Successul' });
-            } */
+            //console.log(body);
+
 
           }); 
           //res.json({ 'msg': 'Success' });

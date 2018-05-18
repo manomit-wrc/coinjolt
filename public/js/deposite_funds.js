@@ -87,6 +87,7 @@ $(document).ready(function (e) {
       	var deposit_type = $("#deposit_type").val();
 
       	if(deposit_type == 1){
+			$(".paymentErrorMsg").hide();
       		var amount = $('#usd_amount').val(); 
       		var card_number = $('#cardnumber').val();
       		var cardexpmonth = $('#cardexpmonth').val();
@@ -108,24 +109,24 @@ $(document).ready(function (e) {
 			//end
 			
 			if(amount == ''){
-				alert("Please enter amount.");
+				$(".creditCardFormErrorMsg").show();
 				$('#usd_amount').focus();
       			return false;
 			}
 
       		if(card_number == ''){
-				alert("Please enter your credit card number.");
+				$(".creditCardFormErrorMsg").show();
 				$('#cardnumber').focus();
       			return false;
       		}
       		if(cvv == ''){
-				alert("Please enter your cvv number.");
+				$(".creditCardFormErrorMsg").show();
 				$('#cvv').focus();
       			return false;
       		}
 
       		 if(amount !='' && card_number != '' && cvv!='' && firstname != '' && lastname != '' && email!='' && phone!='' && dob!='' && address!='' && city!='' && state!='' && postcode!='' && country!=''){
-
+				
 				// calling ecorepay api endpoint
 				$.ajax({
 					type : "POST",
@@ -192,6 +193,7 @@ $(document).ready(function (e) {
 			  } 
 			  
       	}else if(deposit_type == 2){
+			$(".paymentErrorMsg").hide();  
       		var amount = $('#usd_amount').val();
       		$("#totalamount").val("$" + amount);
 
@@ -203,7 +205,7 @@ $(document).ready(function (e) {
 
 	        $('#exampleModalLong').modal('show');
       	}else{
-			  alert ("Please select deposit type.");
+			$(".paymentErrorMsg").show();
 			  $("#deposit_type").focus();
 		  }
 		  

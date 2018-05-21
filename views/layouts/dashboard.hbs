@@ -356,6 +356,9 @@
                 $("#changeReferralFrm").slideToggle('slow');
             });
 
+            // jquery masked input for entering credit card numbers
+            $('#cardnumber').mask("9999 9999 9999 9999", {placeholder: "."});
+
             // Account settings validationselectedRadioValue
             $("#update_profile").validate({
                 rules: {

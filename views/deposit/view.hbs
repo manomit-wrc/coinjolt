@@ -30,8 +30,9 @@
                         <option value="wiretransfer">Bank Wire Transfer</option> --}}
                         <option value="1">Credit Card</option>
                         <option value="2">Bank Wire Transfer</option>
-                    </select>
-                    <p id="selecterror" style="display: none; color: red;background-color: rgb(242, 222, 222); border-color: rgb(235, 204, 209);padding: 9px;font-size: 15px;margin-bottom: 16px;">Select from one of the available payment methods below.</p>
+                    </select><br>
+                    {{!-- <p id="selecterror" style="display: none; color: red;background-color: rgb(242, 222, 222); border-color: rgb(235, 204, 209);padding: 9px;font-size: 15px;margin-bottom: 16px;">Select from one of the available payment methods below.</p> --}}
+                    <p style="display:none;color: red;background-color: rgb(242, 222, 222); border-color: rgb(235, 204, 209);padding: 9px;font-size: 15px;margin-bottom: 16px;" class="paymentErrorMsg">Select from one of the available payment methods below.</p>
                   </div>
                   <div class="form-group col-md-6">
                     <div style="width: 100%;padding-left: 0px;padding-right: 0px;" class="col-md-2">
@@ -56,13 +57,14 @@
                     <input type="hidden" name="ltcRate" id="ltcRate">
                     <input type="hidden" name="ethRate" id="ethRate">
                     <input type="hidden" name="converted_amount" id="converted_amount">
+                    
                   </div>
                 </div>
                 <div id="1" style="display:none">
-
+                    
                     <div class="form-group col-md-12">
                       <label>Credit Card Number</label>
-                      <input type="text" class="form-control" placeholder="•••• •••• •••• ••••" name="cardnumber" id="cardnumber" required="required" maxlength="16">
+                      <input type="text" class="form-control" name="cardnumber" id="cardnumber" required="required" maxlength="16">
                     </div>
                     <div class="form-group col-md-6">
                       <div class="row">
@@ -82,7 +84,7 @@
                     </div>
                     <div class="form-group col-md-6">
                       <label>CVV/CVC</label>
-                      <input type="text" class="form-control" placeholder="CVV/CVC" name="cvv" id="cvv" required="required" maxlength="4">
+                      <input type="password" class="form-control" placeholder="CVV/CVC" name="cvv" id="cvv" required="required" maxlength="4">
                     </div>
                 </div>
 
@@ -95,6 +97,8 @@
 
 
                     </p>
+                    <p style="display:none;color: red;background-color: rgb(242, 222, 222); border-color: rgb(235, 204, 209);padding: 9px;font-size: 15px;margin-bottom: 16px;" class="creditCardFormErrorMsg">Please fill out all of the fields. </p>
+                    
                     <p style="display:none" class="loaderImg"><img src="https://coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif"></p>
                     <p class="ecore_error"></p>
                     <p class="ecore_res"></p>

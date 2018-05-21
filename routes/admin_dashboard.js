@@ -189,7 +189,6 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				}
 			],
 		}).then(result => {
-			console.log(result);
 			res.render('admin/questionnaire/answer', { layout: 'dashboard', all_data: result, question: ques_data.question });
 		});
 	});

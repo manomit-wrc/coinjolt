@@ -341,7 +341,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, currency_bala
 			}
 		}).then(depsoit_data => {
 			var chart_data = [];
-			for(var i=0;i < depsoit_data.length; i++) {
+			for (var i = 0; i < depsoit_data.length; i++) {
 				var temp_Date = new Date(dateFormat(depsoit_data[i].createdAt, "yyyy-mm-dd").split(' ').join('T'));
 				var amount = depsoit_data[i].amount;
 				chart_data.push([temp_Date.getTime(),parseFloat(amount)]);

@@ -11,6 +11,9 @@
 		$("#pending_investments_table").DataTable({
 			'aaSorting': []
 		});
+		$("#all_question_table").DataTable({
+			'aaSorting': []
+		});
 
 		$("#cc-submit1").prop("disabled", "disabled");
 

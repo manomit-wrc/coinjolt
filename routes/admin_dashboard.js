@@ -4,9 +4,9 @@ var excel = require('node-excel-export');
 const lodash = require('lodash');
 const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
-var request = require('sync-request')
+var request = require('sync-request');
 
-module.exports = function (app, Deposit, Withdraw, User, Currency, currency_balance) {
+module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -93,7 +93,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, currency_bala
 		},
 	}
 
-	app.get('/admin/dashboard', function (req, res) {
+	app.get('/admin/dashboard', (req, res) => {
 		res.render('admin/dashboard', {
 			layout: 'dashboard'
 		});
@@ -146,8 +146,51 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, currency_bala
 			order: [
 				['id', 'DESC']
 			]
-		}).then(function(result) {
+		}).then(result => {
 			res.render('admin/transactions/index', { layout: 'dashboard', all_data: result });
+		});
+	});
+
+	app.get('/admin/question', (req, res) => {
+		Question.findAll().then(result => {
+			res.render('admin/questionnaire/index', { layout: 'dashboard', all_data: result });
+		});
+	});
+
+	app.get('/question/options/:id', (req, res) => {
+		Option.findAll({
+			attributes: ['option'],
+			where: {
+				question_id: req.params['id']
+			}
+		}).then(results => {
+			sendJSON(res, 200, results);
+			/*res.json({
+                code: "200",
+                response: results
+            });*/
+		});
+	});
+
+	app.get('/admin/question/:id', async (req, res) => {
+		var ques_data = await Question.findById(req.params['id']);
+		Answer.belongsTo(User, {foreignKey: 'user_id'});
+		Answer.belongsTo(Option, {foreignKey: 'option_id'});
+		Answer.findAll({
+			where: {
+				question_id: req.params['id']
+			},
+			include: [
+				{
+					model: User
+				},
+				{
+					model: Option
+				}
+			],
+		}).then(result => {
+			console.log(result);
+			res.render('admin/questionnaire/answer', { layout: 'dashboard', all_data: result, question: ques_data.question });
 		});
 	});
 
@@ -155,15 +198,15 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, currency_bala
 		Withdraw.belongsTo(User, {foreignKey: 'user_id'});
 		Withdraw.findAll({
 			where: {
-				status:0
+				status: 0
 			},
 			include: [{
 				model: User
 			}],
 			order: [
-			['id', 'DESC']
+				['id', 'DESC']
 			]
-		}).then(function(result) {
+		}).then(result => {
 			res.render('admin/pending_withdrawals/index',{layout: 'dashboard', all_data: result});
 		});
 	});
@@ -195,7 +238,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, currency_bala
 			where: {
 				id: req.body.row_id
 			}
-		}).then (function (result) {
+		}).then (result => {
 			if (result > 0) {
 				Deposit.create({
 					user_id: user_id,
@@ -221,7 +264,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, currency_bala
 			where: {
 				id:req.body.row_id
 			}
-		}).then(function (result) {
+		}).then(result => {
 			res.json({
 				status: true,
 				message: 'Rejected succesfully.'
@@ -238,7 +281,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, currency_bala
 			include: [{
 				model: User
 			}]
-		}).then(function(result) {
+		}).then(result => {
 			res.render('admin/pending_withdrawals/history', { layout: 'dashboard', all_data: result });
 		});
 	});
@@ -253,7 +296,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, currency_bala
 			order: [
 				['id', 'DESC']
 			]
-		}).then(function(result) {
+		}).then(result => {
 			var resultArr = [];
 			for (var i = 0; i < result.length; i++) {
 				resultArr.push({
@@ -349,4 +392,9 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, currency_bala
 			res.send(chart_data);
 		});
 	});
+
+	function sendJSON(res, httpCode, body) {
+		var response = JSON.stringify(body);
+		res.send(httpCode, response);
+	}
 };

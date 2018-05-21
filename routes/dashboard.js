@@ -1285,8 +1285,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.post('/ecorepay-payment', (req, res) =>{
 
-        //console.log('Ecorepay called');
-
         var firstname = req.body.firstname; 
         var lastname = req.body.lastname;
         var email = req.body.email;
@@ -1309,6 +1307,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         request({
             uri: "http://localhost/ecorepay.php",
             method: "POST",
+            //json: true,
             form: {
                 userid: userID,
                 amount: amount,
@@ -1328,20 +1327,17 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 cvv: cvv
             }
           }, function(error, response, body) {
-             //var obj = JSON.parse(body);
-             //console.dir(obj);
+             var obj = JSON.parse(body);
 
-            // console.log(obj);
-             /* if(body.message === 'success'){
+            if(obj.msg === 'success'){
+                res.json({ 'message': 'Successul' });
+            }
 
-             }
-             else{
+            //console.log(body);
 
-             } */
-             console.log('BODY: ',JSON.stringify(response));
-             //console.log('RESPONSE: ', JSON.stringify(response.body));
+
           }); 
-
+          //res.json({ 'msg': 'Success' });
     });
 
 };

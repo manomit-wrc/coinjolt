@@ -1,19 +1,27 @@
 var BitGo = require('bitgo');
-var bitgo = new BitGo.BitGo({ env: 'test' });
+var bitgo = new BitGo.BitGo({
+    env: 'test'
+});
+const keys = require('../config/key');
+
 module.exports = (app) => {
     app.get('/bitgo/login', (req, res) => {
-        bitgo.authenticate({ username: "manomit@wrctpl.com", password: "Mmitra!@#4", otp: "0000000" }, function(err, result) {
+        bitgo.authenticate({
+            username: keys.BITGO_USERNAME,
+            password: keys.BITGO_PASSWORD,
+            otp: keys.BITGO_OTP
+        }, function (err, result) {
             if (err) {
-              return console.log(err);
+                return console.log(err);
             }
             res.send(result.access_token);
         });
     });
 
     app.get('/bitgo/logout', (req, res) => {
-        bitgo.logout({}, function(err) {
+        bitgo.logout({}, function (err) {
             if (err) {
-             console.log(err);
+                console.log(err);
             }
         });
     });
@@ -32,8 +40,11 @@ module.exports = (app) => {
             "passphrase": "Mmitra!@#4",
             "label": "My Second Wallet"
         }
-        bitgo.wallets().createWalletWithKeychains(data, function(err, result) {
-            if (err) { console.dir(err); throw new Error("Could not create wallet!"); }
+        bitgo.wallets().createWalletWithKeychains(data, function (err, result) {
+            if (err) {
+                console.dir(err);
+                throw new Error("Could not create wallet!");
+            }
             console.log(result);
             //console.log("User keychain encrypted xPrv: " + result.userKeychain.encryptedXprv);
             //console.log("Backup keychain xPub: " + result.backupKeychain.xPub);
@@ -53,11 +64,15 @@ module.exports = (app) => {
 
     app.get('/bitgo/create-address', (req, res) => {
         var id = '2MziMaFRQTj5DfWD3f3pwhCihgah8Ed46se';
-        bitgo.wallets().get({ "id": id }, function callback(err, wallet) {
+        bitgo.wallets().get({
+            "id": id
+        }, function callback(err, wallet) {
             if (err) {
                 throw err;
             }
-            wallet.createAddress({ "chain": 0 }, function callback(err, address) {
+            wallet.createAddress({
+                "chain": 0
+            }, function callback(err, address) {
                 console.log(address);
             });
         });
@@ -65,19 +80,81 @@ module.exports = (app) => {
 
     app.get('/bitgo/send-coins', (req, res) => {
         var destinationAddress = '2MwDGsK8XmELd41t8GVK7G39vemcEjEUvYU';
-        var amountSatoshis = 0.1 * 1e8; 
+        var amountSatoshis = 0.1 * 1e8;
         var walletPassphrase = 'Mmitra!@#4';
         var walletId = '2MziMaFRQTj5DfWD3f3pwhCihgah8Ed46se';
 
-        bitgo.wallets().get({id: walletId}, function(err, wallet) {
-        if (err) { console.log("Error getting wallet!"); console.dir(err); return process.exit(-1); }
-        console.log("Balance is: " + (wallet.balance() / 1e8).toFixed(4));
+        bitgo.wallets().get({
+            id: walletId
+        }, function (err, wallet) {
+            if (err) {
+                console.log("Error getting wallet!");
+                console.dir(err);
+                return process.exit(-1);
+            }
+            console.log("Balance is: " + (wallet.balance() / 1e8).toFixed(4));
 
-        wallet.sendCoins({ address: destinationAddress, amount: amountSatoshis, walletPassphrase: walletPassphrase }, function(err, result) {
-            if (err) { console.log("Error sending coins!"); console.dir(err); return process.exit(-1); }
+            wallet.sendCoins({
+                address: destinationAddress,
+                amount: amountSatoshis,
+                walletPassphrase: walletPassphrase
+            }, function (err, result) {
+                if (err) {
+                    console.log("Error sending coins!");
+                    console.dir(err);
+                    return process.exit(-1);
+                }
 
-            console.dir(result);
+                console.dir(result);
+            });
         });
+    });
+
+    app.get('/bitgo/get-balance', (req, res) => {
+        var walletId = '2MwDGsK8XmELd41t8GVK7G39vemcEjEUvYU';
+
+        bitgo.wallets().get({
+            id: walletId
+        }, function (err, wallet) {
+            if (err) {
+                console.log("Error getting wallet!");
+                console.dir(err);
+                return process.exit(-1);
+            }
+            console.log("Balance is: " + (wallet.balance() / 1e8).toFixed(4));
         });
+    });
+
+    app.get('/wallets', async (req, res) => {
+        var walletId = '2MwDGsK8XmELd41t8GVK7G39vemcEjEUvYU';
+
+        await bitgo.authenticate({
+            username: keys.BITGO_USERNAME,
+            password: keys.BITGO_PASSWORD,
+            otp: keys.BITGO_OTP
+        }, function (err, result) {
+            if (err) {
+                return console.log(err);
+            }
+            // res.send(result.access_token);
+        });
+
+        await bitgo.wallets().get({
+            id: walletId
+        }, function (err, wallet) {
+            if (err) {
+                console.log("Error getting wallet!");
+                console.dir(err);
+                return process.exit(-1);
+            } else {
+                console.log("Balance is: " + (wallet.balance() / 1e8).toFixed(4));
+                console.log(wallet);
+                res.render('wallets', {
+                    layout: 'dashboard',
+                    wallet: wallet
+                });
+            }
+        });
+
     });
 };

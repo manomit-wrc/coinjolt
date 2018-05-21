@@ -6,6 +6,7 @@ const keys = require('../config/key');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
 const async = require('async');
+const request = require('request');
 module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
@@ -188,7 +189,11 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             field_11: p_composition[0].get('email_address')
         });
 
-
+        var shareholders_info = await shareholder.findAll({
+            where: {
+                user_id: req.user.id
+            }
+        });
 
         const msg = req.flash('profileMessage')[0];
         var country = await Country.findAll();
@@ -197,7 +202,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             message: msg,
             countries: country,
             kyc_details: kyc_details,
-            p_institutional_arr: p_institutional_arr
+            p_institutional_arr: p_institutional_arr,
+            shareholders_info: shareholders_info
         });
     });
 
@@ -1265,10 +1271,86 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/wallets', function (req, res) {
-        res.render('wallets', {
-            layout: 'dashboard'
+    // app.get('/wallets', function (req, res) {
+    //     res.render('wallets', {
+    //         layout: 'dashboard'
+    //     });
+    // });
+
+    app.post('/remove-shareholderInfo', (req, res) =>{
+        var shareHolderId = req.body.shareholderId;
+        shareholder.destroy({
+            where: {
+                user_id: req.user.id,
+                id: shareHolderId
+            }
+        }).then(function (result) {
+            res.json({success: "true"});
         });
+    });
+
+    app.post('/ecorepay-payment', (req, res) =>{
+
+        //console.log('Ecorepay called');
+
+        var firstname = req.body.firstname; 
+        var lastname = req.body.lastname;
+        var email = req.body.email;
+        var phone = req.body.phone;
+        var dob = req.body.dob;
+        var address = req.body.address;
+        var city = req.body.city;
+        var state = req.body.state;
+        var postcode = req.body.postcode;
+        var country = req.body.country;
+        var card_number = req.body.card_number;
+        var cardexpmonth = req.body.cardexpmonth;
+        var cardexpyear = req.body.cardexpyear;
+        var cvv = req.body.cvv;
+        var amount = req.body.amount;
+        var userID = req.body.userID;
+
+        //console.log('FIRSTNAME: ',firstname);
+
+        request({
+            uri: "http://localhost/ecorepay.php",
+            method: "POST",
+            //json: true,
+            form: {
+                userid: userID,
+                amount: amount,
+                fname: firstname,
+                lname: lastname,
+                email: email,
+                phn: phone,
+                dob: dob,
+                add: address,
+                city: city,
+                state: state,
+                postcode: postcode,
+                country: country,
+                cardno: card_number,
+                cardexpmonth: cardexpmonth,
+                cardexpyear: cardexpyear,
+                cvv: cvv
+            }
+          }, function(error, response, body) {
+             var obj = JSON.parse(body);
+             //console.dir(obj);
+             //console.log(body);
+             //console.log('BODY: ',body);
+            //console.log(body);
+
+            if(obj.msg === 'success'){
+                res.json({ 'message': 'Successul' });
+            }
+
+           /*  if(body.msg === 'success'){
+                res.json({ 'message': 'Successul' });
+            } */
+
+          }); 
+          //res.json({ 'msg': 'Success' });
     });
 
 };

@@ -1600,6 +1600,15 @@ ul.selectbar {
 
 /*Ends TAB css on 16-05-2018*/
 
+td.details-control {
+    background: url('../img/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.remove-control {
+    background: url('../img/details_close.png') no-repeat center center;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1366px) {
     .balance-box {
         display: block;

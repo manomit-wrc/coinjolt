@@ -235,41 +235,41 @@
                         </div>
                       </div>
                       <!--BCH tabs ends-->
-                      <!--BTG tabs starts-->
+                      <!--RMG tabs starts-->
                       <div class="bit-tabs">
                         <div class="content-box">
                           <div class="collaps pull-left">
                             <i class="fa fa-bitcoin"></i>
-                            <a data-toggle="collapse" data-target="#btg">Bitcoin Gold</a>
+                            <a data-toggle="collapse" data-target="#rmg">Royal Mint Gold</a>
                           </div>
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>0
-                                <strong>BTG</strong>
+                                <strong>RMG</strong>
                               </span>
                               <p> 0.00 USD</p>
                             </div>
                           </div>
                         </div>
-                        <div id="btg" class="collapse">
+                        <div id="rmg" class="collapse">
                           <div class="mywallt">
                             <div class="middle">
-                              {{#if_neq btgAddressDetails.count 0}}
+                              {{#if_neq rmgAddressDetails.count 0}}
                                 <div class="address">
-                                  <p>This is your Bitcoin Gold address:</p>
+                                  <p>This is your Royal Mint Gold address:</p>
                                 </div>
                                 <ul class="list-group">
                                   <li class="list-group-item">
-                                    {{btgAddressDetails.rows.0.address}}
+                                    {{rmgAddressDetails.rows.0.address}}
                                     {{!-- <span class="badge">test</span> --}}
                                   </li>
                                 </ul>
                               {{/if_neq}}  
                               <div class="all-btn">
                                 {{#if_neq count 0}}
-                                  {{#if_eq btgAddressDetails.count 0}}
+                                  {{#if_eq rmgAddressDetails.count 0}}
                                     <button type="button" class="btn btn-primary address_btn" data-datac="46">
-                                      <i class="fa fa-plus"></i>Generate Bitcoin Gold address</button>
+                                      <i class="fa fa-plus"></i>Generate Royal Mint Gold address</button>
                                   {{/if_eq}}
                                 {{/if_neq}}      
                                 {{!-- <button type="button" class="btn btn-primary">
@@ -281,7 +281,7 @@
                           </div>
                         </div>
                       </div>
-                      <!--BTG tabs ends-->
+                      <!--RMG tabs ends-->
                       <!--XRP tabs starts-->
                       <div class="bit-tabs">
                         <div class="content-box">

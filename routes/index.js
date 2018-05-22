@@ -120,7 +120,7 @@ module.exports = function (app, passport, models) {
                             }
                             var data = {
                                 "passphrase": keys.BITGO_PASSWORD,
-                                "label": "My Coinjolt Wallet"
+                                "label": "Coinjolt Bitgo Wallet"
                             }
                             bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
                                 if (walleterr) {

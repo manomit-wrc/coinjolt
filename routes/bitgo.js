@@ -131,7 +131,7 @@ module.exports = (app, models) => {
         var ethBalance = 0;
         var ltcBalance = 0;
         var bchBalance = 0;
-        var btgBalance = 0;
+        var rmgBalance = 0;
         var xrpBalance = 0;
 
         await bitgo.authenticate({
@@ -209,7 +209,7 @@ module.exports = (app, models) => {
                 currency_id: '2'
             }
         });
-        console.log(JSON.stringify(ethAddressDetails));
+        // console.log(JSON.stringify(ethAddressDetails));
         //litecoin
         let ltccAddressDetails = await models.wallet_address.findAndCountAll({
             where: {
@@ -224,8 +224,8 @@ module.exports = (app, models) => {
                 currency_id: '5'
             }
         });
-        //bitcoin gold
-        let btgAddressDetails = await models.wallet_address.findAndCountAll({
+        //royal mint gold
+        let rmgAddressDetails = await models.wallet_address.findAndCountAll({
             where: {
                 user_id: req.user.id,
                 currency_id: '46'
@@ -251,7 +251,7 @@ module.exports = (app, models) => {
             ethAddressDetails: ethAddressDetails,
             ltccAddressDetails: ltccAddressDetails,
             bchAddressDetails: bchAddressDetails,
-            btgAddressDetails: btgAddressDetails,
+            rmgAddressDetails: rmgAddressDetails,
             xrpAddressDetails: xrpAddressDetails
         });
 
@@ -261,7 +261,7 @@ module.exports = (app, models) => {
         var user_id = req.user.id;
 		var data = {
             "passphrase": keys.BITGO_PASSWORD,
-            "label": "My Coinjolt Wallet"
+            "label": "Coinjolt Bitgo Wallet"
         }
         bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
             if (walleterr) {

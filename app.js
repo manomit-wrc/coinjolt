@@ -264,6 +264,8 @@ require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details
 require('./routes/admin_kyc')(app, models.Kyc_details, models.User);
 require('./routes/admin_support')(app, models.Support, models.User, AWS);
 require('./routes/bitgo')(app);
+require('./routes/admin_email')(app, models.email_template);
+require('./routes/admin_all_user_list')(app, models.email_template, models.User, AWS);
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

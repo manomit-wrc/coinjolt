@@ -149,7 +149,10 @@ body {
     padding: 0 10px;
 }
 
-.reg-main .btn.btn-primary {
+.reg-main .btn.btn-primary,
+.sgn-main .btn.btn-primary
+
+{
     background: rgba(0, 0, 0, 0) linear-gradient(135deg, #1ebbf0 30%, #39dfaa 100%) repeat scroll 0 0;
     color: #ffffff;
     height: 42px;
@@ -341,7 +344,9 @@ body {
     width: 35px;
 }
 
-.main-sidebar .sidebar-menu li a:hover {
+.main-sidebar .sidebar-menu li a:hover,
+.main-sidebar .sidebar-menu li a.active
+ {
     background: #4d5776 none repeat scroll 0 0 !important;
     border-left: 4px solid #ffffff;
     color: #fff;
@@ -1185,8 +1190,9 @@ table.table.scroll-minus {
 }
 
 .box.cjnews-box {
-    height: 660px;
-    overflow: hidden;
+    height: 695px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #financialForm h3 {
@@ -1219,7 +1225,7 @@ table.table.scroll-minus {
 }
 
 .cjabout-box .box-body {
-    height: 423px;
+    height: 458px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -1995,3 +2001,74 @@ label.labelset {
 }
 
 /*Ends css on 2018-03-23*/
+
+/* Starts css on 2018-05-22 */
+
+.preview-fg.form-group {
+	margin-bottom: 65px;
+}
+
+.preview-txt.form-group {
+	margin-bottom: 40px;
+}
+
+.preview-txt a {
+    margin-top: 7px;
+}
+
+
+#institute_modal .form-group img,
+#individual_modal .form-group img
+{
+	margin: 10px;
+	display: block;
+	width: 40px;
+	height: 40px;
+}
+
+.profile-details .radio-btn span {
+	position: relative;
+	top: 4px;
+}
+
+.portfolio-performance ul {
+	padding: 0 0 0 15px;
+}
+
+.sidebar-mini .sidebar {
+    overflow: visible !important;
+}
+
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu > li:hover > a > span:not(.pull-right), .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu > li:hover > .treeview-menu {
+	display: block !important;
+	position: absolute;
+	width: 270px !important;
+    left: 50px;
+    height: 71px;
+    line-height: 71px !important;
+    padding: 0 20px !important;
+    text-align: center;
+    margin-top: 0 !important;
+}
+
+.sidebar-mini.sidebar-collapse .sidebar-menu > li > a {
+	margin-right: 0;
+	padding: 18px 3px !important;
+}
+
+.login-page {
+	background: #58a2e9 !important;
+}
+
+.sgn-main {
+	margin-top: 10px;
+}
+
+input#cc-submit,
+input#cc-submit1
+{
+	width: 200px;
+}
+
+
+/* Ends css on 2018-05-22 */

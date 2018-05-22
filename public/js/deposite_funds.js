@@ -194,22 +194,29 @@ $(document).ready(function (e) {
 			  
       	}else if(deposit_type == 2){
 			$(".paymentErrorMsg").hide();  
-      		var amount = $.trim($('#usd_amount').val());
-      		$("#totalamount").val("$" + amount);
-
-      		$("#pdf").hide();
-			$('#success-animate').hide();
-			$('#warning-animate').show();
-			$('#close').hide();
-			$('#pdf').hide();
-
-	        $('#exampleModalLong').modal('show');
+			var amount = $.trim($('#usd_amount').val());
+			if(amount == ''){
+				$('#exampleModalLong').modal('hide');
+			}
+			else if(amount <= 0){
+				$('#exampleModalLong').modal('hide');
+				$(".expecteder").show();
+			}
+			else{
+				$("#totalamount").val("$" + amount);
+				$("#pdf").hide();
+				$('#success-animate').hide();
+				$('#warning-animate').show();
+				$('#close').hide();
+				$(".expecteder").hide();
+				$('#pdf').hide();
+				$('#exampleModalLong').modal('show');
+			}
+      		
       	}else{
 			$(".paymentErrorMsg").show();
 			  $("#deposit_type").focus();
 		  }
-		  
-
     });
     e.preventDefault();
 

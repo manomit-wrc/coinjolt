@@ -1,15 +1,11 @@
 <section class="content-header">
-	<h1>All User List</h1>
+	<h1>Send email history List</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">All User List</li>
+		<li class="active">Send email history List</li>
 	</ol>
-
-	<div class="box-footer" style="margin: 10px 0;">
-	    <a href="/admin/send-email-history-list"><button type="button" class="btn btn-success">Send Email History</button></a>
-  	</div>
 </section>
 
 <section class="content container-fluid">
@@ -25,19 +21,21 @@
 								<tr>
 									<th>ID</th>
 									<th>User Name</th>
-									<th>Email</th>
-									<th>Action</th>
+									<th>Subject</th>
+									<th>Send Date</th>
+									<!-- <th>Action</th> -->
 								</tr>
 							</thead>
 							<tbody>
-								{{#each allUser}}
+								{{#each allData}}
 								<tr>
 									<td>{{this.id}}</td>
-									<td>{{this.first_name}} {{this.last_name}}</td>
-									<td>{{this.email}}</td>
-									<td>
-										<a href='/admin/send-email/{{this.id}}' class="btn approve-req" >Send Email</a>
-									</td>
+									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
+									<td>{{this.email_sub}}</td>
+									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
+									<!-- <td>
+										<a href='/admin/send-email/{{this.id}}' class="btn approve-req" >View Details</a>
+									</td> -->
 								</tr>
 								{{/each}}
 							</tbody>

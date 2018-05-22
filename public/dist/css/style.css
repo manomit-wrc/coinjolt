@@ -149,7 +149,10 @@ body {
     padding: 0 10px;
 }
 
-.reg-main .btn.btn-primary {
+.reg-main .btn.btn-primary,
+.sgn-main .btn.btn-primary
+
+{
     background: rgba(0, 0, 0, 0) linear-gradient(135deg, #1ebbf0 30%, #39dfaa 100%) repeat scroll 0 0;
     color: #ffffff;
     height: 42px;
@@ -341,7 +344,9 @@ body {
     width: 35px;
 }
 
-.main-sidebar .sidebar-menu li a:hover {
+.main-sidebar .sidebar-menu li a:hover,
+.main-sidebar .sidebar-menu li a.active
+ {
     background: #4d5776 none repeat scroll 0 0 !important;
     border-left: 4px solid #ffffff;
     color: #fff;
@@ -1702,6 +1707,41 @@ label.labelset {
 
 .portfolio-performance ul {
 	padding: 0 0 0 15px;
+}
+
+.sidebar-mini .sidebar {
+    overflow: visible !important;
+}
+
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu > li:hover > a > span:not(.pull-right), .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu > li:hover > .treeview-menu {
+	display: block !important;
+	position: absolute;
+	width: 270px !important;
+    left: 50px;
+    height: 71px;
+    line-height: 71px !important;
+    padding: 0 20px !important;
+    text-align: center;
+    margin-top: 0 !important;
+}
+
+.sidebar-mini.sidebar-collapse .sidebar-menu > li > a {
+	margin-right: 0;
+	padding: 18px 3px !important;
+}
+
+.login-page {
+	background: #58a2e9 !important;
+}
+
+.sgn-main {
+	margin-top: 10px;
+}
+
+input#cc-submit,
+input#cc-submit1
+{
+	width: 200px;
 }
 
 

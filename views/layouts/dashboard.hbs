@@ -2227,5 +2227,33 @@
     </script>
     <!--Ends Script for Auto Height -->
 
+    <!-- Starts  Script for Active Menu -->
+
+
+     <script type="text/javascript">
+      
+
+$(function(){
+
+    var url = window.location.href.substr(window.location.href.lastIndexOf("/")+1), // in real app this would have to be replaced with window.location.pathname 
+        urlRegExp = new RegExp(url.replace(/\/$/,'')); // create regexp to match current url pathname and remove trailing slash if present as it could collide with the link in navigation in case trailing slash wasn't present there
+    
+        // now grab every link from the navigation
+        $('.sidebar-menu a').each(function(){
+            // and test its href against the url pathname regexp
+            if(urlRegExp.test(this.href)){
+                $(this).addClass('active');
+            }
+        });
+
+
+        
+
+});
+
+
+
+    </script>
+     <!-- Ends Script for Active Menu -->
 </body>
 </html>

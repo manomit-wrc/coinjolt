@@ -10,30 +10,30 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box">
-                    <div class="box-header">
+                    <div class="box-header with-border">
                         <h3 class="box-title"><i class="fa fa-user margin-r-5"></i>Edit Profile </h3>
                     </div>
                     <div class="box-body">
                         <div class="row">
-                            {{#if message}}
+                         {{#if message}}
                             <div class="alert alert-success" id="profileSaveMsg">{{message}}</div>
                             {{/if}}
                             <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="prev-box">
                                             <div class="prev-image-box">
                                                 <img src="{{image}}" width="150" height="150" class="preview_image">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <div class="account-upload">
                                             <label class="control-label cj-lbl">Change Picture</label>
                                             <input type="file" name="async_upload" id="async_upload"> 
                                             <div class="brsw-btn">Upload Picture</div>
                                             <p class="loaderImg" style="display:none; text-align:center;">
-                                                <img src="http://dev.coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif" class="loader-gif">
+                                                <img src="ajax-loader-1.gif" class="loader-gif">
                                             </p>
                                         </div>
                                     </div>
@@ -86,452 +86,464 @@
                                     {{/if_eq}}
                                 </div>
                             </div>
-
-                            <form method="post" action="/account-settings" role="form" id="update_profile" name="update_profile">
-                                <div class="col-md-12">
-                                    <div class="box-header with-border">
-                                        <h4><strong>Personal Details</strong></h4>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">Nickname <span style="color:#ff0000">*</span></label>
-                                    <input type="text" placeholder="Nick Name" class="form-control" name="user_name" id="user_name" maxlength="100" value="{{user.user_name}}" />
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">Email Address</label>
-                                    <input type="text" placeholder="Email" class="form-control" name="user_email" id="user_email" disabled="disabled" value="{{user.email}}" />
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">First Name <span style="color:#ff0000">*</span></label>
-                                    <input type="text" placeholder="Enter First Name" class="form-control" name="first_name" id="first_name" maxlength="100" value="{{user.first_name}}">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">Last Name <span style="color:#ff0000">*</span></label>
-                                    <input type="text" placeholder="Enter Last Name" class="form-control" name="last_name" id="last_name" maxlength="100" value="{{user.last_name}}">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">Phone Number <span style="color:#ff0000">*</span></label>
-                                    <input type="text" placeholder="Enter Phone Number" class="form-control" value="{{user.contact_no}}" name="contact_no" id="contact_no" maxlength="100">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">Date of Birth <span style="color:#ff0000">*</span></label>
-                                    <input type="date" class="form-control" placeholder="Date of Birth" name="dob" id="dob" value="{{dateFormat user.dob "YYYY-MM-DD"}}">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">About Me</label>
-                                    <textarea  class="form-control" rows="3" name="about_me" id="about_me">{{user.about_me}}</textarea>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">Address <span style="color:#ff0000">*</span></label>
-                                    <input class="form-control" id="address" type="text" name="address" placeholder="Enter Address" value="{{user.address}}">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">City <span style="color:#ff0000">*</span></label>
-                                    <input id="city" class="form-control" type="text" name="city" value="{{user.city}}">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">Country <span style="color:#ff0000">*</span></label>
-                                    <select class="form-control" name="country" id="country">
-                                        {{#each countries}}
-                                        <option value="{{this.id}}" {{#if_eq this.id ../user.country_id}} selected="selected" {{/if_eq}}>{{this.name}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label" for="state">State <span style="color:#ff0000">*</span></label> 
-                                    
-                                    <select class="form-control" name="usa_states" id="usa_states" {{#if_neq user.country_id "226"}} style="display: none;"{{/if_neq}}>
-                                            <option value="AL">Alabama (AL) </option> 
-                                            <option value="AK">Alaska (AK) </option> 
-                                            <option value="AZ">Arizona (AZ) </option> 
-                                            <option value="AR">Arkansas (AR) </option> 
-                                            <option value="AA">Armed Forces America (AA) </option> 
-                                            <option value="AE">Armed Forces Europe (AE) </option> 
-                                            <option value="AP">Armed Forces Pacific (AP) </option> 
-                                            <option value="CA">California (CA) </option> 
-                                            <option value="CO">Colorado (CO) </option> 
-                                            <option value="CT">Connecticut (CT) </option> 
-                                            <option value="DE">Delaware (DE) </option> 
-                                            <option value="DC">District of Columbia (DC) </option> 
-                                            <option value="FL">Florida (FL) </option> 
-                                            <option value="GA">Georgia (GA) </option> 
-                                            <option value="HI">Hawaii (HI) </option> 
-                                            <option value="ID">Idaho (ID) </option> 
-                                            <option value="IL">Illinois (IL) </option> 
-                                            <option value="IN">Indiana (IN) </option> 
-                                            <option value="IA">Iowa (IA) </option> 
-                                            <option value="KS">Kansas (KS) </option> 
-                                            <option value="KY">Kentucky (KY) </option> 
-                                            <option value="LA">Louisiana (LA) </option> 
-                                            <option value="ME">Maine (ME) </option> 
-                                            <option value="MD">Maryland (MD) </option> 
-                                            <option value="MA">Massachusetts (MA) </option> 
-                                            <option value="MI">Michigan (MI) </option> 
-                                            <option value="MN">Minnesota (MN) </option> 
-                                            <option value="MS">Mississippi (MS) </option> 
-                                            <option value="MO">Missouri (MO) </option> 
-                                            <option value="MT">Montana (MT) </option> 
-                                            <option value="NE">Nebraska (NE) </option> 
-                                            <option value="NV">Nevada (NV) </option> 
-                                            <option value="NH">New Hampshire (NH) </option> 
-                                            <option value="NJ">New Jersey (NJ) </option> 
-                                            <option value="NM">New Mexico (NM) </option> 
-                                            <option value="NY">New York (NY) </option> 
-                                            <option value="NC">North Carolina (NC) </option> 
-                                            <option value="ND">North Dakota (ND) </option> 
-                                            <option value="OH">Ohio (OH) </option> 
-                                            <option value="OK">Oklahoma (OK) </option> 
-                                            <option value="OR">Oregon (OR) </option> 
-                                            <option value="PA">Pennsylvania (PA) </option> 
-                                            <option value="RI">Rhode Island (RI) </option> 
-                                            <option value="SC">South Carolina (SC) </option> 
-                                            <option value="SD">South Dakota (SD) </option> 
-                                            <option value="TN">Tennessee (TN) </option> 
-                                            <option value="TX">Texas (TX) </option> 
-                                            <option value="UT">Utah (UT) </option> 
-                                            <option value="VT">Vermont (VT) </option> 
-                                            <option value="VA">Virginia (VA) </option> 
-                                            <option value="WA">Washington (WA) </option> 
-                                            <option value="WV">West Virginia (WV) </option> 
-                                            <option value="WI">Wisconsin (WI) </option> 
-                                            <option value="WY">Wyoming (WY) </option>   
-                                    </select>
-                                    
-                                        <input class="form-control" value="{{user.state}}" id="state" type="text" name="state" {{#if_eq user.country_id "226"}} style="display: none;"{{/if_eq}}>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label">Postal Code <span style="color:#ff0000">*</span></label>
-                                    <input id="postcode" class="form-control" type="text" name="postcode" value="{{user.postal_code}}" maxlength="6">
-                                </div>
-                                <div class="clearfix"></div>
-                                <!-- begin institutional details form -->
-                                <div class="col-md-12">
-                                        <div class="box-header with-border">
-                                            <h3 class="box-title">Institutional Details</h3>
-                                        </div>
-                                        <div class="box-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    
-                                                    <div class="form-group">
-                                                        <label for="business_name">Business Name:</label>
-                                                        <input class="form-control" id="business_name" placeholder="Enter Business Name" name="business_name" value="{{p_institutional_arr.0.field_1}}" type="text">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="business_registration_country">Country of Business Registration:</label>
-                                                        <input class="form-control" id="business_registration_country" placeholder="Enter Country of Business Registration" name="business_registration_country" value="{{p_institutional_arr.0.field_3}}" type="text">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="settlement_currency">Settlement Currency:</label>
-                                                        <select name="settlement_currency" class="form-control" id="settlement_currency">
-                                                            <option value="flat" {{#if_eq p_institutional_arr.0.field_5 'flat'}} selected="selected" {{/if_eq}}>Flat(USD,EUR,YEN)</option>
-                                                            <option value="cryptocurrency" {{#if_eq p_institutional_arr.0.field_5 'cryptocurrency'}} selected="selected" {{/if_eq}}>Cryptocurrency(BTC,ETC,XRC)</option>
-
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>City:</label>
-                                                        <input name="city_ins" class="form-control" id="city_ins" value="{{p_institutional_arr.0.field_7}}" type="text">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Phone Number:</label>
-                                                        <input name="phone_number" class="form-control" id="phone_number" value="{{p_institutional_arr.0.field_9}}" type="text">
-                                                    </div>
-
-
-                                                    {{!-- <div class="form-group">
-                                                        <label>Certificate of Incorporation:</label>
-                                                        <input name="incorporation_certificate" class="form-control incorporation_certificate" id="incorporation_certificate" type="file">
-                                                    </div> --}}
-
-                                                   {{!--  <div class="form-group">
-                                                        <label>Recent Bank Account Statement:</label>
-                                                        <input name="bank_statement" class="form-control" id="bank_statement" type="file">
-                                                    </div> --}}	
-
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="business_number">Business Number:</label>
-                                                        <input class="form-control" id="business_number" placeholder="Enter Business Number" name="business_number" value="{{p_institutional_arr.0.field_2}}" type="text">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="investques">How much are you looking to invest?:</label>
-                                                        <select name="investques" class="form-control" id="investques">
-                                                            <option value="0 - $100,000+" {{#if_eq p_institutional_arr.0.field_4 '0 - $100,000+'}} selected="selected" {{/if_eq}}>0 - $100,000+</option>
-                                                            <option value="1,000,000+" {{#if_eq p_institutional_arr.0.field_4 '1,000,000+'}} selected="selected" {{/if_eq}}>$1,000,000+</option>
-                                                            <option value="10,000,000+" {{#if_eq p_institutional_arr.0.field_4 '10,000,000+'}} selected="selected" {{/if_eq}}>$10,000,000+</option>
-                                                            <option value="100,000,000+" {{#if_eq p_institutional_arr.0.field_4 '100,000,000+'}} selected="selected" {{/if_eq}}>$100,000,000+</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="form-group">
-                                                        <label>Street Address:</label>
-                                                        <input name="street" class="form-control" id="street_ins" value="{{p_institutional_arr.0.field_6}}" type="text">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>State:</label>
-                                                        <input name="state_ins" class="form-control" id="state_ins" value="{{p_institutional_arr.0.field_8}}" type="text">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Postal Code:</label>
-                                                        <input name="postal_code" class="form-control" id="postal_code" value="{{p_institutional_arr.0.field_10}}" type="text">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Email Address:</label>
-                                                        <input name="email_address" class="form-control" id="email_address" value="{{p_institutional_arr.0.field_11}}" type="text">
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class="col-md-12">
-					                <div class="shareholders">
-						<div class="table-responsive">
-							{{!-- <div class="modal fade" id="shareholderInfoModal" role="dialog">
-												<div class="modal-dialog share-holder-details-popup">
-
-													<!-- Modal content-->
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal">×</button>
-															<h4 class="modal-title">Share Holder Details</h4>
-														</div>
-														<div class="modal-body">
-															<div class="row">
-																<div class="col-md-12">
-																	<div class="col-md-3">
-																		<label>Shareholder Name : </label>
-																	</div>
-																	<div class="col-md-9">	
-																		<p id="id">qsd</p>
-																	</div>
-																</div>
-
-																<div class="col-md-6">
-																	
-																	<div class="col-md-6">
-																		<label>Proof of Address: </label>
-																	</div>
-																	<div class="col-md-6">	
-																		<a href=""><img src="" width="100px" height="100px"></a>
-																	</div>
-																	
-																</div>
-
-																<div class="col-md-6">
-																	
-																	<div class="col-md-6">
-																		<label>Government Issued ID: </label>
-																	</div>
-																	<div class="col-md-6">	
-																		<a href="">	<img src="" width="100px" height="100px"></a>
-																	</div>
-																	
-																</div>
-															</div>
-														</div>
-
-													</div>
-
-												</div>
-											</div> --}}<div class="modal fade" id="1271" role="dialog">
-												<div class="modal-dialog share-holder-details-popup">
-
-													<!-- Modal content-->
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal">×</button>
-															<h4 class="modal-title">Share Holder Details</h4>
-														</div>
-														<div class="modal-body">
-															<div class="row">
-																<div class="col-md-12">
-																	<div class="col-md-3">
-																		<label>Shareholder Name : </label>
-																	</div>
-																	<div class="col-md-9">	
-																		<p id="id">asd</p>
-																	</div>
-																</div>
-
-																<div class="col-md-6">
-																	
-																	<div class="col-md-6">
-																		<label>Proof of Address: </label>
-																	</div>
-																	<div class="col-md-6">	
-																		<a href=""><img src="" width="100px" height="100px"></a>
-																	</div>
-																	
-																</div>
-
-																<div class="col-md-6">
-																	
-																	<div class="col-md-6">
-																		<label>Government Issued ID: </label>
-																	</div>
-																	<div class="col-md-6">	
-																		<a href="">	<img src="" width="100px" height="100px"></a>
-																	</div>
-																	
-																</div>
-															</div>
-														</div>
-
-													</div>
-
-												</div>
-											</div>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Shareholders</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                    <tbody>
-                                                        {{#each shareholders_info}}
-                                                            <div class="modal fade" id="{{this.id}}" role="dialog">
-                                                                <div class="modal-dialog share-holder-details-popup">
-
-                                                                    <!-- Modal content-->
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <button type="button" class="close" data-dismiss="modal">×</button>
-                                                                            <h4 class="modal-title">Share Holder Details</h4>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="col-md-3">
-                                                                                        <label>Shareholder Name : </label>
-                                                                                    </div>
-                                                                                    <div class="col-md-9">	
-                                                                                        <p id="id">{{this.shareholder_name}}</p>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-6">
-                                                                                    
-                                                                                    <div class="col-md-6">
-                                                                                        <label>Proof of Address: </label>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">	
-                                                                                        
-                                                                                        {{#if (multiple_if (getUploadedFileExtension this.address_proof) 'jpg' ) }}
-                                                                                                <img src="{{this.address_proof}}" width="100px" height="100px">
-                                                                                            {{else if (multiple_if (getUploadedFileExtension this.address_proof) 'png' )}}
-                                                                                                <img src="{{this.address_proof}}" width="100px" height="100px">
-                                                                                            {{else if (multiple_if (getUploadedFileExtension this.address_proof) 'jpeg' )}}
-                                                                                                <img src="{{this.address_proof}}" width="100px" height="100px">
-                                                                                            {{else}}
-                                                                                                <a href="{{this.address_proof}}" target="_blank">Link To Proof Of Address</a>
-                                                                                        {{/if}}
-
-                                                                                    </div>
-                                                                                    
-                                                                                </div>
-
-                                                                                <div class="col-md-6">
-                                                                                    
-                                                                                    <div class="col-md-6">
-                                                                                        <label>Government Issued ID: </label>
-                                                                                    </div>
-                                                                                    <div class="col-md-6">	
-
-                                                                                        {{#if (multiple_if (getUploadedFileExtension this.government_issued_id) 'jpg' ) }}
-                                                                                                <img src="{{this.government_issued_id}}" width="100px" height="100px">
-                                                                                            {{else if (multiple_if (getUploadedFileExtension this.government_issued_id) 'png' )}}
-                                                                                                <img src="{{this.government_issued_id}}" width="100px" height="100px">
-                                                                                            {{else if (multiple_if (getUploadedFileExtension this.government_issued_id) 'jpeg' )}}
-                                                                                                <img src="{{this.government_issued_id}}" width="100px" height="100px">
-                                                                                            {{else}}
-                                                                                                <a href="{{this.government_issued_id}}" target="_blank">Link To Government Issued Id</a>
-                                                                                        {{/if}}
-
-
-                                                                                    </div>
-                                                                                    
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                </div>
-											</div>
-                                                            <tr>
-                                                                <td>{{this.shareholder_name}}</td>
-                                                                <td><a href="javascript:void(0)" class="btn btn-primary" id="showShareholderInfo" data-toggle="modal" data-target="#{{this.id}}">View</a>
-                                                                    <button class="btn btn-primary deleteShareholderInfo" type="button" data-sid="{{this.id}}" >Delete</button></td>
-                                                            </tr>
-                                                        {{/each}}
-                                                        {{!-- <tr>
-                                                            <td>qsd</td>
-                                                            <td><a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#1211">View</a>
-                                                                <button class="btn btn-primary" onclick="deleteShare(121)">Delete</button></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>asd</td>
-                                                            <td><a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#1271">View</a>
-                                                                <button class="btn btn-primary" onclick="deleteShare(127)">Delete</button></td>
-                                                        </tr> --}}
-
-                                                    </tbody>
-								            </table>
-								</div>
-						    </div>
-						        </div>
-                                {{!-- <div class="col-md-12 col-sm-12 col-xs-12" id="shareholder_div">
-                                    <div class="col-md-2 col-md-offset-10">
-                                        <div class="plus-btn">
-                                            <button class="btn btn-primary" onclick="append(event)">+</button>
-                                            <button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-12 col-xs-12 multiple_div">
-                                        <div class="col-md-4" id="test">                                            
-                                            <div class="form-group">
-                                                <label>Shareholder Name:</label>
-                                                <input placeholder="First and Last Name" name="shareholder_name" class="form-control shareholder_name" id="shareholder_name" value="" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group articles_incorporation_div">
-                                                <label>Proof of Address:</label>
-                                                <input name="articles_incorporation" class="form-control articles_incorporation" id="articles_incorporation" type="file">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Government Issued ID:</label>
-                                                <input name="shareholder_id" class="form-control shareholder_id" id="shareholder_id" value="" type="file">
-                                            </div>
-                                        </div>
-                                    </div>
-
-								</div> --}}
-                                <!-- end institutional details form -->
-                                <div class="clearfix"></div>
-                                <div class="col-md-2 col-md-offset-5 text-center">
-                                    <div class="updateMsg col-md-12" style="display: none"></div>
-                                    <p class="loaderImg" style="display:none; text-align:center;">
-                                        <img src="http://dev.coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif">
-                                    </p>
-                                    <button class="btn btn-primary subbtn" type="submit" name="updatesubmit" id="updatesubmit" style="margin-bottom: 40px;">Update</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
+                  <form method="post" action="/account-settings" role="form" id="update_profile" name="update_profile">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h4><strong>Personal Details</strong></h4>
+                        </div>
+                        <div class="box-body">
+    <div class="row">
+        <div class="form-group col-md-6">
+                            <label class="control-label">Nickname <span style="color:#ff0000">*</span></label>
+                            <input type="text" placeholder="Nick Name" class="form-control" name="user_name" id="user_name" maxlength="100" value="{{user.user_name}}" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Email Address</label>
+                            <input type="text" placeholder="Email" class="form-control" name="user_email" id="user_email" disabled="disabled" value="{{user.email}}" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">First Name <span style="color:#ff0000">*</span></label>
+                            <input type="text" placeholder="Enter First Name" class="form-control" name="first_name" id="first_name" maxlength="100" value="{{user.first_name}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Last Name <span style="color:#ff0000">*</span></label>
+                            <input type="text" placeholder="Enter Last Name" class="form-control" name="last_name" id="last_name" maxlength="100" value="{{user.last_name}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Phone Number <span style="color:#ff0000">*</span></label>
+                            <input type="text" placeholder="Enter Phone Number" class="form-control" value="{{user.contact_no}}" name="contact_no" id="contact_no" maxlength="100">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Date of Birth <span style="color:#ff0000">*</span></label>
+                            <input type="date" class="form-control" placeholder="Date of Birth" name="dob" id="dob" value="{{dateFormat user.dob "YYYY-MM-DD"}}">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">About Me</label>
+                            <textarea class="form-control" rows="3" name="about_me" id="about_me">{{user.about_me}}</textarea>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Address <span style="color:#ff0000">*</span></label>
+                            <input class="form-control" id="address" type="text" name="address" placeholder="Enter Address" value="{{user.address}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">City <span style="color:#ff0000">*</span></label>
+                            <input id="city" class="form-control" type="text" name="city" value="{{user.city}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Country <span style="color:#ff0000">*</span></label>
+                            <select class="form-control" name="country" id="country">
+                                {{#each countries}}
+                                <option value="{{this.id}}" {{#if_eq this.id ../user.country_id}} selected="selected" {{/if_eq}}>{{this.name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label" for="state">State <span style="color:#ff0000">*</span></label>
+
+                            <select class="form-control" name="usa_states" id="usa_states" {{#if_neq user.country_id "226"}} style="display: none;" {{/if_neq}}>
+                                <option value="AL">Alabama (AL) </option>
+                                <option value="AK">Alaska (AK) </option>
+                                <option value="AZ">Arizona (AZ) </option>
+                                <option value="AR">Arkansas (AR) </option>
+                                <option value="AA">Armed Forces America (AA) </option>
+                                <option value="AE">Armed Forces Europe (AE) </option>
+                                <option value="AP">Armed Forces Pacific (AP) </option>
+                                <option value="CA">California (CA) </option>
+                                <option value="CO">Colorado (CO) </option>
+                                <option value="CT">Connecticut (CT) </option>
+                                <option value="DE">Delaware (DE) </option>
+                                <option value="DC">District of Columbia (DC) </option>
+                                <option value="FL">Florida (FL) </option>
+                                <option value="GA">Georgia (GA) </option>
+                                <option value="HI">Hawaii (HI) </option>
+                                <option value="ID">Idaho (ID) </option>
+                                <option value="IL">Illinois (IL) </option>
+                                <option value="IN">Indiana (IN) </option>
+                                <option value="IA">Iowa (IA) </option>
+                                <option value="KS">Kansas (KS) </option>
+                                <option value="KY">Kentucky (KY) </option>
+                                <option value="LA">Louisiana (LA) </option>
+                                <option value="ME">Maine (ME) </option>
+                                <option value="MD">Maryland (MD) </option>
+                                <option value="MA">Massachusetts (MA) </option>
+                                <option value="MI">Michigan (MI) </option>
+                                <option value="MN">Minnesota (MN) </option>
+                                <option value="MS">Mississippi (MS) </option>
+                                <option value="MO">Missouri (MO) </option>
+                                <option value="MT">Montana (MT) </option>
+                                <option value="NE">Nebraska (NE) </option>
+                                <option value="NV">Nevada (NV) </option>
+                                <option value="NH">New Hampshire (NH) </option>
+                                <option value="NJ">New Jersey (NJ) </option>
+                                <option value="NM">New Mexico (NM) </option>
+                                <option value="NY">New York (NY) </option>
+                                <option value="NC">North Carolina (NC) </option>
+                                <option value="ND">North Dakota (ND) </option>
+                                <option value="OH">Ohio (OH) </option>
+                                <option value="OK">Oklahoma (OK) </option>
+                                <option value="OR">Oregon (OR) </option>
+                                <option value="PA">Pennsylvania (PA) </option>
+                                <option value="RI">Rhode Island (RI) </option>
+                                <option value="SC">South Carolina (SC) </option>
+                                <option value="SD">South Dakota (SD) </option>
+                                <option value="TN">Tennessee (TN) </option>
+                                <option value="TX">Texas (TX) </option>
+                                <option value="UT">Utah (UT) </option>
+                                <option value="VT">Vermont (VT) </option>
+                                <option value="VA">Virginia (VA) </option>
+                                <option value="WA">Washington (WA) </option>
+                                <option value="WV">West Virginia (WV) </option>
+                                <option value="WI">Wisconsin (WI) </option>
+                                <option value="WY">Wyoming (WY) </option>
+                            </select>
+
+                            <input class="form-control" value="{{user.state}}" id="state" type="text" name="state" {{#if_eq user.country_id "226"}} style="display: none;" {{/if_eq}}>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Postal Code <span style="color:#ff0000">*</span></label>
+                            <input id="postcode" class="form-control" type="text" name="postcode" value="{{user.postal_code}}" maxlength="6">
+                        </div>
+                        <div class="clearfix"></div>
+    </div>
+                        </div>
+                    
+                    </div>
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Institutional Details</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                    <!-- begin institutional details form -->
+                                    <div class="col-md-12">
+                                        
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        
+                                                        <div class="form-group">
+                                                            <label for="business_name">Business Name:</label>
+                                                            <input class="form-control" id="business_name" placeholder="Enter Business Name" name="business_name" value="{{p_institutional_arr.0.field_1}}" type="text">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="business_registration_country">Country of Business Registration:</label>
+                                                            <input class="form-control" id="business_registration_country" placeholder="Enter Country of Business Registration" name="business_registration_country" value="{{p_institutional_arr.0.field_3}}" type="text">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="settlement_currency">Settlement Currency:</label>
+                                                            <select name="settlement_currency" class="form-control" id="settlement_currency">
+                                                                <option value="flat" {{#if_eq p_institutional_arr.0.field_5 'flat'}} selected="selected" {{/if_eq}}>Flat(USD,EUR,YEN)</option>
+                                                                <option value="cryptocurrency" {{#if_eq p_institutional_arr.0.field_5 'cryptocurrency'}} selected="selected" {{/if_eq}}>Cryptocurrency(BTC,ETC,XRC)</option>
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>City:</label>
+                                                            <input name="city_ins" class="form-control" id="city_ins" value="{{p_institutional_arr.0.field_7}}" type="text">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Phone Number:</label>
+                                                            <input name="phone_number" class="form-control" id="phone_number" value="{{p_institutional_arr.0.field_9}}" type="text">
+                                                        </div>
+
+
+                                                        {{!-- <div class="form-group">
+                                                            <label>Certificate of Incorporation:</label>
+                                                            <input name="incorporation_certificate" class="form-control incorporation_certificate" id="incorporation_certificate" type="file">
+                                                        </div> --}}
+
+                                                    {{!--  <div class="form-group">
+                                                            <label>Recent Bank Account Statement:</label>
+                                                            <input name="bank_statement" class="form-control" id="bank_statement" type="file">
+                                                        </div> --}}	
+
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="business_number">Business Number:</label>
+                                                            <input class="form-control" id="business_number" placeholder="Enter Business Number" name="business_number" value="{{p_institutional_arr.0.field_2}}" type="text">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="investques">How much are you looking to invest?:</label>
+                                                            <select name="investques" class="form-control" id="investques">
+                                                                <option value="0 - $100,000+" {{#if_eq p_institutional_arr.0.field_4 '0 - $100,000+'}} selected="selected" {{/if_eq}}>0 - $100,000+</option>
+                                                                <option value="1,000,000+" {{#if_eq p_institutional_arr.0.field_4 '1,000,000+'}} selected="selected" {{/if_eq}}>$1,000,000+</option>
+                                                                <option value="10,000,000+" {{#if_eq p_institutional_arr.0.field_4 '10,000,000+'}} selected="selected" {{/if_eq}}>$10,000,000+</option>
+                                                                <option value="100,000,000+" {{#if_eq p_institutional_arr.0.field_4 '100,000,000+'}} selected="selected" {{/if_eq}}>$100,000,000+</option>
+                                                            </select>
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            <label>Street Address:</label>
+                                                            <input name="street" class="form-control" id="street_ins" value="{{p_institutional_arr.0.field_6}}" type="text">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>State:</label>
+                                                            <input name="state_ins" class="form-control" id="state_ins" value="{{p_institutional_arr.0.field_8}}" type="text">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Postal Code:</label>
+                                                            <input name="postal_code" class="form-control" id="postal_code" value="{{p_institutional_arr.0.field_10}}" type="text">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Email Address:</label>
+                                                            <input name="email_address" class="form-control" id="email_address" value="{{p_institutional_arr.0.field_11}}" type="text">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="shareholders">
+                            <div class="table-responsive">
+                                {{!-- <div class="modal fade" id="shareholderInfoModal" role="dialog">
+                                                    <div class="modal-dialog share-holder-details-popup">
+
+                                                        <!-- Modal content-->
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                                <h4 class="modal-title">Share Holder Details</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-3">
+                                                                            <label>Shareholder Name : </label>
+                                                                        </div>
+                                                                        <div class="col-md-9">	
+                                                                            <p id="id">qsd</p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        
+                                                                        <div class="col-md-6">
+                                                                            <label>Proof of Address: </label>
+                                                                        </div>
+                                                                        <div class="col-md-6">	
+                                                                            <a href=""><img src="" width="100px" height="100px"></a>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        
+                                                                        <div class="col-md-6">
+                                                                            <label>Government Issued ID: </label>
+                                                                        </div>
+                                                                        <div class="col-md-6">	
+                                                                            <a href="">	<img src="" width="100px" height="100px"></a>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div> --}}<div class="modal fade" id="1271" role="dialog">
+                                                    <div class="modal-dialog share-holder-details-popup">
+
+                                                        <!-- Modal content-->
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                                <h4 class="modal-title">Share Holder Details</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-3">
+                                                                            <label>Shareholder Name : </label>
+                                                                        </div>
+                                                                        <div class="col-md-9">	
+                                                                            <p id="id">asd</p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        
+                                                                        <div class="col-md-6">
+                                                                            <label>Proof of Address: </label>
+                                                                        </div>
+                                                                        <div class="col-md-6">	
+                                                                            <a href=""><img src="" width="100px" height="100px"></a>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        
+                                                                        <div class="col-md-6">
+                                                                            <label>Government Issued ID: </label>
+                                                                        </div>
+                                                                        <div class="col-md-6">	
+                                                                            <a href="">	<img src="" width="100px" height="100px"></a>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Shareholders</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                        <tbody>
+                                                            {{#each shareholders_info}}
+                                                                <div class="modal fade" id="{{this.id}}" role="dialog">
+                                                                    <div class="modal-dialog share-holder-details-popup">
+
+                                                                        <!-- Modal content-->
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                                                <h4 class="modal-title">Share Holder Details</h4>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="col-md-3">
+                                                                                            <label>Shareholder Name : </label>
+                                                                                        </div>
+                                                                                        <div class="col-md-9">	
+                                                                                            <p id="id">{{this.shareholder_name}}</p>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col-md-6">
+                                                                                        
+                                                                                        <div class="col-md-6">
+                                                                                            <label>Proof of Address: </label>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">	
+                                                                                            
+                                                                                            {{#if (multiple_if (getUploadedFileExtension this.address_proof) 'jpg' ) }}
+                                                                                                    <img src="{{this.address_proof}}" width="100px" height="100px">
+                                                                                                {{else if (multiple_if (getUploadedFileExtension this.address_proof) 'png' )}}
+                                                                                                    <img src="{{this.address_proof}}" width="100px" height="100px">
+                                                                                                {{else if (multiple_if (getUploadedFileExtension this.address_proof) 'jpeg' )}}
+                                                                                                    <img src="{{this.address_proof}}" width="100px" height="100px">
+                                                                                                {{else}}
+                                                                                                    <a href="{{this.address_proof}}" target="_blank">Link To Proof Of Address</a>
+                                                                                            {{/if}}
+
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+
+                                                                                    <div class="col-md-6">
+                                                                                        
+                                                                                        <div class="col-md-6">
+                                                                                            <label>Government Issued ID: </label>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">	
+
+                                                                                            {{#if (multiple_if (getUploadedFileExtension this.government_issued_id) 'jpg' ) }}
+                                                                                                    <img src="{{this.government_issued_id}}" width="100px" height="100px">
+                                                                                                {{else if (multiple_if (getUploadedFileExtension this.government_issued_id) 'png' )}}
+                                                                                                    <img src="{{this.government_issued_id}}" width="100px" height="100px">
+                                                                                                {{else if (multiple_if (getUploadedFileExtension this.government_issued_id) 'jpeg' )}}
+                                                                                                    <img src="{{this.government_issued_id}}" width="100px" height="100px">
+                                                                                                {{else}}
+                                                                                                    <a href="{{this.government_issued_id}}" target="_blank">Link To Government Issued Id</a>
+                                                                                            {{/if}}
+
+
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                </div>
+                                                                <tr>
+                                                                    <td>{{this.shareholder_name}}</td>
+                                                                    <td><a href="javascript:void(0)" class="btn btn-primary" id="showShareholderInfo" data-toggle="modal" data-target="#{{this.id}}">View</a>
+                                                                        <button class="btn btn-primary deleteShareholderInfo" type="button" data-sid="{{this.id}}" >Delete</button></td>
+                                                                </tr>
+                                                            {{/each}}
+                                                            {{!-- <tr>
+                                                                <td>qsd</td>
+                                                                <td><a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#1211">View</a>
+                                                                    <button class="btn btn-primary" onclick="deleteShare(121)">Delete</button></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>asd</td>
+                                                                <td><a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#1271">View</a>
+                                                                    <button class="btn btn-primary" onclick="deleteShare(127)">Delete</button></td>
+                                                            </tr> --}}
+
+                                                        </tbody>
+                                                </table>
+                                    </div>
+                                </div>
+                                    </div>
+                                    {{!-- <div class="col-md-12 col-sm-12 col-xs-12" id="shareholder_div">
+                                        <div class="col-md-2 col-md-offset-10">
+                                            <div class="plus-btn">
+                                                <button class="btn btn-primary" onclick="append(event)">+</button>
+                                                <button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12 multiple_div">
+                                            <div class="col-md-4" id="test">                                            
+                                                <div class="form-group">
+                                                    <label>Shareholder Name:</label>
+                                                    <input placeholder="First and Last Name" name="shareholder_name" class="form-control shareholder_name" id="shareholder_name" value="" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group articles_incorporation_div">
+                                                    <label>Proof of Address:</label>
+                                                    <input name="articles_incorporation" class="form-control articles_incorporation" id="articles_incorporation" type="file">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Government Issued ID:</label>
+                                                    <input name="shareholder_id" class="form-control shareholder_id" id="shareholder_id" value="" type="file">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div> --}}
+                                    <!-- end institutional details form -->
+                                    <div class="clearfix"></div>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="update-btn row">
+                        <div class="col-md-12 text-center">
+                            <div class="updateMsg col-md-12" style="display: none"></div>
+                            <p class="loaderImg" style="display:none; text-align:center;">
+                                <img src="ajax-loader-1.gif">
+                            </p>
+                            <button class="btn btn-primary subbtn btn-block" type="submit" name="updatesubmit" id="updatesubmit" style="margin-bottom: 40px;">Update</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

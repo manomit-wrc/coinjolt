@@ -2204,6 +2204,28 @@
         }
 
   </script>
+  <!--Starts Script for Auto Height -->
+    <script>
+        var maxHeight = 0;
+        $('.equalize-box').each(function (i) {
+            var height = $('.equalize-box').eq(i).height();
+            if (height > maxHeight)
+                maxHeight = height;
+        });
+
+        $('.equalize-box').height(maxHeight);
+    </script>
+    <script>
+        var maxHeight = 0;
+        $('.equalize-box1').each(function (i) {
+            var height = $('.equalize-box1').eq(i).height();
+            if (height > maxHeight)
+                maxHeight = height;
+        });
+
+        $('.equalize-box1').height(maxHeight);
+    </script>
+    <!--Ends Script for Auto Height -->
 
 </body>
 </html>

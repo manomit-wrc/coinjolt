@@ -4,7 +4,7 @@ var bitgo = new BitGo.BitGo({
 });
 const keys = require('../config/key');
 
-module.exports = (app) => {
+module.exports = (app, models) => {
     app.get('/bitgo/login', (req, res) => {
         bitgo.authenticate({
             username: keys.BITGO_USERNAME,
@@ -126,7 +126,13 @@ module.exports = (app) => {
     });
 
     app.get('/wallets', async (req, res) => {
-        var walletId = '2MwDGsK8XmELd41t8GVK7G39vemcEjEUvYU';
+        // var walletId = '2MwDGsK8XmELd41t8GVK7G39vemcEjEUvYU';
+        var btcBalance = 0;
+        var ethBalance = 0;
+        var ltcBalance = 0;
+        var bchBalance = 0;
+        var btgBalance = 0;
+        var xrpBalance = 0;
 
         await bitgo.authenticate({
             username: keys.BITGO_USERNAME,
@@ -139,22 +145,195 @@ module.exports = (app) => {
             // res.send(result.access_token);
         });
 
-        await bitgo.wallets().get({
-            id: walletId
-        }, function (err, wallet) {
-            if (err) {
-                console.log("Error getting wallet!");
-                console.dir(err);
-                return process.exit(-1);
-            } else {
-                console.log("Balance is: " + (wallet.balance() / 1e8).toFixed(4));
-                console.log(wallet);
-                res.render('wallets', {
-                    layout: 'dashboard',
-                    wallet: wallet
-                });
+        let walletDetails = await models.wallet.findAndCountAll({
+            where: {
+                user_id: req.user.id
             }
+        });
+        var count = walletDetails.count;
+        if (count > 0) {
+            var walletId = walletDetails.rows[0].bitgo_wallet_id;
+
+            var typeBtc = "bitcoin";
+            let btcWallet = await bitgo.wallets().get({
+                id: walletId,
+                type: typeBtc,
+            }, function (err, walletBtc) {
+                if (err) {
+                    console.log("Error getting wallet!");
+                    console.dir(err);
+                    return process.exit(-1);
+                }
+                btcBalance = (walletBtc.balance() / 1e8).toFixed(2);
+            });
+
+            var typeEth = "ethereum";
+            let ethWallet = await bitgo.wallets().get({
+                id: walletId,
+                type: typeEth,
+            }, function (err, walletEth) {
+                if (err) {
+                    console.log("Error getting wallet!");
+                    console.dir(err);
+                    return process.exit(-1);
+                }
+                ethBalance = (walletEth.balance() / 1e8).toFixed(2);
+            });
+
+            var typeLtc = "litecoin";
+            let ltcWallet = await bitgo.wallets().get({
+                id: walletId,
+                type: typeLtc,
+            }, function (err, walletLtc) {
+                if (err) {
+                    console.log("Error getting wallet!");
+                    console.dir(err);
+                    return process.exit(-1);
+                }
+                ltcBalance = (walletLtc.balance() / 1e8).toFixed(2);
+            });
+
+
+        }
+        //bitcoin
+        let btcAddressDetails = await models.wallet_address.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '1'
+            }
+        });
+        //ethereum
+        let ethAddressDetails = await models.wallet_address.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '2'
+            }
+        });
+        console.log(JSON.stringify(ethAddressDetails));
+        //litecoin
+        let ltccAddressDetails = await models.wallet_address.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '3'
+            }
+        });
+        //bitcoin cash
+        let bchAddressDetails = await models.wallet_address.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '5'
+            }
+        });
+        //bitcoin gold
+        let btgAddressDetails = await models.wallet_address.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '46'
+            }
+        });
+        //ripple
+        let xrpAddressDetails = await models.wallet_address.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '4'
+            }
+        });
+        
+        
+
+        res.render('wallets', {
+            layout: 'dashboard',
+            count: count,
+            btcBalance : btcBalance,
+            ethBalance : ethBalance,
+            ltcBalance: ltcBalance,
+            btcAddressDetails: btcAddressDetails,
+            ethAddressDetails: ethAddressDetails,
+            ltccAddressDetails: ltccAddressDetails,
+            bchAddressDetails: bchAddressDetails,
+            btgAddressDetails: btgAddressDetails,
+            xrpAddressDetails: xrpAddressDetails
         });
 
     });
+
+    app.post('/wallet-create', function (req,res) {
+        var user_id = req.user.id;
+		var data = {
+            "passphrase": keys.BITGO_PASSWORD,
+            "label": "My Coinjolt Wallet"
+        }
+        bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
+            if (walleterr) {
+                console.dir(walleterr);
+                throw new Error("Could not create wallet!");
+            }
+            console.dir(walletResult);
+            // console.log("User keychain encrypted xPrv: " + walletResult.userKeychain.encryptedXprv);
+            // console.log("Backup keychain xPub: " + walletResult.backupKeychain.xPub);
+            walletId = walletResult.wallet.wallet.id;
+            label = walletResult.wallet.wallet.label;
+            userkeychain_public = walletResult.userKeychain.xpub;
+            userkeychain_private = walletResult.userKeychain.xprv;
+            backupkeychain_private = walletResult.backupKeychain.xprv;
+            backupkeychain_public = walletResult.backupKeychain.xpub;
+            bitgokeychain_public = walletResult.bitgoKeychain.xpub;
+        }).then(function (createWallet) {
+            models.wallet.create({
+                user_id: user_id,
+                bitgo_wallet_id: walletId,
+                label: label,
+                userkeychain_public: userkeychain_public,
+                userkeychain_private: userkeychain_private,
+                backupkeychain_private: backupkeychain_private,
+                backupkeychain_public: backupkeychain_public,
+                bitgokeychain_public: bitgokeychain_public
+            }).then(function (result) {
+                res.json({
+                    success: true
+                });
+            });
+        });
+    });
+    
+
+    app.post('/generate-address', async (req,res) => {
+        var user_id = req.user.id;
+        var currency_id = req.body.currency_id;
+        console.log('generate-address');
+        console.log(user_id);
+        console.log(currency_id);
+        let walletDetails = await models.wallet.findAll({
+            where: {
+                user_id: req.user.id
+            }
+        });
+        var walletId = walletDetails[0].id;
+        var bitgoWalletId = walletDetails[0].bitgo_wallet_id;
+
+        await bitgo.wallets().get({
+            "id": bitgoWalletId
+        }, function callback(err, wallet) {
+            if (err) {
+                throw err;
+            }
+            wallet.createAddress({
+                "chain": 0
+            }, function callback(err, address) {
+                console.log(address);
+                var walletAddress = address.address;
+                models.wallet_address.create({
+                    user_id: user_id,
+                    wallet_id: walletId,
+                    address: walletAddress,
+                    currency_id: currency_id
+
+                });
+                res.json({
+                    success: true
+                });
+            });
+        });
+	});
+
 };

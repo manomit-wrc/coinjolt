@@ -1,0 +1,65 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="title-with-btn pd-612">
+       <div class="pull-left">
+        <h1>Email Template Edit</h1>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<ol class="breadcrumb">
+  <li>
+    <a href="/dashboard">
+      <i class="fa fa-dashboard"></i> Home</a>
+  </li>
+  <li>
+    <a href="/admin/email-template-listings">
+      <i class="fa fa-dashboard"></i> Email Template List</a>
+  </li>
+  <li class="active">Email Template Edit</li>
+</ol>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+    <!-- Starts Deposit Funds -->
+    <div class="deposit-funds">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <form method="post" action="javasript:void(0)" role="form" id="submit-edit-email-template" name="submit-edit-email-template">
+                <input type="hidden" name="row_id" value="{{all_data.id}}" id="row_id">
+                {{#if message}}
+                <div class="alert alert-success">{{message}}</div>
+                {{/if}}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Subject">Template Name</label>
+                            <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject" value="{{all_data.template_name}}">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <textarea name="editor1" class="form-control" id="editor1" placeholder="Enter Description">{{all_data.template_desc}}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-md-offset-5 pd-612">
+                        <div class="form-group">
+                            <input class="btn btn-primary" type="button" id="submit_edit_email_template" value="Edit" />
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+</div>
+</div>
+</div>
+<!-- Ends Deposit Funds -->
+</section>
+<!-- /.content -->

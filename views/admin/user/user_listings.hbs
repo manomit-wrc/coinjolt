@@ -1,0 +1,53 @@
+<section class="content-header">
+	<h1>All User List</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
+		</li>
+		<li class="active">All User List</li>
+	</ol>
+
+	<div class="box-footer" style="margin: 10px 0;">
+	    <a href="/admin/send-email-history-list"><button type="button" class="btn btn-success">Send Email History</button></a>
+  	</div>
+</section>
+
+<section class="content container-fluid">
+	<!-- Starts Deposit Funds -->
+	<div class="deposit-funds">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<!-- /.box-header -->
+					<div class="box-body">
+						<table id="pending_wire_transfer_table" class="table table-striped res-table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>User Name</th>
+									<th>Email</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each allUser}}
+								<tr>
+									<td>{{this.id}}</td>
+									<td>{{this.first_name}} {{this.last_name}}</td>
+									<td>{{this.email}}</td>
+									<td>
+										<a href='/admin/send-email/{{this.id}}' class="btn approve-req" >Send Email</a>
+									</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+	<!-- Ends Deposit Funds -->
+</section>

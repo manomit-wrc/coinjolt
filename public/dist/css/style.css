@@ -2080,5 +2080,16 @@ input#cc-submit1
 	width: 200px;
 }
 
+#termcondition-error {
+    display: none !important;
+}
+
+.termcondition-error-wrapper {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 16px;
+}
 
 /* Ends css on 2018-05-22 */

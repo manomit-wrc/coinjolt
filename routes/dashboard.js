@@ -1271,6 +1271,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
+    // app.get('/wallets', function (req, res) {
+    //     res.render('wallets', {
+    //         layout: 'dashboard'
+    //     });
+    // });
+
     app.post('/remove-shareholderInfo', (req, res) =>{
         var shareHolderId = req.body.shareholderId;
         shareholder.destroy({

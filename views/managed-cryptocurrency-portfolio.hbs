@@ -13,8 +13,8 @@
 <section class="content container-fluid">
     <div class="mcp">
         <div class="row">
-            <div class="col-md-4">
-                <div class="box">
+            <div class="col-md-6">
+                <div class="box equalize-box">
                     <div class="box-header with-border">
                         <h3 class="box-title">Portfolio Composition</h3>
                     </div>
@@ -36,9 +36,9 @@
                 <!-- /.box -->
             </div>
             
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <!-- institutional form start -->
-                <div class="box equalize-box" style="height: 691px;">
+                <div class="box equalize-box">
 	<div class="box-header with-border">
 		<h3 class="box-title">Application Form and Verification Required</h3>
 	</div>
@@ -51,7 +51,8 @@
 						<div class="radio-btn">
 							<p>Are you an Institutional Investor?</p>
 							<div class="intitution">
-								<input name="type" id="institution-radio" value="Institution" checked="checked" onclick="institutionForm()" type="radio">Select
+								<input name="type" id="institution-radio" value="Institution" checked="checked" onclick="institutionForm()" type="radio">
+								<span>Select</span>
 							</div>
 						</div>
 					</div>
@@ -59,7 +60,8 @@
 						<div class="radio-btn">
 							<p>Are you an Individual Investor?</p>
 							<div class="intitution-radio">
-								<input name="type" id="individual-radio" value="Individual" onclick="individualForm()" type="radio">Select
+								<input name="type" id="individual-radio" value="Individual" onclick="individualForm()" type="radio">
+								<span>Select</span>
 							</div>
 						</div>
 					</div>
@@ -69,7 +71,8 @@
 						<div class="radio-btn">
 							<p>Are you an Institutional Investor?</p>
 							<div class="intitution">
-								<input name="investor_type" id="institution-radio" value="Institution" onclick="institutionForm()" type="radio">Select
+								<input name="investor_type" id="institution-radio" value="Institution" onclick="institutionForm()" type="radio">
+								<span>Select</span>
 							</div>
 						</div>
 					</div>
@@ -77,7 +80,8 @@
 						<div class="radio-btn">
 							<p>Are you an Individual Investor?</p>
 							<div class="intitution-radio">
-								<input name="investor_type" checked="checked" id="individual-radio" value="Individual" onclick="individualForm()" type="radio">Select
+								<input name="investor_type" checked="checked" id="individual-radio" value="Individual" onclick="individualForm()" type="radio">
+								<span>Select</span>
 							</div>
 						</div>
 					</div>
@@ -128,7 +132,7 @@
 			</div>
 			<!-- Institution form modal starts -->
 			<div class="modal fade" id="institute_modal" role="dialog">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-lg">
 					<!-- Modal content-->
 					<div class="modal-content">
 						<div class="modal-header">
@@ -139,7 +143,8 @@
 							<form class="form" id="instituteModalForm" method="POST" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-md-6">
-										<div class="form-group">
+
+										<div class="form-group preview-fg">
 											<label>Certificate of Incorporation <span style="color: red">*</span></label>
 											
 											<input name="incorporation_certificate" class="form-control incorporation_certificate file-institute" id="incorporation_certificate" value="" type="file" data-temp-name="cert_incorp">
@@ -157,7 +162,7 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-										<div class="form-group">
+										<div class="form-group preview-fg">
 											<label>Recent Bank Account Statement <span style="color: red">*</span></label>
 											<input name="bank_statement" class="form-control bank_statement file-institute" id="bank_statement" type="file" data-temp-name="bank_statement">
 											
@@ -281,7 +286,7 @@
 		</div>
 		<!-- Individual form modal starts  data-target="#individual_modal" -->
 		<div class="modal fade" id="individual_modal" role="dialog">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-header">
@@ -293,7 +298,7 @@
 							<div class="alert alert-success" id="div_individual_modal" style="display: none;">Information updated successfully</div>
 							<div class="row">
 								<div class="col-md-6">
-									<div class="form-group">
+									<div class="form-group preview-fg">
 										<label>Proof of Address<span style="color: red"> *</span></label>
 										<input name="address_proof" class="form-control file" id="address_proof" data-temp-name="address_proof" value="" type="file">
 										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'jpg' ) }}
@@ -308,7 +313,7 @@
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="form-group">
+									<div class="form-group preview-fg">
 										<label>Government Issued ID<span style="color: red"> *</span></label>
 										<input name="shareholder_id" class="form-control file" id="government_issued_id" data-temp-name="govt_id" type="file">
 										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.government_issued_id) 'jpg' ) }}
@@ -323,7 +328,7 @@
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="form-group">
+									<div class="form-group preview-fg">
 										<label>Recent Bank Account Statement<span style="color: red"> *</span></label>
 										<input name="bank_statement" class="form-control file" id="bank_statement_individual" data-temp-name="bank_statement" type="file">
 										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpg' ) }}
@@ -391,12 +396,11 @@
                 <!-- institutional form end -->
             </div>
             
-            
         </div>
 
         <div class="row">
-            <div class="col-md-4">
-                <div class="box mcp_con">
+            <div class="col-md-6">
+                <div class="box mcp_con equalize-box1">
                     <div class="box-header with-border">
                         <h3 class="box-title">Calculative Projections</h3>
                     </div>
@@ -428,8 +432,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div class="box">
+            <div class="col-md-6">
+                <div class="box equalize-box1">
                     <div class="box-header with-border">
                         <h3 class="box-title">Enter an Amount</h3>
                     </div>
@@ -459,6 +463,34 @@
                                     </div>  
                                     <div class="col-md-12" id="investerrormsg" style="display:none;"> </div>  
                                 </form>
+								<form method="post" action="" id="curncy-names" class="curncy-names">
+									<div class="gap">
+										<div class="col-md-3">
+											<div class="form-group">
+												<select class="form-control curncy-select" id="curncy-select">
+													<option value="1">Bitcoin</option>
+													<option value="2">Ethereum</option>
+													<option value="3">Litecoin</option>
+													<option value="5">Bitcoin Cash</option>
+													<option value="46">Royal Mint Gold</option>
+													<option value="4">Ripple</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<input type="text" name="amount_deposit" id="amount_deposit" class="form-control" placeholder="Deposit Amount">
+											</div>
+										</div>
+									</div>
+									<div class="gap">
+										<div class="col-md-6">
+											<div class="form-group">
+												<input class="btn btn-block btn-primary" name="DepositCurrency" type="submit" value="Deposit" />
+											</div>
+										</div>
+									</div>			
+								</form>
                                 {{#if_eq user.kycApproved "2"}}
                                     <form action="/save-withdraw" method="post" id="MCPwithdraw">
                                         <div class="gap">

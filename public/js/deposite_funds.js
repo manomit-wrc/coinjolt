@@ -155,9 +155,9 @@ $(document).ready(function (e) {
 					success : function(response){
 						$(".loader_gif").hide();
 						//console.log(response);
-						if(response.message === 'Successul'){
-							alert('successul');
-							/*	$.ajax({
+						if(response.success === 'true'){
+							
+							$.ajax({
 									type : "POST",
 									url : "/credit-card-add",
 									data: {
@@ -180,7 +180,7 @@ $(document).ready(function (e) {
 											});
 										}
 									}
-							}); */
+							});
 						}
 					}
 			

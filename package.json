@@ -31,6 +31,7 @@
     "multer-s3": "^2.7.0",
     "mysql2": "^1.5.3",
     "node-excel-export": "^1.4.3",
+    "node-rest-client": "^3.1.0",
     "nodemon": "^1.17.3",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",

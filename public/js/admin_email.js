@@ -116,6 +116,7 @@ $(document).ready(function (e) {
 				alert ("Description can't be left blank");
 				return false;
 			}else{
+				$(':input[type="button"]').prop('disabled', true);
 				$.ajax({
 					type: "POST",
 					url: "/admin/send-email",
@@ -128,6 +129,7 @@ $(document).ready(function (e) {
 					},
 					success: function (response) {
 						if(response.status == true){
+							$(':input[type="button"]').prop('disabled', false);
 							swal({
 					            title: 'Thank You',
 					            text: response.msg,

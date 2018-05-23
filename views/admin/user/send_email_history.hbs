@@ -23,7 +23,7 @@
 									<th>User Name</th>
 									<th>Subject</th>
 									<th>Send Date</th>
-									<!-- <th>Action</th> -->
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -33,9 +33,9 @@
 									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
 									<td>{{this.email_sub}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
-									<!-- <td>
-										<a href='/admin/send-email/{{this.id}}' class="btn approve-req" >View Details</a>
-									</td> -->
+									<td>
+										<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">View Details</button>
+									</td>
 								</tr>
 								{{/each}}
 							</tbody>
@@ -49,3 +49,54 @@
 	</div>
 	<!-- Ends Deposit Funds -->
 </section>
+
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Send email details</h4>
+        </div>
+        <div class="modal-body">
+          	<div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="Subject">To</label>
+                        <input type="email" readonly="readonly" name="to" class="form-control" id="to" value="{{userDetails.email}}" readonly="readonly">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="Subject">Subject</label>
+                        <input type="text" readonly="readonly" name="subject" class="form-control" id="subject" placeholder="Enter Subject">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="Subject">Template</label>
+                        <select readonly="readonly" name="select_email_template" id="select_email_template" class="form-control">
+                          <option value="">Select Template</option>
+                          {{#each allEmailTemplate}}
+                            <option value="{{this.id}}">{{this.template_name}}</option>
+                          {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <textarea name="editor1" readonly="readonly" class="form-control" id="editor1" placeholder="Enter Description"></textarea>
+                    </div>
+                </div>
+            </div>
+    	</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>

@@ -1346,4 +1346,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
           //res.json({ 'msg': 'Success' });
     });
 
+    app.post('/save-deposit', function(req, res){
+		
+    });
+
 };

@@ -186,7 +186,7 @@ $(document).ready(function (e) {
 			success: function (resp) {
 				$('#to').val(resp.data.User.email);
 				$('#subject').val(resp.data.email_sub);
-				$('#select_email_template').html("<option value=''>"+resp.data.email_template.template_name+"</option>");
+				$('#select_email_template').val(resp.data.email_template.template_name);
 				CKEDITOR.instances['editor1'].setData(resp.data.email_desc);
 			}
 		});

@@ -184,14 +184,16 @@
         <!-- /.social-auth-links -->
 
         <div class="reg-main">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Register Now</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat reg-btn">Register Now</button>
         </div>
 
         <div class="form-group terms">
           <input type="checkbox" id="termcondition" name="termcondition">
           <label>I read and agree to the
             <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
+            <div class="termcondition-error-wrapper error"></div> 
           <p class="msg termcondition redcolor"></p>
+
         </div>
 
       </form>
@@ -327,6 +329,24 @@
         }
       });
 
+    });
+  </script>
+  <script>  
+    $(document).ready(function() {
+      $(".reg-btn").click(function() {
+         $(".termcondition-error-wrapper").html('Please check terms and condition box');
+      });
+
+         $('#termcondition').on("ifChanged", function(e) {
+              if($(this).is(":checked")) {
+                 $(".termcondition-error-wrapper").hide();
+            }
+           else {
+              $(".termcondition-error-wrapper").show();
+           }  
+        });
+
+      
     });
   </script>
 </body>

@@ -2,6 +2,9 @@ $(document).ready(function () {
  	$('#pending_wire_transfer_table').DataTable({
         "aaSorting": []
     });
+    $('#all_support_table').DataTable({
+        "aaSorting": []
+    });
 
  	$(".pending_wire_transfer_approved").on('click', function () {
  		var row_id = $(this).data('value');

@@ -591,7 +591,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             amount: req.body.amtVal,
             current_rate: req.body.coinRate,
             converted_amount: req.body.actualAmtExpect,
-            type: 1,            
+            type: 1,
             balance: req.body.balance,
             currency_id: req.body.currency_id
         }).then(function (result) {
@@ -1271,6 +1271,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
+    // app.get('/wallets', function (req, res) {
+    //     res.render('wallets', {
+    //         layout: 'dashboard'
+    //     });
+    // });
+
     app.post('/remove-shareholderInfo', (req, res) =>{
         var shareHolderId = req.body.shareholderId;
         shareholder.destroy({
@@ -1284,8 +1290,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.post('/ecorepay-payment', (req, res) =>{
-
-        //console.log('Ecorepay called');
 
         var firstname = req.body.firstname; 
         var lastname = req.body.lastname;
@@ -1309,6 +1313,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         request({
             uri: "http://localhost/ecorepay.php",
             method: "POST",
+            //json: true,
             form: {
                 userid: userID,
                 amount: amount,
@@ -1328,20 +1333,17 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 cvv: cvv
             }
           }, function(error, response, body) {
-             //var obj = JSON.parse(body);
-             //console.dir(obj);
+             var obj = JSON.parse(body);
 
-            // console.log(obj);
-             /* if(body.message === 'success'){
+            if(obj.msg === 'success'){
+                res.json({ 'message': 'Successul' });
+            }
 
-             }
-             else{
+            //console.log(body);
 
-             } */
-             console.log('BODY: ',JSON.stringify(response));
-             //console.log('RESPONSE: ', JSON.stringify(response.body));
+
           }); 
-
+          //res.json({ 'msg': 'Success' });
     });
 
 };

@@ -4,42 +4,58 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return [
       queryInterface.addColumn(
-        'portfolio_compositions',
-        'street',
+        'wallets',
+        'label',
         {
-          type: Sequelize.STRING(5000),
+          type: Sequelize.STRING,
           allowNull: true
         }
       ),
       queryInterface.addColumn(
-        'portfolio_compositions',
-        'city',
+        'wallets',
+        'userkeychain_public',
         {
-          type: Sequelize.STRING(5000),
+          type: Sequelize.TEXT,
           allowNull: true
         }
       ),
       queryInterface.addColumn(
-        'portfolio_compositions',
-        'state',
+        'wallets',
+        'userkeychain_private',
         {
-          type: Sequelize.STRING(5000),
+          type: Sequelize.TEXT,
           allowNull: true
         }
       ),
       queryInterface.addColumn(
-        'portfolio_compositions',
-        'phone_number',
+        'wallets',
+        'backupkeychain_public',
         {
-          type: Sequelize.STRING(255),
+          type: Sequelize.TEXT,
           allowNull: true
         }
       ),
       queryInterface.addColumn(
-        'portfolio_compositions',
-        'email_address',
+        'wallets',
+        'backupkeychain_private',
         {
-          type: Sequelize.STRING(255),
+          type: Sequelize.TEXT,
+          allowNull: true
+        }
+      ),
+      queryInterface.addColumn(
+        'wallets',
+        'bitgokeychain_public',
+        {
+          type: Sequelize.TEXT,
+          allowNull: true
+        }
+      ),
+      queryInterface.addColumn(
+        'wallets',
+        'bitgokeychain_private',
+        {
+          type: Sequelize.TEXT,
           allowNull: true
         }
       )

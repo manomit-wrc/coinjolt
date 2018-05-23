@@ -87,8 +87,9 @@ $(document).ready(function (e) {
       	var deposit_type = $("#deposit_type").val();
 
       	if(deposit_type == 1){
+			$(".paymentErrorMsg").hide();
       		var amount = $('#usd_amount').val(); 
-      		var card_number = $('#cardnumber').val();
+      		var card_number = $.trim($('#cardnumber').val());
       		var cardexpmonth = $('#cardexpmonth').val();
       		var cardexpyear = $('#cardexpyear').val();
       		var cvv = $('#cvv').val();
@@ -106,18 +107,26 @@ $(document).ready(function (e) {
 			var country = $("#country").val();
 			var userID = $("#userId").val();
 			//end
+			
+			if(amount == ''){
+				$(".creditCardFormErrorMsg").show();
+				$('#usd_amount').focus();
+      			return false;
+			}
 
       		if(card_number == ''){
-      			alert("Please enter your credit card number.");
+				$(".creditCardFormErrorMsg").show();
+				$('#cardnumber').focus();
       			return false;
       		}
       		if(cvv == ''){
-      			alert("Please enter your cvv number.");
+				$(".creditCardFormErrorMsg").show();
+				$('#cvv').focus();
       			return false;
       		}
 
-      		 if(card_number != '' && cvv!='' && firstname != '' && lastname != '' && email!='' && phone!='' && dob!='' && address!='' && city!='' && state!='' && postcode!='' && country!=''){
-
+      		 if(amount !='' && card_number != '' && cvv!='' && firstname != '' && lastname != '' && email!='' && phone!='' && dob!='' && address!='' && city!='' && state!='' && postcode!='' && country!=''){
+				$(".creditCardFormErrorMsg").hide();
 				// calling ecorepay api endpoint
 				$.ajax({
 					type : "POST",
@@ -145,56 +154,69 @@ $(document).ready(function (e) {
 					},
 					success : function(response){
 						$(".loader_gif").hide();
-						console.log('success');
+						//console.log(response);
+						if(response.message === 'Successul'){
+							alert('successul');
+							/*	$.ajax({
+									type : "POST",
+									url : "/credit-card-add",
+									data: {
+										amount: amount,
+										card_number: card_number,
+										cardexpmonth: cardexpmonth,
+										cardexpyear: cardexpyear,
+										cvv: cvv
+									},
+									success : function(resp){
+										if(resp.status == true){
+											swal({
+												title: "Thank You",
+												text: resp.message,
+												type: "success",
+												confirmButtonColor: "#DD6B55",
+												confirmButtonText: "OK"
+											},  function() {
+												window.location.reload();
+											});
+										}
+									}
+							}); */
+						}
 					}
 			
 				});  	
 
 
-      		/*	$.ajax({
-					type : "POST",
-					url : "/credit-card-add",
-					data: {
-						amount: amount,
-						card_number: card_number,
-						cardexpmonth: cardexpmonth,
-						cardexpyear: cardexpyear,
-						cvv: cvv
-					},
-					success : function(resp){
-						if(resp.status == true){
-							swal({
-					            title: "Thank You",
-					            text: resp.message,
-					            type: "success",
-					            confirmButtonColor: "#DD6B55",
-					            confirmButtonText: "OK"
-					        },  function() {
-					            window.location.reload();
-					        });
-						}
-					}
-				}); */
+      		
       		}else{
       			$("#showing_warning").show();
 			  } 
 			  
       	}else if(deposit_type == 2){
-      		var amount = $('#usd_amount').val();
-      		$("#totalamount").val("$" + amount);
-
-      		$("#pdf").hide();
-			$('#success-animate').hide();
-			$('#warning-animate').show();
-			$('#close').hide();
-			$('#pdf').hide();
-
-	        $('#exampleModalLong').modal('show');
+			$(".paymentErrorMsg").hide();  
+			var amount = $.trim($('#usd_amount').val());
+			if(amount == ''){
+				$('#exampleModalLong').modal('hide');
+			}
+			else if(amount <= 0){
+				$('#exampleModalLong').modal('hide');
+				$(".expecteder").show();
+			}
+			else{
+				$("#totalamount").val("$" + amount);
+				$("#pdf").hide();
+				$('#success-animate').hide();
+				$('#warning-animate').show();
+				$('#close').hide();
+				$(".expecteder").hide();
+				$('#pdf').hide();
+				$('#exampleModalLong').modal('show');
+			}
+      		
       	}else{
-	      	alert ("Please select deposit type.");
+			$(".paymentErrorMsg").show();
+			  $("#deposit_type").focus();
 		  }
-		  
-
     });
     e.preventDefault();
 

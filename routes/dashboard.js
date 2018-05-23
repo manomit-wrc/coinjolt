@@ -591,7 +591,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             amount: req.body.amtVal,
             current_rate: req.body.coinRate,
             converted_amount: req.body.actualAmtExpect,
-            type: 1,            
+            type: 1,
             balance: req.body.balance,
             currency_id: req.body.currency_id
         }).then(function (result) {
@@ -1271,6 +1271,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
+    // app.get('/wallets', function (req, res) {
+    //     res.render('wallets', {
+    //         layout: 'dashboard'
+    //     });
+    // });
+
     app.post('/remove-shareholderInfo', (req, res) =>{
         var shareHolderId = req.body.shareholderId;
         shareholder.destroy({
@@ -1338,6 +1344,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
           }); 
           //res.json({ 'msg': 'Success' });
+    });
+
+    app.post('/save-deposit', function(req, res){
+		
     });
 
 };

@@ -1,0 +1,83 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="title-with-btn pd-612">
+       <div class="pull-left">
+        <h1>Send Email</h1>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<ol class="breadcrumb">
+  <li>
+    <a href="/dashboard">
+      <i class="fa fa-dashboard"></i> Home</a>
+  </li>
+  <li>
+    <a href="/admin/all-user-list">
+      <i class="fa fa-dashboard"></i> All User List</a>
+  </li>
+  <li class="active">Send Email</li>
+</ol>
+</section>
+
+<div class="loader"></div>
+
+
+<!-- Main content -->
+<section class="content container-fluid">
+    <!-- Starts Deposit Funds -->
+    <div class="deposit-funds">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <form method="post" action="javasript:void(0)" role="form" id="send-email-form" name="send-email-form">
+              <input type="hidden" id="user_id" name="user_id" value="{{userDetails.id}}">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Subject">To</label>
+                            <input type="email" name="to" class="form-control" id="to" value="{{userDetails.email}}" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Subject">Subject</label>
+                            <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Subject">Template</label>
+                            <select name="select_email_template" id="select_email_template" class="form-control">
+                              <option value="">Select Template</option>
+                              {{#each allEmailTemplate}}
+                                <option value="{{this.id}}">{{this.template_name}}</option>
+                              {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <textarea name="editor1" class="form-control" id="editor1" placeholder="Enter Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-md-offset-5 pd-612">
+                        <div class="form-group">
+                            <input class="btn btn-primary" type="button" id="send_email" value="Send Email" />
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+</div>
+</div>
+</div>
+<!-- Ends Deposit Funds -->
+</section>
+<!-- /.content -->

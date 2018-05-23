@@ -196,7 +196,10 @@ helpers: {
       return tempArr.length > 0 ? true : false;
     },
     getUploadedFileExtension: function(value){
-      return value.substr(value.lastIndexOf('.') + 1);
+      if(typeof value !== 'undefined'){
+        return value.substr(value.lastIndexOf('.') + 1);
+      }
+      
     },
 
     multiple_if: function(){
@@ -259,11 +262,14 @@ app.use(function(req, res, next){
 
 require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer, AWS, models.Kyc_details, models.portfolio_composition, models.currency_balance, models.shareholder);
 require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data,models.Currency,models.Country);
-require('./routes/admin_dashboard')(app, models.Deposit, models.withdraw, models.User, models.Currency, models.currency_balance);
+require('./routes/admin_dashboard')(app, models.Deposit, models.withdraw, models.User, models.Currency, models.Question, models.Option, models.Answer, models.currency_balance);
 require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details, models.Deposit);
 require('./routes/admin_kyc')(app, models.Kyc_details, models.User);
 require('./routes/admin_support')(app, models.Support, models.User, AWS);
-require('./routes/bitgo')(app);
+require('./routes/bitgo')(app,models);
+require('./routes/admin_email')(app, models.email_template);
+require('./routes/admin_all_user_list')(app, models.email_template, models.User, AWS, models.send_email);
+
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

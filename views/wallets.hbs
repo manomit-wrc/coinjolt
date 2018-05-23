@@ -1,0 +1,725 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>Wallet</h1> 
+  {{#if_eq count 0}}
+    <button class="btn btn-default" id="wallet_create">Add Wallet</button>
+  {{/if_eq}}
+  <ol class="breadcrumb">
+    <li>
+      <a href="#">
+        <i class="fa fa-dashboard"></i> Home</a>
+    </li>
+    <li class="active">Wallet</li>
+  </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box tabs">
+        <div class="panel with-nav-tabs">
+          <div class="panel-heading">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#tab1primary" data-toggle="tab">
+                  <span class="glyphicon glyphicon-btc"></span>Balance</a>
+              </li>
+              <li>
+                <a href="#tab2primary" data-toggle="tab">
+                  <span class="glyphicon glyphicon-export"></span>Send</a>
+              </li>
+              {{!-- <li>
+                <a href="#tab3primary" data-toggle="tab">
+                  <span class="glyphicon glyphicon-retweet"></span>Transfer</a>
+              </li> --}}
+              <li>
+                <a href="#tab4primary" data-toggle="tab">
+                  <span class="glyphicon glyphicon-time"></span>Activity</a>
+              </li>
+            </ul>
+          </div>
+          <div class="panel-body">
+            <div class="tab-content">
+              <!-- tab part one -->
+              <div class="tab-pane fade in active" id="tab1primary">
+                <div class="body-wallets">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <!--BTC tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <i class="fa fa-bitcoin"></i>
+                            <a data-toggle="collapse" data-target="#bitcoin">Bitcoin</a>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{btcBalance}}
+                                <strong>BTC</strong>
+                              </span>
+                              <p> 0.00 USD</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="bitcoin" class="collapse">
+                          <div class="mywallt">
+                            <div class="middle">
+                              {{#if_neq btcAddressDetails.count 0}}
+                                <div class="address">
+                                  <p>This is your Bitcoin address:</p>
+                                </div>
+                                <ul class="list-group">
+                                  <li class="list-group-item">
+                                    {{btcAddressDetails.rows.0.address}}
+                                    {{!-- <span class="badge">test</span> --}}
+                                  </li>
+                                </ul>
+                              {{/if_neq}}  
+                              <div class="all-btn">
+                                {{#if_neq count 0}}
+                                  {{#if_eq btcAddressDetails.count 0}}
+                                    <button type="button" class="btn btn-primary address_btn" data-datac="1">
+                                    <i class="fa fa-plus"></i>Generate Bitcoin address</button>
+                                  {{/if_eq}} 
+                                {{/if_neq}}   
+                                {{!-- <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
+                                <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--BTC tabs ends-->
+                      <!--ETH tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <i class="fa fa-bitcoin"></i>
+                            <a data-toggle="collapse" data-target="#ethereum">Ethereum</a>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{ethBalance}}
+                                <strong>ETH</strong>
+                              </span>
+                              <p> 0.00 USD</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="ethereum" class="collapse">
+                          <div class="mywallt">
+                            <div class="middle">
+                              {{#if_neq ethAddressDetails.count 0}}
+                                <div class="address">
+                                  <p>This is your Ethereum address:</p>
+                                </div>
+                                <ul class="list-group">
+                                  <li class="list-group-item">
+                                    {{ethAddressDetails.rows.0.address}}
+                                    {{!-- <span class="badge">test</span> --}}
+                                  </li>
+                                </ul>
+                              {{/if_neq}}   
+                              <div class="all-btn">
+                                {{#if_neq count 0}}
+                                  {{#if_eq ethAddressDetails.count 0}}
+                                    <button type="button" class="btn btn-primary address_btn" data-datac="2">     
+                                      <i class="fa fa-plus"></i>Generate Ethereum address</button>
+                                  {{/if_eq}}
+                                {{/if_neq}}  
+                                {{!-- <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
+                                <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--ETH tabs ends-->
+                      <!--LTC tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <i class="fa fa-bitcoin"></i>
+                            <a data-toggle="collapse" data-target="#ltc">Litecoin</a>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{ltcBalance}}
+                                <strong>LTC</strong>
+                              </span>
+                              <p> 0.00 USD</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="ltc" class="collapse">
+                          <div class="mywallt">
+                            <div class="middle">
+                              {{#if_neq ltccAddressDetails.count 0}}
+                                <div class="address">
+                                  <p>This is your Litecoin address:</p>
+                                </div>
+                                <ul class="list-group">
+                                  <li class="list-group-item">
+                                    {{ltccAddressDetails.rows.0.address}}
+                                    {{!-- <span class="badge">test</span> --}}
+                                  </li>
+                                </ul>
+                              {{/if_neq}}  
+                              <div class="all-btn">
+                                {{#if_neq count 0}}
+                                  {{#if_eq ltccAddressDetails.count 0}}
+                                    <button type="button" class="btn btn-primary address_btn" data-datac="3">     
+                                      <i class="fa fa-plus"></i>Generate Litecoin address</button>
+                                  {{/if_eq}}
+                                {{/if_neq}}      
+                                {{!-- <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
+                                <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--LTC tabs ends-->
+                      <!--BCH tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <i class="fa fa-bitcoin"></i>
+                            <a data-toggle="collapse" data-target="#bch">Bitcoin Cash</a>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>0
+                                <strong>BCH</strong>
+                              </span>
+                              <p> 0.00 USD</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="bch" class="collapse">
+                          <div class="mywallt">
+                            <div class="middle">
+                              {{#if_neq bchAddressDetails.count 0}}
+                                <div class="address">
+                                  <p>This is your Bitcoin Cash address:</p>
+                                </div>
+                                <ul class="list-group">
+                                  <li class="list-group-item">
+                                    {{bchAddressDetails.rows.0.address}}
+                                    {{!-- <span class="badge">test</span> --}}
+                                  </li>
+                                </ul>
+                              {{/if_neq}}  
+                              <div class="all-btn">
+                                {{#if_neq count 0}}
+                                  {{#if_eq bchAddressDetails.count 0}}
+                                    <button type="button" class="btn btn-primary address_btn" data-datac="5">
+                                      <i class="fa fa-plus"></i>Generate Bitcoin Cash address</button>
+                                  {{/if_eq}}
+                                {{/if_neq}}      
+                                {{!-- <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
+                                <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--BCH tabs ends-->
+                      <!--RMG tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <i class="fa fa-bitcoin"></i>
+                            <a data-toggle="collapse" data-target="#rmg">Royal Mint Gold</a>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>0
+                                <strong>RMG</strong>
+                              </span>
+                              <p> 0.00 USD</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="rmg" class="collapse">
+                          <div class="mywallt">
+                            <div class="middle">
+                              {{#if_neq rmgAddressDetails.count 0}}
+                                <div class="address">
+                                  <p>This is your Royal Mint Gold address:</p>
+                                </div>
+                                <ul class="list-group">
+                                  <li class="list-group-item">
+                                    {{rmgAddressDetails.rows.0.address}}
+                                    {{!-- <span class="badge">test</span> --}}
+                                  </li>
+                                </ul>
+                              {{/if_neq}}  
+                              <div class="all-btn">
+                                {{#if_neq count 0}}
+                                  {{#if_eq rmgAddressDetails.count 0}}
+                                    <button type="button" class="btn btn-primary address_btn" data-datac="46">
+                                      <i class="fa fa-plus"></i>Generate Royal Mint Gold address</button>
+                                  {{/if_eq}}
+                                {{/if_neq}}      
+                                {{!-- <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
+                                <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--RMG tabs ends-->
+                      <!--XRP tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <i class="fa fa-bitcoin"></i>
+                            <a data-toggle="collapse" data-target="#xrp">Ripple</a>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>0
+                                <strong>XRP</strong>
+                              </span>
+                              <p> 0.00 USD</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="xrp" class="collapse">
+                          <div class="mywallt">
+                            <div class="middle">
+                              {{#if_neq xrpAddressDetails.count 0}}
+                                <div class="address">
+                                  <p>This is your Ripple address:</p>
+                                </div>
+                                <ul class="list-group">
+                                  <li class="list-group-item">
+                                    {{xrpAddressDetails.rows.0.address}}
+                                    {{!-- <span class="badge">test</span> --}}
+                                  </li>
+                                </ul>
+                              {{/if_neq}}  
+                              <div class="all-btn">
+                                {{#if_neq count 0}}
+                                  {{#if_eq xrpAddressDetails.count 0}}
+                                    <button type="button" class="btn btn-primary address_btn" data-datac="4">
+                                      <i class="fa fa-plus"></i>Generate Ripple address</button>
+                                  {{/if_eq}}
+                                {{/if_neq}}      
+                                {{!-- <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
+                                <button type="button" class="btn btn-primary">
+                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--XRP tabs ends-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- tab part one -->
+
+              <!-- tab part two -->
+              <div class="tab-pane fade" id="tab2primary">
+                <div class="send-box">
+                  <p>You can send cryptocurrency directly to another person or merchandise without any third parties. Just enter
+                    a payment address of the recipient and the amount you wish to send. All payments are irreversible once
+                    sent.
+                  </p>
+                  <form>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Select Currency</label>
+                      <select name="currency_purchased" id="currency_purchased" class="form-control">
+                        <option value="BTC">Bitcoin (BTC)</option>
+                        <option value="ETH">Ethereum (ETH)</option>
+                        <option value="LTC">Litecoin (LTC)</option>
+                        <option value="XRP">Ripple (XRP)</option>
+                        <option value="BCH">Bitcoin Cash (BCH)</option>
+                        <option value="ADA">Cardano (ADA)</option>
+                        <option value="NEO">NEO (NEO)</option>
+                        <option value="XLM">Stellar (XLM)</option>
+                        <option value="EOS">EOS (EOS)</option>
+                        <option value="IOT">IOTA (IOT)</option>
+                        <option value="DASH">Dash (DASH)</option>
+                        <option value="XMR">Monero (XMR)</option>
+                        <option value="XEM">NEM (XEM)</option>
+                        <option value="LSK">Lisk (LSK)</option>
+                        <option value="TRX">Tron (TRX)</option>
+                        <option value="VEN">VeChain (VEN)</option>
+                        <option value="QTUM">Qtum (QTUM)</option>
+                        <option value="USDT">Tether (USDT)</option>
+                        <option value="ICX">ICON (ICX)</option>
+                        <option value="OMG">OmiseGO (OMG)</option>
+                        <option value="ZEC">Zcash (ZEC)</option>
+                        <option value="XVG">Verge (XVG)</option>
+                        <option value="STEEM">Steem (STEEM)</option>
+                        <option value="PPT">Populous (PPT)</option>
+                        <option value="SC">Siacoin (SC)</option>
+                        <option value="STRAT">Stratis (STRAT)</option>
+                        <option value="RHOC">RChain (RHOC)</option>
+                        <option value="WAVES">Waves (WAVES)</option>
+                        <option value="SNT">Status (SNT)</option>
+                        <option value="DOGE">Dogecoin (DOGE)</option>
+                        <option value="BTS">BitShares (BTS)</option>
+                        <option value="MKR">Maker (MKR)</option>
+                        <option value="ZCL">ZClassic (ZCL)</option>
+                        <option value="AE">Aeternity (AE)</option>
+                        <option value="DGD">DigixDAO (DGD)</option>
+                        <option value="ZRX">0x (ZRX)</option>
+                        <option value="REP">Augur (REP)</option>
+                        <option value="DCR">Decred (DCR)</option>
+                        <option value="VERI">Veritaseum (VERI)</option>
+                        <option value="HSR">Hshare (HSR)</option>
+                        <option value="ETN">Electroneum (ETN)</option>
+                        <option value="KMD">Komodo (KMD)</option>
+                        <option value="ARDR">Ardor (ARDR)</option>
+                        <option value="ARK">Ark (ARK)</option>
+                        <option value="GAS">Gas (GAS)</option>
+                      </select>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">To the bitcoin address</label>
+                          <input type="text" class="form-control" id="" placeholder="Enter a bitcoin address">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="true">
+                              Payment templates (BTC)
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                              <li>
+                                <a href="#">
+                                  <i aria-hidden="true" class="fa fa-pencil"></i> Edit templates</a>
+                              </li>
+                              <li>
+                                <a href="#">
+                                  <i aria-hidden="true" class="fa fa-plus"></i> Add new template</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Amount net</label>
+                          <input type="text" class="form-control" id="" placeholder="min 0.0001 BTC">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Transaction fee</label>
+                          <input type="text" class="form-control" id="" placeholder="">
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Amount gross
+                            <a class="amtgrss" href="">(0 BTC available)</a>
+                          </label>
+                          <input type="text" class="form-control" id="" placeholder="min 0.0002 BTC">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="notebox">
+                          <label class="note">
+                            <input type="checkbox" id="myCheck" onclick="myFunction()">Add a note to this payment
+                          </label>
+                          <textarea placeholder="Optional payment description for your transaction history. Will not be submitted to the recipient."
+                            id="comment" name="comment" class="form-control"></textarea>
+                        </div>
+                        <div class="notebox">
+                          <label class="note">
+                            <input type="checkbox" type="checkbox" id="checkbox">Save to my payment templates
+                          </label>
+                          <input type="text" placeholder="Template name" name="template_name" id="clickedYes" class="form-control">
+                        </div>
+                        <button data-toggle="modal" data-target="#preview-transaction" class="btn btn-primary btn-lg" type="button">Preview Payment</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- tab part two -->
+
+              <!-- tab part three -->
+
+              {{!-- <div class="tab-pane fade" id="tab3primary">
+                <div class="wallets-panel">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-5">
+                        <h3>Hot Wallet</h3>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Select Currency</label>
+                          <select name="" id="" class="form-control">
+                            <option value="BTC">Bitcoin (BTC)</option>
+                            <option value="ETH">Ethereum (ETH)</option>
+                            <option value="LTC">Litecoin (LTC)</option>
+                            <option value="XRP">Ripple (XRP)</option>
+                            <option value="BCH">Bitcoin Cash (BCH)</option>
+                            <option value="ADA">Cardano (ADA)</option>
+                            <option value="NEO">NEO (NEO)</option>
+                            <option value="XLM">Stellar (XLM)</option>
+                            <option value="EOS">EOS (EOS)</option>
+                            <option value="IOT">IOTA (IOT)</option>
+                            <option value="DASH">Dash (DASH)</option>
+                            <option value="XMR">Monero (XMR)</option>
+                            <option value="XEM">NEM (XEM)</option>
+                            <option value="LSK">Lisk (LSK)</option>
+                            <option value="TRX">Tron (TRX)</option>
+                            <option value="VEN">VeChain (VEN)</option>
+                            <option value="QTUM">Qtum (QTUM)</option>
+                            <option value="USDT">Tether (USDT)</option>
+                            <option value="ICX">ICON (ICX)</option>
+                            <option value="OMG">OmiseGO (OMG)</option>
+                            <option value="ZEC">Zcash (ZEC)</option>
+                            <option value="XVG">Verge (XVG)</option>
+                            <option value="STEEM">Steem (STEEM)</option>
+                            <option value="PPT">Populous (PPT)</option>
+                            <option value="SC">Siacoin (SC)</option>
+                            <option value="STRAT">Stratis (STRAT)</option>
+                            <option value="RHOC">RChain (RHOC)</option>
+                            <option value="WAVES">Waves (WAVES)</option>
+                            <option value="SNT">Status (SNT)</option>
+                            <option value="DOGE">Dogecoin (DOGE)</option>
+                            <option value="BTS">BitShares (BTS)</option>
+                            <option value="MKR">Maker (MKR)</option>
+                            <option value="ZCL">ZClassic (ZCL)</option>
+                            <option value="AE">Aeternity (AE)</option>
+                            <option value="DGD">DigixDAO (DGD)</option>
+                            <option value="ZRX">0x (ZRX)</option>
+                            <option value="REP">Augur (REP)</option>
+                            <option value="DCR">Decred (DCR)</option>
+                            <option value="VERI">Veritaseum (VERI)</option>
+                            <option value="HSR">Hshare (HSR)</option>
+                            <option value="ETN">Electroneum (ETN)</option>
+                            <option value="KMD">Komodo (KMD)</option>
+                            <option value="ARDR">Ardor (ARDR)</option>
+                            <option value="ARK">Ark (ARK)</option>
+                            <option value="GAS">Gas (GAS)</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="">Amount to Transfer</label>
+                          <input type="text" class="form-control" id="" placeholder="Enter amount">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-arrows-h"></i>
+                        <input type="submit" class="btn btn-primary" id="" value="Continue" name="submit">
+                      </div>
+                      <div class="col-md-5 last">
+                        <h3>Cold Wallet</h3>
+                        <div class="form-group">
+                          <label for="">Balance</label>
+                          <input type="text" class="form-control" id="" placeholder="Balance">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Daily interest rate</label>
+                          <input type="text" class="form-control" id="" placeholder="(0.05% of total balance)">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="wallets-panel bottom">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-5">
+                        <h3 style="text-align: right;">Cold Wallets</h3>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Total USD Value</label>
+                          <input type="text" class="form-control usdvalue" id="" placeholder="Enter amount">
+                        </div>
+                        <div class="form-group">
+                          <label for="">Select USD Currency</label>
+                          <select name="" id="" class="form-control">
+                            <option value="BTC">Bitcoin (BTC)</option>
+                            <option value="ETH">Ethereum (ETH)</option>
+                            <option value="LTC">Litecoin (LTC)</option>
+                            <option value="XRP">Ripple (XRP)</option>
+                            <option value="BCH">Bitcoin Cash (BCH)</option>
+                            <option value="ADA">Cardano (ADA)</option>
+                            <option value="NEO">NEO (NEO)</option>
+                            <option value="XLM">Stellar (XLM)</option>
+                            <option value="EOS">EOS (EOS)</option>
+                            <option value="IOT">IOTA (IOT)</option>
+                            <option value="DASH">Dash (DASH)</option>
+                            <option value="XMR">Monero (XMR)</option>
+                            <option value="XEM">NEM (XEM)</option>
+                            <option value="LSK">Lisk (LSK)</option>
+                            <option value="TRX">Tron (TRX)</option>
+                            <option value="VEN">VeChain (VEN)</option>
+                            <option value="QTUM">Qtum (QTUM)</option>
+                            <option value="USDT">Tether (USDT)</option>
+                            <option value="ICX">ICON (ICX)</option>
+                            <option value="OMG">OmiseGO (OMG)</option>
+                            <option value="ZEC">Zcash (ZEC)</option>
+                            <option value="XVG">Verge (XVG)</option>
+                            <option value="STEEM">Steem (STEEM)</option>
+                            <option value="PPT">Populous (PPT)</option>
+                            <option value="SC">Siacoin (SC)</option>
+                            <option value="STRAT">Stratis (STRAT)</option>
+                            <option value="RHOC">RChain (RHOC)</option>
+                            <option value="WAVES">Waves (WAVES)</option>
+                            <option value="SNT">Status (SNT)</option>
+                            <option value="DOGE">Dogecoin (DOGE)</option>
+                            <option value="BTS">BitShares (BTS)</option>
+                            <option value="MKR">Maker (MKR)</option>
+                            <option value="ZCL">ZClassic (ZCL)</option>
+                            <option value="AE">Aeternity (AE)</option>
+                            <option value="DGD">DigixDAO (DGD)</option>
+                            <option value="ZRX">0x (ZRX)</option>
+                            <option value="REP">Augur (REP)</option>
+                            <option value="DCR">Decred (DCR)</option>
+                            <option value="VERI">Veritaseum (VERI)</option>
+                            <option value="HSR">Hshare (HSR)</option>
+                            <option value="ETN">Electroneum (ETN)</option>
+                            <option value="KMD">Komodo (KMD)</option>
+                            <option value="ARDR">Ardor (ARDR)</option>
+                            <option value="ARK">Ark (ARK)</option>
+                            <option value="GAS">Gas (GAS)</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="">Balance</label>
+                          <input type="text" class="form-control" id="" placeholder="Enter amount">
+                        </div>
+                        <div class="form-group">
+                          <label for="">Daily interest rate</label>
+                          <input type="text" class="form-control" id="" placeholder="(0.05% of total balance)">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-arrows-h"></i>
+                        <input type="submit" class="btn btn-primary" id="" value="Continue" name="submit">
+                      </div>
+                      <div class="col-md-5">
+                        <h3>Hot Wallet</h3>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Total USD Value</label>
+                          <input type="text" class="form-control usdvalue" id="" placeholder="Enter amount">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Selected Currency</label>
+                          <input type="text" class="form-control" id="" placeholder="Enter amount">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Balance</label>
+                          <input type="text" class="form-control" id="" placeholder="Balance">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div> --}}
+
+              <!-- tab part three -->
+
+              <!-- tab part four -->
+
+              <div class="tab-pane fade" id="tab4primary">No transactions yet.</div>
+
+              <!-- tab part four -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  </div>
+  <!-- Modal -->
+
+  <!-- Generate Model Starts -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="preview-transaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Preview Transaction</h4>
+        </div>
+        <div class="modal-body">
+          <p>You are to send 0.0408 to the address 19ku6syMgMqHapuwaeHJMHWBuJxMCLPfdc. This action is irreversible!</p>
+          <p>Please confirm by entering verification code generated by an OTP-application on your mobile device.</p>
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Verification Code</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Confirm &amp; Send</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="bitconaddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form method="post" action="/generate-address">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">General Bitcoin Address</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="">Address Label
+                <i class="fa fa-question-circle"></i>
+              </label>
+              <input type="text" class="form-control" id="address" placeholder="Address the bitcoin" name="wallet_address">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Create new bitcoin address</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generate Model Ends -->
+
+</section>
+<!-- /.content -->

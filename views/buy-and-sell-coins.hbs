@@ -14,18 +14,15 @@
   <div class="buy-sell">
     <div class="row">
       <div class="col-md-12">
-        <div class="box">
-          <div class="box-header with-border">
-            <h3 class="box-title">Open Positions Instantly With ZERO Fees</h3>
-          </div>
-          <!-- /.box-header -->
-          <div class="box-body">
             <div class="row">
               <div class="col-md-6">
-                <form action="/buy-coin" method="post" class="p-l-20">
+                <div class="box equalize-box">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Buy</h3>
+                  </div>
+               <div class="box-body">
+                <form action="/buy-coin" method="post">
                   <div class="form-group">
-                    <label>Buy</label>
-
                     <select class="form-control" id="currency_purchased" name="currency_purchased">
                       <option value="">Please select a option</option>
                       {{#each contents}}
@@ -34,7 +31,6 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="">USD</label>
                     <input type="text" class="form-control" name="payAmount" id="payAmount" placeholder="Enter USD Value">
                   </div>
 
@@ -57,12 +53,19 @@
                     </div>
                   </div>
                 </form>
+                  </div>
+                </div>
               </div>
               <div class="col-md-6">
-                {{#if_eq user.kycApproved "2"}}
-                <form action="" method="post" class="p-r-20">
+
+              <div class="box equalize-box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Sell</h3>
+                </div>
+                <div class="box-body">
+  {{#if_eq user.kycApproved "2"}}
+                <form action="" method="post">
                   <div class="form-group">
-                    <label>Sell</label>
                     <select class="form-control" id="currency_sold" name="currency_sold">
                       <option value="">Please select a option</option>
                       {{#each contents}}
@@ -90,7 +93,6 @@
                 </form>
                 {{/if_eq}} {{#if_eq user.kycApproved "1"}}
                 <div class="form-group">
-                  <label>Sell</label>
                   <p>Sell is disabled because your ID Proof is submitted but not verified yet.</p>
                 </div>
                 {{/if_eq}} {{#if_eq user.kycApproved "3"}}
@@ -106,12 +108,13 @@
                     <a href="/account-settings">Account Settings</a>.</p>
                 </div>
                 {{/if_eq}}
+                </div>
+              </div>
+
+
+              
               </div>
             </div>
-          </div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
       </div>
     </div>
     <!-- Starts Balance & Most Recent Activity  -->
@@ -221,7 +224,7 @@
     </div>
     <!-- Ends Balance & Most Recent Activity  -->
     <!-- Starts Market Pricing Graph -->
-    <div class="market-pricing-graph">
+    {{!-- <div class="market-pricing-graph">
       <div class="row">
         <div class="col-md-12">
           <!-- BAR CHART -->
@@ -241,10 +244,10 @@
         </div>
       </div>
 
-    </div>
+    </div> --}}
     <!-- Ends Market Pricing Graph -->
     <!-- Starts Market Capitalization Graph -->
-    <div class="market-capitalization-graph">
+    {{!-- <div class="market-capitalization-graph">
       <div class="row">
         <div class="col-md-12">
           <!-- BAR CHART -->
@@ -263,7 +266,7 @@
 
         </div>
       </div>
-    </div>
+    </div> --}}
     <!-- Ends Market Capitalization Graph -->
   </div>
 </section>

@@ -186,14 +186,22 @@
         <div class="reg-main">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Register Now</button>
         </div>
+
+        <div class="form-group terms">
+          <input type="checkbox" id="termcondition" name="termcondition">
+          <label>I read and agree to the
+            <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
+          <p class="msg termcondition redcolor"></p>
+        </div>
+
       </form>
 
-      <div class="form-group terms">
+      {{!-- <div class="form-group terms">
         <input type="checkbox" id="termcondition" name="termcondition">
         <label>I read and agree to the
           <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
         <p class="msg termcondition redcolor"></p>
-      </div>
+      </div> --}}
 
       <div class="bot-sign up">
         <a href="/">Already have an account?

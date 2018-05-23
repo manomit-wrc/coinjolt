@@ -2339,5 +2339,36 @@
         });
     </script>
      <!-- Ends Script for Active Menu -->
+
+     <script>
+         $(document).ready(function () {
+            $( "#amount_deposit" ).click(function() {
+                    $( "#depositerrormsg" ).empty();
+                    $( "#depositerrormsg" ).hide();
+                });
+
+                $('#amount_deposit').on('keyup', function(event) {
+                    $(this).val($(this).val().replace(/[^0-9\.]/g,''));
+                    if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
+                        event.preventDefault();
+                        $( "#depositerrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number</p>');
+                        $('#depositerrormsg').show();
+                    } else {
+                        $('#depositerrormsg').hide();
+                        $('#depositerrormsg').html('');
+                    }
+                });
+
+                $( "#amt_deposit_btn" ).click(function() {
+                    var amountdeposit = $( "#amount_deposit" ).val();	
+                    $( "#depositerrormsg" ).show();
+                    $( "#depositerrormsg" ).empty();
+                    if (amountdeposit <= 0) {
+                        $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be greater than 0</p>');
+                        return false;
+                    }
+                });
+            });    
+     </script>
 </body>
 </html>

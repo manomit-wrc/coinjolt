@@ -196,7 +196,10 @@ helpers: {
       return tempArr.length > 0 ? true : false;
     },
     getUploadedFileExtension: function(value){
-      return value.substr(value.lastIndexOf('.') + 1);
+      if(typeof value !== 'undefined'){
+        return value.substr(value.lastIndexOf('.') + 1);
+      }
+      
     },
 
     multiple_if: function(){

@@ -100,7 +100,28 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		    }
 		   ]
 		}).then(function (result) {
-			res.render('admin/user/send_email_history',{layout:'dashboard', allData:result})
+			res.render('admin/user/send_email_history',{layout:'dashboard', allData:result});
+		});
+	});
+
+	app.post('/admin/send-email-details', (req,res) => {
+		send_email.belongsTo(User, {foreignKey: 'user_id'});
+		send_email.belongsTo(email_template, {foreignKey: 'email_template_id'});
+
+		send_email.findById(req.body.email_send_id,{
+	  		include: [
+		    {
+		     model: User
+		    },
+		    {
+		     model: email_template
+		    }
+		   ]
+		}).then(function (result) {
+			res.json({
+				status: true,
+				data: result
+			});
 		});
 	});
 };

@@ -106,7 +106,7 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
 				}).then (function (result) {
 					res.json({
 	                    status: true,
-	                    message: 'Approved and deposilt succesfully.'
+	                    message: 'Approved and deposit succesfully.'
 	                });
 				});
 			}

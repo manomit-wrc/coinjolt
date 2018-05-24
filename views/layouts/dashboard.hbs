@@ -1999,7 +1999,7 @@
           url: "https://coinjolt.com/wp-json/wp/v2/posts?page=1&per_page=4",
           success: function (resp) {
             $(resp).each(function (i) {
-              $listing = $listing + '<div class="col-md-6 paddingleft recent_post_box"><a style="color: #000;" href="https://coinjolt.com/' + resp[i].slug + '" target="_blank"><p><img class="img_' + resp[i].id +'" style="width:100%;" src="dist/img/lading_icon.gif"></p><h3 class="post-title">' + resp[i].title.rendered + '</h3></a><p class="subdetails">CoinJolt.com</p></div>';
+              $listing = $listing + '<div class="col-md-6 col-sm-6 col-xs-6 paddingleft recent_post_box "><a style="color: #000;" href="https://coinjolt.com/' + resp[i].slug + '" target="_blank"><p><img class="img_' + resp[i].id +'" style="width:100%;" src="dist/img/lading_icon.gif"></p><h3 class="post-title">' + resp[i].title.rendered + '</h3></a><p class="subdetails">CoinJolt.com</p></div>';
               getPostImage(resp[i].id, resp[i].featured_media);
             });
             $(".ltnews").html($listing);
@@ -2372,6 +2372,15 @@
                     }
                 });
             });    
+     </script>
+     <script>
+         $(document).ready(function() {
+              // SLIMSCROLL FOR CHAT WIDGET
+              var sidebarHeight = $(".sidebar .sidebar-menu").height();
+            $('.sidebar .sidebar-menu').slimScroll({
+                height: sidebarHeight + "px"
+            });
+         });
      </script>
 </body>
 </html>

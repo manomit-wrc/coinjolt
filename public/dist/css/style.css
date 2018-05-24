@@ -931,9 +931,9 @@ label.success,
     height: 164px;
 }
 
-.dashboard-top .col-md-6.equal-hgt {
+/* .dashboard-top .col-md-6.equal-hgt {
     padding-left: 0 !important;
-}
+} */
 
 .dashboard-top .scroll-dashboard {
     overflow-y: scroll;
@@ -1619,6 +1619,10 @@ tr.shown td.remove-control {
     display: none;
 }
 
+.logo-mob-767 {
+    display: none;
+}
+
 
 @media screen and (max-width: 1366px) {
     .balance-box {
@@ -1780,10 +1784,10 @@ tr.shown td.remove-control {
         color: #000 !important;
         font-weight: bold !important;
     }
-    .content-wrapper,
+    /* .content-wrapper,
     .main-footer {
         margin-left: 0px !important;
-    }
+    } */
 }
 
 /* Ends Responsive Table */

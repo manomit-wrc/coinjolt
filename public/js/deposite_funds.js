@@ -127,7 +127,6 @@ $(document).ready(function (e) {
 
       		 if(amount !='' && card_number != '' && cvv!='' && firstname != '' && lastname != '' && email!='' && phone!='' && dob!='' && address!='' && city!='' && state!='' && postcode!='' && country!=''){
 				$(".creditCardFormErrorMsg").hide();
-				// calling ecorepay api endpoint
 				$.ajax({
 					type : "POST",
 					url : "/ecorepay-payment",
@@ -155,9 +154,9 @@ $(document).ready(function (e) {
 					success : function(response){
 						$(".loader_gif").hide();
 						//console.log(response);
-						if(response.message === 'Successul'){
-							alert('successul');
-							/*	$.ajax({
+						if(response.success === 'true'){
+							
+							$.ajax({
 									type : "POST",
 									url : "/credit-card-add",
 									data: {
@@ -180,7 +179,7 @@ $(document).ready(function (e) {
 											});
 										}
 									}
-							}); */
+							});
 						}
 					}
 			

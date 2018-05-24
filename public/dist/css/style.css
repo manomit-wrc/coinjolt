@@ -612,7 +612,7 @@ h3.post-title {
 .login-box,
 .register-box {
     width: 360px;
-    margin: 70px auto 0 !important;
+    margin: 70px auto 70px  !important;
 }
 
 .login-box-body,
@@ -674,7 +674,7 @@ h3.post-title {
 }
 
 .account-settings .account-upload input[type="file"] {
-    errorPass background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: 0 none !important;
     color: #fff;
     cursor: pointer;
@@ -1615,6 +1615,11 @@ tr.shown td.remove-control {
     cursor: pointer;
 }
 
+.nav-click {
+    display: none;
+}
+
+
 @media screen and (max-width: 1366px) {
     .balance-box {
         display: block;
@@ -2080,6 +2085,16 @@ input#cc-submit1
 	width: 200px;
 }
 
+#termcondition-error {
+    display: none !important;
+}
+
+.termcondition-error-wrapper {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 16px;
+}
 
 /* Ends css on 2018-05-22 */
->>>>>>> a7a47a4fc5ec73d59a2ae071aef1b91b95ba50bf

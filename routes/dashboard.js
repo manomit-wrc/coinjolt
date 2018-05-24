@@ -7,6 +7,10 @@ var multer = require('multer');
 var multerS3 = require('multer-s3');
 const async = require('async');
 const request = require('request');
+
+var Client = require('node-rest-client').Client;
+ 
+var client = new Client();
 module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
@@ -1300,15 +1304,19 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var city = req.body.city;
         var state = req.body.state;
         var postcode = req.body.postcode;
-        var country = req.body.country;
-        var card_number = req.body.card_number;
+        var country = "IN";
+        var card_number = req.body.card_number.split(" ").join("");
         var cardexpmonth = req.body.cardexpmonth;
         var cardexpyear = req.body.cardexpyear;
         var cvv = req.body.cvv;
         var amount = req.body.amount;
         var userID = req.body.userID;
-
-        //console.log('FIRSTNAME: ',firstname);
+        var IPAddress = '127.0.0.1';
+        var AccountID = 33628851;
+        var AccountAuth = "oEPOveFHGjcyCtPP";
+        var Reference = "X53222389-21";
+        var currency = "USD";
+        var ssn = '4344';
 
         request({
             uri: "http://localhost/ecorepay.php",
@@ -1327,23 +1335,21 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 state: state,
                 postcode: postcode,
                 country: country,
-                cardno: card_number,
+                cardno: parseInt(card_number),
                 cardexpmonth: cardexpmonth,
                 cardexpyear: cardexpyear,
-                cvv: cvv
+                cvv: parseInt(cvv)
             }
           }, function(error, response, body) {
-             var obj = JSON.parse(body);
-
-            if(obj.msg === 'success'){
-                res.json({ 'message': 'Successul' });
-            }
-
-            //console.log(body);
-
-
+             if(error === null && body === '1') {
+                 res.json({success: "true"});
+             }
+             else {
+                res.json({success: "false"});
+             }
           }); 
-          //res.json({ 'msg': 'Success' });
+        
+
     });
 
     app.post('/save-deposit', function(req, res){

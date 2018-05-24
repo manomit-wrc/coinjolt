@@ -22,7 +22,8 @@
   <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="/plugins/iCheck/square/blue.css">
-
+ <!-- Responsive Style -->
+  <link rel="stylesheet" href="/dist/css/responsive.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -39,15 +40,18 @@
     <div class="header-top">
       <div class="container">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-3 col-xs-3">
             <div class="logo">
               <a href="/">
                 <img src="/dist/img/logo.png" alt="logo">
               </a>
             </div>
           </div>
-          <div class="col-md-9">
+         <div class="col-md-9 col-sm-9 col-xs-9">
             <div class="top-menu pull-right">
+               <div class="nav-click">
+                <i class="fa fa-bars"></i>
+              </div>
               <ul>
                 <li>
                   <a href="/">Sign In</a>
@@ -62,7 +66,7 @@
       </div>
     </div>
   </header>
-  <div class="login-box registerd-box">
+  <div class="login-box register-box">
     <!-- /.login-logo -->
     <div class="login-box-body" style="display: none; top: -70px;">
       <form action="/signup" method="post" name="frmSignup" id="frmSignup">
@@ -349,6 +353,15 @@
       
     });
   </script>
+  <!-- Starts Scriptd for Responsive Navigation -->
+  <script>
+    $(document).ready(function() {
+      $(".nav-click").click(function() {
+          $(".header-top .top-menu ul").slideToggle();
+      });
+    });
+  </script>
+   <!-- Ends Scriptd for Responsive Navigation -->
 </body>
 
 </html>

@@ -127,7 +127,6 @@ $(document).ready(function (e) {
 
       		 if(amount !='' && card_number != '' && cvv!='' && firstname != '' && lastname != '' && email!='' && phone!='' && dob!='' && address!='' && city!='' && state!='' && postcode!='' && country!=''){
 				$(".creditCardFormErrorMsg").hide();
-				// calling ecorepay api endpoint
 				$.ajax({
 					type : "POST",
 					url : "/ecorepay-payment",

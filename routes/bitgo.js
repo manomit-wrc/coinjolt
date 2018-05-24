@@ -335,5 +335,4 @@ module.exports = (app, models) => {
             });
         });
 	});
-
 };

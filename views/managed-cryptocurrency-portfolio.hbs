@@ -463,7 +463,7 @@
                                     </div>  
                                     <div class="col-md-12" id="investerrormsg" style="display:none;"> </div>  
                                 </form>
-								<form method="post" action="/save-deposit" id="curncy-names" class="curncy-names">
+								{{!-- <form method="post" action="/save-deposit" id="curncy-names" class="curncy-names">
 									<div class="gap">
 										<div class="col-md-3">
 											<div class="form-group">
@@ -491,7 +491,7 @@
 										</div>
 									</div>
 									<div class="col-md-12" id="depositerrormsg" style="display:none;"> </div>			
-								</form>
+								</form> --}}
                                 {{#if_eq user.kycApproved "2"}}
                                     <form action="/save-withdraw" method="post" id="MCPwithdraw">
                                         <div class="gap">

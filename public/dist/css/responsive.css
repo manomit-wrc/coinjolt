@@ -1,0 +1,133 @@
+/* Starts Responsive Styles */
+
+@media screen and (max-width: 1024px) {
+
+}
+
+
+@media screen and (min-width: 769px) {
+    .header-top .top-menu ul {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header-top .logo {
+        position: relative;
+        top: 5px;
+    }
+
+    .nav-click {
+        display: block;
+        position: relative;
+        top: -4px;
+    }
+
+    .nav-click .fa-bars {
+        font-size: 20px;
+    }
+
+    .header-top .top-menu ul {
+        display: none;
+        position: absolute;
+        top: 57px;
+        right: 15px;
+        width: 200px;
+        -webkit-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        -moz-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        -ms-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        -o-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        background: #fff;
+        z-index: 9999;
+        -webkit-border-bottom-left-radius: 10px;
+        -moz-border-bottom-left-radius: 10px;
+        -ms-border-bottom-left-radius: 10px;
+        -o-border-bottom-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        -webkit-border-bottom-right-radius: 10px;
+        -moz-border-bottom-right-radius: 10px;
+        -ms-border-bottom-right-radius: 10px;
+        -o-border-bottom-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .header-top .top-menu ul li {
+        display: block;
+        margin-right: 0;
+        border-top: 1px solid #dcdcdc;
+    }
+
+    .header-top .top-menu ul li a {
+        width: auto;
+        display: block;
+        padding: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .header-top .top-menu ul li a:hover {
+        background: #58a2e9;
+        color: #fff !important;
+    }
+
+    
+
+}
+
+@media screen and (max-width: 640px) { 
+    .header-top .col-md-3.col-sm-3.col-xs-3 {
+        width: 30%;
+    }
+    
+    .header-top .col-md-9.col-sm-9.col-xs-9 {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 530px) { 
+    .header-top .col-md-3.col-sm-3.col-xs-3 {
+        width: 35%;
+    }
+    
+    .header-top .col-md-9.col-sm-9.col-xs-9 {
+        width: 65%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .register-box .form-group.has-feedback.invester-type {
+        float: none;
+        width: 100%;
+        text-align: center;
+    }
+ }
+
+
+
+@media screen and (max-width: 420px) { 
+    .header-top .col-md-3.col-sm-3.col-xs-3 {
+        width: 40%;
+    }
+    
+    .header-top .col-md-9.col-sm-9.col-xs-9 {
+        width: 60%;
+    }
+}
+
+
+
+
+@media screen and (max-width: 360px) { 
+    .header-top .col-md-3.col-sm-3.col-xs-3 {
+        width: 45%;
+    }
+    
+    .header-top .col-md-9.col-sm-9.col-xs-9 {
+        width: 55%;
+    }
+}
+
+
+/* Starts Responsive Styles */

@@ -2232,6 +2232,29 @@
 
         $('.equalize-box1').height(maxHeight);
     </script>
+      <script>
+        var maxHeight = 0;
+        $('.balnrecent .equal-hgt').each(function (i) {
+            var height = $('.balnrecent .equal-hgt').eq(i).height();
+            if (height > maxHeight)
+                maxHeight = height;
+        });
+
+        $('.balnrecent .equal-hgt').height(maxHeight);
+    </script>
+        <script>
+        var maxHeight = 0;
+        $('.request-withdrawal .equal-hgt').each(function (i) {
+            var height = $('.request-withdrawal .equal-hgt').eq(i).height();
+            if (height > maxHeight)
+                maxHeight = height;
+        });
+
+        $('.request-withdrawal .equal-hgt').height(maxHeight);
+    </script>
+    
+    
+
     <!--Ends Script for Auto Height -->
 
     <!-- Starts  Script for Active Menu -->

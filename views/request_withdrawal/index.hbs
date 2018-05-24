@@ -28,7 +28,7 @@
             {{#if_eq user.kycApproved "2"}}
             <div class="form-group">
               <div style="display:block;" class="returnMsg1 form-group col-md-8"></div>
-              <form method="post" name="CoinSell" class="coinSell">
+              <form method="post" name="CoinSell" class="coinSell row">
                 <input type="hidden" name="coinRate" id="coinRate" value="">
                 <div class="form-group col-md-6">
                   <input type="text" placeholder="Enter Amount" class="form-control" value="" name="withdrawAmount" id="withdrawAmount" required="required">
@@ -280,7 +280,7 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div class="box">
+          <div class="box equal-hgt">
             <div class="box-header">
               <h3 class="box-title">Most Recent Activity</h3>
             </div>

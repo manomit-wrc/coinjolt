@@ -29,6 +29,29 @@
 
 }
 
+@media screen and (max-width: 991px) {
+    input#cc-submit, input#cc-submit1 {
+        width: 100%;
+    }
+
+    .balnrecent .chart-responsive,
+    .request-withdrawal .chart-responsive
+     {
+        top: 20px;
+        margin-bottom: 50px;
+    }
+
+    .balnrecent .box.equal-hgt,
+    .buynsell-row .box.equalize-box,
+    .request-withdrawal .box.equal-hgt 
+     {
+        height: auto !important;
+    }
+     
+}
+
+
+
 
 @media screen and (min-width: 769px) {
     .header-top .top-menu ul {
@@ -145,6 +168,23 @@
         width: 100px;
         height: 22PX;
         margin-top: 32px;
+    }
+
+    .all-crypto-tbl {
+        padding: 10px;
+    }
+
+    .all-crypto-tbl .row:first-child .col-sm-6,
+    .invite-frnd-tbl .row:first-child .col-sm-6
+    {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    
+
+    .buynsell-row .alert,.paymentErrorMsg {
+        text-align: center;
     }
 
 }

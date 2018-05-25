@@ -47,6 +47,26 @@
      {
         height: auto !important;
     }
+
+    .acc-col-common {
+        width: 100%;
+        text-align: center;
+    }
+
+    .acc-col-common .prev-box {
+        display: table;
+        margin: 0 auto;
+    }
+
+    .account-settings .account-upload {
+        display: table;
+        margin: 20px auto;
+    }
+
+    .account-settings .pdng {
+        margin: 0 auto;
+        display: table;
+    }
      
 }
 

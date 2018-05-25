@@ -683,7 +683,7 @@ h3.post-title {
     left: 0;
     opacity: 0;
     padding: 0 !important;
-    position: absolute;
+    position: relative;
     top: 30px;
     width: 171px !important;
     z-index: 999999;

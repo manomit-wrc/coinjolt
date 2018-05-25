@@ -80,9 +80,23 @@
         float: none !important;
     }
 
-    #financialForm .btn-primary {
+    #financialForm .btn-primary,
+    .deposit-funds .btn-primary
+     {
         display: block;
         width: 100%;
+    }
+
+    #referralModal .btn,
+    #referralModal input
+    {
+       
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    #referralModal input
+    {
+        margin-bottom: 15px;
     }
      
 }
@@ -216,7 +230,8 @@
     .buy-history .row:first-child .col-sm-6,
     .sell-history .row:first-child .col-sm-6,
     .deposit-history .row:first-child .col-sm-6,
-    .withdrawal-history .row:first-child .col-sm-6
+    .withdrawal-history .row:first-child .col-sm-6,
+    .most-recent-history .row:first-child .col-sm-6
     {
         margin-bottom: 10px;
         margin-top: 10px;
@@ -231,8 +246,7 @@
     #referralModal .btn {
         width: 100%;
         display: block;
-        margin-top: 10px;
-        margin-bottom: 10px;
+       
     }
 
 }
@@ -300,6 +314,17 @@
         width: 100%;
         word-wrap: break-word;
         white-space: normal;
+    }
+
+    .title-with-btn .pull-left {
+        float: none !important;
+    }
+
+    .title-with-btn .btn-primary {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
  }

@@ -61,7 +61,7 @@ module.exports = (app, models) => {
             }
         });
     });
-
+ 
     app.get('/bitgo/create-address', (req, res) => {
         var id = '2MziMaFRQTj5DfWD3f3pwhCihgah8Ed46se';
         bitgo.wallets().get({

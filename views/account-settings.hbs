@@ -15,8 +15,11 @@
                     </div>
                     <div class="box-body">
                         <div class="row">
+                            
                          {{#if message}}
+                          <div class="col-md-12">
                             <div class="alert alert-success" id="profileSaveMsg">{{message}}</div>
+                          </div>
                             {{/if}}
                             <div class="col-md-6 col-sm-6 acc-col-common">
                                 <div class="row">
@@ -356,7 +359,7 @@
 
                                                     </div>
                                                 </div> --}}<div class="modal fade" id="1271" role="dialog">
-                                                    <div class="modal-dialog share-holder-details-popup">
+                                                    <div class="modal-dialog modal-lg modal-sm share-holder-details-popup">
 
                                                         <!-- Modal content-->
                                                         <div class="modal-content">
@@ -413,7 +416,7 @@
                                                         <tbody>
                                                             {{#each shareholders_info}}
                                                                 <div class="modal fade" id="{{this.id}}" role="dialog">
-                                                                    <div class="modal-dialog share-holder-details-popup">
+                                                                    <div class="modal-dialog modal-lg modal-sm share-holder-details-popup">
 
                                                                         <!-- Modal content-->
                                                                         <div class="modal-content">

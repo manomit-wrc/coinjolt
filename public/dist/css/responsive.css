@@ -67,6 +67,23 @@
         margin: 0 auto;
         display: table;
     }
+
+    .shareholders .modal-body {
+        text-align: center;
+    }
+
+    .shareholders .modal-body .row > .col-md-6 {
+        margin-bottom: 15px;
+    }
+
+    #financialForm .pull-right {
+        float: none !important;
+    }
+
+    #financialForm .btn-primary {
+        display: block;
+        width: 100%;
+    }
      
 }
 
@@ -195,7 +212,11 @@
     }
 
     .all-crypto-tbl .row:first-child .col-sm-6,
-    .invite-frnd-tbl .row:first-child .col-sm-6
+    .invite-frnd-tbl .row:first-child .col-sm-6,
+    .buy-history .row:first-child .col-sm-6,
+    .sell-history .row:first-child .col-sm-6,
+    .deposit-history .row:first-child .col-sm-6,
+    .withdrawal-history .row:first-child .col-sm-6
     {
         margin-bottom: 10px;
         margin-top: 10px;
@@ -256,6 +277,24 @@
     .rates-box a.toggle-nav {
         top: 40px;
     }
+
+    .shareholders .table .btn {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .bit-tabs .list-group-item {
+        word-wrap: break-word;
+    }
+
+    .bit-tabs .btn-primary {
+        display: block;
+        width: 100%;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+
  }
 
 
@@ -300,6 +339,16 @@
         width: 100%;
     }
 
+    #changePasswordModal .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .box.tabs .panel .nav li a {
+        padding: 10px 15px;
+    }
+
 }
 
 
@@ -320,6 +369,14 @@
 
     .balance-box a.toggle-nav {
         right: 190px;
+    }
+
+    .box.tabs .panel .panel-body .tab-content .tab-pane.active.in .body-wallets a {
+        font-size: 18px;
+    }
+
+    .box.tabs .panel .panel-body .tab-content .tab-pane.active.in .body-wallets span {
+        font-size: 18px;
     }
 }
 

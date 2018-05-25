@@ -488,6 +488,11 @@ select.form-control {
     padding: 9px 44px !important;
 }
 
+.btn-default {
+    font-size: 16px !important;
+    padding: 9px 44px !important;
+}
+
 .btn-primary:hover {
     background: #4d5776 !important;
 }
@@ -1359,7 +1364,8 @@ ul.selectbar {
     display: inline-block;
     position: relative;
     line-height: 24px;
-    text-decoration: underline !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid #2a2f40;
     cursor: pointer;
 }
 
@@ -1538,10 +1544,17 @@ ul.selectbar {
 .box.tabs .send-box button {
     background: transparent;
     height: 40px;
+    display: block;
+    width: 100%;
 }
 
 .box.tabs .send-box button:hover {
     background: #e6e6e6;
+}
+
+.send-box .dropdown-menu {
+    min-width: 100%;
+    max-width: 100%;
 }
 
 .box.tabs .tab-content #comment, .box.tabs .tab-content #save-template-label {
@@ -1620,6 +1633,14 @@ tr.shown td.remove-control {
     display: none;
 }
 
+/* Starts CSS on 2018-05-25 */
+
+#profiledropdown .btn-default {
+    font-size: 14px !important;
+    padding: 9px 15px !important;
+}
+
+/* Ends CSS on 2018-05-25 */
 
 @media screen and (max-width: 1366px) {
     .balance-box {

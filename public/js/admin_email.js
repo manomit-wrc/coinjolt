@@ -1,7 +1,10 @@
 $(document).ready(function (e) {
-	    setTimeout(function() { 
-	        $(".loader").fadeOut("slow");
-	    }, 2000);
+	$('#all_user_list_table').DataTable({
+        "bSort" : false
+    });
+    setTimeout(function() { 
+        $(".loader").fadeOut("slow");
+    }, 2000);
 
 	CKEDITOR.replace( 'editor1' );
 
@@ -159,6 +162,81 @@ $(document).ready(function (e) {
 		}
 	});
 
+	$('#send_multiple_email_form').validate({
+		rules:{
+			subject:{
+				required: true
+			}
+		},
+		messages:{
+			subject:{
+				required: "Please enter subject."
+			}			
+		}
+	});
+
+	$('#send_multiple_email_to_user').on('click', function () {
+		var valid = $('#send_multiple_email_form').valid();
+		var all_user_ids = $('#all_user_ids').val();
+		var user_email = $('#to').val();
+		var subject = $('#subject').val();
+		var description = CKEDITOR.instances['editor1'].getData();
+		var email_template_id = $('#select_email_template').val();
+		if(email_template_id != ''){
+			email_template_id = email_template_id;
+		}else{
+			email_template_id = 'NULL';
+		}
+
+		if(valid){
+			if(description == ''){
+				alert ("Description can't be left blank");
+				return false;
+			}else{
+				$(':input[type="button"]').prop('disabled', true);
+				$.ajax({
+					type: "POST",
+					url: "/admin/send-multiple-email-to-user",
+					data:{
+						user_email: user_email,
+						subject: subject,
+						description: description,
+						email_template_id: email_template_id
+					},
+					success: function (response) {
+						if(response.status == true){
+					  		$.ajax({
+					  			type: "POST",
+					  			url: "/admin/entery-to-db-after-send-multipleEmail",
+					  			data:{
+					  				user_email: user_email,
+					  				subject: subject,
+									description: description,
+									email_template_id: email_template_id,
+									all_user_ids: all_user_ids
+					  			},
+					  			success: function (resp){	
+					  				if(resp.status == true){
+					  					$(':input[type="button"]').prop('disabled', false);
+					  					swal({
+								            title: 'Thank You',
+								            text: response.msg,
+								            type: "success",
+								            confirmButtonColor: "#DD6B55",
+								            confirmButtonText: "OK"
+								        },  function() {
+								            window.location.href = '/admin/all-user-list';
+								        });
+					  				}
+					  			}
+					  		});
+						}
+					}
+				});
+			}
+		}
+	});
+
 	$('#select_email_template').on('change', function (e) {
 		var template_id = $('#select_email_template').val();
 		$.ajax({
@@ -204,4 +282,47 @@ $(document).ready(function (e) {
             window.location.href = '/admin/email-template-listings';
         });
     }
+});
+
+$('#send_multiple_email').on('click', function () {
+	var checked_ids = [];
+    $("input[name='checked_ids[]']:checked").each(function (i) {               
+        checked_ids[i] = $(this).val();            
+    });            
+    checked_ids = JSON.stringify(checked_ids);            
+    checked_ids = JSON.parse(checked_ids);
+    if(checked_ids.length == 0){
+    	alert ("Please select at least One record.");
+    	return false;
+    }else{
+    	$.ajax({
+    		type: "POST",
+    		url: "/admin/send-multiple-email",
+    		data:{
+    			checked_ids: checked_ids
+    		},
+    		success: function (resp) {
+    			$('#all_user_ids').val(resp.allIds);
+    			$('#to').val(resp.all_email_id);
+    			var options = '';
+    			options += '<option value="0">Select Template</option>';
+    			$.each(resp.email_template, function(key,val){
+    				options += '<option value="'+val.id+'">'+val.template_name+'</option>'
+
+    			});
+    			$('#select_email_template').html(options);
+    			
+    			$('#myModal').modal('show');
+    		}
+    	});
+    }
+});
+
+$('#examplecBox0').on('click', function () {
+    if ($("#examplecBox0").prop('checked') == true) {
+        $('.myCheckbox').prop('checked', true);
+    } else {
+        $('.myCheckbox').prop('checked', false);
+    }
+
 });

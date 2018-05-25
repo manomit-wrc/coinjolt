@@ -1341,6 +1341,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 cvv: parseInt(cvv)
             }
           }, function(error, response, body) {
+              console.log(response);
+              console.log(body);
              if(error === null && body === '1') {
                  res.json({success: "true"});
              }

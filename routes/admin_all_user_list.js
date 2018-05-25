@@ -124,4 +124,92 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 			});
 		});
 	});
+
+	app.post('/admin/send-multiple-email', async (req,res) => {
+		var all_user_ids = req.body.checked_ids;
+		var tempArray = [];
+		var tempArrayId = [];
+
+		for(var i = 0; i < all_user_ids.length; i++){
+			var id = all_user_ids[i];
+			await User.findById(id,{
+			}).then(function (result) {
+				tempArray.push(result.email);
+				tempArrayId.push(result.id);
+			});
+		}
+
+		await email_template.findAll({
+			where:{
+				status:1
+			}
+		}).then(function(result1){
+			res.json({
+				status: true,
+				all_email_id: tempArray.toString(),
+				email_template: result1,
+				allIds: tempArrayId.toString()
+			});
+		});
+	});
+
+	app.post('/admin/send-multiple-email-to-user', (req,res) => {
+		var subject = req.body.subject;
+		var description = req.body.description;
+
+		var user_email = req.body.user_email;
+		var array_email = user_email.split(",");
+		
+
+		var ses = new AWS.SES({apiVersion: '2010-12-01'});
+		ses.sendEmail({
+		   	Source: keys.senderEmail, 
+		   	Destination: { ToAddresses: array_email },
+		   	Message: {
+		       	Subject: {
+		          	Data: subject
+		       	},
+		       	Body: {
+		           	Html: {
+		           		Charset: "UTF-8",
+		               	Data: description
+		           	}
+		        }
+		   }
+		}, function(err, data) {
+	    	if(err) throw err;
+
+	    	res.json({
+	    		status: true
+	    	});
+		});
+	});
+
+	app.post('/admin/entery-to-db-after-send-multipleEmail', (req,res) => {
+		var user_ids = req.body.all_user_ids;
+		var subject = req.body.subject;
+		var description = req.body.description;
+
+		var total_send = 0;
+		var user_email = req.body.user_email;
+		arr = user_ids.split(',');
+
+		for(var i = 0; i < arr.length; i++){
+			send_email.create({
+	    		user_id: arr[i],
+	    		email_sub: subject,
+	    		email_desc: description,
+	    		send_by_id: req.user.id,
+	    		email_template_id: req.body.email_template_id
+	    	});
+    			
+			if(i == arr.length - 1) {
+				res.json({
+					status: true,
+					msg: "Email send to the user successfully."
+				});
+			}
+		}
+		
+	});
 };

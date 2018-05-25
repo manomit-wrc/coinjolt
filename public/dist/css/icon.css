@@ -130,6 +130,7 @@
 .s-s-maker,
 .s-s-icon,
 .s-s-xplay,
+.s-s-royal,
 .s-s-sirin-labs-token {
     background-image: url('sprite.png');
     background-repeat: no-repeat;
@@ -537,6 +538,12 @@
 
 .s-s-gas {
   background-position: -128px -129px;
+  height: 32px;
+  width: 32px;
+}
+
+.s-s-royal {
+  background-position: -190px -320px;
   height: 32px;
   width: 32px;
 }

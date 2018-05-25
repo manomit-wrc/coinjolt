@@ -2401,9 +2401,11 @@
      <script>
          $(document).ready(function() {
               // SLIMSCROLL FOR CHAT WIDGET
-              var sidebarHeight = $(".sidebar .sidebar-menu").height();
+              //var sidebarHeight = $(".sidebar .sidebar-menu ul").height();
             $('.sidebar .sidebar-menu').slimScroll({
-                height: sidebarHeight + "px"
+                //height: sidebarHeight + "px"
+                height: "400",
+                alwaysVisible: true
             });
          });
      </script>

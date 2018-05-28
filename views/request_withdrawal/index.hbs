@@ -27,11 +27,13 @@
           <div class="box-body tp-box">
             {{#if_eq user.kycApproved "2"}}
             <div class="form-group">
-              <div style="display:block;" class="returnMsg1 form-group col-md-8"></div>
               <form method="post" name="CoinSell" class="coinSell row">
+             <div class="col-md-12 form-group">
+                <div class="alert alert-success returnMsg1" style="display:none"></div>
+             </div>
                 <input type="hidden" name="coinRate" id="coinRate" value="">
                 <div class="form-group col-md-6">
-                  <input type="text" placeholder="Enter Amount" class="form-control" value="" name="withdrawAmount" id="withdrawAmount" required="required">
+                  <input type="text" placeholder="Enter Amount" class="form-control" name="withdrawAmount" id="withdrawAmount" required="required">
                 </div>
                 <div class="form-group col-md-6">
                   <select name="payment_type" id="payment_type" class="form-control">
@@ -57,7 +59,7 @@
                     <input type="text" placeholder="Account Number" class="form-control" value="" name="accountNumber" id="accountNumber" required="required">
                   </div>
                   <div class="form-group col-md-6">
-                    <input type="text" placeholder="Confirm Account Number" class="form-control" value="" name="ifsc" id="ifsc" required="required">
+                    <input type="text" placeholder="Confirm Account Number" class="form-control" value="" name="confirmAccountNumber" id="confirmAccountNumber" required="required">
                   </div>
                   <div class="form-group col-md-6">
                     <input type="text" placeholder="Routing Number/SWIFT Code" class="form-control" value="" name="swiftCode" id="swiftCode" required="required">
@@ -75,7 +77,7 @@
                 <div class="col-md-4 col-md-offset-5">
                   <p class="expected" style="display: none;color: #008000;"></p>
                   <div class="btnall">
-                    <input type="submit" name="Submit" value="Withdraw" id="cc-submit1" class="btn btn-primary" >
+                    <input type="submit" name="Submit" value="Withdraw" id="cc-submit2" class="btn btn-primary" >
                     <p style="display:none;padding-right: 85px;" class="loaderImg"><img src="https://coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif" ></p>
                   </div>
                 </div>

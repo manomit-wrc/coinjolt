@@ -114,8 +114,6 @@
 						bankAddress: bankAddress
 					},
 					success : function(resp){
-						console.log(resp);
-						return false;
 
 						if(resp == 1){
 							$(".loaderImg").hide();

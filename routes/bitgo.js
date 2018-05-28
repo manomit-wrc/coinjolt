@@ -144,6 +144,9 @@ module.exports = (app, models) => {
             }
             // res.send(result.access_token);
         });
+        
+        // var bigtoSession = await bitgo.session();
+        // console.log(bigtoSession);
 
         let walletDetails = await models.wallet.findAndCountAll({
             where: {

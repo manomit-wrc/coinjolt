@@ -93,7 +93,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                         var mcp_final = mcp_invest[0].get('MCP_INVEST_AMT') - mcp_withdraw[0].get('MCP_WITHDRAW_AMT');
                         var mcp_final_blnc = parseFloat(Math.round(mcp_final * 100) / 100).toFixed(4);
 
-                        var bank_details = await models.Bank_Details.findAll({
+                        var bank_details = await models.bank_details.findAll({
                             where: {user_id: id}
                         });
 

@@ -23,7 +23,7 @@
 		});
 
 		$("#withdrawAmount").keyup(function(){
-			console.log("Withdraw");
+			//console.log("Withdraw");
 			var balVal = $("#balVal").val();
 			var amtVal = $("#withdrawAmount").val();
 			amtVal = parseFloat(amtVal);
@@ -70,9 +70,8 @@
 
 	$(document).ready(function(){	
 
-		$("#cc-submit1").click(function(e){
+		$("#cc-submit2").click(function(e){
 			e.preventDefault();
-			var dataString;
 			$(".loaderImg").show();
 			$(".errormsg").hide();
 			$(".returnMsg1").hide();
@@ -82,66 +81,75 @@
 			var customerName = $("#customerName").val();
 			var bankName = $("#bankName").val();
 			var accountNumber = $("#accountNumber").val();
-			var ifsc = $("#ifsc").val();
+			var confirmAccountNumber = $("#confirmAccountNumber").val();
 			var swiftCode = $("#swiftCode").val();
 			var bankAddress = $("#bankAddress").val();
+			var branchNo = $("#branchnumber").val();
+			var institutionnumber = $("#institutionnumber").val();
 
 			if(payment_type == ''){
 				$(".errormsg").css({"color":"red","background":"#efc1b3","border":"#efc1b3","padding":"9px"});
 				$(".errormsg").text("Please select payment type.");
 				$(".errormsg").show();
 				$(".loaderImg").hide();
-			}else if(payment_type == 'Bank' && (customerName == '' || bankName == '' || accountNumber == '' || ifsc == '' || swiftCode == '' || bankAddress == '')){
+			}
+
+			else if(accountNumber !== confirmAccountNumber){
+				$(".errormsg").css({"color":"red","background":"#efc1b3","border":"#efc1b3","padding":"9px"});
+				$(".errormsg").text("Please enter same account number.");
+				$(".errormsg").show();
+				$(".loaderImg").hide();
+			}
+
+			else if(withdrawAmount == ''){
+				$(".errormsg").css({"color":"red","background":"#efc1b3","border":"#efc1b3","padding":"9px"});
+				$(".errormsg").text("Please enter valid amount.");
+				$(".errormsg").show();
+				$(".loaderImg").hide();
+			}
+
+			else if(withdrawAmount <= 0){
+				$(".errormsg").css({"color":"red","background":"#efc1b3","border":"#efc1b3","padding":"9px"});
+				$(".errormsg").text("Please enter valid amount.");
+				$(".errormsg").show();
+				$(".loaderImg").hide();
+			}
+
+			else if(payment_type == 'Bank' && (customerName == '' || bankName == '' || accountNumber == '' || confirmAccountNumber == '' || swiftCode == '' || bankAddress == '' || institutionnumber == '')){
 				$(".errormsg").css({"color":"red","background":"#efc1b3","border":"#efc1b3","padding":"9px"});
 				$(".errormsg").text("Bank details fields are required.");
 				$(".errormsg").show();
 				$(".loaderImg").hide();
 			}else{
-				dataString = "action=withdrawCoin&withdrawAmount="+withdrawAmount+"&balVal="+balVal+"&payment_type="+payment_type+"&customerName="+customerName+"&bankName="+bankName+"&accountNumber="+accountNumber+"&ifsc="+ifsc+"&swiftCode="+swiftCode+"&bankAddress="+bankAddress;
+					$(".errormsg").hide();
+					$.ajax({
+						type : "POST",
+						url  :  "/withdraw-amount",
+						data : {
+							withdrawAmount: withdrawAmount,
+							type: payment_type,
+							customerName: customerName,
+							bankName: bankName,
+							accountNumber: accountNumber,
+							swiftCode: swiftCode,
+							bankAddress: bankAddress,
+							branchNo: branchNo,
+							institutionnumber: institutionnumber
+						},
+						success : function(resp){
 
-				$(".errormsg").hide();
-				$.ajax({
-					type : "POST",
-					url  :  "/withdraw-amount",
-					data : {
-						withdrawAmount: withdrawAmount,
-						type: payment_type,
-						customerName: customerName,
-						bankName: bankName,
-						accountNumber: accountNumber,
-						ifsc: ifsc,
-						swiftCode: swiftCode,
-						bankAddress: bankAddress
-					},
-					success : function(resp){
-						console.log(resp);
-						return false;
-
-						if(resp == 1){
-							$(".loaderImg").hide();
-							$(".returnMsg1").show();
-							$(".returnMsg1").html("<h3 class='msg'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Withdraw request received.</h3>");
-							setTimeout( function(){ 
-								window.location.href="https://coinjolt.com/dashboard/request-withdrawal";
-							}  , 3000 );
-						}else if(resp == 0){
-							$(".loaderImg").hide();
-							$(".returnMsg1").show();
-							$(".returnMsg1").html("<h3 class='errorMsg'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please try again.</h3>");
-							return;
-							setTimeout( function(){ 
-								window.location.href="https://coinjolt.com/dashboard/request-withdrawal";
-							}  , 3000 );
-						}else if(resp == 2){
-							$(".loaderImg").hide();
-							$(".returnMsg1").show();
-							$(".returnMsg1").html("<h3 class='errorMsg'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please enter valid amount.</h3>");
-							setTimeout( function(){ 
-								window.location.href="https://coinjolt.com/dashboard/request-withdrawal";
-							}  , 3000 );
+							if(resp.status == true){
+								$(".loaderImg").hide();
+								$(".returnMsg1").show();
+								$(".returnMsg1").html("<p>Withdraw request received.</p>");
+								setTimeout( function(){ 
+									window.location.href="/request-withdrawal";
+								}  , 3000 );
+							}
 						}
-					}
-				});
+					});
+
+				
 			}
 		});
 

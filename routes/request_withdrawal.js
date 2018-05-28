@@ -1,5 +1,5 @@
 
-module.exports = function (app, withdraw, bank_details, Deposit){
+module.exports = function (app, withdraw, bank_details, Deposit, models){
 	const Op = require('sequelize').Op;
 	const sequelize = require('sequelize');
 
@@ -16,17 +16,23 @@ module.exports = function (app, withdraw, bank_details, Deposit){
 	});
 
 	app.post('/withdraw-amount', (req,res) => {
-		console.log(req.body);
-		return false;
 		withdraw.create({
 			user_id: req.user.id,
 			amount_usd: req.body.withdrawAmount,
 			status: 0,
 			withdraw_type: (req.body.type=='Bank' ? 1 : 2)
+			
 		}).then(function(result){
 			if(req.body.type=='Bank'){
-				bank_details.create({
+				models.bank_details.create({
 					user_id: req.user.id,
+					acc_holder_name: req.body.customerName,
+					bank_name: req.body.bankName,
+					bank_address: req.body.bankAddress,
+					acc_no: req.body.accountNumber,
+					swift_code: req.body.swiftCode,
+					institution_no: req.body.institutionnumber,
+					branch_no: req.body.branchNo
 				}).then(function (result) {
 					res.json({
 						status: true,

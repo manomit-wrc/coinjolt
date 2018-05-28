@@ -125,30 +125,32 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example3" class="table  table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>USD</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Market Rate</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each buy_history}}
-                                    <tr>
-                                        <td>{{this.transaction_id}}</td>
-                                        <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
-                                        <td>{{this.converted_amount}}</td>
-                                        <td>{{this.Currency.currency_id}}</td>
-                                        <td>{{this.current_rate}}</td>
-                                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table id="example3" class="table  table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>USD</th>
+                                            <th>Amount</th>
+                                            <th>Currency</th>
+                                            <th>Market Rate</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each buy_history}}
+                                        <tr>
+                                            <td>{{this.transaction_id}}</td>
+                                            <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
+                                            <td>{{this.converted_amount}}</td>
+                                            <td>{{this.Currency.currency_id}}</td>
+                                            <td>{{this.current_rate}}</td>
+                                            <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -167,30 +169,32 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example4" class="table  table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>USD</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Market Rate</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each sell_history}}
-                                    <tr>
-                                        <td>{{this.transaction_id}}</td>
-                                        <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
-                                        <td>{{this.converted_amount}}</td>
-                                        <td>{{this.Currency.currency_id}}</td>
-                                        <td>{{this.current_rate}}</td>
-                                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
+                             <div class="table-responsive">
+                                <table id="example4" class="table  table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>USD</th>
+                                            <th>Amount</th>
+                                            <th>Currency</th>
+                                            <th>Market Rate</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each sell_history}}
+                                        <tr>
+                                            <td>{{this.transaction_id}}</td>
+                                            <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
+                                            <td>{{this.converted_amount}}</td>
+                                            <td>{{this.Currency.currency_id}}</td>
+                                            <td>{{this.current_rate}}</td>
+                                            <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -209,30 +213,32 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example5" class="table  table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Payment Method</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>     
-                                    {{#each deposit_history}}
-                                    <tr>
-                                        <td>{{this.transaction_id}}</td>
-                                        <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
-                                        <td>USD</td>
-                                        <td>
-                                            {{#if_eq this.payment_method '1'}} Credit Card {{else}} Wire Transfer {{/if_eq}}
-                                        </td>   
-                                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
+                             <div class="table-responsive">
+                                <table id="example5" class="table  table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Amount</th>
+                                            <th>Currency</th>
+                                            <th>Payment Method</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>     
+                                        {{#each deposit_history}}
+                                        <tr>
+                                            <td>{{this.transaction_id}}</td>
+                                            <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
+                                            <td>USD</td>
+                                            <td>
+                                                {{#if_eq this.payment_method '1'}} Credit Card {{else}} Wire Transfer {{/if_eq}}
+                                            </td>   
+                                            <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -251,26 +257,28 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example6" class="table  table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Amount</th>
-                                        <th>Currency</th>
-                                        <th>Date &amp; Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each withdrawal_history}}
+                             <div class="table-responsive">
+                                <table id="example6" class="table  table-striped">
+                                    <thead>
                                         <tr>
-                                            <td>{{this.transaction_id}}</td>
-                                            <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
-                                            <td>USD</td>
-                                            <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                                            <th>ID</th>
+                                            <th>Amount</th>
+                                            <th>Currency</th>
+                                            <th>Date &amp; Time</th>
                                         </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {{#each withdrawal_history}}
+                                            <tr>
+                                                <td>{{this.transaction_id}}</td>
+                                                <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
+                                                <td>USD</td>
+                                                <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                                            </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.box-body -->
                     </div>

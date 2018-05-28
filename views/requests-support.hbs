@@ -24,26 +24,28 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="support-list" class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Subject</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                   {{#each supports}}
-                  <tr>
-                    <td>{{this.id}}</td>
-                    <td>{{this.title}}</td>
-                    <td>{{this.enquiry}}</td>
-                    <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
-                  </tr>
-                  {{/each}}
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table id="support-list" class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Subject</th>
+                      <th>Description</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each supports}}
+                    <tr>
+                      <td>{{this.id}}</td>
+                      <td>{{this.title}}</td>
+                      <td>{{this.enquiry}}</td>
+                      <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
             </div>
             <!-- /.box-body -->
           </div>

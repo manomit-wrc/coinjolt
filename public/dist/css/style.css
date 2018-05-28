@@ -488,6 +488,11 @@ select.form-control {
     padding: 9px 44px !important;
 }
 
+.btn-default {
+    font-size: 16px !important;
+    padding: 9px 44px !important;
+}
+
 .btn-primary:hover {
     background: #4d5776 !important;
 }
@@ -683,7 +688,7 @@ h3.post-title {
     left: 0;
     opacity: 0;
     padding: 0 !important;
-    position: absolute;
+    position: relative;
     top: 30px;
     width: 171px !important;
     z-index: 999999;
@@ -931,9 +936,9 @@ label.success,
     height: 164px;
 }
 
-.dashboard-top .col-md-6.equal-hgt {
+/* .dashboard-top .col-md-6.equal-hgt {
     padding-left: 0 !important;
-}
+} */
 
 .dashboard-top .scroll-dashboard {
     overflow-y: scroll;
@@ -1114,27 +1119,24 @@ label.success,
 
 .scroll-dashboard, .eposit-funds .scroll-dashboard {
     height: 175px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: auto;
 }
 
 .request-withdrawal .scroll-dashboard {
     height: 160px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: auto;
 }
 
-.balnrecent .col-md-6 .box.equal-hgt,
+/* .balnrecent .col-md-6 .box.equal-hgt,
 .request-withdrawal .col-md-6 .box.equal-hgt, .deposit-funds .col-md-6 .box.equal-hgt {
     height: 260px !important;
     overflow: hidden;
-}
+} */
 
 .balnrecent .box .table-responsive.buy-section,
 .request-withdrawal .box .table-responsive.buy-section, .deposit-funds .box .table-responsive {
     height: 199px !important;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
 }
 
 table.table.scroll-minus {
@@ -1362,7 +1364,8 @@ ul.selectbar {
     display: inline-block;
     position: relative;
     line-height: 24px;
-    text-decoration: underline !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid #2a2f40;
     cursor: pointer;
 }
 
@@ -1541,10 +1544,17 @@ ul.selectbar {
 .box.tabs .send-box button {
     background: transparent;
     height: 40px;
+    display: block;
+    width: 100%;
 }
 
 .box.tabs .send-box button:hover {
     background: #e6e6e6;
+}
+
+.send-box .dropdown-menu {
+    min-width: 100%;
+    max-width: 100%;
 }
 
 .box.tabs .tab-content #comment, .box.tabs .tab-content #save-template-label {
@@ -1619,6 +1629,20 @@ tr.shown td.remove-control {
     display: none;
 }
 
+.logo-mob-767 {
+    display: none;
+}
+
+/* Starts CSS on 2018-05-25 */
+
+#profiledropdown .btn-default {
+    font-size: 14px !important;
+    padding: 9px 15px !important;
+}
+
+
+
+/* Ends CSS on 2018-05-25 */
 
 @media screen and (max-width: 1366px) {
     .balance-box {
@@ -1735,55 +1759,11 @@ tr.shown td.remove-control {
 }
 
 @media screen and (max-width: 1024px) {
-    .res-table {
-        width: 100% !important;
-    }
-    /* Force table to not be like tables anymore */
-    .res-table table,
-    .res-table thead,
-    .res-table tbody,
-    .res-table th,
-    .res-table td,
-    .res-table tr {
-        display: block !important;
-    }
-    /* Hide table headers (but not display: none;, for accessibility) */
-    .res-table thead tr {
-        position: absolute !important;
-        top: -9999px !important;
-        left: -9999px !important;
-    }
-    .res-table tr {
-        border-bottom: 0.5px solid #ccc !important;
-        padding: 0 16px !important;
-    }
-    .res-table tr:first-child {
-        border-bottom: 0.5px solid #ccc !important;
-    }
-    .res-table td {
-        /* Behave  like a "row" */
-        border: none !important;
-        position: relative !important;
-        padding-left: 50% !important;
-    }
-    .res-table td:before {
-        /* Now like a table header */
-        position: absolute !important;
-        /* Top/left values mimic padding */
-        top: 6px !important;
-        left: 0 !important;
-        width: 45% !important;
-        padding-right: 10px !important;
-        white-space: nowrap !important;
-        /* Label the data */
-        content: attr(data-column) !important;
-        color: #000 !important;
-        font-weight: bold !important;
-    }
-    .content-wrapper,
+    
+    /* .content-wrapper,
     .main-footer {
         margin-left: 0px !important;
-    }
+    } */
 }
 
 /* Ends Responsive Table */

@@ -16,6 +16,8 @@ module.exports = function (app, withdraw, bank_details, Deposit){
 	});
 
 	app.post('/withdraw-amount', (req,res) => {
+		console.log(req.body.withdrawAmount);
+		console.log(req.body.type);
 		withdraw.create({
 			user_id: req.user.id,
 			amount_usd: req.body.withdrawAmount,

@@ -72,7 +72,7 @@
 
 		$("#cc-submit1").click(function(e){
 			e.preventDefault();
-			var dataString;
+			//var dataString;
 			$(".loaderImg").show();
 			$(".errormsg").hide();
 			$(".returnMsg1").hide();
@@ -97,7 +97,7 @@
 				$(".errormsg").show();
 				$(".loaderImg").hide();
 			}else{
-				dataString = "action=withdrawCoin&withdrawAmount="+withdrawAmount+"&balVal="+balVal+"&payment_type="+payment_type+"&customerName="+customerName+"&bankName="+bankName+"&accountNumber="+accountNumber+"&ifsc="+ifsc+"&swiftCode="+swiftCode+"&bankAddress="+bankAddress;
+				//dataString = "action=withdrawCoin&withdrawAmount="+withdrawAmount+"&balVal="+balVal+"&payment_type="+payment_type+"&customerName="+customerName+"&bankName="+bankName+"&accountNumber="+accountNumber+"&ifsc="+ifsc+"&swiftCode="+swiftCode+"&bankAddress="+bankAddress;
 
 				$(".errormsg").hide();
 				$.ajax({

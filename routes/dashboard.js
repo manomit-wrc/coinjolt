@@ -510,7 +510,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }
 
         // calculating cryptocurrency wallet current balance
-
         var balance_count = await Deposit.count({
             where: {
                 user_id: req.user.id,
@@ -548,13 +547,13 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 		var curr_brought = 0;
         var curr_sold = 0;
         var curr_id = 0;
-        
+
         curr_id = await Currency.findAll({
             where: {alt_name: currencyType },
             attributes: ['id']
         });
         curr_id = curr_id[0].id;
-
+        
         var balance_count = await Deposit.count({
             where: {
                 user_id: req.user.id,

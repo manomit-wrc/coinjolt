@@ -70,7 +70,7 @@
 
 	$(document).ready(function(){	
 
-		$("#cc-submit1").click(function(e){
+		$("#cc-submit2").click(function(e){
 			e.preventDefault();
 			var dataString;
 			$(".loaderImg").show();

@@ -72,7 +72,6 @@
 
 		$("#cc-submit2").click(function(e){
 			e.preventDefault();
-			var dataString;
 			$(".loaderImg").show();
 			$(".errormsg").hide();
 			$(".returnMsg1").hide();
@@ -85,6 +84,7 @@
 			var ifsc = $("#ifsc").val();
 			var swiftCode = $("#swiftCode").val();
 			var bankAddress = $("#bankAddress").val();
+			var branchNo = $("#branchnumber").val();
 
 			if(payment_type == ''){
 				$(".errormsg").css({"color":"red","background":"#efc1b3","border":"#efc1b3","padding":"9px"});
@@ -113,9 +113,6 @@
 				$(".errormsg").show();
 				$(".loaderImg").hide();
 			}else{
-
-					dataString = "action=withdrawCoin&withdrawAmount="+withdrawAmount+"&balVal="+balVal+"&payment_type="+payment_type+"&customerName="+customerName+"&bankName="+bankName+"&accountNumber="+accountNumber+"&ifsc="+ifsc+"&swiftCode="+swiftCode+"&bankAddress="+bankAddress;
-
 					$(".errormsg").hide();
 					$.ajax({
 						type : "POST",
@@ -128,31 +125,17 @@
 							accountNumber: accountNumber,
 							ifsc: ifsc,
 							swiftCode: swiftCode,
-							bankAddress: bankAddress
+							bankAddress: bankAddress,
+							branchNo: branchNo
 						},
 						success : function(resp){
 
-							if(resp == 1){
+							if(resp.status == true){
 								$(".loaderImg").hide();
 								$(".returnMsg1").show();
-								$(".returnMsg1").html("<h3 class='msg'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Withdraw request received.</h3>");
+								$(".returnMsg1").html("<p>Withdraw request received.</p>");
 								setTimeout( function(){ 
-									window.location.href="https://coinjolt.com/dashboard/request-withdrawal";
-								}  , 3000 );
-							}else if(resp == 0){
-								$(".loaderImg").hide();
-								$(".returnMsg1").show();
-								$(".returnMsg1").html("<h3 class='errorMsg'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please try again.</h3>");
-								return;
-								setTimeout( function(){ 
-									window.location.href="https://coinjolt.com/dashboard/request-withdrawal";
-								}  , 3000 );
-							}else if(resp == 2){
-								$(".loaderImg").hide();
-								$(".returnMsg1").show();
-								$(".returnMsg1").html("<h3 class='errorMsg'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>Please enter valid amount.</h3>");
-								setTimeout( function(){ 
-									window.location.href="https://coinjolt.com/dashboard/request-withdrawal";
+									window.location.href="/request-withdrawal";
 								}  , 3000 );
 							}
 						}

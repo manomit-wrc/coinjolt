@@ -27,8 +27,10 @@
           <div class="box-body tp-box">
             {{#if_eq user.kycApproved "2"}}
             <div class="form-group">
-              <div style="display:block;" class="returnMsg1 form-group col-md-8"></div>
               <form method="post" name="CoinSell" class="coinSell row">
+             <div class="col-md-12 form-group">
+                <div class="alert alert-success returnMsg1" style="display:none"></div>
+             </div>
                 <input type="hidden" name="coinRate" id="coinRate" value="">
                 <div class="form-group col-md-6">
                   <input type="text" placeholder="Enter Amount" class="form-control" name="withdrawAmount" id="withdrawAmount" required="required">

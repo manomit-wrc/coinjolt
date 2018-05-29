@@ -6,7 +6,7 @@ const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
 var request = require('sync-request');
 
-module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance) {
+module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -94,9 +94,34 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 	}
 
 	app.get('/admin/dashboard', (req, res) => {
-		res.render('admin/dashboard', {
-			layout: 'dashboard'
+
+		Promise.all([
+			User.findAndCountAll({
+				where:{
+					type: 2
+				}
+			}),
+			send_email.findAndCountAll()
+		]).then(function (values) {
+			// console.log(values);
+			res.render('admin/dashboard', {
+				layout: 'dashboard',
+				totalUser: values[0].count,
+				totalEmailSent: values[1].count
+			});
 		});
+
+
+		// User.findAndCountAll({
+		// 	where:{
+		// 		type: 2
+		// 	}
+		// }).then(function (result) {
+		// 	res.render('admin/dashboard', {
+		// 		layout: 'dashboard',
+		// 		totalUser: result.count
+		// 	});
+		// });
 	});
 
 	app.get('/admin/crypto_investments', (req, res) => {

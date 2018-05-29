@@ -1318,7 +1318,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var ssn = '4344';
 
         request({
-            uri: "http://localhost/ecorepay.php",
+            uri: "http://ec2-54-224-110-112.compute-1.amazonaws.com/ecorepay.php",
             method: "POST",
             //json: true,
             form: {

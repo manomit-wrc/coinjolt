@@ -1799,7 +1799,7 @@ tr.shown td.remove-control {
 .login-box .form-control
 
 { /* Chrome/Opera/Safari */
-    font-size: 16px;
+    font-size: 16px !important;
 }
 
 .register-box ::-webkit-input-placeholder,

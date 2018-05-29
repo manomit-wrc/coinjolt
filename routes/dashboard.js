@@ -178,7 +178,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
 
         var p_institutional_arr = [];
-
+        
+        if(!lodash.isEmpty(p_composition)){
         p_institutional_arr.push({
             field_1: p_composition[0].get('business_name'),
             field_2: p_composition[0].get('business_number'),
@@ -191,8 +192,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             field_9: p_composition[0].get('phone_number'),
             field_10: p_composition[0].get('postal_code'),
             field_11: p_composition[0].get('email_address')
-        });
-
+            });
+        }
         var shareholders_info = await shareholder.findAll({
             where: {
                 user_id: req.user.id

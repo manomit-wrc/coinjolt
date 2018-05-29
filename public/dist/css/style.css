@@ -2181,3 +2181,7 @@ input#cc-submit1
     -o-border-radius: 4px  !important;
 	margin: 0px 0px 16px  !important;
 }
+
+input.form-control.btn {
+    color: #fff !important;
+}

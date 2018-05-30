@@ -254,20 +254,6 @@ app.use(function(req, res, next){
     res.locals.investor_type = req.user.investor_type;
     res.locals.user = req.user;
     res.locals.base_url = keys.BASE_URL;
-    // res.locals.bitgo_accesstoken = req.user.bitgoAccessToken;
-
-    // bitgo.authenticate({
-    //     username: keys.BITGO_USERNAME,
-    //     password: keys.BITGO_PASSWORD,
-    //     otp: keys.BITGO_OTP
-    // }, function (err, result) {
-    //     if (err) {
-    //         return console.log(err);
-    //     }
-    //     accessToken = result.access_token;
-    // });
-    // console.log("accessToken");
-    // console.log(accessToken);
 
     return next();
   }

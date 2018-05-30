@@ -125,11 +125,13 @@ module.exports = function (app, passport, models) {
                             if (err) {
                                 return console.log(err);
                             }
+                            var accessToken = result.access_token;
+                            var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
                             var data = {
                                 "passphrase": keys.BITGO_PASSWORD,
                                 "label": "Coinjolt Bitgo Wallet"
                             }
-                            bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
+                            bitgoVerify.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
                                 if (walleterr) {
                                     console.dir(walleterr);
                                     throw new Error("Could not create wallet!");

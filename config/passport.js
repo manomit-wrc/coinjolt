@@ -6,10 +6,7 @@ const password = 'd6F3Efeq';
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
 const keys = require('./key');
-var BitGo = require('bitgo');
-var bitgo = new BitGo.BitGo({
-    env: 'test'
-});
+
 module.exports = (passport, User, Deposit, Currency, models, AWS) => {
     passport.serializeUser(function (user, done) {
         done(null, user.id);
@@ -119,19 +116,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                         } else {
                             kyc_status = 0;
                         }
-
-                        await bitgo.authenticate({
-                            username: keys.BITGO_USERNAME,
-                            password: keys.BITGO_PASSWORD,
-                            otp: keys.BITGO_OTP
-                        }, function (err, result) {
-                            if (err) {
-                                return console.log(err);
-                            }
-                            accessToken = result.access_token;
-                        });
-                        console.log("accessToken");
-                        console.log(accessToken);
+                        
 
                        user = user.toJSON();
                        user.currentUsdBalance = final;
@@ -140,7 +125,6 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                        user.mcpTotalBalance = mcp_final_blnc;
                        user.bankInfo = bank_details[0];
                        user.kycApproved = kyc_status;
-                       user.bitgoAccessToken = accessToken;
 
                        done(null, user);
 

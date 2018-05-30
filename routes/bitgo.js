@@ -147,8 +147,8 @@ module.exports = (app, models) => {
         //     console.log("accessToken");
         // });
         // console.log(accessToken);
-
-        var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: user.bitgo_accesstoken});
+        console.log(req.cookies.BITGO_ACCESS_TOKEN);
+        var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
         console.log("accessToken verified");
         
         // var bigtoSession = await bitgo.session();

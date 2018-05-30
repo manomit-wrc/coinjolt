@@ -47,6 +47,27 @@
               </a>
             </div>
           </div>
+          <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="marketcap">
+                  <div class="container-fluid">
+                    <div class="marketcap-crypto">
+                    <h6></h6>
+                    <ul>
+                      <li>Live Prices</li>
+                      <li>BTC:<span id="btc"></span></li>
+                      <li>|</li> 
+                      <li>ETH:<span id="eth"></span></li>
+                      <li>|</li> 
+                      <li>XRP:<span id="xrp"></span></li>
+                      <li>|</li> 
+                      <li>LTC:<span id="ltc"></span></li>
+                      <li>|</li> 
+                      <li>BCH:<span id="bch"></span></li>
+                    </ul>
+                    </div>
+                  </div>
+                </div>
+          </div>
           <div class="col-md-9 col-sm-9 col-xs-9">
             <div class="top-menu pull-right">
               <div class="nav-click">
@@ -173,6 +194,31 @@
     });
   </script>
    <!-- Ends Scriptd for Responsive Navigation -->
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.get("http://coincap.io/page/BTC", function(data, status){
+                $('#btc').text(data.price_usd.toFixed(2));
+            }); 
+            $.get("http://coincap.io/page/ETH", function(data, status){
+
+                $('#eth').text(data.price_usd.toFixed(2));
+            });
+            $.get("http://coincap.io/page/XRP", function(data, status){
+
+                $('#xrp').text(data.price_usd.toFixed(2));
+            }); 
+            $.get("http://coincap.io/page/LTC", function(data, status){
+
+                $('#ltc').text(data.price_usd.toFixed(2));
+            });
+            $.get("http://coincap.io/page/BCH", function(data, status){
+
+                $('#bch').text(data.price_usd.toFixed(2));
+            });
+        });
+    </script>
+
 </body>
 
 </html>

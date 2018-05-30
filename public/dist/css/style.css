@@ -1644,6 +1644,71 @@ tr.shown td.remove-control {
 
 /* Ends CSS on 2018-05-25 */
 
+/* Starts css on 2018-05-30 */
+
+.crypto-live-chart text {
+    font-size: 10px !important;
+    font-weight: 400 !important;
+}
+
+.register-box {
+    width: auto !important;
+}
+
+.register-box .box-max-w1250 {
+    max-width: 1250px;
+    padding: 0 50px;
+}
+
+.register-box .box-max-w1250 .login-box-body {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.marketcap ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.marketcap ul li {
+    display: inline-block;
+    margin-right: 5px;
+    color: #777;
+    font-size: 14px;
+}
+
+.marketcap ul li:nth-child(1) {
+    text-transform: uppercase;
+    margin-right: 40px;
+    font-weight: bold;
+    position: relative;
+    padding-left: 20px;
+}
+
+.marketcap ul li:nth-child(1):before {
+    height: 12px;
+    width: 12px;
+    content: "";
+    background: #555;
+    position: absolute;
+    left: 0;
+    top: 8px;
+}
+
+.marketcap ul li span {
+    margin-left: 5px;
+    color: #3caaeb;
+}
+
+.marketcap-crypto ul li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+/* Ends css on 2018-05-30 */
+
 @media screen and (max-width: 1366px) {
     .balance-box {
         display: block;

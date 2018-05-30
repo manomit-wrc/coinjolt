@@ -44,13 +44,7 @@ module.exports = function (app, passport, models) {
             if (req.user.type === "1") {
                 res.redirect('/admin/dashboard');
             } else {
-                bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })
-                    .then(function(response) {
-                    console.log(response.access_token);
-                    res.cookie('BITGO_ACCESS_TOKEN',response.access_token);
-                    
-                    res.redirect('/dashboard');
-                });
+                res.redirect('/dashboard');
                 
             }
         });

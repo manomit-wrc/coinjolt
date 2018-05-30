@@ -13,6 +13,11 @@ var models = require("./models");
 const keys = require('./config/key');
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
+// var BitGo = require('bitgo');
+// var bitgo = new BitGo.BitGo({
+//     env: 'test'
+// });
+// var accessToken;
 
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -249,11 +254,6 @@ app.use(function(req, res, next){
     res.locals.investor_type = req.user.investor_type;
     res.locals.user = req.user;
     res.locals.base_url = keys.BASE_URL;
-
-    // models.Currency.findAll().then(function(currencies) {
-    //   res.locals.currencyList =  currencies;
-    //   console.log(res.locals.currencyList);
-    // });
 
     return next();
   }

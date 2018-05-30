@@ -133,17 +133,23 @@ module.exports = (app, models) => {
         var bchBalance = 0;
         var rmgBalance = 0;
         var xrpBalance = 0;
+        //var accessToken;
 
-        await bitgo.authenticate({
-            username: keys.BITGO_USERNAME,
-            password: keys.BITGO_PASSWORD,
-            otp: keys.BITGO_OTP
-        }, function (err, result) {
-            if (err) {
-                return console.log(err);
-            }
-            // res.send(result.access_token);
-        });
+        // await bitgo.authenticate({
+        //     username: keys.BITGO_USERNAME,
+        //     password: keys.BITGO_PASSWORD,
+        //     otp: keys.BITGO_OTP
+        // }, function (err, result) {
+        //     if (err) {
+        //         return console.log(err);
+        //     }
+        //     accessToken = result.access_token;
+        //     console.log("accessToken");
+        // });
+        // console.log(accessToken);
+
+        var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: user.bitgo_accesstoken});
+        console.log("accessToken verified");
         
         // var bigtoSession = await bitgo.session();
         // console.log(bigtoSession);

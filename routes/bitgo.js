@@ -247,9 +247,17 @@ module.exports = (app, models) => {
                 currency_id: '4'
             }
         });
-        
-        
 
+        models.wallet_transaction.belongsTo(models.User, {foreignKey: 'receiver_id'});    
+        let walletTransaction = await models.wallet_transaction.findAll({
+            where: {
+                sender_id: req.user.id
+            },
+        	include: [{
+		    	model: models.User
+	  		}]
+        });
+        
         res.render('wallets', {
             layout: 'dashboard',
             count: count,

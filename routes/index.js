@@ -126,7 +126,7 @@ module.exports = function (app, passport, models) {
                                 return console.log(err);
                             }
                             var accessToken = result.access_token;
-                            var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
+                            var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: accessToken});
                             var data = {
                                 "passphrase": keys.BITGO_PASSWORD,
                                 "label": "Coinjolt Bitgo Wallet"

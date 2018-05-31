@@ -133,17 +133,23 @@ module.exports = (app, models) => {
         var bchBalance = 0;
         var rmgBalance = 0;
         var xrpBalance = 0;
+        //var accessToken;
 
-        await bitgo.authenticate({
-            username: keys.BITGO_USERNAME,
-            password: keys.BITGO_PASSWORD,
-            otp: keys.BITGO_OTP
-        }, function (err, result) {
-            if (err) {
-                return console.log(err);
-            }
-            // res.send(result.access_token);
-        });
+        // await bitgo.authenticate({
+        //     username: keys.BITGO_USERNAME,
+        //     password: keys.BITGO_PASSWORD,
+        //     otp: keys.BITGO_OTP
+        // }, function (err, result) {
+        //     if (err) {
+        //         return console.log(err);
+        //     }
+        //     accessToken = result.access_token;
+        //     console.log("accessToken");
+        // });
+        // console.log(accessToken);
+        console.log(req.cookies.BITGO_ACCESS_TOKEN);
+        var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
+        console.log("accessToken verified");
         
         // var bigtoSession = await bitgo.session();
         // console.log(bigtoSession);
@@ -158,7 +164,7 @@ module.exports = (app, models) => {
             var walletId = walletDetails.rows[0].bitgo_wallet_id;
 
             var typeBtc = "bitcoin";
-            let btcWallet = await bitgo.wallets().get({
+            let btcWallet = await bitgoVerify.wallets().get({
                 id: walletId,
                 type: typeBtc,
             }, function (err, walletBtc) {
@@ -171,7 +177,7 @@ module.exports = (app, models) => {
             });
 
             var typeEth = "ethereum";
-            let ethWallet = await bitgo.wallets().get({
+            let ethWallet = await bitgoVerify.wallets().get({
                 id: walletId,
                 type: typeEth,
             }, function (err, walletEth) {
@@ -184,7 +190,7 @@ module.exports = (app, models) => {
             });
 
             var typeLtc = "litecoin";
-            let ltcWallet = await bitgo.wallets().get({
+            let ltcWallet = await bitgoVerify.wallets().get({
                 id: walletId,
                 type: typeLtc,
             }, function (err, walletLtc) {
@@ -261,12 +267,13 @@ module.exports = (app, models) => {
     });
 
     app.post('/wallet-create', function (req,res) {
+        var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
         var user_id = req.user.id;
 		var data = {
             "passphrase": keys.BITGO_PASSWORD,
             "label": "Coinjolt Bitgo Wallet"
         }
-        bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
+        bitgoVerify.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
             if (walleterr) {
                 console.dir(walleterr);
                 throw new Error("Could not create wallet!");
@@ -301,6 +308,7 @@ module.exports = (app, models) => {
     
 
     app.post('/generate-address', async (req,res) => {
+        var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
         var user_id = req.user.id;
         var currency_id = req.body.currency_id;
         console.log('generate-address');
@@ -314,7 +322,7 @@ module.exports = (app, models) => {
         var walletId = walletDetails[0].id;
         var bitgoWalletId = walletDetails[0].bitgo_wallet_id;
 
-        await bitgo.wallets().get({
+        await bitgoVerify.wallets().get({
             "id": bitgoWalletId
         }, function callback(err, wallet) {
             if (err) {

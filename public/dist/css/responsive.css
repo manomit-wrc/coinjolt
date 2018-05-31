@@ -98,6 +98,10 @@
     {
         margin-bottom: 15px;
     }
+
+    .column-pr-0 {
+        padding-right: 15px !important;
+    }
      
 }
 

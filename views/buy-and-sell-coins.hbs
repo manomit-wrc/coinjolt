@@ -268,6 +268,133 @@
       </div>
     </div> --}}
     <!-- Ends Market Capitalization Graph -->
+    <!-- Starts Cryptocurrency Live Chart -->
+    <div class="crypto-live-chart">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Cryptocurrency Live Chart</h3>
+            </div>
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div id="bitcoinChart"></div>
+                  <div id="etherChart"></div>
+                  <div id="eosChart"></div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Ends Cryptocurrency Live Chart -->
   </div>
 </section>
 <!-- /.content -->
+<script type='text/javascript' src='js/pubnub_keys.js'></script>
+    <script type="text/javascript">
+		var pubnub = new PubNub({
+		    publishKey:   config.PUBLISH_KEY,
+		    subscribeKey: config.SUBSCRIBE_KEY
+			});
+		var xhr = new XMLHttpRequest();
+		function processRequest(e) {
+ 			if (xhr.readyState == 4 && xhr.status == 200) {
+		  	var response = JSON.parse(xhr.responseText);
+		        console.log(response);
+		        pubnub.publish({
+					    channel: 'bitcoin-feed',
+					    message: {
+					      eon: {
+					        'BitCoin': response.BTC.CNY.toFixed(2)
+					      }
+					    }
+					  });
+		        pubnub.publish({
+					    channel: 'ether-feed',
+					    message: {
+					      eon: {
+					        'Ether': response.ETH.CNY.toFixed(2)
+					      }
+					    }
+					  });
+		        pubnub.publish({
+					    channel: 'eos-feed',
+					    message: {
+					      eon: {
+					        'EOS': response.EOS.CNY.toFixed(2)
+					      }
+					    }
+					  });
+		    }
+		}
+		function mainApp() {
+			setInterval(function(){
+				xhr.open('GET', 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,EOS&tsyms=CNY', true)
+				xhr.send();
+				xhr.onreadystatechange = processRequest;
+			}, 5000)
+		};
+		mainApp();
+	</script>
+
+    <script type="text/javascript">
+      function showChart(){
+          // You will only be subscribing to a channel, so no need for a publish key
+          var pubnub = new PubNub({
+              subscribeKey: config.SUBSCRIBE_KEY
+            });
+          // EON Charts configuration
+          var pointLimit = 15;
+          var topPadding = 100;
+          var bottomPadding = 100;
+          var eonData = {labels: true,type: 'line'};
+          var eonAxis = {y: {padding: {top:topPadding, bottom:bottomPadding}},
+                        x: {type: 'timeseries',tick: {format: '%H:%M:%S'}}};
+          // Create the EON Chart for BitCoin and bind its div
+          eon.chart({
+            channels: ['bitcoin-feed'],
+            history: true,
+            flow: true,
+            limit: pointLimit,
+            pubnub: pubnub,
+            generate: {
+              bindto: '#bitcoinChart',
+              data: eonData,
+              axis: eonAxis
+            }
+          });
+          // Create the Ether Chart for BitCoin and bind its div
+          eon.chart({
+            channels: ['ether-feed'],
+            history: true,
+            flow: true,
+            limit: pointLimit,
+            pubnub: pubnub,
+            generate: {
+              bindto: '#etherChart',
+              data: eonData,
+              axis: eonAxis
+            }
+          });
+          // Create the LiteCoin Chart for BitCoin and bind its div
+          eon.chart({
+            channels: ['eos-feed'],
+            history: true,
+            flow: true,
+            limit: pointLimit,
+            pubnub: pubnub,
+            generate: {
+              bindto: '#eosChart',
+              data: eonData,
+              axis: eonAxis
+            }
+          });
+      }
+
+      showChart();
+		
+	</script>

@@ -6,6 +6,7 @@ const password = 'd6F3Efeq';
 const sequelize = require('sequelize');
 const Op = require('sequelize').Op;
 const keys = require('./key');
+
 module.exports = (passport, User, Deposit, Currency, models, AWS) => {
     passport.serializeUser(function (user, done) {
         done(null, user.id);
@@ -27,6 +28,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                       var curr_sold = 0;
                       var mcp_invest = 0;
                       var mcp_withdraw = 0;
+                      var accessToken;
                   
                       sold_amount = await Deposit.findAll({   
                           where: {user_id: id, type: 2},
@@ -114,6 +116,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                         } else {
                             kyc_status = 0;
                         }
+                        
 
                        user = user.toJSON();
                        user.currentUsdBalance = final;
@@ -137,6 +140,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                 done(user.errors, null);
             }
 
+        }).then(function (bitgoLogin) {
         });  
          
     });

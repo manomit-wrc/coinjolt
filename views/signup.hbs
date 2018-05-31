@@ -37,6 +37,7 @@
 
 <body class="hold-transition login-page">
   <header>
+    
     <div class="header-top">
       <div class="container">
         <div class="row">
@@ -47,7 +48,28 @@
               </a>
             </div>
           </div>
-         <div class="col-md-9 col-sm-9 col-xs-9">
+          <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="marketcap">
+                  <div class="container-fluid">
+                    <div class="marketcap-crypto">
+                    <h6></h6>
+                    <ul>
+                      <li>Live Prices</li>
+                      <li>BTC:<span id="btc"></span></li>
+                      <li>|</li> 
+                      <li>ETH:<span id="eth"></span></li>
+                      <li>|</li> 
+                      <li>XRP:<span id="xrp"></span></li>
+                      <li>|</li> 
+                      <li>LTC:<span id="ltc"></span></li>
+                      <li>|</li> 
+                      <li>BCH:<span id="bch"></span></li>
+                    </ul>
+                    </div>
+                  </div>
+                </div>
+          </div>
+         <div class="col-md-3 col-sm-3 col-xs-3">
             <div class="top-menu pull-right">
                <div class="nav-click">
                 <i class="fa fa-bars"></i>
@@ -67,156 +89,162 @@
     </div>
   </header>
   <div class="login-box register-box">
-    <!-- /.login-logo -->
-    <div class="login-box-body" style="display: none; top: -70px;">
-      <form action="/signup" method="post" name="frmSignup" id="frmSignup">
-        <img src="/dist/img/logo-icon.png" alt="logo">
-        <h4 style="color: #000;">Create an account</h4>
-        {{#if message}}
-        <div class="alert alert-success">{{message}}</div>
-        {{/if}} {{#if errorMsg}}
-        <div class="alert alert-danger">{{errorMsg}}</div>
-        {{/if}}
+    <div class="box-max-w1250">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <!-- /.login-logo -->
+          <div class="login-box-body" style="display: none; top: -70px;">
+            <form action="/signup" method="post" name="frmSignup" id="frmSignup">
+              <img src="/dist/img/logo-icon.png" alt="logo">
+              <h4 style="color: #000;">Create an account</h4>
+              {{#if message}}
+              <div class="alert alert-success">{{message}}</div>
+              {{/if}} {{#if errorMsg}}
+              <div class="alert alert-danger">{{errorMsg}}</div>
+              {{/if}}
 
-  			<div class="inves">
-          <div class="form-group has-feedback invester-type">
-  				<p>Are you an Institutional Investor?</p>
-  				<div class="intitution">
-  					<input name="investor_type" id="institution-radio" value="1" checked="checked" type="radio">Yes
-  				</div>
-  			</div>
-  			<div class="form-group has-feedback invester-type">
-  				<p>Are you an Individual Investor?</p>
-  				<div class="intitution-radio">
-  					<input name="investor_type" id="individual-radio" value="2" type="radio">Yes
-  				</div>
-  			</div>
-        </div>
+              <div class="inves">
+                <div class="form-group has-feedback invester-type">
+                <p>Are you an Institutional Investor?</p>
+                <div class="intitution">
+                  <input name="investor_type" id="institution-radio" value="1" checked="checked" type="radio">Yes
+                </div>
+              </div>
+              <div class="form-group has-feedback invester-type">
+                <p>Are you an Individual Investor?</p>
+                <div class="intitution-radio">
+                  <input name="investor_type" id="individual-radio" value="2" type="radio">Yes
+                </div>
+              </div>
+              </div>
 
-        <div class="form-group has-feedback">
-          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-          <input type="email" class="form-control" placeholder="Email" id="email" name="email">
-        </div>
-        <div class="form-group has-feedback">
-          <input type="text" class="form-control" placeholder="Phone Number" id="phone" name="phone">
-        </div>
-        <div class="form-group has-feedback">
-          <input type="text" class="form-control" placeholder="Address" id="address" name="address">
-        </div>
-        <div class="form-group has-feedback">
-          <input type="text" class="form-control" placeholder="City" id="city" name="city">
-        </div>
-        <div class="form-group has-feedback">
-          <input type="text" class="form-control" placeholder="State / Province" value="{{user.state}}" id="state" name="state" {{#if_eq user.country_id "226"}} style="display: none;" {{/if_eq}}>
-          <select class="form-control" name="usa_states" id="usa_states" {{#if_neq user.country_id "226"}} style="display: none;" {{/if_neq}}>
-            <option value="AL">Alabama (AL) </option>
-            <option value="AK">Alaska (AK) </option>
-            <option value="AZ">Arizona (AZ) </option>
-            <option value="AR">Arkansas (AR) </option>
-            <option value="AA">Armed Forces America (AA) </option>
-            <option value="AE">Armed Forces Europe (AE) </option>
-            <option value="AP">Armed Forces Pacific (AP) </option>
-            <option value="CA">California (CA) </option>
-            <option value="CO">Colorado (CO) </option>
-            <option value="CT">Connecticut (CT) </option>
-            <option value="DE">Delaware (DE) </option>
-            <option value="DC">District of Columbia (DC) </option>
-            <option value="FL">Florida (FL) </option>
-            <option value="GA">Georgia (GA) </option>
-            <option value="HI">Hawaii (HI) </option>
-            <option value="ID">Idaho (ID) </option>
-            <option value="IL">Illinois (IL) </option>
-            <option value="IN">Indiana (IN) </option>
-            <option value="IA">Iowa (IA) </option>
-            <option value="KS">Kansas (KS) </option>
-            <option value="KY">Kentucky (KY) </option>
-            <option value="LA">Louisiana (LA) </option>
-            <option value="ME">Maine (ME) </option>
-            <option value="MD">Maryland (MD) </option>
-            <option value="MA">Massachusetts (MA) </option>
-            <option value="MI">Michigan (MI) </option>
-            <option value="MN">Minnesota (MN) </option>
-            <option value="MS">Mississippi (MS) </option>
-            <option value="MO">Missouri (MO) </option>
-            <option value="MT">Montana (MT) </option>
-            <option value="NE">Nebraska (NE) </option>
-            <option value="NV">Nevada (NV) </option>
-            <option value="NH">New Hampshire (NH) </option>
-            <option value="NJ">New Jersey (NJ) </option>
-            <option value="NM">New Mexico (NM) </option>
-            <option value="NY">New York (NY) </option>
-            <option value="NC">North Carolina (NC) </option>
-            <option value="ND">North Dakota (ND) </option>
-            <option value="OH">Ohio (OH) </option>
-            <option value="OK">Oklahoma (OK) </option>
-            <option value="OR">Oregon (OR) </option>
-            <option value="PA">Pennsylvania (PA) </option>
-            <option value="RI">Rhode Island (RI) </option>
-            <option value="SC">South Carolina (SC) </option>
-            <option value="SD">South Dakota (SD) </option>
-            <option value="TN">Tennessee (TN) </option>
-            <option value="TX">Texas (TX) </option>
-            <option value="UT">Utah (UT) </option>
-            <option value="VT">Vermont (VT) </option>
-            <option value="VA">Virginia (VA) </option>
-            <option value="WA">Washington (WA) </option>
-            <option value="WV">West Virginia (WV) </option>
-            <option value="WI">Wisconsin (WI) </option>
-            <option value="WY">Wyoming (WY) </option>
-          </select>
-        </div>
-        <div class="form-group has-feedback">
-          <select class="form-control" name="country" id="country">
-            {{#each countries}}
-            <option value="{{this.id}}">{{this.name}}</option>
-            {{/each}}
-          </select>
-        </div>
-        <div class="form-group has-feedback">
-          <input type="text" class="form-control" placeholder="Zip Code / Postal Code" id="zip" name="zip">
-        </div>
-        <p>Choose Your Password</p>
-        <div class="form-group pass">
-          <input type="password" placeholder="Password" id="password" name="password">
-          <p class="msg user_password redcolor"></p>
-        </div>
-        <div class="form-group pass">
-          <input type="password" placeholder="Confirm Password" id="confirm_password" name="confirm_password">
-          <p class="msg confirm_password redcolor"></p>
-        </div>
+              <div class="form-group has-feedback">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <input type="email" class="form-control" placeholder="Email" id="email" name="email">
+              </div>
+              <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="Phone Number" id="phone" name="phone">
+              </div>
+              <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="Address" id="address" name="address">
+              </div>
+              <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="City" id="city" name="city">
+              </div>
+              <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="State / Province" value="{{user.state}}" id="state" name="state" style="display: none;">
+                <select class="form-control" name="usa_states" id="usa_states">
+                  <option value="AL">Alabama (AL) </option>
+                  <option value="AK">Alaska (AK) </option>
+                  <option value="AZ">Arizona (AZ) </option>
+                  <option value="AR">Arkansas (AR) </option>
+                  <option value="AA">Armed Forces America (AA) </option>
+                  <option value="AE">Armed Forces Europe (AE) </option>
+                  <option value="AP">Armed Forces Pacific (AP) </option>
+                  <option value="CA">California (CA) </option>
+                  <option value="CO">Colorado (CO) </option>
+                  <option value="CT">Connecticut (CT) </option>
+                  <option value="DE">Delaware (DE) </option>
+                  <option value="DC">District of Columbia (DC) </option>
+                  <option value="FL">Florida (FL) </option>
+                  <option value="GA">Georgia (GA) </option>
+                  <option value="HI">Hawaii (HI) </option>
+                  <option value="ID">Idaho (ID) </option>
+                  <option value="IL">Illinois (IL) </option>
+                  <option value="IN">Indiana (IN) </option>
+                  <option value="IA">Iowa (IA) </option>
+                  <option value="KS">Kansas (KS) </option>
+                  <option value="KY">Kentucky (KY) </option>
+                  <option value="LA">Louisiana (LA) </option>
+                  <option value="ME">Maine (ME) </option>
+                  <option value="MD">Maryland (MD) </option>
+                  <option value="MA">Massachusetts (MA) </option>
+                  <option value="MI">Michigan (MI) </option>
+                  <option value="MN">Minnesota (MN) </option>
+                  <option value="MS">Mississippi (MS) </option>
+                  <option value="MO">Missouri (MO) </option>
+                  <option value="MT">Montana (MT) </option>
+                  <option value="NE">Nebraska (NE) </option>
+                  <option value="NV">Nevada (NV) </option>
+                  <option value="NH">New Hampshire (NH) </option>
+                  <option value="NJ">New Jersey (NJ) </option>
+                  <option value="NM">New Mexico (NM) </option>
+                  <option value="NY">New York (NY) </option>
+                  <option value="NC">North Carolina (NC) </option>
+                  <option value="ND">North Dakota (ND) </option>
+                  <option value="OH">Ohio (OH) </option>
+                  <option value="OK">Oklahoma (OK) </option>
+                  <option value="OR">Oregon (OR) </option>
+                  <option value="PA">Pennsylvania (PA) </option>
+                  <option value="RI">Rhode Island (RI) </option>
+                  <option value="SC">South Carolina (SC) </option>
+                  <option value="SD">South Dakota (SD) </option>
+                  <option value="TN">Tennessee (TN) </option>
+                  <option value="TX">Texas (TX) </option>
+                  <option value="UT">Utah (UT) </option>
+                  <option value="VT">Vermont (VT) </option>
+                  <option value="VA">Virginia (VA) </option>
+                  <option value="WA">Washington (WA) </option>
+                  <option value="WV">West Virginia (WV) </option>
+                  <option value="WI">Wisconsin (WI) </option>
+                  <option value="WY">Wyoming (WY) </option>
+                </select>
+              </div>
+              <div class="form-group has-feedback">
+                <select class="form-control" name="country" id="country">
+                  {{#each countries}}
+                  <option value="{{this.id}}">{{this.name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="Zip Code / Postal Code" id="zip" name="zip">
+              </div>
+              <p>Choose Your Password</p>
+              <div class="form-group pass">
+                <input type="password" placeholder="Password" id="password" name="password">
+                <p class="msg user_password redcolor"></p>
+              </div>
+              <div class="form-group pass">
+                <input type="password" placeholder="Confirm Password" id="confirm_password" name="confirm_password">
+                <p class="msg confirm_password redcolor"></p>
+              </div>
 
-        <!-- /.social-auth-links -->
+              <!-- /.social-auth-links -->
 
-        <div class="reg-main">
-          <button type="submit" class="btn btn-primary btn-block btn-flat reg-btn">Register Now</button>
+              <div class="reg-main">
+                <button type="submit" class="btn btn-primary btn-block btn-flat reg-btn">Register Now</button>
+              </div>
+
+              <div class="form-group terms">
+                <input type="checkbox" id="termcondition" name="termcondition">
+                <label>I read and agree to the
+                  <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
+                  <div class="termcondition-error-wrapper error"></div> 
+                <p class="msg termcondition redcolor"></p>
+
+              </div>
+
+            </form>
+
+            {{!-- <div class="form-group terms">
+              <input type="checkbox" id="termcondition" name="termcondition">
+              <label>I read and agree to the
+                <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
+              <p class="msg termcondition redcolor"></p>
+            </div> --}}
+
+            <div class="bot-sign up">
+              <a href="/">Already have an account?
+                <span>Sign in</span>
+              </a>
+            </div>
+
+          </div>
+          <!-- /.login-box-body -->
         </div>
-
-        <div class="form-group terms">
-          <input type="checkbox" id="termcondition" name="termcondition">
-          <label>I read and agree to the
-            <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
-            <div class="termcondition-error-wrapper error"></div> 
-          <p class="msg termcondition redcolor"></p>
-
-        </div>
-
-      </form>
-
-      {{!-- <div class="form-group terms">
-        <input type="checkbox" id="termcondition" name="termcondition">
-        <label>I read and agree to the
-          <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
-        <p class="msg termcondition redcolor"></p>
-      </div> --}}
-
-      <div class="bot-sign up">
-        <a href="/">Already have an account?
-          <span>Sign in</span>
-        </a>
       </div>
-
     </div>
-    <!-- /.login-box-body -->
   </div>
   <!-- /.login-box -->
 
@@ -362,6 +390,31 @@
     });
   </script>
    <!-- Ends Scriptd for Responsive Navigation -->
+
+  <script type="text/javascript">
+        $(document).ready(function(){
+            $.get("http://coincap.io/page/BTC", function(data, status){
+                $('#btc').text(data.price_usd.toFixed(2));
+            }); 
+            $.get("http://coincap.io/page/ETH", function(data, status){
+
+                $('#eth').text(data.price_usd.toFixed(2));
+            });
+            $.get("http://coincap.io/page/XRP", function(data, status){
+
+                $('#xrp').text(data.price_usd.toFixed(2));
+            }); 
+            $.get("http://coincap.io/page/LTC", function(data, status){
+
+                $('#ltc').text(data.price_usd.toFixed(2));
+            });
+            $.get("http://coincap.io/page/BCH", function(data, status){
+
+                $('#bch').text(data.price_usd.toFixed(2));
+            });
+        });
+    </script>
+
 </body>
 
 </html>

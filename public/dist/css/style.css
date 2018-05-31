@@ -402,11 +402,11 @@ body {
 
 .box {
     border: 0 none !important;
-    border-radius: 4px !important;
-    -webkit-border-radius: 4px !important;
-    -moz-border-radius: 4px !important;
-    -ms-border-radius: 4px !important;
-    -o-border-radius: 4px !important;
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    -o-border-radius: 0 !important;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.23) !important;
     -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.23) !important;
     -moz-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.23) !important;
@@ -1643,6 +1643,119 @@ tr.shown td.remove-control {
 
 
 /* Ends CSS on 2018-05-25 */
+
+/* Starts css on 2018-05-30 */
+
+.crypto-live-chart text {
+    font-size: 10px !important;
+    font-weight: 400 !important;
+}
+
+.register-box {
+    width: auto !important;
+}
+
+.register-box .box-max-w1250 {
+    max-width: 1250px;
+    padding: 0 50px;
+}
+
+.register-box .box-max-w1250 .login-box-body {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.marketcap ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.marketcap ul li {
+    display: inline-block;
+    margin-right: 5px;
+    color: #777;
+    font-size: 14px;
+}
+
+.marketcap ul li:nth-child(1) {
+    text-transform: uppercase;
+    margin-right: 40px;
+    font-weight: bold;
+    position: relative;
+    padding-left: 20px;
+}
+
+.marketcap ul li:nth-child(1):before {
+    height: 12px;
+    width: 12px;
+    content: "";
+    background: #555;
+    position: absolute;
+    left: 4px;
+    top: 5px;
+}
+
+.marketcap ul li span {
+    margin-left: 5px;
+    color: #3caaeb;
+}
+
+.header-top .container-fluid {
+    padding: 0 50px;
+}
+
+.header-top .col-md-3.col-sm-3.col-xs-3 {
+    width: 20%;
+}
+
+.header-top .col-md-6.col-sm-6.col-xs-6 {
+    width: 60%;
+}
+
+/* .marketcap-crypto ul li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+} */
+
+/*Starts on css 31-05-2018*/
+
+.marketcap-crypto img {
+    display: none;
+    margin-top: 4px;
+    width: 26px;
+}
+
+.table th.sorting_asc {
+    width: 60px !important;
+}
+
+.dataTables_filter input {
+    height: 30px !important;
+    padding: 0 !important;
+    line-height: 30px !important;
+    min-height: 30px !important;
+    border-radius: 0 !important;
+    width: 70% !important;
+    vertical-align: baseline !important;
+}
+
+.dataTables_wrapper label {
+    font-size: 13px;
+}
+
+.dataTables_length select {
+    height: 30px !important;
+    padding: 0 !important;
+    line-height: 30px !important;
+    min-height: 30px !important;
+    border-radius: 0 !important;
+    width: 70% !important;
+    vertical-align: baseline !important;
+}
+
+/* Ends css on 2018-05-30 */
 
 @media screen and (max-width: 1366px) {
     .balance-box {

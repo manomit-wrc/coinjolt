@@ -342,54 +342,59 @@
 	</script>
 
     <script type="text/javascript">
-		// You will only be subscribing to a channel, so no need for a publish key
-		var pubnub = new PubNub({
-		    subscribeKey: config.SUBSCRIBE_KEY
-		  });
-		// EON Charts configuration
-		var pointLimit = 15;
-		var topPadding = 100;
-		var bottomPadding = 100;
-		var eonData = {labels: true,type: 'line'};
-		var eonAxis = {y: {padding: {top:topPadding, bottom:bottomPadding}},
-									 x: {type: 'timeseries',tick: {format: '%H:%M:%S'}}};
-		// Create the EON Chart for BitCoin and bind its div
-		eon.chart({
-		  channels: ['bitcoin-feed'],
-		  history: true,
-		  flow: true,
-		  limit: pointLimit,
-		  pubnub: pubnub,
-		  generate: {
-		    bindto: '#bitcoinChart',
-		    data: eonData,
-		    axis: eonAxis
-		  }
-		});
-		// Create the Ether Chart for BitCoin and bind its div
-		eon.chart({
-		  channels: ['ether-feed'],
-		  history: true,
-		  flow: true,
-		  limit: pointLimit,
-		  pubnub: pubnub,
-		  generate: {
-		    bindto: '#etherChart',
-		    data: eonData,
-		    axis: eonAxis
-			}
-		});
- 		// Create the LiteCoin Chart for BitCoin and bind its div
-		eon.chart({
-		  channels: ['eos-feed'],
-		  history: true,
-		  flow: true,
-		  limit: pointLimit,
-		  pubnub: pubnub,
-		  generate: {
-		    bindto: '#eosChart',
-		    data: eonData,
-		    axis: eonAxis
-		  }
-		});
+      function showChart(){
+          // You will only be subscribing to a channel, so no need for a publish key
+          var pubnub = new PubNub({
+              subscribeKey: config.SUBSCRIBE_KEY
+            });
+          // EON Charts configuration
+          var pointLimit = 15;
+          var topPadding = 100;
+          var bottomPadding = 100;
+          var eonData = {labels: true,type: 'line'};
+          var eonAxis = {y: {padding: {top:topPadding, bottom:bottomPadding}},
+                        x: {type: 'timeseries',tick: {format: '%H:%M:%S'}}};
+          // Create the EON Chart for BitCoin and bind its div
+          eon.chart({
+            channels: ['bitcoin-feed'],
+            history: true,
+            flow: true,
+            limit: pointLimit,
+            pubnub: pubnub,
+            generate: {
+              bindto: '#bitcoinChart',
+              data: eonData,
+              axis: eonAxis
+            }
+          });
+          // Create the Ether Chart for BitCoin and bind its div
+          eon.chart({
+            channels: ['ether-feed'],
+            history: true,
+            flow: true,
+            limit: pointLimit,
+            pubnub: pubnub,
+            generate: {
+              bindto: '#etherChart',
+              data: eonData,
+              axis: eonAxis
+            }
+          });
+          // Create the LiteCoin Chart for BitCoin and bind its div
+          eon.chart({
+            channels: ['eos-feed'],
+            history: true,
+            flow: true,
+            limit: pointLimit,
+            pubnub: pubnub,
+            generate: {
+              bindto: '#eosChart',
+              data: eonData,
+              axis: eonAxis
+            }
+          });
+      }
+
+      showChart();
+		
 	</script>

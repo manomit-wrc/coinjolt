@@ -101,27 +101,27 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 					type: 2
 				}
 			}),
-			send_email.findAndCountAll()
+			
+			send_email.findAndCountAll(),
+
+			Deposit.findAll({
+				attributes: [ [sequelize.fn('SUM',sequelize.col('amount')),'deposit_amount'] ],
+				where: {
+					type: {
+						$in: [0, 1, 4]
+					}
+				}
+			})
 		]).then(function (values) {
-			// console.log(values);
+			var result = JSON.parse(JSON.stringify(values));
+
 			res.render('admin/dashboard', {
 				layout: 'dashboard',
-				totalUser: values[0].count,
-				totalEmailSent: values[1].count
+				totalUser: result[0].count,
+				totalEmailSent: result[1].count,
+				depositeAmount: result[2][0].deposit_amount
 			});
 		});
-
-
-		// User.findAndCountAll({
-		// 	where:{
-		// 		type: 2
-		// 	}
-		// }).then(function (result) {
-		// 	res.render('admin/dashboard', {
-		// 		layout: 'dashboard',
-		// 		totalUser: result.count
-		// 	});
-		// });
 	});
 
 	app.get('/admin/crypto_investments', (req, res) => {
@@ -354,6 +354,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		var user_list_arr = [];
 		lodash.each(user_list, (x, index) => {
 			Promise.all([
+				//deposit
 				Deposit.findAll({
 					attributes: [ [sequelize.fn('SUM',sequelize.col('amount')),'deposit_amount'] ],
 					group: ['user_id'],
@@ -364,6 +365,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 						}
 					}
 				}),
+				//for withdraw
 				Deposit.findAll({
 					attributes: [ [sequelize.fn('SUM',sequelize.col('amount')),'withdraw_amount'] ],
 					group: ['user_id'],

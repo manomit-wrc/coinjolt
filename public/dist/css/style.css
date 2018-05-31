@@ -2250,3 +2250,17 @@ input#cc-submit1
 input.form-control.btn {
     color: #fff !important;
 }
+
+.email-marketing .info-box {
+  background: #e0e0e0;
+}
+
+.email-marketing .btn.btn-sm.btn-primary {
+    font-size: 12px !important;
+    padding: 5px 10px !important;
+}
+
+.email-marketing .info-box .table-responsive.no-padding {
+    overflow-y: auto;
+    height: 200px;
+}

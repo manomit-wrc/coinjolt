@@ -76,4 +76,8 @@ module.exports = function (app, email_template){
 			}
 		});
 	});
+
+	app.get('/admin/email-marketing', (req,res) => {
+		res.render('admin/email/email_marketing',{layout: 'dashboard'});
+	});
 };

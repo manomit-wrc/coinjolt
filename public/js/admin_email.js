@@ -7,6 +7,7 @@ $(document).ready(function (e) {
     }, 2000);
 
 	CKEDITOR.replace( 'editor1' );
+	CKEDITOR.replace( 'email_marketing_subject_body' );
 
 	$('#submit_email_template').on('click', function () {
 		var valid = $('#submit-a-email-template').valid();
@@ -268,6 +269,27 @@ $(document).ready(function (e) {
 				CKEDITOR.instances['editor1'].setData(resp.data.email_desc);
 			}
 		});
+	});
+
+	$('#email_marketing_preview').on('click', function (e) {
+		$('#myEmailMarketingPreviewModal').modal('show');
+		var valid = $('#email_marketing_preview_form').valid();
+		if(valid){
+
+		}
+	});
+
+	$('#email_marketing_preview_form').validate({
+		rrules:{
+			subject_line:{
+				required: true
+			}
+		},
+		messages:{
+			subject_line:{
+				required: "Please enter subject."
+			}			
+		}
 	});
 
 	// sweet alert success function //

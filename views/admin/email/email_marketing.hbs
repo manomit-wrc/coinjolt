@@ -2,7 +2,7 @@
 <section class="content-header">
     <div class="title-with-btn pd-612">
        <div class="pull-left">
-        <h1>Email Template</h1>
+        <h1>Email Marketing</h1>
     </div>
     <div class="clearfix"></div>
 </div>
@@ -12,7 +12,7 @@
     <a href="/dashboard">
       <i class="fa fa-dashboard"></i> Home</a>
   </li>
-  <li class="active">Email Template</li>
+  <li class="active">Email Marketing</li>
 </ol>
 </section>
 <!-- Main content -->
@@ -20,12 +20,9 @@
     <!-- Starts email-marketing -->
             <div class="email-marketing">
           <div class="box box-primary">
-            <div class="box-header">
-              <i class="ion ion-clipboard"></i>
-              <h3 class="box-title">Email Marketing</h3>
-            </div>
             <div class="box-body">
               <div class="row">
+                <form name="email_marketing_preview_form" id="email_marketing_preview_form" action="javascript:void(0)" method="POST">
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Select User Groups: </label>
@@ -78,16 +75,24 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Subject Line: </label>
-                    <input type="text" class="form-control input-lg" id="" placeholder="Enter Subject Line">
+                    <input type="text" class="form-control input-lg" id="subject_line" name="subject_line" placeholder="Enter Subject Line">
                   </div>
                 </div>
                 <div class="col-md-12">
-                  <div class="form-group">
-                    <label>Body: </label>
-                    <textarea class="form-control" rows="5" placeholder="Enter ..."></textarea>
-                  </div>
+                    <div class="form-group">
+                        <label for="Body">Body</label>
+                        <textarea name="email_marketing_subject_body" class="form-control" id="email_marketing_subject_body" placeholder="Enter Body"></textarea>
+                    </div>
                 </div>
+
+                <div class="col-md-2 col-md-offset-5">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="button" id="email_marketing_preview" value="Preview" />
+                    </div>
+                </div>
+                
               </div>
+              </form>
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
@@ -221,3 +226,49 @@
     <!-- Ends email-marketing -->
 </section>
 <!-- /.content -->
+
+
+<!-- Modal -->
+  <div class="modal fade" id="myEmailMarketingPreviewModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Send Multiple email</h4>
+        </div>
+        <form name="send_multiple_email_form" id="send_multiple_email_form">
+            <input type="hidden" name="all_user_ids" id="all_user_ids" value="">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Subject">To</label>
+                            <textarea rows="" cols="" readonly="readonly" name="to" class="form-control" id="to"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Subject">Subject</label>
+                            <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <textarea name="editor1" class="form-control" id="editor1" placeholder="Enter Description"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="save_as_draft">Save as Draft</button>
+                <button type="button" class="btn btn-success" id="email_send">Send</button>
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>

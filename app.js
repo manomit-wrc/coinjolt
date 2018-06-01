@@ -12,13 +12,14 @@ const lodash = require('lodash');
 var models = require("./models");
 const keys = require('./config/key');
 var AWS = require('aws-sdk');
+const helmet = require('helmet');
 AWS.config.update({region: 'us-east-1'});
 // var BitGo = require('bitgo');
 // var bitgo = new BitGo.BitGo({
 //     env: 'test'
 // });
 // var accessToken;
-
+app.use(helmet());
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
@@ -224,11 +225,19 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+
+
 app.use(bodyParser.json());
 app.use(session({
 	secret: 'W$q4=25*8%v-}UV',
-	resave: true,
-	saveUninitialized: true
+	resave: false,
+    saveUninitialized: true,
+    cookie: {
+        path: "/",
+        maxAge: 1800000
+    },
+    name: "id",
+    ttl: (1* 60* 60)
  })); // session secret
 app.use(express.static(path.join(__dirname, 'public')));
 

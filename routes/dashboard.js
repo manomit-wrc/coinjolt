@@ -804,7 +804,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         const msg = req.flash('investStatusMessage')[0];
         investedamount = await Deposit.findAll({
             where: {user_id: req.user.id, type: 4},
-            attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_INVESTED_AMT']]
+            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_INVESTED_AMT']]
         });
         investedamount = parseFloat(investedamount[0].get('TOT_INVESTED_AMT'));
         if (!isNaN(investedamount)) {
@@ -821,7 +821,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
             accumulatedInterest =  parseFloat(0.005) * parseFloat(investedamount);
             accumulatedInterest = parseFloat(Math.round(accumulatedInterest * 100) / 100).toFixed(2);
-
+                
            let portfolioCalculationCount = await portfolio_calculation.findAndCountAll({
                 where: {
                     user_id: req.user.id
@@ -830,20 +830,13 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             var pcount = portfolioCalculationCount.count;
 
             if(pcount > 0){
-                portfolio_calculation.findAll({
-                    attributes: ['interest_earned'],
-                    where: {
-                        user_id: req.user.id
-                    }
-                }).then((pcalculation_data) => {
-                    interest_earned = pcalculation_data[0].interest_earned;
-                });
+                interest_earned = portfolioCalculationCount.rows[0].interest_earned;
             }
             else{
                 interest_earned = accumulatedInterest;
+                
             }
 
-            
         } else {
             investedamount = 0;
         }

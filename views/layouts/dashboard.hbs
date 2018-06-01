@@ -2393,6 +2393,35 @@
                     if (amountdeposit <= 0) {
                         $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be greater than 0</p>');
                         return false;
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: '/deposit-currency',
+                            data : {coin_amount: amountdeposit},
+                            beforeSend: function() {
+                                $(".loader-gif").css('display', 'block');
+                            },
+                            success: function (response){
+                                $(".loader-gif").css('display', 'none');
+                                if(response.success == "0" || response.success == "2"){
+                                    $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">' + response.message + '</p>');
+                                    $( "#depositerrormsg" ).show();
+                                }
+                                if(response.success == "1"){
+                                    swal({
+                                        icon: "success",
+                                        title: "Success",
+                                        text: response.message,
+                                        confirmButtonClass: "btn-success",
+                                        confirmButtonText: "OK"
+                                    },function(isConfirm){
+                                        if(isConfirm){
+                                            window.location.href = "/wallets";
+                                        }
+                                    });
+                                }
+                            }
+                    });
                     }
                 });
 

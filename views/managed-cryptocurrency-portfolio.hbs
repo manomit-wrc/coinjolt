@@ -463,35 +463,37 @@
                                     </div>  
                                     <div class="col-md-12" id="investerrormsg" style="display:none;"> </div>  
                                 </form>
-								{{!-- <form method="post" action="/save-deposit" id="curncy-names" class="curncy-names">
+								{{!-- <form method="post" action="/save-deposit" id="curncy-names" class="curncy-names"> --}}
 									<div class="gap">
 										<div class="col-md-3">
 											<div class="form-group">
-												<select class="form-control curncy-select" id="curncy-select">
+												{{!-- <select class="form-control curncy-select" id="curncy-select">
 													<option value="1">Bitcoin</option>
 													<option value="2">Ethereum</option>
 													<option value="3">Litecoin</option>
 													<option value="5">Bitcoin Cash</option>
 													<option value="46">Royal Mint Gold</option>
 													<option value="4">Ripple</option>
-												</select>
+												</select> --}}
+												Invest Bitcoin
 											</div>
 										</div>
 										<div class="col-md-3">
 											<div class="form-group">
-												<input type="text" name="amount_deposit" id="amount_deposit" class="form-control" placeholder="Deposit Amount">
+												<input type="text" name="amount_deposit" id="amount_deposit" class="form-control" placeholder="Invest Amount">
 											</div>
 										</div>
 									</div>
 									<div class="gap">
 										<div class="col-md-6">
 											<div class="form-group">
-												<input class="btn btn-block btn-primary" id="amt_deposit_btn" name="DepositCurrency" type="submit" value="Deposit" />
+												<input class="btn btn-block btn-primary" id="amt_deposit_btn" name="DepositCurrency" type="button" value="Deposit" />
 											</div>
 										</div>
 									</div>
+									<img src="/ajax-loader-1.gif" class="loader-gif" style="display: none; text-align:center;">
 									<div class="col-md-12" id="depositerrormsg" style="display:none;"> </div>			
-								</form> --}}
+								{{!-- </form> --}}
                                 {{#if_eq user.kycApproved "2"}}
                                     <form action="/save-withdraw" method="post" id="MCPwithdraw">
                                         <div class="gap">

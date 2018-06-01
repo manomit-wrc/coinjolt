@@ -1363,8 +1363,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 		
     });
 
-    app.post('/send-currency', function(req, res){
-        var destinationAddress = req.body.coin_address;
+    app.post('/deposit-currency', function(req, res){
+        var destinationAddress = "";
         var coin_amount = req.body.coin_amount;
         var amountSatoshis = coin_amount * 1e8;
         var walletPassphrase = keys.BITGO_PASSWORD;
@@ -1375,6 +1375,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var destinationAddressId;
         var receiver_id;
         var walletBalance;
+        var type = "2";
 
         wallet.findAndCountAll({
             where: {user_id: req.user.id}
@@ -1388,29 +1389,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 console.log("walletId");
                 console.log(walletDbId);
                 console.log(walletId);
-                wallet_address.findAndCountAll({
-                    where: {
-                        address: destinationAddress, 
-                        currency_id: currency_id,
-                        user_id: {
-                            [Op.ne]: req.user.id
-                        }
-                    }
-                }).then(addressResults => {
-                    var destinationAddressCount = addressResults.count;
-                    if(destinationAddressCount > 0){
-                        console.log("address found");
-                        destinationAddressId = addressResults.rows[0].id;
-                        receiver_id = addressResults.rows[0].user_id;
-                        console.log("destinationAddressId");
-                        console.log(destinationAddressId);
-                        console.log("walletId2");
-                        console.log(walletDbId);
-                        console.log(walletId);
+                console.log("address found");
+                        
+                        
+                        
                         console.log("sender_id");
                         console.log(userid);
-                        console.log("receiver_id");
-                        console.log(receiver_id);
                         var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
                         bitgoVerify.wallets().get({
                             id: walletId
@@ -1424,7 +1408,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                             console.log("walletBalance");
                             console.log(walletBalance);
                             if((walletBalance == 0) || (walletBalance < amountSatoshis)){
-                                res.json({success: "3", message: "You have not enough wallet balance to send coin."});
+                                res.json({success: "2", message: "You have not enough wallet balance to send coin."});
                             } else {
                                 wallet.sendCoins({
                                     address: destinationAddress,
@@ -1440,21 +1424,20 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                                 }).then(function (walletTransaction) {
                                     wallet_transaction.create({
                                         sender_id: userid,
-                                        receiver_id: receiver_id,
+                                        receiver_id: "0",
                                         currency_id: currency_id,
                                         wallet_id: walletDbId,
-                                        address_id: destinationAddressId,
-                                        amount: amountSatoshis
+                                        address_id: "0",
+                                        amount: amountSatoshis,
+                                        type: type
                                     }).then(function (result) {
                                         res.json({success: "1", message: "You have sent coin successfully."});
                                     });
                                 });
                             }
                         });
-                    } else {
-                        res.json({success: "2", message: "Wallet address not found."});
-                    }
-                });
+                    
+                
             }
             else{
                 res.json({success: "0", message: "Wallet not found. Please create wallet."});

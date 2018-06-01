@@ -665,7 +665,14 @@
                       {{#each walletTransaction}}
                       <tr>
                         <td>{{this.id}}</td>
-                        <td>Send Coin</td>
+                        <td>
+                          {{#if_eq this.type 1}}
+                            Send Coin
+                          {{/if_eq}}
+                          {{#if_eq this.type 2}}
+                            MCP Investment
+                          {{/if_eq}}
+                        </td>
                         <td>{{this.User.email}}</td>
                         <td>Bitcoin</td>
                         <td>{{this.amount}}</td>

@@ -38,7 +38,7 @@
 <body class="hold-transition login-page">
   <header>
     <div class="header-top">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
           <div class="col-md-3 col-sm-3 col-xs-3">
             <div class="logo">
@@ -51,6 +51,7 @@
             <div class="marketcap">
                   <div class="container-fluid">
                     <div class="marketcap-crypto">
+                      <img src="/dist/img/bitcoin.png" alt="money-icon">
                     <h6></h6>
                     <ul>
                       <li>Live Prices</li>
@@ -68,7 +69,7 @@
                   </div>
                 </div>
           </div>
-          <div class="col-md-9 col-sm-9 col-xs-9">
+          <div class="col-md-3 col-sm-3 col-xs-3">
             <div class="top-menu pull-right">
               <div class="nav-click">
                 <i class="fa fa-bars"></i>
@@ -218,6 +219,16 @@
             });
         });
     </script>
+
+    <!--Starts Login Live Price-->
+    <script>
+    $(document).ready(function() {
+      $(".marketcap-crypto img").click(function() {
+          $(".marketcap-crypto ul").slideToggle();
+      });
+    });
+  </script>
+  <!--Ends Login Live Price-->
 
 </body>
 

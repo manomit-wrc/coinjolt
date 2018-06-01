@@ -52,6 +52,7 @@
             <div class="marketcap">
                   <div class="container-fluid">
                     <div class="marketcap-crypto">
+                      <img src="/dist/img/bitcoin.png" alt="money-icon">
                     <h6></h6>
                     <ul>
                       <li>Live Prices</li>
@@ -414,6 +415,16 @@
             });
         });
     </script>
+
+    <!--Starts Login Live Price-->
+    <script>
+    $(document).ready(function() {
+      $(".marketcap-crypto img").click(function() {
+          $(".marketcap-crypto ul").slideToggle();
+      });
+    });
+  </script>
+  <!--Ends Login Live Price-->
 
 </body>
 

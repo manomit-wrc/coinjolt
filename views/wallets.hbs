@@ -338,9 +338,9 @@
                     a payment address of the recipient and the amount you wish to send. All payments are irreversible once
                     sent.
                   </p>
-                  <form>
+                  {{!-- <form method="post" action="" id="btc-send"> --}}
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Select Currency</label>
+                      {{!-- <label for="exampleInputPassword1">Select Currency</label>
                       <select name="currency_purchased" id="currency_purchased" class="form-control">
                         <option value="BTC">Bitcoin (BTC)</option>
                         <option value="ETH">Ethereum (ETH)</option>
@@ -387,16 +387,17 @@
                         <option value="ARDR">Ardor (ARDR)</option>
                         <option value="ARK">Ark (ARK)</option>
                         <option value="GAS">Gas (GAS)</option>
-                      </select>
+                      </select> --}}
+                      <label for="exampleInputPassword1">Send Bitcoin</label>
                     </div>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputPassword1">To the bitcoin address</label>
-                          <input type="text" class="form-control" id="" placeholder="Enter a bitcoin address">
+                          <input type="text" class="form-control" id="coin_address" name="coin_address" placeholder="Enter a bitcoin address">
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      {{!-- <div class="col-md-6">
                         <div class="form-group">
                           <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
@@ -416,16 +417,16 @@
                             </ul>
                           </div>
                         </div>
-                      </div>
+                      </div> --}}
                     </div>
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="exampleInputPassword1">Amount net</label>
-                          <input type="text" class="form-control" id="" placeholder="min 0.0001 BTC">
+                          <label for="exampleInputPassword1">Amount</label>
+                          <input type="text" class="form-control" id="coin_amount" name="coin_amount" placeholder="min 0.0001 BTC">
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      {{!-- <div class="col-md-4">
                         <div class="form-group">
                           <label for="exampleInputPassword1">Transaction fee</label>
                           <input type="text" class="form-control" id="" placeholder="">
@@ -438,11 +439,14 @@
                           </label>
                           <input type="text" class="form-control" id="" placeholder="min 0.0002 BTC">
                         </div>
-                      </div>
+                      </div> --}}
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12" id="coinsenderrormsg" style="display:none;"> </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <div class="notebox">
+                        {{!-- <div class="notebox">
                           <label class="note">
                             <input type="checkbox" id="myCheck" onclick="myFunction()">Add a note to this payment
                           </label>
@@ -454,11 +458,13 @@
                             <input type="checkbox" type="checkbox" id="checkbox">Save to my payment templates
                           </label>
                           <input type="text" placeholder="Template name" name="template_name" id="clickedYes" class="form-control">
-                        </div>
-                        <button data-toggle="modal" data-target="#preview-transaction" class="btn btn-primary btn-lg" type="button">Preview Payment</button>
+                        </div> --}}
+                        {{!-- <button data-toggle="modal" data-target="#preview-transaction" class="btn btn-primary btn-lg" type="button">Preview Payment</bucoin-send-btntton> --}}
+                        <img src="/ajax-loader-1.gif" class="loader-gif" style="display: none;">
+                        <input class="btn btn-primary btn-lg" id="coin-send-btn" type="button" value="Send Bitcoin">
                       </div>
                     </div>
-                  </form>
+                  {{!-- </form> --}}
                 </div>
               </div>
 
@@ -642,7 +648,34 @@
 
               <!-- tab part four -->
 
-              <div class="tab-pane fade" id="tab4primary">No transactions yet.</div>
+              <div class="tab-pane fade" id="tab4primary">
+                <div class="table-responsive">
+                  <table id="wallet_transaction" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Action</th>
+                        <th>Receiver Name</th>
+                        <th>Currency</th>
+                        <th>Amount</th>
+                        <th>Date & Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{#each walletTransaction}}
+                      <tr>
+                        <td>{{this.id}}</td>
+                        <td>Send Coin</td>
+                        <td>{{this.User.email}}</td>
+                        <td>Bitcoin</td>
+                        <td>{{this.amount}}</td>
+                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                      </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 
               <!-- tab part four -->
             </div>

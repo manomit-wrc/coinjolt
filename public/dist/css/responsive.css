@@ -1,6 +1,124 @@
 /* Starts Responsive Styles */
 
+@media screen and (max-width: 1230px){
 
+    .marketcap-crypto ul {
+        display: none;
+        width: 200px;
+        padding: 0;
+        position: absolute;
+        z-index: 9999;
+        -webkit-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        -moz-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        -ms-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        -o-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        background: #fff;
+        -webkit-border-bottom-left-radius: 10px;
+        -moz-border-bottom-left-radius: 10px;
+        -ms-border-bottom-left-radius: 10px;
+        -o-border-bottom-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        -webkit-border-bottom-right-radius: 10px;
+        -moz-border-bottom-right-radius: 10px;
+        -ms-border-bottom-right-radius: 10px;
+        -o-border-bottom-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        top: 57px;
+    }
+
+    .marketcap-crypto img {
+        display: block;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .marketcap-crypto ul li {
+        display: block;
+        border-bottom: 1px solid #dcdcdc;
+        margin-right: 0;
+        padding: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 18px;
+    }
+
+    .marketcap-crypto ul li:nth-child(3), .marketcap-crypto ul li:nth-child(5), .marketcap-crypto ul li:nth-child(7), .marketcap-crypto ul li:nth-child(9) {
+        display: none;
+    }
+
+    .marketcap ul li:nth-child(1) {
+        margin-right: 0;
+    }
+
+    .marketcap ul li:nth-child(1)::before {
+        top: 17px;
+    }
+
+    .marketcap-crypto ul li:nth-child(10) {
+        border-bottom: 0 none;
+    }
+
+    .nav-click {
+        display: block;
+        position: relative;
+        top: -4px;
+    }
+
+    .nav-click .fa-bars {
+        font-size: 20px;
+    }
+
+    .header-top .top-menu ul {
+        display: none;
+        position: absolute;
+        top: 57px;
+        right: 15px;
+        width: 200px;
+        -webkit-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        -moz-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        -ms-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        -o-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
+        background: #fff;
+        z-index: 9999;
+        -webkit-border-bottom-left-radius: 10px;
+        -moz-border-bottom-left-radius: 10px;
+        -ms-border-bottom-left-radius: 10px;
+        -o-border-bottom-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        -webkit-border-bottom-right-radius: 10px;
+        -moz-border-bottom-right-radius: 10px;
+        -ms-border-bottom-right-radius: 10px;
+        -o-border-bottom-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .header-top .top-menu ul li {
+        display: block;
+        margin-right: 0;
+        border-top: 1px solid #dcdcdc;
+    }
+
+    .header-top .top-menu ul li a {
+        width: auto;
+        display: block;
+        padding: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .header-top .top-menu ul li a:hover {
+        background: #58a2e9;
+        color: #fff !important;
+    }
+
+
+ 
+
+}
 
 
 @media screen and (max-width: 1200px) {
@@ -109,9 +227,9 @@
 
 
 @media screen and (min-width: 769px) {
-    .header-top .top-menu ul {
+    /* .header-top .top-menu ul {
         display: block !important;
-    }
+    } */
 }
 
 @media screen and (max-width: 768px) {
@@ -120,67 +238,16 @@
         top: 5px;
     }
 
-    .nav-click {
-        display: block;
-        position: relative;
-        top: -4px;
-    }
-
-    .nav-click .fa-bars {
-        font-size: 20px;
-    }
-
-    .header-top .top-menu ul {
-        display: none;
-        position: absolute;
-        top: 57px;
-        right: 15px;
-        width: 200px;
-        -webkit-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
-        -moz-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
-        -ms-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
-        -o-box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
-        box-shadow: 0 0 6px 0 rgba(0,0,0,0.5);
-        background: #fff;
-        z-index: 9999;
-        -webkit-border-bottom-left-radius: 10px;
-        -moz-border-bottom-left-radius: 10px;
-        -ms-border-bottom-left-radius: 10px;
-        -o-border-bottom-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        -webkit-border-bottom-right-radius: 10px;
-        -moz-border-bottom-right-radius: 10px;
-        -ms-border-bottom-right-radius: 10px;
-        -o-border-bottom-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
-
-    .header-top .top-menu ul li {
-        display: block;
-        margin-right: 0;
-        border-top: 1px solid #dcdcdc;
-    }
-
-    .header-top .top-menu ul li a {
-        width: auto;
-        display: block;
-        padding: 10px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .header-top .top-menu ul li a:hover {
-        background: #58a2e9;
-        color: #fff !important;
-    }
-
     .content-wrapper, .main-footer {
         margin-left: 0 !important;
     }
 
     .sidebar-mini .content-wrapper,.sidebar-mini .main-footer {
         margin-left: 250px !important;
+    }
+
+    .main-sidebar .sidebar {
+        margin-top: 0 !important;
     }
 
 }
@@ -263,11 +330,23 @@
     .header-top .col-md-9.col-sm-9.col-xs-9 {
         width: 70%;
     }
+
+    .header-top .col-md-6.col-sm-6.col-xs-6 {
+        width: 40%;
+    }
+
+    .header-top .container-fluid {
+        padding: 0 15px;
+    }
+
+    .header-top .top-menu {
+        margin-top: 10px;
+    }
 }
 
 @media screen and (max-width: 530px) { 
     .header-top .col-md-3.col-sm-3.col-xs-3 {
-        width: 35%;
+        width: 30%;
     }
     
     .header-top .col-md-9.col-sm-9.col-xs-9 {
@@ -337,11 +416,15 @@
 
 @media screen and (max-width: 420px) { 
     .header-top .col-md-3.col-sm-3.col-xs-3 {
-        width: 40%;
+        width: 30%;
     }
     
     .header-top .col-md-9.col-sm-9.col-xs-9 {
         width: 60%;
+    }
+
+    .header-top .col-md-6.col-sm-6.col-xs-6 {
+        width: 30%;
     }
 
     .balnrates,.rates {
@@ -392,11 +475,11 @@
 
 @media screen and (max-width: 360px) { 
     .header-top .col-md-3.col-sm-3.col-xs-3 {
-        width: 45%;
+        width: 35%;
     }
     
     .header-top .col-md-9.col-sm-9.col-xs-9 {
-        width: 55%;
+        width: 30%;
     }
 
     .rates-box a.toggle-nav {
@@ -427,6 +510,10 @@
     }
 }
 
-
+@media screen and (max-width: 320px) { 
+.marketcap-crypto ul {
+        left: -20px;
+    }
+}
 
 /* Starts Responsive Styles */

@@ -358,6 +358,7 @@
             $('#example5').DataTable();
             $('#example6').DataTable();
             $('#example7').DataTable();
+            $('#wallet_transaction').DataTable();
         });
 
         $(document).ready(function () {
@@ -1306,7 +1307,7 @@
                         required: "Please enter a subject"
                     },
                     description: {
-                        required: "PLease enter description"
+                        required: "Please enter description"
                     }
                 }
             });
@@ -2407,9 +2408,80 @@
                 height: "400",
                 alwaysVisible: true
             });
+
+
          });
      </script>
-        
+
+    {{!-- Wallet Send Coins starts --}}
+     <script>
+         $(document).ready(function () {
+            $( "#coin_amount" ).click(function() {
+                    $( "#coinsenderrormsg" ).empty();
+                    $( "#coinsenderrormsg" ).hide();
+                });
+
+                $('#coin_amount').on('keyup', function(event) {
+                    $(this).val($(this).val().replace(/[^0-9\.]/g,''));
+                    if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
+                        event.preventDefault();
+                        $( "#coinsenderrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number</p>');
+                        $('#coinsenderrormsg').show();
+                    } else {
+                        $('#coinsenderrormsg').hide();
+                        $('#coinsenderrormsg').html('');
+                    }
+                });
+
+                $( "#coin-send-btn" ).click(function(event) {
+                    //event.preventDefault();
+                    var coin_address = $( "#coin_address" ).val();	
+                    var coin_amount = $( "#coin_amount" ).val();	
+                    $( "#coinsenderrormsg" ).show();
+                    $( "#coinsenderrormsg" ).empty();
+                    if (coin_amount <= 0) {
+                        $( "#coinsenderrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be greater than 0</p>');
+                        return false;
+                    } else if(coin_address == "") {
+                        $( "#coinsenderrormsg" ).empty();
+                        $( "#coinsenderrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter an address to send bitcoin</p>');
+                        return false;
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: '/send-currency',
+                            data : {coin_address: coin_address, coin_amount: coin_amount},
+                            beforeSend: function() {
+                                $(".loader-gif").css('display', 'block');
+                            },
+                            success: function (response){
+                                $(".loader-gif").css('display', 'none');
+                                if(response.success == "0" || response.success == "2" || response.success == "3"){
+                                    $( "#coinsenderrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">' + response.message + '</p>');
+                                    $( "#coinsenderrormsg" ).show();
+                                }
+                                if(response.success == "1"){
+                                    swal({
+                                        icon: "success",
+                                        title: "Success",
+                                        text: response.message,
+                                        confirmButtonClass: "btn-success",
+                                        confirmButtonText: "OK"
+                                    },function(isConfirm){
+                                        if(isConfirm){
+                                            window.location.href = "/wallets";
+                                        }
+                                    });
+                                }
+                            }
+                    });
+                    }
+                });
+
+            });    
+     </script>
+     {{!-- Wallet Send Coins ends --}}
+
 
 </body>
 </html>

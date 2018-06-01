@@ -3,7 +3,7 @@ var bitgo = new BitGo.BitGo({
     env: 'test'
 });
 const keys = require('../config/key');
-
+        
 module.exports = (app, models) => {
     app.get('/bitgo/login', (req, res) => {
         bitgo.authenticate({

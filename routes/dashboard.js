@@ -819,7 +819,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             thirdyear = parseFloat(parseFloat(200 * secondyear) / 100) + parseFloat(secondyear);
             thirdyear = parseFloat(Math.round(thirdyear * 100) / 100).toFixed(2);
 
-            accumulatedInterest =  parseFloat(0.005) * parseFloat(investedamount);
+            accumulatedInterest =  parseFloat(0.01) * parseFloat(investedamount);
             accumulatedInterest = parseFloat(Math.round(accumulatedInterest * 100) / 100).toFixed(2);
                 
            let portfolioCalculationCount = await portfolio_calculation.findAndCountAll({

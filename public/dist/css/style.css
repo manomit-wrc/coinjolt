@@ -1755,6 +1755,15 @@ tr.shown td.remove-control {
     vertical-align: baseline !important;
 }
 
+.box.equalize-box1.portfolio-form {
+    height: 520px !important;
+}
+
+.bit-tabs .collaps img {
+	margin-right: 10px;
+	vertical-align: top;
+}
+
 /* Ends css on 2018-05-30 */
 
 @media screen and (max-width: 1366px) {

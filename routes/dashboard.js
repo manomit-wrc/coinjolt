@@ -16,7 +16,7 @@ var BitGo = require('bitgo');
 var bitgo = new BitGo.BitGo({
     env: 'test'
 });
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var s3bucket = new AWS.S3({accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey, params: {Bucket: 'coinjoltdev2018'}});
@@ -804,7 +804,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         const msg = req.flash('investStatusMessage')[0];
         investedamount = await Deposit.findAll({
             where: {user_id: req.user.id, type: 4},
-            attributes: [[ sequelize.fn('SUM', sequelize.col('converted_amount')), 'TOT_INVESTED_AMT']]
+            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_INVESTED_AMT']]
         });
         investedamount = parseFloat(investedamount[0].get('TOT_INVESTED_AMT'));
         if (!isNaN(investedamount)) {
@@ -819,10 +819,24 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             thirdyear = parseFloat(parseFloat(200 * secondyear) / 100) + parseFloat(secondyear);
             thirdyear = parseFloat(Math.round(thirdyear * 100) / 100).toFixed(2);
 
-            accumulatedInterest =  parseFloat(0.005) * parseFloat(investedamount);
+            accumulatedInterest =  parseFloat(0.01) * parseFloat(investedamount);
             accumulatedInterest = parseFloat(Math.round(accumulatedInterest * 100) / 100).toFixed(2);
-            
-            interest_earned = accumulatedInterest;
+                
+           let portfolioCalculationCount = await portfolio_calculation.findAndCountAll({
+                where: {
+                    user_id: req.user.id
+                }
+            });
+            var pcount = portfolioCalculationCount.count;
+
+            if(pcount > 0){
+                interest_earned = portfolioCalculationCount.rows[0].interest_earned;
+            }
+            else{
+                interest_earned = accumulatedInterest;
+                
+            }
+
         } else {
             investedamount = 0;
         }

@@ -12,13 +12,14 @@ const lodash = require('lodash');
 var models = require("./models");
 const keys = require('./config/key');
 var AWS = require('aws-sdk');
+const helmet = require('helmet');
 AWS.config.update({region: 'us-east-1'});
 // var BitGo = require('bitgo');
 // var bitgo = new BitGo.BitGo({
 //     env: 'test'
 // });
 // var accessToken;
-
+app.use(helmet());
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
@@ -224,11 +225,19 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+
+
 app.use(bodyParser.json());
 app.use(session({
 	secret: 'W$q4=25*8%v-}UV',
-	resave: true,
-	saveUninitialized: true
+	resave: false,
+    saveUninitialized: true,
+    cookie: {
+        path: "/",
+        maxAge: 1800000
+    },
+    name: "id",
+    ttl: (1* 60* 60)
  })); // session secret
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -260,7 +269,7 @@ app.use(function(req, res, next){
   res.redirect('/');
 });
 
-require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer, AWS, models.Kyc_details, models.portfolio_composition, models.currency_balance, models.shareholder, models.wallet, models.wallet_address, models.wallet_transaction);
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer, AWS, models.Kyc_details, models.portfolio_composition, models.currency_balance, models.shareholder, models.wallet, models.wallet_address, models.wallet_transaction, models.portfolio_calculation);
 require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data,models.Currency,models.Country);
 require('./routes/admin_dashboard')(app, models.Deposit, models.withdraw, models.User, models.Currency, models.Question, models.Option, models.Answer, models.currency_balance, models.send_email);
 require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details, models.Deposit, models);

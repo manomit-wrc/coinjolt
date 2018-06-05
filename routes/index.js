@@ -46,11 +46,12 @@ module.exports = function (app, passport, models) {
             } else {
                 bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })
                 .then(function(response) {
-                console.log(response.access_token);
-                res.cookie('BITGO_ACCESS_TOKEN',response.access_token);
-                
-                res.redirect('/dashboard');
-            });
+                    console.log(response.access_token);
+                    res.cookie('BITGO_ACCESS_TOKEN',response.access_token);
+                    res.redirect('/dashboard');
+                }).catch(function (err) {
+                    res.redirect('/dashboard');
+                });
                 
             }
         });

@@ -1373,10 +1373,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     });
 
-    app.post('/save-deposit', function(req, res){
-		
-    });
-
     app.post('/deposit-currency', function(req, res){
         var destinationAddress = "";
         var coin_amount = req.body.coin_amount;
@@ -1404,9 +1400,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 console.log(walletDbId);
                 console.log(walletId);
                 console.log("address found");
-                        
-                        
-                        
+                
                         console.log("sender_id");
                         console.log(userid);
                         var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});

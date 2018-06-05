@@ -7,6 +7,8 @@ $(document).ready(function (e) {
     }, 2000);
 
 	CKEDITOR.replace( 'editor1' );
+	CKEDITOR.replace( 'editor100' );
+	CKEDITOR.replace( 'email_marketing_subject_body' );
 
 	$('#submit_email_template').on('click', function () {
 		var valid = $('#submit-a-email-template').valid();
@@ -269,6 +271,147 @@ $(document).ready(function (e) {
 			}
 		});
 	});
+
+	//start email marketing related work
+	$('#select_individuals_user_related_div').hide();
+	$('#individuals').on('click', function (){
+		$('.js-example-basic-multiple').select2();
+		$('#select_individuals_user_related_div').show();
+	});
+	$('#al_user').on('click', function () {
+		$('#select_individuals_user_related_div').hide();
+	});
+
+	$('#email_marketing_preview').on('click', function (e) {
+		var valid = $('#email_marketing_preview_form').valid();
+		var body = CKEDITOR.instances['email_marketing_subject_body'].getData();
+		var preview_subject = $('#subject_line').val();
+		var user_group = $("input[name='user-group']:checked").val();
+
+		if(user_group == 'individuals_users'){
+			var individuals_users = $('#select_individuals_user').val();
+		}else{
+			var individuals_users = '';
+		}
+
+		if(user_group == 'all_registered_user'){
+			$('#all_user_ids').val('all_registered_user');
+		}
+
+		if(valid){
+			if(body == ''){
+				alert ("Body can't be left blank.");
+			}else{
+				$('#subject').val(preview_subject);
+				CKEDITOR.instances['editor1'].setData(body);
+				$('#all_individuals_users').val(individuals_users);
+				$('#myEmailMarketingPreviewModal').modal('show');
+			}
+		}
+	});
+
+	$('#email_marketing_preview_form').validate({
+		rules:{
+			subject_line:{
+				required: true
+			}
+		},
+		messages:{
+			subject_line:{
+				required: "Please enter subject."
+			}			
+		}
+	});
+
+	$('#email_send').on('click', function () {
+		var subject = $('#subject').val();
+		var body = CKEDITOR.instances['editor1'].getData();
+		
+		if($('#all_user_ids').val() == 'all_registered_user'){
+			var for_individuals_users = 'all_registered_user';
+		}else{
+			var for_individuals_users = $('#all_individuals_users').val();
+		}
+
+		$.ajax({
+			type: "POST",
+			url: "/admin/send-email-markeitng",
+			data: {
+				subject: subject,
+				body: body,
+				users: for_individuals_users
+			},
+			success: function (resp) {
+				if(resp.status == true){
+					swal({
+			            title: 'Thank You.',
+			            text: resp.msg,
+			            type: "success",
+			            confirmButtonColor: "#DD6B55",
+			            confirmButtonText: "OK"
+			        },  function() {
+			            window.location.href = '/admin/email-marketing';
+			        });
+				}
+			}
+		});
+	});
+
+	$('.recent_send_email_list').on('click', function () {
+		var user_row_email_id = $(this).attr('user_row_id');
+		$.ajax({
+			type: "POST",
+			url: "/admin/recent_send_email_details",
+			data:{
+				user_row_email_id: user_row_email_id
+			}, 
+			success: function (resp) {
+				if(resp.status == true){
+					$('#last_email_sent_subject').val(resp.details.email_sub);
+					CKEDITOR.instances['editor100'].setData(resp.details.email_desc);
+					$('#recentActivityLastEmailSent').modal('show');
+				}
+			}
+		});
+	});
+
+	$('.delete_recent_send_email_list').on('click', function () {
+		var user_row_email_id = $(this).attr('user_row_id');
+
+		swal({
+		  title: "Are you sure?",
+		  text: "Your will not be able to recover this data!",
+		  type: "warning",
+		  showCancelButton: true,
+		  confirmButtonClass: "btn-danger",
+		  confirmButtonText: "Yes, delete it!",
+		  closeOnConfirm: false
+		},
+		function(){
+			$.ajax({
+				type: "POST",
+				url: "/admin/delete_recent_send_email_details",
+				data:{
+					user_row_email_id: user_row_email_id
+				}, 
+				success: function (resp) {
+					if(resp.status == true){
+						swal({
+				            title: "Thank You",
+				            text: resp.msg,
+				            type: "success",
+				            confirmButtonColor: "#DD6B55",
+				            confirmButtonText: "OK"
+				        },  function() {
+				            window.location.href = '/admin/email-marketing';
+				        });
+					}
+				}
+			});
+		});
+	});
+
+	//end
 
 	// sweet alert success function //
  	function sweetAlertSuccessPopUp (title='',text='') {

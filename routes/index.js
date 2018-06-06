@@ -161,7 +161,7 @@ module.exports = function (app, passport, models) {
                             });
                         });
 
-                        req.flash('loginMessage', 'Your account activated successfully. We have created a Bitgo account for you. Please login to continue.');
+                        req.flash('loginMessage', 'Your account activated successfully. We have created a Bitgo wallet for you. Please login to continue.');
                         res.redirect('/');
                     })
 

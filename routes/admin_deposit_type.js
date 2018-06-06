@@ -17,19 +17,37 @@ module.exports = function (app, deposit_method) {
 		});
     });
 
-    app.post('/admin/deposit-disable', (req, res) =>{
-        var depositId = req.body.deposit_id;
-        deposit_method.update({
-			status : 0
-		},{
+    app.post('/admin/deposit-disable', async (req, res) =>{
+		var depositId = req.body.deposit_id;
+
+		
+		let countAll = await deposit_method.count({});
+		
+		let countDisabled = await deposit_method.count({
 			where:{
-				id: depositId
+				status: "0"
 			}
-		}).then (function (result) {
-			res.json({
-                status: true
-            });
 		});
+
+		if(parseInt(countAll - countDisabled) === 1){
+			res.json({
+				status: false
+			});
+		}	
+		else{
+			deposit_method.update({
+				status : 0
+			},{
+				where:{
+					id: depositId
+				}
+			})
+			res.json({
+				status: true
+			});
+		}	
+
+        
     });
 
 };

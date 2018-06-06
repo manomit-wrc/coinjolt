@@ -3,7 +3,7 @@ $(document).ready(function() {
         var deposit_id = $(this).val();
 
 		swal({
- 			title: "Depsoit Type Enabling Confirmation",
+ 			title: "Depsit Type Enabling Confirmation",
  			text: "Are you sure you want to enable?",
             type: "warning",
             showCancelButton: true,
@@ -30,7 +30,7 @@ $(document).ready(function() {
 		var deposit_id = $(this).val();
 
 		swal({
- 			title: "Depsoit Type Enabling Confirmation",
+ 			title: "Depsit Type Disabling Confirmation",
  			text: "Are you sure you want to disable?",
             type: "warning",
             showCancelButton: true,
@@ -43,6 +43,11 @@ $(document).ready(function() {
                 url: '/admin/deposit-disable',
                 data : {deposit_id: deposit_id},
  				success : function (response) {
+					if(response.status == false){
+						var title = "Unable To Disable Depsoit Type";
+						var text = "All deposit methods can not be disabled";
+						sweetAlertFailurePopUp(title,text);
+					}
  					if(response.status == true){
  						var title = "Depsoit Type disabled Successfully";
  						var text = "You have successfully disabled the deposit type";
@@ -64,5 +69,19 @@ $(document).ready(function() {
         },  function() {
             window.location.reload();
         });
-    }
+	}
+	
+	function sweetAlertFailurePopUp (title='',text='') {
+        swal({
+            title: title,
+            text: text,
+            type: "error",
+            //confirmButtonColor: "#DD6B55",
+			//confirmButtonText: "OK",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true
+        });
+	}
+
 });

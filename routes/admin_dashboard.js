@@ -6,7 +6,7 @@ const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
 var request = require('sync-request');
 
-module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email) {
+module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -416,6 +416,13 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				chart_data.push([temp_Date.getTime(),parseFloat(amount)]);
 			}
 			res.send(chart_data);
+		});
+	});
+
+	app.get('/admin/deposit-methods', (req, res) =>{
+
+		deposit_method.findAll({}).then(result => {
+			res.render('admin/deposit_methods/index', { layout: 'dashboard', deposit_methodsData: result});
 		});
 	});
 

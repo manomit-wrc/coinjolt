@@ -1,4 +1,4 @@
-module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,Country) {
+module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,Country,deposit_method) {
 	const Op = require('sequelize').Op;
 	const sequelize = require('sequelize');
 	app.get('/deposit-funds', async (req,res) => {
@@ -50,7 +50,13 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
 
 		let countries = await Country.findAll();
 
-		res.render('deposit/view',{layout: 'dashboard', depositHistory: depositHistory, countries: countries});
+		let depositMethods = await deposit_method.findAll({
+			where: {
+                status: 1
+			}
+		});
+		
+		res.render('deposit/view',{layout: 'dashboard', depositHistory: depositHistory, countries: countries, depositMethods: depositMethods});
 
 	});
 

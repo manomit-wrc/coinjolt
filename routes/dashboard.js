@@ -16,6 +16,7 @@ var BitGo = require('bitgo');
 var bitgo = new BitGo.BitGo({
     env: 'test'
 });
+const helper = require('./helper');
 module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
@@ -1453,4 +1454,29 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
+    app.get('/paynow', (req, res) => {
+        const data ={
+            userID : req.user.id
+        }
+
+        helper.payNow(data,function(error,result){
+            if(error){
+                res.writeHead(200, {'Content-Type': 'text/plain'});
+                res.end(JSON.stringify(error));
+            }else{
+                res.redirect(result.redirectUrl);
+            }				
+        });
+    });
+
+    app.get('/execute',function(req, res){		
+        var data = {};
+        console.log(req.query.paymentId,"-",req.query.token,req.query.PayerID);
+        data.paymentId = req.query.paymentId;
+        data.token = req.query.token;
+        data.PayerID = req.query.PayerID;
+        helper.getResponse(data,req.user.id,function(response) {
+            console.log(response);
+        });
+	});
 };

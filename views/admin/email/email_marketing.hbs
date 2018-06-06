@@ -1,0 +1,315 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="title-with-btn pd-612">
+       <div class="pull-left">
+        <h1>Email Marketing</h1>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<ol class="breadcrumb">
+  <li>
+    <a href="/dashboard">
+      <i class="fa fa-dashboard"></i> Home</a>
+  </li>
+  <li class="active">Email Marketing</li>
+</ol>
+</section>
+
+<div class="loader"></div>
+
+<!-- Main content -->
+<section class="content container-fluid">
+    <!-- Starts email-marketing -->
+            <div class="email-marketing">
+          <div class="box box-primary">
+            <div class="box-body">
+                <form name="email_marketing_preview_form" id="email_marketing_preview_form" action="javascript:void(0)" method="POST">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Select User Groups: </label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" id="al_user" type="1" class="flat-red" value="all_registered_user" checked> All Users
+                    </label>
+                  </div>
+                </div>
+               <!--  <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" class="flat-red"> Institutions
+                    </label>
+                  </div>
+                </div> -->
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" id="individuals" type="2" class="flat-red" value="individuals_users"> Individuals
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-md-12" id="select_individuals_user_related_div">
+                  <div class="form-group">
+                    <select class="form-control input-lg js-example-basic-multiple" name="select_individuals_user[]" id="select_individuals_user" multiple="multiple" style="width: 450px;">
+                        {{#each allUser}}
+                            <option value="{{this.email}}">{{this.first_name}} {{this.last_name}}</option>
+                        {{/each}}
+                    </select>
+                  </div>
+                </div>
+                <!-- <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" class="flat-red"> Logged In Adeast Once
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" class="flat-red"> Users With Deposit History
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" class="flat-red"> Investors In Managed Cryptocurrency Portfolio
+                    </label>
+                  </div>
+                </div> -->
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Subject Line: </label>
+                    <input type="text" class="form-control input-lg" id="subject_line" name="subject_line" placeholder="Enter Subject Line">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="Body">Body</label>
+                        <textarea name="email_marketing_subject_body" class="form-control" id="email_marketing_subject_body" placeholder="Enter Body"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-right">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="button" id="email_marketing_preview" value="Preview" />
+                    </div>
+                </div>
+                
+              </div>
+
+              </form>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Last email statistics: </label>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-aqua">
+                      <i class="fa fa-percent"></i>
+                    </span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">Open Rate</span>
+                      <span class="info-box-number">95
+                        <small>%</small>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-red">
+                      <i class="fa fa-percent"></i>
+                    </span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">Click Through Rate</span>
+                      <span class="info-box-number">40
+                        <small>%</small>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix visible-sm-block"></div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-green">
+                      <i class="fa fa-user"></i>
+                    </span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">Unsubscribes</span>
+                      <span class="info-box-number">0
+                        <small>%</small>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Drafts: </label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="email-marketing-view-scroll">
+                          <div class="table-responsive no-padding">
+                            <table class="table table-hover">
+                              <tbody>
+                                <tr>
+                                  <th>Name</th>
+                                  <th>Action</th>
+                                </tr>
+                                <tr>
+                                  <td> Subject line example 1</td>
+                                  <td>
+                                    <button type="button" class="btn btn-primary btn-sm">Use</button>
+                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td> Subject line example 2</td>
+                                  <td>
+                                    <button type="button" class="btn btn-primary btn-sm">Use</button>
+                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td> Subject line example 3</td>
+                                  <td>
+                                    <button type="button" class="btn btn-primary btn-sm">Use</button>
+                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                             </div>
+                          </div>
+                    </div>
+                  </div>
+               
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Most recent activity (last emails sent): </label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="email-marketing-view-scroll">
+                          <div class="table-responsive no-padding">
+                            <table class="table table-hover">
+                              <tbody>
+                                <tr>
+                                  <th>Name</th>
+                                  <th>Action</th>
+                                </tr>
+
+                                {{#each allSendEmail}}
+                                <tr>
+                                  <td> {{this.email_sub}}</td>
+                                  <td>
+                                    <button type="button" class="btn btn-primary btn-sm recent_send_email_list" user_row_id="{{this.id}}">View</button>
+                                    <button type="button" class="btn btn-danger btn-sm delete_recent_send_email_list" user_row_id="{{this.id}}">Delete</button>
+                                  </td>
+                                </tr>
+                                {{/each}}
+                                
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    <!-- Ends email-marketing -->
+</section>
+<!-- /.content -->
+
+
+<!-- Modal -->
+  <div class="modal fade" id="myEmailMarketingPreviewModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Email preview</h4>
+        </div>
+        <form name="send_multiple_email_form" id="send_multiple_email_form">
+            <input type="hidden" name="all_individuals_users" id="all_individuals_users" value="">
+            <input type="hidden" name="all_user_ids" id="all_user_ids" value="">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Subject">Subject</label>
+                            <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <textarea name="editor1" class="form-control" id="editor1" placeholder="Enter Description"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="save_as_draft">Save as Draft</button>
+                <button type="button" class="btn btn-success" id="email_send">Send</button>
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+
+ <!-- View of last email sent --> 
+ <div class="modal fade" id="recentActivityLastEmailSent" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Email Sent</h4>
+        </div>
+        <form name="send_multiple_email_form_recent_activity" id="send_multiple_email_form_recent_activity">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Subject">Subject</label>
+                            <input readonly="readonly" type="text" name="last_email_sent_subject" class="form-control" id="last_email_sent_subject" placeholder="Enter Subject" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <textarea readonly="readonly" name="editor100" class="form-control" id="editor100" placeholder="Enter Description"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>

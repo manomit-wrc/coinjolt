@@ -819,7 +819,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             thirdyear = parseFloat(parseFloat(200 * secondyear) / 100) + parseFloat(secondyear);
             thirdyear = parseFloat(Math.round(thirdyear * 100) / 100).toFixed(2);
 
-            accumulatedInterest =  parseFloat(0.005) * parseFloat(investedamount);
+            accumulatedInterest =  parseFloat(0.01) * parseFloat(investedamount);
             accumulatedInterest = parseFloat(Math.round(accumulatedInterest * 100) / 100).toFixed(2);
                 
            let portfolioCalculationCount = await portfolio_calculation.findAndCountAll({
@@ -1373,10 +1373,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     });
 
-    app.post('/save-deposit', function(req, res){
-		
-    });
-
     app.post('/deposit-currency', function(req, res){
         var destinationAddress = "";
         var coin_amount = req.body.coin_amount;
@@ -1404,9 +1400,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 console.log(walletDbId);
                 console.log(walletId);
                 console.log("address found");
-                        
-                        
-                        
+                
                         console.log("sender_id");
                         console.log(userid);
                         var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});

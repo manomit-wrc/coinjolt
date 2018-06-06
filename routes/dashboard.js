@@ -16,7 +16,15 @@ var BitGo = require('bitgo');
 var bitgo = new BitGo.BitGo({
     env: 'test'
 });
-const helper = require('./helper');
+
+const paypal = require('paypal-rest-sdk');
+
+paypal.configure({
+    'mode': 'sandbox', //sandbox or live
+    'client_id': 'AUATycL0pSdb7ivwQB2fBA8w-rTO68U_GwxTfVhg4U7DisEnADJ1KBisL1DJkwlbaH59BVBx8SDhHUNN',
+    'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
+});
+
 module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
@@ -1454,29 +1462,72 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/paynow', (req, res) => {
-        const data ={
-            userID : req.user.id
+    app.get('/pay', (req, res) => {
+        const create_payment_json = {
+          "intent": "sale",
+          "payer": {
+              "payment_method": "paypal"
+          },
+          "redirect_urls": {
+              "return_url": "http://localhost:8080/success",
+              "cancel_url": "http://localhost:8080/cancel"
+          },
+          "transactions": [{
+              "item_list": {
+                  "items": [{
+                      "name": "Red Sox Hat",
+                      "sku": "001",
+                      "price": "25.00",
+                      "currency": "USD",
+                      "quantity": 1
+                  }]
+              },
+              "amount": {
+                  "currency": "USD",
+                  "total": "25.00"
+              },
+              "description": "Hat for the best team ever"
+          }]
+      };
+      
+      paypal.payment.create(create_payment_json, function (error, payment) {
+        if (error) {
+            throw error;
+        } else {
+            for(let i = 0;i < payment.links.length;i++){
+              if(payment.links[i].rel === 'approval_url'){
+                res.redirect(payment.links[i].href);
+              }
+            }
         }
-
-        helper.payNow(data,function(error,result){
-            if(error){
-                res.writeHead(200, {'Content-Type': 'text/plain'});
-                res.end(JSON.stringify(error));
-            }else{
-                res.redirect(result.redirectUrl);
-            }				
-        });
-    });
-
-    app.get('/execute',function(req, res){		
-        var data = {};
-        console.log(req.query.paymentId,"-",req.query.token,req.query.PayerID);
-        data.paymentId = req.query.paymentId;
-        data.token = req.query.token;
-        data.PayerID = req.query.PayerID;
-        helper.getResponse(data,req.user.id,function(response) {
-            console.log(response);
-        });
-	});
+      });
+      
+      });
+      
+      app.get('/success', (req, res) => {
+        const payerId = req.query.PayerID;
+        const paymentId = req.query.paymentId;
+      
+        const execute_payment_json = {
+          "payer_id": payerId,
+          "transactions": [{
+              "amount": {
+                  "currency": "USD",
+                  "total": "25.00"
+              }
+          }]
+        };
+      
+        paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+          if (error) {
+              console.log(error.response);
+              throw error;
+          } else {
+              console.log(JSON.stringify(payment));
+              res.send('Success');
+          }
+      });
+      });
+      
+      app.get('/cancel', (req, res) => res.send('Cancelled'));
 };

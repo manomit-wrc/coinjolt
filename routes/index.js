@@ -44,15 +44,13 @@ module.exports = function (app, passport, models) {
             if (req.user.type === "1") {
                 res.redirect('/admin/dashboard');
             } else {
+
                 bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })
                 .then(function(response) {
-                    console.log(response.access_token);
-                    res.cookie('BITGO_ACCESS_TOKEN',response.access_token);
-                    res.redirect('/dashboard');
-                }).catch(function (err) {
-                    res.redirect('/dashboard');
-                });
-                
+                console.log(response.access_token);
+                res.cookie('BITGO_ACCESS_TOKEN',response.access_token);
+            });
+            res.redirect('/dashboard');
             }
         });
 
@@ -161,7 +159,7 @@ module.exports = function (app, passport, models) {
                             });
                         });
 
-                        req.flash('loginMessage', 'Your account activated successfully. We have created a Bitgo account for you. Please login to continue.');
+                        req.flash('loginMessage', 'Your account activated successfully. We have created a Bitgo wallet for you. Please login to continue.');
                         res.redirect('/');
                     })
 

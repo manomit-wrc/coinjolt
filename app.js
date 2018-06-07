@@ -276,7 +276,7 @@ require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details
 require('./routes/admin_kyc')(app, models.Kyc_details, models.User);
 require('./routes/admin_support')(app, models.Support, models.User, AWS);
 require('./routes/bitgo')(app,models);
-require('./routes/admin_email')(app, models.email_template, models.User, AWS, models.send_email, models.email_draft);
+require('./routes/admin_email')(app, models.email_template, models.User, AWS, models.send_email, models.email_draft, models.Deposit);
 require('./routes/admin_all_user_list')(app, models.email_template, models.User, AWS, models.send_email);
 
 

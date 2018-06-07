@@ -1,6 +1,7 @@
 var keys = require('../config/key');
 var serialize = require('node-serialize');
-module.exports = function (app, email_template, User, AWS, send_email, email_draft){
+var bcrypt = require('bcrypt-nodejs');
+module.exports = function (app, email_template, User, AWS, send_email, email_draft, Deposit){
 	app.get('/admin/email-template-listings', (req,res) => {
 		email_template.findAll({
 			where:{
@@ -80,6 +81,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 	});
 
 	app.get('/admin/email-marketing', (req,res) => {
+		Deposit.belongsTo(User, {foreignKey: 'user_id'})
 		Promise.all([
 			User.findAll({
 				where:{
@@ -99,25 +101,27 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 	            	['id', 'DESC']
 	        	]
 			}),
+			Deposit.findAll({
+				where: {
+					type: {
+						$in: [0, 1, 4]
+					}
+				},
+				group: ['user_id'],
+				include: [{
+			    	model: User
+		  		}],
+			})
 		]).then(function (result) {
+			var result = JSON.parse(JSON.stringify(result));
+			// console.log(result[3]);
+			// return false;
 			res.render('admin/email/email_marketing',{layout: 'dashboard', allUser:result[0],
-				allSendEmail:result[1], allDraftEmail:result[2]});
+				allSendEmail:result[1], allDraftEmail:result[2], allDepositUsers:result[3]});
 		});
 	});
 
 	app.post('/admin/send-email-markeitng', async (req,res) => {
-		var body = req.body.body;
-		console.log(body);
-
-		var cnt = 0;
-
-		var updated = body.replace(/<a[^>]+?href=(?:3D)?('|")([^\1]+?)\1/gi, function (match, a1, url) {
-		  cnt++;
-		  return match.replace(url, cnt);
-		});
-		console.log(updated);
-		return false;
-
 		var all_user_email = [];
 		if(req.body.users == 'all_registered_user'){
 			await User.findAll({

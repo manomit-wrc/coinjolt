@@ -38,17 +38,38 @@
                     </label>
                   </div>
                 </div>
-               <!--  <div class="col-md-4">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label>
                       <input type="radio" name="user-group" class="flat-red"> Institutions
                     </label>
                   </div>
-                </div> -->
+                </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>
                       <input type="radio" name="user-group" id="individuals" type="2" class="flat-red" value="individuals_users"> Individuals
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" class="flat-red"> Logged In Ateast Once
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" id="all_deposit_user" type="3" class="flat-red" value="deposit_users"> Users With Deposit History
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" class="flat-red"> Investors In Managed Cryptocurrency Portfolio
                     </label>
                   </div>
                 </div>
@@ -62,27 +83,16 @@
                     </select>
                   </div>
                 </div>
-                <!-- <div class="col-md-4">
+
+                <div class="col-md-12" id="select_deposit_user_related_div">
                   <div class="form-group">
-                    <label>
-                      <input type="radio" name="user-group" class="flat-red"> Logged In Adeast Once
-                    </label>
+                    <select class="form-control input-lg js-example-basic-multiple" name="select_deposit_user[]" id="select_deposit_user" multiple="multiple" style="width: 450px;">
+                        {{#each allDepositUsers}}
+                            <option value="{{this.User.email}}">{{this.User.first_name}} {{this.User.last_name}}</option>
+                        {{/each}}
+                    </select>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>
-                      <input type="radio" name="user-group" class="flat-red"> Users With Deposit History
-                    </label>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>
-                      <input type="radio" name="user-group" class="flat-red"> Investors In Managed Cryptocurrency Portfolio
-                    </label>
-                  </div>
-                </div> -->
               </div>
               <div class="row">
                 <div class="col-md-12">

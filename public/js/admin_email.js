@@ -275,12 +275,20 @@ $(document).ready(function (e) {
 
 	//start email marketing related work
 	$('#select_individuals_user_related_div').hide();
+	$('#select_deposit_user_related_div').hide();
 	$('#individuals').on('click', function (){
 		$('.js-example-basic-multiple').select2();
 		$('#select_individuals_user_related_div').show();
+		$('#select_deposit_user_related_div').hide();
 	});
 	$('#al_user').on('click', function () {
 		$('#select_individuals_user_related_div').hide();
+		$('#select_deposit_user_related_div').hide();
+	});
+	$('#all_deposit_user').on('click', function () {
+		$('.js-example-basic-multiple').select2();
+		$('#select_individuals_user_related_div').hide();
+		$('#select_deposit_user_related_div').show();
 	});
 
 	$('#email_marketing_preview').on('click', function (e) {
@@ -291,10 +299,12 @@ $(document).ready(function (e) {
 
 		if(user_group == 'individuals_users'){
 			var individuals_users = $('#select_individuals_user').val();
+		}else if(user_group == 'deposit_users') {
+			var individuals_users = $('#select_deposit_user').val();
 		}else{
 			var individuals_users = '';
 		}
-
+		
 		if(user_group == 'all_registered_user'){
 			$('#all_user_ids').val('all_registered_user');
 		}
@@ -328,10 +338,6 @@ $(document).ready(function (e) {
 		$(':input[type="button"]').prop('disabled', true);
 		var subject = $('#subject').val();
 		var body = CKEDITOR.instances['editor1'].getData();
-		
-		var href = $(this).attr('href');
-		console.log(href);
-		return false;
 		
 		if($('#all_user_ids').val() == 'all_registered_user'){
 			var for_individuals_users = 'all_registered_user';

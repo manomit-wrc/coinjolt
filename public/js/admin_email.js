@@ -8,6 +8,7 @@ $(document).ready(function (e) {
 
 	CKEDITOR.replace( 'editor1' );
 	CKEDITOR.replace( 'editor100' );
+	CKEDITOR.replace( 'editor1000' );
 	CKEDITOR.replace( 'email_marketing_subject_body' );
 
 	$('#submit_email_template').on('click', function () {
@@ -324,8 +325,13 @@ $(document).ready(function (e) {
 	});
 
 	$('#email_send').on('click', function () {
+		$(':input[type="button"]').prop('disabled', true);
 		var subject = $('#subject').val();
 		var body = CKEDITOR.instances['editor1'].getData();
+		
+		var href = $(this).attr('href');
+		console.log(href);
+		return false;
 		
 		if($('#all_user_ids').val() == 'all_registered_user'){
 			var for_individuals_users = 'all_registered_user';
@@ -342,6 +348,43 @@ $(document).ready(function (e) {
 				users: for_individuals_users
 			},
 			success: function (resp) {
+				$(':input[type="button"]').prop('disabled', false);
+				if(resp.status == true){
+					swal({
+			            title: 'Thank You.',
+			            text: resp.msg,
+			            type: "success",
+			            confirmButtonColor: "#DD6B55",
+			            confirmButtonText: "OK"
+			        },  function() {
+			            window.location.href = '/admin/email-marketing';
+			        });
+				}
+			}
+		});
+	});
+
+	$('#save_as_draft').on('click', function () {
+		$(':input[type="button"]').prop('disabled', true);
+		var subject = $('#subject').val();
+		var body = CKEDITOR.instances['editor1'].getData();
+		
+		if($('#all_user_ids').val() == 'all_registered_user'){
+			var for_individuals_users = 'all_registered_user';
+		}else{
+			var for_individuals_users = $('#all_individuals_users').val();
+		}
+
+		$.ajax({
+			type: "POST",
+			url: "/admin/save-email-as-draft",
+			data: {
+				subject: subject,
+				body: body,
+				users: for_individuals_users
+			},
+			success: function (resp) {
+				$(':input[type="button"]').prop('disabled', false);
 				if(resp.status == true){
 					swal({
 			            title: 'Thank You.',
@@ -393,6 +436,96 @@ $(document).ready(function (e) {
 				url: "/admin/delete_recent_send_email_details",
 				data:{
 					user_row_email_id: user_row_email_id
+				}, 
+				success: function (resp) {
+					if(resp.status == true){
+						swal({
+				            title: "Thank You",
+				            text: resp.msg,
+				            type: "success",
+				            confirmButtonColor: "#DD6B55",
+				            confirmButtonText: "OK"
+				        },  function() {
+				            window.location.href = '/admin/email-marketing';
+				        });
+					}
+				}
+			});
+		});
+	});
+
+	$('.use_draft').on('click', function () {
+		var user_row_email_id = $(this).attr('user_row_id');
+		$.ajax({
+			type: "POST",
+			url: "/admin/save-email-draft-details",
+			data:{
+				user_row_email_id: user_row_email_id
+			}, 
+			success: function (resp) {
+				console.log(resp);
+				// return false;
+				if(resp.status == true){
+					$('#draft_row_id').val(resp.details.id);
+					$('#to_users').val(resp.user_list);
+					$('#draft_email_subject').val(resp.details.subject);
+					CKEDITOR.instances['editor1000'].setData(resp.details.body);
+					$('#myDraftPreviewModal').modal('show');
+				}
+			}
+		});
+	});
+
+	$('#draft_send').on('click', function () {
+		$(':input[type="button"]').prop('disabled', true);
+		var user_email = $('#to_users').val();
+		var draft_row_id = $('#draft_row_id').val();
+		var subject = $('#draft_email_subject').val();
+		var body = CKEDITOR.instances['editor1000'].getData();
+		$.ajax({
+			type: "POST",
+			url: "/admin/send-draft-email",
+			data:{
+				user_email: user_email,
+				draft_row_id: draft_row_id,
+				subject: subject,
+				body: body
+			},
+			success: function (resp) {
+				$(':input[type="button"]').prop('disabled', false);
+				if(resp.status == true){
+					swal({
+			            title: 'Thank You.',
+			            text: resp.msg,
+			            type: "success",
+			            confirmButtonColor: "#DD6B55",
+			            confirmButtonText: "OK"
+			        },  function() {
+			            window.location.href = '/admin/email-marketing';
+			        });
+				}
+			}
+		});
+	});
+
+	$('.delete_draft').on('click', function () {
+		var user_row_draft_id = $(this).attr('user_row_id');
+
+		swal({
+		  title: "Are you sure?",
+		  text: "Your will not be able to recover this data!",
+		  type: "warning",
+		  showCancelButton: true,
+		  confirmButtonClass: "btn-danger",
+		  confirmButtonText: "Yes, delete it!",
+		  closeOnConfirm: false
+		},
+		function(){
+			$.ajax({
+				type: "POST",
+				url: "/admin/delete-draft",
+				data:{
+					user_row_draft_id: user_row_draft_id
 				}, 
 				success: function (resp) {
 					if(resp.status == true){

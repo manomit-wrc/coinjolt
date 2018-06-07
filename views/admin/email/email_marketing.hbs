@@ -170,27 +170,17 @@
                                   <th>Name</th>
                                   <th>Action</th>
                                 </tr>
-                                <tr>
-                                  <td> Subject line example 1</td>
-                                  <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Use</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td> Subject line example 2</td>
-                                  <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Use</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td> Subject line example 3</td>
-                                  <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Use</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                  </td>
-                                </tr>
+
+                                {{#each allDraftEmail}}
+                                    <tr>
+                                      <td>{{this.subject}}</td>
+                                      <td>
+                                        <button type="button" class="btn btn-primary btn-sm use_draft" user_row_id="{{this.id}}">Use</button>
+                                        <button type="button" class="btn btn-danger btn-sm delete_draft" user_row_id="{{this.id}}">Delete</button>
+                                      </td>
+                                    </tr>
+                                {{/each}}
+                                
                               </tbody>
                             </table>
                              </div>
@@ -239,9 +229,9 @@
 
 
 <!-- Modal -->
-  <div class="modal fade" id="myEmailMarketingPreviewModal" role="dialog">
+<div class="modal fade" id="myEmailMarketingPreviewModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -276,10 +266,10 @@
       </div>
       
     </div>
-  </div>
+</div>
 
  <!-- View of last email sent --> 
- <div class="modal fade" id="recentActivityLastEmailSent" role="dialog">
+<div class="modal fade" id="recentActivityLastEmailSent" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -306,6 +296,46 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+      
+    </div>
+</div>
+
+{{!-- draft pop-up --}}
+<div class="modal fade" id="myDraftPreviewModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Draft email preview</h4>
+        </div>
+        <form name="send_multiple_email_form" id="send_multiple_email_form">
+            <input type="hidden" name="to_users" id="to_users" value="">
+            <input type="hidden" name="draft_row_id" id="draft_row_id" value="">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Subject">Subject</label>
+                            <input type="text" name="draft_email_subject" class="form-control" id="draft_email_subject" placeholder="Enter Subject" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <textarea name="editor1000" class="form-control" id="editor1000" placeholder="Enter Description"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                {{!-- <button type="button" class="btn btn-success" id="draft_edit">Save as Draft</button> --}}
+                <button type="button" class="btn btn-success" id="draft_send">Send</button>
                 <button type="button" class="btn" data-dismiss="modal">Close</button>
             </div>
         </form>

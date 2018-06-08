@@ -2,6 +2,8 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
 	const Op = require('sequelize').Op;
 	const sequelize = require('sequelize');
 	app.get('/deposit-funds', async (req,res) => {
+		const msg = req.flash('payPalSuccessMsg')[0];
+		const cancelMsg = req.flash('payPalCancelMsg')[0];
 		/* WireTransfer.belongsTo(User, {foreignKey: 'user_id'});
 
 		WireTransfer.findAll({
@@ -56,7 +58,7 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
 			}
 		});
 		
-		res.render('deposit/view',{layout: 'dashboard', depositHistory: depositHistory, countries: countries, depositMethods: depositMethods});
+		res.render('deposit/view',{layout: 'dashboard', depositHistory: depositHistory, countries: countries, depositMethods: depositMethods, msg:msg, cancelMsg:cancelMsg});
 
 	});
 

@@ -38,17 +38,38 @@
                     </label>
                   </div>
                 </div>
-               <!--  <div class="col-md-4">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label>
                       <input type="radio" name="user-group" class="flat-red"> Institutions
                     </label>
                   </div>
-                </div> -->
+                </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>
                       <input type="radio" name="user-group" id="individuals" type="2" class="flat-red" value="individuals_users"> Individuals
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" class="flat-red"> Logged In Ateast Once
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" id="all_deposit_user" type="3" class="flat-red" value="deposit_users"> Users With Deposit History
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="user-group" class="flat-red"> Investors In Managed Cryptocurrency Portfolio
                     </label>
                   </div>
                 </div>
@@ -62,27 +83,16 @@
                     </select>
                   </div>
                 </div>
-                <!-- <div class="col-md-4">
+
+                <div class="col-md-12" id="select_deposit_user_related_div">
                   <div class="form-group">
-                    <label>
-                      <input type="radio" name="user-group" class="flat-red"> Logged In Adeast Once
-                    </label>
+                    <select class="form-control input-lg js-example-basic-multiple" name="select_deposit_user[]" id="select_deposit_user" multiple="multiple" style="width: 450px;">
+                        {{#each allDepositUsers}}
+                            <option value="{{this.User.email}}">{{this.User.first_name}} {{this.User.last_name}}</option>
+                        {{/each}}
+                    </select>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>
-                      <input type="radio" name="user-group" class="flat-red"> Users With Deposit History
-                    </label>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>
-                      <input type="radio" name="user-group" class="flat-red"> Investors In Managed Cryptocurrency Portfolio
-                    </label>
-                  </div>
-                </div> -->
               </div>
               <div class="row">
                 <div class="col-md-12">
@@ -170,27 +180,17 @@
                                   <th>Name</th>
                                   <th>Action</th>
                                 </tr>
-                                <tr>
-                                  <td> Subject line example 1</td>
-                                  <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Use</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td> Subject line example 2</td>
-                                  <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Use</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td> Subject line example 3</td>
-                                  <td>
-                                    <button type="button" class="btn btn-primary btn-sm">Use</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                  </td>
-                                </tr>
+
+                                {{#each allDraftEmail}}
+                                    <tr>
+                                      <td>{{this.subject}}</td>
+                                      <td>
+                                        <button type="button" class="btn btn-primary btn-sm use_draft" user_row_id="{{this.id}}">Use</button>
+                                        <button type="button" class="btn btn-danger btn-sm delete_draft" user_row_id="{{this.id}}">Delete</button>
+                                      </td>
+                                    </tr>
+                                {{/each}}
+                                
                               </tbody>
                             </table>
                              </div>
@@ -239,9 +239,9 @@
 
 
 <!-- Modal -->
-  <div class="modal fade" id="myEmailMarketingPreviewModal" role="dialog">
+<div class="modal fade" id="myEmailMarketingPreviewModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -276,10 +276,10 @@
       </div>
       
     </div>
-  </div>
+</div>
 
  <!-- View of last email sent --> 
- <div class="modal fade" id="recentActivityLastEmailSent" role="dialog">
+<div class="modal fade" id="recentActivityLastEmailSent" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -306,6 +306,46 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+      
+    </div>
+</div>
+
+{{!-- draft pop-up --}}
+<div class="modal fade" id="myDraftPreviewModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Draft email preview</h4>
+        </div>
+        <form name="send_multiple_email_form" id="send_multiple_email_form">
+            <input type="hidden" name="to_users" id="to_users" value="">
+            <input type="hidden" name="draft_row_id" id="draft_row_id" value="">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Subject">Subject</label>
+                            <input type="text" name="draft_email_subject" class="form-control" id="draft_email_subject" placeholder="Enter Subject" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <textarea name="editor1000" class="form-control" id="editor1000" placeholder="Enter Description"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                {{!-- <button type="button" class="btn btn-success" id="draft_edit">Save as Draft</button> --}}
+                <button type="button" class="btn btn-success" id="draft_send">Send</button>
                 <button type="button" class="btn" data-dismiss="modal">Close</button>
             </div>
         </form>

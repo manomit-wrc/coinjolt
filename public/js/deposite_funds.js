@@ -235,9 +235,12 @@ $(document).ready(function (e) {
 				},
 				beforeSend:function(){
 					$(".loader_gif").show();
+					$("#deposit_funds_bwt").prop('disabled', true);
+
 				},
 				success : function(response){
 					$(".loader_gif").hide();
+					$("#deposit_funds_bwt").prop('disabled', false);
 
 					if(response.success === "1"){
 						

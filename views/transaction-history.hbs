@@ -231,7 +231,18 @@
                                             <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
                                             <td>USD</td>
                                             <td>
-                                                {{#if_eq this.payment_method '1'}} Credit Card {{else}} Wire Transfer {{/if_eq}}
+                                                {{#if_eq this.payment_method '1'}} 
+                                                    Credit Card  
+                                                {{/if_eq}}
+                                                {{#if_eq this.payment_method '2'}}
+                                                    Wire Transfer Deposit
+                                                {{/if_eq}}
+                                                {{#if_eq this.payment_method '3'}}
+                                                    Bank Wire Transfer
+                                                {{/if_eq}}
+                                                {{#if_eq this.payment_method '6'}}
+                                                    Paypal
+                                                {{/if_eq}}
                                             </td>   
                                             <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
                                         </tr>

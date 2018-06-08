@@ -1516,15 +1516,13 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
               console.log(error.response);
               throw error;
           } else {
-                console.log("Payment Successful");
-                console.log(JSON.stringify(payment));
                 var digits = 9;	
                 var numfactor = Math.pow(10, parseInt(digits-1));	
                 var randomNum =  Math.floor(Math.random() * numfactor) + 1;
 
                 Deposit.create({
                     user_id: req.user.id,
-                    transaction_id: randomNum,
+                    transaction_id: payment.id,
                     checkout_id: randomNum,
                     account_id: randomNum,
                     type: 0,
@@ -1542,7 +1540,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
       });
       
-      app.get('/paypal-cancel', (req, res) => 
-        res.send('Cancelled')
-    );
+      app.get('/paypal-cancel', (req, res) => {
+        res.send('Cancelled');
+      });
 };

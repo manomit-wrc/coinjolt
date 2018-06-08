@@ -1462,58 +1462,51 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/pay', (req, res) => {
+    app.post('/paypal', (req, res) => {
+        const price = parseInt(req.body.amount);
+        req.session.paypal_price = price;
+        console.log(price);
         const create_payment_json = {
           "intent": "sale",
           "payer": {
               "payment_method": "paypal"
           },
           "redirect_urls": {
-              "return_url": "http://localhost:8080/success",
-              "cancel_url": "http://localhost:8080/cancel"
+              "return_url": "http://localhost:8080/paypal-success",
+              "cancel_url": "http://localhost:8080/paypal-cancel"
           },
           "transactions": [{
               "item_list": {
                   "items": [{
                       "name": "Red Sox Hat",
                       "sku": "001",
-                      "price": "25.00",
+                      "price": price,
                       "currency": "USD",
                       "quantity": 1
                   }]
               },
               "amount": {
                   "currency": "USD",
-                  "total": "25.00"
+                  "total": price
               },
               "description": "Hat for the best team ever"
           }]
-      };
-      
-      paypal.payment.create(create_payment_json, function (error, payment) {
-        if (error) {
-            throw error;
-        } else {
-            for(let i = 0;i < payment.links.length;i++){
-              if(payment.links[i].rel === 'approval_url'){
-                res.redirect(payment.links[i].href);
-              }
-            }
-        }
+        };
+        var paypalCreate = paypal.payment.create(create_payment_json, function (error, payment) {res.json({success: "1", content: payment});});
+        
+        
       });
       
-      });
-      
-      app.get('/success', (req, res) => {
+      app.get('/paypal-success', (req, res) => { 
         const payerId = req.query.PayerID;
         const paymentId = req.query.paymentId;
-      
+        const priceVal = req.session.paypal_price;
         const execute_payment_json = {
           "payer_id": payerId,
           "transactions": [{
               "amount": {
                   "currency": "USD",
-                  "total": "25.00"
+                  "total": priceVal
               }
           }]
         };
@@ -1523,11 +1516,33 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
               console.log(error.response);
               throw error;
           } else {
-              console.log(JSON.stringify(payment));
-              res.send('Success');
+                console.log("Payment Successful");
+                console.log(JSON.stringify(payment));
+                var digits = 9;	
+                var numfactor = Math.pow(10, parseInt(digits-1));	
+                var randomNum =  Math.floor(Math.random() * numfactor) + 1;
+
+                Deposit.create({
+                    user_id: req.user.id,
+                    transaction_id: randomNum,
+                    checkout_id: randomNum,
+                    account_id: randomNum,
+                    type: 0,
+                    amount: parseFloat(payment.transactions[0].amount.total),
+                    processing_fee: parseFloat(payment.transactions[0].related_resources[0].sale.transaction_fee.value),
+                    payer_email: payment.payer.payer_info.email,
+                    payer_name: payment.payer.payer_info.shipping_address.recipient_name,
+                    payment_method: 6,
+                    currency_id: 0
+                });
+                req.flash('payPalSuccessMsg', 'Your payment has been successful');
+                res.redirect('/deposit-funds');
           }
-      });
+        });
+
       });
       
-      app.get('/cancel', (req, res) => res.send('Cancelled'));
+      app.get('/paypal-cancel', (req, res) => 
+        res.send('Cancelled')
+    );
 };

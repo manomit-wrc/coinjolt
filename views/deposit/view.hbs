@@ -22,6 +22,10 @@
           {{#if msg}}
             <div class="alert alert-success" id="paypalPaymentSuccessMsg">{{msg}}</div>
           {{/if}}
+          {{#if cancelMsg}}
+            <div class="alert alert-danger" id="paypalPaymentSuccessMsg">{{cancelMsg}}</div>
+          {{/if}}
+          
           <!-- /.box-header -->
           <div class="box-body">
               <form method="post" name="" id="frm_deposit" action="javascript:void(0)">

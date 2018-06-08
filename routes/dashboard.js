@@ -1465,7 +1465,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     app.post('/paypal', (req, res) => {
         const price = parseInt(req.body.amount);
         req.session.paypal_price = price;
-        console.log(price);
         const create_payment_json = {
           "intent": "sale",
           "payer": {
@@ -1541,6 +1540,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
       });
       
       app.get('/paypal-cancel', (req, res) => {
-        res.send('Cancelled');
+        req.flash('payPalCancelMsg', 'Your payment has been cancelled');
+        res.redirect('/deposit-funds');
       });
 };

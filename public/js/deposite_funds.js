@@ -191,7 +191,7 @@ $(document).ready(function (e) {
       			$("#showing_warning").show();
 			  } 
 			  
-      	}else if(deposit_type == 2){
+      	}else if(deposit_type == 2){  
 			$(".paymentErrorMsg").hide();  
 			var amount = $.trim($('#usd_amount').val());
 			if(amount == ''){
@@ -212,7 +212,9 @@ $(document).ready(function (e) {
 				$('#exampleModalLong').modal('show');
 			}
       		
-      	}else{
+		}else if(deposit_type == 3){
+			$(".paymentErrorMsg").hide();  
+		}  else{
 			$(".paymentErrorMsg").show();
 			  $("#deposit_type").focus();
 		  }

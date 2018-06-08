@@ -1754,10 +1754,10 @@ tr.shown td.remove-control {
     width: 70% !important;
     vertical-align: baseline !important;
 }
-
+/* 
 .box.equalize-box1.portfolio-form {
     height: 520px !important;
-}
+} */
 
 .bit-tabs .collaps img {
 	margin-right: 10px;

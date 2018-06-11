@@ -2359,3 +2359,51 @@ input.form-control.btn {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+/*.sidebar-menu .active>.treeview-menu{
+    display:block
+}
+.sidebar-mini.sidebar-collapse .sidebar-menu>li:not(.treeview)>a>span{
+    border-bottom-right-radius:4px
+}
+
+.sidebar-mini.sidebar-collapse .sidebar-menu>li>.treeview-menu{
+    padding-top:5px;
+    padding-bottom:5px;
+    border-bottom-right-radius:4px
+}
+
+.sidebar-mini.sidebar-collapse .main-sidebar .user-panel>.info,.sidebar-mini.sidebar-collapse .sidebar-form,.sidebar-mini.sidebar-collapse .sidebar-menu>li>a>span,.sidebar-mini.sidebar-collapse .sidebar-menu>li>.treeview-menu,.sidebar-mini.sidebar-collapse .sidebar-menu>li>a>.pull-right,.sidebar-mini.sidebar-collapse .sidebar-menu li.header{
+    display:none !important;
+    -webkit-transform:translateZ(0)
+}
+
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu{
+    top:44px;
+    margin-left:0
+}
+
+.treeview-menu{
+    display:none;
+    list-style:none;
+    padding:0;
+    margin:0;
+    padding-left:5px
+}
+.treeview-menu .treeview-menu{
+    padding-left:20px
+}
+.treeview-menu>li{
+    margin:0
+}
+.treeview-menu>li>a{
+    padding:5px 5px 5px 15px;
+    display:block;
+    font-size:14px
+}
+.treeview-menu>li>a>.fa,.treeview-menu>li>a>.glyphicon,.treeview-menu>li>a>.ion{
+    width:20px
+}
+.treeview-menu>li>a>.pull-right-container>.fa-angle-left,.treeview-menu>li>a>.pull-right-container>.fa-angle-down,.treeview-menu>li>a>.fa-angle-left,.treeview-menu>li>a>.fa-angle-down{
+    width:auto
+}*/

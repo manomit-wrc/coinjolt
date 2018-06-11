@@ -2238,6 +2238,26 @@
 
         $('.equalize-box1').height(maxHeight);
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#amt_invest_btn').click(function () {
+                var errorHeight = $('#investerrormsg').height();
+                var boxHeight = $('.equalize-box1').height();
+                var calculateHeight = boxHeight + errorHeight;
+                $('.equalize-box1').height(calculateHeight);
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#amt_withd_btn').click(function () {
+                var errorHeight3 = $('#withdrawerrormsg').height();
+                var boxHeight3 = $('.equalize-box1').height();
+                var calculateHeight3 = boxHeight3 + errorHeight3;
+                $('.equalize-box1').height(calculateHeight3);
+            });
+        });
+    </script>
       <script>
         var maxHeight = 0;
         $('.balnrecent .equal-hgt').each(function (i) {
@@ -2433,6 +2453,7 @@
                 $('#investsuccessmsg').delay(2000).fadeOut();
             });    
      </script>
+     
      <script>
          $(document).ready(function() {
               // SLIMSCROLL FOR CHAT WIDGET
@@ -2515,6 +2536,27 @@
             });    
      </script>
      {{!-- Wallet Send Coins ends --}}
+
+    <script>
+        $(document).ready(function () {
+            $('#amt_deposit_btn').click(function () {
+                var errorHeight2 = $('#depositerrormsg').height();
+                var boxHeight2 = $('.equalize-box1').height();
+                var calculateHeight2 = boxHeight2 + errorHeight2;
+                $('.equalize-box1').height(calculateHeight2);
+            });
+        });
+    </script>
+    <script>
+        var mcpMaxHeight = 0;
+        $('.mcp-box').each(function (i) {
+            var mcpHeight = $('.mcp-box').eq(i).height();
+            if (mcpHeight > mcpMaxHeight)
+                mcpMaxHeight = mcpHeight;
+        });
+
+        $('.mcp-box').height(mcpMaxHeight);
+    </script>
 
 
 </body>

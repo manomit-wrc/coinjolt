@@ -78,19 +78,16 @@ $(document).ready(function (e) {
 			$("#1").show();
 			$(".personal-info").show();
 			$("#wr-transfer").hide();
-			$("#frm_deposit").attr("action","javascript:void(0)");
 		}else if( selectedpayment =='2'){
 			$("#wr-transfer").show();
 			$("#1").hide();
 			$(".personal-info").hide();
-			$("#frm_deposit").attr("action","javascript:void(0)");
 		}
 		else{
 			$("#1").hide();
 			$("#deposit_funds_bwt").show();
 			$(".personal-info").hide();
 			$("#wr-transfer").hide();
-			$("#frm_deposit").attr("action","/paypal");
 		}
 	});
 
@@ -202,7 +199,7 @@ $(document).ready(function (e) {
       			$("#showing_warning").show();
 			  } 
 			  
-      	}else if(deposit_type == 2){
+      	}else if(deposit_type == 2){  
 			$(".paymentErrorMsg").hide();  
 			var amount = $.trim($('#usd_amount').val());
 			if(amount == ''){

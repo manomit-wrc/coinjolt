@@ -1192,7 +1192,7 @@ table.table.scroll-minus {
 }
 
 .box.cjnews-box {
-    height: 695px;
+    height: 677px;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -1227,7 +1227,7 @@ table.table.scroll-minus {
 }
 
 .cjabout-box .box-body {
-    height: 458px;
+    height: 440px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -1754,10 +1754,10 @@ tr.shown td.remove-control {
     width: 70% !important;
     vertical-align: baseline !important;
 }
-
+/* 
 .box.equalize-box1.portfolio-form {
     height: 520px !important;
-}
+} */
 
 .bit-tabs .collaps img {
 	margin-right: 10px;

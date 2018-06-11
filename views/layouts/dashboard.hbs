@@ -723,7 +723,7 @@
                 var currencyType =  $("#currency_purchased option:selected").text();
                 var msg = "Current Rate("+currencyType+")"+": "+"$ ";
                 var amtVal = parseFloat(jQuery("#payAmount").val());
-                if (currencyType !== '') {
+                if (currencyType !== '' && currencyType !=='Please select a option') {
                     $('.expected').removeClass('alert alert-danger');
                     $('.expected').html('');
                     $('.expected').hide();
@@ -744,6 +744,10 @@
                             console.log(error);
                         }
                     });
+                }
+                else{
+                    $('#currentratetext').removeClass('alert alert-danger');
+                    $('#currentratetext').html('');
                 }
             });
 
@@ -921,7 +925,7 @@
                 var currencyType =  $("#currency_sold option:selected").text();
                 var msg = "Current Rate("+currencyType+")"+": "+"$ ";
                 var amtVal = parseFloat(jQuery("#payAmount").val());
-                if (currencyType !== '') {
+                if (currencyType !== '' && currencyType !=='Please select a option') {
                     $('.expected').removeClass('alert alert-danger');
                     $('.expected').html('');
                     $('.expected').hide();
@@ -942,6 +946,10 @@
                             console.log(error);
                         }
                     });
+                }
+                else{
+                    $('#sell_currentratetext').removeClass('alert alert-danger');
+                    $('#sell_currentratetext').html('');
                 }
             });
 

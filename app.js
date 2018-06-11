@@ -279,7 +279,7 @@ require('./routes/bitgo')(app,models);
 require('./routes/admin_email')(app, models.email_template, models.User, AWS, models.send_email, models.email_draft, models.Deposit);
 require('./routes/admin_all_user_list')(app, models.email_template, models.User, AWS, models.send_email);
 require('./routes/admin_deposit_type')(app, models.deposit_method);
-require('./routes/cms')(app);
+require('./routes/cms')(app, models);
 
 app.listen(port);
 console.log('The magic happens on port ' + port);

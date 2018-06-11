@@ -1766,6 +1766,18 @@ tr.shown td.remove-control {
 
 /* Ends css on 2018-05-30 */
 
+/* Starts css on 2018-06-11 */
+.col-md-6.paddingleft.recent_post_box:nth-child(2), .col-md-6.paddingleft.recent_post_box:nth-child(4) {
+    padding-right: 0;
+}
+.recent_post_box {
+    min-height: 240px;
+}
+.dashboard-top .col-md-6.equal-hgt {
+    padding-left: 0 !important;
+}
+/* Ends css on 2018-06-11 */  
+
 @media screen and (max-width: 1366px) {
     .balance-box {
         display: block;
@@ -1956,9 +1968,9 @@ tr.shown td.remove-control {
   }
 
 
-  .column-pr-0 {
+  /* .column-pr-0 {
       padding-right: 0 !important;
-  }
+  } */
 
 
 

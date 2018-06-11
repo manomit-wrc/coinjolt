@@ -256,23 +256,6 @@ $(document).ready(function (e) {
 		});
 	});
 
-	$(".email_send_details").on('click', function () {
-		var email_send_id = $(this).data('send_email_id');
-		$.ajax({
-			type: "POST",
-			url: "/admin/send-email-details",
-			data:{
-				email_send_id: email_send_id
-			},
-			success: function (resp) {
-				$('#to').val(resp.data.User.email);
-				$('#subject').val(resp.data.email_sub);
-				$('#select_email_template').val(resp.data.email_template.template_name);
-				CKEDITOR.instances['editor1'].setData(resp.data.email_desc);
-			}
-		});
-	});
-
 	//start email marketing related work
 	$('#select_individuals_user_related_div').hide();
 	$('#select_deposit_user_related_div').hide();
@@ -607,4 +590,22 @@ $('#examplecBox0').on('click', function () {
         $('.myCheckbox').prop('checked', false);
     }
 
+});
+
+$(".email_send_details").on('click', function () {
+	var email_send_id = $(this).data('send_email_id');
+	$.ajax({
+		type: "POST",
+		url: "/admin/send-email-details",
+		data:{
+			email_send_id: email_send_id
+		},
+		success: function (resp) {
+			$('#to').val(resp.data.User.email);
+			$('#subject').val(resp.data.email_sub);
+			// $('#select_email_template').val(resp.data.email_template.template_name);
+			CKEDITOR.instances['editor1'].setData(resp.data.email_desc);
+			$('#myModal').modal('show')
+		}
+	});
 });

@@ -1,5 +1,27 @@
 const sequelize = require('sequelize');
 module.exports = function (app, models) {
+    var multer  = require('multer');
+	//var multerS3 = require('multer-s3');
+	var fs = require('fs');
+	//var s3 = new AWS.S3();
+	
+	var fileExt = '';
+    var fileName = '';
+    var storage = multer.diskStorage({
+		destination: function (req, file, cb) {
+            cb(null, 'public/cms/terms_of_services');
+		},
+
+		filename: function (req, file, cb) {
+			fileExt = file.mimetype.split('/')[1];
+			if (fileExt == 'jpeg') fileExt = 'jpg';
+			fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+			cb(null, fileName);
+		}
+	});
+
+	var upload = multer({ storage: storage, limits: {fileSize:3000000} });
+
     app.get('/admin/cms/terms-of-service', (req, res) =>{
 
         models.cms_terms_of_service.find({}).then(function(terms_of_service){
@@ -7,8 +29,9 @@ module.exports = function (app, models) {
         });
     });
 
-    app.post('/admin/submit-terms-of-service', (req, res) =>{
-
+    app.post('/admin/submit-terms-of-service',upload.single('banner_image'), (req, res) =>{
+        //console.log('Body: ',req.body.terms_of_service_header_image);
+        //console.log('File extension: ',fileExt);
         models.cms_terms_of_service.findAndCountAll({
             order: [
                 sequelize.fn('max', sequelize.col('id'))
@@ -19,8 +42,8 @@ module.exports = function (app, models) {
             if(count >0){
                 models.cms_terms_of_service.update({
                     terms_of_service_header_desc: req.body.banner_image_title,
-                    terms_of_service_content: req.body.terms_of_service_description
-
+                    terms_of_service_content: req.body.terms_of_service_description,
+                    terms_of_service_header_image : fileName
                 }, {
                     where: {
                         id: terms_id
@@ -35,7 +58,8 @@ module.exports = function (app, models) {
             else{
                 models.cms_terms_of_service.create({
                     terms_of_service_header_desc: req.body.banner_image_title,
-                    terms_of_service_content: req.body.terms_of_service_description
+                    terms_of_service_content: req.body.terms_of_service_description,
+                    terms_of_service_header_image : fileName
                 }).then(function(result){
                     res.json({
                         status:true,
@@ -44,10 +68,6 @@ module.exports = function (app, models) {
                 });
             }
         });
-
-
-        
-        
     });
 
 };

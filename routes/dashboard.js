@@ -135,7 +135,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.get('/logout', function (req, res) {
         req.logout();
-        res.redirect('/');
+        res.redirect('/login');
     });
 
     app.get('/profile-details', function (req, res) {
@@ -1543,4 +1543,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         req.flash('payPalCancelMsg', 'Your payment has been cancelled');
         res.redirect('/deposit-funds');
       });
+
+      
 };

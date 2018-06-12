@@ -155,19 +155,10 @@ module.exports = function (app, models) {
                 sequelize.fn('max', sequelize.col('id'))
             ]
         }).then(function(results){
-            //console.log(results);
             var terms_id = results.rows[0].id;
-            //var prev_banner_image = '';
-            //console.log('Terms id: ', terms_id); 
             var count = results.count;
             if(count >0){
 
-                /* if(results.rows[0].terms_of_service_header_image !== ''){
-                    prev_banner_image = fileName;
-                }
-                else{
-                    prev_banner_image = results.rows[0].terms_of_service_header_image;
-                }   */ 
 
                 models.cms_terms_of_service.update({
                     terms_of_service_header_desc: req.body.banner_image_title,

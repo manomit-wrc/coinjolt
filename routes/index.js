@@ -31,15 +31,36 @@ module.exports = function (app, passport, models) {
     });
 
     app.get('/terms-of-service', function(req, res) {
-        res.render('cms_terms_of_service', {layout: 'cms/dashboard'});
+
+        models.cms_terms_of_service.findAll({
+
+        }).then(function(termsOfServiceData){  
+            res.render('cms_terms_of_service', {layout: 'cms/dashboard', termsOfServiceContent: termsOfServiceData[0].terms_of_service_content});
+        });
     });    
 
     app.get('/privacy-policy', function(req, res) {
-        res.render('cms_privacy_policy', {layout: 'cms/dashboard'});
+
+        models.cms_privacy_policy.findAll({
+
+        }).then(function(privacyPolicyData){  
+            res.render('cms_privacy_policy', {layout: 'cms/dashboard', privacyPolicyContent: privacyPolicyData[0].privacy_policy_content});
+        });
+
+
+        //res.render('cms_privacy_policy', {layout: 'cms/dashboard'});
     });    
 
     app.get('/risk-disclosures', function(req, res){
-        res.render('cms_risk_disclosures', {layout: 'cms/dashboard'});
+
+        models.cms_risk_disclosures.findAll({
+
+        }).then(function(riskDisclosureData){  
+            res.render('cms_risk_disclosures', {layout: 'cms/dashboard', riskDisclosureContent: riskDisclosureData[0].risk_disclosures_content});
+        });
+
+
+        //res.render('cms_risk_disclosures', {layout: 'cms/dashboard'});
     });
 
     app.get('/login', function (req, res) {

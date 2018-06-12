@@ -10,6 +10,7 @@ module.exports = function (app, models) {
 	var fileExt = '';
     var termsOfServiceFileName = '';
     var riskDisclosuresFileName = '';
+    var privacyPolicyFileName = '';
 
 	var termsOfServicestorage = multer.diskStorage({
 		destination: function (req, file, cb) {
@@ -69,6 +70,36 @@ module.exports = function (app, models) {
 	var risk_disclosuresUpload = multer({ storage: risk_disclosuresStorage, limits: {fileSize:3000000, fileFilter:restrictRiskDisclosureImgType} });
     
 
+    //
+    var privacyPolicyStorage = multer.diskStorage({
+		destination: function (req, file, cb) {
+			cb(null, 'public/cms/privacy_policy');
+		},
+
+		filename: function (req, file, cb) {
+			fileExt = file.mimetype.split('/')[1];
+			if (fileExt == 'jpeg') fileExt = 'jpg';
+			privacyPolicyFileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+			cb(null, privacyPolicyFileName);
+		}
+    });
+    
+    var restrictPrivacyPolicyImgType = function(req, file, cb) {
+
+	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
+	      if (allowedTypes.indexOf(req.file.mimetype) !== -1){
+	        // To accept the file pass `true`
+	        cb(null, true);
+	      } else {
+	        // To reject this file pass `false`
+	        cb(null, false);
+	       //cb(new Error('File type not allowed'));// How to pass an error?
+	      }
+	};
+
+    var privacyPolicyUpload = multer({ storage: privacyPolicyStorage, limits: {fileSize:3000000, fileFilter:restrictPrivacyPolicyImgType} });
+    //
+
     app.get('/admin/cms/terms-of-service', (req, res) =>{
 
         models.cms_terms_of_service.find({}).then(function(terms_of_service){
@@ -80,6 +111,12 @@ module.exports = function (app, models) {
 
         models.cms_risk_disclosures.find({}).then(function(risk_disclosures){
             res.render('admin/cms/risk_disclosures',{layout: 'dashboard', risk_disclosures: risk_disclosures});
+        });
+    });
+
+    app.get('/admin/cms/privacy-policy', (req, res) =>{
+        models.cms_privacy_policy.find({}).then(function(privacy_policy){
+            res.render('admin/cms/privacy_policy',{layout: 'dashboard', privacy_policy: privacy_policy});
         });
     });
 
@@ -183,6 +220,55 @@ module.exports = function (app, models) {
             }
         });
 
+    });
+
+    app.post('/admin/submit-privacy-policy', privacyPolicyUpload.single('privacy_policy_banner_image'), (req, res) =>{
+        models.cms_privacy_policy.findAndCountAll({
+            order: [
+                sequelize.fn('max', sequelize.col('id'))
+            ]
+        }).then(function(results){
+            //console.log(results);
+            var privacy_policy_id = results.rows[0].id;
+            //var prev_banner_image = '';
+            //console.log('Terms id: ', risk_disclosures_id); 
+            var count = results.count;
+            if(count >0){
+                /* if(results.rows[0].terms_of_service_header_image !== ''){
+                    prev_banner_image = fileName;
+                }
+                else{
+                    prev_banner_image = results.rows[0].terms_of_service_header_image;
+                }   */ 
+
+                models.cms_privacy_policy.update({
+                    privacy_policy_header_desc: req.body.privacy_policy_image_title,
+                    privacy_policy_content: req.body.privacy_policy_description,
+                    privacy_policy_header_image: privacyPolicyFileName
+                }, {
+                    where: {
+                        id: privacy_policy_id
+                    }
+                }).then(function(result){
+                    res.json({
+                        status:true,
+                        msg: "Privacy Policy Modified Successfully"
+                    });
+                });
+            }
+            else{
+                models.cms_privacy_policy.create({
+                    privacy_policy_header_desc: req.body.privacy_policy_image_title,
+                    privacy_policy_content: req.body.privacy_policy_description,
+                    privacy_policy_header_image: privacyPolicyFileName
+                }).then(function(result){
+                    res.json({
+                        status:true,
+                        msg: "Privacy Policy Added Successfully"
+                    });
+                });
+            }
+        });
     });
 
 };

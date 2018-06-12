@@ -1,0 +1,61 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="title-with-btn pd-612">
+       <div class="pull-left">
+        <h1>Privacy Policy</h1>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<ol class="breadcrumb">
+  <li>
+    <a href="/dashboard">
+      <i class="fa fa-dashboard"></i> Home</a>
+  </li>
+  <li class="active">Privacy Policy</li>
+</ol>
+</section>
+
+<div class="loader"></div>
+
+<!-- Main content -->
+<section class="content container-fluid">
+    <!-- Starts email-marketing -->
+            <div class="email-marketing">
+          <div class="box box-primary">
+            <div class="box-body">
+                <form name="privacy_policy_form" id="privacy_policy_form" action="" method="POST" enctype="multipart/form-data">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Privacy Policy Image Title: </label>
+                    <input type="text" class="form-control input-lg" id="privacy_policy_image_title" name="privacy_policy_image_title" placeholder="Enter Privacy Policy Image Title" value="{{privacy_policy.privacy_policy_header_desc}}">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="banner_image">Upload Privacy Policy Banner Image</label>
+                        <input name="privacy_policy_banner_image" class="form-control" id="privacy_policy_banner_image" type="file">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="privacy_policy_body">Privacy Policy Content</label>
+                        <textarea name="privacy_policy_body" class="form-control" id="privacy_policy_body" placeholder="Enter Privacy Policy Body">{{privacy_policy.privacy_policy_content}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success save_privacy_policyBtn">Save</button>
+                    </div>
+                </div>
+                
+              </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+    <!-- Ends email-marketing -->
+</section>
+<!-- /.content -->
+

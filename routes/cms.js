@@ -12,6 +12,35 @@ module.exports = function (app, models) {
     var riskDisclosuresFileName = '';
     var privacyPolicyFileName = '';
 
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, 'public/cms/about_us_image');
+        },
+        filename: function (req, file, cb) {
+          fileExt = file.mimetype.split('/')[1];
+          if (fileExt == 'jpeg'){ 
+              fileExt = 'jpg';
+          }else if(fileExt == 'png') {
+              fileExt = 'png';
+          }
+          fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+          cb(null, fileName);
+        }
+      });
+
+      var restrictImgType = function(req, file, cb) {
+
+	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
+	      if (allowedTypes.indexOf(req.file.mimetype) !== -1){
+	        // To accept the file pass `true`
+	        cb(null, true);
+	      } else {
+	        // To reject this file pass `false`
+	        cb(null, false);
+	       //cb(new Error('File type not allowed'));// How to pass an error?
+	      }
+	};
+
 	var termsOfServicestorage = multer.diskStorage({
 		destination: function (req, file, cb) {
 			cb(null, 'public/cms/terms_of_services');
@@ -269,6 +298,7 @@ module.exports = function (app, models) {
             }
         });
     });
+    var upload = multer({ storage: storage, limits: {fileSize:3000000, fileFilter:restrictImgType} });
 
 	app.get('/admin/cms/quick-links/about-us', (req,res) => {
 

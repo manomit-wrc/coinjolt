@@ -30,6 +30,18 @@ module.exports = function (app, passport, models) {
         res.render('cms_body', {layout: 'cms/dashboard'});
     });
 
+    app.get('/terms-of-service', function(req, res) {
+        res.render('cms_terms_of_service', {layout: 'cms/dashboard'});
+    });    
+
+    app.get('/privacy-policy', function(req, res) {
+        res.render('cms_privacy_policy', {layout: 'cms/dashboard'});
+    });    
+
+    app.get('/risk-disclosures', function(req, res){
+        res.render('cms_risk_disclosures', {layout: 'cms/dashboard'});
+    });
+
     app.get('/login', function (req, res) {
 
         var msg = req.flash('loginMessage')[0];

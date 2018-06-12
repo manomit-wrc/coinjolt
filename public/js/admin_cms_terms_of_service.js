@@ -27,20 +27,15 @@ $(document).ready(function (e) {
 
             var terms_of_service_description = CKEDITOR.instances['terms_of_service_body'].getData();
             
-            var banner_image_title = $('#banner_image_title').val();
-            
-            //var form_data = $('#terms_of_service_form')[0];
+            //var banner_image_title = $('#banner_image_title').val();
 
             var form_data = new FormData($('#terms_of_service_form')[0]);
-
-            //form_data.append('terms_of_service_description', terms_of_service_description);
-            //form_data.append('banner_image_title', banner_image_title);
-
+            //console.log(form_data);
             $.ajax({
                 type: "POST",
                 url: '/admin/submit-terms-of-service',
                 //data: {terms_of_service_description: terms_of_service_description, banner_image_title: banner_image_title},
-                data: form_data,
+                data: {form_data},
                 cache: false,
                 processData: false,
                 contentType: false,

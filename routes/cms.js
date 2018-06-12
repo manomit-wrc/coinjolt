@@ -39,11 +39,22 @@ module.exports = function (app, models) {
         }).then(function(results){
             var terms_id = results.rows[0].id;
             var count = results.count;
+            var prev_image = '';
             if(count >0){
+
+                if(results.rows[0].terms_of_service_header_image !== ''){
+                    prev_image = fileName;
+                }
+                else{
+                    prev_image = results.rows[0].terms_of_service_header_image;
+                }
+
                 models.cms_terms_of_service.update({
                     terms_of_service_header_desc: req.body.banner_image_title,
                     terms_of_service_content: req.body.terms_of_service_description,
-                    terms_of_service_header_image : fileName
+                    terms_of_service_header_image: prev_image
+                    // get previous image name
+                    //terms_of_service_header_image : fileName
                 }, {
                     where: {
                         id: terms_id

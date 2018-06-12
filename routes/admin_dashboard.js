@@ -6,7 +6,7 @@ const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
 var request = require('sync-request');
 
-module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance) {
+module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -94,8 +94,33 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 	}
 
 	app.get('/admin/dashboard', (req, res) => {
-		res.render('admin/dashboard', {
-			layout: 'dashboard'
+
+		Promise.all([
+			User.findAndCountAll({
+				where:{
+					type: 2
+				}
+			}),
+			
+			send_email.findAndCountAll(),
+
+			Deposit.findAll({
+				attributes: [ [sequelize.fn('SUM',sequelize.col('amount')),'deposit_amount'] ],
+				where: {
+					type: {
+						$in: [0, 1, 4]
+					}
+				}
+			})
+		]).then(function (values) {
+			var result = JSON.parse(JSON.stringify(values));
+
+			res.render('admin/dashboard', {
+				layout: 'dashboard',
+				totalUser: result[0].count,
+				totalEmailSent: result[1].count,
+				depositeAmount: result[2][0].deposit_amount
+			});
 		});
 	});
 
@@ -329,6 +354,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		var user_list_arr = [];
 		lodash.each(user_list, (x, index) => {
 			Promise.all([
+				//deposit
 				Deposit.findAll({
 					attributes: [ [sequelize.fn('SUM',sequelize.col('amount')),'deposit_amount'] ],
 					group: ['user_id'],
@@ -339,6 +365,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 						}
 					}
 				}),
+				//for withdraw
 				Deposit.findAll({
 					attributes: [ [sequelize.fn('SUM',sequelize.col('amount')),'withdraw_amount'] ],
 					group: ['user_id'],
@@ -389,6 +416,13 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				chart_data.push([temp_Date.getTime(),parseFloat(amount)]);
 			}
 			res.send(chart_data);
+		});
+	});
+
+	app.get('/admin/deposit-methods', (req, res) =>{
+
+		deposit_method.findAll({}).then(result => {
+			res.render('admin/deposit_methods/index', { layout: 'dashboard', deposit_methodsData: result});
 		});
 	});
 

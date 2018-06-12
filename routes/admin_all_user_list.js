@@ -94,9 +94,6 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 	  		include: [
 		    {
 		     model: User
-		    },
-		    {
-		     model: email_template
 		    }
 		   ]
 		}).then(function (result) {

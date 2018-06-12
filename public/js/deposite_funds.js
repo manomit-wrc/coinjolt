@@ -1,3 +1,11 @@
+// const paypal = require('paypal-rest-sdk');
+
+// paypal.configure({
+//     'mode': 'sandbox', //sandbox or live
+//     'client_id': 'AUATycL0pSdb7ivwQB2fBA8w-rTO68U_GwxTfVhg4U7DisEnADJ1KBisL1DJkwlbaH59BVBx8SDhHUNN',
+//     'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
+// });
+
 $(document).ready(function (e) {
 	$("#showing_warning").hide();
 
@@ -191,7 +199,7 @@ $(document).ready(function (e) {
       			$("#showing_warning").show();
 			  } 
 			  
-      	}else if(deposit_type == 2){
+      	}else if(deposit_type == 2){  
 			$(".paymentErrorMsg").hide();  
 			var amount = $.trim($('#usd_amount').val());
 			if(amount == ''){
@@ -212,7 +220,43 @@ $(document).ready(function (e) {
 				$('#exampleModalLong').modal('show');
 			}
       		
-      	}else{
+		  }else if(deposit_type == 3){
+
+			var amount = $.trim($('#usd_amount').val());
+
+			$.ajax({
+				type : "POST",
+				url : "/paypal",
+				data: {
+					amount: amount
+				},
+				beforeSend:function(){
+					$(".loader_gif").show();
+					$("#deposit_funds_bwt").prop('disabled', true);
+
+				},
+				success : function(response){
+					$(".loader_gif").hide();
+					$("#deposit_funds_bwt").prop('disabled', false);
+
+					if(response.success === "1"){
+						
+						console.log(response.content);
+						
+						for(let i = 0;i < response.content.links.length;i++){
+							if(response.content.links[i].rel === 'approval_url'){
+								window.location.href = response.content.links[i].href;
+							}
+						}
+					}
+				}
+		
+			});
+
+			// window.location.href = "/paypal";
+
+		  }
+		  else{
 			$(".paymentErrorMsg").show();
 			  $("#deposit_type").focus();
 		  }

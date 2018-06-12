@@ -14,7 +14,7 @@
     <div class="mcp">
         <div class="row">
             <div class="col-md-6">
-                <div class="box equalize-box">
+                <div class="box equalize-box mcp-box">
                     <div class="box-header with-border">
                         <h3 class="box-title">Portfolio Composition</h3>
                     </div>
@@ -38,7 +38,7 @@
             
             <div class="col-md-6">
                 <!-- institutional form start -->
-                <div class="box equalize-box">
+                <div class="box equalize-box mcp-box">
 	<div class="box-header with-border">
 		<h3 class="box-title">Application Form and Verification Required</h3>
 	</div>
@@ -433,7 +433,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="box equalize-box1">
+                <div class="box equalize-box1 portfolio-form">
                     <div class="box-header with-border">
                         <h3 class="box-title">Enter an Amount</h3>
                     </div>
@@ -465,8 +465,8 @@
                                 </form>
 								{{!-- <form method="post" action="/save-deposit" id="curncy-names" class="curncy-names"> --}}
 									<div class="gap">
-										<div class="col-md-3">
-											<div class="form-group">
+										{{!-- <div class="col-md-3">
+											<div class="form-group"> --}}
 												{{!-- <select class="form-control curncy-select" id="curncy-select">
 													<option value="1">Bitcoin</option>
 													<option value="2">Ethereum</option>
@@ -475,17 +475,18 @@
 													<option value="46">Royal Mint Gold</option>
 													<option value="4">Ripple</option>
 												</select> --}}
-												Invest Bitcoin
+												{{!-- Invest Bitcoin
 											</div>
-										</div>
-										<div class="col-md-3">
+										</div> --}}
+										<div class="col-md-12">
 											<div class="form-group">
+												<label>Invest Bitcoin</label>
 												<input type="text" name="amount_deposit" id="amount_deposit" class="form-control" placeholder="Amount">
 											</div>
 										</div>
 									</div>
 									<div class="gap">
-										<div class="col-md-6">
+										<div class="col-md-12">
 											<div class="form-group">
 												<input class="btn btn-block btn-primary" id="amt_deposit_btn" name="DepositCurrency" type="button" value="Deposit" />
 											</div>
@@ -556,7 +557,7 @@
         <!-- Ends Asset Class Comparison Graph  -->
         
         <!-- Starts Follow the instructions  -->
-        <div class="portfolio-performance">
+        {{!-- <div class="portfolio-performance">
             <div class="row">
                 <div class="col-md-12">
                     <!-- BAR CHART -->
@@ -582,7 +583,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Ends Follow the instructions  -->
     </div>
 

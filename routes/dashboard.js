@@ -16,6 +16,15 @@ var BitGo = require('bitgo');
 var bitgo = new BitGo.BitGo({
     env: 'test'
 });
+
+const paypal = require('paypal-rest-sdk');
+
+paypal.configure({
+    'mode': 'sandbox', //sandbox or live
+    'client_id': 'AUATycL0pSdb7ivwQB2fBA8w-rTO68U_GwxTfVhg4U7DisEnADJ1KBisL1DJkwlbaH59BVBx8SDhHUNN',
+    'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
+});
+
 module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
@@ -819,7 +828,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             thirdyear = parseFloat(parseFloat(200 * secondyear) / 100) + parseFloat(secondyear);
             thirdyear = parseFloat(Math.round(thirdyear * 100) / 100).toFixed(2);
 
-            accumulatedInterest =  parseFloat(0.005) * parseFloat(investedamount);
+            accumulatedInterest =  parseFloat(0.01) * parseFloat(investedamount);
             accumulatedInterest = parseFloat(Math.round(accumulatedInterest * 100) / 100).toFixed(2);
                 
            let portfolioCalculationCount = await portfolio_calculation.findAndCountAll({
@@ -1373,10 +1382,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     });
 
-    app.post('/save-deposit', function(req, res){
-		
-    });
-
     app.post('/deposit-currency', function(req, res){
         var destinationAddress = "";
         var coin_amount = req.body.coin_amount;
@@ -1404,9 +1409,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 console.log(walletDbId);
                 console.log(walletId);
                 console.log("address found");
-                        
-                        
-                        
+                
                         console.log("sender_id");
                         console.log(userid);
                         var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
@@ -1459,4 +1462,85 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
+    app.post('/paypal', (req, res) => {
+        const price = parseInt(req.body.amount);
+        req.session.paypal_price = price;
+        const create_payment_json = {
+          "intent": "sale",
+          "payer": {
+              "payment_method": "paypal"
+          },
+          "redirect_urls": {
+              "return_url": "http://localhost:8080/paypal-success",
+              "cancel_url": "http://localhost:8080/paypal-cancel"
+          },
+          "transactions": [{
+              "item_list": {
+                  "items": [{
+                      "name": "Red Sox Hat",
+                      "sku": "001",
+                      "price": price,
+                      "currency": "USD",
+                      "quantity": 1
+                  }]
+              },
+              "amount": {
+                  "currency": "USD",
+                  "total": price
+              },
+              "description": "Hat for the best team ever"
+          }]
+        };
+        var paypalCreate = paypal.payment.create(create_payment_json, function (error, payment) {res.json({success: "1", content: payment});});
+        
+        
+      });
+      
+      app.get('/paypal-success', (req, res) => { 
+        const payerId = req.query.PayerID;
+        const paymentId = req.query.paymentId;
+        const priceVal = req.session.paypal_price;
+        const execute_payment_json = {
+          "payer_id": payerId,
+          "transactions": [{
+              "amount": {
+                  "currency": "USD",
+                  "total": priceVal
+              }
+          }]
+        };
+      
+        paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+          if (error) {
+              console.log(error.response);
+              throw error;
+          } else {
+                var digits = 9;	
+                var numfactor = Math.pow(10, parseInt(digits-1));	
+                var randomNum =  Math.floor(Math.random() * numfactor) + 1;
+
+                Deposit.create({
+                    user_id: req.user.id,
+                    transaction_id: payment.id,
+                    checkout_id: randomNum,
+                    account_id: randomNum,
+                    type: 0,
+                    amount: parseFloat(payment.transactions[0].amount.total),
+                    processing_fee: parseFloat(payment.transactions[0].related_resources[0].sale.transaction_fee.value),
+                    payer_email: payment.payer.payer_info.email,
+                    payer_name: payment.payer.payer_info.shipping_address.recipient_name,
+                    payment_method: 6,
+                    currency_id: 0
+                });
+                req.flash('payPalSuccessMsg', 'Your payment has been successful');
+                res.redirect('/deposit-funds');
+          }
+        });
+
+      });
+      
+      app.get('/paypal-cancel', (req, res) => {
+        req.flash('payPalCancelMsg', 'Your payment has been cancelled');
+        res.redirect('/deposit-funds');
+      });
 };

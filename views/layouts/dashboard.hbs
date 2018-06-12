@@ -63,6 +63,9 @@
     <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.18.0.min.js" crossorigin="anonymous"></script> 
     <script type="text/javascript" src="https://pubnub.github.io/eon/v/eon/1.0.0/eon.js" crossorigin="anonymous"></script>
 
+    {{!-- select js & css --}}
+    <link rel="stylesheet" href="/dist/css/select_css/select2.css">
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -190,6 +193,8 @@
     <!-- CK Editor -->
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
 
+    <script src="/dist/js/select_js/select2.js"></script>
+
     <!--for deposite funds,pending_wire_transfer//-->
     <script src="/js/deposite_funds.js"></script>
     <script src="/js/pending_wire_transfer.js"></script>
@@ -197,6 +202,7 @@
     <script src="/js/kyc.js"></script>
     <script src="/js/admin_email.js"></script>
     <script src="/js/custom.js"></script>
+    <script src="/js/deposit_type.js"></script>
 
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
@@ -366,6 +372,8 @@
             $('.expected').removeClass('alert alert-danger');
 
             $('#profileSaveMsg').delay(2000).fadeOut();
+
+            $('#paypalPaymentSuccessMsg').delay(2000).fadeOut();
 
             $("#changereferralBtn").click(function(){
                 $("#changeReferralFrm").slideToggle('slow');
@@ -2230,6 +2238,26 @@
 
         $('.equalize-box1').height(maxHeight);
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#amt_invest_btn').click(function () {
+                var errorHeight = $('#investerrormsg').height();
+                var boxHeight = $('.equalize-box1').height();
+                var calculateHeight = boxHeight + errorHeight;
+                $('.equalize-box1').height(calculateHeight);
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#amt_withd_btn').click(function () {
+                var errorHeight3 = $('#withdrawerrormsg').height();
+                var boxHeight3 = $('.equalize-box1').height();
+                var calculateHeight3 = boxHeight3 + errorHeight3;
+                $('.equalize-box1').height(calculateHeight3);
+            });
+        });
+    </script>
       <script>
         var maxHeight = 0;
         $('.balnrecent .equal-hgt').each(function (i) {
@@ -2425,6 +2453,7 @@
                 $('#investsuccessmsg').delay(2000).fadeOut();
             });    
      </script>
+     
      <script>
          $(document).ready(function() {
               // SLIMSCROLL FOR CHAT WIDGET
@@ -2507,6 +2536,27 @@
             });    
      </script>
      {{!-- Wallet Send Coins ends --}}
+
+    <script>
+        $(document).ready(function () {
+            $('#amt_deposit_btn').click(function () {
+                var errorHeight2 = $('#depositerrormsg').height();
+                var boxHeight2 = $('.equalize-box1').height();
+                var calculateHeight2 = boxHeight2 + errorHeight2;
+                $('.equalize-box1').height(calculateHeight2);
+            });
+        });
+    </script>
+    <script>
+        var mcpMaxHeight = 0;
+        $('.mcp-box').each(function (i) {
+            var mcpHeight = $('.mcp-box').eq(i).height();
+            if (mcpHeight > mcpMaxHeight)
+                mcpMaxHeight = mcpHeight;
+        });
+
+        $('.mcp-box').height(mcpMaxHeight);
+    </script>
 
 
 </body>

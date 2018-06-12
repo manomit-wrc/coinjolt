@@ -13,31 +13,67 @@
           <!-- /.box-header -->
           <div class="box-body">
             <form method="post" action="javasript:void(0)" role="form" id="cms-about-us" name="cms-about-us" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="Subject">Header Description</label>
-                            <textarea rows="" cols="" name="about_us_header_description" class="form-control" id="about_us_header_description"></textarea>
+
+                {{#empty_array details}}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Subject">Header Description</label>
+                                <textarea rows="" cols="" name="about_us_header_description" class="form-control" id="about_us_header_description"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="Subject">Header Image</label>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Subject">Header Image</label>
                                 <input class="form-control" type="file" name="about_us_header_image" id="about_us_header_image">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Description">Body Description</label>
+                                <textarea name="about_us_description" class="form-control" id="about_us_description" placeholder="Enter Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-md-offset-5 pd-612">
+                            <div class="form-group">
+                                <input class="btn btn-primary" type="button" id="cms_about_us_submit" value="Submit" />
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="Description">Body Description</label>
-                            <textarea name="about_us_description" class="form-control" id="about_us_description" placeholder="Enter Description"></textarea>
+                {{/empty_array}}
+
+                {{#not_empty_array details}}
+                    <input type="hidden" name="row_id" id="row_id" value="{{details.0.id}}">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Subject">Header Description</label>
+                                <textarea rows="" cols="" name="about_us_header_description" class="form-control" id="about_us_header_description">{{details.0.about_us_header_desc}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Subject">Header Image</label>
+                                <input class="form-control" type="file" name="about_us_header_image" id="about_us_header_image">
+                            </div>
+                            <div>
+                                <img src="/cms/about_us_image/{{details.0.about_us_header_image}}" style="width:100px;height:100px;">
+                                {{!-- <input type="hidden" name="existing_header_image" id="existing_header_image" value="{{details.0.about_us_header_image}}"> --}}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Description">Body Description</label>
+                                <textarea name="about_us_description" class="form-control" id="about_us_description" placeholder="Enter Description">{{details.0.about_us_description}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-md-offset-5 pd-612">
+                            <div class="form-group">
+                                <input class="btn btn-primary" type="button" id="cms_about_us_edit" value="Edit" />
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-2 col-md-offset-5 pd-612">
-                        <div class="form-group">
-                            <input class="btn btn-primary" type="button" id="cms_about_us_submit" value="Submit" />
-                        </div>
-                    </div>
-                </div>
+                {{/not_empty_array}}
 
             </form>
         </div>

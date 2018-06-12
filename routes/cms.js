@@ -35,27 +35,20 @@ module.exports = function (app, cms_about_us) {
 
 
 	app.get('/admin/cms/quick-links/about-us', (req,res) => {
-		res.render('admin/cms/about_us', {layout: 'dashboard'})
+
+		cms_about_us.findAll({
+
+		}).then(function (result) {
+			var data = JSON.parse(JSON.stringify(result));
+			res.render('admin/cms/about_us', {layout: 'dashboard', details:data});
+		});
+		
 	});
 
 	app.post('/admin/cms/about-us-submit', upload.single('about_us_header_image'), (req,res) => {
-		// console.log(req.body);
-		// return false;
 		var photo = null;
 	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
-	    // if (req.body.header_image){
-	            photo = fileName;
-	            // save thumbnail -- should this part go elsewhere?
-	            im.crop({
-	              srcPath: 'public/cms/about_us_image/'+ fileName,
-	              dstPath: 'public/cms/about_us_image/resize/'+ fileName,
-	              width: 1280,
-	              height: 650
-	            }, function(err, stdout, stderr){
-	              if (err) throw err;
-	              
-	            });
-	    // }
+        photo = fileName;
 
 		cms_about_us.create({
 			about_us_header_desc: req.body.about_us_header_description,
@@ -69,5 +62,34 @@ module.exports = function (app, cms_about_us) {
 				});
 			}
 		});
+	});
+
+	app.post('/admin/cms/about-us-edit', upload.single('about_us_header_image'), (req,res) => {
+		// console.log(req.body);
+		// return false;
+		var photo = null;
+	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
+        photo = fileName;
+
+        cms_about_us.update({
+        	about_us_header_desc: req.body.about_us_header_description,
+			about_us_header_image: photo,
+			about_us_description: req.body.description
+        },{
+        	where:{
+        		id: req.body.row_id
+        	}
+        }).then(function (result) {
+        	if(result) {
+				res.json({
+					status: true,
+					msg: "Edit successfully."
+				});
+			}
+        });
+	});
+
+	app.get('/admin/cms/quick-links/privacy-policy', (req,res) => {
+		res.render('admin/cms/privact_plocy', {layout: 'dashboard'});
 	});
 };

@@ -270,4 +270,62 @@ module.exports = function (app, models) {
         });
     });
 
+	app.get('/admin/cms/quick-links/about-us', (req,res) => {
+
+		cms_about_us.findAll({
+
+		}).then(function (result) {
+			var data = JSON.parse(JSON.stringify(result));
+			res.render('admin/cms/about_us', {layout: 'dashboard', details:data});
+		});
+		
+	});
+
+	app.post('/admin/cms/about-us-submit', upload.single('about_us_header_image'), (req,res) => {
+		var photo = null;
+	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
+        photo = fileName;
+
+		cms_about_us.create({
+			about_us_header_desc: req.body.about_us_header_description,
+			about_us_header_image: photo,
+			about_us_description: req.body.description
+		}).then( function (result) {
+			if(result) {
+				res.json({
+					status: true,
+					msg: "Submit successfully."
+				});
+			}
+		});
+	});
+
+	app.post('/admin/cms/about-us-edit', upload.single('about_us_header_image'), (req,res) => {
+		// console.log(req.body);
+		// return false;
+		var photo = null;
+	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
+        photo = fileName;
+
+        cms_about_us.update({
+        	about_us_header_desc: req.body.about_us_header_description,
+			about_us_header_image: photo,
+			about_us_description: req.body.description
+        },{
+        	where:{
+        		id: req.body.row_id
+        	}
+        }).then(function (result) {
+        	if(result) {
+				res.json({
+					status: true,
+					msg: "Edit successfully."
+				});
+			}
+        });
+	});
+
+	app.get('/admin/cms/quick-links/privacy-policy', (req,res) => {
+		res.render('admin/cms/privact_plocy', {layout: 'dashboard'});
+	});
 };

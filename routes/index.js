@@ -25,8 +25,10 @@ module.exports = function (app, passport, models) {
 
         console.log(result[0]);
     });
-
-    app.get('/', function (req, res) {
+    app.get('/', function(req, res) {
+        res.render('cms_body', {layout: 'cms/dashboard'});
+    });
+    app.get('/login', function (req, res) {
 
         var msg = req.flash('loginMessage')[0];
 
@@ -35,7 +37,7 @@ module.exports = function (app, passport, models) {
         });
     });
 
-    app.post('/', passport.authenticate('local-login', {
+    app.post('/login', passport.authenticate('local-login', {
             //successRedirect : '/dashboard',
             failureRedirect: '/',
             failureFlash: true

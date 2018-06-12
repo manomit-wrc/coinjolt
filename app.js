@@ -213,6 +213,19 @@ helpers: {
       return args.every(function (expression) {
           return args[0] === expression;
       });
+    },
+    empty_array: function(arr, opts) {
+      if (arr.length <= 0)
+        return opts.fn(this);
+      else
+        return opts.inverse(this);
+      
+    },
+    not_empty_array: function(arr, opts) {
+      if (arr.length > 0)
+        return opts.fn(this);
+      else
+        return opts.inverse(this);
     }
   }
 });

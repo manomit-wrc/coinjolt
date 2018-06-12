@@ -25,9 +25,11 @@ module.exports = function (app, passport, models) {
 
         console.log(result[0]);
     });
+    
     app.get('/', function(req, res) {
         res.render('cms_body', {layout: 'cms/dashboard'});
     });
+
     app.get('/login', function (req, res) {
 
         var msg = req.flash('loginMessage')[0];

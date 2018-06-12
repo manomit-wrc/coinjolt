@@ -69,8 +69,7 @@ module.exports = function (app, models) {
 
 	var risk_disclosuresUpload = multer({ storage: risk_disclosuresStorage, limits: {fileSize:3000000, fileFilter:restrictRiskDisclosureImgType} });
     
-
-    //
+    
     var privacyPolicyStorage = multer.diskStorage({
 		destination: function (req, file, cb) {
 			cb(null, 'public/cms/privacy_policy');
@@ -98,7 +97,7 @@ module.exports = function (app, models) {
 	};
 
     var privacyPolicyUpload = multer({ storage: privacyPolicyStorage, limits: {fileSize:3000000, fileFilter:restrictPrivacyPolicyImgType} });
-    //
+    
 
     app.get('/admin/cms/terms-of-service', (req, res) =>{
 

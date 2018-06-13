@@ -37,17 +37,21 @@
                         <label for="banner_image">Upload Banner Image</label>
                         <input name="banner_image" class="form-control" id="banner_image" type="file">
                     </div>
+                    <div>
+                        <img src="/cms/terms_of_services/{{terms_of_service.terms_of_service_header_image}}" style="width:100px;height:100px;">
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="Body">Terms Of Service Content</label>
                         <textarea name="terms_of_service_body" class="form-control" id="terms_of_service_body" placeholder="Enter Terms Of Service Body">{{terms_of_service.terms_of_service_content}}</textarea>
                     </div>
+                </div>
+                 <div class="col-md-2 col-md-offset-5 pd-612">
                     <div class="form-group">
-                        <button type="button" class="btn btn-success save_terms_of_service">Save</button>
+                        <input class="btn btn-primary save_terms_of_service" value="Edit" type="button">
                     </div>
                 </div>
-                
               </div>
 
               </form>

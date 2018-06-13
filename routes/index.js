@@ -202,4 +202,11 @@ module.exports = function (app, passport, models) {
         });
     });
 
+    app.get('/about-us', (req,res) => {
+        models.cms_about_us.findAll().then(function(result) {
+            var data = JSON.parse(JSON.stringify(result));
+            res.render("cms/about_us", {layout: "cms/dashboard", details:data})
+        });
+    });
+
 };

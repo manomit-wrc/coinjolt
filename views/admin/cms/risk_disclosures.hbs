@@ -37,17 +37,23 @@
                         <label for="banner_image">Upload Risk Disclosures Banner Image</label>
                         <input name="risk_disclosures_banner_image" class="form-control" id="risk_disclosures_banner_image" type="file">
                     </div>
+                    
+                    <div>
+                        <img src="/cms/risk_disclosures/{{risk_disclosures.risk_disclosures_header_image}}" style="width:100px;height:100px;">
+                    </div>
+
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="risk_disclosures_body">Risk Disclosures Content</label>
                         <textarea name="risk_disclosures_body" class="form-control" id="risk_disclosures_body" placeholder="Enter Risk Disclosures Body">{{risk_disclosures.risk_disclosures_content}}</textarea>
                     </div>
+                </div>
+                <div class="col-md-2 col-md-offset-5 pd-612">
                     <div class="form-group">
-                        <button type="button" class="btn btn-success save_risk_disclosures">Save</button>
+                        <input class="btn btn-primary save_risk_disclosures" value="Edit" type="button">
                     </div>
                 </div>
-                
               </div>
 
               </form>

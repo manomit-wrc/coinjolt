@@ -104,7 +104,31 @@
             items:5
           }
         }
-      })
+      });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.get("http://coincap.io/page/BTC", function(data, status){
+                $('.btc').text(data.price_usd.toFixed(2));
+            }); 
+            $.get("http://coincap.io/page/ETH", function(data, status){
+
+                $('.eth').text(data.price_usd.toFixed(2));
+            });
+            $.get("http://coincap.io/page/XRP", function(data, status){
+
+                $('.xrp').text(data.price_usd.toFixed(2));
+            }); 
+            $.get("http://coincap.io/page/LTC", function(data, status){
+
+                $('.ltc').text(data.price_usd.toFixed(2));
+            });
+            $.get("http://coincap.io/page/BCH", function(data, status){
+
+                $('.bch').text(data.price_usd.toFixed(2));
+            });
+        });
     </script>
 
     <!-- OwlCarousel  -->

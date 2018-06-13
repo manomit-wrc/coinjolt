@@ -37,17 +37,21 @@
                         <label for="banner_image">Upload Privacy Policy Banner Image</label>
                         <input name="privacy_policy_banner_image" class="form-control" id="privacy_policy_banner_image" type="file">
                     </div>
+                    <div>
+                        <img src="/cms/privacy_policy/{{privacy_policy.privacy_policy_header_image}}" style="width:100px;height:100px;">
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="privacy_policy_body">Privacy Policy Content</label>
                         <textarea name="privacy_policy_body" class="form-control" id="privacy_policy_body" placeholder="Enter Privacy Policy Body">{{privacy_policy.privacy_policy_content}}</textarea>
                     </div>
+                </div>
+                <div class="col-md-2 col-md-offset-5 pd-612">
                     <div class="form-group">
-                        <button type="button" class="btn btn-success save_privacy_policyBtn">Save</button>
+                        <input class="btn btn-primary save_privacy_policyBtn" value="Edit" type="button">
                     </div>
                 </div>
-                
               </div>
 
               </form>

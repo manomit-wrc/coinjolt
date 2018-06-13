@@ -1,10 +1,10 @@
 <!-- Starts  Bootstrap-touch-slider Slider -->
-    <div class="all-iner-banner" style="background-image: url(cms/privacy_policy/{{privacyPolicyBannerImage}});">
+    <div class="all-iner-banner" style="background-image: url(cms/privacy_policy/{{privacyPolicyData.0.privacy_policy_header_image}});">
       <div class="image-overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <span class="page-title">{{privacyPolicyHeader}}</span>
+            <span class="page-title">{{privacyPolicyData.0.privacy_policy_header_desc}}</span>
           </div>          
           <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="breadcumb">
@@ -30,7 +30,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            {{{privacyPolicyContent}}}
+            {{{privacyPolicyData.0.privacy_policy_content}}}
           </div>
 
 

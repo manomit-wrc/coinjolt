@@ -198,18 +198,9 @@ module.exports = function (app, models) {
                 sequelize.fn('max', sequelize.col('id'))
             ]
         }).then(function(results){
-            //console.log(results);
             var risk_disclosures_id = results.rows[0].id;
-            //var prev_banner_image = '';
-            //console.log('Terms id: ', risk_disclosures_id); 
             var count = results.count;
             if(count >0){
-                /* if(results.rows[0].terms_of_service_header_image !== ''){
-                    prev_banner_image = fileName;
-                }
-                else{
-                    prev_banner_image = results.rows[0].terms_of_service_header_image;
-                }   */ 
 
                 models.cms_risk_disclosures.update({
                     risk_disclosures_header_desc: req.body.risk_disclosures_image_title,

@@ -37,9 +37,11 @@
                         <label for="banner_image">Upload Privacy Policy Banner Image</label>
                         <input name="privacy_policy_banner_image" class="form-control" id="privacy_policy_banner_image" type="file">
                     </div>
+                    {{#if privacy_policy.privacy_policy_header_image}}
                     <div>
                         <img src="/cms/privacy_policy/{{privacy_policy.privacy_policy_header_image}}" style="width:100px;height:100px;">
                     </div>
+                    {{/if}}
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">

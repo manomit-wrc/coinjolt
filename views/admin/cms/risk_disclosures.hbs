@@ -37,11 +37,11 @@
                         <label for="banner_image">Upload Risk Disclosures Banner Image</label>
                         <input name="risk_disclosures_banner_image" class="form-control" id="risk_disclosures_banner_image" type="file">
                     </div>
-                    
-                    <div>
-                        <img src="/cms/risk_disclosures/{{risk_disclosures.risk_disclosures_header_image}}" style="width:100px;height:100px;">
-                    </div>
-
+                    {{#if risk_disclosures.risk_disclosures_header_image}}
+                        <div>
+                            <img src="/cms/risk_disclosures/{{risk_disclosures.risk_disclosures_header_image}}" style="width:100px;height:100px;">
+                        </div>
+                    {{/if}}
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">

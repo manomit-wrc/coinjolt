@@ -37,29 +37,52 @@ module.exports = function (app, passport, models) {
 
     app.get('/terms-of-service', function(req, res) {
 
-        models.cms_terms_of_service.findAll({
+        Promise.all([
+            models.company_setting.findAll({
 
-        }).then(function(termsOfServiceData){  
-            res.render('cms_terms_of_service', {layout: 'cms/dashboard', termsOfServiceContent: termsOfServiceData[0].terms_of_service_content, termsOfServiceHeader: termsOfServiceData[0].terms_of_service_header_desc, termsOfServiceBannerImage: termsOfServiceData[0].terms_of_service_header_image});
+            }),
+            
+            models.cms_terms_of_service.findAll({
+                
+            })
+        ]).then(function (result) {
+            var result = JSON.parse(JSON.stringify(result, undefined, 2));
+	        res.render('cms_terms_of_service',{layout: 'cms/dashboard',companySettingsData:result[0],termsOfServiceData:result[1]});
         });
+
     });    
 
     app.get('/privacy-policy', function(req, res) {
 
-        models.cms_privacy_policy.findAll({
 
-        }).then(function(privacyPolicyData){  
-            res.render('cms_privacy_policy', {layout: 'cms/dashboard', privacyPolicyContent: privacyPolicyData[0].privacy_policy_content, privacyPolicyHeader: privacyPolicyData[0].privacy_policy_header_desc, privacyPolicyBannerImage: privacyPolicyData[0].privacy_policy_header_image});
+        Promise.all([
+            models.company_setting.findAll({
+
+            }),
+            
+            models.cms_privacy_policy.findAll({
+                
+            })
+        ]).then(function (result) {
+            var result = JSON.parse(JSON.stringify(result, undefined, 2));
+	        res.render('cms_privacy_policy',{layout: 'cms/dashboard',companySettingsData:result[0],privacyPolicyData:result[1]});
         });
 
     });    
 
     app.get('/risk-disclosures', function(req, res){
 
-        models.cms_risk_disclosures.findAll({
+        Promise.all([
+            models.company_setting.findAll({
 
-        }).then(function(riskDisclosureData){  
-            res.render('cms_risk_disclosures', {layout: 'cms/dashboard', riskDisclosureContent: riskDisclosureData[0].risk_disclosures_content, riskDisclosureHeader: riskDisclosureData[0].risk_disclosures_header_desc, riskDisclosureBannerImage: riskDisclosureData[0].risk_disclosures_header_image});
+            }),
+            
+            models.cms_risk_disclosures.findAll({
+                
+            })
+        ]).then(function (result) {
+            var result = JSON.parse(JSON.stringify(result, undefined, 2));
+	        res.render('cms_risk_disclosures',{layout: 'cms/dashboard',companySettingsData:result[0],riskDisclosuresData:result[1]});
         });
 
     });

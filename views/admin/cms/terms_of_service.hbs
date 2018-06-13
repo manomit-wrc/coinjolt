@@ -37,9 +37,11 @@
                         <label for="banner_image">Upload Banner Image</label>
                         <input name="banner_image" class="form-control" id="banner_image" type="file">
                     </div>
+                    {{#if terms_of_service.terms_of_service_header_image}}
                     <div>
                         <img src="/cms/terms_of_services/{{terms_of_service.terms_of_service_header_image}}" style="width:100px;height:100px;">
                     </div>
+                    {{/if}}
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">

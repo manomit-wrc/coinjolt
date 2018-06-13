@@ -437,7 +437,6 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 	});
 
 	app.post('/admin/update-company-settings', (req, res) =>{
-		//console.log('updated fields', JSON.stringify(req.body, undefined, 2));
 
 		company_setting.findAndCountAll({
             order: [

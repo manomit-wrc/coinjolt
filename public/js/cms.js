@@ -1,6 +1,5 @@
 $(document).ready(function () {
 	CKEDITOR.replace( 'about_us_description' );
-	CKEDITOR.replace( 'privacy_policy_description' );
 });
 
 function sweetAlertSuccessPopUp (title='',text='', redirect_link='') {

@@ -345,8 +345,4 @@ module.exports = function (app, models) {
 			}
         });
 	});
-
-	app.get('/admin/cms/quick-links/privacy-policy', (req,res) => {
-		res.render('admin/cms/privact_plocy', {layout: 'dashboard'});
-	});
 };

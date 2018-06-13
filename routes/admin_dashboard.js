@@ -457,7 +457,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		}
 		else {
 			console.log("False");
-			console.log(data);
+			console.log(data[0].id);
 			const update = await company_setting.update({
 				phone_number: req.body.phoneNumber,
 				email: req.body.email_address,

@@ -1126,7 +1126,7 @@ body {
     background-size: cover;
     padding: 130px 0;
     position: relative;
-    height: 100px;
+    height: 280px;
   }
 
   .all-iner-banner .image-overlay {
@@ -1354,6 +1354,10 @@ body {
   }
 
   @media only screen and (max-width:991px) {
+
+    .header-bottom .navbar-nav li:nth-child(2n+1) {
+      display: none;
+    }
 
     .header-bottom {
       padding: 20px 0;

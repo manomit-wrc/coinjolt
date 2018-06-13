@@ -150,9 +150,40 @@ module.exports = function (app, models) {
         });
     });
 
-    app.post('/admin/submit-terms-of-service', acl, termsOfServiceUpload.single('banner_image'), (req, res) =>{
+    app.post('/admin/submit-terms-of-service', acl, termsOfServiceUpload.single('banner_image'), async (req, res) =>{
 
-        models.cms_terms_of_service.findAndCountAll({
+        const data = await models.cms_terms_of_service.findAll({});
+
+        if(data.length === 0) {
+            const insert = await models.cms_terms_of_service.create({
+                terms_of_service_header_desc: req.body.banner_image_title,
+                terms_of_service_content: req.body.terms_of_service_description,
+                terms_of_service_header_image: termsOfServiceFileName
+            });
+
+            res.json({
+                status:true,
+                msg: "Terms Of Service Added Successfully"
+            });
+        }
+        else {
+            const update = await models.cms_terms_of_service.update({
+                terms_of_service_header_desc: req.body.banner_image_title,
+                terms_of_service_content: req.body.terms_of_service_description,
+                terms_of_service_header_image: termsOfServiceFileName
+            }, {
+                where: {
+                    id: data[0].id
+                }
+            });
+            res.json({
+                status:true,
+                msg: "Terms Of Service Modified Successfully"
+            });
+        }
+
+
+        /* models.cms_terms_of_service.findAndCountAll({
             order: [
                 sequelize.fn('max', sequelize.col('id'))
             ]
@@ -189,12 +220,45 @@ module.exports = function (app, models) {
                     });
                 });
             }
-        });
+        }); */
+
+
     });
 
-    app.post('/admin/submit-risk-disclosures', acl, risk_disclosuresUpload.single('risk_disclosures_banner_image'), (req, res) =>{
+    app.post('/admin/submit-risk-disclosures', acl, risk_disclosuresUpload.single('risk_disclosures_banner_image'), async (req, res) =>{
 
-        models.cms_risk_disclosures.findAndCountAll({
+        const data = await models.cms_risk_disclosures.findAll({});
+
+        if(data.length === 0) {
+            const insert = await models.cms_risk_disclosures.create({
+                risk_disclosures_header_desc: req.body.risk_disclosures_image_title,
+                risk_disclosures_content: req.body.risk_disclosures_description,
+                risk_disclosures_header_image: riskDisclosuresFileName
+            });
+
+            res.json({
+                status:true,
+                msg: "Risk Disclosure Added Successfully"
+            });
+        }
+        else {
+            const update = await models.cms_risk_disclosures.update({
+                risk_disclosures_header_desc: req.body.risk_disclosures_image_title,
+                risk_disclosures_content: req.body.risk_disclosures_description,
+                risk_disclosures_header_image: riskDisclosuresFileName
+            }, {
+                where: {
+                    id: data[0].id
+                }
+            });
+            res.json({
+                status:true,
+                msg: "Risk Disclosure Modified Successfully"
+            });
+        }
+
+
+        /* models.cms_risk_disclosures.findAndCountAll({
             order: [
                 sequelize.fn('max', sequelize.col('id'))
             ]
@@ -230,12 +294,44 @@ module.exports = function (app, models) {
                     });
                 });
             }
-        });
+        }); */
 
     });
 
-    app.post('/admin/submit-privacy-policy', acl, privacyPolicyUpload.single('privacy_policy_banner_image'), (req, res) =>{
-        models.cms_privacy_policy.findAndCountAll({
+    app.post('/admin/submit-privacy-policy', acl, privacyPolicyUpload.single('privacy_policy_banner_image'), async (req, res) =>{
+
+        const data = await models.cms_privacy_policy.findAll({});
+
+        if(data.length === 0) {
+            const insert = await models.cms_privacy_policy.create({
+                privacy_policy_header_desc: req.body.privacy_policy_image_title,
+                privacy_policy_content: req.body.privacy_policy_description,
+                privacy_policy_header_image: privacyPolicyFileName
+            });
+
+            res.json({
+                status:true,
+                msg: "Privacy Policy Added Successfully"
+            });
+        }
+        else {
+            const update = await models.cms_privacy_policy.update({
+                privacy_policy_header_desc: req.body.privacy_policy_image_title,
+                privacy_policy_content: req.body.privacy_policy_description,
+                privacy_policy_header_image: privacyPolicyFileName
+            }, {
+                where: {
+                    id: data[0].id
+                }
+            });
+            res.json({
+                status:true,
+                msg: "Privacy Policy Modified Successfully"
+            });
+        }
+
+
+        /* models.cms_privacy_policy.findAndCountAll({
             order: [
                 sequelize.fn('max', sequelize.col('id'))
             ]
@@ -272,7 +368,7 @@ module.exports = function (app, models) {
                     });
                 });
             }
-        });
+        }); */
     });
     var upload = multer({ storage: storage, limits: {fileSize:3000000, fileFilter:restrictImgType} });
 

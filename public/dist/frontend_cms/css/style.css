@@ -1126,6 +1126,7 @@ body {
     background-size: cover;
     padding: 130px 0;
     position: relative;
+    height: 100px;
   }
 
   .all-iner-banner .image-overlay {

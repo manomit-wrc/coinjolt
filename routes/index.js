@@ -35,7 +35,7 @@ module.exports = function (app, passport, models) {
         models.cms_terms_of_service.findAll({
 
         }).then(function(termsOfServiceData){  
-            res.render('cms_terms_of_service', {layout: 'cms/dashboard', termsOfServiceContent: termsOfServiceData[0].terms_of_service_content});
+            res.render('cms_terms_of_service', {layout: 'cms/dashboard', termsOfServiceContent: termsOfServiceData[0].terms_of_service_content, termsOfServiceHeader: termsOfServiceData[0].terms_of_service_header_desc, termsOfServiceBannerImage: termsOfServiceData[0].terms_of_service_header_image});
         });
     });    
 
@@ -44,11 +44,9 @@ module.exports = function (app, passport, models) {
         models.cms_privacy_policy.findAll({
 
         }).then(function(privacyPolicyData){  
-            res.render('cms_privacy_policy', {layout: 'cms/dashboard', privacyPolicyContent: privacyPolicyData[0].privacy_policy_content});
+            res.render('cms_privacy_policy', {layout: 'cms/dashboard', privacyPolicyContent: privacyPolicyData[0].privacy_policy_content, privacyPolicyHeader: privacyPolicyData[0].privacy_policy_header_desc, privacyPolicyBannerImage: privacyPolicyData[0].privacy_policy_header_image});
         });
 
-
-        //res.render('cms_privacy_policy', {layout: 'cms/dashboard'});
     });    
 
     app.get('/risk-disclosures', function(req, res){
@@ -56,11 +54,9 @@ module.exports = function (app, passport, models) {
         models.cms_risk_disclosures.findAll({
 
         }).then(function(riskDisclosureData){  
-            res.render('cms_risk_disclosures', {layout: 'cms/dashboard', riskDisclosureContent: riskDisclosureData[0].risk_disclosures_content});
+            res.render('cms_risk_disclosures', {layout: 'cms/dashboard', riskDisclosureContent: riskDisclosureData[0].risk_disclosures_content, riskDisclosureHeader: riskDisclosureData[0].risk_disclosures_header_desc, riskDisclosureBannerImage: riskDisclosureData[0].risk_disclosures_header_image});
         });
 
-
-        //res.render('cms_risk_disclosures', {layout: 'cms/dashboard'});
     });
 
     app.get('/login', function (req, res) {

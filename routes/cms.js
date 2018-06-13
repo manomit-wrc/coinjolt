@@ -293,7 +293,7 @@ module.exports = function (app, models) {
 
 	app.get('/admin/cms/quick-links/about-us', (req,res) => {
 
-		cms_about_us.findAll({
+		models.cms_about_us.findAll({
 
 		}).then(function (result) {
 			var data = JSON.parse(JSON.stringify(result));
@@ -307,7 +307,7 @@ module.exports = function (app, models) {
 	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
         photo = fileName;
 
-		cms_about_us.create({
+		models.cms_about_us.create({
 			about_us_header_desc: req.body.about_us_header_description,
 			about_us_header_image: photo,
 			about_us_description: req.body.description

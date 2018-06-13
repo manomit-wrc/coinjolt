@@ -8,24 +8,24 @@ module.exports = {
     logging: false
   },
     production: {
-    username: "root",
+    username: "testuser",
     password: "grass1=!",
     database: "cj_coinbase_dev",
-    host: "localhost",
+    host: "192.168.1.109",
     dialect: "mysql"
   },
     staging: {
-    username: "root",
+    username: "testuser",
     password: "grass1=!",
     database: "cj_coinbase_dev",
-    host: "localhost",
+    host: "192.168.1.109",
     dialect: "mysql"
   },
     test: {
-    username: "root",
+    username: "testuser",
     password: "grass1=!",
     database: "cj_coinbase_dev",
-    host: "localhost",
+    host: "192.168.1.109",
     dialect: "mysql"
   }
 };

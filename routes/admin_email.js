@@ -1,8 +1,9 @@
 var keys = require('../config/key');
 var serialize = require('node-serialize');
 var bcrypt = require('bcrypt-nodejs');
+const acl = require('../middlewares/acl');
 module.exports = function (app, email_template, User, AWS, send_email, email_draft, Deposit){
-	app.get('/admin/email-template-listings', (req,res) => {
+	app.get('/admin/email-template-listings', acl, (req,res) => {
 		email_template.findAll({
 			where:{
 				status:1
@@ -18,11 +19,11 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.get('/admin/email-template', (req,res) => {
+	app.get('/admin/email-template', acl, (req,res) => {
 		res.render('admin/email/email_template.hbs',{layout:'dashboard'});
 	});
 
-	app.post('/admin/submit-email-template', (req,res) => {
+	app.post('/admin/submit-email-template', acl, (req,res) => {
 		email_template.create({
 			template_name: req.body.template_subject,
 			template_desc: req.body.template_description,
@@ -35,7 +36,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.get('/admin/email-template-edit/:id', (req,res) => {
+	app.get('/admin/email-template-edit/:id', acl, (req,res) => {
 		email_template.findById(req.params['id'],{
 			where:{
 				status:1
@@ -47,7 +48,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.post('/admin/submit-edit-email-template', (req,res) => {
+	app.post('/admin/submit-edit-email-template', acl, (req,res) => {
 		email_template.update({	
 			template_name:req.body.template_subject,
 			template_desc: req.body.template_description
@@ -65,7 +66,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.get('/admin/email-template-delete/:id', (req,res) => {
+	app.get('/admin/email-template-delete/:id', acl, (req,res) => {
 		email_template.update({	
 			status:2
 		},{
@@ -80,7 +81,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.get('/admin/email-marketing', (req,res) => {
+	app.get('/admin/email-marketing', acl, (req,res) => {
 		Deposit.belongsTo(User, {foreignKey: 'user_id'})
 		Promise.all([
 			User.findAll({
@@ -121,7 +122,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.post('/admin/send-email-markeitng', async (req,res) => {
+	app.post('/admin/send-email-markeitng', acl, async (req,res) => {
 		var all_user_email = [];
 		if(req.body.users == 'all_registered_user'){
 			await User.findAll({
@@ -187,7 +188,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.post('/admin/save-email-as-draft', async (req,res) => {
+	app.post('/admin/save-email-as-draft', acl, async (req,res) => {
 		var all_user_email = [];
 		if(req.body.users == 'all_registered_user'){
 			await User.findAll({
@@ -227,7 +228,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.post('/admin/recent_send_email_details', (req,res) => {
+	app.post('/admin/recent_send_email_details', acl, (req,res) => {
 		var user_email_ids = req.body.user_row_email_id;
 		
 		send_email.findById(user_email_ids).then(function (result) {
@@ -240,7 +241,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.post('/admin/delete_recent_send_email_details', (req,res) => {
+	app.post('/admin/delete_recent_send_email_details', acl, (req,res) => {
 		var user_email_ids = req.body.user_row_email_id;
 
 		send_email.destroy({
@@ -257,7 +258,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.post('/admin/save-email-draft-details', (req,res) => {
+	app.post('/admin/save-email-draft-details', acl, (req,res) => {
 		var user_email_draft_ids = req.body.user_row_email_id;
 		
 		email_draft.findById(user_email_draft_ids).then(function (result) {
@@ -279,7 +280,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.post('/admin/send-draft-email', (req,res) => {
+	app.post('/admin/send-draft-email', acl, (req,res) => {
 		var draft_row_id = req.body.draft_row_id;
 		var user_emails = req.body.user_email;
 		var users_array = user_emails.split(",");
@@ -339,7 +340,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.post('/admin/delete-draft', (req,res) => {
+	app.post('/admin/delete-draft', acl, (req,res) => {
 		var user_row_draft_id = req.body.user_row_draft_id;
 
 		email_draft.destroy({

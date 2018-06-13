@@ -27,7 +27,64 @@ module.exports = function (app, passport, models) {
     });
     
     app.get('/', function(req, res) {
-        res.render('cms_body', {layout: 'cms/dashboard'});
+
+        models.company_setting.findAll({
+
+        }).then(function(companySettingsData){  
+            res.render('cms_body', {layout: 'cms/dashboard', companySettingsData: companySettingsData});
+        });
+    });
+
+    app.get('/terms-of-service', function(req, res) {
+
+        Promise.all([
+            models.company_setting.findAll({
+
+            }),
+            
+            models.cms_terms_of_service.findAll({
+                
+            })
+        ]).then(function (result) {
+            var result = JSON.parse(JSON.stringify(result, undefined, 2));
+	        res.render('cms_terms_of_service',{layout: 'cms/dashboard',companySettingsData:result[0],termsOfServiceData:result[1]});
+        });
+
+    });    
+
+    app.get('/privacy-policy', function(req, res) {
+
+
+        Promise.all([
+            models.company_setting.findAll({
+
+            }),
+            
+            models.cms_privacy_policy.findAll({
+                
+            })
+        ]).then(function (result) {
+            var result = JSON.parse(JSON.stringify(result, undefined, 2));
+	        res.render('cms_privacy_policy',{layout: 'cms/dashboard',companySettingsData:result[0],privacyPolicyData:result[1]});
+        });
+
+    });    
+
+    app.get('/risk-disclosures', function(req, res){
+
+        Promise.all([
+            models.company_setting.findAll({
+
+            }),
+            
+            models.cms_risk_disclosures.findAll({
+                
+            })
+        ]).then(function (result) {
+            var result = JSON.parse(JSON.stringify(result, undefined, 2));
+	        res.render('cms_risk_disclosures',{layout: 'cms/dashboard',companySettingsData:result[0],riskDisclosuresData:result[1]});
+        });
+
     });
 
     app.get('/login', function (req, res) {
@@ -45,10 +102,10 @@ module.exports = function (app, passport, models) {
             failureFlash: true
         }),
         function (req, res) {
-            if (req.user.type === "1") {
+            
+            if (req.user.type === '1') {
                 res.redirect('/admin/dashboard');
             } else {
-
                 bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })
                 .then(function(response) {
                     console.log(response.access_token);
@@ -57,7 +114,6 @@ module.exports = function (app, passport, models) {
                 }).catch(function (err) {
                     res.redirect('/dashboard');
                 });
-
             }
         });
 

@@ -5,8 +5,9 @@ const lodash = require('lodash');
 const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
 var request = require('sync-request');
+const acl = require('../middlewares/acl');
 
-module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method) {
+module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method, company_setting) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -93,7 +94,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		},
 	}
 
-	app.get('/admin/dashboard', (req, res) => {
+	app.get('/admin/dashboard', acl, (req, res) => {
 
 		Promise.all([
 			User.findAndCountAll({
@@ -124,7 +125,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/crypto_investments', (req, res) => {
+	app.get('/admin/crypto_investments', acl, (req, res) => {
 		currency_balance.belongsTo(Currency, {foreignKey: 'currency_id'});
 		currency_balance.findAll({
 			attributes: [ 'Currency.display_name', [sequelize.fn('SUM',sequelize.col('balance')),'total_balance'] ],
@@ -162,7 +163,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/transactions', (req, res) => {
+	app.get('/admin/transactions', acl, (req, res) => {
 		Deposit.belongsTo(User, {foreignKey: 'user_id'});
 		Deposit.findAll({
 			include: [{
@@ -176,13 +177,13 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/question', (req, res) => {
+	app.get('/admin/question', acl, (req, res) => {
 		Question.findAll().then(result => {
 			res.render('admin/questionnaire/index', { layout: 'dashboard', all_data: result });
 		});
 	});
 
-	app.get('/question/options/:id', (req, res) => {
+	app.get('/question/options/:id', acl, (req, res) => {
 		Option.findAll({
 			attributes: ['option'],
 			where: {
@@ -197,7 +198,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/question/:id', async (req, res) => {
+	app.get('/admin/question/:id', acl, async (req, res) => {
 		var ques_data = await Question.findById(req.params['id']);
 		Answer.belongsTo(User, {foreignKey: 'user_id'});
 		Answer.belongsTo(Option, {foreignKey: 'option_id'});
@@ -218,7 +219,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/pending-withdrawals', (req, res) => {
+	app.get('/admin/pending-withdrawals', acl, (req, res) => {
 		Withdraw.belongsTo(User, {foreignKey: 'user_id'});
 		Withdraw.findAll({
 			where: {
@@ -235,7 +236,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.post('/pending-withdrawals-approved', (req, res) => {
+	app.post('/pending-withdrawals-approved', acl, (req, res) => {
 		var amount = req.body.amount;
 		var user_id = req.body.user_id;
 		var wtype = req.body.wtype;
@@ -281,7 +282,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.post("/pending-withdrawals-reject", (req, res) => {
+	app.post("/pending-withdrawals-reject", acl, (req, res) => {
 		Withdraw.update({
 			status: 2
 		}, {
@@ -296,7 +297,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/pending-withdrawals-history', (req, res) => {
+	app.get('/admin/pending-withdrawals-history', acl, (req, res) => {
 		Withdraw.belongsTo(User, {foreignKey: 'user_id'});
 		Withdraw.findAll({
 			where: {
@@ -310,7 +311,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/transactions/generate', (req, res) => {
+	app.get('/admin/transactions/generate', acl, (req, res) => {
 		Deposit.belongsTo(User, {foreignKey: 'user_id'});
 		Deposit.findAll({
 			attributes: ['id', 'amount', 'createdAt', 'type', 'User.first_name', 'User.last_name'],
@@ -345,7 +346,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/investments', async (req, res) => {
+	app.get('/admin/investments', acl, async (req, res) => {
 		var user_list = await User.findAll({
 			where: {
 				type: 2
@@ -419,11 +420,67 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/deposit-methods', (req, res) =>{
+	app.get('/admin/deposit-methods', acl, (req, res) =>{
 
 		deposit_method.findAll({}).then(result => {
 			res.render('admin/deposit_methods/index', { layout: 'dashboard', deposit_methodsData: result});
 		});
+	});
+
+	app.get('/admin/company-settings', (req, res) =>{
+
+		company_setting.findAll({
+
+        }).then(function(companySettingsData){  
+            res.render('admin/company_settings', {layout: 'dashboard', companySettingsData: companySettingsData});
+        });
+	});
+
+	app.post('/admin/update-company-settings', (req, res) =>{
+
+		company_setting.findAndCountAll({
+            order: [
+                sequelize.fn('max', sequelize.col('id'))
+            ]
+        }).then(function(results){
+            var company_settings_id = results.rows[0].id;
+            var count = results.count;
+            if(count >0){
+                company_setting.update({
+                    phone_number: req.body.phoneNumber,
+                    email: req.body.email_address,
+					facebook_url: req.body.fb_url,
+					twitter_url: req.body.twitter_url,
+					linkedin_url: req.body.linkedIn_url,
+					instagram_url: req.body.instagram_url
+                }, {
+                    where: {
+                        id: company_settings_id
+                    }
+                }).then(function(result){
+                    res.json({
+                        status:true,
+                        msg: "Company Settings Modified Successfully"
+                    });
+                });
+            }
+            else{
+                company_setting.create({
+                    phone_number: req.body.phoneNumber,
+                    email: req.body.email_address,
+					facebook_url: req.body.fb_url,
+					twitter_url: req.body.twitter_url,
+					linkedin_url: req.body.linkedIn_url,
+					instagram_url: req.body.instagram_url
+                }).then(function(result){
+                    res.json({
+                        status:true,
+                        msg: "Company Settings Added Successfully"
+                    });
+                });
+            }
+        });
+
 	});
 
 	function sendJSON(res, httpCode, body) {

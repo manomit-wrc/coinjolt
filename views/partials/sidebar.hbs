@@ -4,12 +4,6 @@
         <ul class="sidebar-menu" data-widget="tree">
             {{#if_eq user.type 2}}
                 <li>
-                    <a  href="/cms">
-                        <i class="fa fa-folder"></i>
-                        <span>CMS</span>
-                    </a>
-                </li>
-                <li>
                     <a  href="/buy-and-sell-coins">
                         <i class="fa fa-bitcoin"></i>
                         <span>Buy and Sell Coins</span>
@@ -121,7 +115,7 @@
 
                  <li>
                     <a href="/admin/deposit-methods">
-                        <img alt="" src="../dist/img/withdraw.png">
+                        <i class="fa fa-money"></i>
                         <span> Manage Deposit Methods</span>
                     </a>
                 </li>
@@ -173,6 +167,14 @@
                     </a>
                 </li>
 
+                 <li>
+                    <a href="/admin/company-settings">
+                        <!-- <img alt="" src="../dist/img/support.png"> -->
+                        <i class="fa fa-cog"></i>
+                        <span>Company Settings</span>
+                    </a>
+                </li>
+
                 <li class="treeview">
                   <a href="#">
                     <i class="fa fa-folder"></i> <span>CMS</span>
@@ -182,14 +184,10 @@
                   </a>
                   <ul class="treeview-menu">
                     <li><a href="/admin/cms/quick-links/about-us"><i class="fa fa-circle-o"></i> About Us</a></li>
-                    <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                    <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                    <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                    <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                    <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                    <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                    <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                    <li><a href="/admin/cms/quick-links/privacy-policy"><i class="fa fa-circle-o"></i> Privacy Policy</a></li>
+                    <li><a href="/admin/cms/terms-of-service"><i class="fa fa-circle-o"></i> Terms Of Service</a></li>
+                    <li><a href="/admin/cms/risk-disclosures"><i class="fa fa-circle-o"></i> Risk Disclosures</a></li>
+                    <li><a href="/admin/cms/privacy-policy"><i class="fa fa-circle-o"></i> Privacy Policy</a></li>
+                   
                   </ul>
                 </li>
             {{/if_eq}}

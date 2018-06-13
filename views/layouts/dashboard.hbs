@@ -191,7 +191,7 @@
     <script src="/bower_components/chart.js/Chart.js"></script>
 
     <!-- CK Editor -->
-    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script src="/dist/js/ckeditor/ckeditor.js"></script>
 
     <script src="/dist/js/select_js/select2.js"></script>
 
@@ -203,8 +203,12 @@
     <script src="/js/admin_email.js"></script>
     <script src="/js/custom.js"></script>
     <script src="/js/deposit_type.js"></script>
+    <script src="/js/admin_cms_terms_of_service.js"></script>
+    <script src="/js/admin_cms_risk_disclosures.js"></script>
+    <script src="/js/admin_cms_privacy_policy.js"></script>
     <script src="/js/cms.js"></script>
-
+    <script src="/js/admin_company_settings.js"></script>
+    
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
@@ -724,7 +728,7 @@
                 var currencyType =  $("#currency_purchased option:selected").text();
                 var msg = "Current Rate("+currencyType+")"+": "+"$ ";
                 var amtVal = parseFloat(jQuery("#payAmount").val());
-                if (currencyType !== '') {
+                if (currencyType !== '' && currencyType !=='Please select a option') {
                     $('.expected').removeClass('alert alert-danger');
                     $('.expected').html('');
                     $('.expected').hide();
@@ -745,6 +749,10 @@
                             console.log(error);
                         }
                     });
+                }
+                else{
+                    $('#currentratetext').removeClass('alert alert-danger');
+                    $('#currentratetext').html('');
                 }
             });
 
@@ -922,7 +930,7 @@
                 var currencyType =  $("#currency_sold option:selected").text();
                 var msg = "Current Rate("+currencyType+")"+": "+"$ ";
                 var amtVal = parseFloat(jQuery("#payAmount").val());
-                if (currencyType !== '') {
+                if (currencyType !== '' && currencyType !=='Please select a option') {
                     $('.expected').removeClass('alert alert-danger');
                     $('.expected').html('');
                     $('.expected').hide();
@@ -943,6 +951,10 @@
                             console.log(error);
                         }
                     });
+                }
+                else{
+                    $('#sell_currentratetext').removeClass('alert alert-danger');
+                    $('#sell_currentratetext').html('');
                 }
             });
 

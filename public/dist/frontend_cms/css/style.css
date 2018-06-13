@@ -32,6 +32,15 @@ body {
     text-decoration: none !important;
   }
 
+::-moz-selection { /* Code for Firefox */
+    color: #fff;
+    background: #025fdf;
+}
+
+::selection {
+    color: #fff;
+    background: #025fdf;
+}  
 
   /* Starts General  */
 
@@ -1117,6 +1126,7 @@ body {
     background-size: cover;
     padding: 130px 0;
     position: relative;
+    height: 100px;
   }
 
   .all-iner-banner .image-overlay {

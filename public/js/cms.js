@@ -1,6 +1,8 @@
 $(document).ready(function () {
+	setTimeout(function() { 
+        $(".loader").fadeOut("slow");
+    }, 2000);
 	CKEDITOR.replace( 'about_us_description' );
-	CKEDITOR.replace( 'privacy_policy_description' );
 });
 
 function sweetAlertSuccessPopUp (title='',text='', redirect_link='') {
@@ -23,21 +25,27 @@ $('#cms_about_us_submit').on('click', function () {
 			alert ('Please enter description.');
 			return false;
 		}else{
-			var form_data = new FormData($('#cms-about-us')[0]);
-			form_data.append('description', CKEDITOR.instances['about_us_description'].getData());
+			var header_desc_character_count =  $('#about_us_header_description').val();
+			if(header_desc_character_count.length > 90){
+				alert ("Header description maximum 50 characters");
+				return false;
+			}else{
+				var form_data = new FormData($('#cms-about-us')[0]);
+				form_data.append('description', CKEDITOR.instances['about_us_description'].getData());
 
-			$.ajax({
-				type: "POST",
-				url: "/admin/cms/about-us-submit",
-				data:form_data,
-				processData: false,
-                contentType: false,
-				success: function (resp) {
-					if(resp.status == true) {
-						sweetAlertSuccessPopUp("Thank You.", resp.msg, "/admin/cms/quick-links/about-us");
+				$.ajax({
+					type: "POST",
+					url: "/admin/cms/about-us-submit",
+					data:form_data,
+					processData: false,
+	                contentType: false,
+					success: function (resp) {
+						if(resp.status == true) {
+							sweetAlertSuccessPopUp("Thank You.", resp.msg, "/admin/cms/quick-links/about-us");
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 	}
 });
@@ -56,19 +64,25 @@ $('#cms-about-us').validate({
 });
 
 $('#cms_about_us_edit').on('click', function (result) {
-	var form_data = new FormData($('#cms-about-us')[0]);
-	form_data.append('description', CKEDITOR.instances['about_us_description'].getData());
+	var header_desc_character_count =  $('#about_us_header_description').val();
+	if(header_desc_character_count.length > 90){
+		alert ("Header description maximum 50 characters");
+		return false;
+	}else{
+		var form_data = new FormData($('#cms-about-us')[0]);
+		form_data.append('description', CKEDITOR.instances['about_us_description'].getData());
 
-	$.ajax({
-		type: "POST",
-		url: "/admin/cms/about-us-edit",
-		data:form_data,
-		processData: false,
-        contentType: false,
-		success: function (resp) {
-			if(resp.status == true) {
-				sweetAlertSuccessPopUp("Thank You.", resp.msg, "/admin/cms/quick-links/about-us");
+		$.ajax({
+			type: "POST",
+			url: "/admin/cms/about-us-edit",
+			data:form_data,
+			processData: false,
+	        contentType: false,
+			success: function (resp) {
+				if(resp.status == true) {
+					sweetAlertSuccessPopUp("Thank You.", resp.msg, "/admin/cms/quick-links/about-us");
+				}
 			}
-		}
-	});
+		});
+	}
 });

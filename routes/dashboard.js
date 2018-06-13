@@ -1461,7 +1461,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }
         });
     });
-
+        
     app.post('/paypal', (req, res) => {
         const price = parseInt(req.body.amount);
         req.session.paypal_price = price;

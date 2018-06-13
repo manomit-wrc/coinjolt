@@ -1,8 +1,9 @@
 module.exports = function (app, deposit_method) {
 	const Op = require('sequelize').Op;
 	const sequelize = require('sequelize');
+	const acl = require('../middlewares/acl');
 
-	app.post('/admin/deposit-enable', (req, res) =>{
+	app.post('/admin/deposit-enable', acl, (req, res) =>{
         var depositId = req.body.deposit_id;
         deposit_method.update({
 			status : 1
@@ -17,7 +18,7 @@ module.exports = function (app, deposit_method) {
 		});
     });
 
-    app.post('/admin/deposit-disable', async (req, res) =>{
+    app.post('/admin/deposit-disable', acl, async (req, res) =>{
 		var depositId = req.body.deposit_id;
 
 		

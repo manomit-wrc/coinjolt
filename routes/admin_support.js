@@ -1,7 +1,8 @@
 var keys = require('../config/key');
+const acl = require('../middlewares/acl');
 module.exports = function(app, Support, User, AWS){
 
-	app.get('/admin/support', (req,res) => {
+	app.get('/admin/support', acl, (req,res) => {
 		const msg = req.flash('emailMessage')[0];
 		Support.belongsTo(User, {foreignKey: 'user_id'});
 
@@ -20,7 +21,7 @@ module.exports = function(app, Support, User, AWS){
 		});
 	});
 
-	app.get('/admin/support_details/:id', (req,res) => {
+	app.get('/admin/support_details/:id', acl, (req,res) => {
 		Support.belongsTo(User, {foreignKey: 'user_id'});
 
 		Support.findById(req.params['id'],{
@@ -32,7 +33,7 @@ module.exports = function(app, Support, User, AWS){
 		});
 	});
 
-	app.post('/admin/support-details-reply-send', (req,res) => {
+	app.post('/admin/support-details-reply-send', acl, (req,res) => {
 		var row_id = req.body.user_row_id;
 		var subject = req.body.subject;
 		var description = req.body.description;
@@ -62,7 +63,7 @@ module.exports = function(app, Support, User, AWS){
 		});
 	});
 
-	app.get('/admin/supports-history', (req,res) => {
+	app.get('/admin/supports-history', acl, (req,res) => {
 		Support.belongsTo(User, {foreignKey: 'user_id'});
 		Support.findAll({
 			where:{

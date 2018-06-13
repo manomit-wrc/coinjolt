@@ -1,7 +1,8 @@
 var keys = require('../config/key');
+const acl = require('../middlewares/acl');
 
 module.exports = function (app, email_template, User, AWS, send_email) {
-	app.get('/admin/all-user-list', (req,res) => {
+	app.get('/admin/all-user-list', acl, (req,res) => {
 		User.findAll({
 			where:{
 				type:2
@@ -13,7 +14,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		});		
 	});
 
-	app.get('/admin/send-email/:id', (req,res) => {
+	app.get('/admin/send-email/:id', acl, (req,res) => {
 		User.findById(req.params['id'],{
 
 		}).then(function(result){
@@ -29,7 +30,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		});
 	});
 
-	app.post('/admin/send-email', (req,res) => {
+	app.post('/admin/send-email', acl, (req,res) => {
 		var admin_email = 'support@coinjolt.com';
 		var user_email = req.body.user_email;
 		var subject = req.body.subject;
@@ -72,7 +73,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		});
 	});
 
-	app.post('/admin/get-email-template-description', (req,res) => {
+	app.post('/admin/get-email-template-description', acl, (req,res) => {
 		email_template.findById(req.body.template_id,{
 
 		}).then(function (result) {
@@ -83,7 +84,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		});
 	});
 
-	app.get('/admin/send-email-history-list', (req,res) => {
+	app.get('/admin/send-email-history-list', acl, (req,res) => {
 		send_email.belongsTo(User, {foreignKey: 'user_id'});
 		send_email.belongsTo(email_template, {foreignKey: 'email_template_id'});
 
@@ -101,7 +102,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		});
 	});
 
-	app.post('/admin/send-email-details', (req,res) => {
+	app.post('/admin/send-email-details', acl, (req,res) => {
 		send_email.belongsTo(User, {foreignKey: 'user_id'});
 		send_email.belongsTo(email_template, {foreignKey: 'email_template_id'});
 
@@ -122,7 +123,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		});
 	});
 
-	app.post('/admin/send-multiple-email', async (req,res) => {
+	app.post('/admin/send-multiple-email', acl, async (req,res) => {
 		var all_user_ids = req.body.checked_ids;
 		var tempArray = [];
 		var tempArrayId = [];
@@ -150,7 +151,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		});
 	});
 
-	app.post('/admin/send-multiple-email-to-user', (req,res) => {
+	app.post('/admin/send-multiple-email-to-user', acl, (req,res) => {
 		var subject = req.body.subject;
 		var description = req.body.description;
 
@@ -182,7 +183,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		});
 	});
 
-	app.post('/admin/entery-to-db-after-send-multipleEmail', (req,res) => {
+	app.post('/admin/entery-to-db-after-send-multipleEmail', acl, (req,res) => {
 		var user_ids = req.body.all_user_ids;
 		var subject = req.body.subject;
 		var description = req.body.description;

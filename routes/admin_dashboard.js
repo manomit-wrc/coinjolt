@@ -5,6 +5,7 @@ const lodash = require('lodash');
 const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
 var request = require('sync-request');
+const acl = require('../middlewares/acl');
 
 module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method) {
 	const styles = {
@@ -93,7 +94,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		},
 	}
 
-	app.get('/admin/dashboard', (req, res) => {
+	app.get('/admin/dashboard', acl, (req, res) => {
 
 		Promise.all([
 			User.findAndCountAll({
@@ -124,7 +125,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/crypto_investments', (req, res) => {
+	app.get('/admin/crypto_investments', acl, (req, res) => {
 		currency_balance.belongsTo(Currency, {foreignKey: 'currency_id'});
 		currency_balance.findAll({
 			attributes: [ 'Currency.display_name', [sequelize.fn('SUM',sequelize.col('balance')),'total_balance'] ],
@@ -162,7 +163,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/transactions', (req, res) => {
+	app.get('/admin/transactions', acl, (req, res) => {
 		Deposit.belongsTo(User, {foreignKey: 'user_id'});
 		Deposit.findAll({
 			include: [{
@@ -176,13 +177,13 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/question', (req, res) => {
+	app.get('/admin/question', acl, (req, res) => {
 		Question.findAll().then(result => {
 			res.render('admin/questionnaire/index', { layout: 'dashboard', all_data: result });
 		});
 	});
 
-	app.get('/question/options/:id', (req, res) => {
+	app.get('/question/options/:id', acl, (req, res) => {
 		Option.findAll({
 			attributes: ['option'],
 			where: {
@@ -197,7 +198,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/question/:id', async (req, res) => {
+	app.get('/admin/question/:id', acl, async (req, res) => {
 		var ques_data = await Question.findById(req.params['id']);
 		Answer.belongsTo(User, {foreignKey: 'user_id'});
 		Answer.belongsTo(Option, {foreignKey: 'option_id'});
@@ -218,7 +219,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/pending-withdrawals', (req, res) => {
+	app.get('/admin/pending-withdrawals', acl, (req, res) => {
 		Withdraw.belongsTo(User, {foreignKey: 'user_id'});
 		Withdraw.findAll({
 			where: {
@@ -235,7 +236,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.post('/pending-withdrawals-approved', (req, res) => {
+	app.post('/pending-withdrawals-approved', acl, (req, res) => {
 		var amount = req.body.amount;
 		var user_id = req.body.user_id;
 		var wtype = req.body.wtype;
@@ -281,7 +282,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.post("/pending-withdrawals-reject", (req, res) => {
+	app.post("/pending-withdrawals-reject", acl, (req, res) => {
 		Withdraw.update({
 			status: 2
 		}, {
@@ -296,7 +297,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/pending-withdrawals-history', (req, res) => {
+	app.get('/admin/pending-withdrawals-history', acl, (req, res) => {
 		Withdraw.belongsTo(User, {foreignKey: 'user_id'});
 		Withdraw.findAll({
 			where: {
@@ -310,7 +311,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/transactions/generate', (req, res) => {
+	app.get('/admin/transactions/generate', acl, (req, res) => {
 		Deposit.belongsTo(User, {foreignKey: 'user_id'});
 		Deposit.findAll({
 			attributes: ['id', 'amount', 'createdAt', 'type', 'User.first_name', 'User.last_name'],
@@ -345,7 +346,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/investments', async (req, res) => {
+	app.get('/admin/investments', acl, async (req, res) => {
 		var user_list = await User.findAll({
 			where: {
 				type: 2
@@ -419,7 +420,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/deposit-methods', (req, res) =>{
+	app.get('/admin/deposit-methods', acl, (req, res) =>{
 
 		deposit_method.findAll({}).then(result => {
 			res.render('admin/deposit_methods/index', { layout: 'dashboard', deposit_methodsData: result});

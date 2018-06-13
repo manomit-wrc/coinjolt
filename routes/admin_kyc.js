@@ -1,8 +1,9 @@
 module.exports = function (app, Kyc_details, User) {
 	const Op = require('sequelize').Op;
 	const sequelize = require('sequelize');
+	const acl = require('../middlewares/acl');
 
-	app.get('/admin/kyc', (req,res) => {
+	app.get('/admin/kyc', acl, (req,res) => {
 		Kyc_details.belongsTo(User, {foreignKey: 'user_id'});
 
 		Kyc_details.findAll({
@@ -17,7 +18,7 @@ module.exports = function (app, Kyc_details, User) {
 		});
 	});
 
-	app.post('/admin/kyc-approved', (req,res) => {
+	app.post('/admin/kyc-approved', acl, (req,res) => {
 		Kyc_details.update({
 			status : 2
 		},{
@@ -32,7 +33,7 @@ module.exports = function (app, Kyc_details, User) {
 		});
 	});
 
-	app.post('/admin/kyc-reject', (req,res) => {
+	app.post('/admin/kyc-reject', acl, (req,res) => {
 		Kyc_details.update({
 			status : 3
 		},{
@@ -47,7 +48,7 @@ module.exports = function (app, Kyc_details, User) {
 		});
 	});
 
-	app.get('/admin/kyc-history', (req,res) => {
+	app.get('/admin/kyc-history', acl, (req,res) => {
 		Kyc_details.belongsTo(User, {foreignKey: 'user_id'});
 
 		Kyc_details.findAll({

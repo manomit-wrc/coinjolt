@@ -74,7 +74,8 @@ module.exports = function (app, passport, models) {
             failureFlash: true
         }),
         function (req, res) {
-            if (req.user.type === "1") {
+            
+            if (req.user.type === '1') {
                 res.redirect('/admin/dashboard');
             } else {
                 bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })

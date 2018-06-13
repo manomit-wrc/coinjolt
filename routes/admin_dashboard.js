@@ -456,8 +456,6 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 			});
 		}
 		else {
-			console.log("False");
-			console.log(data[0].id);
 			const update = await company_setting.update({
 				phone_number: req.body.phoneNumber,
 				email: req.body.email_address,
@@ -467,7 +465,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				instagram_url: req.body.instagram_url
 			}, {
 				where: {
-					id: data.id
+					id: data[0].id
 				}
 			});
 			res.json({

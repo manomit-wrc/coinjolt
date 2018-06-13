@@ -324,8 +324,6 @@ module.exports = function (app, models) {
 	});
 
 	app.post('/admin/cms/about-us-edit', acl, upload.single('about_us_header_image'), (req,res) => {
-		// console.log(req.body);
-		// return false;
 		var photo = null;
 	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
         photo = fileName;

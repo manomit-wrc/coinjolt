@@ -12,6 +12,7 @@ module.exports = function (app, models) {
     var termsOfServiceFileName = '';
     var riskDisclosuresFileName = '';
     var privacyPolicyFileName = '';
+    var fileName = '';
 
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -329,7 +330,7 @@ module.exports = function (app, models) {
 	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
         photo = fileName;
 
-        cms_about_us.update({
+        models.cms_about_us.update({
         	about_us_header_desc: req.body.about_us_header_description,
 			about_us_header_image: photo,
 			about_us_description: req.body.description

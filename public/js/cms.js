@@ -1,4 +1,7 @@
 $(document).ready(function () {
+	setTimeout(function() { 
+        $(".loader").fadeOut("slow");
+    }, 2000);
 	CKEDITOR.replace( 'about_us_description' );
 });
 

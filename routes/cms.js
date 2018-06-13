@@ -1,4 +1,5 @@
 const sequelize = require('sequelize');
+const acl = require('../middlewares/acl');
 module.exports = function (app, models) {
 
     //
@@ -128,27 +129,27 @@ module.exports = function (app, models) {
     var privacyPolicyUpload = multer({ storage: privacyPolicyStorage, limits: {fileSize:3000000, fileFilter:restrictPrivacyPolicyImgType} });
     
 
-    app.get('/admin/cms/terms-of-service', (req, res) =>{
+    app.get('/admin/cms/terms-of-service', acl, (req, res) =>{
 
         models.cms_terms_of_service.find({}).then(function(terms_of_service){
             res.render('admin/cms/terms_of_service',{layout: 'dashboard', terms_of_service: terms_of_service});
         });
     });
 
-    app.get('/admin/cms/risk-disclosures', (req, res) =>{
+    app.get('/admin/cms/risk-disclosures', acl, (req, res) =>{
 
         models.cms_risk_disclosures.find({}).then(function(risk_disclosures){
             res.render('admin/cms/risk_disclosures',{layout: 'dashboard', risk_disclosures: risk_disclosures});
         });
     });
 
-    app.get('/admin/cms/privacy-policy', (req, res) =>{
+    app.get('/admin/cms/privacy-policy', acl, (req, res) =>{
         models.cms_privacy_policy.find({}).then(function(privacy_policy){
             res.render('admin/cms/privacy_policy',{layout: 'dashboard', privacy_policy: privacy_policy});
         });
     });
 
-    app.post('/admin/submit-terms-of-service', termsOfServiceUpload.single('banner_image'), (req, res) =>{
+    app.post('/admin/submit-terms-of-service', acl, termsOfServiceUpload.single('banner_image'), (req, res) =>{
 
         models.cms_terms_of_service.findAndCountAll({
             order: [
@@ -190,7 +191,7 @@ module.exports = function (app, models) {
         });
     });
 
-    app.post('/admin/submit-risk-disclosures', risk_disclosuresUpload.single('risk_disclosures_banner_image'), (req, res) =>{
+    app.post('/admin/submit-risk-disclosures', acl, risk_disclosuresUpload.single('risk_disclosures_banner_image'), (req, res) =>{
 
         models.cms_risk_disclosures.findAndCountAll({
             order: [
@@ -241,7 +242,7 @@ module.exports = function (app, models) {
 
     });
 
-    app.post('/admin/submit-privacy-policy', privacyPolicyUpload.single('privacy_policy_banner_image'), (req, res) =>{
+    app.post('/admin/submit-privacy-policy', acl, privacyPolicyUpload.single('privacy_policy_banner_image'), (req, res) =>{
         models.cms_privacy_policy.findAndCountAll({
             order: [
                 sequelize.fn('max', sequelize.col('id'))
@@ -291,7 +292,7 @@ module.exports = function (app, models) {
     });
     var upload = multer({ storage: storage, limits: {fileSize:3000000, fileFilter:restrictImgType} });
 
-	app.get('/admin/cms/quick-links/about-us', (req,res) => {
+	app.get('/admin/cms/quick-links/about-us', acl, (req,res) => {
 
 		models.cms_about_us.findAll({
 
@@ -302,7 +303,7 @@ module.exports = function (app, models) {
 		
 	});
 
-	app.post('/admin/cms/about-us-submit', upload.single('about_us_header_image'), (req,res) => {
+	app.post('/admin/cms/about-us-submit', acl, upload.single('about_us_header_image'), (req,res) => {
 		var photo = null;
 	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
         photo = fileName;
@@ -321,7 +322,7 @@ module.exports = function (app, models) {
 		});
 	});
 
-	app.post('/admin/cms/about-us-edit', upload.single('about_us_header_image'), (req,res) => {
+	app.post('/admin/cms/about-us-edit', acl, upload.single('about_us_header_image'), (req,res) => {
 		// console.log(req.body);
 		// return false;
 		var photo = null;
@@ -345,4 +346,5 @@ module.exports = function (app, models) {
 			}
         });
 	});
+    
 };

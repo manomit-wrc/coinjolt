@@ -6,7 +6,7 @@ const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
 var request = require('sync-request');
 
-module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method) {
+module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method, company_setting) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -424,6 +424,63 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		deposit_method.findAll({}).then(result => {
 			res.render('admin/deposit_methods/index', { layout: 'dashboard', deposit_methodsData: result});
 		});
+	});
+
+	app.get('/admin/company-settings', (req, res) =>{
+
+		company_setting.findAll({
+
+        }).then(function(companySettingsData){  
+            res.render('admin/company_settings', {layout: 'dashboard', companySettingsData: companySettingsData});
+        });
+	});
+
+	app.post('/admin/update-company-settings', (req, res) =>{
+		//console.log('updated fields', JSON.stringify(req.body, undefined, 2));
+
+		company_setting.findAndCountAll({
+            order: [
+                sequelize.fn('max', sequelize.col('id'))
+            ]
+        }).then(function(results){
+            var company_settings_id = results.rows[0].id;
+            var count = results.count;
+            if(count >0){
+                company_setting.update({
+                    phone_number: req.body.phoneNumber,
+                    email: req.body.email_address,
+					facebook_url: req.body.fb_url,
+					twitter_url: req.body.twitter_url,
+					linkedin_url: req.body.linkedIn_url,
+					instagram_url: req.body.instagram_url
+                }, {
+                    where: {
+                        id: company_settings_id
+                    }
+                }).then(function(result){
+                    res.json({
+                        status:true,
+                        msg: "Company Settings Modified Successfully"
+                    });
+                });
+            }
+            else{
+                company_setting.create({
+                    phone_number: req.body.phoneNumber,
+                    email: req.body.email_address,
+					facebook_url: req.body.fb_url,
+					twitter_url: req.body.twitter_url,
+					linkedin_url: req.body.linkedIn_url,
+					instagram_url: req.body.instagram_url
+                }).then(function(result){
+                    res.json({
+                        status:true,
+                        msg: "Company Settings Added Successfully"
+                    });
+                });
+            }
+        });
+
 	});
 
 	function sendJSON(res, httpCode, body) {

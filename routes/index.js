@@ -27,7 +27,12 @@ module.exports = function (app, passport, models) {
     });
     
     app.get('/', function(req, res) {
-        res.render('cms_body', {layout: 'cms/dashboard'});
+
+        models.company_setting.findAll({
+
+        }).then(function(companySettingsData){  
+            res.render('cms_body', {layout: 'cms/dashboard', companySettingsData: companySettingsData});
+        });
     });
 
     app.get('/terms-of-service', function(req, res) {

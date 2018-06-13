@@ -6,8 +6,14 @@
             <div class="col-md-6 col-sm-6 col-xs-6">
               <div class="mail-part">
                 <ul>
-                  <li><i class="fa fa-envelope"></i><a href="mailto:support@coinjolt.com" target="_blank">support@coinjolt.com</a></li>
-                  <li><i class="fa fa-phone"></i>1-888-998-9980</li>
+                  {{!-- <li><i class="fa fa-envelope"></i><a href="mailto:support@coinjolt.com" target="_blank">support@coinjolt.com</a></li>
+                  <li><i class="fa fa-phone"></i>1-888-998-9980</li> --}}
+                  <li><i class="fa fa-envelope"></i><a href="mailto:{{companySettingsData.0.email}}" target="_blank">{{companySettingsData.0.email}}</a></li>
+                  <li><i class="fa fa-phone"></i>{{companySettingsData.0.phone_number}}</li>
+
+                  
+                  
+
                 </ul>
               </div>
             </div>

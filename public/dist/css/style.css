@@ -320,7 +320,7 @@ body {
     background: transparent none repeat scroll 0 0;
     color: #fff;
     font-size: 15px;
-    padding: 10px !important;
+    padding: 5px !important;
     text-decoration: none;
     transition: all 0.25s ease-in-out 0s;
     -webkit-transition: all 0.25s ease-in-out 0s;
@@ -1777,6 +1777,25 @@ tr.shown td.remove-control {
     padding-left: 0 !important;
 }
 /* Ends css on 2018-06-11 */  
+
+
+/* Starts on css 13-06-2018 */
+
+.sidebar-menu.tree {
+    height: 540px !important;
+}
+
+.slimScrollDiv {
+    height: 540px !important;
+}
+
+
+
+.sidebar-menu li>a>.fa-angle-left, .sidebar-menu li>a>.pull-right-container>.fa-angle-left {
+    line-height: 17px;
+}
+
+/* Ends on css 13-06-2018 */
 
 @media screen and (max-width: 1366px) {
     .balance-box {

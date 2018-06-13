@@ -427,7 +427,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/company-settings', (req, res) =>{
+	app.get('/admin/company-settings', acl, (req, res) =>{
 
 		company_setting.findAll({
 

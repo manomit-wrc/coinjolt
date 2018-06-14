@@ -5,26 +5,6 @@ var bitgo = new BitGo.BitGo({
 const keys = require('../config/key');
 
 module.exports = function (app, passport, models) {
-
-    app.get('/test-asso', async (req, res) => {
-        models.User.belongsTo(models.Country, {
-            foreignKey: 'country_id'
-        });
-        let whereObj = {};
-        if (true) {
-            whereObj.id = '1';
-        } else {
-            whereObj.email = 'sdfsdf';
-        }
-        let result = await models.User.findAll({
-            where: whereObj,
-            include: [{
-                model: models.Country
-            }]
-        });
-
-        console.log(result[0]);
-    });
     
     app.get('/', function(req, res) {
 
@@ -94,6 +74,13 @@ module.exports = function (app, passport, models) {
         res.render('login', {
             message: msg
         });
+    });
+
+    app.get('/forgot-password', (req, res) =>{
+        
+        //var msg = req.flash('loginMessage')[0];
+
+        res.render('forgot_password');
     });
 
     app.post('/login', passport.authenticate('local-login', {

@@ -9,6 +9,7 @@ const password = 'd6F3Efeq';
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
 
+
 module.exports = function (app, passport, models) {
     
     app.get('/', function(req, res) {
@@ -82,12 +83,44 @@ module.exports = function (app, passport, models) {
     });
 
     app.get('/forgot-password', (req, res) =>{
-        res.render('forgot_password');
+
+        var msg = req.flash('forgotPassMsg')[0];
+
+        res.render('forgot_password', {message: msg});
+    });    
+
+    app.post('/update-password', (req, res) =>{
+
+        //check for status, if status is 0 then update status by secret key
+
+        const secretKey = req.body.forgot_key;
+
+        models.forgot_password.count({ where: {key: secretKey,status: 0} }).then(function(count){
+            if(count > 0){
+                models.forgot_password.update({
+                    status: 1
+                }, {
+                    where: {
+                        key: secretKey
+        
+                    }
+                }).then(function (result) {
+                    res.json({status: 1, msg: 'Your password has been updated, please login'});
+                   
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            }
+            else{
+                res.json({status: 2, msg: 'The link has been expired please try again'});
+            }
+        });
+
     });
 
     app.post('/forgot-password', (req, res) =>{
         const prevEmail = req.body.prevEmail;
-        
+        const ipAddress = req.header('x-forwarded-for') || req.connection.remoteAddress;
         models.User.count({ where: {email: prevEmail} }).then(function(count){
             if(count > 0){
                 models.User.findAll({
@@ -146,8 +179,16 @@ module.exports = function (app, passport, models) {
                             }
                             );
 
+                        models.forgot_password.create({
+                            key: rand_key,
+                            ip_address: ipAddress,
+                            status: 0,
+                            user_email: user_email
+                        }).then(function(result){
+                            res.json({status: 0, msg: "An email has been sent, please check your email"});
+                        });
 
-                        res.json({status: 0, msg: "An email has been sent, please check your email"});
+                        //res.json({status: 0, msg: "An email has been sent, please check your email"});
 
                     }
                 });
@@ -156,12 +197,12 @@ module.exports = function (app, passport, models) {
                 res.json({status: 2, msg: "User not found"});
             }
             
-        });     
+        });      
 
     });
 
     app.get('/reset_password/:reset_key', (req, res) =>{
-        const key = req.params['reset_key'];
+        //const key = req.params['reset_key'];
         res.render('update_password');
     });
 

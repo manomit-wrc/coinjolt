@@ -1,7 +1,12 @@
 <!-- Starts  Bootstrap-touch-slider Slider -->
 
-    {{!-- <div class="all-iner-banner" style="background-image: url(dist/frontend_cms/images/about-banner.jpg);"> --}}
-    <div class="all-iner-banner" style="background-image: url(cms/terms_of_services/{{termsOfServiceData.0.terms_of_service_header_image}});">
+      {{#if_eq termsOfServiceData.0.terms_of_service_header_image ''}}
+            <div class="all-iner-banner" style="background-image: url(cms/about_us_image/default/about-us.jpg);">
+      {{/if_eq}}
+
+      {{#if_neq termsOfServiceData.0.terms_of_service_header_image ''}}
+          <div class="all-iner-banner" style="background-image: url(cms/terms_of_services/{{termsOfServiceData.0.terms_of_service_header_image}});">
+      {{/if_neq}}
       <div class="image-overlay"></div>
       <div class="container">
         <div class="row">

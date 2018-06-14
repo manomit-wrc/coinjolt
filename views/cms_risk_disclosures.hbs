@@ -1,6 +1,12 @@
 <!-- Starts  Bootstrap-touch-slider Slider -->
 
-    <div class="all-iner-banner" style="background-image: url(cms/risk_disclosures/{{riskDisclosuresData.0.risk_disclosures_header_image}});">
+      {{#if_eq riskDisclosuresData.0.risk_disclosures_header_image ''}}
+          <div class="all-iner-banner" style="background-image: url(cms/about_us_image/default/about-us.jpg);">
+      {{/if_eq}}
+
+      {{#if_neq riskDisclosuresData.0.risk_disclosures_header_image ''}}
+          <div class="all-iner-banner" style="background-image: url(cms/risk_disclosures/{{riskDisclosuresData.0.risk_disclosures_header_image}});">
+      {{/if_neq}}
       <div class="image-overlay"></div>
       <div class="container">
         <div class="row">

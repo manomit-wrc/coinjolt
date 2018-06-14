@@ -127,9 +127,37 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         })
       });
 
-    app.get('/dashboard', function (req, res) {
-        res.render('dashboard', {
-            layout: 'dashboard'
+    app.get('/dashboard', (req, res) => {
+        User.findById(req.user.id).then( function (result) {
+            var result = JSON.parse(JSON.stringify(result));
+
+            if(result.two_factorAuth_status == 1){
+                console.log('Enable');
+            }else if (result.two_factorAuth_status == 2) {
+                //two factor authentication
+                var speakeasy = require('speakeasy');
+                var QRCode = require('qrcode');
+
+                var secret = speakeasy.generateSecret({length: 20});
+                QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
+                    var image_data = JSON.stringify(image_data); 
+
+                    User.update({
+                        two_factorAuth_secret_key: secret.base32,
+                        two_factorAuth_qr_code_image: image_data
+                    },{
+                        where:{
+                            id: req.user.id
+                        }
+                    }).then( function (result) {
+                        res.render('dashboard', {
+                            layout: 'dashboard',
+                            user_details: result[0]
+                        });
+                    });                   
+                });
+                //end
+            }
         });
     });
 
@@ -1543,6 +1571,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         req.flash('payPalCancelMsg', 'Your payment has been cancelled');
         res.redirect('/deposit-funds');
       });
+
+    app.get('/settings', (req,res) => {
+        res.render('settings', {layout: 'dashboard'});
+    });
 
       
 };

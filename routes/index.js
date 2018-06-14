@@ -3,28 +3,13 @@ var bitgo = new BitGo.BitGo({
     env: 'test'
 });
 const keys = require('../config/key');
+const crypto = require('crypto');
+const algorithm = 'aes-256-ctr';
+const password = 'd6F3Efeq';
+var AWS = require('aws-sdk');
+AWS.config.update({region: 'us-east-1'});
 
 module.exports = function (app, passport, models) {
-
-    app.get('/test-asso', async (req, res) => {
-        models.User.belongsTo(models.Country, {
-            foreignKey: 'country_id'
-        });
-        let whereObj = {};
-        if (true) {
-            whereObj.id = '1';
-        } else {
-            whereObj.email = 'sdfsdf';
-        }
-        let result = await models.User.findAll({
-            where: whereObj,
-            include: [{
-                model: models.Country
-            }]
-        });
-
-        console.log(result[0]);
-    });
     
     app.get('/', function(req, res) {
 
@@ -94,6 +79,90 @@ module.exports = function (app, passport, models) {
         res.render('login', {
             message: msg
         });
+    });
+
+    app.get('/forgot-password', (req, res) =>{
+        res.render('forgot_password');
+    });
+
+    app.post('/forgot-password', (req, res) =>{
+        const prevEmail = req.body.prevEmail;
+        
+        models.User.count({ where: {email: prevEmail} }).then(function(count){
+            if(count > 0){
+                models.User.findAll({
+                    where: {status: 1,email: prevEmail}
+                }).then(function(response){
+                    if(response.length === 0){
+                        res.json({status: 1, msg: "Your Account is not activated"});
+
+                    }
+                    else{
+
+                        function genRandomKeys() {
+                            var text = "";
+                            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                            for (var i = 0; i < 10; i++)
+                              text += possible.charAt(Math.floor(Math.random() * possible.length));
+                          
+                            return text;
+                          }
+                          
+                        const rKeys = genRandomKeys();
+                        const rand_key = encrypt(rKeys);
+                        var ses = new AWS.SES({apiVersion: '2010-12-01'});
+                            var user_email = req.body.email;
+                            var subject = 'Registration Complete';
+                            email_key = rand_key+"/";
+                            var admin_reply = `
+                            <html>
+                            <body>
+                            <div style="text-align: center;">
+                            Thank you for registering with us. Please copy the below link and paste into your browser.
+                            <br />
+                            <a href="${keys.BASE_URL}reset_password/"${email_key}>
+                            ${keys.BASE_URL}reset_password/${email_key}
+                            </a>
+                            </div>
+                            </body>
+                            </html>
+                        `;
+                            ses.sendEmail({ 
+                                Source: keys.senderEmail, 
+                                Destination: { ToAddresses: [user_email] },
+                                Message: {
+                                    Subject: {
+                                       Data: subject
+                                    },
+                                    Body: {
+                                        Html: {
+                                            Charset: "UTF-8",
+                                            Data: admin_reply
+                                        }
+                                     }
+                                }
+                             }, function(err, data) {
+                                 if(err) throw err;
+                            }
+                            );
+
+
+                        res.json({status: 0, msg: "An email has been sent, please check your email"});
+
+                    }
+                });
+            }
+            else{
+                res.json({status: 2, msg: "User not found"});
+            }
+            
+        });     
+
+    });
+
+    app.get('/reset_password/:reset_key', (req, res) =>{
+        const key = req.params['reset_key'];
+        res.render('update_password');
     });
 
     app.post('/login', passport.authenticate('local-login', {
@@ -237,5 +306,12 @@ module.exports = function (app, passport, models) {
             res.render("cms/about_us", {layout: "cms/dashboard", details:data})
         });
     });
+
+    function encrypt(text) {
+        var cipher = crypto.createCipher(algorithm, password)
+        var crypted = cipher.update(text, 'utf8', 'hex')
+        crypted += cipher.final('hex');
+        return crypted;
+    }
 
 };

@@ -10,6 +10,27 @@
         <form method="post" action="/account-settings" role="form" id="update_profile" name="update_profile">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="col-md-12 column-pr-0">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <h3 class="box-title pull-left">2FA authentication </h3>
+                                <div class="pull-right">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" {{#if_eq user_data.two_factorAuth_status 1}} checked="checked" {{/if_eq}}>
+                                        <label class="onoffswitch-label" for="myonoffswitch">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                               <div class="clearfix"></div>
+                            </div>
+                            <div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title">Edit Profile </h3>

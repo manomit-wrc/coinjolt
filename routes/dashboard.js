@@ -195,6 +195,38 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
+    app.post('/two_factor_auth_enable_disable', async (req,res) => {
+        var option = req.body.value;
+
+        var result = await User.findById(req.user.id);
+        var data = JSON.parse(JSON.stringify(result));
+        var two_factorAuth_status = data.two_factorAuth_status;
+
+        if(option == 'false'){
+            if(two_factorAuth_status == 1){
+                User.update({
+                    two_factorAuth_status: 2
+                },{
+                    where:{
+                        id: req.user.id
+                    }
+                }).then(result_data => {
+                    if(result_data){
+                        res.json({
+                            status: option,
+                            msg:"Your two factor authentication is disabled. "
+                        });
+                    }
+                });
+            }
+        }else if (option == 'true') {
+            res.json({
+                status: option,
+                msg:"Your two factor authentication is disabled. "
+            });
+        }
+    });
+
     app.get('/logout', function (req, res) {
         req.logout();
         res.redirect('/login');
@@ -238,6 +270,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.get('/account-settings', async function (req, res) {
+        var user_all_details = await User.findById(req.user.id);
+        var user_data = JSON.parse(JSON.stringify(user_all_details));
+
         var kyc_details = await Kyc_details.findAll({
             where: {
                 user_id: req.user.id
@@ -284,7 +319,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             countries: country,
             kyc_details: kyc_details,
             p_institutional_arr: p_institutional_arr,
-            shareholders_info: shareholders_info
+            shareholders_info: shareholders_info,
+            user_data: user_data
         });
     });
 

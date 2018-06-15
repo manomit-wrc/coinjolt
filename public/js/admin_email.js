@@ -10,7 +10,7 @@ $(document).ready(function (e) {
 	CKEDITOR.replace( 'editor100' );
 	CKEDITOR.replace( 'editor1000' );
 	CKEDITOR.replace( 'email_marketing_subject_body' );
-
+		
 	$('#submit_email_template').on('click', function () {
 		var valid = $('#submit-a-email-template').valid();
 		var template_description = CKEDITOR.instances['editor1'].getData();

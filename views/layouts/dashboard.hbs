@@ -2517,7 +2517,7 @@
     });
   </script>
 
-    <script type="text/javascript">
+    {{!-- <script type="text/javascript">
         $(function(){
 
             var url = window.location.href.substr(window.location.href.lastIndexOf("/")+1), // in real app this would have to be replaced with window.location.pathname 
@@ -2528,14 +2528,13 @@
                     // and test its href against the url pathname regexp
                     if (this.href.indexOf('#') == -1) {
                         if(urlRegExp.test(this.href)){
-                            //$(this).parent("ul").parent("li").addClass("active");
                             $(this).addClass('active');
                         }
                     }
                     
                 });
         });
-    </script>
+    </script> --}}
      <!-- Ends Script for Active Menu -->
 
      <script>
@@ -2702,6 +2701,30 @@
         });
 
         $('.mcp-box').height(mcpMaxHeight);
+    </script>
+
+    <script>
+        $(function(){
+            var current = location.pathname;
+            $('.sidebar-menu a').each(function(){
+                var $this = $(this);
+                // if the current path is like this link, make it active
+                if($this.attr('href').indexOf(current) !== -1){
+                    var parentClass = $this.closest('ul').attr('class');
+                    if(parentClass == 'treeview-menu'){ // for sub menu item
+                        $this.addClass('active');
+                        $('.treeview-menu').css('display', 'block');
+                        var parentLiClass = $('.treeview-menu').closest('li').attr('class');
+                        if(parentLiClass == 'treeview'){
+                            $( ".treeview" ).addClass('menu-open');
+                            $( ".treeview a" ).first().addClass('active');
+                        }
+                    } else { // for general menu item
+                        $this.addClass('active');
+                    }
+                }
+            });
+        });
     </script>
 
 

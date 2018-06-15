@@ -16,6 +16,10 @@ var BitGo = require('bitgo');
 var bitgo = new BitGo.BitGo({
     env: 'test'
 });
+//for two factor authentication
+var speakeasy = require('speakeasy');
+var QRCode = require('qrcode');
+//end
 
 const paypal = require('paypal-rest-sdk');
 
@@ -132,16 +136,15 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             var result = JSON.parse(JSON.stringify(result));
 
             if(result.two_factorAuth_status == 1){
-                console.log('Enable');
+                // res.render('two_factor_authentication');
+                res.render('dashboard', {
+                    layout: 'dashboard',
+                    two_factorAuth_status: 1
+                });
             }else if (result.two_factorAuth_status == 2) {
                 //two factor authentication
-                var speakeasy = require('speakeasy');
-                var QRCode = require('qrcode');
-
                 var secret = speakeasy.generateSecret({length: 20});
                 QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
-                    var image_data = JSON.stringify(image_data); 
-
                     User.update({
                         two_factorAuth_secret_key: secret.base32,
                         two_factorAuth_qr_code_image: image_data
@@ -149,15 +152,46 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         where:{
                             id: req.user.id
                         }
-                    }).then( function (result) {
-                        res.render('dashboard', {
-                            layout: 'dashboard',
-                            user_details: result[0]
-                        });
-                    });                   
+                    }).then( result => {
+                        if(result) {
+                            User.findById(req.user.id).then(user_update_result => {
+                                var data = JSON.parse(JSON.stringify(user_update_result));
+                                res.render('dashboard', {
+                                    layout: 'dashboard',
+                                    user_details: data,
+                                    two_factorAuth_status: data.two_factorAuth_status
+                                });
+                            });
+                        }
+                    });
                 });
                 //end
             }
+        });
+    });
+
+    app.post('/check_two_factor_authentication', (req,res) => {
+        var two_factor_auth_secret_key = req.body.two_factor_auth_secret_key;
+        var userToken = req.body.user_secret_key;
+
+        var verified = speakeasy.totp.verify({
+          secret: two_factor_auth_secret_key,
+          encoding: 'base32',
+          token: userToken
+        });
+
+        if(verified == true) {
+            User.update({
+                two_factorAuth_status: 1
+            },{
+                where:{
+                    id: req.user.id
+                }
+            });
+        }
+
+        res.json({
+            status: verified
         });
     });
 

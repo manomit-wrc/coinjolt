@@ -21,6 +21,7 @@
     "dateformat": "^3.0.3",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
+    "express-recaptcha": "^4.0.2",
     "express-session": "^1.15.6",
     "fs": "0.0.1-security",
     "handlebars-dateformat": "^1.1.1",

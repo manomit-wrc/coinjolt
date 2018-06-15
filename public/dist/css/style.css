@@ -1797,6 +1797,27 @@ tr.shown td.remove-control {
 
 /* Ends on css 13-06-2018 */
 
+/*Starts on css 15-06-2018*/
+
+.barcode img {
+    display: table;
+    margin: 0 auto;
+}
+
+.barcode p {
+    text-align: center;
+    margin: 0;
+    font-size: 18px;
+}
+
+.modal.barcode {
+    background: rgba(0,0,0,0.97);
+}
+
+
+
+/*Closed on css 15-06-2018*/
+
 @media screen and (max-width: 1366px) {
     .balance-box {
         display: block;
@@ -2500,3 +2521,7 @@ input.form-control.btn {
 
 
 /*Ends Toggle Butto Styles*/
+
+.barcode .close {
+  display:none;
+}

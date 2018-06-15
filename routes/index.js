@@ -8,7 +8,7 @@ const algorithm = 'aes-256-ctr';
 const password = 'd6F3Efeq';
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
-
+const bCrypt = require('bcrypt-nodejs');
 
 module.exports = function (app, passport, models) {
     
@@ -90,23 +90,26 @@ module.exports = function (app, passport, models) {
     });    
 
     app.post('/update-password', (req, res) =>{
-
-        //check for status, if status is 0 then update status by secret key
-
         const secretKey = req.body.forgot_key;
-
-        models.forgot_password.count({ where: {key: secretKey,status: 0} }).then(function(count){
+        const newPassword = bCrypt.hashSync(req.body.passWord);
+        models.forgot_password.findAndCountAll({ where: {key: secretKey,status: 0} }).then(function(results){
+            const userEmail = results.rows[0].user_email;
+            var count = results.count;
             if(count > 0){
                 models.forgot_password.update({
                     status: 1
                 }, {
                     where: {
                         key: secretKey
-        
                     }
                 }).then(function (result) {
-                    res.json({status: 1, msg: 'Your password has been updated, please login'});
-                   
+                    models.User.update({
+                        password: newPassword
+                    }, {
+                        where: {email: userEmail}
+                    }).then(function(response){
+                        res.json({status: 1, msg: 'Your password has been updated, please login'});
+                    });
                 }).catch(function (err) {
                     console.log(err);
                 });
@@ -145,13 +148,13 @@ module.exports = function (app, passport, models) {
                         const rand_key = encrypt(rKeys);
                         var ses = new AWS.SES({apiVersion: '2010-12-01'});
                             var user_email = req.body.prevEmail;
-                            var subject = 'Registration Complete';
+                            var subject = 'Request received for Forgot Password';
                             email_key = rand_key+"/";
                             var admin_reply = `
                             <html>
                             <body>
                             <div style="text-align: center;">
-                            Thank you for registering with us. Please copy the below link and paste into your browser.
+                            We received your request for forgot password. Please copy the below link and paste into your browser.
                             <br />
                             <a href="${keys.BASE_URL}reset_password/"${email_key}>
                             ${keys.BASE_URL}reset_password/${email_key}
@@ -187,8 +190,6 @@ module.exports = function (app, passport, models) {
                         }).then(function(result){
                             res.json({status: 0, msg: "An email has been sent, please check your email"});
                         });
-
-                        //res.json({status: 0, msg: "An email has been sent, please check your email"});
 
                     }
                 });

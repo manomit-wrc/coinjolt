@@ -70,6 +70,8 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
+    <div class="loader"></div>
+    
     <div class="wrapper">
         <!-- begin #header -->
         {{> header}}
@@ -249,7 +251,6 @@
     <script src="/js/admin_cms_privacy_policy.js"></script>
     <script src="/js/cms.js"></script>
     <script src="/js/admin_company_settings.js"></script>
-    <script src="/js/settings.js"></script>
     
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
@@ -258,6 +259,10 @@
     <!--end-->
 
     <script type="text/javascript">
+        setTimeout(function() { 
+            $(".loader").fadeOut("slow");
+        }, 2000);
+
         var two_factorAuth_status = $('#two_factor_auth_status').val();
         if(two_factorAuth_status == 2){
             $('#modal-default').modal({backdrop: 'static', keyboard: false});
@@ -311,6 +316,33 @@
                     required: "Please enter your secret key."
                 }
             }
+        });
+
+        $('#myonoffswitch').on('change', function (e) {
+            var value = e.currentTarget.checked;
+            $.ajax({
+                type:"POST",
+                url: '/two_factor_auth_enable_disable',
+                data: {
+                    value: value
+                },
+                success: function (resp) {
+                    if(resp.status == 'false'){
+                        swal({
+                            title: "ThankYou",
+                            text: resp.msg,
+                            type: "success",
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "OK"
+                        },  function() {
+                            window.location.reload();
+                        });
+                    }else if (resp.status == 'true') {
+                        window.location.href = "/dashboard";
+                    }
+                    
+                }
+            });
         });
     </script>
 

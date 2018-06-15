@@ -1815,7 +1815,6 @@ tr.shown td.remove-control {
 }
 
 
-
 /*Closed on css 15-06-2018*/
 
 @media screen and (max-width: 1366px) {
@@ -2251,7 +2250,7 @@ label.labelset {
     height: 100%;
     z-index: 9999;
     background: url('../img/ajax-loader-1.gif') 50% 50% no-repeat rgb(249,249,249);
-    opacity: .8;
+    opacity: .9;
 }
 /*Ends css on 2018-03-23*/
 

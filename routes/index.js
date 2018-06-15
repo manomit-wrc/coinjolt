@@ -93,30 +93,31 @@ module.exports = function (app, passport, models) {
         const secretKey = req.body.forgot_key;
         const newPassword = bCrypt.hashSync(req.body.passWord);
         models.forgot_password.findAndCountAll({ where: {key: secretKey,status: 0} }).then(function(results){
-            const userEmail = results.rows[0].user_email;
-            var count = results.count;
-            if(count > 0){
-                models.forgot_password.update({
-                    status: 1
-                }, {
-                    where: {
-                        key: secretKey
-                    }
-                }).then(function (result) {
-                    models.User.update({
-                        password: newPassword
+                var count = results.count;
+                if(count > 0){
+                    userEmail = results.rows[0].user_email;
+                    models.forgot_password.update({
+                        status: 1
                     }, {
-                        where: {email: userEmail}
-                    }).then(function(response){
-                        res.json({status: 1, msg: 'Your password has been updated, please login'});
+                        where: {
+                            key: secretKey
+                        }
+                    }).then(function (result) {
+                        models.User.update({
+                            password: newPassword
+                        }, {
+                            where: {email: userEmail}
+                        }).then(function(response){
+                            res.json({status: 1, msg: 'Your password has been updated, please login'});
+                        });
+                    }).catch(function (err) {
+                        console.log(err);
                     });
-                }).catch(function (err) {
-                    console.log(err);
-                });
-            }
-            else{
-                res.json({status: 2, msg: 'The link has been expired please try again'});
-            }
+                }
+                else{
+                    res.json({status: 2, msg: 'The link has been expired please try again'});
+                }
+            
         });
 
     });
@@ -203,13 +204,12 @@ module.exports = function (app, passport, models) {
     });
 
     app.get('/reset_password/:reset_key', (req, res) =>{
-        //const key = req.params['reset_key'];
         res.render('update_password');
     });
 
     app.post('/login', passport.authenticate('local-login', {
             //successRedirect : '/dashboard',
-            failureRedirect: '/',
+            failureRedirect: '/login',
             failureFlash: true
         }),
         function (req, res) {

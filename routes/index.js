@@ -8,7 +8,10 @@ const algorithm = 'aes-256-ctr';
 const password = 'd6F3Efeq';
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
+
 const bCrypt = require('bcrypt-nodejs');
+var speakeasy = require('speakeasy');
+
 
 module.exports = function (app, passport, models) {
     
@@ -211,12 +214,15 @@ module.exports = function (app, passport, models) {
             //successRedirect : '/dashboard',
             failureRedirect: '/login',
             failureFlash: true
-        }),
-        function (req, res) {
-            
-            if (req.user.type === '1') {
-                res.redirect('/admin/dashboard');
-            } else {
+    }),
+    function (req, res) {
+        
+        if (req.user.type === '1') {
+            res.redirect('/admin/dashboard');
+        } else {
+            // if(req.user.two_factorAuth_status == 1){
+                // res.render('two_factor_authentication');
+            // }else{
                 bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })
                 .then(function(response) {
                     console.log(response.access_token);
@@ -225,8 +231,24 @@ module.exports = function (app, passport, models) {
                 }).catch(function (err) {
                     res.redirect('/dashboard');
                 });
-            }
+            // }
+        }
+    });
+
+
+
+    app.post('/two_factor_auth_checking_for_login', (req,res) => {
+        var userToken = req.body.user_token;
+
+        var verified = speakeasy.totp.verify({
+          secret: req.user.two_factorAuth_secret_key,
+          encoding: 'base32',
+          token: userToken
         });
+        res.json({
+            status: verified
+        });
+    });
 
     app.post('/signup', passport.authenticate('local-signup', {
             successRedirect: '/signup',

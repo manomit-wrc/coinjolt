@@ -21,6 +21,7 @@
     "dateformat": "^3.0.3",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
+    "express-recaptcha": "^4.0.2",
     "express-session": "^1.15.6",
     "fs": "0.0.1-security",
     "handlebars-dateformat": "^1.1.1",
@@ -39,12 +40,14 @@
     "passport-local": "^1.0.0",
     "paypal-rest-sdk": "^1.8.1",
     "push-notifications": "^1.0.1",
+    "qrcode": "^1.2.0",
     "request": "^2.85.0",
     "sendmail": "^1.4.1",
     "sequelize": "^4.37.8",
     "sequelize-cli": "^4.0.0",
     "socket.io": "^2.1.0",
     "socket.io-client": "^2.1.0",
+    "speakeasy": "^2.0.0",
     "sync-request": "^6.0.0",
     "to-unix-timestamp": "^1.0.1"
   }

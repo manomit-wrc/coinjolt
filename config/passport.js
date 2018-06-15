@@ -164,6 +164,11 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                     return bCrypt.compareSync(password, userpass);
 
                 }
+
+                if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+                    return done(null, false, req.flash('loginMessage', 'Please select captcha'));
+                }
+
                 User.findOne({
                     where: {
                         email: email

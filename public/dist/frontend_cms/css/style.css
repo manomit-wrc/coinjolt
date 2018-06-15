@@ -1557,6 +1557,10 @@ body {
       top: 30px;
     }
 
+    .welcome-section .col-xs-6 {
+      width: 100%;
+    }
+
   }
 
   @media only screen and (max-width:750px) {
@@ -1576,10 +1580,6 @@ body {
   }
 
   @media only screen and (max-width:640px) {
-
-    .welcome-section .col-xs-6 {
-      width: 100%;
-    }
 
     .welcome-section .features-list-s2 {
       padding: 0;

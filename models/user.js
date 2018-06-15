@@ -22,7 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     activation_key: DataTypes.STRING,
     notes: DataTypes.STRING,
     investor_type: DataTypes.INTEGER,
-    otp: DataTypes.INTEGER
+    otp: DataTypes.INTEGER,
+    two_factorAuth_secret_key: DataTypes.STRING,
+    two_factorAuth_qr_code_image: DataTypes.TEXT,
+    two_factorAuth_status: DataTypes.INTEGER
   }, {});
   User.associate = function(models) {
     // associations can be defined here

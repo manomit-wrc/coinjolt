@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return [
       queryInterface.addColumn(
-        'users',
+        'Users',
         'two_factorAuth_secret_key',
         {
           type: Sequelize.STRING,
@@ -12,7 +12,7 @@ module.exports = {
         }
       ),
       queryInterface.addColumn(
-        'users',
+        'Users',
         'two_factorAuth_qr_code_image',
         {
           type: Sequelize.TEXT,
@@ -20,7 +20,7 @@ module.exports = {
         }
       ),
       queryInterface.addColumn(
-        'users',
+        'Users',
         'two_factorAuth_status',
         {
           type: Sequelize.INTEGER,

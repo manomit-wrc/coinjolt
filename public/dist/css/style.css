@@ -1797,6 +1797,26 @@ tr.shown td.remove-control {
 
 /* Ends on css 13-06-2018 */
 
+/*Starts on css 15-06-2018*/
+
+.barcode img {
+    display: table;
+    margin: 0 auto;
+}
+
+.barcode p {
+    text-align: center;
+    margin: 0;
+    font-size: 18px;
+}
+
+.modal.barcode {
+    background: rgba(0,0,0,0.97);
+}
+
+
+/*Closed on css 15-06-2018*/
+
 @media screen and (max-width: 1366px) {
     .balance-box {
         display: block;
@@ -2230,7 +2250,7 @@ label.labelset {
     height: 100%;
     z-index: 9999;
     background: url('../img/ajax-loader-1.gif') 50% 50% no-repeat rgb(249,249,249);
-    opacity: .8;
+    opacity: .9;
 }
 /*Ends css on 2018-03-23*/
 
@@ -2438,3 +2458,69 @@ input.form-control.btn {
 .treeview-menu>li>a>.pull-right-container>.fa-angle-left,.treeview-menu>li>a>.pull-right-container>.fa-angle-down,.treeview-menu>li>a>.fa-angle-left,.treeview-menu>li>a>.fa-angle-down{
     width:auto
 }*/
+
+
+/*Starts Toggle Butto Styles*/
+
+.onoffswitch {
+    position: relative; width: 90px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+    display: none;
+}
+
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+.onoffswitch-inner:before {
+    content: "YES";
+    padding-left: 10px;
+    background-color: #2FCCFF; color: #FFFFFF;
+}
+
+.onoffswitch-inner:after {
+    content: "NO";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 6px;
+    background: #FFFFFF;
+    border: 2px solid #999999; border-radius: 20px;
+    position: absolute; top: 0; bottom: 0; right: 56px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+
+/*Ends Toggle Butto Styles*/
+
+.barcode .close {
+  display:none;
+}

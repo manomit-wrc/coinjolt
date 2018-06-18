@@ -55,7 +55,6 @@ $(document).ready(function (e) {
             }
         },
         submitHandler:function(form) {
-            //var form_data = new FormData($('#update_company_settings')[0]);
             var phoneNumber = $('#phone_number').val();
             var email_address = $('#email_address').val();
             var fb_url = $('#fb_url').val();
@@ -63,18 +62,10 @@ $(document).ready(function (e) {
             var linkedIn_url = $('#linkedIn_url').val();
             var instagram_url = $('#instagram_url').val();
 
-            /* form_data.append('phoneNumber', phoneNumber);
-            form_data.append('email_address', email_address);
-            form_data.append('fb_url', fb_url);
-            form_data.append('twitter_url', twitter_url);
-            form_data.append('linkedIn_url', linkedIn_url);
-            form_data.append('instagram_url', instagram_url); */
-
             $.ajax({
                 type: "POST",
                 url: '/admin/update-company-settings',
                 data: {phoneNumber: phoneNumber, email_address: email_address, fb_url: fb_url, twitter_url: twitter_url, linkedIn_url: linkedIn_url, instagram_url: instagram_url},
-                
                 success: function (response) {
                     if(response.status == true){
                         sweetAlertSuccessPopUp('Success',response.msg);

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Coinjolt | Dashboard</title>
+    <title>Coin Jolt | Dashboard</title>
     <!-- Favicon-->
     <link rel="shortcut icon" href="/dist/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/dist/img/favicon.ico" type="image/x-icon">
@@ -65,10 +65,13 @@
 
     {{!-- select js & css --}}
     <link rel="stylesheet" href="/dist/css/select_css/select2.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
+    <div class="loader"></div>
+    
     <div class="wrapper">
         <!-- begin #header -->
         {{> header}}
@@ -138,6 +141,44 @@
             </div>
             <!-- Referral modal ends -->
         </div>
+
+
+        <!-- //two factor authentication pop-up -->
+        <div>
+            <input type="hidden" name="two_factor_auth_status" id="two_factor_auth_status" value="{{two_factorAuth_status}}">
+        </div>
+        <div class="modal fade barcode" id="modal-default">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" name="barcode_form" id="barcode_form" action="javascript:void(0)" method="POST">
+                    <input type="hidden" name="two_fa_secret_key" id="two_fa_secret_key" value="{{user_details.two_factorAuth_secret_key}}">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Two Factor Authentication</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Please scan it.</p>
+                    <img src="{{user_details.two_factorAuth_qr_code_image}}">
+                    
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-3 control-label">Secret Key</label>
+                            <div class="col-sm-7">
+                              <input type="text" class="form-control" name="user_secret_key" id="user_secret_key" placeholder="Enter secret key">
+                            </div>
+                      </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="check_two_factor_auth" class="btn btn-primary">Verify</button>
+                </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- //end -->
     </div>
     <!-- ./wrapper -->
 
@@ -195,6 +236,8 @@
 
     <script src="/dist/js/select_js/select2.js"></script>
 
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
     <!--for deposite funds,pending_wire_transfer//-->
     <script src="/js/deposite_funds.js"></script>
     <script src="/js/pending_wire_transfer.js"></script>
@@ -215,7 +258,93 @@
 
     <!--end-->
 
-   
+    <script type="text/javascript">
+        setTimeout(function() { 
+            $(".loader").fadeOut("slow");
+        }, 2000);
+
+        var two_factorAuth_status = $('#two_factor_auth_status').val();
+        if(two_factorAuth_status == 2){
+            $('#modal-default').modal({backdrop: 'static', keyboard: false});
+        }
+
+        $('#check_two_factor_auth').on('click', function () {
+            var valid = $('#barcode_form').valid();
+            if(valid){
+                var two_factor_auth_secret_key = $('#two_fa_secret_key').val();
+                var user_secret_key = $('#user_secret_key').val();
+
+                $(':input[type="button"]').prop('disabled', true);
+                $.ajax({
+                    type: "POST",
+                    url: "/check_two_factor_authentication",
+                    data:{
+                        two_factor_auth_secret_key: two_factor_auth_secret_key,
+                        user_secret_key: user_secret_key
+                    },
+                    success: function (resp) {
+                        if(resp.status == true){
+                            $(':input[type="button"]').prop('disabled', false);
+                            swal({
+                                title: "ThankYou",
+                                text: "Two factor authentication verified successfully.",
+                                type: "success",
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "OK"
+                            },  function() {
+                                $('#modal-default').modal('hide');
+                                window.location.reload();
+                            });
+                        }else if(resp.status == false) {
+                            $(':input[type="button"]').prop('disabled', false);
+                            $('#user_secret_key').val('');
+                            swal("Oh no!", "Two factor authentication verified failed. Please scan the QR code and enter the sectret key again.");
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#barcode_form').validate({
+            rules:{
+                user_secret_key:{
+                    required: true
+                }
+            },
+            messages:{
+                user_secret_key:{
+                    required: "Please enter your secret key."
+                }
+            }
+        });
+
+        $('#myonoffswitch').on('change', function (e) {
+            var value = e.currentTarget.checked;
+            $.ajax({
+                type:"POST",
+                url: '/two_factor_auth_enable_disable',
+                data: {
+                    value: value
+                },
+                success: function (resp) {
+                    if(resp.status == 'false'){
+                        swal({
+                            title: "ThankYou",
+                            text: resp.msg,
+                            type: "success",
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "OK"
+                        },  function() {
+                            window.location.reload();
+                        });
+                    }else if (resp.status == 'true') {
+                        window.location.href = "/dashboard";
+                    }
+                    
+                }
+            });
+        });
+    </script>
 
     {{!-- //for socket io --}}
      <script src="/socket/socket.io.js"></script>
@@ -2388,7 +2517,7 @@
     });
   </script>
 
-    <script type="text/javascript">
+    {{!-- <script type="text/javascript">
         $(function(){
 
             var url = window.location.href.substr(window.location.href.lastIndexOf("/")+1), // in real app this would have to be replaced with window.location.pathname 
@@ -2397,12 +2526,15 @@
                 // now grab every link from the navigation
                 $('.sidebar-menu a').each(function(){
                     // and test its href against the url pathname regexp
-                    if(urlRegExp.test(this.href)){
-                        $(this).addClass('active');
+                    if (this.href.indexOf('#') == -1) {
+                        if(urlRegExp.test(this.href)){
+                            $(this).addClass('active');
+                        }
                     }
+                    
                 });
         });
-    </script>
+    </script> --}}
      <!-- Ends Script for Active Menu -->
 
      <script>
@@ -2569,6 +2701,30 @@
         });
 
         $('.mcp-box').height(mcpMaxHeight);
+    </script>
+
+    <script>
+        $(function(){
+            var current = location.pathname;
+            $('.sidebar-menu a').each(function(){
+                var $this = $(this);
+                // if the current path is like this link, make it active
+                if($this.attr('href').indexOf(current) !== -1){
+                    var parentClass = $this.closest('ul').attr('class');
+                    if(parentClass == 'treeview-menu'){ // for sub menu item
+                        $this.addClass('active');
+                        $('.treeview-menu').css('display', 'block');
+                        var parentLiClass = $('.treeview-menu').closest('li').attr('class');
+                        if(parentLiClass == 'treeview'){
+                            $( ".treeview" ).addClass('menu-open');
+                            $( ".treeview a" ).first().addClass('active');
+                        }
+                    } else { // for general menu item
+                        $this.addClass('active');
+                    }
+                }
+            });
+        });
     </script>
 
 

@@ -9,6 +9,10 @@ const password = 'd6F3Efeq';
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
 
+const bCrypt = require('bcrypt-nodejs');
+var speakeasy = require('speakeasy');
+
+
 module.exports = function (app, passport, models) {
     
     app.get('/', function(req, res) {
@@ -82,12 +86,48 @@ module.exports = function (app, passport, models) {
     });
 
     app.get('/forgot-password', (req, res) =>{
-        res.render('forgot_password');
+
+        var msg = req.flash('forgotPassMsg')[0];
+
+        res.render('forgot_password', {message: msg});
+    });    
+
+    app.post('/update-password', (req, res) =>{
+        const secretKey = req.body.forgot_key;
+        const newPassword = bCrypt.hashSync(req.body.passWord);
+        models.forgot_password.findAndCountAll({ where: {key: secretKey,status: 0} }).then(function(results){
+                var count = results.count;
+                if(count > 0){
+                    userEmail = results.rows[0].user_email;
+                    models.forgot_password.update({
+                        status: 1
+                    }, {
+                        where: {
+                            key: secretKey
+                        }
+                    }).then(function (result) {
+                        models.User.update({
+                            password: newPassword
+                        }, {
+                            where: {email: userEmail}
+                        }).then(function(response){
+                            res.json({status: 1, msg: 'Your password has been updated, please login'});
+                        });
+                    }).catch(function (err) {
+                        console.log(err);
+                    });
+                }
+                else{
+                    res.json({status: 2, msg: 'The link has been expired please try again'});
+                }
+            
+        });
+
     });
 
     app.post('/forgot-password', (req, res) =>{
         const prevEmail = req.body.prevEmail;
-        
+        const ipAddress = req.header('x-forwarded-for') || req.connection.remoteAddress;
         models.User.count({ where: {email: prevEmail} }).then(function(count){
             if(count > 0){
                 models.User.findAll({
@@ -112,13 +152,13 @@ module.exports = function (app, passport, models) {
                         const rand_key = encrypt(rKeys);
                         var ses = new AWS.SES({apiVersion: '2010-12-01'});
                             var user_email = req.body.prevEmail;
-                            var subject = 'Registration Complete';
+                            var subject = 'Request received for Forgot Password';
                             email_key = rand_key+"/";
                             var admin_reply = `
                             <html>
                             <body>
                             <div style="text-align: center;">
-                            Thank you for registering with us. Please copy the below link and paste into your browser.
+                            We received your request for forgot password. Please copy the below link and paste into your browser.
                             <br />
                             <a href="${keys.BASE_URL}reset_password/"${email_key}>
                             ${keys.BASE_URL}reset_password/${email_key}
@@ -146,8 +186,14 @@ module.exports = function (app, passport, models) {
                             }
                             );
 
-
-                        res.json({status: 0, msg: "An email has been sent, please check your email"});
+                        models.forgot_password.create({
+                            key: rand_key,
+                            ip_address: ipAddress,
+                            status: 0,
+                            user_email: user_email
+                        }).then(function(result){
+                            res.json({status: 0, msg: "An email has been sent, please check your email"});
+                        });
 
                     }
                 });
@@ -156,25 +202,27 @@ module.exports = function (app, passport, models) {
                 res.json({status: 2, msg: "User not found"});
             }
             
-        });     
+        });      
 
     });
 
     app.get('/reset_password/:reset_key', (req, res) =>{
-        const key = req.params['reset_key'];
         res.render('update_password');
     });
 
     app.post('/login', passport.authenticate('local-login', {
             //successRedirect : '/dashboard',
-            failureRedirect: '/',
+            failureRedirect: '/login',
             failureFlash: true
-        }),
-        function (req, res) {
-            
-            if (req.user.type === '1') {
-                res.redirect('/admin/dashboard');
-            } else {
+    }),
+    function (req, res) {
+        
+        if (req.user.type === '1') {
+            res.redirect('/admin/dashboard');
+        } else {
+            // if(req.user.two_factorAuth_status == 1){
+                // res.render('two_factor_authentication');
+            // }else{
                 bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })
                 .then(function(response) {
                     console.log(response.access_token);
@@ -183,8 +231,24 @@ module.exports = function (app, passport, models) {
                 }).catch(function (err) {
                     res.redirect('/dashboard');
                 });
-            }
+            // }
+        }
+    });
+
+
+
+    app.post('/two_factor_auth_checking_for_login', (req,res) => {
+        var userToken = req.body.user_token;
+
+        var verified = speakeasy.totp.verify({
+          secret: req.user.two_factorAuth_secret_key,
+          encoding: 'base32',
+          token: userToken
         });
+        res.json({
+            status: verified
+        });
+    });
 
     app.post('/signup', passport.authenticate('local-signup', {
             successRedirect: '/signup',

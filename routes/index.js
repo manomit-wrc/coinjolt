@@ -76,6 +76,13 @@ module.exports = function (app, passport, models) {
 
     });
 
+    app.get('/charts', (req, res) =>{
+
+        models.company_setting.findAll({}).then(function(result){
+            res.render('cms_charts',{layout: 'cms/dashboard',companySettingsData:result});
+        });
+    });
+
     app.get('/login', function (req, res) {
 
         var msg = req.flash('loginMessage')[0];

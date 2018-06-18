@@ -11,11 +11,12 @@ AWS.config.update({region: 'us-east-1'});
 
 const bCrypt = require('bcrypt-nodejs');
 var speakeasy = require('speakeasy');
+const auth = require('../middlewares/auth');
 
 
 module.exports = function (app, passport, models) {
     
-    app.get('/', function(req, res) {
+    app.get('/', auth, function(req, res) {
 
         models.company_setting.findAll({
 
@@ -24,7 +25,7 @@ module.exports = function (app, passport, models) {
         });
     });
 
-    app.get('/terms-of-service', function(req, res) {
+    app.get('/terms-of-service', auth, function(req, res) {
 
         Promise.all([
             models.company_setting.findAll({
@@ -41,7 +42,7 @@ module.exports = function (app, passport, models) {
 
     });    
 
-    app.get('/privacy-policy', function(req, res) {
+    app.get('/privacy-policy', auth, function(req, res) {
 
 
         Promise.all([
@@ -59,7 +60,7 @@ module.exports = function (app, passport, models) {
 
     });    
 
-    app.get('/risk-disclosures', function(req, res){
+    app.get('/risk-disclosures',auth, function(req, res){
 
         Promise.all([
             models.company_setting.findAll({

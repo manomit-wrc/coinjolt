@@ -143,7 +143,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 });
             }else if (result.two_factorAuth_status == 2) {
                 //two factor authentication
-                var secret = speakeasy.generateSecret({length: 20});
+                var secret = speakeasy.generateSecret({
+                    issuer: 'Coinjolt',
+                    length: 20,
+                    name: 'Coinjolt'
+                });
+
                 QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
                     User.update({
                         two_factorAuth_secret_key: secret.base32,

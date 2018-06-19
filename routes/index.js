@@ -77,7 +77,7 @@ module.exports = function (app, passport, models) {
 
     });
 
-    app.get('/charts', (req, res) =>{
+    app.get('/charts', auth, (req, res) =>{
 
         models.company_setting.findAll({}).then(function(result){
             res.render('cms_charts',{layout: 'cms/dashboard',companySettingsData:result});

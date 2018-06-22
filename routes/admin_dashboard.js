@@ -477,6 +477,14 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		
 	});
 
+	app.get('/admin/blog-posts', (req, res) =>{
+		res.render('admin/blog/blog_posts', {layout: 'dashboard'});
+	});
+
+	app.get('/admin/create-blog-post', (req, res) =>{
+		res.render('admin/blog/blog_create', {layout: 'dashboard'});
+	});
+
 	function sendJSON(res, httpCode, body) {
 		var response = JSON.stringify(body);
 		res.send(httpCode, response);

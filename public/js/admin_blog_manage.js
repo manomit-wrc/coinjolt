@@ -1,8 +1,21 @@
 $(document).ready(function(){
-    
+    $("#errPostDescription").html("");
+    $("#errPostDescription").css("display", "none");
     CKEDITOR.replace( 'post_description' );
 
     $('.save_blog').on('click', function(){
+        //var post_description = $.trim($("#post_description").val());
+        var post_description = CKEDITOR.instances['post_description'].getData();
+        if(post_description === ""){
+            $("#errPostDescription").html("Please enter post description");
+            $("#errPostDescription").css("display", "block");
+        }
+
+        else{
+            $("#errPostDescription").html("");
+            $("#errPostDescription").css("display", "none");
+        }
+
         $('#create_blog_post_form').submit();
     });
 

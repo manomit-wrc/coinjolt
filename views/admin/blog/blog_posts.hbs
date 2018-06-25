@@ -28,33 +28,19 @@
 								</tr>
 							</thead>
 							<tbody>
-								
+								{{#each blog_posts2}}
 								<tr>
-									<td>Lorem ipsum dolor sit amet.</td>
-									<td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, veniam....</td>
-									<td></td>
+									<td>{{ this.post_title}}</td>
+									<td class="blogContent">{{{ this.post_description}}}</td>
+									<td>{{ dateFormat this.createdAt "MM-DD-YY" }}</td>
 									<td>
-                                        <button type="button" class="btn" data-blogid="">Edit</button>
-                                        <button type="button" class="btn btn-success" data-blogid="">Delete</button>
+                                        <button type="button" class="btn editBlogBtn" data-blogid="{{this.id}}">Edit</button>
+                                        <button type="button" class="btn btn-success deleteBlogBtn" data-blogid="{{this.id}}">Delete</button>
                                     </td>
 								</tr>
 
-                                <tr>
-									<td>Lorem ipsum dolor sit amet.</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non autem soluta animi maiores, dolores a....</td>
-                                    <td> {{dateFormat 2018-06-21 09:28:26 "MM-DD-YY"}}   </td>
-									<td>
-                                        <button type="button" class="btn" data-blogid="">Edit</button>
-                                        <button type="button" class="btn btn-success" data-blogid="">Delete</button>
-                                    </td>
-								</tr>
+								{{/each}}
 
-                                <tr>
-									<td>Lorem ipsum dolor sit amet.</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non autem soluta animi maiores, dolores a....</td>
-									<td><button type="button" class="btn" data-blogid="">Edit</button></td>
-									<td><button type="button" class="btn btn-success" data-blogid="">Delete</button></td>
-								</tr>
 							</tbody>
 						</table>
 					</div>

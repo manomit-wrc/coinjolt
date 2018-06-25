@@ -3,7 +3,16 @@ $(document).ready(function(){
     var baseURL = "http://localhost:8080/admin/";
     $("#errPostDescription").html("");
     $("#errPostDescription").css("display", "none");
-    CKEDITOR.replace( 'post_description' );
+    CKEDITOR.replace( 'post_description' ); 
+
+    $(".blogContent").each(function(i){
+        var len=$(this).text().trim().length;
+        if(len>100)
+        {
+            $(this).text($(this).text().substr(0,100)+'...');
+        }
+    });
+
 
     $('.save_blog').on('click', function(){
         //var post_description = $.trim($("#post_description").val());
@@ -17,8 +26,6 @@ $(document).ready(function(){
             $("#errPostDescription").html("");
             $("#errPostDescription").css("display", "none");
         }
-
-        $('#create_blog_post_form').submit();
     });
 
     $('#create_blog_post_form').validate({
@@ -84,7 +91,7 @@ $(document).ready(function(){
                 contentType: false,
                 success: function (response) {
                     if(response.status == true){
-                        sweetAlertSuccessPopUp('Blog Post created successfully',response.msg);
+                        sweetAlertSuccessPopUp('Success',response.msg);
                     }
                 }
             });
@@ -101,7 +108,7 @@ $(document).ready(function(){
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "OK"
         },  function() {
-            window.location.herf=baseURL+"blog-posts";
+            window.location.href=baseURL+"blog-posts";
         });
     }
 

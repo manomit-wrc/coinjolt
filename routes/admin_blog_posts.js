@@ -1,5 +1,6 @@
 const sequelize = require('sequelize');
 const acl = require('../middlewares/acl');
+var multer = require('multer');
 module.exports = function (app, models) {
 
     var blogImageStorage = multer.diskStorage({
@@ -18,7 +19,7 @@ module.exports = function (app, models) {
         }
       });
 
-      var restrictImgType = function(req, file, cb) {
+      var restrictBlogImgType = function(req, file, cb) {
 
         var allowedTypes = ['image/jpeg','image/gif','image/png'];
           if (allowedTypes.indexOf(req.file.mimetype) !== -1){
@@ -28,33 +29,35 @@ module.exports = function (app, models) {
           }
     };
 
-    var blogImageUpload = multer({ storage: blogImageStorage, limits: {fileSize:3000000, fileFilter:restrictImgType} });
+    var blogImageUpload = multer({ storage: blogImageStorage, limits: {fileSize:3000000, fileFilter:restrictBlogImgType} });
 
-    app.post('/admin/post_blog_content', acl, blogImageUpload.single('post_featured_image'), (req,res) => {
+    app.post('/admin/post_blog_content', acl, blogImageUpload.single('post_featured_image'), async(req,res) => {
         var photo = null;
         var allowedTypes = ['image/jpeg','image/gif','image/png'];
         photo = fileName;
 
-        console.log(req.body);
+        //console.log(req.body.post_description);
 
+        //console.log('post description:: ', typeof req.body.post_description);
+        
+        const insert = await models.blog_post.create({
+            post_title: req.body.blog_post_title,
+            post_description: req.body.post_description[0],
+            post_slug: req.body.post_slug,
+            featured_image: req.file.filename,
+            meta_title: req.body.meta_title,
+            meta_description: req.body.meta_description,
+            post_author: req.body.author_name
+        }).then(function(resp){
+            res.json({
+                status:true,
+                msg: "Blog Post created successfully"
+            });
+        });
+    });
 
-        /* models.cms_about_us.create({
-            about_us_header_desc: req.body.about_us_header_description,
-            about_us_header_image: photo,
-            about_us_description: req.body.description
-        }).then( function (result) {
-            if(result) {
-                res.json({
-                    status: true,
-                    msg: "Submit successfully."
-                });
-            }
-        }); */
+    // edit blog post content
 
-
-
-
-    });    
-
+    
 
 };

@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/";
+    var baseURL = "http://localhost:8080/admin/";
     $("#errPostDescription").html("");
     $("#errPostDescription").css("display", "none");
     CKEDITOR.replace( 'post_description' );
@@ -29,7 +31,7 @@ $(document).ready(function(){
             },
             post_featured_image: {
                 required: true,
-                extension: 'jpg|JPG|jpeg|JPEG|png|PNG|tiff|TIFF'
+                extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
             },
             meta_title: {
                 required: true
@@ -72,22 +74,22 @@ $(document).ready(function(){
             form_data.append('post_description', post_description);
             //form_data.append('terms_of_service_description', terms_of_service_description);
             //form_data.append('banner_image_title', banner_image_title);
-            
-            alert('form submitted');
 
-            /* $.ajax({
+            $.ajax({
                 type: "POST",
-                url: '/admin/submit-terms-of-service',
+                url: '/admin/post_blog_content',
                 data: form_data,
                 cache: false,
                 processData: false,
                 contentType: false,
                 success: function (response) {
                     if(response.status == true){
-                        sweetAlertSuccessPopUp('Success',response.msg);
+                        sweetAlertSuccessPopUp('Blog Post created successfully',response.msg);
                     }
                 }
-            }); */
+            });
+
+
         }
     });
 
@@ -99,7 +101,7 @@ $(document).ready(function(){
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "OK"
         },  function() {
-            window.location.reload();
+            window.location.herf=baseURL+"blog-posts";
         });
     }
 

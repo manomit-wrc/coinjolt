@@ -7,7 +7,7 @@ const dateFormat = require('dateformat');
 var request = require('sync-request');
 const acl = require('../middlewares/acl');
 
-module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method, company_setting) {
+module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method, company_setting, blog_post) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -474,6 +474,20 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 			});
 		}
 
+		
+	});
+
+	app.get('/admin/blog-posts', (req, res) =>{
+
+		blog_post.findAll({}).then(function(blog_posts){
+			res.render('admin/blog/blog_posts', {layout: 'dashboard', blog_posts: blog_posts});
+		});
+
+	});
+
+	app.get('/admin/create-blog-post', (req, res) =>{
+
+			res.render('admin/blog/blog_create', {layout: 'dashboard'});
 		
 	});
 

@@ -32,17 +32,15 @@ module.exports = function (app, models) {
     var blogImageUpload = multer({ storage: blogImageStorage, limits: {fileSize:3000000, fileFilter:restrictBlogImgType} });
 
     app.post('/admin/post_blog_content', acl, blogImageUpload.single('post_featured_image'), async(req,res) => {
+        console.log("form_content");
+        console.log(req.body);
         var photo = null;
         var allowedTypes = ['image/jpeg','image/gif','image/png'];
         photo = fileName;
-
-        //console.log(req.body.post_description);
-
-        //console.log('post description:: ', typeof req.body.post_description);
         
         const insert = await models.blog_post.create({
             post_title: req.body.blog_post_title,
-            post_description: req.body.post_description[0],
+            post_description: req.body.post_description,
             post_slug: req.body.post_slug,
             featured_image: req.file.filename,
             meta_title: req.body.meta_title,
@@ -57,7 +55,14 @@ module.exports = function (app, models) {
     });
 
     // edit blog post content
+    app.post('/admin/edit_blog_content', (req, res) =>{
 
-    
+
+        console.log(req.body);
+
+
+
+    });
+
 
 };

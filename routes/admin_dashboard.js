@@ -480,8 +480,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 	app.get('/admin/blog-posts', (req, res) =>{
 
 		blog_post.findAll({}).then(function(blog_posts){
-			console.log(JSON.stringify(blog_posts, undefined, 2));
-			res.render('admin/blog/blog_posts', {layout: 'dashboard', blog_posts2: blog_posts});
+			res.render('admin/blog/blog_posts', {layout: 'dashboard', blog_posts: blog_posts});
 		});
 
 	});

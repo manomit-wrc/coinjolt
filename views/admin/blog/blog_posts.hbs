@@ -28,14 +28,14 @@
 								</tr>
 							</thead>
 							<tbody>
-								{{#each blog_posts2}}
+								{{#each blog_posts}}
 								<tr>
 									<td>{{ this.post_title}}</td>
 									<td class="blogContent">{{{ this.post_description}}}</td>
 									<td>{{ dateFormat this.createdAt "MM-DD-YY" }}</td>
 									<td>
-                                        <button type="button" class="btn editBlogBtn" data-blogid="{{this.id}}">Edit</button>
-                                        <button type="button" class="btn btn-success deleteBlogBtn" data-blogid="{{this.id}}">Delete</button>
+                                        <button type="button" class="btn editBlogBtn" id="editBlogBtn" data-id="{{this.id}}">Edit</button>
+                                        <button type="button" class="btn btn-success deleteBlogBtn" data-id="{{this.id}}">Delete</button>
                                     </td>
 								</tr>
 

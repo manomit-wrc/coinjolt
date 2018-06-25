@@ -4,7 +4,8 @@ $(document).ready(function(){
     $("#errPostDescription").html("");
     $("#errPostDescription").css("display", "none");
     CKEDITOR.replace( 'post_description' ); 
-
+    alert('hi');
+    var post_description = '';
     $(".blogContent").each(function(i){
         var len=$(this).text().trim().length;
         if(len>100)
@@ -15,8 +16,8 @@ $(document).ready(function(){
 
 
     $('.save_blog').on('click', function(){
-        //var post_description = $.trim($("#post_description").val());
-        var post_description = CKEDITOR.instances['post_description'].getData();
+        var post_description = $.trim($("#post_description").val());
+        post_description = CKEDITOR.instances['post_description'].getData();
         if(post_description === ""){
             $("#errPostDescription").html("Please enter post description");
             $("#errPostDescription").css("display", "block");
@@ -73,14 +74,15 @@ $(document).ready(function(){
         },
         submitHandler:function(form) {
 
-            var post_description = CKEDITOR.instances['post_description'].getData();
+            post_description = CKEDITOR.instances['post_description'].getData();
+            console.log("post_description");
+            console.log(post_description);
             
-            //form_data.append('banner_image_title', banner_image_title);
 
             var form_data = new FormData($('#create_blog_post_form')[0]);
             form_data.append('post_description', post_description);
-            //form_data.append('terms_of_service_description', terms_of_service_description);
-            //form_data.append('banner_image_title', banner_image_title);
+            console.log(form_data);
+            console.log(form_data);
 
             $.ajax({
                 type: "POST",
@@ -99,6 +101,23 @@ $(document).ready(function(){
 
         }
     });
+    
+    $('#editBlogBtn').on('click', function(){
+         var blogId =  $(this).data("id");
+         alert(blogId);
+        /* $.ajax({
+            type: "POST",
+            url: '/admin/edit_blog_content',
+            data: {blogId: blogId},
+            success: function (response) {
+                if(response.status == true){
+                    sweetAlertSuccessPopUp('Success',response.msg);
+                }
+            }
+        });  */
+
+    });
+
 
     function sweetAlertSuccessPopUp (title='',text='') {
         swal({

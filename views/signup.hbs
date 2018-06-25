@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="/plugins/iCheck/square/blue.css">
- <!-- Responsive Style -->
+  <!-- Responsive Style -->
   <link rel="stylesheet" href="/dist/css/responsive.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,13 +31,13 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<!-- Google Font -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
 <body class="hold-transition login-page">
   <header>
-    
+
     <div class="header-top">
       <div class="container">
         <div class="row">
@@ -50,46 +50,47 @@
           </div>
           <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="marketcap">
-                  <div class="container-fluid">
-                    <div class="marketcap-crypto">
-                      <img src="/dist/img/bitcoin.png" alt="money-icon">
-                    <h6></h6>
-                    <ul>
-                      <li>Live Prices</li>
-                      <li>BTC:<span id="btc"></span></li>
-                      <li>|</li> 
-                      <li>ETH:<span id="eth"></span></li>
-                      <li>|</li> 
-                      <li>XRP:<span id="xrp"></span></li>
-                      <li>|</li> 
-                      <li>LTC:<span id="ltc"></span></li>
-                      <li>|</li> 
-                      <li>BCH:<span id="bch"></span></li>
-                    </ul>
-                    </div>
-                  </div>
+              <div class="container-fluid">
+                <div class="marketcap-crypto">
+                  <img src="/dist/img/bitcoin.png" alt="money-icon">
+                  <h6></h6>
+                  <ul>
+                    <li>Live Prices</li>
+                    <li>BTC:<span id="btc"></span></li>
+                    <li>|</li> 
+                    <li>ETH:<span id="eth"></span></li>
+                    <li>|</li> 
+                    <li>XRP:<span id="xrp"></span></li>
+                    <li>|</li> 
+                    <li>LTC:<span id="ltc"></span></li>
+                    <li>|</li> 
+                    <li>BCH:<span id="bch"></span></li>
+                  </ul>
                 </div>
-          </div>
-         <div class="col-md-3 col-sm-3 col-xs-3">
-            <div class="top-menu pull-right">
-               <div class="nav-click">
-                <i class="fa fa-bars"></i>
               </div>
-              <ul>
-                <li>
-                  <a href="/login">Sign In</a>
-                </li>
-                <li>
-                  <a href="/signup">Create Account</a>
-                </li>
-              </ul>
             </div>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-3">
+            <div class="top-menu pull-right">
+             <div class="nav-click">
+              <i class="fa fa-bars"></i>
+            </div>
+            <ul>
+              <li>
+                <a href="/login">Sign In</a>
+              </li>
+              <li>
+                <a href="/signup">Create Account</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-  </header>
-  <div class="login-box register-box">
+  </div>
+</header>
+<div class="login-box register-box">
+  <div class="container">
     <div class="box-max-w1250">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -104,20 +105,20 @@
               <div class="alert alert-danger">{{errorMsg}}</div>
               {{/if}}
 
-              <div class="inves">
+              <!-- <div class="inves">
                 <div class="form-group has-feedback invester-type">
-                <p>Are you an Institutional Investor?</p>
-                <div class="intitution">
-                  <input name="investor_type" id="institution-radio" value="1" checked="checked" type="radio">Yes
+                  <p>Are you an Institutional Investor?</p>
+                  <div class="intitution">
+                    <input name="investor_type" id="institution-radio" value="1" checked="checked" type="radio">Yes
+                  </div>
                 </div>
-              </div>
-              <div class="form-group has-feedback invester-type">
-                <p>Are you an Individual Investor?</p>
-                <div class="intitution-radio">
-                  <input name="investor_type" id="individual-radio" value="2" type="radio">Yes
+                <div class="form-group has-feedback invester-type">
+                  <p>Are you an Individual Investor?</p>
+                  <div class="intitution-radio">
+                    <input name="investor_type" id="individual-radio" value="2" type="radio">Yes
+                  </div>
                 </div>
-              </div>
-              </div>
+              </div> -->
 
               <div class="form-group has-feedback">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -222,210 +223,211 @@
                 <label>I read and agree to the
                   <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
                   <div class="termcondition-error-wrapper error"></div> 
-                <p class="msg termcondition redcolor"></p>
+                  <p class="msg termcondition redcolor"></p>
+
+                </div>
+
+              </form>
+
+              {{!-- <div class="form-group terms">
+                <input type="checkbox" id="termcondition" name="termcondition">
+                <label>I read and agree to the
+                  <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
+                  <p class="msg termcondition redcolor"></p>
+                </div> --}}
+
+                <div class="bot-sign up">
+                  <a href="/">Already have an account?
+                    <span>Sign in</span>
+                  </a>
+                </div>
 
               </div>
-
-            </form>
-
-            {{!-- <div class="form-group terms">
-              <input type="checkbox" id="termcondition" name="termcondition">
-              <label>I read and agree to the
-                <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
-              <p class="msg termcondition redcolor"></p>
-            </div> --}}
-
-            <div class="bot-sign up">
-              <a href="/">Already have an account?
-                <span>Sign in</span>
-              </a>
+              <!-- /.login-box-body -->
             </div>
-
           </div>
-          <!-- /.login-box-body -->
         </div>
       </div>
     </div>
-  </div>
-  <!-- /.login-box -->
+    <!-- /.login-box -->
 
-  <!-- jQuery 3 -->
-  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
-  <!-- Bootstrap 3.3.7 -->
-  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <!-- iCheck -->
-  <script src="/plugins/iCheck/icheck.min.js"></script>
-  <script>
-    $(function () {
-      $('input').iCheck({
-        checkboxClass: 'icheckbox_square-blue',
-        radioClass: 'iradio_square-blue',
-        increaseArea: '20%' /* optional */
+    <!-- jQuery 3 -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="/plugins/iCheck/icheck.min.js"></script>
+    <script>
+      $(function () {
+        $('input').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          increaseArea: '20%' /* optional */
+        });
       });
-    });
-  </script>
-  <script>
-    $(document).ready(function () {
+    </script>
+    <script>
+      $(document).ready(function () {
 
-      $('.login-box-body').show();
-      $('.login-box-body').animate({
-        'top': '0px'
-      }, 500);
+        $('.login-box-body').show();
+        $('.login-box-body').animate({
+          'top': '0px'
+        }, 500);
 
-      $(".alert").fadeTo(2000, 500).slideUp(500, function () {
-        $(".alert").slideUp(500);
-      });
-      $("#frmSignup").validate({
-        rules: {
-          email: {
-            required: true
-          },
-          password: {
-            required: true
-          },
-          confirm_password: {
-            required: true,
-            equalTo: "#password"
-          },
-          termcondition: {
-            required: true
-          },
-          phone: {
-            required: true,
-            number: true
-          },
-          address: {
-            required: true
-          },
-          city: {
-            required: true
-          },
-          state: {
-            required: true
-          },
-          country: {
-            required: true
-          },
-          zip: {
-            required: true,
-            number: true
-          }
-        },
-        messages: {
-          email: {
-            required: "Please enter email"
-          },
-          password: {
-            required: "Please enter password"
-          },
-          confirm_password: {
-            required: "Please enter confirm password",
-            equalTo: "Should be match with password"
-          },
-          termcondition: {
-            required: "Please check terms and condition box"
-          },
-          phone: {
-            required: "Please enter phone number",
-            number: "Phone number should be numeric"
-          },
-          address: {
-            required: "Please enter address"
-          },
-          city: {
-            required: "Please enter city"
-          },
-          state: {
-            required: "Please enter state"
-          },
-          country: {
-            required: "Please enter country"
-          },
-          zip: {
-            required: "Please enter zip",
-            number: "Zip code should be numeric"
-          }
-        }
-      });
-
-      $('#country').on('change', function () {
-        var countryCode = $(this).val();
-        if (countryCode === '226') {
-          $('#usa_states').css('display', 'block');
-          $('#state').css('display', 'none');
-        }
-        else {
-          $('#usa_states').css('display', 'none');
-          $('#state').css('display', 'block');
-        }
-      });
-
-    });
-  </script>
-  <script>  
-    $(document).ready(function() {
-      $(".reg-btn").click(function() {
-         $(".termcondition-error-wrapper").html('Please check terms and condition box');
-      });
-
-         $('#termcondition').on("ifChanged", function(e) {
-              if($(this).is(":checked")) {
-                 $(".termcondition-error-wrapper").hide();
+        $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+          $(".alert").slideUp(500);
+        });
+        $("#frmSignup").validate({
+          rules: {
+            email: {
+              required: true
+            },
+            password: {
+              required: true
+            },
+            confirm_password: {
+              required: true,
+              equalTo: "#password"
+            },
+            termcondition: {
+              required: true
+            },
+            phone: {
+              required: true,
+              number: true
+            },
+            address: {
+              required: true
+            },
+            city: {
+              required: true
+            },
+            state: {
+              required: true
+            },
+            country: {
+              required: true
+            },
+            zip: {
+              required: true,
+              number: true
             }
-           else {
-              $(".termcondition-error-wrapper").show();
-           }  
+          },
+          messages: {
+            email: {
+              required: "Please enter email"
+            },
+            password: {
+              required: "Please enter password"
+            },
+            confirm_password: {
+              required: "Please enter confirm password",
+              equalTo: "Should be match with password"
+            },
+            termcondition: {
+              required: "Please check terms and condition box"
+            },
+            phone: {
+              required: "Please enter phone number",
+              number: "Phone number should be numeric"
+            },
+            address: {
+              required: "Please enter address"
+            },
+            city: {
+              required: "Please enter city"
+            },
+            state: {
+              required: "Please enter state"
+            },
+            country: {
+              required: "Please enter country"
+            },
+            zip: {
+              required: "Please enter zip",
+              number: "Zip code should be numeric"
+            }
+          }
         });
 
-      
-    });
-  </script>
-  <!-- Starts Scriptd for Responsive Navigation -->
-  <script>
-    $(document).ready(function() {
-      $(".nav-click").click(function() {
-          $(".header-top .top-menu ul").slideToggle();
+        $('#country').on('change', function () {
+          var countryCode = $(this).val();
+          if (countryCode === '226') {
+            $('#usa_states').css('display', 'block');
+            $('#state').css('display', 'none');
+          }
+          else {
+            $('#usa_states').css('display', 'none');
+            $('#state').css('display', 'block');
+          }
+        });
+
       });
-    });
-  </script>
-   <!-- Ends Scriptd for Responsive Navigation -->
+    </script>
+    <script>  
+      $(document).ready(function() {
+        $(".reg-btn").click(function() {
+         $(".termcondition-error-wrapper").html('Please check terms and condition box');
+       });
 
-  <script type="text/javascript">
-        $(document).ready(function(){
-            $.get("http://coincap.io/page/BTC", function(data, status){
-                $('#btc').text(data.price_usd.toFixed(2));
-            }); 
-            $.get("http://coincap.io/page/ETH", function(data, status){
+        $('#termcondition').on("ifChanged", function(e) {
+          if($(this).is(":checked")) {
+           $(".termcondition-error-wrapper").hide();
+         }
+         else {
+          $(".termcondition-error-wrapper").show();
+        }  
+      });
 
-                $('#eth').text(data.price_usd.toFixed(2));
-            });
-            $.get("http://coincap.io/page/XRP", function(data, status){
 
-                $('#xrp').text(data.price_usd.toFixed(2));
-            }); 
-            $.get("http://coincap.io/page/LTC", function(data, status){
-
-                $('#ltc').text(data.price_usd.toFixed(2));
-            });
-            $.get("http://coincap.io/page/BCH", function(data, status){
-
-                $('#bch').text(data.price_usd.toFixed(2));
-            });
+      });
+    </script>
+    <!-- Starts Scriptd for Responsive Navigation -->
+    <script>
+      $(document).ready(function() {
+        $(".nav-click").click(function() {
+          $(".header-top .top-menu ul").slideToggle();
         });
+      });
+    </script>
+    <!-- Ends Scriptd for Responsive Navigation -->
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $.get("http://coincap.io/page/BTC", function(data, status){
+          $('#btc').text(data.price_usd.toFixed(2));
+        }); 
+        $.get("http://coincap.io/page/ETH", function(data, status){
+
+          $('#eth').text(data.price_usd.toFixed(2));
+        });
+        $.get("http://coincap.io/page/XRP", function(data, status){
+
+          $('#xrp').text(data.price_usd.toFixed(2));
+        }); 
+        $.get("http://coincap.io/page/LTC", function(data, status){
+
+          $('#ltc').text(data.price_usd.toFixed(2));
+        });
+        $.get("http://coincap.io/page/BCH", function(data, status){
+
+          $('#bch').text(data.price_usd.toFixed(2));
+        });
+      });
     </script>
 
     <!--Starts Login Live Price-->
     <script>
-    $(document).ready(function() {
-      $(".marketcap-crypto img").click(function() {
+      $(document).ready(function() {
+        $(".marketcap-crypto img").click(function() {
           $(".marketcap-crypto ul").slideToggle();
+        });
       });
-    });
-  </script>
-  <!--Ends Login Live Price-->
+    </script>
+    <!--Ends Login Live Price-->
 
-</body>
+  </body>
 
-</html>
+  </html>

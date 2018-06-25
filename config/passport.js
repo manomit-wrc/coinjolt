@@ -237,8 +237,8 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             city: req.body.city,
                             state: state,
                             country_id: countryId,
-                            postal_code: req.body.zip,
-                            investor_type: req.body.investor_type
+                            postal_code: req.body.zip
+                            // investor_type: req.body.investor_type
     
                         }).then(function(result){
                             /* SES mail sending code for activation link */
@@ -314,8 +314,8 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 city: req.body.city,
                                 state: state,
                                 country_id: countryId,
-                                postal_code: req.body.zip,
-                                investor_type: req.body.investor_type
+                                postal_code: req.body.zip
+                                // investor_type: req.body.investor_type
         
                             }).then(function(result){
                             /* SES mail sending code for activation link */

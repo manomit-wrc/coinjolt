@@ -324,14 +324,14 @@ $('#edit_blog_post_form').validate({
         var edit_post_description = CKEDITOR.instances['edit_post_description'].getData();
         console.log(edit_post_description);
 
-        var edit_blog_post_title = $('#edit_blog_post_title').val();
-        var edit_post_slug = $('#edit_post_slug').val();
-        var edit_meta_title = $('#edit_meta_title').val();
-        var edit_meta_description = $('#edit_meta_description').val();
+        //var edit_blog_post_title = $('#edit_blog_post_title').val();
+        //var edit_post_slug = $('#edit_post_slug').val();
+        //var edit_meta_title = $('#edit_meta_title').val();
+        //var edit_meta_description = $('#edit_meta_description').val();
 
         var form_data = new FormData($('#edit_blog_post_form')[0]);
         form_data.append('edit_post_description', edit_post_description);
-        
+
         //var form_data = new FormData(); 
         //form_data.append('edit_blog_post_title',edit_blog_post_title);
         

@@ -291,7 +291,7 @@ body {
 }
 
 .wrapper .main-header .logo {
-	background-color: #2a2f40 !important;
+	background-color: #232c3d !important;
 	color: #666 !important;
 	height: 81px !important;
 	padding: 15px 15px 10px 20px !important;
@@ -305,7 +305,7 @@ body {
 }
 
 .wrapper .main-sidebar {
-	background-color: #2a2f40 !important;
+	background-color: #232c3d !important;
 	box-shadow: 0 0 10px 0 rgba(33, 33, 33, 0.2);
 	position: fixed;
 	width: 250px;
@@ -486,6 +486,12 @@ select.form-control {
 	background: #2a2f40 !important;
 	font-size: 16px !important;
 	padding: 9px 44px !important;
+	border: 0 none !important;
+	transition: all 0.3s ease 0s !important;
+	-webkit-transition: all 0.3s ease 0s !important;
+	-moz-transition: all 0.3s ease 0s !important;
+	-ms-transition: all 0.3s ease 0s !important;
+	-o-transition: all 0.3s ease 0s !important;
 }
 
 .btn-default {
@@ -1818,16 +1824,110 @@ h3.post-title {
 
     /*Starts on css 25-06-2018*/
 
-    /*.skin-blue.sidebar-mini.sidebar-collapse .main-sidebar .sidebar .sidebar-menu li a span {
-    	background-color: inherit;
-    	display: block !important;
-    	left: 41px;
-    	overflow: visible;
-    	padding: 12px 5px 12px 20px;
-    	position: absolute;
-    	top: 0;
-    	z-index: 999999;
-    }*/
+
+    .login-box .bot-sign a {
+    	color: #000 !important;
+    }
+
+    #terms-modal .modal-content {
+    	border: 1px solid rgba(0, 0, 0, 0.2);
+    	border-radius: 6px;
+    	-webkit-border-radius: 6px;
+    	-moz-border-radius: 6px;
+    	-ms-border-radius: 6px;
+    	-o-border-radius: 6px;
+    	box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    	-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    	-moz-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    	-ms-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    	-o-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    	font-family: open sans;
+    }
+
+    #terms-modal .modal-title {
+    	font-size: 20px;
+    	margin-top: 15px;
+    	text-align: center;
+    }
+
+    #terms-modal .modal-content p {
+    	font-size: 15px !important;
+    	line-height: 28px;
+    }
+
+    #terms-modal .modal-body ul {
+    	list-style: outside none circle;
+    	padding-left: 37px;
+    	font-family: open sans;
+    }
+
+    #terms-modal .modal-body ul li {
+    	line-height: 28px;
+    }
+
+    input#cc-submit, input#cc-submit1 {
+    	background: #2a2f40 none repeat scroll 0 0 !important;
+    	border: medium none;
+    }
+
+    .box-body .scroll-dashboard.buy-and-sell-coins .table td img {
+    	float: left;
+    	margin-left: 0;
+    }
+
+    .box.equal-hgt.symbol-box .box-body .table th {
+    	padding-left: 0 !important;
+    	text-align: left;
+    }
+
+    .box.equal-hgt.symbol-box .box-body .table td {
+    	text-align: left;
+    	vertical-align: middle;
+    }
+
+    .symbol-box .scroll-dashboard.buy-and-sell-coins .currency-logo-sprite {
+    	margin-left: 0;
+    }
+
+    .symbol-box .scroll-dashboard .currency-logo-sprite {
+    	margin-left: 0;
+    }
+
+    .balnrecent .box.equal-hgt .buy-section td {
+    	width: 13%;
+    	vertical-align: middle;
+    }
+
+    #piechart_3d + p {
+    	font-weight: bold;
+    }
+
+    input[type="submit"], input[type="button"] {
+    	border: 0 none;
+    }
+
+    .login-box .login-box-body button {
+    	background: #000 none repeat scroll 0 0 !important;
+    }
+
+    .login-box .login-box-body button:hover {
+    	background: #000 none repeat scroll 0 0 !important;
+    }
+
+    .deposit-funds .btn-info {
+    	background: #2a2f40 none repeat scroll 0 0;
+    	transition: all 0.25s ease-in-out 0s;
+    	-webkit-transition: all 0.25s ease-in-out 0s;
+    	-moz-transition: all 0.25s ease-in-out 0s;
+    	-ms-transition: all 0.25s ease-in-out 0s;
+    	-o-transition: all 0.25s ease-in-out 0s;
+    }
+
+    .deposit-funds .btn-info a:hover {
+    	background: #4d5776 none repeat scroll 0 0;
+    }
+
+    
 
     /*Closed on css 25-06-2018*/
 
@@ -2028,6 +2128,16 @@ h3.post-title {
 
 
       /* Ends css on 2018-05-29 */
+
+      @media screen and (max-width: 1280px) {
+      	.sidebar-menu.tree {
+      		height: 500px !important;
+      	}
+
+      	.slimScrollDiv {
+      		height: 500px !important;
+      	}
+      }
 
       @media screen and (max-width: 1024px) {
 

@@ -74,7 +74,7 @@ module.exports = function (app, models) {
 
     app.post('/admin/update_blog_content', (req, res) =>{
 
-
+        
 
         console.log('Edit content',req.body);
 

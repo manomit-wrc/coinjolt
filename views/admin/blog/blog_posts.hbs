@@ -17,7 +17,7 @@
 					<!-- /.box-header -->
 					<div class="box-body">
                         
-						<table id="all_user_list_table" class="table table-striped res-table">
+						<table id="admin_blog" class="table table-striped res-table">
                             <a href="/admin/create-blog-post" class="btn btn-success">Add</a>
 							<thead>
 								<tr>
@@ -34,8 +34,11 @@
 									<td class="blogContent">{{{ this.post_description}}}</td>
 									<td>{{ dateFormat this.createdAt "MM-DD-YY" }}</td>
 									<td>
-                                        <button type="button" class="btn editBlogBtn" id="editBlogBtn" data-id="{{this.id}}">Edit</button>
-                                        <button type="button" class="btn btn-success deleteBlogBtn" data-id="{{this.id}}">Delete</button>
+                                        {{!-- <button type="button" class="btn editBlogBtn" data-id="{{this.id}}">Edit</button> --}}
+
+										<a class="btn editBlogBtn" href="/admin/edit_blog_content/{{this.id}}">Edit</a>
+
+										<button type="button" class="btn btn-success deleteBlogBtn" data-id="{{this.id}}">Delete</button>
                                     </td>
 								</tr>
 

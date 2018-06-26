@@ -1,32 +1,31 @@
+$(".blogContent").each(function(i){
+    var len=$(this).text().trim().length;
+    if(len>100)
+    {
+        $(this).text($(this).text().substr(0,100)+'...');
+    }
+});
+CKEDITOR.replace( 'edit_post_description' );
 $(document).ready(function(){
+
+    $('#admin_blog').DataTable({
+        "bSort" : false
+    });
+
+
     //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/";
     var baseURL = "http://localhost:8080/admin/";
     $("#errPostDescription").html("");
     $("#errPostDescription").css("display", "none");
     CKEDITOR.replace( 'post_description' ); 
-    alert('hi');
+    //CKEDITOR.replace( 'edit_post_description' );
     var post_description = '';
-    $(".blogContent").each(function(i){
-        var len=$(this).text().trim().length;
-        if(len>100)
-        {
-            $(this).text($(this).text().substr(0,100)+'...');
-        }
-    });
-
-
+    var edit_post_description = '';
+    
+    /*** */
     $('.save_blog').on('click', function(){
-        var post_description = $.trim($("#post_description").val());
-        post_description = CKEDITOR.instances['post_description'].getData();
-        if(post_description === ""){
-            $("#errPostDescription").html("Please enter post description");
-            $("#errPostDescription").css("display", "block");
-        }
 
-        else{
-            $("#errPostDescription").html("");
-            $("#errPostDescription").css("display", "none");
-        }
+        $('#create_blog_post_form').submit();
     });
 
     $('#create_blog_post_form').validate({
@@ -38,16 +37,13 @@ $(document).ready(function(){
                 required: true
             },
             post_featured_image: {
-                required: true,
+                //required: true,
                 extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
             },
             meta_title: {
                 required: true
             },
             meta_description: {
-                required: true
-            },
-            author_name: {
                 required: true
             }
         },
@@ -59,7 +55,7 @@ $(document).ready(function(){
                 required: "Please enter post slug"
             },
             post_featured_image: {
-                required: "Please select featured image to upload",
+                //required: "Please select featured image to upload",
                 extension: "Must be image type"
             },
             meta_title: {
@@ -67,22 +63,15 @@ $(document).ready(function(){
             },
             meta_description: {
                 required: "Please enter meta description"
-            },
-            author_name: {
-                required: "Please enter author name"
             }
         },
         submitHandler:function(form) {
+            var post_description = CKEDITOR.instances['post_description'].getData();
 
-            post_description = CKEDITOR.instances['post_description'].getData();
-            console.log("post_description");
-            console.log(post_description);
-            
-
+            // add
             var form_data = new FormData($('#create_blog_post_form')[0]);
             form_data.append('post_description', post_description);
-            console.log(form_data);
-            console.log(form_data);
+           
 
             $.ajax({
                 type: "POST",
@@ -97,27 +86,95 @@ $(document).ready(function(){
                     }
                 }
             });
-
+            // end
 
         }
+
     });
+        // var post_description = $.trim($("#post_description").val());
+        // post_description = CKEDITOR.instances['post_description'].getData();
+        // if(post_description === ""){
+        //     $("#errPostDescription").html("Please enter post description");
+        //     $("#errPostDescription").css("display", "block");
+        //     return false;
+        // }
     
-    $('#editBlogBtn').on('click', function(){
-         var blogId =  $(this).data("id");
-         alert(blogId);
-        /* $.ajax({
-            type: "POST",
-            url: '/admin/edit_blog_content',
-            data: {blogId: blogId},
-            success: function (response) {
-                if(response.status == true){
-                    sweetAlertSuccessPopUp('Success',response.msg);
-                }
+        // else{
+        //     $("#errPostDescription").html("");
+        //     $("#errPostDescription").css("display", "none");
+        // }
+    
+        
+    /*** */
+
+    /* $('.edit_blog').on('click', function(){
+
+        $('#edit_blog_post_form').submit();
+    }); */
+
+    /* $('#edit_blog_post_form').validate({
+        rules: {
+            edit_blog_post_title: {
+                required: true
+            },
+            edit_post_slug: {
+                required: true
+            },
+            edit_post_featured_image: {
+                //required: true,
+                extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
+            },
+            edit_meta_title: {
+                required: true
+            },
+            edit_meta_description: {
+                required: true
             }
-        });  */
+        },
+        messages: {
+            edit_blog_post_title: {
+                required: "Please enter blog post title"
+            },
+            edit_post_slug: {
+                required: "Please enter post slug"
+            },
+            edit_post_featured_image: {
+                //required: "Please select featured image to upload",
+                extension: "Must be image type"
+            },
+            edit_meta_title: {
+                required: "Please enter meta title"
+            },
+            edit_meta_description: {
+                required: "Please enter meta description"
+            }
+        },
+        submitHandler:function(form) {
 
-    });
+            var post_description = CKEDITOR.instances['edit_post_description'].getData();
 
+            var form_data = new FormData($('#edit_blog_post_form')[0]);
+            form_data.append('post_description', post_description);
+           
+
+            $.ajax({
+                type: "POST",
+                url: '/admin/update_blog_content',
+                data: form_data,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if(response.status == true){
+                        sweetAlertSuccessPopUp('Success',response.msg);
+                    }
+                }
+            });
+
+        }
+
+
+    }); */
 
     function sweetAlertSuccessPopUp (title='',text='') {
         swal({
@@ -130,5 +187,173 @@ $(document).ready(function(){
             window.location.href=baseURL+"blog-posts";
         });
     }
+
+    // start
+    /* $('.edit_blog').on('click', function(){
+        alert('hi');
+        //e.preventDefault();
+        var edit_post_description = CKEDITOR.instances['edit_post_description'].getData();
+        if(edit_post_description === ""){
+            $("#edit_errPostDescription").html("Please enter post description");
+            $("#edit_errPostDescription").css("display", "block");
+        }
+    
+        else{
+            $("#edit_errPostDescription").html("");
+            $("#edit_errPostDescription").css("display", "none");
+        }
+    }); */
+
+    /* $('#edit_blog_post_form').validate({
+        rules: {
+            edit_blog_post_title: {
+                required: true
+            },
+            edit_post_slug: {
+                required: true
+            },
+            edit_post_featured_image: {
+                //required: true,
+                extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
+            },
+            edit_meta_title: {
+                required: true
+            },
+            edit_meta_description: {
+                required: true
+            }
+        },
+        messages: {
+            edit_blog_post_title: {
+                required: "Please enter blog post title"
+            },
+            edit_post_slug: {
+                required: "Please enter post slug"
+            },
+            edit_post_featured_image: {
+                //required: "Please select featured image to upload",
+                extension: "Must be image type"
+            },
+            edit_meta_title: {
+                required: "Please enter meta title"
+            },
+            edit_meta_description: {
+                required: "Please enter meta description"
+            }
+        },
+        submitHandler:function(form) {
+    
+            edit_post_description = CKEDITOR.instances['edit_post_description'].getData();
+           
+            var blogIdArr = window.location.pathname.split( '/' ); 
+            var blogId = blogIdArr[3];
+    
+            var form_data = new FormData($('#edit_blog_post_form')[0]);
+            form_data.append('post_description', edit_post_description);
+            
+            form_data.append('blogId', blogId);
+    
+            if(!isNaN(blogId)){
+                $.ajax({
+                    type: "POST",
+                    url: '/admin/update_blog_content',
+                    data: form_data,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if(response.status == true){
+                            sweetAlertSuccessPopUp('Success',response.msg);
+                        }
+                    }
+                });
+            }
+        
+        }
+    }); */
+    
+
+
+});
+
+$('#edit_blog').on('click', function(){
+
+    $('#edit_blog_post_form').submit();
+});
+
+$('#edit_blog_post_form').validate({
+    rules: {
+        edit_blog_post_title: {
+            required: true
+        },
+        edit_post_slug: {
+            required: true
+        },
+        edit_post_featured_image: {
+            //required: true,
+            extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
+        },
+        edit_meta_title: {
+            required: true
+        },
+        edit_meta_description: {
+            required: true
+        }
+    },
+    messages: {
+        edit_blog_post_title: {
+            required: "Please enter blog post title"
+        },
+        edit_post_slug: {
+            required: "Please enter post slug"
+        },
+        edit_post_featured_image: {
+            //required: "Please select featured image to upload",
+            extension: "Must be image type"
+        },
+        edit_meta_title: {
+            required: "Please enter meta title"
+        },
+        edit_meta_description: {
+            required: "Please enter meta description"
+        }
+    },
+    submitHandler:function(form) {
+        console.log("edit submit");
+
+        var edit_post_description = CKEDITOR.instances['edit_post_description'].getData();
+        console.log(edit_post_description);
+
+        //var edit_blog_post_title = $('#edit_blog_post_title').val();
+        //var edit_post_slug = $('#edit_post_slug').val();
+        //var edit_meta_title = $('#edit_meta_title').val();
+        //var edit_meta_description = $('#edit_meta_description').val();
+
+        var form_data = new FormData($('#edit_blog_post_form')[0]);
+        form_data.append('edit_post_description', edit_post_description);
+
+        //var form_data = new FormData(); 
+        //form_data.append('edit_blog_post_title',edit_blog_post_title);
+        
+        //form_data.append('edit_post_slug', edit_post_slug);
+        //form_data.append('edit_meta_title', edit_meta_title);
+        //form_data.append('edit_meta_description', edit_meta_description);
+
+        $.ajax({
+            type: "POST",
+            url: '/admin/update_blog_content',
+            data: form_data,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if(response.status == true){
+                    sweetAlertSuccessPopUp('Success',response.msg);
+                }
+            }
+        });
+
+    }
+
 
 });

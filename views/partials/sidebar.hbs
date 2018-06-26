@@ -1,7 +1,7 @@
 <aside class="main-sidebar">
     <section class="sidebar">
 
-        <ul class="sidebar-menu" data-widget="tree">
+        <ul class="sidebar-menu {{#if_eq user.type 1}} admin_menu{{/if_eq}}" data-widget="tree">
             {{#if_eq user.type 2}}
                 <li>
                     <a  href="/buy-and-sell-coins">

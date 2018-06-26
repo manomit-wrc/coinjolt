@@ -251,7 +251,7 @@ app.use(session({
     },
     name: "id",
     ttl: (1* 60* 60)
- })); // session secret
+})); // session secret
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());

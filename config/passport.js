@@ -201,7 +201,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                 });
             }
 
-        ));
+    ));
 
     passport.use('local-signup', new LocalStrategy({
 

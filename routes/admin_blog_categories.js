@@ -32,4 +32,21 @@ module.exports = function (app, models) {
         });
     });
 
+    app.post('/admin/edit_blog_category', (req, res) =>{
+
+        models.blog_category.update({
+            category_name : req.body.edit_category_title,
+            status: req.body.edit_cat_status
+        }, {
+            where: {
+                id: req.body.catId
+            }
+        }).then(function (result) {
+            res.json({status: true, msg: "Post category edited successfully"});
+        });
+
+        console.log('Edited content: ',req.body);
+
+    });
+
 };

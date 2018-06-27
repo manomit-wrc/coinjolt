@@ -72,7 +72,7 @@ module.exports = function (app, models) {
 
     });
 
-    app.post('/admin/update_blog_content', (req, res) =>{
+    app.post('/admin/update_blog_content', acl, blogImageUpload.single('edit_post_featured_image'), (req, res) =>{
 
         
 

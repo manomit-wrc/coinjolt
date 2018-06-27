@@ -1,6 +1,7 @@
 const sequelize = require('sequelize');
 const acl = require('../middlewares/acl');
 var multer = require('multer');
+var fs = require('fs');
 module.exports = function (app, models) {
 
     var blogImageStorage = multer.diskStorage({
@@ -115,6 +116,27 @@ module.exports = function (app, models) {
         });
 
       
+    });
+
+    app.post('/admin/remove_blog_content', async(req, res) =>{
+        
+        var blogID = req.body.blogId;
+        const getBlogImage = await models.blog_post.findAll({where: {id: blogID}});
+        console.log(JSON.stringify(getBlogImage, undefined, 2));
+        var imgName = getBlogImage[0].featured_image;
+
+        if(imgName!= ''){
+            fs.unlink('public/blog_images/'+ imgName, (err) => {});
+        }
+
+        models.blog_post.destroy({
+            where: {
+                id: blogID
+            }
+        }).then(function (result) {
+            res.json({status: true, msg: "Blog post deleted successfully"});
+        });
+
     });
 
 

@@ -294,6 +294,7 @@ require('./routes/admin_all_user_list')(app, models.email_template, models.User,
 require('./routes/admin_deposit_type')(app, models.deposit_method);
 require('./routes/cms')(app, models);
 require('./routes/admin_blog_posts')(app, models);
+require('./routes/admin_blog_categories')(app, models);
 app.listen(port);
 console.log('The magic happens on port ' + port);
 

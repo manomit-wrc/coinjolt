@@ -22,7 +22,6 @@ $(document).ready(function(){
     var post_description = '';
     var edit_post_description = '';
     
-    /*** */
     $('.save_blog').on('click', function(){
 
         $('#create_blog_post_form').submit();

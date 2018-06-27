@@ -1,0 +1,57 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="title-with-btn pd-612">
+       <div class="pull-left">
+        <h1>Edit Blog Categories</h1>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<ol class="breadcrumb">
+  <li>
+    <a href="/dashboard">
+      <i class="fa fa-dashboard"></i> Home</a>
+  </li>
+  <li class="active">Edit Blog Categories</li>
+</ol>
+</section>
+
+<div class="loader"></div>
+
+<!-- Main content -->
+<section class="content container-fluid">
+    <!-- Starts email-marketing -->
+            <div class="email-marketing">
+          <div class="box box-primary">
+            <div class="box-body">
+                <form name="edit_blog_category_form" id="edit_blog_category_form" action="" method="POST">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="blog_category_title">Category Title: </label>
+                    <input type="text" class="form-control input-lg" id="edit_blog_category_title" name="edit_blog_category_title" placeholder="Enter Category Title" value="{{categoryDetail.0.category_name}}">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="status">Status:</label>
+                    <select class="form-control" id="status" name="status">
+                        <option value="1" {{#if_eq categoryDetail.0.status '1'}} selected {{/if_eq}}>Enable</option>
+                        <option value="0" {{#if_eq categoryDetail.0.status '0'}} selected {{/if_eq}}>Disable</option>
+                    </select>
+                </div>
+                 <div class="col-md-2 col-md-offset-5 pd-612">
+                    <div class="form-group">
+                        <input class="btn btn-primary edit_blog_category" id="edit_blog_category" value="Edit Category" type="button">
+                    </div>
+                </div>
+              </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+    <!-- Ends email-marketing -->
+</section>
+<!-- /.content -->
+

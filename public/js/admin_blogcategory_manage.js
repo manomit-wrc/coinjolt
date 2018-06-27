@@ -41,7 +41,6 @@ $(document).ready(function(){
 
     });
 
-    // edit form validation
     $('.edit_blog_category').on('click', function(){
 
         $('#edit_blog_category_form').submit();

@@ -5,6 +5,8 @@ $(".blogContent").each(function(i){
         $(this).text($(this).text().substr(0,100)+'...');
     }
 });
+//var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/";
+var baseURL = "http://localhost:8080/admin/";
 // CKEDITOR.replace( 'edit_post_description' );
 CKEDITOR.replace( 'post_description' ); 
 $(document).ready(function(){
@@ -15,7 +17,7 @@ $(document).ready(function(){
 
 
     //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/";
-    var baseURL = "http://localhost:8080/admin/";
+    //var baseURL = "http://localhost:8080/admin/";
     $("#errPostDescription").html("");
     $("#errPostDescription").css("display", "none");
 
@@ -155,22 +157,12 @@ $('#edit_blog_post_form').validate({
 
         var edit_post_description = CKEDITOR.instances['post_description'].getData();
 
-        //console.log(edit_post_description);
-
-        //var edit_blog_post_title = $('#edit_blog_post_title').val();
-        //var edit_post_slug = $('#edit_post_slug').val();
-        //var edit_meta_title = $('#edit_meta_title').val();
-        //var edit_meta_description = $('#edit_meta_description').val();
-
         var form_data = new FormData($('#edit_blog_post_form')[0]);
         form_data.append('edit_post_description', edit_post_description);
-        
-        //var form_data = new FormData(); 
-        //form_data.append('edit_blog_post_title',edit_blog_post_title);
-        
-        //form_data.append('edit_post_slug', edit_post_slug);
-        //form_data.append('edit_meta_title', edit_meta_title);
-        //form_data.append('edit_meta_description', edit_meta_description);
+
+        var blogIdArr = window.location.pathname.split( '/' );
+        var blogId = blogIdArr[3];
+        form_data.append('blog_id',blogId);
        
         $.ajax({
             type: "POST",
@@ -190,3 +182,15 @@ $('#edit_blog_post_form').validate({
 
 
 });
+
+function sweetAlertSuccessPopUp (title='',text='') {
+    swal({
+        title: title,
+        text: text,
+        type: "success",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK"
+    },  function() {
+        window.location.href=baseURL+"blog-posts";
+    });
+}

@@ -9,12 +9,18 @@ $(".blogContent").each(function(i){
 var baseURL = "http://localhost:8080/admin/";
 // CKEDITOR.replace( 'edit_post_description' );
 CKEDITOR.replace( 'post_description' ); 
-$(document).ready(function(){
 
+$(document).ready(function(){
+    alert('hi');
     $('#admin_blog').DataTable({
         "bSort" : false
     });
 
+
+    $('.deleteBlogBtn').on('click', function(){
+        var blogDelId = $(this).data('id');
+        alert('delete clicked'+blogDelId);
+    });
 
     //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/";
     //var baseURL = "http://localhost:8080/admin/";
@@ -22,9 +28,6 @@ $(document).ready(function(){
     $("#errPostDescription").css("display", "none");
 
     //CKEDITOR.replace( 'edit_post_description' );
-
-    var post_description = '';
-    var edit_post_description = '';
 
    
     $('.save_blog').on('click', function(){
@@ -85,12 +88,6 @@ $(document).ready(function(){
         submitHandler:function(form) {
             var post_description = CKEDITOR.instances['post_description'].getData();
 
-            /* if(post_description == ''){
-                $('#errPostDescription').html("Please enter post description");
-                $('#errPostDescription').css("display", "block");
-                return false;
-            } */
-
             var form_data = new FormData($('#create_blog_post_form')[0]);
             form_data.append('post_description', post_description);
            
@@ -126,10 +123,11 @@ $(document).ready(function(){
         });
     }
 
-    
-
+   
 
 });
+
+
 
 $('.edit_blog').on('click', function(){
 
@@ -148,6 +146,13 @@ $('#edit_blog_post_form').validate({
             //required: true,
             extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
         },
+        post_description: {
+            required: function(textarea) {
+                CKEDITOR.instances['post_description'].updateElement(); 
+                var editorcontent = textarea.value.replace(/<[^>]*>/gi, ''); 
+                return editorcontent.length === 0;
+              }
+        },
         edit_meta_title: {
             required: true
         },
@@ -165,6 +170,9 @@ $('#edit_blog_post_form').validate({
         edit_post_featured_image: {
             //required: "Please select featured image to upload",
             extension: "Must be image type"
+        },
+        post_description:{
+            required:"Please enter post description"
         },
         edit_meta_title: {
             required: "Please enter meta title"

@@ -57,6 +57,16 @@
                     </div>
                 </div>
 
+                <div class="col-md-12">
+                    <label for="post_category">Post_category:</label>
+                    
+                    <select class="form-control" id="post_category" name="post_category">
+                      {{#each blog_categories}}
+                        <option value="{{this.id}}">{{this.category_name}}</option>
+                      {{/each}}  
+                    </select>
+                </div>
+
 
                 <div class="col-md-12">
                   <div class="form-group">

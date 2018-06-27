@@ -7,7 +7,7 @@ const dateFormat = require('dateformat');
 var request = require('sync-request');
 const acl = require('../middlewares/acl');
 
-module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method, company_setting, blog_post) {
+module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method, company_setting, blog_post, blog_category) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -487,8 +487,9 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 
 	app.get('/admin/create-blog-post', (req, res) =>{
 
-			res.render('admin/blog/blog_create', {layout: 'dashboard'});
-		
+		blog_category.findAll({where: {status: 1}}).then(function(blog_categories){
+			res.render('admin/blog/blog_create', {layout: 'dashboard', blog_categories: blog_categories});
+		});
 	});
 
 	function sendJSON(res, httpCode, body) {

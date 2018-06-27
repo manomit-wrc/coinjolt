@@ -32,7 +32,7 @@ module.exports = function (app, models) {
     var blogImageUpload = multer({ storage: blogImageStorage, limits: {fileSize:3000000, fileFilter:restrictBlogImgType} });
 
     app.post('/admin/post_blog_content', acl, blogImageUpload.single('post_featured_image'), async(req,res) => {
-
+        
         var photo = null;
         var allowedTypes = ['image/jpeg','image/gif','image/png'];
         var postImage = '';
@@ -52,7 +52,8 @@ module.exports = function (app, models) {
             meta_title: req.body.meta_title,
             meta_description: req.body.meta_description,
             author_id: req.user.id,
-            status: 1
+            status: 1,
+            post_category_id: req.body.post_category
         }).then(function(resp){
             res.json({
                 status:true,

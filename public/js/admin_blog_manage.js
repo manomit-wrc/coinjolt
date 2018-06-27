@@ -5,7 +5,8 @@ $(".blogContent").each(function(i){
         $(this).text($(this).text().substr(0,100)+'...');
     }
 });
-CKEDITOR.replace( 'edit_post_description' );
+// CKEDITOR.replace( 'edit_post_description' );
+CKEDITOR.replace( 'post_description' ); 
 $(document).ready(function(){
 
     $('#admin_blog').DataTable({
@@ -17,8 +18,9 @@ $(document).ready(function(){
     var baseURL = "http://localhost:8080/admin/";
     $("#errPostDescription").html("");
     $("#errPostDescription").css("display", "none");
-    CKEDITOR.replace( 'post_description' ); 
+
     //CKEDITOR.replace( 'edit_post_description' );
+
     var post_description = '';
     var edit_post_description = '';
     
@@ -151,7 +153,7 @@ $('#edit_blog_post_form').validate({
     },
     submitHandler:function(form) {
 
-        var edit_post_description = CKEDITOR.instances['edit_post_description'].getData();
+        var edit_post_description = CKEDITOR.instances['post_description'].getData();
 
         //console.log(edit_post_description);
 

@@ -94,7 +94,7 @@ module.exports = function (app, models) {
 
         const update = await models.blog_post.update({
             post_title: req.body.edit_blog_post_title,
-            post_description: req.body.post_description,
+            post_description: req.body.edit_post_description,
             post_slug: req.body.edit_post_slug,
             featured_image: postImage,
             meta_title: req.body.edit_meta_title,

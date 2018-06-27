@@ -25,19 +25,30 @@ $(document).ready(function(){
 
     var post_description = '';
     var edit_post_description = '';
-    
+
+   
     $('.save_blog').on('click', function(){
 
         $('#create_blog_post_form').submit();
     });
 
+
     $('#create_blog_post_form').validate({
+        ignore: [],
+        debug: false,
         rules: {
             blog_post_title: {
                 required: true
             },
             post_slug: {
                 required: true
+            },
+            blog_desc: {
+                required: function(textarea) {
+                    CKEDITOR.instances['post_description'].updateElement(); 
+                    var editorcontent = textarea.value.replace(/<[^>]*>/gi, ''); 
+                    return editorcontent.length === 0;
+                  }
             },
             post_featured_image: {
                 //required: true,
@@ -61,6 +72,9 @@ $(document).ready(function(){
                 //required: "Please select featured image to upload",
                 extension: "Must be image type"
             },
+            blog_desc:{
+                required:"Please enter post description"
+            },
             meta_title: {
                 required: "Please enter meta title"
             },
@@ -70,6 +84,12 @@ $(document).ready(function(){
         },
         submitHandler:function(form) {
             var post_description = CKEDITOR.instances['post_description'].getData();
+
+            /* if(post_description == ''){
+                $('#errPostDescription').html("Please enter post description");
+                $('#errPostDescription').css("display", "block");
+                return false;
+            } */
 
             var form_data = new FormData($('#create_blog_post_form')[0]);
             form_data.append('post_description', post_description);

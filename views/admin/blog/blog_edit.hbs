@@ -64,7 +64,6 @@
 
                 <div class="col-md-12">
                     <label for="edit_post_category">Post category:</label>
-                   {{blogDetail.0.post_category_id}}
                     <select class="form-control" id="edit_post_category" name="edit_post_category">
                       {{#each blog_categories}}
                         <option value="{{this.id}}" {{#if_eq this.id ../blogDetail.0.post_category_id}}selected{{/if_eq}}>{{this.category_name}}</option>

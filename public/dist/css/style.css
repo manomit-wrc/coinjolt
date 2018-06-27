@@ -1927,6 +1927,52 @@ h3.post-title {
     	background: #4d5776 none repeat scroll 0 0;
     }
 
+    .admin-tp-box .btn-success {
+    	background: #2a2f40 none repeat scroll 0 0;
+    	transition: all 0.25s ease-in-out 0s;
+    	-webkit-transition: all 0.25s ease-in-out 0s;
+    	-moz-transition: all 0.25s ease-in-out 0s;
+    	-ms-transition: all 0.25s ease-in-out 0s;
+    	-o-transition: all 0.25s ease-in-out 0s;
+    	border: 0 none;
+    }
+
+    .admin-tp-box .btn-success:hover {
+    	background: #4d5776 none repeat scroll 0 0;
+    }
+
+    .admin-tp-box.btn-success {
+    	background: #2a2f40 none repeat scroll 0 0;
+    	transition: all 0.25s ease-in-out 0s;
+    	-webkit-transition: all 0.25s ease-in-out 0s;
+    	-moz-transition: all 0.25s ease-in-out 0s;
+    	-ms-transition: all 0.25s ease-in-out 0s;
+    	-o-transition: all 0.25s ease-in-out 0s;
+    	border: 0 none;
+    }
+
+    .admin-tp-box.btn-success:hover {
+    	background: #4d5776 none repeat scroll 0 0;
+    }
+
+    .deleteBlogBtn {
+    	background: #2a2f40 none repeat scroll 0 0 !important;
+    	transition: all 0.25s ease-in-out 0s;
+    	-webkit-transition: all 0.25s ease-in-out 0s;
+    	-moz-transition: all 0.25s ease-in-out 0s;
+    	-ms-transition: all 0.25s ease-in-out 0s;
+    	-o-transition: all 0.25s ease-in-out 0s;
+    	border: 0 none !important;
+    }
+
+    .deleteBlogBtn:hover {
+    	background: #4d5776 none repeat scroll 0 0 !important;
+    }
+
+    #cms-about-us input[type="file"], #terms_of_service_form input[type="file"], #risk_disclosures_form input[type="file"], #privacy_policy_form input[type="file"] {
+    	height: 25px;
+    }
+
     
 
     /*Closed on css 25-06-2018*/
@@ -2042,6 +2088,14 @@ h3.post-title {
     		right: 130px;
     		top: 56px;
     		padding: 0;
+    	}
+
+    	.slimScrollDiv {
+    		height: 500px !important;
+    	}
+
+    	.sidebar-menu.tree {
+    		height: 500px !important;
     	}
     }
 

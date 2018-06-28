@@ -1,10 +1,20 @@
 $(".blogContent").each(function(i){
     var len=$(this).text().trim().length;
-    if(len>100)
+    if(len>50)
     {
-        $(this).text($(this).text().substr(0,100)+'...');
+        $(this).text($(this).text().substr(0,50)+'...');
     }
 });
+
+$(".blogTitle").each(function(i){
+    var len=$(this).text().trim().length;
+    if(len>30)
+    {
+        $(this).text($(this).text().substr(0,30)+'...');
+    }
+});
+
+
 var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
 //var baseURL = "http://localhost:8080/admin/";
 // CKEDITOR.replace( 'edit_post_description' );
@@ -12,6 +22,11 @@ CKEDITOR.replace( 'post_description' );
 
 $(document).ready(function(){
 
+
+
+    // $('#admin_blog').DataTable({
+    //     "bSort" : false
+    // });
     $('#admin_blog').DataTable({
         "bSort" : false
     });

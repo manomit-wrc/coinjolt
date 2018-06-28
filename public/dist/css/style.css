@@ -1829,6 +1829,10 @@ h3.post-title {
     	color: #000 !important;
     }
 
+    #terms-modal .modal-content strong {
+    	font-weight: 600;
+    }
+
     #terms-modal .modal-content {
     	border: 1px solid rgba(0, 0, 0, 0.2);
     	border-radius: 6px;
@@ -1841,7 +1845,7 @@ h3.post-title {
     	-moz-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
     	-ms-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
     	-o-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-    	font-family: open sans;
+    	/*font-family: "Open Sans",​sans-serif !important;*/
     }
 
     #terms-modal .modal-title {
@@ -1851,18 +1855,23 @@ h3.post-title {
     }
 
     #terms-modal .modal-content p {
-    	font-size: 15px !important;
+    	font-size: 16px !important;
     	line-height: 28px;
     }
 
     #terms-modal .modal-body ul {
     	list-style: outside none circle;
     	padding-left: 37px;
-    	font-family: open sans;
+    	/*font-family: "Open Sans",​sans-serif !important;*/
     }
 
     #terms-modal .modal-body ul li {
+    	font-size: 16px;
     	line-height: 28px;
+    }
+
+    ul.strategy ol {
+    	list-style-type: none;
     }
 
     input#cc-submit, input#cc-submit1 {
@@ -2505,7 +2514,7 @@ h3.post-title {
     }
 
     .termcondition-error-wrapper {
-    	display: inline-block;
+    	display: table;
     	max-width: 100%;
     	margin-bottom: 5px;
     	font-weight: 700;

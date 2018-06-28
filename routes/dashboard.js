@@ -1650,6 +1650,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     app.get('/settings', (req,res) => {
         res.render('settings', {layout: 'dashboard'});
     });
-
-      
+  
+    
 };

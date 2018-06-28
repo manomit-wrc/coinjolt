@@ -237,7 +237,10 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             city: req.body.city,
                             state: state,
                             country_id: countryId,
-                            postal_code: req.body.zip
+                            postal_code: req.body.zip,
+                            two_factorAuth_secret_key: '',
+                            two_factorAuth_qr_code_image: '',
+                            two_factorAuth_status: 2
                             // investor_type: req.body.investor_type
     
                         }).then(function(result){
@@ -314,7 +317,10 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 city: req.body.city,
                                 state: state,
                                 country_id: countryId,
-                                postal_code: req.body.zip
+                                postal_code: req.body.zip,
+                                two_factorAuth_secret_key: '',
+                                two_factorAuth_qr_code_image: '',
+                                two_factorAuth_status: 2
                                 // investor_type: req.body.investor_type
         
                             }).then(function(result){

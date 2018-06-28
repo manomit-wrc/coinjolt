@@ -448,6 +448,10 @@ module.exports = function (app, passport, models) {
                 order: [
                     ['createdAt', 'DESC']
                 ]
+            }),
+
+            models.company_setting.findAll({
+
             })
 
         ]).then(function (results) {
@@ -456,7 +460,7 @@ module.exports = function (app, passport, models) {
 
             //console.log('featured posts: ', JSON.stringify(result[1], undefined, 2));
 
-            res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2]});
+            res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2], companySettingsData: results[3]});
         });
         /******/
 

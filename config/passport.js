@@ -281,7 +281,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account'));
 
                         }).catch(function(err){
-                            console.log('error');
+                            console.log(err);
                         });
     
                     }

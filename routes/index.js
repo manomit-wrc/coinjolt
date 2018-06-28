@@ -404,7 +404,8 @@ module.exports = function (app, passport, models) {
     app.get('/:blogDetail', (req,res) =>{
         var blogPageSlug = req.params.blogDetail;
 
-        models.blog_post.findAndCountAll({
+        // worked portion
+        /* models.blog_post.findAndCountAll({
             where: {
                 post_slug: blogPageSlug
             }
@@ -418,7 +419,49 @@ module.exports = function (app, passport, models) {
                 // 404 page
             }
             
+        }); */
+        // end worked
+
+        /******/
+        Promise.all([
+            models.blog_post.findAndCountAll({
+                where: {
+                    post_slug: blogPageSlug
+                }
+            }),
+
+            models.blog_post.findAll({  // featured 
+                where: {
+                    post_category_id: 1
+                },
+                limit: 6,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            }),
+
+            models.blog_post.findAll({  // latest news
+                where: {
+                    post_category_id: 3
+                },
+                limit: 6,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
+
+        ]).then(function (results) {
+            //console.log(JSON.stringify(results[2], undefined, 2));
+            //console.log('latest news: ', JSON.stringify(result[2].rows, undefined, 2));
+
+            //console.log('featured posts: ', JSON.stringify(result[1], undefined, 2));
+
+            res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2]});
         });
+        /******/
+
+
+
     });
 
     function encrypt(text) {

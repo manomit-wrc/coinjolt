@@ -5,7 +5,11 @@ $(".blogContent").each(function(i){
         $(this).text($(this).text().substr(0,100)+'...');
     }
 });
-CKEDITOR.replace( 'edit_post_description' );
+var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
+//var baseURL = "http://localhost:8080/admin/";
+// CKEDITOR.replace( 'edit_post_description' );
+CKEDITOR.replace( 'post_description' ); 
+
 $(document).ready(function(){
 
     $('#admin_blog').DataTable({
@@ -13,28 +17,41 @@ $(document).ready(function(){
     });
 
 
+    $('.deleteBlogBtn').on('click', function(){
+        var blogDelId = $(this).data('id');
+        alert('delete clicked'+blogDelId);
+    });
+
     //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/";
-    var baseURL = "http://localhost:8080/admin/";
+    //var baseURL = "http://localhost:8080/admin/";
     $("#errPostDescription").html("");
     $("#errPostDescription").css("display", "none");
-    CKEDITOR.replace( 'post_description' ); 
+
     //CKEDITOR.replace( 'edit_post_description' );
-    var post_description = '';
-    var edit_post_description = '';
-    
-    /*** */
+
+   
     $('.save_blog').on('click', function(){
 
         $('#create_blog_post_form').submit();
     });
 
+
     $('#create_blog_post_form').validate({
+        ignore: [],
+        debug: false,
         rules: {
             blog_post_title: {
                 required: true
             },
             post_slug: {
                 required: true
+            },
+            blog_desc: {
+                required: function(textarea) {
+                    CKEDITOR.instances['post_description'].updateElement(); 
+                    var editorcontent = textarea.value.replace(/<[^>]*>/gi, ''); 
+                    return editorcontent.length === 0;
+                  }
             },
             post_featured_image: {
                 //required: true,
@@ -57,6 +74,9 @@ $(document).ready(function(){
             post_featured_image: {
                 //required: "Please select featured image to upload",
                 extension: "Must be image type"
+            },
+            blog_desc:{
+                required:"Please enter post description"
             },
             meta_title: {
                 required: "Please enter meta title"
@@ -103,10 +123,11 @@ $(document).ready(function(){
         });
     }
 
-    
-
+   
 
 });
+
+
 
 $('.edit_blog').on('click', function(){
 
@@ -124,6 +145,13 @@ $('#edit_blog_post_form').validate({
         edit_post_featured_image: {
             //required: true,
             extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
+        },
+        post_description: {
+            required: function(textarea) {
+                CKEDITOR.instances['post_description'].updateElement(); 
+                var editorcontent = textarea.value.replace(/<[^>]*>/gi, ''); 
+                return editorcontent.length === 0;
+              }
         },
         edit_meta_title: {
             required: true
@@ -143,6 +171,9 @@ $('#edit_blog_post_form').validate({
             //required: "Please select featured image to upload",
             extension: "Must be image type"
         },
+        post_description:{
+            required:"Please enter post description"
+        },
         edit_meta_title: {
             required: "Please enter meta title"
         },
@@ -152,24 +183,14 @@ $('#edit_blog_post_form').validate({
     },
     submitHandler:function(form) {
 
-        var edit_post_description = CKEDITOR.instances['edit_post_description'].getData();
-
-        //console.log(edit_post_description);
-
-        //var edit_blog_post_title = $('#edit_blog_post_title').val();
-        //var edit_post_slug = $('#edit_post_slug').val();
-        //var edit_meta_title = $('#edit_meta_title').val();
-        //var edit_meta_description = $('#edit_meta_description').val();
+        var edit_post_description = CKEDITOR.instances['post_description'].getData();
 
         var form_data = new FormData($('#edit_blog_post_form')[0]);
         form_data.append('edit_post_description', edit_post_description);
-        
-        //var form_data = new FormData(); 
-        //form_data.append('edit_blog_post_title',edit_blog_post_title);
-        
-        //form_data.append('edit_post_slug', edit_post_slug);
-        //form_data.append('edit_meta_title', edit_meta_title);
-        //form_data.append('edit_meta_description', edit_meta_description);
+
+        var blogIdArr = window.location.pathname.split( '/' );
+        var blogId = blogIdArr[3];
+        form_data.append('blog_id',blogId);
        
         $.ajax({
             type: "POST",
@@ -189,3 +210,15 @@ $('#edit_blog_post_form').validate({
 
 
 });
+
+function sweetAlertSuccessPopUp (title='',text='') {
+    swal({
+        title: title,
+        text: text,
+        type: "success",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK"
+    },  function() {
+        window.location.href=baseURL+"blog-posts";
+    });
+}

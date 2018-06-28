@@ -252,12 +252,74 @@
     <script src="/js/cms.js"></script>
     <script src="/js/admin_company_settings.js"></script>
     <script src="/js/admin_blog_manage.js"></script>
+    <script src="/js/admin_blogcategory_manage.js"></script>
 
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
 
     <!--end-->
+
+    <script type="text/javascript">
+        var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
+        //var baseURL = "http://localhost:8080/admin/";
+        function deleteBlog(blogId){
+
+            swal({
+                title: "Confirm Deletion of Blog Post",
+                text: "Are you sure?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Confirm",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                customClass: 'swal-wide'
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        swal({
+                                title: "Blog Post deletion successful",
+                                text: "Your successfully deleted blog post.",
+                                type: "success"
+                            },
+                            function(isConfirm) {
+                                if (isConfirm) {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/admin/remove_blog_content',
+                                        data: {blogId: blogId},
+                                        success: function (response) {
+                                            if(response.status == true){
+                                                sweetAlertSuccessPopUp('Success',response.msg);
+                                            }
+                                        }
+                                    });
+                                }
+                        });
+
+                    } else {
+                            swal("Cancelled", "You cancelled this blog post deletion.", "error");
+                    }
+                }
+            );
+
+        }
+        
+        function sweetAlertSuccessPopUp (title='',text='') {
+            swal({
+                title: title,
+                text: text,
+                type: "success",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK"
+            },  function() {
+                window.location.href=baseURL+"blog-posts";
+            });
+        }
+       
+    </script>
 
     <script type="text/javascript">
         setTimeout(function() { 

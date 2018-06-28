@@ -69,10 +69,32 @@ module.exports = function (app, passport, models) {
             
             models.cms_risk_disclosures.findAll({
                 
+            }),
+
+            models.blog_post.findAll({  // featured 
+                where: {
+                    post_category_id: 1
+                },
+                limit: 6,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            }),
+
+            models.blog_post.findAll({  // latest news
+                where: {
+                    post_category_id: 3
+                },
+                limit: 6,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
             })
+
         ]).then(function (result) {
+            
             var result = JSON.parse(JSON.stringify(result, undefined, 2));
-	        res.render('cms_risk_disclosures',{layout: 'cms/dashboard',companySettingsData:result[0],riskDisclosuresData:result[1]});
+	        res.render('cms_risk_disclosures',{layout: 'cms/dashboard',companySettingsData:result[0],riskDisclosuresData:result[1], featured_posts: result[2], latest_news: result[3]});
         });
 
     });
@@ -377,6 +399,73 @@ module.exports = function (app, passport, models) {
             var data = JSON.parse(JSON.stringify(result));
             res.render("cms/about_us", {layout: "cms/dashboard", details:data})
         });
+    });
+
+    app.get('/:blogDetail', (req,res) =>{
+        var blogPageSlug = req.params.blogDetail;
+
+        // worked portion
+        /* models.blog_post.findAndCountAll({
+            where: {
+                post_slug: blogPageSlug
+            }
+        }).then(function(results) {
+            console.log(JSON.stringify(results, undefined, 2));
+            var count = results.count;
+            if(count > 0){
+                res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results});
+            }
+            else{
+                // 404 page
+            }
+            
+        }); */
+        // end worked
+
+        /******/
+        Promise.all([
+            models.blog_post.findAndCountAll({
+                where: {
+                    post_slug: blogPageSlug
+                }
+            }),
+
+            models.blog_post.findAll({  // featured 
+                where: {
+                    post_category_id: 1
+                },
+                limit: 6,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            }),
+
+            models.blog_post.findAll({  // latest news
+                where: {
+                    post_category_id: 3
+                },
+                limit: 6,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            }),
+
+            models.company_setting.findAll({
+
+            })
+
+        ]).then(function (results) {
+            //console.log(JSON.stringify(results[2], undefined, 2));
+            //console.log('latest news: ', JSON.stringify(result[2].rows, undefined, 2));
+
+            //console.log('featured posts: ', JSON.stringify(result[1], undefined, 2));
+
+            res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2], companySettingsData: results[3]});
+        });
+        /******/
+
+
+
     });
 
     function encrypt(text) {

@@ -44,11 +44,9 @@
                   <div class="form-group">
                     <label for="post_description">Post Description: </label>
                  
-                    <textarea name="edit_post_description" class="form-control" id="edit_post_description" placeholder="Enter Post Description">{{{blogDetail.0.post_description}}}</textarea>
+                    <textarea name="post_description" class="form-control" id="post_description" placeholder="Enter Post Description">{{{blogDetail.0.post_description}}}</textarea>
                   </div>
                 </div>  
-
-                <div id="edit_errPostDescription" class="error" style="display:none;margin-left:18px;display: inline-block;max-width: 100%;margin-bottom: 5px;font-weight: 700;font-size:16px;"></div>
 
                 <div class="col-md-12">
                     <div class="form-group">
@@ -60,6 +58,15 @@
                         <img src="/blog_images/{{blogDetail.0.featured_image}}" width="100" height="100" />
                     </div>
                     {{/if}}
+                </div>
+
+                <div class="col-md-12">
+                    <label for="edit_post_category">Post category:</label>
+                    <select class="form-control" id="edit_post_category" name="edit_post_category">
+                      {{#each blog_categories}}
+                        <option value="{{this.id}}" {{#if_eq this.id ../blogDetail.0.post_category_id}}selected{{/if_eq}}>{{this.category_name}}</option>
+                      {{/each}}  
+                    </select>
                 </div>
 
 

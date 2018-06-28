@@ -5,8 +5,8 @@ $(".blogContent").each(function(i){
         $(this).text($(this).text().substr(0,100)+'...');
     }
 });
-//var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
-var baseURL = "http://localhost:8080/admin/";
+var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
+//var baseURL = "http://localhost:8080/admin/";
 // CKEDITOR.replace( 'edit_post_description' );
 CKEDITOR.replace( 'post_description' ); 
 

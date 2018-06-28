@@ -3,7 +3,7 @@ $(document).ready(function(){
         "bSort" : false
     });
 
-    var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/";
+    var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
     //var baseURL = "http://localhost:8080/admin/";
 
     $('.save_blog_category').on('click', function(){

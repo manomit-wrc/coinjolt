@@ -24,11 +24,6 @@ var QRCode = require('qrcode');
 const paypal = require('paypal-rest-sdk');
 
 
-const crypto = require('crypto');
-const algorithm = 'aes-256-ctr';
-const password = 'd6F3Efeq';
-
-
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
     'client_id': 'AUATycL0pSdb7ivwQB2fBA8w-rTO68U_GwxTfVhg4U7DisEnADJ1KBisL1DJkwlbaH59BVBx8SDhHUNN',
@@ -1656,113 +1651,5 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     app.get('/settings', (req,res) => {
         res.render('settings', {layout: 'dashboard'});
     });
-   
-    app.get('/send-email', (req, res) =>{
-        
-        email_template.belongsTo(email_template_type, {foreignKey: 'template_type'});
-        email_template.findAll({
-            where: {
-                template_type: 1 // for registration template
-            },
-            include: [{
-                model: email_template_type
-            }],
-                order: [
-                ['id', 'DESC']
-            ]
-        }).then(function(resp){
-            
-            var email_body = resp[0].template_desc;
-            var ses = new AWS.SES({apiVersion: '2010-12-01'});
-            var user_email = "nilesh@wrctpl.com";
-            var subject = 'Registration Complete';
-            const activation_key = encrypt('nilesh@wrctpl.com');
-            var email_key = activation_key+"/";   
-
-            var dynamic_content = `
-                <div style="text-align: center;">
-                Thank you for registering with us. Please copy the below link and paste into your browser.
-                <br />
-                <a href="${keys.BASE_URL}activated/"${email_key}>
-                ${keys.BASE_URL}activated/${email_key}
-                </a>
-                </div>
-            `;
-
-            email_body = email_body.concat(dynamic_content);
-
-            ses.sendEmail({ 
-                Source: keys.senderEmail, 
-                Destination: { ToAddresses: [user_email] },
-                Message: {
-                    Subject: {
-                        Data: subject
-                    },
-                    Body: {
-                        Html: {
-                            Charset: "UTF-8",
-                            Data: email_body
-                        }
-                    }
-                }
-                }, function(err, data) {
-                if(err) throw err;
-            });
-
-
-
-        });
-
-         /* email_template.findAll({
-            where: {template_name: 'Test time'}
-        }).then(function(resp){
-            
-            var email_body = resp[0].template_desc;
-
-            var ses = new AWS.SES({apiVersion: '2010-12-01'});
-            var user_email = "nilesh@wrctpl.com";
-            var subject = 'Registration Complete';
-            const activation_key = encrypt('nilesh@wrctpl.com');
-            var email_key = activation_key+"/";   
-
-            var dynamic_content = `
-                <div style="text-align: center;">
-                Thank you for registering with us. Please copy the below link and paste into your browser.
-                <br />
-                <a href="${keys.BASE_URL}activated/"${email_key}>
-                ${keys.BASE_URL}activated/${email_key}
-                </a>
-                </div>
-            `;
-
-            email_body = email_body.concat(dynamic_content);
-
-            ses.sendEmail({ 
-                Source: keys.senderEmail, 
-                Destination: { ToAddresses: [user_email] },
-                Message: {
-                    Subject: {
-                        Data: subject
-                    },
-                    Body: {
-                        Html: {
-                            Charset: "UTF-8",
-                            Data: email_body
-                        }
-                    }
-                }
-                }, function(err, data) {
-                if(err) throw err;
-            });
-
-        }); */
-    });
-
-    function encrypt(text) {
-        var cipher = crypto.createCipher(algorithm, password)
-        var crypted = cipher.update(text, 'utf8', 'hex')
-        crypted += cipher.final('hex');
-        return crypted;
-    }
     
 };

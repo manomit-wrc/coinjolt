@@ -244,8 +244,9 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             // investor_type: req.body.investor_type
     
                         }).then(function(result){
+
                             /* SES mail sending code for activation link */
-                            var ses = new AWS.SES({apiVersion: '2010-12-01'});
+                            /* var ses = new AWS.SES({apiVersion: '2010-12-01'});
                             var user_email = req.body.email;
                             var subject = 'Registration Complete';
                             email_key = activation_key+"/";
@@ -279,7 +280,55 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                              }, function(err, data) {
                                  if(err) throw err;
                             }
-                            );
+                            ); */
+
+                            models.email_template.belongsTo(models.email_template_type, {foreignKey: 'template_type'});
+                            models.email_template.findAll({
+                                where: {
+                                    template_type: 1 // for registration template
+                                },
+                                include: [{
+                                    model: models.email_template_type
+                                }],
+                                    order: [
+                                    ['id', 'DESC']
+                                ]
+                            }).then(function(resp){
+                               
+                                var email_body = resp[0].template_desc;
+                                var ses = new AWS.SES({apiVersion: '2010-12-01'});
+                                var user_email = req.body.email;
+                                var subject = 'Registration Complete';
+                                email_key = activation_key+"/";
+                                var dynamic_content = `
+                                    <div style="text-align: center;">
+                                    Thank you for registering with us. Please copy the below link and paste into your browser.
+                                    <br />
+                                    <a href="${keys.BASE_URL}activated/"${email_key}>
+                                    ${keys.BASE_URL}activated/${email_key}
+                                    </a>
+                                    </div>
+                                `;
+
+                                email_body = email_body.concat(dynamic_content);
+                                ses.sendEmail({ 
+                                    Source: keys.senderEmail, 
+                                    Destination: { ToAddresses: [user_email] },
+                                    Message: {
+                                        Subject: {
+                                            Data: subject
+                                        },
+                                        Body: {
+                                            Html: {
+                                                Charset: "UTF-8",
+                                                Data: email_body
+                                            }
+                                        }
+                                    }
+                                    }, function(err, data) {
+                                    if(err) throw err;
+                                });
+                            });
     
                             return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account'));
 
@@ -325,7 +374,8 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
         
                             }).then(function(result){
                             /* SES mail sending code for activation link */
-                            var ses = new AWS.SES({apiVersion: '2010-12-01'});
+
+                            /* var ses = new AWS.SES({apiVersion: '2010-12-01'});
                             var user_email = req.body.email;
                             var subject = 'Registration Complete';
                             email_key = activation_key+"/";    
@@ -358,8 +408,56 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 }
                              }, function(err, data) {
                                 if(err) throw err;
-                           });
-        
+                           }); */
+
+                           models.email_template.belongsTo(models.email_template_type, {foreignKey: 'template_type'});
+                            models.email_template.findAll({
+                                where: {
+                                    template_type: 1 // for registration template
+                                },
+                                include: [{
+                                    model: models.email_template_type
+                                }],
+                                    order: [
+                                    ['id', 'DESC']
+                                ]
+                            }).then(function(resp){
+                               
+                                var email_body = resp[0].template_desc;
+                                var ses = new AWS.SES({apiVersion: '2010-12-01'});
+                                var user_email = req.body.email;
+                                var subject = 'Registration Complete';
+                                email_key = activation_key+"/";
+                                var dynamic_content = `
+                                    <div style="text-align: center;">
+                                    Thank you for registering with us. Please copy the below link and paste into your browser.
+                                    <br />
+                                    <a href="${keys.BASE_URL}activated/"${email_key}>
+                                    ${keys.BASE_URL}activated/${email_key}
+                                    </a>
+                                    </div>
+                                `;
+
+                                email_body = email_body.concat(dynamic_content);
+                                ses.sendEmail({ 
+                                    Source: keys.senderEmail, 
+                                    Destination: { ToAddresses: [user_email] },
+                                    Message: {
+                                        Subject: {
+                                            Data: subject
+                                        },
+                                        Body: {
+                                            Html: {
+                                                Charset: "UTF-8",
+                                                Data: email_body
+                                            }
+                                        }
+                                    }
+                                    }, function(err, data) {
+                                    if(err) throw err;
+                                });
+                            });
+
                                 return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account'));
 
                             }).catch(function(err){

@@ -282,14 +282,14 @@ app.use(function(req, res, next){
   res.redirect('/');
 });
 
-require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer, AWS, models.Kyc_details, models.portfolio_composition, models.currency_balance, models.shareholder, models.wallet, models.wallet_address, models.wallet_transaction, models.portfolio_calculation);
+require('./routes/dashboard')(app, models.Country, models.User, models.Currency, models.Support,models.Deposit, models.Referral_data, models.withdraw, models.Question, models.Option, models.Answer, AWS, models.Kyc_details, models.portfolio_composition, models.currency_balance, models.shareholder, models.wallet, models.wallet_address, models.wallet_transaction, models.portfolio_calculation, models.email_template, models.email_template_type); // for email template test
 require('./routes/deposit')(app, models.Deposit, models.WireTransfer, models.User, models.Referral_data,models.Currency,models.Country,models.deposit_method);
 require('./routes/admin_dashboard')(app, models.Deposit, models.withdraw, models.User, models.Currency, models.Question, models.Option, models.Answer, models.currency_balance, models.send_email,models.deposit_method, models.company_setting, models.blog_post, models.blog_category);
 require('./routes/request_withdrawal')(app, models.withdraw, models.bank_details, models.Deposit, models);
 require('./routes/admin_kyc')(app, models.Kyc_details, models.User);
 require('./routes/admin_support')(app, models.Support, models.User, AWS);
 require('./routes/bitgo')(app,models);
-require('./routes/admin_email')(app, models.email_template, models.User, AWS, models.send_email, models.email_draft, models.Deposit);
+require('./routes/admin_email')(app, models.email_template, models.User, AWS, models.send_email, models.email_draft, models.Deposit, models.email_template_type);
 require('./routes/admin_all_user_list')(app, models.email_template, models.User, AWS, models.send_email);
 require('./routes/admin_deposit_type')(app, models.deposit_method);
 require('./routes/cms')(app, models);

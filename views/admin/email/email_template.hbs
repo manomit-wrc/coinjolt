@@ -32,17 +32,27 @@
                         <div class="form-group">
                             <label for="Subject">Template Name</label>
                             <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject">
+                            <div id="emailTemplateErr">Error text</div>
                         </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="status">Select Email Template:</label>
+                        <select class="form-control" id="sel_email_template" name="sel_email_template">
+                            {{#each template_type}}
+                                <option value="{{this.id}}">{{this.type}}</option>
+                            {{/each}}
+                        </select>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="Description">Description</label>
                             <textarea name="editor1" class="form-control" id="editor1" placeholder="Enter Description"></textarea>
+                            <div id="templateDescErr">Error text</div>
                         </div>
                     </div>
                     <div class="col-md-2 col-md-offset-5 pd-612">
                         <div class="form-group">
-                            <input class="btn btn-primary" type="button" id="submit_email_template" value="Submit" />
+                            <input class="btn btn-primary" type="button" id="submit_email_template" value="Submit" onclick="createEmailTemplate()" />
                         </div>
                     </div>
                 </div>

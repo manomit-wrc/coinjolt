@@ -306,6 +306,54 @@
             );
 
         }
+
+        function createEmailTemplate(){
+            var valid = $('#submit-a-email-template').valid();
+            var template_description = CKEDITOR.instances['editor1'].getData();
+            var template_subject = $('#subject').val();
+            var template_type = $('#sel_email_template').val();
+            if(valid){
+                
+                if(template_description === ''){
+                    $('#templateDescErr').css({'display':'inline-block','color':'#800000','max-width':'100%','margin-bottom':'5px','font-weight':'700','font-size':'16px'});
+                    $('#templateDescErr').html('Template description can not be left blank.');
+                    return false;
+                }
+                else if(template_subject === ''){
+                    
+                    $('#emailTemplateErr').css({'display':'inline-block','color':'#800000','max-width':'100%','margin-bottom':'5px','font-weight':'700','font-size':'16px'});
+                    $('#emailTemplateErr').html('Template subject can not be left blank.');
+                    return false;
+                }
+                else{
+                    
+                    $('#templateDescErr').css('display', 'none');
+                    $('#templateDescErr').html('');
+
+                    $('#emailTemplateErr').css('display', 'none');
+                    $('#emailTemplateErr').html('');
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: '/admin/submit-email-template',
+                        data:{
+                            template_subject: template_subject,
+                            template_description: template_description,
+                            template_type: template_type
+                        },
+                        success: function (response) {
+                            if(response.status == true){
+                                sweetAlertSuccessPopUp('Thank You',response.msg);
+                            }
+                        }
+                    });
+                    
+                }
+            }
+
+            
+
+        }
         
         function sweetAlertSuccessPopUp (title='',text='') {
             swal({
@@ -571,6 +619,10 @@
             $('#profileSaveMsg').delay(2000).fadeOut();
 
             $('#paypalPaymentSuccessMsg').delay(2000).fadeOut();
+
+            $('#emailTemplateErr').css('display', 'none');
+
+            $('#templateDescErr').css('display', 'none');
 
             $("#changereferralBtn").click(function(){
                 $("#changeReferralFrm").slideToggle('slow');

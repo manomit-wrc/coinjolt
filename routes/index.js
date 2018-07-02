@@ -404,25 +404,27 @@ module.exports = function (app, passport, models) {
     app.get('/:blogDetail', (req,res) =>{
         var blogPageSlug = req.params.blogDetail;
 
-        // worked portion
-        /* models.blog_post.findAndCountAll({
-            where: {
-                post_slug: blogPageSlug
-            }
-        }).then(function(results) {
-            console.log(JSON.stringify(results, undefined, 2));
-            var count = results.count;
-            if(count > 0){
-                res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results});
-            }
-            else{
-                // 404 page
-            }
-            
-        }); */
-        // end worked
+          /*  
+          Referral_data.belongsTo(User, {foreignKey: 'user_id'});
 
-        /******/
+          Referral_data.findAll({
+           where: {
+                        referral_id: req.user.id
+                    },
+                 include: [{
+               model: User
+             }],
+             order: [
+                     ['id', 'DESC']
+                 ]
+          }).then(function(invitefrnds){
+           res.render('invite-friends',{layout: 'dashboard', invitefrnds: invitefrnds});
+          });
+
+          */
+
+        models.blog_post.belongsTo(models.blog_category, {foreignKey: 'post_category_id'});
+
         Promise.all([
             models.blog_post.findAndCountAll({
                 where: {
@@ -452,18 +454,26 @@ module.exports = function (app, passport, models) {
 
             models.company_setting.findAll({
 
-            })
+            }),
+
+             
+            models.blog_post.findAll({
+               where: {
+                    post_slug: blogPageSlug
+                },
+                include: [{
+                    model: models.blog_category
+                }],
+                order: [
+                    ['id', 'DESC']
+                ]
+        })
 
         ]).then(function (results) {
-            //console.log(JSON.stringify(results[2], undefined, 2));
-            //console.log('latest news: ', JSON.stringify(result[2].rows, undefined, 2));
-
-            //console.log('featured posts: ', JSON.stringify(result[1], undefined, 2));
-
-            res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2], companySettingsData: results[3]});
+            //console.log(JSON.stringify(results[4], undefined, 2));
+            res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2], companySettingsData: results[3], postTitle: results[4]});
         });
-        /******/
-
+        
 
 
     });

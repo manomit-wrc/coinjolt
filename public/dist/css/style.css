@@ -1960,7 +1960,7 @@ h3.post-title {
     	border: 0 none;
     }
 
-    .admin-tp-box.btn-success:hover {
+    .admin-tp-box.btn-success:hover, .admin-tp-box.btn-success:active, .admin-tp-box.btn-success:focus {
     	background: #4d5776 none repeat scroll 0 0;
     }
 
@@ -1982,9 +1982,14 @@ h3.post-title {
     	height: 25px;
     }
 
-    
+    #blog_categories_wrapper, #admin_blog {
+    	margin-top: 25px;
+    }
+
 
     /*Closed on css 25-06-2018*/
+
+    
 
     @media screen and (max-width: 1366px) {
     	.balance-box {

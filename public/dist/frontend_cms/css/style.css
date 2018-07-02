@@ -1339,7 +1339,10 @@ canvas{
 }
 
 .about-section .rgt-box .latest-works-widget img {
+	border-radius: 50%;
+	height: 40px;
 	margin: 0;
+	width: 40px;
 }
 
 .about-section .rgt-box .latest-works-widget li .work-widget-content h6 {
@@ -1349,8 +1352,8 @@ canvas{
 }
 
 .about-section .rgt-box .latest-works-widget li .work-widget-content h6 a {
-	color: #4a4a4a;
-	font-size: 17px;
+	color: #787d85;
+	font-size: 14px;
 	text-decoration: none !important;
 	text-transform: none;
 	transition: all 0.5s ease-out 0s;
@@ -1358,16 +1361,18 @@ canvas{
 	-moz-transition: all 0.5s ease-out 0s;
 	-ms-transition: all 0.5s ease-out 0s;
 	-o-transition: all 0.5s ease-out 0s;
+	line-height: 26px;
 }
 
 .about-section .rgt-box .latest-works-widget li .work-widget-content h6 a:hover {
-	color: #025fdf;
+	color: #000000;
 }
 
 .about-section .rgt-box .latest-works-widget li .work-widget-content p {
 	font-size: 14px;
 	margin-bottom: 0;
 	margin-top: 0;
+	color: #787d85;
 }
 
 .rgt-box {
@@ -1452,6 +1457,45 @@ canvas{
 }
 
 /*Ends Charts Page*/
+
+/*Starts on css 28-06-2018*/
+
+.blog-dtls h1.blgpart {
+	color: #3b3f4a;
+	font-size: 34px;
+	font-weight: bold;
+	line-height: 44px;
+	text-align: center;
+}
+
+.blog-dtls .breadcrumb {
+	background-color: transparent;
+	text-align: center;
+}
+
+.blog-dtls .breadcrumb li {
+	font-size: 13px;
+}
+
+.blog-dtls .breadcrumb li a {
+	color: #787d85;
+	text-decoration: none !important;
+}
+
+.blog-dtls .breadcrumb li a:hover {
+	text-decoration: underline !important;
+}
+
+.blog-dtls .breadcrumb ol li a {
+	color: #787d85;
+}
+
+.marketcap {
+	display: table;
+	margin: 10px auto 0;
+}
+
+/*Closed on css 28-06-2018*/
 
 /*Starts Responsive CSS*/
 

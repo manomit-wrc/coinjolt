@@ -30,11 +30,11 @@
 							<tbody>
 								{{#each blog_posts}}
 								<tr>
-									<td>{{ this.post_title}}</td>
+									<td class="blogTitle">{{ this.post_title}}</td>
 									<td class="blogContent">{{{ this.post_description}}}</td>
 									<td>{{ dateFormat this.createdAt "MM-DD-YY" }}</td>
 									<td>
-                                        {{!-- <button type="button" class="btn editBlogBtn" data-id="{{this.id}}">Edit</button> --}}
+                                    
 
 										<a class="btn editBlogBtn btn-success" href="/admin/edit_blog_content/{{this.id}}">Edit</a>
 

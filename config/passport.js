@@ -238,7 +238,10 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             state: state,
                             country_id: countryId,
                             postal_code: req.body.zip,
-                            investor_type: req.body.investor_type
+                            two_factorAuth_secret_key: '',
+                            two_factorAuth_qr_code_image: '',
+                            two_factorAuth_status: 2
+                            // investor_type: req.body.investor_type
     
                         }).then(function(result){
                             /* SES mail sending code for activation link */
@@ -281,7 +284,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account'));
 
                         }).catch(function(err){
-                            console.log('error');
+                            console.log(err);
                         });
     
                     }
@@ -315,7 +318,10 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 state: state,
                                 country_id: countryId,
                                 postal_code: req.body.zip,
-                                investor_type: req.body.investor_type
+                                two_factorAuth_secret_key: '',
+                                two_factorAuth_qr_code_image: '',
+                                two_factorAuth_status: 2
+                                // investor_type: req.body.investor_type
         
                             }).then(function(result){
                             /* SES mail sending code for activation link */

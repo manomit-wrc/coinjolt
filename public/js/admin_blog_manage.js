@@ -12,7 +12,7 @@ CKEDITOR.replace( 'post_description' );
 
 $(document).ready(function(){
 
-    $('#admin_blog').DataTable({
+    $('#admin_blog_posts').DataTable({
         "bSort" : false
     });
 

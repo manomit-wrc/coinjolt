@@ -130,7 +130,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
           }
         })
       });
-
+    
     app.get('/dashboard', (req, res) => {
         User.findById(req.user.id).then( function (result) {
             var result = JSON.parse(JSON.stringify(result));
@@ -1650,6 +1650,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     app.get('/settings', (req,res) => {
         res.render('settings', {layout: 'dashboard'});
     });
-  
+   
     
 };

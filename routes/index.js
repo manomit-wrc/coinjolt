@@ -401,28 +401,8 @@ module.exports = function (app, passport, models) {
         });
     });
 
-    app.get('/:blogDetail', (req,res) =>{
+     app.get('/blog/:blogDetail', (req,res) =>{
         var blogPageSlug = req.params.blogDetail;
-
-          /*  
-          Referral_data.belongsTo(User, {foreignKey: 'user_id'});
-
-          Referral_data.findAll({
-           where: {
-                        referral_id: req.user.id
-                    },
-                 include: [{
-               model: User
-             }],
-             order: [
-                     ['id', 'DESC']
-                 ]
-          }).then(function(invitefrnds){
-           res.render('invite-friends',{layout: 'dashboard', invitefrnds: invitefrnds});
-          });
-
-          */
-
         models.blog_post.belongsTo(models.blog_category, {foreignKey: 'post_category_id'});
 
         Promise.all([
@@ -470,13 +450,13 @@ module.exports = function (app, passport, models) {
         })
 
         ]).then(function (results) {
-            //console.log(JSON.stringify(results[4], undefined, 2));
+            
             res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2], companySettingsData: results[3], postTitle: results[4]});
         });
         
 
 
-    });
+    }); 
 
     function encrypt(text) {
         var cipher = crypto.createCipher(algorithm, password)

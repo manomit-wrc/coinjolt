@@ -32,12 +32,12 @@
           {{#each latest_news}}
           <li>
             <div class="work-widget-thumb">
-              <a href="{{base_url}} {{this.post_slug}}">
-                <img src="blog_images/{{this.featured_image}}" class="img-responsive" alt="{{this.post_title}}">
+              <a href="{{base_url}}/blog/{{this.post_slug}}">
+                <img src="/blog_images/{{this.featured_image}}" class="img-responsive" alt="{{this.post_title}}">
               </a>
             </div>      
             <div class="work-widget-content">
-              <h6><a href="{{base_url}} {{this.post_slug}}">{{this.post_title}}</a></h6>
+              <h6><a href="{{base_url}}/blog/{{this.post_slug}}">{{this.post_title}}</a></h6>
               <p>{{dateFormat this.createdAt "MMMM DD, YYYY"}}</p>                    
             </div>
           </li>
@@ -52,12 +52,12 @@
           {{#each featured_posts}}
           <li>
             <div class="work-widget-thumb">
-              <a href="{{base_url}} {{this.post_slug}}">
-                <img src="blog_images/{{this.featured_image}}" class="img-responsive" alt="{{this.post_title}}">
+              <a href="{{base_url}}/blog/{{this.post_slug}}">
+                <img src="/blog_images/{{this.featured_image}}" class="img-responsive" alt="{{this.post_title}}">
               </a>
             </div>      
             <div class="work-widget-content">
-              <h6><a href="{{base_url}} {{this.post_slug}}">{{this.post_title}}</a></h6>
+              <h6><a href="{{base_url}}/blog/{{this.post_slug}}">{{this.post_title}}</a></h6>
               {{!-- <p>{{dateFormat this.createdAt "MM-DD-YY"}}</p>  --}}
               <p>{{dateFormat this.createdAt "MM DD,YYYY"}}</p> 
             </div>

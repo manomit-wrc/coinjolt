@@ -350,9 +350,54 @@
                     
                 }
             }
+        }
 
-            
+        function editEmailTemplate(){
+            var valid = $('#submit-edit-email-template').valid();
+            var template_description = CKEDITOR.instances['editor1'].getData();
+            var template_subject = $('#subject').val();
+            var template_type = $('#edit_email_template').val();
+            var id = $('#row_id').val();
+            if(valid){
+                if(template_description === ''){
 
+                    $('#editTemplateDescErr').css({'display':'inline-block','color':'#800000','max-width':'100%','margin-bottom':'5px','font-weight':'700','font-size':'16px'});
+                    $('#editTemplateDescErr').html('Template description can not be left blank.');
+                    return false;
+                }
+                else if(template_subject === ''){
+                    $('#editTemplateSubjectErr').css({'display':'inline-block','color':'#800000','max-width':'100%','margin-bottom':'5px','font-weight':'700','font-size':'16px'});
+                    $('#editTemplateSubjectErr').html('Template subject can not be left blank.');
+                    return false;
+                }
+                else{
+
+                    $('#editTemplateSubjectErr').css('display', 'none');
+                    $('#editTemplateSubjectErr').html('');
+
+                    $('#editTemplateDescErr').css('display', 'none');
+                    $('#editTemplateDescErr').html('');
+
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: '/admin/submit-edit-email-template',
+                        data:{
+                            id: id,
+                            template_subject: template_subject,
+                            template_description: template_description,
+                            template_type: template_type
+                        },
+                        success: function (response) {
+                            if(response.status == true){
+                                sweetAlertSuccessPopUp('Thank You',response.msg);
+                            }
+                        }
+                    }); 
+
+                    
+                }
+            }
         }
         
         function sweetAlertSuccessPopUp (title='',text='') {
@@ -623,6 +668,10 @@
             $('#emailTemplateErr').css('display', 'none');
 
             $('#templateDescErr').css('display', 'none');
+
+            $('#editTemplateSubjectErr').css('display', 'none');
+
+            $('#editTemplateDescErr').css('display', 'none');
 
             $("#changereferralBtn").click(function(){
                 $("#changeReferralFrm").slideToggle('slow');

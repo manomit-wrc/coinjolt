@@ -99,8 +99,9 @@
           <div class="login-box-body" style="display: none; top: -70px;">
             <form action="/signup" method="post" name="frmSignup" id="frmSignup">
               <img src="/dist/img/logo-icon.png" alt="logo">
-              <h4 style="color: #000;">Create an account</h4>
-              {{#if message}}
+              <h4 style="color: #000; {{#if message}} display:none{{/if}}">Create an account</h4>
+              {{#if message}} 
+              <br> 
               <div class="alert alert-success">{{message}}</div>
               {{/if}} {{#if errorMsg}}
               <div class="alert alert-danger">{{errorMsg}}</div>
@@ -120,122 +121,137 @@
                   </div>
                 </div>
               </div> -->
-
-              <div class="form-group has-feedback">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                <input type="email" class="form-control" placeholder="Email" id="email" name="email">
-              </div>
-              <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="Phone Number" id="phone" name="phone">
-              </div>
-              <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="Address" id="address" name="address">
-              </div>
-              <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="City" id="city" name="city">
-              </div>
-              <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="State / Province" value="{{user.state}}" id="state" name="state" style="display: none;">
-                <select class="form-control" name="usa_states" id="usa_states">
-                  <option value="AL">Alabama (AL) </option>
-                  <option value="AK">Alaska (AK) </option>
-                  <option value="AZ">Arizona (AZ) </option>
-                  <option value="AR">Arkansas (AR) </option>
-                  <option value="AA">Armed Forces America (AA) </option>
-                  <option value="AE">Armed Forces Europe (AE) </option>
-                  <option value="AP">Armed Forces Pacific (AP) </option>
-                  <option value="CA">California (CA) </option>
-                  <option value="CO">Colorado (CO) </option>
-                  <option value="CT">Connecticut (CT) </option>
-                  <option value="DE">Delaware (DE) </option>
-                  <option value="DC">District of Columbia (DC) </option>
-                  <option value="FL">Florida (FL) </option>
-                  <option value="GA">Georgia (GA) </option>
-                  <option value="HI">Hawaii (HI) </option>
-                  <option value="ID">Idaho (ID) </option>
-                  <option value="IL">Illinois (IL) </option>
-                  <option value="IN">Indiana (IN) </option>
-                  <option value="IA">Iowa (IA) </option>
-                  <option value="KS">Kansas (KS) </option>
-                  <option value="KY">Kentucky (KY) </option>
-                  <option value="LA">Louisiana (LA) </option>
-                  <option value="ME">Maine (ME) </option>
-                  <option value="MD">Maryland (MD) </option>
-                  <option value="MA">Massachusetts (MA) </option>
-                  <option value="MI">Michigan (MI) </option>
-                  <option value="MN">Minnesota (MN) </option>
-                  <option value="MS">Mississippi (MS) </option>
-                  <option value="MO">Missouri (MO) </option>
-                  <option value="MT">Montana (MT) </option>
-                  <option value="NE">Nebraska (NE) </option>
-                  <option value="NV">Nevada (NV) </option>
-                  <option value="NH">New Hampshire (NH) </option>
-                  <option value="NJ">New Jersey (NJ) </option>
-                  <option value="NM">New Mexico (NM) </option>
-                  <option value="NY">New York (NY) </option>
-                  <option value="NC">North Carolina (NC) </option>
-                  <option value="ND">North Dakota (ND) </option>
-                  <option value="OH">Ohio (OH) </option>
-                  <option value="OK">Oklahoma (OK) </option>
-                  <option value="OR">Oregon (OR) </option>
-                  <option value="PA">Pennsylvania (PA) </option>
-                  <option value="RI">Rhode Island (RI) </option>
-                  <option value="SC">South Carolina (SC) </option>
-                  <option value="SD">South Dakota (SD) </option>
-                  <option value="TN">Tennessee (TN) </option>
-                  <option value="TX">Texas (TX) </option>
-                  <option value="UT">Utah (UT) </option>
-                  <option value="VT">Vermont (VT) </option>
-                  <option value="VA">Virginia (VA) </option>
-                  <option value="WA">Washington (WA) </option>
-                  <option value="WV">West Virginia (WV) </option>
-                  <option value="WI">Wisconsin (WI) </option>
-                  <option value="WY">Wyoming (WY) </option>
-                </select>
-              </div>
-              <div class="form-group has-feedback">
-                <select class="form-control" name="country" id="country">
-                  {{#each countries}}
-                  <option value="{{this.id}}">{{this.name}}</option>
-                  {{/each}}
-                </select>
-              </div>
-              <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="Zip Code / Postal Code" id="zip" name="zip">
-              </div>
-              <p>Choose Your Password</p>
-              <div class="form-group pass">
-                <input type="password" placeholder="Password" id="password" name="password">
-                <p class="msg user_password redcolor"></p>
-              </div>
-              <div class="form-group pass">
-                <input type="password" placeholder="Confirm Password" id="confirm_password" name="confirm_password">
-                <p class="msg confirm_password redcolor"></p>
-              </div>
-
-              <!-- /.social-auth-links -->
-
-              <div class="reg-main">
-                <button type="submit" class="btn btn-primary btn-block btn-flat reg-btn">Register Now</button>
-              </div>
-
-              <div class="form-group terms">
-                <input type="checkbox" id="termcondition" name="termcondition">
-                <label>I read and agree to the
-                  <a data-target="#terms-modal" data-toggle="modal" href="#">terms of use</a>.</label>
-                  <div class="termcondition-error-wrapper error"></div> 
-                  <p class="msg termcondition redcolor"></p>
-
+              <div class="reg_box" {{#if message}} style="display:none;"{{/if}}>
+                <div class="form-group has-feedback">
+                  <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                  <input type="email" class="form-control" placeholder="Email" id="email" name="email">
+                </div>
+                <div class="form-group has-feedback">
+                  <input type="text" class="form-control" placeholder="Phone Number" id="phone" name="phone">
+                </div>
+                <div class="form-group has-feedback">
+                  <input type="text" class="form-control" placeholder="Address" id="address" name="address">
+                </div>
+                <div class="form-group has-feedback">
+                  <input type="text" class="form-control" placeholder="City" id="city" name="city">
+                </div>
+                <div class="form-group has-feedback">
+                  <input type="text" class="form-control" placeholder="State / Province" value="{{user.state}}" id="state" name="state" style="display: none;">
+                  <select class="form-control" name="usa_states" id="usa_states">
+                    <option value="AL">Alabama (AL) </option>
+                    <option value="AK">Alaska (AK) </option>
+                    <option value="AZ">Arizona (AZ) </option>
+                    <option value="AR">Arkansas (AR) </option>
+                    <option value="AA">Armed Forces America (AA) </option>
+                    <option value="AE">Armed Forces Europe (AE) </option>
+                    <option value="AP">Armed Forces Pacific (AP) </option>
+                    <option value="CA">California (CA) </option>
+                    <option value="CO">Colorado (CO) </option>
+                    <option value="CT">Connecticut (CT) </option>
+                    <option value="DE">Delaware (DE) </option>
+                    <option value="DC">District of Columbia (DC) </option>
+                    <option value="FL">Florida (FL) </option>
+                    <option value="GA">Georgia (GA) </option>
+                    <option value="HI">Hawaii (HI) </option>
+                    <option value="ID">Idaho (ID) </option>
+                    <option value="IL">Illinois (IL) </option>
+                    <option value="IN">Indiana (IN) </option>
+                    <option value="IA">Iowa (IA) </option>
+                    <option value="KS">Kansas (KS) </option>
+                    <option value="KY">Kentucky (KY) </option>
+                    <option value="LA">Louisiana (LA) </option>
+                    <option value="ME">Maine (ME) </option>
+                    <option value="MD">Maryland (MD) </option>
+                    <option value="MA">Massachusetts (MA) </option>
+                    <option value="MI">Michigan (MI) </option>
+                    <option value="MN">Minnesota (MN) </option>
+                    <option value="MS">Mississippi (MS) </option>
+                    <option value="MO">Missouri (MO) </option>
+                    <option value="MT">Montana (MT) </option>
+                    <option value="NE">Nebraska (NE) </option>
+                    <option value="NV">Nevada (NV) </option>
+                    <option value="NH">New Hampshire (NH) </option>
+                    <option value="NJ">New Jersey (NJ) </option>
+                    <option value="NM">New Mexico (NM) </option>
+                    <option value="NY">New York (NY) </option>
+                    <option value="NC">North Carolina (NC) </option>
+                    <option value="ND">North Dakota (ND) </option>
+                    <option value="OH">Ohio (OH) </option>
+                    <option value="OK">Oklahoma (OK) </option>
+                    <option value="OR">Oregon (OR) </option>
+                    <option value="PA">Pennsylvania (PA) </option>
+                    <option value="RI">Rhode Island (RI) </option>
+                    <option value="SC">South Carolina (SC) </option>
+                    <option value="SD">South Dakota (SD) </option>
+                    <option value="TN">Tennessee (TN) </option>
+                    <option value="TX">Texas (TX) </option>
+                    <option value="UT">Utah (UT) </option>
+                    <option value="VT">Vermont (VT) </option>
+                    <option value="VA">Virginia (VA) </option>
+                    <option value="WA">Washington (WA) </option>
+                    <option value="WV">West Virginia (WV) </option>
+                    <option value="WI">Wisconsin (WI) </option>
+                    <option value="WY">Wyoming (WY) </option>
+                  </select>
+                  <select class="form-control" name="canada_states" id="canada_states" style="display: none;">
+                    <option value="ON">Ontario (ON) </option>
+                    <option value="QC">Quebec (QC) </option>
+                    <option value="NS">Nova Scotia (NS) </option>
+                    <option value="NB">New Brunswick (NB) </option>
+                    <option value="MB">Manitoba (MB) </option>
+                    <option value="BC">British Columbia (BC) </option>
+                    <option value="PE">Prince Edward Island (PE) </option>
+                    <option value="SK">Saskatchewan (SK) </option>
+                    <option value="AB">Alberta (AB) </option>
+                    <option value="NL">Newfoundland and Labrador (NL) </option>
+                    <option value="NT">Northwest Territories (NT) </option>
+                    <option value="YT">Yukon (YT) </option>
+                    <option value="NU">Nunavut (NU) </option>
+                  </select>
+                </div>
+                <div class="form-group has-feedback">
+                  <select class="form-control" name="country" id="country">
+                    {{#each countries}}
+                    <option value="{{this.id}}">{{this.name}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+                <div class="form-group has-feedback">
+                  <input type="text" class="form-control" placeholder="Zip Code / Postal Code" id="zip" name="zip">
+                </div>
+                <p>Choose Your Password</p>
+                <div class="form-group pass">
+                  <input type="password" placeholder="Password" id="password" name="password">
+                  <p class="msg user_password redcolor"></p>
+                </div>
+                <div class="form-group pass">
+                  <input type="password" placeholder="Confirm Password" id="confirm_password" name="confirm_password">
+                  <p class="msg confirm_password redcolor"></p>
                 </div>
 
-              </form>
+                <!-- /.social-auth-links -->
 
-              {{!-- <div class="form-group terms">
-                <input type="checkbox" id="termcondition" name="termcondition">
-                <label>I read and agree to the
-                  <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
-                  <p class="msg termcondition redcolor"></p>
-                </div> --}}
+                <div class="reg-main">
+                  <button type="submit" class="btn btn-primary btn-block btn-flat reg-btn">Register Now</button>
+                </div>
+
+                <div class="form-group terms">
+                  <input type="checkbox" id="termcondition" name="termcondition">
+                  <label>I read and agree to the
+                    <a data-target="#terms-modal" data-toggle="modal" href="#">terms of use</a>.</label>
+                    <div class="termcondition-error-wrapper error"></div> 
+                    <p class="msg termcondition redcolor"></p>
+
+                  </div>
+
+                </form>
+
+                {{!-- <div class="form-group terms">
+                  <input type="checkbox" id="termcondition" name="termcondition">
+                  <label>I read and agree to the
+                    <a data-target="#myModal" data-toggle="modal" href="#">terms of use</a>.</label>
+                    <p class="msg termcondition redcolor"></p>
+                  </div> --}}
 
                 <div class="bot-sign up">
                   <a href="/login">Already have an account?
@@ -321,9 +337,9 @@
               'top': '0px'
             }, 500);
 
-            $(".alert").fadeTo(2000, 500).slideUp(500, function () {
-              $(".alert").slideUp(500);
-            });
+            //$(".alert").fadeTo(2000, 500).slideUp(500, function () {
+              //$(".alert").slideUp(500);
+            //});
             $("#frmSignup").validate({
               rules: {
                 email: {
@@ -357,7 +373,7 @@
                 },
                 zip: {
                   required: true,
-                  number: true
+                  //number: true
                 }
               },
               messages: {
@@ -369,7 +385,7 @@
                 },
                 confirm_password: {
                   required: "Please enter confirm password",
-                  equalTo: "Should be match with password"
+                  equalTo: "Passwords are not the same"
                 },
                 termcondition: {
                   required: "Please check terms and condition box"
@@ -392,19 +408,24 @@
                 },
                 zip: {
                   required: "Please enter zip",
-                  number: "Zip code should be numeric"
+                  //number: "Zip code should be numeric"
                 }
               }
             });
 
             $('#country').on('change', function () {
               var countryCode = $(this).val();
-              if (countryCode === '226') {
+              if (countryCode === '226') { // usa states
                 $('#usa_states').css('display', 'block');
+                $('#canada_states').css('display', 'none');
                 $('#state').css('display', 'none');
-              }
-              else {
+              } else if (countryCode === '240'){ // canada states
+                $('#canada_states').css('display', 'block');
                 $('#usa_states').css('display', 'none');
+                $('#state').css('display', 'none');
+              } else {
+                $('#usa_states').css('display', 'none');
+                $('#canada_states').css('display', 'none');
                 $('#state').css('display', 'block');
               }
             });
@@ -413,19 +434,20 @@
         </script>
         <script>  
           $(document).ready(function() {
+
             $(".reg-btn").click(function() {
-             $(".termcondition-error-wrapper").html('Please check terms and condition box');
-           });
+              $(".termcondition-error-wrapper").html('Please check terms and condition box');
+            });
 
             $('#termcondition').on("ifChanged", function(e) {
               if($(this).is(":checked")) {
-               $(".termcondition-error-wrapper").hide();
-             }
-             else {
-              $(".termcondition-error-wrapper").show();
-            }  
-          });
-
+                $(".termcondition-error-wrapper").hide();
+                $('#terms-modal').modal(); // display term-service modal on clicking term-service checkbox
+              }
+              else {
+               $(".termcondition-error-wrapper").show();
+              }
+            });
 
           });
         </script>

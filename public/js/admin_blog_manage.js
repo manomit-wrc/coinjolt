@@ -14,6 +14,9 @@ $(".blogTitle").each(function(i){
     }
 });
 
+$('#admin_blog_posts').DataTable({
+    'aaSorting': [ 2, "desc" ]
+});
 
 var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
 //var baseURL = "http://localhost:8080/admin/";
@@ -22,9 +25,9 @@ CKEDITOR.replace( 'post_description' );
 
 $(document).ready(function(){
 
-    $('#admin_blog').DataTable({
+    /* $('#admin_blog_posts').DataTable({
         "bSort" : false
-    });
+    }); */
 
 
     $('.deleteBlogBtn').on('click', function(){

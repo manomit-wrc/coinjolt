@@ -122,7 +122,7 @@ module.exports = function (app, passport, models) {
         res.render('forgot_password', {message: msg});
     });    
 
-    app.post('/update-password', (req, res) =>{
+    app.post('/update-password2', (req, res) =>{
         const secretKey = req.body.forgot_key;
         const newPassword = bCrypt.hashSync(req.body.passWord);
         models.forgot_password.findAndCountAll({ where: {key: secretKey,status: 0} }).then(function(results){
@@ -327,7 +327,7 @@ module.exports = function (app, passport, models) {
         }).then(function (count) {
             if (count > 0) {
                 req.flash('loginMessage', 'Account is already activated. Please login to continue.');
-                res.redirect('/');
+                res.redirect('/login');
             } else {
                 models.User.update({
                     status: 1
@@ -386,7 +386,7 @@ module.exports = function (app, passport, models) {
                         });
 
                         req.flash('loginMessage', 'Your account activated successfully. We have created a Bitgo wallet for you. Please login to continue.');
-                        res.redirect('/');
+                        res.redirect('/login');
                     })
 
                 }).catch(function (err) {});

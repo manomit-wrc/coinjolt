@@ -261,8 +261,8 @@
     <!--end-->
 
     <script type="text/javascript">
-        var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
-        //var baseURL = "http://localhost:8080/admin/";
+        //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
+        var baseURL = "http://localhost:8080/admin/";
         function deleteBlog(blogId){
 
             swal({
@@ -343,7 +343,7 @@
                         },
                         success: function (response) {
                             if(response.status == true){
-                                sweetAlertSuccessPopUp('Thank You',response.msg);
+                                sweetAlertEditSuccessPopUp('Thank You',response.msg);
                             }
                         }
                     });
@@ -351,6 +351,8 @@
                 }
             }
         }
+
+
 
         function editEmailTemplate(){
             var valid = $('#submit-edit-email-template').valid();
@@ -390,7 +392,7 @@
                         },
                         success: function (response) {
                             if(response.status == true){
-                                sweetAlertSuccessPopUp('Thank You',response.msg);
+                                sweetAlertEditSuccessPopUp('Thank You',response.msg);
                             }
                         }
                     }); 
@@ -398,6 +400,18 @@
                     
                 }
             }
+        }
+
+        function sweetAlertEditSuccessPopUp(title='',text='') {
+            swal({
+                title: title,
+                text: text,
+                type: "success",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK"
+            },  function() {
+                window.location.href=baseURL+"email-template-listings";
+            });
         }
         
         function sweetAlertSuccessPopUp (title='',text='') {
@@ -1678,16 +1692,29 @@
                 var countryCode = $(this).val();
                 if(countryCode === '226'){
                     $('#usa_states').css('display','block');
+                    $('#canada_states').css('display', 'none');
                     $('#state').css('display','none');
-                }
-                else{
+                } else if (countryCode === '240'){ // canada states
+                    $('#canada_states').css('display', 'block');
+                    $('#usa_states').css('display', 'none');
+                    $('#state').css('display', 'none');
+                } else{
                     $('#usa_states').css('display','none');
+                    $('#canada_states').css('display', 'none');
                     $('#state').css('display','block');
                 }
             });
             
-            /* Display selected country value */
+            /* Display selected country value of USA */
             $("#usa_states option").each(function() {
+            // alert(this.text + ' ' + this.value);
+                 if(this.value == "{{user.state}}"){
+                    $(this).attr("selected", "selected");
+                 } 
+            });
+
+            /* Display selected country value of Canada */
+            $("#canada_states option").each(function() {
             // alert(this.text + ' ' + this.value);
                  if(this.value == "{{user.state}}"){
                     $(this).attr("selected", "selected");
@@ -2311,7 +2338,7 @@
     </script>
     {{!-- Format numbers ends --}}
     {{!-- Dashboard display latest posts starts --}}
-    <script>
+    {{!-- <script>
         $listing = "";
         $.ajax({
           type: "GET",
@@ -2343,7 +2370,7 @@
                 }
             });
         }
-    </script>
+    </script> --}}
     {{!-- Dashboard display latest posts ends --}}
     {{!-- MCP Piechart starts --}}
     <script type="text/javascript">

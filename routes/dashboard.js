@@ -30,7 +30,7 @@ paypal.configure({
     'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
 });
 
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation, email_template, email_template_type) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation, blog_post, email_template, email_template_type) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var s3bucket = new AWS.S3({accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey, params: {Bucket: 'coinjoltdev2018'}});
@@ -133,46 +133,51 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
       });
     
     app.get('/dashboard', (req, res) => {
-        User.findById(req.user.id).then( function (result) {
-            var result = JSON.parse(JSON.stringify(result));
+        blog_post.findAll().then( function (blogPosts) {
+            // console.log(JSON.stringify(blogPosts, undefined, 2));
+            User.findById(req.user.id).then( function (result) {
+                var result = JSON.parse(JSON.stringify(result));
 
-            if(result.two_factorAuth_status == 1){
-                // res.render('two_factor_authentication');
-                res.render('dashboard', {
-                    layout: 'dashboard',
-                    two_factorAuth_status: 1
-                });
-            }else if (result.two_factorAuth_status == 2) {
-                //two factor authentication
-                var secret = speakeasy.generateSecret({
-                    issuer: 'Coinjolt',
-                    length: 20,
-                    name: 'Coinjolt'
-                });
-
-                QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
-                    User.update({
-                        two_factorAuth_secret_key: secret.base32,
-                        two_factorAuth_qr_code_image: image_data
-                    },{
-                        where:{
-                            id: req.user.id
-                        }
-                    }).then( result => {
-                        if(result) {
-                            User.findById(req.user.id).then(user_update_result => {
-                                var data = JSON.parse(JSON.stringify(user_update_result));
-                                res.render('dashboard', {
-                                    layout: 'dashboard',
-                                    user_details: data,
-                                    two_factorAuth_status: data.two_factorAuth_status
-                                });
-                            });
-                        }
+                if(result.two_factorAuth_status == 1){
+                    // res.render('two_factor_authentication');
+                    res.render('dashboard', {
+                        layout: 'dashboard',
+                        blogPosts: blogPosts,
+                        two_factorAuth_status: 1
                     });
-                });
-                //end
-            }
+                }else if (result.two_factorAuth_status == 2) {
+                    //two factor authentication
+                    var secret = speakeasy.generateSecret({
+                        issuer: 'Coinjolt',
+                        length: 20,
+                        name: 'Coinjolt'
+                    });
+
+                    QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
+                        User.update({
+                            two_factorAuth_secret_key: secret.base32,
+                            two_factorAuth_qr_code_image: image_data
+                        },{
+                            where:{
+                                id: req.user.id
+                            }
+                        }).then( result => {
+                            if(result) {
+                                User.findById(req.user.id).then(user_update_result => {
+                                    var data = JSON.parse(JSON.stringify(user_update_result));
+                                    res.render('dashboard', {
+                                        layout: 'dashboard',
+                                        blogPosts: blogPosts,
+                                        user_details: data,
+                                        two_factorAuth_status: data.two_factorAuth_status
+                                    });
+                                });
+                            }
+                        });
+                    });
+                    //end
+                }
+            });
         });
     });
 
@@ -395,6 +400,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var countryId = req.body.country;
         if (countryId === "226") {
             state = req.body.usa_states;
+        }  else if(countryId === "240") {
+            state = req.body.canada_states;
         } else {
             state = req.body.state;
         }
@@ -1103,6 +1110,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.post('/save-institutionalIndividual-data', (req, res) => {
+
+        console.log(JSON.stringify(req.body, undefined, 2));
+
         var businessName = req.body.business_name;
         var businessNumber = req.body.business_number;
         var businessCountry = req.body.business_registration_country;

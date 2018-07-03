@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     meta_description: DataTypes.TEXT,
     author_id: DataTypes.INTEGER,
     post_category_id: DataTypes.INTEGER,
-    status: DataTypes.INTEGER
+    status: DataTypes.INTEGER,
+    meta_keywords: DataTypes.TEXT
   }, {});
   blog_post.associate = function(models) {
     // associations can be defined here

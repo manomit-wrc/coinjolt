@@ -83,7 +83,19 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body ltnews">
-                        <img class="img_' + resp[i].id +'" style="width:100%;" src="dist/img/lading_icon.gif">
+                        {{!--
+                        <img class="img_' + resp[i].id +'" style="width:100%;" src="dist/img/lading_icon.gif"> --}}
+                        {{#each blogPosts}}
+                            <div class="col-md-6 paddingleft recent_post_box">
+                                <a style="color: #000;" href="{{base_url}}blog/{{this.post_slug}}" target="_blank">
+                                    <p>
+                                        <img style="width:100%;" src="{{base_url}}blog_images/{{this.featured_image}}">
+                                    </p>
+                                    <h3 class="post-title">{{this.post_title}}</h3>
+                                </a>
+                                <p class="subdetails">CoinJolt.com</p>
+                            </div>
+                        {{/each}}
                     </div>
                     <!-- /.box-body -->
                 </div>

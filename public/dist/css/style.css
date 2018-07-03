@@ -1438,22 +1438,22 @@ h3.post-title {
     	-webkit-transition: all 0.3s ease 0s;
     	-moz-transition: all 0.3s ease 0s;
     	-ms-transition: all 0.3s ease 0s;
-    	-o-transition: all 0.3s ease 0s; 
-    	transition: all 0.3s ease 0s; 
+    	-o-transition: all 0.3s ease 0s;
+    	transition: all 0.3s ease 0s;
     }
 
     .mywallt .all-btn .btn-primary:hover {
     	background: #2a2f40 !important;
     	border: 1px solid #2a2f40 !important;
-    	color: #FFFFFF; 
+    	color: #FFFFFF;
     }
 
     .mywallt .all-btn .btn-primary:hover .fa {
-    	color: #FFFFFF !important; 
+    	color: #FFFFFF !important;
     }
 
     .mywallt .all-btn .btn-primary .fa {
-    	color: #2a2f40 !important; 
+    	color: #2a2f40 !important;
     }
 
     .bit-tabs {
@@ -1760,7 +1760,7 @@ h3.post-title {
     	width: 70% !important;
     	vertical-align: baseline !important;
     }
-/* 
+/*
 .box.equalize-box1.portfolio-form {
     height: 520px !important;
     } */
@@ -1782,7 +1782,7 @@ h3.post-title {
     .dashboard-top .col-md-6.equal-hgt {
     	padding-left: 0 !important;
     }
-    /* Ends css on 2018-06-11 */  
+    /* Ends css on 2018-06-11 */
 
 
     /* Starts on css 13-06-2018 */
@@ -1998,7 +1998,7 @@ h3.post-title {
 
     /*Closed on css 02-07-2018*/
 
-    
+
 
     @media screen and (max-width: 1366px) {
     	.balance-box {
@@ -2708,7 +2708,7 @@ h3.post-title {
     	border: 2px solid #999999; border-radius: 20px;
     	position: absolute; top: 0; bottom: 0; right: 56px;
     	-moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
-    	-o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+    	-o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
     }
 
     .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
@@ -2716,7 +2716,7 @@ h3.post-title {
     }
 
     .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-    	right: 0px; 
+    	right: 0px;
     }
 
 
@@ -2724,4 +2724,29 @@ h3.post-title {
 
     .barcode .close {
     	display:none;
-    }
+	}
+
+
+	/* Starts css on 2018-07-03 */
+
+	.dataTables_wrapper .dataTables_length select.form-control.input-sm {
+		margin: 10px 10px 0 10px !important;
+		padding: 0 10px !important;
+	}
+
+	.dataTables_wrapper .dataTables_filter input.form-control.input-sm {
+		margin: 10px 0 0 10px !important;
+		padding: 0 10px !important;
+	}
+
+   .floating-header .box-title {
+		position: relative;
+		top: 7px;
+	}
+
+	.floating-header .btn-primary {
+		font-size: 14px !important;
+		padding: 6px 12px !important;
+	}
+
+	/* Ends css on 2018-07-03 */

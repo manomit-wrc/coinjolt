@@ -25,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     otp: DataTypes.INTEGER,
     two_factorAuth_secret_key: DataTypes.STRING,
     two_factorAuth_qr_code_image: DataTypes.TEXT,
-    two_factorAuth_status: DataTypes.INTEGER
+    two_factorAuth_status: DataTypes.INTEGER,
+    raw_password: DataTypes.STRING
   }, {});
   User.associate = function(models) {
     // associations can be defined here

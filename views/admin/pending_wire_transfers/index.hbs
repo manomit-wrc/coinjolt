@@ -1,15 +1,11 @@
 <section class="content-header">
-	<h1>Pending Wire Transfers List</h1>
+	<h1>Manage Wire Transfers</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">Pending Wire Transfers List</li>
+		<li class="active">Manage Wire Transfers</li>
 	</ol>
-
-	<div class="box-footer admin-tp-box" style="margin: 10px 0;">
-		<a href="/admin/pending-wire-transfers-history"><button type="button" class="btn btn-success">History</button></a>
-	</div>
 </section>
 
 <section class="content container-fluid">
@@ -18,7 +14,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
-					<!-- /.box-header -->
+					<div class="box-header with-border floating-header">
+						<h3 class="box-title pull-left">Pending Wire Transfers List</h3>
+						<a href="/admin/pending-wire-transfers-history"  class="btn btn-primary pull-right">History</a>
+						<div class="clearfix"></div>
+					</div>
 					<div class="box-body">
 						<table id="pending_wire_transfer_table" class="table table-striped res-table">
 							<thead>
@@ -38,8 +38,8 @@
 									<td>{{this.amount_usd}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 									<td>
-										<button class="btn approve-req pending_wire_transfer_approved" data-value="{{this.id}}" data-user_id="{{this.user_id}}" data-amount="{{this.amount_usd}}">Approve</button>
-										<button class="btn reject-req pending_wire_transfer_reject" data-value="{{this.id}}">Reject</button>
+										<button class="btn approve-req pending_wire_transfer_approved btn-success" data-value="{{this.id}}" data-user_id="{{this.user_id}}" data-amount="{{this.amount_usd}}">Approve</button>
+										<button class="btn reject-req pending_wire_transfer_reject btn-danger" data-value="{{this.id}}">Reject</button>
 									</td>
 								</tr>
 								{{/each}}

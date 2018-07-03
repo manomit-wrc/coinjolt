@@ -372,4 +372,93 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 			}
 		});
 	});
+
+	//Send Bulk Password Email Starts
+	/*
+	app.get('/admin/send-password-email', acl, (req,res) => {
+		var user_arr = [];
+		var ses = new AWS.SES({apiVersion: '2010-12-01'});
+		// async.series([
+		// 	function(cb) {
+		// 	  console.log('1');
+		// 	  cb();
+		// 	},
+		// 	function(cb) {
+		// 	  console.log('2');
+		// 	  cb();
+		// 	},
+		// 	function(cb) {
+		// 	  console.log('3');
+		// 	  cb();
+		// 	}], 
+		// 	function(error, results) {
+		// 	  console.log('4');
+		// 	}
+		//   );
+
+		User.findAll({
+        	where: {type:2}
+        }).then(results => {
+			async.eachSeries(results, ( item, cb ) => {
+				console.log(JSON.stringify(item, undefined, 2));
+				var digits = 9;	
+				var numfactor = Math.pow(10, parseInt(digits-1));	
+				var randomNum =  Math.floor(Math.random() * numfactor) + 1;
+				var id = item.id;
+				var email_id = item.email;
+				var password = randomNum;
+				var passwordSync = bcrypt.hashSync(password);
+				console.log("Password Change");
+				console.log(id);
+				console.log(email_id);
+				console.log(password);
+				user_arr.push({
+					email_id: email_id,
+					password: password
+				});
+				User.update({
+					password: passwordSync,
+					raw_password: password
+				},{
+					where:{
+						id: id
+					}
+				});
+				cb();
+			}, function(err) {
+				console.log(JSON.stringify(user_arr, undefined, 2));
+				async.eachSeries(user_arr, ( item, cb ) => {
+					var to_addresses = item.email_id;
+					var raw_password = item.password;
+					console.log(to_addresses);
+					console.log(raw_password);
+					ses.sendEmail({
+						Source: keys.senderEmail, 
+						Destination: { ToAddresses: [to_addresses] },
+						Message: {
+							Subject: {
+							   Data: 'Coinjolt Password Reset'
+							},
+							Body: {
+								Html: {
+									Charset: "UTF-8",
+									Data: `Dear ${to_addresses},<br /> In order to change the server we have updated your password to ${raw_password}. Please login to <a href="${keys.BASE_URL}/login">Coin Jolt</a> using this password and change your password from Account Settings. Please complete the Two Factor Authentication after login.`
+								}
+						 }
+					}
+				 }, function(err, data) {
+					 if(err) throw err;
+				 });
+					cb();
+				});
+			});
+		});			  
+	});
+	
+	//Send Bulk Password Email Ends
+*/
+
+
+
+
 };

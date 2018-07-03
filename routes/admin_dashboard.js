@@ -7,7 +7,7 @@ const dateFormat = require('dateformat');
 var request = require('sync-request');
 const acl = require('../middlewares/acl');
 
-module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method, company_setting, blog_post, blog_category) {
+module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method, company_setting, blog_post, blog_category, portfolio_composition) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -202,7 +202,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		var ques_data = await Question.findById(req.params['id']);
 		Answer.belongsTo(User, {foreignKey: 'user_id'});
 		Answer.belongsTo(Option, {foreignKey: 'option_id'});
-		Answer.findAll({
+		var result = await Answer.findAll({
 			where: {
 				question_id: req.params['id']
 			},
@@ -214,9 +214,10 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 					model: Option
 				}
 			],
-		}).then(result => {
-			res.render('admin/questionnaire/answer', { layout: 'dashboard', all_data: result, question: ques_data.question });
 		});
+
+		res.render('admin/questionnaire/answer', { layout: 'dashboard', all_data: result, question: ques_data.question });
+		
 	});
 
 	app.get('/admin/pending-withdrawals', acl, (req, res) => {

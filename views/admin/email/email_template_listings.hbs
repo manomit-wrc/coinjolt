@@ -1,15 +1,11 @@
 <section class="content-header">
-	<h1>Email Template List</h1>
+	<h1>Email Template</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">Email Template List</li>
+		<li class="active">Email Template</li>
 	</ol>
-
-	<div class="box-footer admin-tp-box" style="margin: 10px 0;">
-		<a href="/admin/email-template"><button type="button" class="btn btn-success">Add Template</button></a>
-	</div>
 
 	<div>
 		{{#if msg}}
@@ -24,7 +20,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
-					<!-- /.box-header -->
+					<div class="box-header with-border floating-header">
+						<h3 class="box-title pull-left">Email Template List</h3>
+						<a href="/admin/email-template"  class="btn btn-primary pull-right">Add Template</a>
+						<div class="clearfix"></div>
+					</div>
 					<div class="box-body">
 						<table id="pending_wire_transfer_table" class="table table-striped res-table">
 							<thead>
@@ -42,9 +42,9 @@
 									<td>{{this.template_name}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 									<td>
-										<a href='/admin/email-template-edit/{{this.id}}' class="btn approve-req" >Edit</a> &nbsp;&nbsp; || 
+										<a href='/admin/email-template-edit/{{this.id}}' class="btn approve-req" >Edit</a> &nbsp;&nbsp; ||
 
-										<a href='/admin/email-template-delete/{{this.id}}' class="btn approve-req" >Delete</a>	
+										<a href='/admin/email-template-delete/{{this.id}}' class="btn approve-req" >Delete</a>
 									</td>
 								</tr>
 								{{/each}}

@@ -1989,6 +1989,15 @@ h3.post-title {
 
     /*Closed on css 25-06-2018*/
 
+    /*Starts on css 02-07-2018*/
+
+    .marketcap-crypto {
+    	margin-top: 18px;
+    	text-align: center;
+    }
+
+    /*Closed on css 02-07-2018*/
+
     
 
     @media screen and (max-width: 1366px) {

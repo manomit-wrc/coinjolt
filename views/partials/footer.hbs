@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <footer class="main-footer">
     <div class="row">
         <div class="col-md-7">
@@ -23,3 +24,30 @@
             </div>
         </div>
     </footer>
+=======
+<footer class="main-footer">
+    <div class="row">
+        <div class="col-md-7">
+           <p style="text-align: center;">Copyright © 2011-2018 <a href="https://coinjolt.com">CoinJolt.com</a> - All rights reserved. For support, call toll-free at <a style="color: #4165b4" href="tel:1-888-998-9880">1-888-998-9980</a> or email <a style="color: #4165b4" href="mailto:support@coinjolt.com">support@coinjolt.com</a></p>
+            </div>
+            <div class="col-md-5">
+                <div class="pull-right">
+                    {{#if_eq user.type 2 }}
+                        <a href="/submit-a-request">Submit a Request</a>
+                        <a href="#">Privacy Policy</a>
+                        {{!-- <input type="text" name="Element To Be Copied" id="copy-me" value="https://coinjolt.com?user={{reffer_link_id}}" style="display: none;"/> --}} 
+                        <input type="text" name="Element To Be Copied" id="copy-me" value="{{base_url}}user/{{reffer_link_id}}" style="display: none;"/>
+                        <a href="#" id="clipboardBtn" data-toggle="modal" data-target="#referralModal">Referral Link</a>
+                        <br>
+                        <br>
+                    {{/if_eq}}
+
+                    {{#if_eq user.type 1}}
+                        <a href="#">Privacy Policy</a>
+                    {{/if_eq}}
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+>>>>>>> 98100bc6d6b42fbcf5b40c6da40280b3d196f05a

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <header class="main-header">
     <!-- Logo -->
     <a {{#if_eq user.type 1}} href="/admin/dashboard" {{/if_eq}} {{#if_eq user.type 2}} href="/dashboard" {{/if_eq}} class="logo">
@@ -101,4 +102,109 @@
             </ul>
         </div>
     </nav>
+=======
+<header class="main-header">
+    <!-- Logo -->
+    <a {{#if_eq user.type 1}} href="/admin/dashboard" {{/if_eq}} {{#if_eq user.type 2}} href="/dashboard" {{/if_eq}} class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini">
+            <img alt="-lg-logo" src="/dist/img/mini-logo.png">
+        </span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg">
+            <img alt="-lg-logo" src="/dist/img/wht-icon.png">
+        </span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <a href="" class="logo-mob-767">
+            <img  src="/dist/img/logo.png" alt="logo">
+        </a>
+        
+        {{#if_eq user.type 2}}
+        <!-- Starts Balances & Rates -->
+        <div class="balance-box">
+            <a class="toggle-nav" id="bal-anchor">
+                <i class="fa fa-caret-down"></i>Balances
+            </a>
+            <div class="balnrates">
+                <div class="left">
+                    <h6>
+                        <strong>Balances:</strong>
+                    </h6>
+                    <ul class="list" id="blc">
+                        <li>
+                            <strong>USD:</strong> {{nFormatter user.currentUsdBalance 1}}</li>
+                        <li class="border">|</li>
+                        <li>
+                            <strong>MCP:</strong> {{nFormatter user.mcpTotalBalance 1}}</li>
+                        <li class="border">|</li>
+                        {{#each user.currencyBalance}}
+                        <li id="blc_{{this.Currency.currency_id}}">
+                            <strong>{{this.Currency.currency_id}}:</strong> {{nFormatter this.balance 2}}</li>
+                        <li class="border">|</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="rates-box">
+            <a class="toggle-nav" id="rate-anchor">
+                <i class="fa fa-caret-down"></i>Rates
+            </a>
+            <div class="rates">
+                <div class="right">
+                    <h6>
+                        <strong>Rates:</strong>
+                    </h6>
+                    <ul class="list" id="rtc">
+                        {{#each user.currency}}
+                        <li class="cr_{{this.currency_id}}">
+                            <strong>{{this.currency_id}}:</strong></li>
+                        <li class="border">|</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {{/if_eq}}
+
+        <!-- Ends Balances & Rates -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="clickme">
+                        <img src="{{image}}" class="user-image" alt="User Image">
+                        <span class="hidden-xs">
+                            <i aria-hidden="true" class="fa fa-angle-down"></i>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" id="profiledropdown">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img src="{{image}}" class="img-circle" alt="User Image">
+                            <p>{{user.email}}</p>
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="/profile-details" class="btn btn-default btn-flat">Profile</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Control Sidebar Toggle Button -->
+            </ul>
+        </div>
+    </nav>
+>>>>>>> 98100bc6d6b42fbcf5b40c6da40280b3d196f05a
 </header>

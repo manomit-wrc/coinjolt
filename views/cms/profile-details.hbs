@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <style type="text/css">
     #regForm {
         margin-top: 70px;
@@ -841,4 +842,849 @@
 
     */
 
+=======
+<style type="text/css">
+    #regForm {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .tab {
+        padding: 10px;
+    }
+
+    #regForm input[type=radio] {
+        margin: 6px 6px 0;
+    }
+
+    /* Mark input boxes that gets an error on validation: */
+
+    input.invalid {
+        background-color: #ffdddd;
+    }
+
+    /* Hide all steps by default: */
+
+    .tab {
+        display: none;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 17px;
+        font-family: Raleway;
+        cursor: pointer;
+    }
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+    .step {
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbbbbb;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5;
+    }
+
+    .step.active {
+        opacity: 1;
+    }
+
+    .step.finish {
+        background-color: #4CAF50;
+    }
+</style>
+<section class="content-header">
+    <h1>Profile Details</h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="/dashboard">
+                <i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li class="active">Profile Details</li>
+    </ol>
+</section>
+<section class="content container-fluid">
+    <div class="profile-details">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Starts Profile Info -->
+                <div class="box">
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle" src="{{image}}" alt="user profile picture">
+                        <h3 class="profile-username text-center">{{user.user_name}}</h3>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>USD</b>
+                                <a class="pull-right">{{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>MCP</b>
+                                <a class="pull-right">{{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}</a>
+                            </li>
+                        </ul>
+                        <p>
+                            <a href="/deposit-funds" class="btn btn-primary btn-block">
+                                <b>Deposit Funds</b>
+                            </a>
+                        </p>
+                        <p>
+                            <a href="/buy-and-sell-coins" class="btn btn-primary btn-block">
+                                <b>Buy and Sell</b>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <!-- Ends Profile Info -->
+                <!-- Starts Profile About -->
+                <div class="bio">
+                    <div class="box cjabout-box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <!--<i class="fa fa-user-circle margin-r-5"></i>-->About Me</h3>
+                        </div>
+                        <div class="box-body">
+                            <strong>
+                                <i class="fa fa-id-card margin-r-5"></i> ID
+                                <a href="{{identity_proof}}" target="_blank" style="float:right">View</a>
+                            </strong>
+                            <hr>
+                            <strong>
+                                <i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                            <p class="text-muted">{{user.city}}, {{user.state}}</p>
+                            <hr>
+                            <strong>
+                                <i class="fa fa fa-university margin-r-5"></i> Bank Information
+                            </strong>
+                            {{!--
+                            <a href="" data-toggle="modal" data-target="#myModal" style="float: right; ">
+                                <i class="fa fa-pencil"></i>
+                            </a> --}}
+                            <p class="text-muted" style="margin-bottom: 0px;">
+                                <strong>Bank Name : </strong>{{user.bankInfo.bank_name}}
+                            </p>
+                            <p class="text-muted" style="margin-bottom: 0px;">
+                                <strong>Bank Code : </strong>{{user.bankInfo.branch_no}}
+                            </p>
+                            <p class="text-muted" style="margin-bottom: 0px;">
+                                <strong>Account Number : </strong>{{user.bankInfo.acc_no}}
+                            </p>
+
+                            <!-- modal ahead -->
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <label>Bank Information</label>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" role="form" id="form">
+                                                <div class="form-group">
+                                                    <label>Bank Name:</label>
+                                                    <input type="text" name="bank_name" class="form-control" id="bank_name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Bank Code:</label>
+                                                    <input type="text" name="bank_code" class="form-control" id="bank_code">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Bank Account Number:</label>
+                                                    <input type="text" name="bank_number" class="form-control" id="bank_number">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="submit" name="" class="btn btn-success account-details" value="Save">
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- modal ends -->
+                            <hr>
+                            <strong>
+                                <i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                            <a href="" data-toggle="modal" data-target="#myModal1" style="float: right;">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <p>{{user.notes}}</p>
+                            <hr>
+
+                            <!-- modal ahead -->
+                            <div class="modal fade" id="myModal1" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <label>Notes:</label>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" role="form" id="notes_form" action="/save-notes">
+                                                <div class="form-group">
+                                                    <input type="text" name="notes" class="form-control" id="notes" value="{{user.notes}}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="submit" name="notes-save" class="btn btn-primary notes" value="Save">
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- modal ends -->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Starts Profile About -->
+            </div>
+            <div class="col-md-6">
+                <!-- Starts Bio  -->
+                <div class="bio">
+                    <div class="box cjbio-box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <i class="fa fa-address-card margin-r-5"></i>Biography</h3>
+                        </div>
+                        <div class="box-body">
+                            <p class="text-muted" style="text-align: justify;">
+                                {{user.about_me}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ends Bio  -->
+                <!-- Starts Latest News -->
+                <div class="ltst-news">
+                    <div class="box cjnews-box">
+                        <div class="box-header">
+                            <h3 class="box-title ltns">
+                                <i class="fa fa-question-circle-o"></i> Financial Questionnaire</h3>
+                        </div>
+                        <section class="content mcp_con">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form id="financialForm" method="post">
+                                        <h3>Answer the following questions</h3>
+                                        <!-- One "tab" for each step in the form: -->
+
+                                        {{#each questionAnswers as |ques|}}
+
+                                        <div class="questionaireGroup" id="{{ques.id}}">
+                                            <h4>{{ques.question}}</h4>
+                                            {{#each Options}}
+                                            <input type="radio" name="{{ques.id}}" value="{{this.id}}" id="{{this.id}}" class="radio-active" {{#if this.answer_status}}
+                                                checked="checked" {{/if}}>{{this.option}}
+                                            <br> {{/each}}
+
+                                        </div>
+                                        <label for="{{ques.id}}" generated="true" class="error"></label>
+                                        {{/each}}
+
+                                        <div>
+                                            <div class="pull-right">
+                                                <input type="button" class="btn-primary" id="submitQuestionaireBtn" name="save" value="Submit">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                    {{!--
+                    <div class="box-body profile-details">
+                        <div class="col-md-12 paddingleft recent_post_box">
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="radio-btn">
+                                        <p>Are you Institution?</p>
+                                        <div class="intitution">
+                                            <input type="radio" name="type" id="institution-radio" value="Institution" checked="checked" onclick="institutionForm()">Apply
+                                        </div>ques_
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="radio-btn">
+                                        <p>Are you Individual?</p>
+                                        <div class="intitution-radio">
+                                            <input type="radio" name="type" id="individual-radio" value="Individual" onclick="individualForm()">Apply
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Institutional form -->
+                            <div class="row" id="institutional_form">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                    <form id="form" class="form" name="" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="" id="userId" value="">
+                                        <input type="hidden" name="" id="id" value="">
+                                        <h2>Institutional Application Form</h2>
+                                        <div class="form-group">
+                                            <label for="business_name">Business Name:</label>
+                                            <input type="text" class="form-control" id="business_name" placeholder="Enter Business Name" name="business_name" value="">
+                                            <span id="business_name_err" style="color: tomato;"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="business_number">Business Number:</label>
+                                            <input type="text" class="form-control" id="business_number" placeholder="Enter Business Number" name="business_number" value="">
+                                            <span id="business_number_err" style="color: tomato;"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="business_registration_country">Country of Business Registration:</label>
+                                            <input type="text" class="form-control" id="business_registration_country" placeholder="Enter Country of Business Registration"
+                                                name="business_registration_country" value="">
+                                            <span id="business_registration_country_err" style="color: tomato;"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="investques">How much are you looking to invest?:</label>
+                                            <select name="investques" class="form-control" id="investques">
+                                                <option value="100,000+">$100,000+</option>
+                                                <option value="1,000,000+">$1,000,000+</option>
+                                                <option value="10,000,000+">$10,000,000+</option>
+                                                <option value="100,000,000+">$100,000,000+</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="settlement_currency">Settlement Currency:</label>
+                                            <select name="settlement_currency" class="form-control" id="settlement_currency">
+                                                <option value="flat">Flat(USD,EUR,YEN)</option>
+                                                <option value="cryptocurrency">Cryptocurrency(BTC,ETC,XRC)</option>
+
+                                            </select>
+                                        </div>
+
+                                        <input type="button" class="btn btn-primary" id="institution_form_upload" value="Upload Documents" data-toggle="modal" onclick="institutionValidation()">
+                                        <input class="btn btn-primary" id="institution_form_save" value="Save" onclick="institutionValidation()" type="button">
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <!-- Institution form modal starts -->
+                            <div class="modal fade" id="institute_modal" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Upload The Following Documents</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <form class="form">
+
+                                                <div class="row">
+
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+
+                                                            <label>Proof of Address
+                                                                <span style="color: red">*</span>
+                                                            </label>
+
+                                                            <input name="address_proof" class="form-control" id="address_proof" type="file">
+
+                                                            <span id="address_proof_individual_err" style="color: tomato;"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+
+                                                            <label>Government Issued ID
+                                                                <span style="color: red">*</span>
+                                                            </label>
+
+                                                            <input name="shareholder_id" class="form-control" id="government_issued_id" type="file">
+
+                                                            <span id="government_issued_id_individual_err" style="color: tomato;"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+
+                                                            <label>Upload Recent Bank Account Statement
+                                                                <span style="color: red">*</span>
+                                                            </label>
+
+                                                            <input name="bank_statement" class="form-control" id="bank_statement_individual" type="file">
+
+                                                            <span id="bank_statement_individual_err" style="color: tomato;"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+
+                                                            <label>Bank Account Holder Name
+                                                                <span style="color: red">*</span>
+                                                            </label>
+
+                                                            <input name="account_name" class="form-control" id="account_name_individual" value="" type="text">
+
+                                                            <span id="account_name_individual_err" style="color: tomato;"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+
+                                                            <label>Country of Bank Account
+                                                                <span style="color: red">*</span>
+                                                            </label>
+
+                                                            <input name="bank_country" class="form-control" id="bank_country_individual" value="" type="text">
+
+                                                            <span id="bank_country_individual_err" style="color: tomato;"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+
+                                                            <label>Account Number (7 Digits)
+                                                                <span style="color: red">*</span>
+                                                            </label>
+
+                                                            <input name="account_number" class="form-control" id="account_number_individual" value="" type="text">
+
+                                                            <span id="account_number_individual_err" style="color: tomato;"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+
+                                                            <label>Routing Number (9 Digits)
+                                                                <span style="color: red">*</span>
+                                                            </label>
+
+                                                            <input name="routing_number" class="form-control" id="routing_number_individual" value="" type="text">
+
+                                                            <span id="routing_number_individual_err" style="color: tomato;"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+
+                                                            <label>Contact Phone Number
+                                                                <span style="color: red">*</span>
+                                                            </label>
+
+                                                            <input name="phone_number" class="form-control" id="phone_number_individual" value="" type="text">
+
+                                                            <span id="phone_number_individual_err" style="color: tomato;"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+
+                                                            <label>Contact Email Address
+                                                                <span style="color: red">*</span>
+                                                            </label>
+
+                                                            <input name="email_address" class="form-control" id="email_address_individual" value="" type="email">
+
+                                                            <span id="email_address_individual_err" style="color: tomato;"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+
+                                        <div class="modal-footer">
+
+                                            <input value="Select" name="Select" class="form-control btn btn-primary submit_individual" onclick="individualValidationModal()"
+                                                type="button">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Institution form modal ends  id="submit_institution"-->
+                            <!-- Institutional form -->
+
+                            <!-- Individual form -->
+                            <div class="row" style="display: none;" id="individual_form">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <form>
+                                        <input type="hidden" name="" id="user_Id" value="">
+                                        <input type="hidden" name="" id="individual_id" value="">
+                                        <h2>Individual Application Form</h2>
+                                        <div class="form-group">
+                                            <label for="last_name">First Name:</label>
+                                            <input type="text" class="form-control" id="first_name" placeholder="Enter Last Name" name="first_name" value="">
+                                            <span id="first_name_err" style="color: tomato;"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="last_name">Last Name:</label>
+                                            <input type="text" class="form-control" id="last_name" placeholder="Enter Last Name" name="last_name" value="">
+                                            <span id="last_name_err" style="color: tomato;"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="residence_country">Country of residence:</label>
+                                            <input type="text" class="form-control residence_country_individual" placeholder="Enter Country of Residence" name="residence_country"
+                                                id="residence_country_individual" value="">
+                                            <span id="residence_country_individual_err" style="color: tomato;"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="investques">How much are you looking to invest?:</label>
+                                            <select name="investques" class="form-control" id="investques_individual">
+                                                <option value="100,000+">$100,000+</option>
+                                                <option value="1,000,000+">$1,000,000+</option>
+                                                <option value="10,000,000+">$10,000,000+</option>
+                                                <option value="100,000,000+">$100,000,000+</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="settlement_currency">Settlement Currency:</label>
+                                            <select name="settlement_currency" class="form-control" id="settlement_currency_individual">
+                                                <option value="flat">Flat(USD,EUR,YEN)</option>
+                                                <option value="cryptocurrency">Cryptocurrency(BTC,ETC,XRC)</option>
+
+                                            </select>
+                                        </div>
+
+                                        <button type="button" class="btn btn-primary" id="individual_form_upload" data-toggle="modal" onclick="individualValidation()">Upload Documents</button>
+                                        <input class="btn btn-primary" id="institution_form_save" value="Save" onclick="institutionValidation()" type="button">
+                                    </form>
+
+                                </div>
+                            </div>
+                            <!-- Individual form modal starts  data-target="#individual_modal" -->
+                            <div class="modal fade" id="individual_modal" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Upload The Following Documents</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Proof of Address:</label>
+                                                            <input type="file" name="address_proof" class="form-control" id="address_proof">
+                                                            <span id="address_proof_individual_err" style="color: tomato;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Government issued id:</label>
+                                                            <input type="file" name="shareholder_id" class="form-control" id="government_issued_id">
+                                                            <span id="government_issued_id_individual_err" style="color: tomato;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Upload Recent Bank Account Statement Proof:</label>
+                                                            <input type="file" name="bank_statement" class="form-control" id="bank_statement_individual">
+                                                            <span id="bank_statement_individual_err" style="color: tomato;"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Account Name:</label>
+                                                            <input type="text" name="account_name" class="form-control" id="account_name_individual" value="">
+                                                            <span id="account_name_individual_err" style="color: tomato;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Country of Bank:</label>
+                                                            <input type="text" name="bank_country" class="form-control" id="bank_country_individual" value="">
+                                                            <span id="bank_country_individual_err" style="color: tomato;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Account Number:</label>
+                                                            <input type="text" name="account_number" class="form-control" id="account_number_individual" value="">
+                                                            <span id="account_number_individual_err" style="color: tomato;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Routing Number:</label>
+                                                            <input type="text" name="routing_number" class="form-control" id="routing_number_individual" value="">
+                                                            <span id="routing_number_individual_err" style="color: tomato;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Phone Number:</label>
+                                                            <input type="text" name="phone_number" class="form-control" id="phone_number_individual" value="">
+                                                            <span id="phone_number_individual_err" style="color: tomato;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Email Address:</label>
+                                                            <input type="email" name="email_address" class="form-control" id="email_address_individual" value="">
+                                                            <span id="email_address_individual_err" style="color: tomato;"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="button" value="Apply" name="Apply" class="form-control btn btn-primary submit_individual" onclick="individualValidationModal()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Individual form modal ends -->
+                            <!-- Individual form -->
+                        </div>
+                    </div> --}}
+                    <!-- /.box-body -->
+
+
+
+                    {{!--
+                    <form id="financialForm" method="post">
+                        <h3>Answer the following questions</h3>
+                        {{#each questionAnswers as |ques|}}
+                        <div class="tab" id="{{ques.id}}">
+                            <h4>{{ques.question}}</h4>
+                            {{#each Options}}
+                            <input type="radio" name="{{ques.id}}" value="{{this.id}}" id="answeroption">{{this.option}}
+                            <br> {{/each}}
+
+                        </div>
+                        {{/each}}
+                        <div style="overflow:auto;">
+                            <div style="float:right;margin-top:20px;">
+                                <input type="button" id="nextBtn" name="save" onclick="nextPrev(1)" value="Next">
+                            </div>
+                        </div>
+                        <div style="text-align:center;margin-top:20px;">
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                        </div>
+                    </form> --}} {{!--
+                    <div class="col-md-2">&nbsp;</div> --}} {{!-- </div> --}} {{!-- </section> --}}
+</div>
+</div>
+<!-- Ends Latest News -->
+</div>
+</div>
+</div>
+</section>
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+
+        //$('#submitQuestionaireBtn').on('click', function(e){
+        //e.preventDefault();
+        /*
+        if(!$('.questionaireGroup').is(':checked')) { 
+            $('.questionaireGroup').css("border","1px solid red");
+        } */
+
+        //var stat = $('#answeroption').prop('checked').val();
+
+        //$(".questionaireGroup").each(function(){
+        //var radioElement = $('.questionaireGroup #answeroption').prop('checked');
+        //console.log(radioElement);
+
+        //});
+
+        //var stat = $("input[id='answeroption']:checked").val();
+
+        //console.log(stat);
+
+
+
+
+        /*
+        $('input:radio[class=questionaireGroup]').each(function() {
+           console.log($(this).val());
+        });  */
+
+        /*
+        
+
+        */
+
+
+        //});
+    });
+
+
+    /*
+
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the crurrent tab
+    function showTab(n) {
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    if (n == (x.length - 1)) {
+        document.getElementById("nextBtn").value = "Submit";
+    } else {
+        document.getElementById("nextBtn").value = "Next";
+    }
+    fixStepIndicator(n)
+    }
+
+
+
+    function nextPrev(n) {	
+        var x = document.getElementsByClassName("tab");
+        var id = x[currentTab].id;
+        if (jQuery('input[name='+id+']:checked').length > 0) {
+            x[currentTab].style.display = "none";
+            currentTab = currentTab + n;
+            if (currentTab >= x.length) {
+                //document.getElementById("regForm").submit();
+                //return false;
+  
+                var finalcialData = $('#financialForm').serializeArray();
+                $.ajax({
+                    type: 'POST',
+                    url : "/save-questionnaire",
+                    data : {finalcialData: finalcialData},
+                    success:function(response) {
+                         if(response.success == 1){
+                            swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                            },function(isConfirm){
+                                if(isConfirm){
+                                    setTimeout(function(){
+                                        window.location.href = "/profile-details";
+                                    },30);
+                                }
+                            });
+
+                        } 
+                    },
+                    error:function(xhr) {
+                        console.log(xhr);
+                    }
+                });
+
+
+            }
+            showTab(currentTab);
+        }
+        else
+        {
+            //alert('select option');
+            x[currentTab].style.border="1px solid red";
+        return false;
+        }
+        
+    }
+
+    function validateForm() {
+    // This function deals with validation of the form fields
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+    // A loop that checks every input field in the current tab:
+    for (i = 0; i < y.length; i++) {
+        // If a field is empty...
+        if (y[i].value == "") {
+        // add an "invalid" class to the field:
+        y[i].className += " invalid";
+        // and set the current valid status to false
+        valid = false;
+        }
+    }
+    // If the valid status is true, mark the step as finished and valid:
+    if (valid) {
+        document.getElementsByClassName("step")[currentTab].className += " finish";
+    }
+    return valid; // return the valid status
+    }
+
+    function fixStepIndicator(n) {
+    // This function removes the "active" class of all steps...
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+        x[i].className = x[i].className.replace(" active", "");
+    }
+    //... and adds the "active" class on the current step:
+    x[n].className += " active";
+    }
+
+    */
+
+>>>>>>> 98100bc6d6b42fbcf5b40c6da40280b3d196f05a
 </script>

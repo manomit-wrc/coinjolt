@@ -1,0 +1,400 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>Buy and Sell Digital Currencies</h1>
+  <ol class="breadcrumb">
+    <li>
+      <a href="#">
+        <i class="fa fa-dashboard"></i> Home</a>
+    </li>
+    <li class="active">Buy and Sell Coins</li>
+  </ol>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+  <div class="buy-sell">
+    <div class="row">
+      <div class="col-md-12">
+            <div class="row buynsell-row">
+              <div class="col-md-6">
+                <div class="box equalize-box">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Buy</h3>
+                  </div>
+               <div class="box-body">
+                <form action="/buy-coin" method="post">
+                  <div class="form-group">
+                    <select class="form-control" id="currency_purchased" name="currency_purchased">
+                      <option value="">Please select a option</option>
+                      {{#each contents}}
+                      <option value="{{this.alt_name}}">{{this.currency_id}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="payAmount" id="payAmount" placeholder="Enter USD Value">
+                  </div>
+
+                  <p class="expected" style="display:none;" role="alert"></p>
+
+                  <div class="" id="currentratetext" role="alert">
+
+                  </div>
+                  <div class="" id="calculatedamount" role="alert">
+
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4 col-sm-12">
+                        <input type="hidden" id="coinRate" name="coinRate" value="" />
+                        <input type="hidden" id="sell_coinRate" name="sell_coinRate" value="" />
+                        <input type="hidden" name="sell_converted_amount" id="sell_converted_amount">
+                        <input class="btn btn-block btn-primary" id="cc-submit" type="submit" value="Buy" />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+
+              <div class="box equalize-box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Sell</h3>
+                </div>
+                <div class="box-body">
+  {{#if_eq user.kycApproved "2"}}
+                <form action="" method="post">
+                  <div class="form-group">
+                    <select class="form-control" id="currency_sold" name="currency_sold">
+                      <option value="">Please select a option</option>
+                      {{#each contents}}
+                      <option value="{{this.alt_name}}">{{this.currency_id}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="sellAmount" name="sellAmount" placeholder="Enter Amount of Coin">
+                  </div>
+                  <p class="sell_expected" style="display:none;" role="alert"></p>
+                  <div class="" id="sell_currentratetext" role="alert">
+
+                  </div>
+                  <div class="" id="sell_calculatedamount" role="alert">
+
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4 col-sm-12">
+                        <input id="cc-submit1" class="btn btn-block btn-primary" type="submit" value="Sell" />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                {{/if_eq}} {{#if_eq user.kycApproved "1"}}
+                <div class="form-group">
+                  <p>Sell is disabled because your ID Proof is submitted but not verified yet.</p>
+                </div>
+                {{/if_eq}} {{#if_eq user.kycApproved "3"}}
+                <div class="form-group">
+                  <label>Sell</label>
+                  <p>Sell is disabled because your ID Proof is rejected. Please upload correct ID Proof in
+                    <a href="/account-settings">Account Settings</a>.</p>
+                </div>
+                {{/if_eq}} {{#if_eq user.kycApproved "0"}}
+                <div class="form-group">
+                  <label>Sell</label>
+                  <p>Sell is disabled because your ID Proof is not uploaded yet. Please upload your ID Proof in
+                    <a href="/account-settings">Account Settings</a>.</p>
+                </div>
+                {{/if_eq}}
+                </div>
+              </div>
+
+
+              
+              </div>
+            </div>
+      </div>
+    </div>
+    <!-- Starts Balance & Most Recent Activity  -->
+    <div class="balnrecent">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box equal-hgt symbol-box">
+            <div class="box-header">
+              <h3 class="box-title">Balance</h3>
+            </div>
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="chart-responsive">
+                    <div class="chart" id="sales-chart" style="height: 150px; position: relative;"></div>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <table class="table scroll-minus">
+                    <thead>
+                      <tr>
+                        <th class="col-xs-4 paddingleft">SYMBOL</th>
+                        <th class="col-xs-4 paddingleft">NAME</th>
+                        <th class="col-xs-4 paddingleft">BALANCE</th>
+                      </tr>
+                    </thead>
+                  </table>
+                  <div class="scroll-dashboard buy-and-sell-coins">
+                    <table class="table">
+                      <tr>
+                        <td class="col-xs-4">
+                          <img src="dist/img/usd.png" alt="">
+                        </td>
+                        <td class="col-xs-4">DOLLAR
+                          <span style="color:red;">(USD)</span>
+                        </td>
+                        <td class="col-xs-4">
+                          {{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-xs-4">
+                          <img src="dist/img/mcpicon.png" alt="" width="34">
+                        </td>
+                        <td class="col-xs-4">MANAGED PORTFOLIO
+                          <span style="color:red;">(MCP)</span>
+                        </td>
+                        <td class="col-xs-4">{{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}</td>
+                      </tr>
+                      {{#each user.currency}}
+                      <tr>
+                        <td class="col-xs-4">
+                          <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
+                        </td>
+                        <td class="col-xs-4">{{this.display_name}}
+                          <span style="color:red;">({{toUpperCase this.alt_name}})</span>
+                        </td>
+                        <td class="wallet_crp col-xs-4">
+                          {{twoDecimalPoint (checkCurrencies this.alt_name ../user.currencyBalance)}}
+                        </td>
+                      </tr>
+                      {{/each}}
+
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="box equal-hgt">
+            <div class="box-header">
+              <h3 class="box-title">Most Recent Activity</h3>
+            </div>
+            <div class="box-body">
+
+              <div class="table-responsive buy-section">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th>Currency</th>
+                      <th>Rate</th>
+                      <th>USD</th>
+                      <th>Amount</th>
+                      <th>Type</th>
+                      <th>Date</th>
+                    </tr>
+                    {{#each currencyCodes}}
+                    <tr>
+                      <td>{{this.Currency.currency_id}}</td>
+                      <td>${{formatCurrency (twoDecimalPoint this.current_rate)}}</td>
+                      <td>${{formatCurrency (fiveDecimalPoint this.amount)}}</td>
+                      <td>{{fiveDecimalPoint this.converted_amount }}</td>
+                      <td>{{#if_eq this.type '1'}} Buy {{else}} Sell {{/if_eq}}
+                      </td>
+                      <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Ends Balance & Most Recent Activity  -->
+    <!-- Starts Market Pricing Graph -->
+    {{!-- <div class="market-pricing-graph">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- BAR CHART -->
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Market Pricing Graph</h3>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="barChart1" style="height:230px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+      </div>
+
+    </div> --}}
+    <!-- Ends Market Pricing Graph -->
+    <!-- Starts Market Capitalization Graph -->
+    {{!-- <div class="market-capitalization-graph">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- BAR CHART -->
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Market Capitalization Graph</h3>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="barChart2" style="height:230px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+      </div>
+    </div> --}}
+    <!-- Ends Market Capitalization Graph -->
+    <!-- Starts Cryptocurrency Live Chart -->
+    <div class="crypto-live-chart">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Cryptocurrency Live Chart</h3>
+            </div>
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div id="bitcoinChart"></div>
+                  <div id="etherChart"></div>
+                  <div id="eosChart"></div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Ends Cryptocurrency Live Chart -->
+  </div>
+</section>
+<!-- /.content -->
+<script type='text/javascript' src='js/pubnub_keys.js'></script>
+    <script type="text/javascript">
+		var pubnub = new PubNub({
+		    publishKey:   config.PUBLISH_KEY,
+		    subscribeKey: config.SUBSCRIBE_KEY
+			});
+		var xhr = new XMLHttpRequest();
+		function processRequest(e) {
+ 			if (xhr.readyState == 4 && xhr.status == 200) {
+		  	var response = JSON.parse(xhr.responseText);
+		        console.log(response);
+		        pubnub.publish({
+					    channel: 'bitcoin-feed',
+					    message: {
+					      eon: {
+					        'BitCoin': response.BTC.CNY.toFixed(2)
+					      }
+					    }
+					  });
+		        pubnub.publish({
+					    channel: 'ether-feed',
+					    message: {
+					      eon: {
+					        'Ether': response.ETH.CNY.toFixed(2)
+					      }
+					    }
+					  });
+		        pubnub.publish({
+					    channel: 'eos-feed',
+					    message: {
+					      eon: {
+					        'EOS': response.EOS.CNY.toFixed(2)
+					      }
+					    }
+					  });
+		    }
+		}
+		function mainApp() {
+			setInterval(function(){
+				xhr.open('GET', 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,EOS&tsyms=CNY', true)
+				xhr.send();
+				xhr.onreadystatechange = processRequest;
+			}, 5000)
+		};
+		mainApp();
+	</script>
+
+    <script type="text/javascript">
+      function showChart(){
+          // You will only be subscribing to a channel, so no need for a publish key
+          var pubnub = new PubNub({
+              subscribeKey: config.SUBSCRIBE_KEY
+            });
+          // EON Charts configuration
+          var pointLimit = 2;
+          var topPadding = 100;
+          var bottomPadding = 100;
+          var eonData = {labels: true,type: 'line'};
+          var eonAxis = {y: {padding: {top:topPadding, bottom:bottomPadding}},
+                        x: {type: 'timeseries',tick: {format: '%H:%M:%S'}}};
+          // Create the EON Chart for BitCoin and bind its div
+          eon.chart({
+            channels: ['bitcoin-feed'],
+            history: true,
+            flow: true,
+            limit: pointLimit,
+            pubnub: pubnub,
+            generate: {
+              bindto: '#bitcoinChart',
+              data: eonData,
+              axis: eonAxis
+            }
+          });
+          // Create the Ether Chart for BitCoin and bind its div
+          eon.chart({
+            channels: ['ether-feed'],
+            history: true,
+            flow: true,
+            limit: pointLimit,
+            pubnub: pubnub,
+            generate: {
+              bindto: '#etherChart',
+              data: eonData,
+              axis: eonAxis
+            }
+          });
+          // Create the LiteCoin Chart for BitCoin and bind its div
+          eon.chart({
+            channels: ['eos-feed'],
+            history: true,
+            flow: true,
+            limit: pointLimit,
+            pubnub: pubnub,
+            generate: {
+              bindto: '#eosChart',
+              data: eonData,
+              axis: eonAxis
+            }
+          });
+      }
+
+      showChart();
+		
+	</script>

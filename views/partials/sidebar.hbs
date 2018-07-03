@@ -1,0 +1,210 @@
+<aside class="main-sidebar">
+    <section class="sidebar">
+
+        <ul class="sidebar-menu {{#if_eq user.type 1}} admin_menu{{/if_eq}}" data-widget="tree">
+            {{#if_eq user.type 2}}
+                <li>
+                    <a  href="/buy-and-sell-coins">
+                        <i class="fa fa-bitcoin"></i>
+                        <span>Buy and Sell Coins</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/managed-cryptocurrency-portfolio">
+                        <i class="fa fa-pie-chart"></i>
+                        <span> Managed Cryptocurrency
+                            <br>
+                            <span style="margin-left: 19%;">Portfolio</span>
+                        </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/transaction-history">
+                        <i class="fa fa-book"></i>
+                        <span>Transaction History</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/profile-details">
+                        <i class="fa fa-user"></i>
+                        <span>Profile Details</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/account-settings">
+                        <i class="fa fa-cog"></i>
+                        <span>Account Settings</span>
+                    </a>
+                </li>
+
+                 <li>
+                    <a href="/wallets">
+                        <i class="fa fa-book"></i>
+                        <span>Wallets</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/deposit-funds">
+                        <i class="fa fa-money"></i>
+                        <span>Deposit Funds</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/request-withdrawal">
+                        <img alt="" src="dist/img/withdraw.png">
+                        <span> Request Withdrawal</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/invite-friends">
+                        <img alt="" src="dist/img/referrals.png">
+                        <span> Invite Friends</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/logout">
+                        <i class="fa fa-sign-out"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            {{/if_eq}}
+
+            {{!-- for admin section --}}
+            {{#if_eq user.type 1 }}
+                <li>
+                    <a href="/admin/investments">
+                        <i class="fa fa-line-chart"></i>
+                        <span> Total Investments</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/crypto_investments">
+                        <i class="fa fa-line-chart"></i>
+                        <span> Total Crypto Portfolio</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/transactions">
+                        <i class="fa fa-handshake-o"></i>
+                        <span> Transactions</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/pending-wire-transfers">
+                        <i class="fa fa-money"></i>
+                        <span> Manage Wire Transfers</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/pending-withdrawals">
+                        <img alt="" src="/dist/img/withdraw.png">
+                        <span> Manage Withdrawals</span>
+                    </a>
+                </li>
+
+                 <li>
+                    <a href="/admin/deposit-methods">
+                        <i class="fa fa-money"></i>
+                        <span> Manage Deposit Methods</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/kyc">
+                        <!-- <img alt="" src="../dist/img/id.png"> -->
+                        <i class="fa fa-address-card"></i>
+                        <span>KYC</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/question">
+                        <i class="fa fa-clipboard"></i>
+                        <span>Questionnaire</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/support">
+                        <!-- <img alt="" src="../dist/img/support.png"> -->
+                        <i class="fa fa-headphones"></i>
+                        <span>Support</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/email-template-listings">
+                        <!-- <img alt="" src="../dist/img/support.png"> -->
+                        <i class="fa fa-envelope"></i>
+                        <span>Email Template</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/all-user-list">
+                        <!-- <img alt="" src="../dist/img/support.png"> -->
+                        <i class="fa fa-user"></i>
+                        <span>All User List</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/email-marketing">
+                        <!-- <img alt="" src="../dist/img/support.png"> -->
+                        <i class="fa fa-envelope"></i>
+                        <span>Email Marketing</span>
+                    </a>
+                </li>
+
+                 <li>
+                    <a href="/admin/company-settings">
+                        <!-- <img alt="" src="../dist/img/support.png"> -->
+                        <i class="fa fa-cog"></i>
+                        <span>Company Settings</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/admin/blog-posts">
+                        <i class="fa fa-cog"></i>
+                        <span>Manage Blog</span>
+                    </a>
+                </li>
+
+                 <li>
+                    <a href="/admin/blog-categories">
+                        <i class="fa fa-cog"></i>
+                        <span>Manage Blog Categories</span>
+                    </a>
+                </li>
+
+                <li class="treeview">
+                  <a href="#">
+                    <i class="fa fa-folder"></i> <span>CMS</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="/admin/cms/quick-links/about-us"><i class="fa fa-circle-o"></i> About Us</a></li>
+                    <li><a href="/admin/cms/quick-links/terms-of-service"><i class="fa fa-circle-o"></i> Terms Of Service</a></li>
+                    <li><a href="/admin/cms/quick-links/risk-disclosures"><i class="fa fa-circle-o"></i> Risk Disclosures</a></li>
+                    <li><a href="/admin/cms/quick-links/privacy-policy"><i class="fa fa-circle-o"></i> Privacy Policy</a></li>
+                   
+                  </ul>
+                </li>
+            {{/if_eq}}
+        </ul>
+    </section>
+</aside>

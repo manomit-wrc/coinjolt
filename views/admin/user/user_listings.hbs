@@ -1,0 +1,118 @@
+<section class="content-header">
+	<h1>All User List</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
+		</li>
+		<li class="active">All User List</li>
+	</ol>
+
+	<div class="box-footer admin-tp-box" style="margin: 10px 0;">
+	    <a href="/admin/send-email-history-list">
+	    	<button type="button" class="btn btn-success">Send Email History</button>
+	    </a>
+
+    	<input type="button" class="btn btn-success" name="send_multiple_email" id="send_multiple_email" value="Send Multiple Email">
+  	</div>
+</section>
+
+<section class="content container-fluid">
+	<!-- Starts Deposit Funds -->
+	<div class="deposit-funds">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<!-- /.box-header -->
+					<div class="box-body">
+						<table id="all_user_list_table" class="table table-striped res-table">
+							<thead>
+								<tr>
+									<th>
+										<div class="cBox cBox-teal cBox-inline">
+                                            <div>
+                                                <input type="checkbox" value="all" name="all" id="examplecBox0" class="myCheckbox">
+                                                <label for="examplecBox0">ID </label>
+                                            </div>
+                                        </div>
+									</th>
+									<th>User Name</th>
+									<th>Email</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each allUser}}
+								<tr>
+									<td>
+										<input type="checkbox" name="checked_ids[]" id="examplecBox" class="myCheckbox" multiple="multiple" value = "{{this.id}}">
+										{{this.id}}
+									</td>
+									<td>{{this.first_name}} {{this.last_name}}</td>
+									<td>{{this.email}}</td>
+									<td>
+										<a href='/admin/send-email/{{this.id}}' class="btn approve-req" >Send Email</a>
+									</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+	<!-- Ends Deposit Funds -->
+</section>
+
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Send Multiple email</h4>
+        </div>
+        <form name="send_multiple_email_form" id="send_multiple_email_form">
+        	<input type="hidden" name="all_user_ids" id="all_user_ids" value="">
+	        <div class="modal-body">
+	          	<div class="row">
+	                <div class="col-md-12">
+	                    <div class="form-group">
+	                        <label for="Subject">To</label>
+	                        <textarea rows="" cols="" readonly="readonly" name="to" class="form-control" id="to"></textarea>
+	                    </div>
+	                </div>
+	                <div class="col-md-12">
+	                    <div class="form-group">
+	                        <label for="Subject">Subject</label>
+	                        <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject" value="">
+	                    </div>
+	                </div>
+	                <div class="col-md-12">
+	                    <div class="form-group">
+	                        <label for="Subject">Template</label>
+	                        <select name="select_email_template" id="select_email_template" class="form-control">
+	                        </select>
+	                    </div>
+	                </div>
+	                <div class="col-md-12">
+	                    <div class="form-group">
+	                        <label for="Description">Description</label>
+	                        <textarea name="editor1" class="form-control" id="editor1" placeholder="Enter Description"></textarea>
+	                    </div>
+	                </div>
+	            </div>
+	    	</div>
+	        <div class="modal-footer">
+	        	<button type="button" class="btn btn-success" id="send_multiple_email_to_user">Send</button>
+	          	<button type="button" class="btn" data-dismiss="modal">Close</button>
+	        </div>
+    	</form>
+      </div>
+      
+    </div>
+  </div>

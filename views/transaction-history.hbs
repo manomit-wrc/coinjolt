@@ -1,0 +1,527 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Transaction History</h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="#"><i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li class="active">Transaction History</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="transaction-history">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BAR CHART -->
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Historical Data Graph</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="barChart1" style="height:230px"></canvas>
+                            <input type="hidden" id="buy_arr" value="{{buy_arr}}">
+                            <input type="hidden" id="sell_arr" value="{{sell_arr}}">
+                            <input type="hidden" id="deposit_arr" value="{{deposit_arr}}">
+                            <input type="hidden" id="withdraw_arr" value="{{withdraw_arr}}">
+                        </div>
+                        <ul class="selectbar">
+							<li><div class="buyindicator"></div> Buy History</li>
+							<li><div class="sellindicator"></div> Sell History</li>
+							<li><div class="depositindicator"></div> Deposit History</li>
+							<li><div class="withdrawindicator"></div> Withdrawal History</li>
+						</ul>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+            </div>
+        </div>
+        <!-- Starts Most Recent History -->
+        {{!--
+        <div class="most-recent-history">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Most Recent History</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example1" class="table  table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Cryptocurrency</th>
+                                        <th>Market Rate</th>
+                                        <th>Amount</th>
+                                        <th>Transaction</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>07-01-2018 12:33 AM</td>
+                                        <td>Bitcoin</td>
+                                        <td>$1,104.70</td>
+                                        <td>$3,841,000.00</td>
+                                        <td>
+                                            <a href="">
+                                                <span class="label label-primary">Buy</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>07-01-2018 12:33 AM</td>
+                                        <td>Bitcoin</td>
+                                        <td>$1,104.70</td>
+                                        <td>$3,841,000.00</td>
+                                        <td>
+                                            <a href="">
+                                                <span class="label label-primary">Sell</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>07-01-2018 12:33 AM</td>
+                                        <td>Bitcoin</td>
+                                        <td>$1,104.70</td>
+                                        <td>$3,841,000.00</td>
+                                        <td>
+                                            <a href="">
+                                                <span class="label label-primary">Deposit</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>07-01-2018 12:33 AM</td>
+                                        <td>Bitcoin</td>
+                                        <td>$1,104.70</td>
+                                        <td>$3,841,000.00</td>
+                                        <td>
+                                            <a href="">
+                                                <span class="label label-primary">Withdraw</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </div> --}}
+        <!-- Ends Most Recent History -->
+        <!-- Starts Buy History -->
+        <div class="buy-history">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Buy History</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="example3" class="table  table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>USD</th>
+                                            <th>Amount</th>
+                                            <th>Currency</th>
+                                            <th>Market Rate</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each buy_history}}
+                                        <tr>
+                                            <td>{{this.transaction_id}}</td>
+                                            <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
+                                            <td>{{this.converted_amount}}</td>
+                                            <td>{{this.Currency.currency_id}}</td>
+                                            <td>{{this.current_rate}}</td>
+                                            <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </div>
+        <!-- Ends Buy History -->
+        <!-- Starts Sell History -->
+        <div class="sell-history">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Sell History</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                             <div class="table-responsive">
+                                <table id="example4" class="table  table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>USD</th>
+                                            <th>Amount</th>
+                                            <th>Currency</th>
+                                            <th>Market Rate</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each sell_history}}
+                                        <tr>
+                                            <td>{{this.transaction_id}}</td>
+                                            <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
+                                            <td>{{this.converted_amount}}</td>
+                                            <td>{{this.Currency.currency_id}}</td>
+                                            <td>{{this.current_rate}}</td>
+                                            <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </div>
+        <!-- Ends Sell History -->
+        <!-- Starts Deposit History -->
+        <div class="deposit-history">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Deposit History</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                             <div class="table-responsive">
+                                <table id="example5" class="table  table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Amount</th>
+                                            <th>Currency</th>
+                                            <th>Payment Method</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>     
+                                        {{#each deposit_history}}
+                                        <tr>
+                                            <td>{{this.transaction_id}}</td>
+                                            <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
+                                            <td>USD</td>
+                                            <td>
+                                                {{#if_eq this.payment_method '1'}} 
+                                                    Credit Card  
+                                                {{/if_eq}}
+                                                {{#if_eq this.payment_method '2'}}
+                                                    Wire Transfer Deposit
+                                                {{/if_eq}}
+                                                {{#if_eq this.payment_method '3'}}
+                                                    Bank Wire Transfer
+                                                {{/if_eq}}
+                                                {{#if_eq this.payment_method '6'}}
+                                                    Paypal
+                                                {{/if_eq}}
+                                            </td>   
+                                            <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </div>
+        <!-- Ends Deposit History -->
+        <!-- Starts Withdrawal  History -->
+        <div class="withdrawal-history">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Withdrawal History</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                             <div class="table-responsive">
+                                <table id="example6" class="table  table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Amount</th>
+                                            <th>Currency</th>
+                                            <th>Date &amp; Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each withdrawal_history}}
+                                            <tr>
+                                                <td>{{this.transaction_id}}</td>
+                                                <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
+                                                <td>USD</td>
+                                                <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                                            </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </div>
+        <!-- Ends Withdrawal  History -->
+        <!-- Starts Transfer  History -->
+        {{!-- <div class="transfer-history">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Transfer History</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example7" class="table  table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Cryptocurrency</th>
+                                        <th>Currency Amount</th>
+                                        <th>Market Rate</th>
+                                        <th>Total Amount</th>
+                                        <th>Transaction</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>07-01-2018 12:33 AM</td>
+                                        <td>Bitcoin</td>
+                                        <td>10.1984</td>
+                                        <td>$12,042.10</td>
+                                        <td>$120,421.00</td>
+                                        <td>
+                                            <span class="text-primary">
+                                                Sent
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>07-01-2018 12:33 AM</td>
+                                        <td>Bitcoin</td>
+                                        <td>10.1984</td>
+                                        <td>$12,042.10</td>
+                                        <td>$120,421.00</td>
+                                        <td>
+                                            <span class="text-success">
+                                                Received
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>07-01-2018 12:33 AM</td>
+                                        <td>Bitcoin</td>
+                                        <td>10.1984</td>
+                                        <td>$12,042.10</td>
+                                        <td>$120,421.00</td>
+                                        <td>
+                                            <span class="text-primary">
+                                                Sent
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>07-01-2018 12:33 AM</td>
+                                        <td>Bitcoin</td>
+                                        <td>10.1984</td>
+                                        <td>$12,042.10</td>
+                                        <td>$120,421.00</td>
+                                        <td>
+                                            <span class="text-success">
+                                                Received
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </div> --}}
+        <!-- Ends Transfer  History -->
+        <!-- Starts  Transaction Details -->
+        {{!-- <div class="transaction-details">
+            <!-- Button trigger modal -->
+            <div class="text-right">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#transactionDetailsHistory">
+                    More Details
+                </button>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="transactionDetailsHistory" tabindex="-1" role="dialog" aria-labelledby="transactionDetailsHistoryLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title text-center" id="transactionDetailsHistoryLabel">Transaction Details</h4>
+                        </div>
+                        <div class="modal-body text-center">
+                            <p>
+                                <strong>
+                                    Date & Time:
+                                </strong>
+                                <br>
+                                <span>
+                                    March 02/03/2018 - 10:24 PM (PST)
+                                </span>
+                            </p>
+                            <p>
+                                <strong>
+                                    Cryptocurrency:
+                                </strong>
+                                <br>
+                                <span>
+                                    Bitcoin
+                                </span>
+                            </p>
+                            <p>
+                                <strong>
+                                    Cryptocurrency Amount:
+                                </strong>
+                                <br>
+                                <span>
+                                    Bitcoin
+                                </span>
+                            </p>
+                            <p>
+                                <strong>
+                                    Market Rate:
+                                </strong>
+                                <br>
+                                <span>
+                                    $12,042.10
+                                </span>
+                            </p>
+                            <p>
+                                <strong>
+                                    Total Amount:
+                                </strong>
+                                <br>
+                                <span>
+                                    $120,421.00
+                                </span>
+                            </p>
+                            <p>
+                                <strong>
+                                    Transaction Type:
+                                </strong>
+                                <br>
+                                <span>
+                                    Sent
+                                </span>
+                            </p>
+                            <p>
+                                <strong>
+                                    Recipient Address:
+                                </strong>
+                                <br>
+                                <span>
+                                    1M7C40U124CJ1241UJIAMA
+                                </span>
+                            </p>
+                            <div class="notes-area">
+                                <div class="row m-t-20">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <textarea class="form-control" rows="4" placeholder="Add Notes or Memo"></textarea>
+                                        <div class="text-right form-group">
+                                            <input class="btn btn-primary" type="submit" value="Save">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-t-20 m-b-20">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <button type="button" class="btn btn-primary btn-block m-b-10" data-dismiss="modal">Close Window</button>
+                                    <a href="" data-toggle="modal" data-target="#unauthorizedReportModal" data-dismiss="modal"> Report unauthorized or suspicious activity </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+        <!-- Starts Unauthorized Report Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="unauthorizedReportModal" tabindex="-1" role="dialog" aria-labelledby="unauthorizedReportModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title text-center" id="unauthorizedReportModalLabel">Unauthorized/Suspicious Activity</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div class="form-group">
+                            <label for="" class="text-left display-block">
+                                Subject
+                            </label>
+                            <textarea class="form-control" rows="4" placeholder="Summarize the problem in one sentence."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="text-left display-block">
+                                Body
+                            </label>
+                            <textarea class="form-control" rows="4" placeholder="Please be as detailed as possible with your report.Any inacurate or false information will lead to disqualification."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> You agree this report will be filed saved and recprded and then sent to our investigations
+                                    department.
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary m-b-10">Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ends Unauthorized Report Modal -->
+        <!-- Ends Transaction Details -->
+    </div>
+</section>
+<!-- /.content -->

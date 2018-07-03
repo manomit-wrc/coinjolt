@@ -1,0 +1,134 @@
+<section class="content-header">
+    <h1>Company Settings</h1>
+    <ol class="breadcrumb">
+        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Company Settings</li>
+    </ol>
+</section>
+<section class="content container-fluid">
+    <div class="account-settings">
+        <form method="post" action="" role="form" id="update_company_settings" name="update_company_settings">
+            <div class="row">
+                <div class="col-md-12">
+                    {{!-- <form method="post" action="/account-settings" role="form" id="update_profile" name="update_profile"> --}}
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Company Settings</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">Phone Number </label>
+                                        <input type="text" placeholder="Enter Phone Number" class="form-control" value="{{companySettingsData.0.phone_number}}" name="phone_number" id="phone_number">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">Email </label>
+                                        <input type="email" class="form-control" placeholder="Email" name="email_address" id="email_address" value="{{companySettingsData.0.email}}">
+                                    </div>
+                                    {{!-- <div class="form-group col-md-6">
+                                        <label class="control-label">Website Url </label>
+                                        <input class="form-control" id="website_url" type="text" name="website_url" placeholder="Enter Website url" value="{{companySettingsData.0.website_url}}">
+                                    </div> --}}
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">Facebook Url </label>
+                                        <input id="fb_url" class="form-control" type="text" name="fb_url" value="{{companySettingsData.0.facebook_url}}" placeholder="Enter Facebook url">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">Twitter Url </label>
+                                        <input id="twitter_url" class="form-control" type="text" name="twitter_url" value="{{companySettingsData.0.twitter_url}}" placeholder="Enter Twitter url">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">LinkedIn Url </label>
+                                        <input id="linkedIn_url" class="form-control" type="text" name="linkedIn_url" value="{{companySettingsData.0.linkedin_url}}" placeholder="Enter LinkedIn url">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">Instagram Url </label>
+                                        <input id="instagram_url" class="form-control" type="text" name="instagram_url" value="{{companySettingsData.0.instagram_url}}" placeholder="Enter Instagram url">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="update-btn row">
+                            <div class="col-md-12 text-center">
+                                <div class="updateMsg col-md-12" style="display: none"></div>
+                                <p class="loaderImg" style="display:none; text-align:center;">
+                                    <img src="/dist/img/ajax-loader-1.gif">
+                                </p>
+                                <button class="btn btn-primary subbtn btn-block" type="submit" name="update_company_settings" id="update_company_settings" style="margin-bottom: 40px;">Save and Update </button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Change Password Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <strong><h3 class="modal-title" style="color: #3b3f4a">Change Password</h3></strong>
+            </div>
+            <div class="modal-body">
+                <form method="post" name="frmUpdatePassword" id="frmUpdatePassword">
+                    <div class="col-md-12 errorPass" style="display:none">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Old Password</label>
+                        <input id="oldpassword" class="form-control" type="password" name="oldpassword" value="">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">New Password</label>
+                        <input id="newpassword" class="form-control" type="password" name="newpassword">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Confirm New Password</label>
+                        <input id="confirmpassword" class="form-control" type="password" name="confirmpassword">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="clear: both">
+                <p class="loaderImg" style="display:none; text-align:center;">
+                    <img src="http://dev.coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif" class="loader-gif">
+                </p>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel_password" name="cancel_password">Cancel</button>
+                <button type="button" id="changepassword" class="btn btn-primary" name="changepassword">Change Password</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End -->
+<!-- Change ID Proof Modal -->
+<div class="modal fade" id="myModalIDProof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <strong><h3 class="modal-title" style="color: #3b3f4a">Upload ID Proof</h3></strong>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="frmIDChange" name="frmIDChange" enctype="multipart/form-data">
+                    <div class="col-md-12 errorIDProof" style="display:none">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="upld">
+                            <input type="file" name="async_uploads" id="async_uploads">
+                            <div class="load-idproof"><i class="fa fa-upload"></i> Upload ID Proof</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 id-submit">
+                        <button type="submit" id="uploadidproof" class="btn btn-primary id-save" name="uploadidproof">Save</button>
+                        <img id="loaderimg" src="https://coinjolt.com/wp-content/uploads/2017/10/AjaxLoader.gif" class="vc_single_image-img attachment-full" alt="" style="width: 16px; margin: 0 auto; display: none;margin-left: 12px;">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="clear: both"></div>
+        </div>
+    </div>
+</div>
+<!-- End -->
+

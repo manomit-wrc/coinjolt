@@ -1,0 +1,91 @@
+<!-- Starts  Bootstrap-touch-slider Slider -->
+
+      {{#if_eq riskDisclosuresData.0.risk_disclosures_header_image ''}}
+          <div class="all-iner-banner" style="background-image: url(cms/risk_disclosures/default/risk-disclosures.jpg);">
+      {{/if_eq}}
+
+      {{#if_neq riskDisclosuresData.0.risk_disclosures_header_image ''}}
+          <div class="all-iner-banner" style="background-image: url(cms/risk_disclosures/{{riskDisclosuresData.0.risk_disclosures_header_image}});">
+      {{/if_neq}}
+      <div class="image-overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <span class="page-title">{{riskDisclosuresData.0.risk_disclosures_header_desc}}</span>
+          </div>          
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="breadcumb">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li>Risk Disclosures</li>
+              </ul>
+            </div>    
+          </div>    
+        </div>    
+      </div>
+    </div>
+
+    <!-- End  Bootstrap-touch-slider Slider -->
+
+    <!-- Starts Webticker Section -->
+
+    <!-- Ends Webticker Section -->
+
+    <!-- Starts Welcome Section -->
+
+    <div class="about-section">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {{{riskDisclosuresData.0.risk_disclosures_content}}}
+            </div>
+            <div class="col-md-4">
+              {{!-- <div class="search">
+                <form action="/action_page.php">
+                  <input type="text" placeholder="Type and hit enter …" name="search">
+                  <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+              </div> --}}
+              <div class="rgt-box">
+                <h4>Latest News</h4>
+                <ul class="latest-works-widget">
+                  {{#each latest_news}}
+                  <li>
+                    <div class="work-widget-thumb">
+                      <a href="{{base_url}}/blog/{{this.post_slug}}">
+                        <img src="blog_images/{{this.featured_image}}" class="img-responsive" alt="{{this.post_title}}">
+                      </a>
+                    </div>      
+                    <div class="work-widget-content">
+                      <h6><a href="{{base_url}}/blog/{{this.post_slug}}">{{this.post_title}}</a></h6>
+                      <p>{{dateFormat this.createdAt "MMMM DD, YYYY"}}</p>                    
+                    </div>
+                  </li>
+                  {{/each}}
+                </ul>
+              </div>
+              <div class="rgt-box">
+                <h4>Featured Posts</h4>
+                <ul class="latest-works-widget">
+                  {{#each featured_posts}}
+                  <li>
+                    <div class="work-widget-thumb">
+                      <a href="{{base_url}}/blog/{{this.post_slug}}">
+                        <img src="blog_images/{{this.featured_image}}" class="img-responsive" alt="{{this.post_title}}">
+                      </a>
+                    </div>      
+                    <div class="work-widget-content">
+                      <h6><a href="{{base_url}}/blog/{{this.post_slug}}">{{this.post_title}}</a></h6>
+                      {{!-- <p>{{dateFormat this.createdAt "MM-DD-YY"}}</p>  --}}
+                      <p>{{dateFormat this.createdAt "MM DD,YYYY"}}</p> 
+                    </div>
+                  </li>
+                  {{/each}}
+                </ul>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ends Welcome Section -->

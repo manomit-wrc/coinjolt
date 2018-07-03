@@ -1,0 +1,68 @@
+<section class="content-header">
+	<h1>Pending Withdrawals History List</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
+		</li>
+		<li class="active">Pending Withdrawals History List</li>
+	</ol>
+</section>
+
+<section class="content container-fluid">
+	<!-- Starts Deposit Funds -->
+	<div class="deposit-funds">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<!-- /.box-header -->
+					<div class="box-body">
+						<table id="pending_withdrawals_table" class="table table-striped res-table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Amount</th>
+									<th>Date</th>
+									<th>Type</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each all_data}}
+								<tr>
+									<td>{{this.id}}</td>
+									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
+									<td>{{this.amount_usd}}</td>
+									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
+									<td>
+										{{#if_eq this.withdraw_type 1}}
+										Bank Wire Transfer
+										{{/if_eq}}
+										{{#if_eq this.withdraw_type 2}}
+										Check by Mail
+										{{/if_eq}}
+										{{#if_eq this.withdraw_type 3}}
+										MCP Withdraw
+										{{/if_eq}}
+									</td>
+									<td>
+										{{#if_eq this.status 1}}
+										Approved
+										{{/if_eq}}
+										{{#if_eq this.status 2}}
+										Rejected
+										{{/if_eq}}
+									</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+	<!-- Ends Deposit Funds -->
+</section>

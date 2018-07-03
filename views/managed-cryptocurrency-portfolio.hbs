@@ -1,0 +1,591 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Managed Cryptocurrency Portfolio</h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="#">
+                <i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li class="active">Managed Cryptocurrency Portfolio</li>
+    </ol>
+</section> 
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="mcp">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box equalize-box mcp-box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Portfolio Composition</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body pch">
+                        <div id="piechart_3d"></div>
+                        <p style="text-align: left;">Currently $3.82bn in assets under management.</p>
+                        <p style="text-align: left; font-weight: bold;"></p>
+                        <ul>
+                            <li>Bitcoin: 55.6%</li>
+                            <li>Ethereum: 16.7%</li>
+                            <li>Alternative Coins: 17.9%</li>
+                            <li>ICO Tokens: 13.9%</li>
+                            <p></p>
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            
+            <div class="col-md-8">
+                <!-- institutional form start -->
+                <div class="box equalize-box mcp-box">
+	<div class="box-header with-border">
+		<h3 class="box-title">Application Form and Verification Required</h3>
+	</div>
+	<div class="box-body profile-details">
+		<div class="col-md-12 paddingleft recent_post_box">
+			
+			<div class="row">
+				{{#if_eq investor_type '1'}}
+					<div class="col-sm-6 col-xs-12">
+						<div class="radio-btn">
+							<p>Are you an Institutional Investor?</p>
+							<div class="intitution">
+								<input name="type" id="institution-radio" value="Institution" checked="checked" onclick="institutionForm()" type="radio">
+								<span>Select</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xs-12">
+						<div class="radio-btn">
+							<p>Are you an Individual Investor?</p>
+							<div class="intitution-radio">
+								<input name="type" id="individual-radio" value="Individual" onclick="individualForm()" type="radio">
+								<span>Select</span>
+							</div>
+						</div>
+					</div>
+				{{/if_eq}}
+				{{#if_eq investor_type '2'}}
+					<div class="col-sm-6 col-xs-12">
+						<div class="radio-btn">
+							<p>Are you an Institutional Investor?</p>
+							<div class="intitution">
+								<input name="investor_type" id="institution-radio" value="Institution" onclick="institutionForm()" type="radio">
+								<span>Select</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xs-12">
+						<div class="radio-btn">
+							<p>Are you an Individual Investor?</p>
+							<div class="intitution-radio">
+								<input name="investor_type" checked="checked" id="individual-radio" value="Individual" onclick="individualForm()" type="radio">
+								<span>Select</span>
+							</div>
+						</div>
+					</div>
+				{{/if_eq}}
+			</div>
+			<!-- Institutional form -->
+			<div class="row" id="institutional_form" style="display: block;">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<form id="institutionalForm" class="form" name="" action="" method="post">
+						<h2>Institutional Verification</h2>
+						<div class="form-group">
+							<label for="business_name">Registered Business Name <span style="color: red;">*</span></label>
+							<input class="form-control" id="business_name" placeholder="Enter Business Name" name="business_name" value="{{p_institutional_arr.0.field_1}}" type="text">
+							
+						</div>
+						<div class="form-group">
+							<label for="business_number">Registered Business Number <span style="color: red;">*</span></label>
+							<input class="form-control" id="business_number" placeholder="Enter Business Number" name="business_number" value="{{p_institutional_arr.0.field_2}}" type="text">
+							
+						</div>
+						<div class="form-group">
+							<label for="business_registration_country">Country of Business Registration <span style="color: red;">*</span></label>
+							<input class="form-control" id="business_registration_country" placeholder="Enter Country of Business Registration" name="business_registration_country" value="{{p_institutional_arr.0.field_3}}" type="text">
+						
+						</div>
+						<div class="form-group">
+							<label for="investques">How Much Are You Looking To Invest? <span style="color: red;">*</span></label>
+							<select name="investques" class="form-control" id="investques">
+								<option value="0 - $100,000+" {{#if_eq p_institutional_arr.0.field_4 '0 - $100,000+'}} selected="selected" {{/if_eq}}>0 - $100,000+</option>
+								<option value="1,000,000+" {{#if_eq p_institutional_arr.0.field_4 '1,000,000+'}} selected="selected" {{/if_eq}}>$1,000,000+</option>
+								<option value="10,000,000+" {{#if_eq p_institutional_arr.0.field_4 '10,000,000+'}} selected="selected" {{/if_eq}}>$10,000,000+</option>
+								<option value="100,000,000+" {{#if_eq p_institutional_arr.0.field_4 '100,000,000+'}} selected="selected" {{/if_eq}}>$100,000,000+</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="settlement_currency">Settlement Currency <span style="color: red;">*</span></label>
+							<select name="settlement_currency" class="form-control" id="settlement_currency">
+								<option value="flat" {{#if_eq p_institutional_arr.0.field_5 'flat'}} selected="selected" {{/if_eq}}>Flat (USD, EUR, YEN)</option>
+								<option value="cryptocurrency" {{#if_eq p_institutional_arr.0.field_5 'cryptocurrency'}} selected="selected" {{/if_eq}}>Digital Currency (Bitcoin, Ethereum, etc)</option>
+							</select>
+						</div>
+						<button type="button" class="btn btn-primary" id="institution_form_upload" data-toggle="modal" data-target="#institute_modal" {{#if_eq p_institutional_arr_length '0' }}disabled{{/if_eq}}>Upload Documents</button>
+					
+						<input class="btn btn-primary" id="institution_form_save" value="Save" type="button">
+				
+					</form>
+				</div>
+			</div>
+			<!-- Institution form modal starts -->
+			<div class="modal fade" id="institute_modal" role="dialog">
+				<div class="modal-dialog modal-lg">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">×</button>
+							<h4 class="modal-title" id="myModalLabel">Upload The Following  Documents</h4>
+						</div>
+						<div class="modal-body">
+							<form class="form" id="instituteModalForm" method="POST" enctype="multipart/form-data">
+								<div class="row">
+									<div class="col-md-6">
+
+										<div class="form-group preview-fg">
+											<label>Certificate of Incorporation <span style="color: red">*</span></label>
+											
+											<input name="incorporation_certificate" class="form-control incorporation_certificate file-institute" id="incorporation_certificate" value="" type="file" data-temp-name="cert_incorp">
+											
+									
+											{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.incorporation_certificate) 'jpg' ) }}
+												<img src="{{p_institutional_modal_arr.0.incorporation_certificate}}" id="incorporation_certificate" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.incorporation_certificate) 'png' )}}
+												<img src="{{p_institutional_modal_arr.0.incorporation_certificate}}" id="incorporation_certificate" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.incorporation_certificate) 'jpeg' )}}
+												<img src="{{p_institutional_modal_arr.0.incorporation_certificate}}" id="incorporation_certificate" height="20px" width="20px">
+											{{else}}
+												<a href="{{p_institutional_modal_arr.0.incorporation_certificate}}" target="_blank">Link To Incorporation Certificate</a>
+											{{/if}}
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group preview-fg">
+											<label>Recent Bank Account Statement <span style="color: red">*</span></label>
+											<input name="bank_statement" class="form-control bank_statement file-institute" id="bank_statement" type="file" data-temp-name="bank_statement">
+											
+											{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpg' ) }}
+													<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+												{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'png' )}}
+													<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+												{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpeg' )}}
+													<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+												{{else}}
+													<a href="{{p_institutional_modal_arr.0.bank_statement}}" target="_blank">Link To Bank Statement</a>
+											{{/if}}
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Bank Account Holder Name <span style="color: red">*</span></label>
+											<input placeholder="Enter Name on Bank Account" name="account_name" class="form-control" id="account_name" value="{{p_institutional_modal_arr.0.field_1}}" type="text">
+											
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Country of Bank Account <span style="color: red">*</span></label>
+											<input placeholder="Enter Country of Bank" name="bank_country" class="form-control" id="bank_country" value="{{p_institutional_modal_arr.0.field_2}}" type="text">
+											
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Account Number (7 Digits) <span style="color: red">*</span></label>
+											<input placeholder="Enter Account Number" name="account_number" class="form-control" id="account_number" value="{{p_institutional_modal_arr.0.field_3}}" type="text">
+											
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Routing Number (9 Digits) <span style="color: red">*</span></label>
+											<input placeholder="Enter Routing Number" name="routing_number" class="form-control" id="routing_number" value="{{p_institutional_modal_arr.0.field_4}}" type="text">
+										
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Phone Number <span style="color: red">*</span></label>
+											<input placeholder="Enter Phone Number" name="phone_number" class="form-control" id="phone_number" value="{{p_institutional_modal_arr.0.field_5}}" type="text">
+											
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Email Address <span style="color: red">*</span></label>
+											<input placeholder="Enter Email Address" name="email_address" class="form-control" id="email_address" value="{{p_institutional_modal_arr.0.field_6}}" type="text">
+											
+										</div>
+									</div>
+									<div id="shareholder_div">
+										<div class="">
+											
+											<div class="col-md-12"><label class="shareholders-box">Add or Remove Shareholders</label>
+											<button class="btn btn-primary" onclick="append(event)">+</button>
+											<button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
+											<span style="margin-bottom: 5%;"></span>
+											<br>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<img src="/ajax-loader-1.gif" class="loader_gif" style="display: none;">
+								<input value="Save" name="Save" class="form-control btn btn-primary submit_institution_modal_data" id="submit_institution_modal_data" type="button">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			</div>
+		<!-- Institution form modal ends  id="submit_institution"-->
+		<!-- Institutional form -->
+		<!-- Individual form -->
+		<div class="row" style="display: none;" id="individual_form">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				
+				<form id="individualForm" class="form" name="" action="" method="post">
+					<h2>Individual Verification</h2>
+					<div class="form-group">
+						<label for="last_name">First Name <span style="color: red">*</span></label>
+						<input class="form-control" id="first_name" placeholder="Enter First Name" name="first_name" value="{{p_individual_arr.0.field_1}}" type="text">
+						{{!-- <span id="first_name_err" style="color: tomato;"></span> --}}
+					</div>
+					<div class="form-group">
+						<label for="last_name">Last Name <span style="color: red">*</span></label>
+						<input class="form-control" id="last_name" placeholder="Enter Last Name" name="last_name" value="{{p_individual_arr.0.field_2}}" type="text">
+						{{!-- <span id="last_name_err" style="color: tomato;"></span> --}}
+					</div>
+					<div class="form-group">
+						<label for="residence_country">Country of Residence <span style="color: red">*</span></label>
+						<input class="form-control residence_country_individual" placeholder="Enter Country of Residence" name="residence_country_individual" id="residence_country_individual" value="{{p_individual_arr.0.field_3}}" type="text">
+						{{!-- <span id="residence_country_individual_err" style="color: tomato;"></span> --}}
+					</div>
+					<div class="form-group">
+						<label for="investques_individual">How Much Are You Looking To Invest? <span style="color: red">*</span></label>
+						<select name="investques_individual" class="form-control" id="investques_individual">
+							<option value="0 - $100,000+" {{#if_eq p_individual_arr.0.field_4 '0 - $100,000+'}} selected="selected" {{/if_eq}}>0 - $100,000+</option>
+								<option value="1,000,000+" {{#if_eq p_individual_arr.0.field_4 '1,000,000+'}} selected="selected" {{/if_eq}}>$1,000,000+</option>
+								<option value="10,000,000+" {{#if_eq p_individual_arr.0.field_4 '10,000,000+'}} selected="selected" {{/if_eq}}>$10,000,000+</option>
+								<option value="100,000,000+" {{#if_eq p_individual_arr.0.field_4 '100,000,000+'}} selected="selected" {{/if_eq}}>$100,000,000+</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="settlement_currency_individual">Settlement Currency <span style="color: red"> *</span></label>
+						<select name="settlement_currency_individual" class="form-control" id="settlement_currency_individual">
+							<option value="flat" {{#if_eq p_individual_arr.0.field_5 'flat'}} selected="selected" {{/if_eq}}>Flat (USD, EUR, YEN)</option>
+							<option value="cryptocurrency" {{#if_eq p_individual_arr.0.field_5 'cryptocurrency'}} selected="selected" {{/if_eq}}>Digital Currency (Bitcoin, Ethereum, etc)</option>
+						</select>
+					</div>
+					<button type="button" class="btn btn-primary" id="individual_form_upload" data-toggle="modal" data-target="#individual_modal" {{#if_eq p_individual_arr_length '0' }}disabled{{/if_eq}}>Upload Documents</button>
+					<input class="btn btn-primary" id="individual_form_save" value="Save" type="button">
+				</form>
+			</div>
+		</div>
+		<!-- Individual form modal starts  data-target="#individual_modal" -->
+		<div class="modal fade" id="individual_modal" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+						<h4 class="modal-title" id="myModalLabel">Upload The Following  Documents</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form" id="individualModalForm" enctype="multipart/form-data">
+							<div class="alert alert-success" id="div_individual_modal" style="display: none;">Information updated successfully</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group preview-fg">
+										<label>Proof of Address<span style="color: red"> *</span></label>
+										<input name="address_proof" class="form-control file" id="address_proof" data-temp-name="address_proof" value="" type="file">
+										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'jpg' ) }}
+												<img src="{{p_institutional_modal_arr.0.address_proof}}" id="address_proof_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'png' )}}
+												<img src="{{p_institutional_modal_arr.0.address_proof}}" id="address_proof_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.address_proof) 'jpeg' )}}
+												<img src="{{p_institutional_modal_arr.0.address_proof}}" id="address_proof_document" height="20px" width="20px">
+											{{else}}
+												<a href="{{p_institutional_modal_arr.0.address_proof}}" target="_blank">Link To Address Proof</a>
+										{{/if}}
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group preview-fg">
+										<label>Government Issued ID<span style="color: red"> *</span></label>
+										<input name="shareholder_id" class="form-control file" id="government_issued_id" data-temp-name="govt_id" type="file">
+										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.government_issued_id) 'jpg' ) }}
+												<img src="{{p_institutional_modal_arr.0.government_issued_id}}" id="government_issued_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.government_issued_id) 'png' )}}
+												<img src="{{p_institutional_modal_arr.0.government_issued_id}}" id="government_issued_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.government_issued_id) 'jpeg' )}}
+												<img src="{{p_institutional_modal_arr.0.government_issued_id}}" id="government_issued_document" height="20px" width="20px">
+											{{else}}
+												<a href="{{p_institutional_modal_arr.0.government_issued_id}}" target="_blank">Link To Government Issued Id</a>
+										{{/if}}
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group preview-fg">
+										<label>Recent Bank Account Statement<span style="color: red"> *</span></label>
+										<input name="bank_statement" class="form-control file" id="bank_statement_individual" data-temp-name="bank_statement" type="file">
+										{{#if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpg' ) }}
+												<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'png' )}}
+												<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+											{{else if (multiple_if (getUploadedFileExtension p_institutional_modal_arr.0.bank_statement) 'jpeg' )}}
+												<img src="{{p_institutional_modal_arr.0.bank_statement}}" id="bank_statement_document" height="20px" width="20px">
+											{{else}}
+												<a href="{{p_institutional_modal_arr.0.bank_statement}}" target="_blank">Link To Bank Account Statement</a>
+										{{/if}}
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Bank Account Holder Name<span style="color: red"> *</span></label>
+										<input placeholder="Enter Name on Bank Account" name="account_name_individual" class="form-control" id="account_name_individual" value="{{p_institutional_modal_arr.0.field_1}}" type="text">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Country of Bank Account<span style="color: red"> *</span></label>
+										<input placeholder="Enter Country of Bank" name="bank_country_individual" class="form-control" id="bank_country_individual" value="{{p_institutional_modal_arr.0.field_2}}" type="text">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Account Number (7 Digits)<span style="color: red"> *</span></label>
+										<input placeholder="Enter Account Number" name="account_number_individual" class="form-control" id="account_number_individual" value="{{p_institutional_modal_arr.0.field_3}}" type="text">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Routing Number (9 Digits)<span style="color: red"> *</span></label>
+										<input placeholder="Enter Routing Number" name="routing_number_individual" class="form-control" id="routing_number_individual" value="{{p_institutional_modal_arr.0.field_4}}" type="text">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Phone Number<span style="color: red"> *</span></label>
+										<input placeholder="Enter Phone Number" name="phone_number_individual" class="form-control" id="phone_number_individual" value="{{p_institutional_modal_arr.0.field_5}}" type="text">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Email Address<span style="color: red"> *</span></label>
+										<input placeholder="Enter Email Address" name="email_address_individual" class="form-control" id="email_address_individual" value="{{p_institutional_modal_arr.0.field_6}}" type="email">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<img src="/ajax-loader-1.gif" class="loader-gif" style="display: none;">
+						<input value="Save" name="Select" class="form-control btn btn-primary submit_individual_modal_data" id="submit_individual_modal_data" type="button">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Individual form modal ends id="submit_individual"-->
+		<!-- Individual form -->
+	</div>
+</div>
+</div>
+                <!-- institutional form end -->
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box mcp_con equalize-box1">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Calculative Projections</h3>
+                    </div>
+                    <div class="box-body t-amt">
+                        <p>
+                            <strong>Total Amount Invested:</strong>
+                            <br> ${{formatCurrency (twoDecimalPoint amountInvested)}}
+                        </p>
+                        <p>
+                            <strong>Projected Minimum Returns:</strong>
+                            <br> 200% Annually
+                        </p>
+                        <p>
+                            <strong>First Year Earnings:</strong>
+                            <br> ${{formatCurrency (twoDecimalPoint firstYearEarning)}}
+                        </p>
+                        <p>
+                            <strong>Interest Earned (0.05%/Day):</strong>
+                            <br> ${{formatCurrency (twoDecimalPoint interestEarned)}}
+                        </p>
+                        <p>
+                            <strong>Dividend Payouts:</strong>
+                            <br> $0
+                        </p>
+                        <p>
+                            <strong>Total Amount Withdrawn:</strong>
+                            <br> $0
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box equalize-box1 portfolio-form">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Enter an Amount</h3>
+                    </div>
+                    <div class="box-body">
+                       
+                            <div class="row">
+                                <form action="/save-invest" method="post" id="MCPinvest" style="width:100%; float:left; margin-bottom: 3px;">
+                                    {{#if message}}
+                                        <div class="alert alert-success" id="investsuccessmsg" style="margin-left:5px;width:70%;">{{message}}</div>
+                                    {{/if}}
+                                    <div class="gap">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" name="amount_invest" id="amount_invest" class="form-control" placeholder="Enter USD Amount to Invest">
+                                                <input type="hidden" value="MCP" name="currency_purchased" style="margin-bottom: 0px;">
+                                                <input type="hidden" value="{{user.currentUsdBalance}}" name="useramountUSD" id="useramountUSD" style="margin-bottom: 0px;">	
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="gap">   
+                                        <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input class="btn btn-block btn-primary" type="submit" value="Confirm" id="amt_invest_btn" name="investSubmit" />
+                                        </div>
+                                        
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-12" id="investerrormsg" style="display:none;"> </div>  
+                                </form>
+								{{!-- <form method="post" action="/save-deposit" id="curncy-names" class="curncy-names"> --}}
+									<div class="gap">
+										{{!-- <div class="col-md-3">
+											<div class="form-group"> --}}
+												{{!-- <select class="form-control curncy-select" id="curncy-select">
+													<option value="1">Bitcoin</option>
+													<option value="2">Ethereum</option>
+													<option value="3">Litecoin</option>
+													<option value="5">Bitcoin Cash</option>
+													<option value="46">Royal Mint Gold</option>
+													<option value="4">Ripple</option>
+												</select> --}}
+												{{!-- Invest Bitcoin
+											</div>
+										</div> --}}
+										<div class="col-md-12">
+											<div class="form-group">
+												<label>Invest Bitcoin</label>
+												<input type="text" name="amount_deposit" id="amount_deposit" class="form-control" placeholder="Amount">
+											</div>
+										</div>
+									</div>
+									<div class="gap">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input class="btn btn-block btn-primary" id="amt_deposit_btn" name="DepositCurrency" type="button" value="Deposit" />
+											</div>
+										</div>
+									</div>
+									<img src="/ajax-loader-1.gif" class="loader-gif" style="display: none; text-align:center;">
+									<div class="col-md-12" id="depositerrormsg" style="display:none;"> </div>			
+								{{!-- </form> --}}
+                                {{#if_eq user.kycApproved "2"}}
+                                    <form action="/save-withdraw" method="post" id="MCPwithdraw">
+                                        <div class="gap">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="amount_withdraw" id="amount_withdraw" class="form-control" placeholder="Enter Amount to Withdraw">
+                                                    <input type="hidden" value="MCP" name="currency_purchased" style="margin-bottom: 0px;">
+                                                    <input type="hidden" value="{{user.currentUsdBalance}}" name="useramountUSD" id="useramountUSD" style="margin-bottom: 0px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="gap">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input class="btn btn-block btn-primary" id="amt_withd_btn" name="withdrawSubmit" type="submit" value="Confirm" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" id="withdrawerrormsg" style="display:none;"> </div> 
+                                    </form>
+                                {{/if_eq}}    
+                                <div class="col-md-12 text-center">
+                                    <p style="text-align: center;">For more information about our managed cryptocurrency portfolio, <a href="/about-us" target="_blank" style="color: #4165b4;">click here.</a> 
+								    <br>
+                                    All funds are held for a minimum of 365 days before eligible for withdrawal.</p>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Starts Asset Class Comparison Graph  -->
+        <div class="portfolio-performance">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BAR CHART -->
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Asset Class Comparison Charts</h3>
+                        </div>
+                        <div class="box-body">
+                            {{!-- <div class="chart">
+                                <canvas id="barChart2" style="height:230px"></canvas>
+                            </div> --}}
+                            <p>The following is a chart that displays the annual averages of traditional asset classes. At the pinnacle the highest return was 79% in a single year, whereas our managed cryptocurrency portfolio has performed at a bare minimum of 200% each year since 2011.</p>
+                            {{!-- <p>At the pinnacle, the highest return was 79% , whereas our managed cryptocurrency portfolio does a conservative minimum of 200% each year, since 2011. We're glad to present our managed cryptocurrency portfolio as one of the leading investment opportunities in the world.</p> --}}
+                            <center><img src="/dist/img/asset-class-returns.png" width="90%"></center>
+                            {{!-- <br>
+                            <p>The following is another chart just with Bitcoin.</p>
+                            <center><img src="/dist/img/annual-average-returns.png" width="90%"></center> --}}
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+                </div>
+            </div>
+        </div>
+        <!-- Ends Asset Class Comparison Graph  -->
+        
+        <!-- Starts Follow the instructions  -->
+        {{!-- <div class="portfolio-performance">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BAR CHART -->
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Follow the instructions to get started today</h3>
+                        </div>
+                        <div class="box-body">
+                            <ul>
+                                <p></p>
+                                <li>Verify your identification by uploading a government issued ID.</li>
+								<li>Fill out your personal or institutional information.</li>
+								<li>Deposit funds into your account using one of the available options.</li>
+								<li>Earn an above average return of 0.05% daily interest.</li>
+								<li>Get paid out annual dividends from the returns we're able to generate from our trading and investment strategies.</li>
+                                <p></p>
+								<p>More coming soon...</p>
+							</ul>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+                </div>
+            </div>
+        </div> --}}
+        <!-- Ends Follow the instructions  -->
+    </div>
+
+</section>
+<!-- /.content -->

@@ -1,0 +1,135 @@
+<section class="content container-fluid">
+    <div class="dashboard-top">
+        <div class="row">
+            <div class="col-md-6 column-pr-0">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Wallets</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table scroll-minus">
+                            <thead>
+                                <tr>
+                                    <th class="col-xs-2 paddingleft">SYMBOL</th>
+
+                                    <th class="col-xs-4 paddingleft">NAME</th>
+
+                                    <th class="col-xs-3 paddingleft">BALANCE</th>
+
+                                    <th class="col-xs-3 paddingleft">USD</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <div class="scroll-dashboard">
+                            <table class="table">
+                                <tr>
+                                    <td class="col-xs-2">
+                                        <img src="dist/img/usd.png" alt="">
+                                    </td>
+                                    <td class="col-xs-4 padding16">DOLLAR
+                                        <span style="color:red;">(USD)</span>
+                                    </td>
+                                    <td class="col-xs-3 padding16">
+                                        {{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
+                                    </td>
+                                    <td class="col-xs-3 padding16">
+                                        ${{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-2">
+                                        <img src="dist/img/mcpicon.png" alt="" width="34">
+                                    </td>
+                                    <td class="col-xs-4 padding16">MANAGED PORTFOLIO
+                                        <span style="color:red;">(MCP)</span>
+                                    </td>
+                                    <td class="col-xs-3 padding16">
+                                        {{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}
+                                    </td>
+                                    <td class="col-xs-3 padding16">
+                                        ${{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}
+                                    </td>
+                                </tr>
+                                {{#each user.currency}}
+                                <tr>
+                                    <td class="col-xs-2">
+                                        <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
+                                    </td>
+                                    <td class="col-xs-4 padding16">{{this.display_name}}
+                                        <span style="color:red;">({{toUpperCase this.alt_name}})</span>
+                                    </td>
+                                    <td class="col-xs-3 padding16 wallet_crp">
+                                        {{formatCurrency (twoDecimalPoint ( checkCurrencies this.alt_name ../user.currencyBalance))}}
+                                    </td>
+                                    <td class="col-xs-3 padding16 wallet_dollar_{{this.currency_id}}">
+
+                                    </td>
+                                </tr>
+                                {{/each}}
+
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <div class="col-md-6 equal-hgt">
+                <div class="box equal-box">
+                    <div style="margin-bottom: 4px;" class="box-header">
+                        <h3 class="box-title">Latest News</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body ltnews">
+                        {{!--
+                        <img class="img_' + resp[i].id +'" style="width:100%;" src="dist/img/lading_icon.gif"> --}}
+                        {{#each blogPosts}}
+                            <div class="col-md-6 paddingleft recent_post_box">
+                                <a style="color: #000;" href="{{base_url}}blog/{{this.post_slug}}" target="_blank">
+                                    <p>
+                                        <img style="width:100%;" src="{{base_url}}blog_images/{{this.featured_image}}">
+                                    </p>
+                                    <h3 class="post-title">{{this.post_title}}</h3>
+                                </a>
+                                <p class="subdetails">CoinJolt.com</p>
+                            </div>
+                        {{/each}}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">All Cryptocurrencies</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive all-crypto-tbl">
+                        <table id="example1" class="table table-striped res-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Market Cap</th>
+                                    <th>Rate</th>
+                                    <th>Volume (24h)</th>
+                                    <th>Change (24h)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="currency_table">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+</section>

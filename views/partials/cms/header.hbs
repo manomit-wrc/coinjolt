@@ -1,0 +1,86 @@
+    <header>
+      <!-- starts Header-Top -->
+      <div class="header-top">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="mail-part">
+                <ul>
+                  {{!-- <li><i class="fa fa-envelope"></i><a href="mailto:support@coinjolt.com" target="_blank">support@coinjolt.com</a></li>
+                  <li><i class="fa fa-phone"></i>1-888-998-9980</li> --}}
+                  <li><i class="fa fa-envelope"></i><a href="mailto:{{companySettingsData.0.email}}" target="_blank">{{companySettingsData.0.email}}</a></li>
+                  <li><i class="fa fa-phone"></i>{{companySettingsData.0.phone_number}}</li>
+
+                  
+                  
+
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="mail-part pull-right">
+                {{#if_neq front_user ''}}
+                  {{#if_eq front_user.type 2}}
+                    <ul>
+
+                      <li><a href="/dashboard"> Welcome, {{front_user.first_name }} {{front_user.last_name}}</a></li>
+                    </ul>
+                  {{/if_eq}}
+
+                  {{#if_eq front_user.type 1}}
+                    <ul>
+
+                      <li><a href="/admin/dashboard">{{front_user.first_name }} {{front_user.last_name}}</a></li>
+                    </ul>
+                  {{/if_eq}}
+                {{/if_neq}}
+
+                {{#if_eq front_user undefined}}
+                  <ul>
+
+                    <li><i class="fa fa-sign-out"></i><a href="/login">Sign In</a></li>
+                    <li><i class="fa fa-user-plus"></i><a href="/signup">Create Account</a></li>
+                  </ul>
+                {{/if_eq}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ends Header-Top -->
+
+      <!-- starts Header-Bottom -->
+      <div class="header-bottom">
+        <div class="container">
+          <div class="row">
+            <nav class="navbar navbar-inverse navbar-static-top marginBottom-0" role="navigation">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img src="/dist/frontend_cms/images/logo.png" alt="logo"></a>
+              </div>
+    
+              <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li>Live Prices</li>
+                  <li>BTC:<span class="btc"></span></li>
+                  <li>|</li> 
+                  <li>ETH:<span class="eth"></span></li>
+                  <li>|</li> 
+                  <li>XRP:<span class="xrp"></span></li>
+                  <li>|</li> 
+                  <li>LTC:<span class="ltc"></span></li>
+                  <li>|</li> 
+                  <li>BCH:<span class="bch"></span></li>
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!-- ends Header-Bottom -->
+    </header>

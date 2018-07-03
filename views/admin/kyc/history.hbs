@@ -1,0 +1,63 @@
+<section class="content-header">
+	<h1>KYC History List</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
+		</li>
+
+		<li>
+			<a href="/admin/kyc"><i class="fa fa-dashboard"></i> KYC List</a>
+		</li>
+
+		<li class="active">KYC History List</li>
+	</ol>
+</section>
+
+<section class="content container-fluid">
+	<!-- Starts Deposit Funds -->
+	<div class="deposit-funds">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<!-- /.box-header -->
+					<div class="box-body">
+						<table id="pending_wire_transfer_table" class="table table-striped res-table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>KYC Details</th>
+									<th>Date</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each all_data}}
+								<tr>
+									<td>{{this.id}}</td>
+									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
+									<td>
+										<a href="{{this.files}}" target="_blank">{{this.files}}</a>
+									</td>
+									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
+									<td>
+										{{#if_eq this.status 2}}
+										KYC Approved
+										{{/if_eq}}
+										{{#if_eq this.status 3}}
+										KYC Rejected
+										{{/if_eq}}
+									</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+	<!-- Ends Deposit Funds -->
+</section>

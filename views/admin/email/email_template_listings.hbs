@@ -1,0 +1,61 @@
+<section class="content-header">
+	<h1>Email Template List</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
+		</li>
+		<li class="active">Email Template List</li>
+	</ol>
+
+	<div class="box-footer admin-tp-box" style="margin: 10px 0;">
+		<a href="/admin/email-template"><button type="button" class="btn btn-success">Add Template</button></a>
+	</div>
+
+	<div>
+		{{#if msg}}
+        	<div class="alert alert-success">{{msg}}</div>
+        {{/if}}
+	</div>
+</section>
+
+<section class="content container-fluid">
+	<!-- Starts Deposit Funds -->
+	<div class="deposit-funds">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<!-- /.box-header -->
+					<div class="box-body">
+						<table id="pending_wire_transfer_table" class="table table-striped res-table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Template Name</th>
+									<th>Added Date</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each all_data}}
+								<tr>
+									<td>{{this.id}}</td>
+									<td>{{this.template_name}}</td>
+									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
+									<td>
+										<a href='/admin/email-template-edit/{{this.id}}' class="btn approve-req" >Edit</a> &nbsp;&nbsp; || 
+
+										<a href='/admin/email-template-delete/{{this.id}}' class="btn approve-req" >Delete</a>	
+									</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+	<!-- Ends Deposit Funds -->
+</section>

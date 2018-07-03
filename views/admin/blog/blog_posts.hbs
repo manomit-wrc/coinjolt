@@ -1,0 +1,108 @@
+<section class="content-header">
+	<h1>All Blogs List</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
+		</li>
+		<li class="active">All Blogs List</li>
+	</ol>
+</section>
+
+<section class="content container-fluid">
+	<!-- Starts Deposit Funds -->
+	<div class="deposit-funds">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<!-- /.box-header -->
+					<div class="box-body">
+                        
+						<table id="admin_blog_posts" class="table table-striped res-table">
+                            <a href="/admin/create-blog-post" class="admin-tp-box btn btn-success">Add</a>
+							<thead>
+								<tr>
+									<th>Post Title</th>
+									<th>Body</th>
+                                    <th>Created At</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each blog_posts}}
+								<tr>
+									<td class="blogTitle">{{ this.post_title}}</td>
+									<td class="blogContent">{{{ this.post_description}}}</td>
+									<td>{{ dateFormat this.createdAt "MM-DD-YY" }}</td>
+									<td>
+                                    
+
+										<a class="btn editBlogBtn btn-success" href="/admin/edit_blog_content/{{this.id}}">Edit</a>
+
+										<button type="button" onclick="deleteBlog({{this.id}})" class="btn btn-danger deleteBlogBtn" data-id="{{this.id}}">Delete</button>
+                                    </td>
+								</tr>
+
+								{{/each}}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+	<!-- Ends Deposit Funds -->
+</section>
+
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Send Multiple email</h4>
+        </div>
+        <form name="send_multiple_email_form" id="send_multiple_email_form">
+        	<input type="hidden" name="all_user_ids" id="all_user_ids" value="">
+	        <div class="modal-body">
+	          	<div class="row">
+	                <div class="col-md-12">
+	                    <div class="form-group">
+	                        <label for="Subject">To</label>
+	                        <textarea rows="" cols="" readonly="readonly" name="to" class="form-control" id="to"></textarea>
+	                    </div>
+	                </div>
+	                <div class="col-md-12">
+	                    <div class="form-group">
+	                        <label for="Subject">Subject</label>
+	                        <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject" value="">
+	                    </div>
+	                </div>
+	                <div class="col-md-12">
+	                    <div class="form-group">
+	                        <label for="Subject">Template</label>
+	                        <select name="select_email_template" id="select_email_template" class="form-control">
+	                        </select>
+	                    </div>
+	                </div>
+	                <div class="col-md-12">
+	                    <div class="form-group">
+	                        <label for="Description">Description</label>
+	                        <textarea name="editor1" class="form-control" id="editor1" placeholder="Enter Description"></textarea>
+	                    </div>
+	                </div>
+	            </div>
+	    	</div>
+	        <div class="modal-footer">
+	        	<button type="button" class="btn btn-success" id="send_multiple_email_to_user">Send</button>
+	          	<button type="button" class="btn" data-dismiss="modal">Close</button>
+	        </div>
+    	</form>
+      </div>
+      
+    </div>
+  </div>

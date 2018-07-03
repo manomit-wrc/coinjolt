@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Coin Jolt</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/dist/frontend_cms/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/dist/frontend_cms/images/favicon.ico" type="image/x-icon">
+
+  <!-- Google Fonts -->
+
+  <!-- Owl Stylesheets -->
+  <link rel="stylesheet" href="/dist/frontend_cms/css/owl.carousel.min.css">
+  
+
+  <!-- Bootstrap -->
+  <link href="/dist/frontend_cms/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/dist/frontend_cms/css/style.css" rel="stylesheet">
+  <!-- <link href="/dist/frontend_cms/css/bootstrap-touch-slider.css" rel="stylesheet"> -->
+  <link href="/dist/frontend_cms/css/animations.css" rel="stylesheet" media="all">
+  <link href="/dist/frontend_cms/css/animations-ie-fix.css" rel="stylesheet" media="all">
+
+  <!-- FontAwesome Css -->
+  <link href="/dist/frontend_cms/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <!-- Starts Header Section -->
+    {{> cms/header companySettingsData=companySettingsData}}
+
+    <!-- Ends Header Section -->
+
+    <!-- Starts  Bootstrap-touch-slider Slider -->
+
+    {{{body}}}
+
+
+    {{> cms/footer companySettingsData=companySettingsData}}
+
+    <!-- Scrool Up -->
+    <a href="#" class="scrollup"><i class="fa fa-long-arrow-up"></i></a>
+    <!-- Scrool Up -->
+
+    <!-- Video-Modal -->
+    <div class="modal fade" id="video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Video title</h4>
+          </div>
+          <div class="modal-body">
+            <div style="padding:56.25% 0 0 0;position:relative;">
+              <iframe src="https://player.vimeo.com/video/147170777" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
+            <script src="https://player.vimeo.com/api/player.js"></script>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Video-Modal -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/dist/frontend_cms/js/bootstrap.min.js"></script>
+    <script src="/dist/frontend_cms/js/jquery.touchSwipe.min.js"></script>
+    <script src="/dist/frontend_cms/js/bootstrap-touch-slider.js"></script>
+    <!-- particles JS -->
+    <script src="/dist/frontend_cms/js/particles.js"></script>
+    <script src="/dist/frontend_cms/js/app.js"></script>
+    <!-- particles JS -->
+    <script type="text/javascript">
+      $('#bootstrap-touch-slider').bsTouchSlider();
+    </script>
+    <script src="/dist/frontend_cms/js/jquery.webticker.min.js"></script>
+    <!-- Webticker JS -->
+    <script>
+      $('#webTicker').webTicker();
+    </script>
+    <!-- OwlCarousel  -->
+    <script src="/dist/frontend_cms/js/owl.carousel.js"></script>
+    <script>
+      $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        autoplay:true,
+        navigation: ["‹","›"],
+        responsive:{
+          0:{
+            items:1
+          },
+          600:{
+            items:3
+          },
+          1000:{
+            items:5
+          }
+        }
+      });
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $.get("http://coincap.io/page/BTC", function(data, status){
+          $('.btc').text(data.price_usd.toFixed(2));
+        }); 
+        $.get("http://coincap.io/page/ETH", function(data, status){
+
+          $('.eth').text(data.price_usd.toFixed(2));
+        });
+        $.get("http://coincap.io/page/XRP", function(data, status){
+
+          $('.xrp').text(data.price_usd.toFixed(2));
+        }); 
+        $.get("http://coincap.io/page/LTC", function(data, status){
+
+          $('.ltc').text(data.price_usd.toFixed(2));
+        });
+        $.get("http://coincap.io/page/BCH", function(data, status){
+
+          $('.bch').text(data.price_usd.toFixed(2));
+        });
+      });
+    </script>
+
+    <!-- OwlCarousel  -->
+
+    <!-- STARTS SCROLL TO TOP -->
+    <script>
+      $(document).ready(function () {
+
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 100) {
+            $('.scrollup').fadeIn();
+          } else {
+            $('.scrollup').fadeOut();
+          }
+        });
+
+        $('.scrollup').click(function () {
+          $("html, body").animate({
+            scrollTop: 0
+          }, 600);
+          return false;
+        });
+
+      });
+    </script>
+
+    <script>
+      var maxHeight = 0;
+      $('.buy-box').each(function (i) {
+        var height = $('.buy-box').eq(i).height();
+        if (height > maxHeight)
+          maxHeight = height;
+      });
+
+      $('.buy-box').height(maxHeight);
+    </script>
+
+    <script>
+      var maxHeight = 0;
+      $('.item.bottom').each(function (i) {
+        var height = $('.item.bottom').eq(i).height();
+        if (height > maxHeight)
+          maxHeight = height;
+      });
+
+      $('.item.bottom').height(maxHeight);
+    </script>
+
+    <script>
+      var maxHeight = 0;
+      $('.security-section .item').each(function (i) {
+        var height = $('.security-section .item').eq(i).height();
+        if (height > maxHeight)
+          maxHeight = height;
+      });
+
+      $('.security-section .item').height(maxHeight);
+    </script>
+
+    <script>
+      var maxHeight = 0;
+      $('.service-section .item').each(function (i) {
+        var height = $('.service-section .item').eq(i).height();
+        if (height > maxHeight)
+          maxHeight = height;
+      });
+
+      $('.service-section .item').height(maxHeight);
+    </script>
+
+    <script>
+      var maxHeight = 0;
+      $('.price-item').each(function (i) {
+        var height = $('.price-item').eq(i).height();
+        if (height > maxHeight)
+          maxHeight = height;
+      });
+
+      $('.price-item').height(maxHeight);
+    </script>
+
+    <script>
+      var maxHeight = 0;
+      $('.action-box').each(function (i) {
+        var height = $('.action-box').eq(i).height();
+        if (height > maxHeight)
+          maxHeight = height;
+      });
+
+      $('.action-box').height(maxHeight);
+    </script>
+
+    
+    <script src="/dist/frontend_cms/js/css3-animate-it.js"></script>
+    
+  </body>
+  </html>

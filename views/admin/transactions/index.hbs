@@ -1,10 +1,10 @@
 <section class="content-header">
-	<h1>Transactions List</h1>
+	<h1>Transactions</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">Transactions List</li>
+		<li class="active">Transactions</li>
 	</ol>
 </section>
 
@@ -14,7 +14,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
-					<!-- /.box-header -->
+					<div class="box-header with-border floating-header">
+						<h3 class="box-title pull-left">Transactions List</h3>
+						<a href="/admin/transactions/generate" class="btn btn-primary pull-right">Generate Excel</a>
+						<div class="clearfix"></div>
+					</div>
 					<div class="box-body">
 						<table id="pending_transactions_table" class="table table-striped res-table">
 							<thead>
@@ -58,8 +62,8 @@
 							</tbody>
 						</table>
 					</div>
+
 				</div>
-				<a href="/admin/transactions/generate" class="btn btn-info">Generate Excel</a>
 			</div>
 			<!-- /.box-body -->
 		</div>

@@ -23,13 +23,14 @@ var QRCode = require('qrcode');
 
 const paypal = require('paypal-rest-sdk');
 
+
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
     'client_id': 'AUATycL0pSdb7ivwQB2fBA8w-rTO68U_GwxTfVhg4U7DisEnADJ1KBisL1DJkwlbaH59BVBx8SDhHUNN',
     'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
 });
 
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation, email_template, email_template_type) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var s3bucket = new AWS.S3({accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey, params: {Bucket: 'coinjoltdev2018'}});
@@ -130,7 +131,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
           }
         })
       });
-
+    
     app.get('/dashboard', (req, res) => {
         User.findById(req.user.id).then( function (result) {
             var result = JSON.parse(JSON.stringify(result));
@@ -1650,6 +1651,5 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     app.get('/settings', (req,res) => {
         res.render('settings', {layout: 'dashboard'});
     });
-  
     
 };

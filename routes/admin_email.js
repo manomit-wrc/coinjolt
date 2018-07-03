@@ -2,7 +2,7 @@ var keys = require('../config/key');
 var serialize = require('node-serialize');
 var bcrypt = require('bcrypt-nodejs');
 const acl = require('../middlewares/acl');
-module.exports = function (app, email_template, User, AWS, send_email, email_draft, Deposit){
+module.exports = function (app, email_template, User, AWS, send_email, email_draft, Deposit, email_template_type){
 	app.get('/admin/email-template-listings', acl, (req,res) => {
 		email_template.findAll({
 			where:{
@@ -20,14 +20,21 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 	});
 
 	app.get('/admin/email-template', acl, (req,res) => {
-		res.render('admin/email/email_template.hbs',{layout:'dashboard'});
+
+		email_template_type.findAll({}).then(function(result){
+			res.render('admin/email/email_template.hbs',{layout:'dashboard', template_type: result});
+		});
+
+		
 	});
 
 	app.post('/admin/submit-email-template', acl, (req,res) => {
+
 		email_template.create({
 			template_name: req.body.template_subject,
 			template_desc: req.body.template_description,
-			status: 1
+			status: 1,
+			template_type: req.body.template_type
 		}).then(function(result){
 			res.json({
 				status: true,
@@ -37,21 +44,30 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 	});
 
 	app.get('/admin/email-template-edit/:id', acl, (req,res) => {
-		email_template.findById(req.params['id'],{
-			where:{
-				status:1
-			}
-		}).then(function(result){
-			if(result){
-				res.render('admin/email/email_template_edit',{layout:'dashboard',all_data:result})
-			}
+
+		Promise.all([
+
+			email_template.findById(req.params['id'],{
+				where:{
+					status:1
+				}
+			}),
+			email_template_type.findAll({
+
+			})
+
+		]).then(function(result){
+			res.render('admin/email/email_template_edit',{layout:'dashboard',all_data:result[0],template_type: result[1]})
 		});
+
 	});
 
 	app.post('/admin/submit-edit-email-template', acl, (req,res) => {
+
 		email_template.update({	
 			template_name:req.body.template_subject,
-			template_desc: req.body.template_description
+			template_desc: req.body.template_description,
+			template_type: req.body.template_type
 		},{
 			where:{
 				id:req.body.id

@@ -22,11 +22,6 @@ CKEDITOR.replace( 'post_description' );
 
 $(document).ready(function(){
 
-
-
-    // $('#admin_blog').DataTable({
-    //     "bSort" : false
-    // });
     $('#admin_blog').DataTable({
         "bSort" : false
     });

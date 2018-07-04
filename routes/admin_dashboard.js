@@ -388,7 +388,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 					balance: parseFloat(d_amount) - parseFloat(w_amount)
 				});
 				if (index === user_list.length - 1) {
-					res.render('admin/investments/index', { layout: 'dashboard', 'all_data': user_list_arr });
+					res.render('admin/investments/index', { layout: 'dashboard', 'all_data': user_list_arr, title:"hello" });
 				}
 			});
 		});

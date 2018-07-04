@@ -30,17 +30,51 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 
 	app.post('/admin/submit-email-template', acl, (req,res) => {
 
-		email_template.create({
-			template_name: req.body.template_subject,
-			template_desc: req.body.template_description,
-			status: 1,
-			template_type: req.body.template_type
-		}).then(function(result){
-			res.json({
-				status: true,
-				msg: "Email template added successfully."
+		email_template.belongsTo(email_template_type, {foreignKey: 'template_type'});
+			email_template.findAll({
+				where: {
+					template_type: 1 // for registration template
+				},
+				include: [{
+					model: email_template_type
+				}],
+					order: [
+					['id', 'DESC']
+				]
+			}).then(function(response){
+				email_template.count({
+					where: {
+					   template_type: req.body.template_type
+					}
+				}).then(function (count) {
+					if (count > 0) {
+						res.json({
+							status: false,
+							msg: `Template already exists for ${response[0].email_template_type.type} page`
+						});
+					}
+		
+					else{
+		
+							email_template.create({
+								template_name: req.body.template_subject,
+								template_desc: req.body.template_description,
+								status: 1,
+								template_type: req.body.template_type
+							}).then(function(result){
+								res.json({
+									status: true,
+									msg: "Email template added successfully."
+								});
+							});
+		
+					}
+				});
 			});
-		});
+
+		
+		
+
 	});
 
 	app.get('/admin/email-template-edit/:id', acl, (req,res) => {

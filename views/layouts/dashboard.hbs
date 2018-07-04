@@ -345,6 +345,12 @@
                             if(response.status == true){
                                 sweetAlertEditSuccessPopUp('Thank You',response.msg);
                             }
+
+                            if(response.status == false){ // for preventing users for selecting same email template more than once
+                                
+                                //sweetAlertEditSuccessPopUp('Warning',response.msg);
+                                swal("Warning", response.msg, "error");
+                            }
                         }
                     });
                     

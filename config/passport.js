@@ -259,7 +259,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                     ['id', 'DESC']
                                 ]
                             }).then(function(resp){
-                               
+                                
                                 var editor_content_body = resp[0].template_desc;
                                 var ses = new AWS.SES({apiVersion: '2010-12-01'});
                                 var user_email = req.body.email;

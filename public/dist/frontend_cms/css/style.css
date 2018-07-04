@@ -163,6 +163,10 @@ a {
 
 /* ---- stats.js ---- */
 
+.banner > img {
+	width: 100%;
+}
+
 canvas{
 	display:block;
 	vertical-align:bottom;
@@ -666,7 +670,7 @@ canvas{
 	content: "";
 	height: 2px;
 	right: 377px;
-    top: 10px;
+	top: 10px;
 	position: absolute;
 	width: 50px;
 }
@@ -2060,6 +2064,10 @@ footer {
   	}
   	.indicators-line > .carousel-indicators{
   		display: none;
+  	}
+
+  	.copyright p span {
+  		display: block;
   	}
   }
 

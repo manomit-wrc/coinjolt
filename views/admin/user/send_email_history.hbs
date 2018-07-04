@@ -1,10 +1,13 @@
 <section class="content-header">
-	<h1>Send email history List</h1>
+	<h1>Send Email History</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">Send email history List</li>
+		<li>
+			<a href="/admin/all-user-list"> All User</a>
+		</li>
+		<li class="active">Send Email History</li>
 	</ol>
 </section>
 
@@ -14,7 +17,9 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
-					<!-- /.box-header -->
+					<div class="box-header with-border">
+						<h3 class="box-title">Send Email History List</h3>
+					</div>
 					<div class="box-body">
 						<table id="pending_wire_transfer_table" class="table table-striped res-table">
 							<thead>
@@ -34,7 +39,7 @@
 									<td>{{this.email_sub}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 									<td>
-										<button type="button" class="btn btn-info email_send_details" data-toggle="modal" data-send_email_id="{{this.id}}">View Details</button>
+										<button type="button" class="btn btn-primary tbl-common-btn email_send_details" data-toggle="modal" data-send_email_id="{{this.id}}">View Details</button>
 									</td>
 								</tr>
 								{{/each}}
@@ -53,7 +58,7 @@
 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -92,6 +97,6 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
+
     </div>
   </div>

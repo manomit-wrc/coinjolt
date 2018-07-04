@@ -120,7 +120,8 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				layout: 'dashboard',
 				totalUser: result[0].count,
 				totalEmailSent: result[1].count,
-				depositeAmount: result[2][0].deposit_amount
+				depositeAmount: result[2][0].deposit_amount,
+				title:"Dashboard"
 			});
 		});
 	});
@@ -159,7 +160,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 					total_amt: total_amt
 				});
 			}
-			res.render('admin/crypto_investments/index', { layout: 'dashboard', 'all_data': coin_list_arr });
+			res.render('admin/crypto_investments/index', { layout: 'dashboard', 'all_data': coin_list_arr, title:"Total Crypto Portfolio" });
 		});
 	});
 
@@ -173,13 +174,13 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				['id', 'DESC']
 			]
 		}).then(result => {
-			res.render('admin/transactions/index', { layout: 'dashboard', all_data: result });
+			res.render('admin/transactions/index', { layout: 'dashboard', all_data: result, title:"Transactions" });
 		});
 	});
 
 	app.get('/admin/question', acl, (req, res) => {
 		Question.findAll().then(result => {
-			res.render('admin/questionnaire/index', { layout: 'dashboard', all_data: result });
+			res.render('admin/questionnaire/index', { layout: 'dashboard', all_data: result, title:"Questionnaire" });
 		});
 	});
 
@@ -216,7 +217,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 			],
 		});
 
-		res.render('admin/questionnaire/answer', { layout: 'dashboard', all_data: result, question: ques_data.question });
+		res.render('admin/questionnaire/answer', { layout: 'dashboard', all_data: result, question: ques_data.question, title:"Question" });
 		
 	});
 
@@ -233,7 +234,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				['id', 'DESC']
 			]
 		}).then(result => {
-			res.render('admin/pending_withdrawals/index',{layout: 'dashboard', all_data: result});
+			res.render('admin/pending_withdrawals/index',{layout: 'dashboard', all_data: result, title:"Manage Withdrawals"});
 		});
 	});
 
@@ -308,7 +309,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				model: User
 			}]
 		}).then(result => {
-			res.render('admin/pending_withdrawals/history', { layout: 'dashboard', all_data: result });
+			res.render('admin/pending_withdrawals/history', { layout: 'dashboard', all_data: result, title:"Pending Withdrawals History" });
 		});
 	});
 
@@ -389,7 +390,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 					balance: parseFloat(d_amount) - parseFloat(w_amount)
 				});
 				if (index === user_list.length - 1) {
-					res.render('admin/investments/index', { layout: 'dashboard', 'all_data': user_list_arr, title:"hello" });
+					res.render('admin/investments/index', { layout: 'dashboard', 'all_data': user_list_arr, title:"Total Investments" });
 				}
 			});
 		});
@@ -424,7 +425,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 	app.get('/admin/deposit-methods', acl, (req, res) =>{
 
 		deposit_method.findAll({}).then(result => {
-			res.render('admin/deposit_methods/index', { layout: 'dashboard', deposit_methodsData: result});
+			res.render('admin/deposit_methods/index', { layout: 'dashboard', deposit_methodsData: result, title:"Manage Deposit Methods"});
 		});
 	});
 
@@ -433,7 +434,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		company_setting.findAll({
 
         }).then(function(companySettingsData){  
-            res.render('admin/company_settings', {layout: 'dashboard', companySettingsData: companySettingsData});
+            res.render('admin/company_settings', {layout: 'dashboard', companySettingsData: companySettingsData, title:"Company Settings"});
         });
 	});
 
@@ -481,7 +482,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 	app.get('/admin/blog-posts', (req, res) =>{
 
 		blog_post.findAll({}).then(function(blog_posts){
-			res.render('admin/blog/blog_posts', {layout: 'dashboard', blog_posts: blog_posts});
+			res.render('admin/blog/blog_posts', {layout: 'dashboard', blog_posts: blog_posts, title:"Manage Blog"});
 		});
 
 	});
@@ -489,7 +490,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 	app.get('/admin/create-blog-post', (req, res) =>{
 
 		blog_category.findAll({where: {status: 1}}).then(function(blog_categories){
-			res.render('admin/blog/blog_create', {layout: 'dashboard', blog_categories: blog_categories});
+			res.render('admin/blog/blog_create', {layout: 'dashboard', blog_categories: blog_categories, title:"Add Blog Post"});
 		});
 	});
 

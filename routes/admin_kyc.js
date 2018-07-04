@@ -14,7 +14,7 @@ module.exports = function (app, Kyc_details, User) {
 		    	model: User
 	  		}],
 		}).then(function(result){
-			res.render('admin/kyc/index',{layout:'dashboard', all_data:result});
+			res.render('admin/kyc/index',{layout:'dashboard', all_data:result, title:"KYC"});
 		});
 	});
 
@@ -59,7 +59,7 @@ module.exports = function (app, Kyc_details, User) {
 		    	model: User
 	  		}],
 		}).then(function(result){
-			res.render('admin/kyc/history',{layout:'dashboard', all_data:result});
+			res.render('admin/kyc/history',{layout:'dashboard', all_data:result, title:"KYC History"});
 		});
 	});
 

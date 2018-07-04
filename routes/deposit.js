@@ -84,7 +84,7 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
             	['id', 'DESC']
         	]
 		}).then(function(result){
-			res.render('admin/pending_wire_transfers/index',{layout: 'dashboard',all_data:result});
+			res.render('admin/pending_wire_transfers/index',{layout: 'dashboard',all_data:result, title:"Manage Wire Transfers"});
 		});
 	});
 
@@ -224,7 +224,7 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
             	['id', 'DESC']
         	]
 		}).then(function(result){
-			res.render('admin/pending_wire_transfers/history',{layout: 'dashboard',all_data:result});
+			res.render('admin/pending_wire_transfers/history',{layout: 'dashboard',all_data:result, title:"Pending Wire Transfers History"});
 		});
 	});
 };

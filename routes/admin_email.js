@@ -14,7 +14,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		}).then(function(result){
 			if(result){
 				const msg = req.flash('templateDeleteMSG')[0];
-				res.render('admin/email/email_template_listings.hbs',{layout:'dashboard', all_data:result, msg:msg});
+				res.render('admin/email/email_template_listings.hbs',{layout:'dashboard', all_data:result, msg:msg, title:"Email Template"});
 			}
 		});
 	});
@@ -22,7 +22,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 	app.get('/admin/email-template', acl, (req,res) => {
 
 		email_template_type.findAll({}).then(function(result){
-			res.render('admin/email/email_template.hbs',{layout:'dashboard', template_type: result});
+			res.render('admin/email/email_template.hbs',{layout:'dashboard', template_type: result, title:"Email Template"});
 		});
 
 		
@@ -57,7 +57,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 			})
 
 		]).then(function(result){
-			res.render('admin/email/email_template_edit',{layout:'dashboard',all_data:result[0],template_type: result[1]})
+			res.render('admin/email/email_template_edit',{layout:'dashboard',all_data:result[0],template_type: result[1], title:"Email Template"})
 		});
 
 	});
@@ -134,7 +134,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 			// console.log(result[3]);
 			// return false;
 			res.render('admin/email/email_marketing',{layout: 'dashboard', allUser:result[0],
-				allSendEmail:result[1], allDraftEmail:result[2], allDepositUsers:result[3]});
+				allSendEmail:result[1], allDraftEmail:result[2], allDepositUsers:result[3], title:"Email Marketing"});
 		});
 	});
 

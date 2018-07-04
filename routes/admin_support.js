@@ -17,7 +17,7 @@ module.exports = function(app, Support, User, AWS){
 	  			['id','DESC']
 	  		]
 		}).then(function (result) {
-			res.render('admin/support/index',{layout: 'dashboard', all_data:result, message: msg});
+			res.render('admin/support/index',{layout: 'dashboard', all_data:result, message: msg, title:"Support"});
 		});
 	});
 
@@ -29,7 +29,7 @@ module.exports = function(app, Support, User, AWS){
 		    	model: User
 	  		}]
 		}).then(function (result) {
-			res.render('admin/support/details',{ layout: 'dashboard', all_data: result });
+			res.render('admin/support/details',{ layout: 'dashboard', all_data: result, title:"Support Details" });
 		});
 	});
 
@@ -76,7 +76,7 @@ module.exports = function(app, Support, User, AWS){
 	  			['id','DESC']
 	  		]
 		}).then(function (result) {
-			res.render('admin/support/history',{layout: 'dashboard', all_data:result});
+			res.render('admin/support/history',{layout: 'dashboard', all_data:result, title:"Support History"});
 		});
 	});
 };

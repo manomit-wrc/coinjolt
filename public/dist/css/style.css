@@ -939,7 +939,7 @@ h3.post-title {
     }
 
     .col-md-6.paddingleft.recent_post_box img {
-    	height: 164px;
+    	height: 205px;
     }
 
 /* .dashboard-top .col-md-6.equal-hgt {
@@ -948,7 +948,7 @@ h3.post-title {
 
     .dashboard-top .scroll-dashboard {
     	overflow-y: scroll;
-    	height: 433px;
+    	height: 512px;
     }
 
     /*Closed on css 24-04-2018*/
@@ -1103,6 +1103,7 @@ h3.post-title {
     	-moz-border-radius: 0 !important;
     	-ms-border-radius: 0 !important;
     	-o-border-radius: 0 !important;
+    	height: 620px;
     }
 
     .scroll-dashboard td {

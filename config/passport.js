@@ -247,43 +247,6 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
     
                         }).then(function(result){
 
-                            /* SES mail sending code for activation link */
-                            /* var ses = new AWS.SES({apiVersion: '2010-12-01'});
-                            var user_email = req.body.email;
-                            var subject = 'Registration Complete';
-                            email_key = activation_key+"/";
-                            var admin_reply = `
-                            <html>
-                            <body>
-                            <div style="text-align: center;">
-                            Thank you for registering with us. Please copy the below link and paste into your browser.
-                            <br />
-                            <a href="${keys.BASE_URL}activated/"${email_key}>
-                            ${keys.BASE_URL}activated/${email_key}
-                            </a>
-                            </div>
-                            </body>
-                            </html>
-                        `;
-                            ses.sendEmail({ 
-                                Source: keys.senderEmail, 
-                                Destination: { ToAddresses: [user_email] },
-                                Message: {
-                                    Subject: {
-                                       Data: subject
-                                    },
-                                    Body: {
-                                        Html: {
-                                            Charset: "UTF-8",
-                                            Data: admin_reply
-                                        }
-                                     }
-                                }
-                             }, function(err, data) {
-                                 if(err) throw err;
-                            }
-                            ); */
-
                             models.email_template.belongsTo(models.email_template_type, {foreignKey: 'template_type'});
                             models.email_template.findAll({
                                 where: {
@@ -296,23 +259,258 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                     ['id', 'DESC']
                                 ]
                             }).then(function(resp){
-                               
-                                var email_body = resp[0].template_desc;
+                                
+                                var editor_content_body = resp[0].template_desc;
                                 var ses = new AWS.SES({apiVersion: '2010-12-01'});
                                 var user_email = req.body.email;
                                 var subject = 'Registration Complete';
+
+                                var complete_mail_content = ''; 
+
+                                var activate_btn_content = '';
+
+                                var lower_static_content = '';
+
                                 email_key = activation_key+"/";
-                                var dynamic_content = `
-                                    <div style="text-align: center;">
-                                    Thank you for registering with us. Please copy the below link and paste into your browser.
-                                    <br />
-                                    <a href="${keys.BASE_URL}activated/"${email_key}>
-                                    ${keys.BASE_URL}activated/${email_key}
-                                    </a>
-                                    </div>
+                                var upper_static_content = `
+                                <!DOCTYPE html>
+                                <html>
+                                <head>
+                                  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                                  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                                  <!-- Favicon -->
+                                  <link rel="shortcut icon" href="/dist/img/favicon.ico" type="image/x-icon">
+                                  <link rel="icon" href="/dist/img/favicon.ico" type="image/x-icon">
+                                  <style type="text/css">
+                                  /* FONTS */
+                                  @media screen {
+                                    @font-face {
+                                  font-family: 'AvenirNextLTPro-Regular';
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.eot');
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.woff2') format('woff2'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.woff') format('woff'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.ttf') format('truetype'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.svg#AvenirNextLTPro-Regular') format('svg'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.eot?#iefix') format('embedded-opentype');
+                                  font-weight: normal;
+                                  font-style: normal;
+                                }
+                                
+                                @font-face {
+                                  font-family: 'AvenirNextLTProBold';
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTProBold.eot');
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTProBold.eot') 
+                                  format('embedded-opentype'), url('/email_template_fonts/fonts/AvenirNextLTProBold.woff2') 
+                                  format('woff2'), url('/email_template_fonts/fonts/AvenirNextLTProBold.woff') 
+                                  format('woff'), url('/email_template_fonts/fonts/AvenirNextLTProBold.ttf') 
+                                  format('truetype'), url('/email_template_fonts/fonts/AvenirNextLTProBold.svg#AvenirNextLTProBold') 
+                                  format('svg');
+                                }
+                                  }
+                                
+                                  /* CLIENT-SPECIFIC STYLES */
+                                  body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: 'AvenirNextLTPro-Regular', sans-serif; }
+                                  table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+                                  img { -ms-interpolation-mode: bicubic; }
+                                
+                                  /* RESET STYLES */
+                                  img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+                                  table { border-collapse: collapse !important; }
+                                  body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+                                
+                                  /* iOS BLUE LINKS */
+                                  a[x-apple-data-detectors] {
+                                    color: inherit !important;
+                                    text-decoration: none !important;
+                                    font-size: inherit !important;
+                                    font-family: inherit !important;
+                                    font-weight: inherit !important;
+                                    line-height: inherit !important;
+                                  }
+                                
+                                  /* MOBILE STYLES */
+                                  @media screen and (max-width:600px){
+                                    h1 {
+                                      font-size: 32px !important;
+                                      line-height: 32px !important;
+                                    }
+                                  }
+                                
+                                  /* ANDROID CENTER FIX */
+                                  div[style*="margin: 16px 0;"] { margin: 0 !important; }
+                                </style>
+                                </head>
+                                <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+                                
+                                  <!-- HIDDEN PREHEADER TEXT -->
+                                  <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'AvenirNextLTPro-Regular', sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+                                    We're thrilled to have you here! Get ready to dive into your new account.
+                                  </div>
+                                
+                                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    
+                                    <tr>
+                                      <td bgcolor="#025fdf" align="center">
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                            <tr>
+                                            <td align="center" valign="top" width="600">
+                                            <![endif]-->
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                              <tr>
+                                                <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
+                                                  <a href="#" target="_blank">
+                                                    <img alt="Logo" src="${keys.BASE_URL}dist/img/template_logo.png" width="200" height="27" style="display: block; width: 200px; max-width: 200px; min-width: 200px; font-family: 'AvenirNextLTPro-Regular', sans-serif; color: #ffffff; font-size: 18px; filter: invert(1);" border="0">
+                                                  </a>
+                                                </td>
+                                              </tr>
+                                            </table>
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            </td>
+                                            </tr>
+                                            </table>
+                                          <![endif]-->
+                                        </td>
+                                      </tr> <!-- Static Content -->
+                                     
+                                      <tr>
+                                        <td bgcolor="#025fdf" align="center" style="padding: 0px 10px 0px 10px;">
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                            <tr>
+                                            <td align="center" valign="top" width="600">
+                                            <![endif]-->
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                              <tr>
+                                                <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
+                                                  <h1 style="font-size: 48px; font-weight: bold; margin: 0;">Welcome!</h1>
+                                                </td>
+                                              </tr>
+                                            </table>
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            </td>
+                                            </tr>
+                                            </table>
+                                          <![endif]-->
+                                        </td>
+                                      </tr> <!-- Static Content -->
+                                     
+                                      <tr>
+                                        <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                            <tr>
+                                            <td align="center" valign="top" width="600">
+                                            <![endif]-->
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                              
+                                              <tr>
+                                                <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                `;
+                                
+                                complete_mail_content += upper_static_content;
+                                
+                                var mid_dynamic_content = editor_content_body;
+
+                                complete_mail_content += mid_dynamic_content;
+                                
+                                complete_mail_content += `</td></tr>`;
+                                
+                                activate_btn_content = `
+                                    <tr>
+                                    <td bgcolor="#ffffff" align="left">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                        <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
+                                            <table border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td align="center" style="border-radius: 3px;" bgcolor="#025fdf"><a href="${keys.BASE_URL}activated/${email_key}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #025fdf; display: inline-block;">Activate Account</a></td>
+                                            </tr>
+                                            </table>
+                                        </td>
+                                        </tr>
+                                    </table>
+                                    </td>
+                                </tr>
                                 `;
 
-                                email_body = email_body.concat(dynamic_content);
+                                complete_mail_content += activate_btn_content;
+
+                                lower_static_content = `
+                                    <tr>
+                                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                    <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
+                                    <p> 
+                                        <a href="${keys.BASE_URL}activated/${email_key}">
+                                    ${keys.BASE_URL}activated/${email_key}
+                                        </a>
+                                    </p>
+                                    </td>
+                                </tr> <!-- Static Content -->
+                                <tr>
+                                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                    <p style="margin: 0;">If you have any questions, just reply to this email—we're always happy to help out.</p>
+                                    </td>
+                                </tr> <!-- Static Content -->
+                                
+                                <tr>
+                                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                    <p style="margin: 0;">Cheers,<br>The Coin Jolt Team</p>
+                                    </td>
+                                </tr> <!-- Static Content -->
+                    
+                                </table>
+                    
+                    
+                                <!--[if (gte mso 9)|(IE)]>
+                                </td>
+                                </tr>
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr>
+                        <!-- SUPPORT CALLOUT -->
+                        <tr>
+                            <td bgcolor="#f4f4f4" align="center" style="padding: 30px 10px 0px 10px;">
+                                <!--[if (gte mso 9)|(IE)]>
+                                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                <tr>
+                                <td align="center" valign="top" width="600">
+                                <![endif]-->
+                                
+                                <!--[if (gte mso 9)|(IE)]>
+                                </td>
+                                </tr>
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr> <!-- Static Content -->
+                        <!-- FOOTER -->
+                        <tr>
+                            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                                <!--[if (gte mso 9)|(IE)]>
+                                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                <tr>
+                                <td align="center" valign="top" width="600">
+                                <![endif]-->
+                                
+                                <!--[if (gte mso 9)|(IE)]>
+                                </td>
+                                </tr>
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr> <!-- Static Content -->
+                        </table>
+                        
+                    </body>
+                    </html>
+                                `;
+
+                                complete_mail_content += lower_static_content;
+
+                                
                                 ses.sendEmail({ 
                                     Source: keys.senderEmail, 
                                     Destination: { ToAddresses: [user_email] },
@@ -323,7 +521,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                         Body: {
                                             Html: {
                                                 Charset: "UTF-8",
-                                                Data: email_body
+                                                Data: complete_mail_content
                                             }
                                         }
                                     }
@@ -375,42 +573,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 // investor_type: req.body.investor_type
         
                             }).then(function(result){
-                            /* SES mail sending code for activation link */
-
-                            /* var ses = new AWS.SES({apiVersion: '2010-12-01'});
-                            var user_email = req.body.email;
-                            var subject = 'Registration Complete';
-                            email_key = activation_key+"/";    
-                            var admin_reply = `
-                            <html>
-                            <body>
-                            <div style="text-align: center;">
-                            Thank you for registering with us. Please copy the below link and paste into your browser.
-                            <br />
-                            <a href="${keys.BASE_URL}activated/"${email_key}>
-                            ${keys.BASE_URL}activated/${email_key}
-                            </a>
-                            </div>
-                            </body>
-                            </html>
-                        `;
-                            ses.sendEmail({ 
-                                Source: keys.senderEmail, 
-                                Destination: { ToAddresses: [user_email] },
-                                Message: {
-                                    Subject: {
-                                       Data: subject
-                                    },
-                                    Body: {
-                                        Html: {
-                                            Charset: "UTF-8",
-                                            Data: admin_reply
-                                        }
-                                     }
-                                }
-                             }, function(err, data) {
-                                if(err) throw err;
-                           }); */
+                            
 
                            models.email_template.belongsTo(models.email_template_type, {foreignKey: 'template_type'});
                             models.email_template.findAll({
@@ -425,22 +588,257 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 ]
                             }).then(function(resp){
                                
-                                var email_body = resp[0].template_desc;
+                                var editor_content_body = resp[0].template_desc;
                                 var ses = new AWS.SES({apiVersion: '2010-12-01'});
                                 var user_email = req.body.email;
                                 var subject = 'Registration Complete';
+
+                                var complete_mail_content = ''; 
+
+                                var activate_btn_content = '';
+
+                                var lower_static_content = '';
+
                                 email_key = activation_key+"/";
-                                var dynamic_content = `
-                                    <div style="text-align: center;">
-                                    Thank you for registering with us. Please copy the below link and paste into your browser.
-                                    <br />
-                                    <a href="${keys.BASE_URL}activated/"${email_key}>
-                                    ${keys.BASE_URL}activated/${email_key}
-                                    </a>
-                                    </div>
+                                var upper_static_content = `
+                                <!DOCTYPE html>
+                                <html>
+                                <head>
+                                  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                                  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                                  <!-- Favicon -->
+                                  <link rel="shortcut icon" href="/dist/img/favicon.ico" type="image/x-icon">
+                                  <link rel="icon" href="/dist/img/favicon.ico" type="image/x-icon">
+                                  <style type="text/css">
+                                  /* FONTS */
+                                  @media screen {
+                                    @font-face {
+                                  font-family: 'AvenirNextLTPro-Regular';
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.eot');
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.woff2') format('woff2'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.woff') format('woff'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.ttf') format('truetype'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.svg#AvenirNextLTPro-Regular') format('svg'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.eot?#iefix') format('embedded-opentype');
+                                  font-weight: normal;
+                                  font-style: normal;
+                                }
+                                
+                                @font-face {
+                                  font-family: 'AvenirNextLTProBold';
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTProBold.eot');
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTProBold.eot') 
+                                  format('embedded-opentype'), url('/email_template_fonts/fonts/AvenirNextLTProBold.woff2') 
+                                  format('woff2'), url('/email_template_fonts/fonts/AvenirNextLTProBold.woff') 
+                                  format('woff'), url('/email_template_fonts/fonts/AvenirNextLTProBold.ttf') 
+                                  format('truetype'), url('/email_template_fonts/fonts/AvenirNextLTProBold.svg#AvenirNextLTProBold') 
+                                  format('svg');
+                                }
+                                  }
+                                
+                                  /* CLIENT-SPECIFIC STYLES */
+                                  body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: 'AvenirNextLTPro-Regular', sans-serif; }
+                                  table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+                                  img { -ms-interpolation-mode: bicubic; }
+                                
+                                  /* RESET STYLES */
+                                  img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+                                  table { border-collapse: collapse !important; }
+                                  body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+                                
+                                  /* iOS BLUE LINKS */
+                                  a[x-apple-data-detectors] {
+                                    color: inherit !important;
+                                    text-decoration: none !important;
+                                    font-size: inherit !important;
+                                    font-family: inherit !important;
+                                    font-weight: inherit !important;
+                                    line-height: inherit !important;
+                                  }
+                                
+                                  /* MOBILE STYLES */
+                                  @media screen and (max-width:600px){
+                                    h1 {
+                                      font-size: 32px !important;
+                                      line-height: 32px !important;
+                                    }
+                                  }
+                                
+                                  /* ANDROID CENTER FIX */
+                                  div[style*="margin: 16px 0;"] { margin: 0 !important; }
+                                </style>
+                                </head>
+                                <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+                                
+                                  <!-- HIDDEN PREHEADER TEXT -->
+                                  <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'AvenirNextLTPro-Regular', sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+                                    We're thrilled to have you here! Get ready to dive into your new account.
+                                  </div>
+                                
+                                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    
+                                    <tr>
+                                      <td bgcolor="#025fdf" align="center">
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                            <tr>
+                                            <td align="center" valign="top" width="600">
+                                            <![endif]-->
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                              <tr>
+                                                <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
+                                                  <a href="#" target="_blank">
+                                                    <img alt="Logo" src="${keys.BASE_URL}dist/img/template_logo.png" width="200" height="27" style="display: block; width: 200px; max-width: 200px; min-width: 200px; font-family: 'AvenirNextLTPro-Regular', sans-serif; color: #ffffff; font-size: 18px; filter: invert(1);" border="0">
+                                                  </a>
+                                                </td>
+                                              </tr>
+                                            </table>
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            </td>
+                                            </tr>
+                                            </table>
+                                          <![endif]-->
+                                        </td>
+                                      </tr> <!-- Static Content -->
+                                     
+                                      <tr>
+                                        <td bgcolor="#025fdf" align="center" style="padding: 0px 10px 0px 10px;">
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                            <tr>
+                                            <td align="center" valign="top" width="600">
+                                            <![endif]-->
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                              <tr>
+                                                <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
+                                                  <h1 style="font-size: 48px; font-weight: bold; margin: 0;">Welcome!</h1>
+                                                </td>
+                                              </tr>
+                                            </table>
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            </td>
+                                            </tr>
+                                            </table>
+                                          <![endif]-->
+                                        </td>
+                                      </tr> <!-- Static Content -->
+                                     
+                                      <tr>
+                                        <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                            <tr>
+                                            <td align="center" valign="top" width="600">
+                                            <![endif]-->
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                              
+                                              <tr>
+                                                <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                `;
+                                
+                                complete_mail_content += upper_static_content;
+                                
+                                var mid_dynamic_content = editor_content_body;
+
+                                complete_mail_content += mid_dynamic_content;
+                                
+                                complete_mail_content += `</td></tr>`;
+                                
+                                activate_btn_content = `
+                                    <tr>
+                                    <td bgcolor="#ffffff" align="left">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                        <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
+                                            <table border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td align="center" style="border-radius: 3px;" bgcolor="#025fdf"><a href="${keys.BASE_URL}activated/${email_key}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #025fdf; display: inline-block;">Activate Account</a></td>
+                                            </tr>
+                                            </table>
+                                        </td>
+                                        </tr>
+                                    </table>
+                                    </td>
+                                </tr>
                                 `;
 
-                                email_body = email_body.concat(dynamic_content);
+                                complete_mail_content += activate_btn_content;
+
+                                lower_static_content = `
+                                    <tr>
+                                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                    <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
+                                    <p> 
+                                        <a href="${keys.BASE_URL}activated/${email_key}">
+                                    ${keys.BASE_URL}activated/${email_key}
+                                        </a>
+                                    </p>
+                                    </td>
+                                </tr> <!-- Static Content -->
+                                <tr>
+                                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                    <p style="margin: 0;">If you have any questions, just reply to this email—we're always happy to help out.</p>
+                                    </td>
+                                </tr> <!-- Static Content -->
+                                
+                                <tr>
+                                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                    <p style="margin: 0;">Cheers,<br>The Coin Jolt Team</p>
+                                    </td>
+                                </tr> <!-- Static Content -->
+                    
+                                </table>
+                    
+                    
+                                <!--[if (gte mso 9)|(IE)]>
+                                </td>
+                                </tr>
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr>
+                        <!-- SUPPORT CALLOUT -->
+                        <tr>
+                            <td bgcolor="#f4f4f4" align="center" style="padding: 30px 10px 0px 10px;">
+                                <!--[if (gte mso 9)|(IE)]>
+                                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                <tr>
+                                <td align="center" valign="top" width="600">
+                                <![endif]-->
+                                
+                                <!--[if (gte mso 9)|(IE)]>
+                                </td>
+                                </tr>
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr> <!-- Static Content -->
+                        <!-- FOOTER -->
+                        <tr>
+                            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                                <!--[if (gte mso 9)|(IE)]>
+                                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                <tr>
+                                <td align="center" valign="top" width="600">
+                                <![endif]-->
+                                
+                                <!--[if (gte mso 9)|(IE)]>
+                                </td>
+                                </tr>
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr> <!-- Static Content -->
+                        </table>
+                        
+                    </body>
+                    </html>
+                                `;
+
+                                complete_mail_content += lower_static_content;
+
+
                                 ses.sendEmail({ 
                                     Source: keys.senderEmail, 
                                     Destination: { ToAddresses: [user_email] },
@@ -451,7 +849,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                         Body: {
                                             Html: {
                                                 Charset: "UTF-8",
-                                                Data: email_body
+                                                Data: complete_mail_content
                                             }
                                         }
                                     }

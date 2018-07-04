@@ -42,9 +42,11 @@
                             <!-- div for error display -->
                             <div class="col-md-12">
                                 <label for="status">Select Email Template:</label>
+                                
                                 <select class="form-control" id="edit_email_template" name="edit_email_template">
                                     {{#each template_type}}
-                                        <option value="{{this.id}}" {{#if_eq template_type.0.template_type '1'}} selected {{/if_eq}}>{{this.type}}</option>
+
+                                        <option value="{{this.id}}" {{#if_eq this.id ../all_data.template_type}} selected {{/if_eq}}>{{this.type}}</option>
                                     {{/each}}
                                 </select>
                             </div>

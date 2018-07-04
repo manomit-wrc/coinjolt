@@ -1,10 +1,10 @@
 <section class="content-header">
-	<h1>All Blogs List</h1>
+	<h1>Manage Blog</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">All Blogs List</li>
+		<li class="active">Manage Blog</li>
 	</ol>
 </section>
 
@@ -14,11 +14,14 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
-					<!-- /.box-header -->
+					<div class="box-header with-border floating-header">
+						<h3 class="box-title pull-left">All Blogs List</h3>
+						<a href="/admin/create-blog-post"  class="btn btn-primary pull-right">Add Blog Post</a>
+						<div class="clearfix"></div>
+					</div>
 					<div class="box-body">
-                        
+
 						<table id="admin_blog_posts" class="table table-striped res-table">
-                            <a href="/admin/create-blog-post" class="admin-tp-box btn btn-success">Add</a>
 							<thead>
 								<tr>
 									<th>Post Title</th>
@@ -34,11 +37,11 @@
 									<td class="blogContent">{{{ this.post_description}}}</td>
 									<td>{{ dateFormat this.createdAt "MM-DD-YY" }}</td>
 									<td>
-                                    
 
-										<a class="btn editBlogBtn btn-success" href="/admin/edit_blog_content/{{this.id}}">Edit</a>
 
-										<button type="button" onclick="deleteBlog({{this.id}})" class="btn btn-danger deleteBlogBtn" data-id="{{this.id}}">Delete</button>
+										<a class="btn btn-success" href="/admin/edit_blog_content/{{this.id}}">Edit</a>
+
+										<button type="button" onclick="deleteBlog({{this.id}})" class="btn btn-danger" data-id="{{this.id}}">Delete</button>
                                     </td>
 								</tr>
 
@@ -59,7 +62,7 @@
 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -103,6 +106,6 @@
 	        </div>
     	</form>
       </div>
-      
+
     </div>
   </div>

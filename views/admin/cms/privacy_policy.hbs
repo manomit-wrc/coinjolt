@@ -1,19 +1,13 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <div class="title-with-btn pd-612">
-       <div class="pull-left">
         <h1>Privacy Policy</h1>
-    </div>
-    <div class="clearfix"></div>
-</div>
-
-<ol class="breadcrumb">
-  <li>
-    <a href="/dashboard">
-      <i class="fa fa-dashboard"></i> Home</a>
-  </li>
-  <li class="active">Privacy Policy</li>
-</ol>
+        <ol class="breadcrumb">
+        <li>
+            <a href="/dashboard">
+            <i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li class="active">Privacy Policy</li>
+        </ol>
 </section>
 
 <div class="loader"></div>
@@ -23,6 +17,9 @@
     <!-- Starts email-marketing -->
             <div class="email-marketing">
           <div class="box box-primary">
+               <div class="box-header with-border">
+                    <h3 class="box-title">Enter Privacy Policy Details</h3>
+                </div>
             <div class="box-body">
                 <form name="privacy_policy_form" id="privacy_policy_form" action="" method="POST" enctype="multipart/form-data">
               <div class="row">
@@ -49,7 +46,7 @@
                         <textarea name="privacy_policy_body" class="form-control" id="privacy_policy_body" placeholder="Enter Privacy Policy Body">{{privacy_policy.privacy_policy_content}}</textarea>
                     </div>
                 </div>
-                <div class="col-md-2 col-md-offset-5 pd-612">
+                <div class="col-md-2 col-md-offset-5">
                     <div class="form-group">
                         <input class="btn btn-primary save_privacy_policyBtn" value="Edit" type="button">
                     </div>

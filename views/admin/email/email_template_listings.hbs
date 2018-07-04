@@ -42,9 +42,8 @@
 									<td>{{this.template_name}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 									<td>
-										<a href='/admin/email-template-edit/{{this.id}}' class="btn approve-req" >Edit</a> &nbsp;&nbsp; ||
-
-										<a href='/admin/email-template-delete/{{this.id}}' class="btn approve-req" >Delete</a>
+										<a href='/admin/email-template-edit/{{this.id}}' class="tbl-common-btn btn btn-primary approve-req" >Edit</a>
+										<a href='/admin/email-template-delete/{{this.id}}' class="btn btn-danger tbl-common-btn approve-req" >Delete</a>
 									</td>
 								</tr>
 								{{/each}}

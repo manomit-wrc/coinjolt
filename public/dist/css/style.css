@@ -430,7 +430,7 @@ body {
 .main-footer p {
 	float: left;
 	margin-bottom: 0;
-	margin-right: 15px;
+	margin-right: 0;
 	margin-top: 6px;
 }
 
@@ -721,8 +721,8 @@ h3.post-title {
     }
 
     .account-settings .control-label {
-    	display: block;
-    	color: #666;
+		display: block;
+		color: #333;
     	padding: 0;
     	margin-bottom: 10px;
     	width: 100%;
@@ -735,10 +735,9 @@ h3.post-title {
     	-ms-user-select: none;
     	user-select: none;
     	pointer-events: none;
-    	font-weight: normal;
+		font-weight: 700;
     	margin-bottom: 3px;
-    	text-transform: uppercase;
-    }
+	}
 
     .account-settings .cj-lbl {
     	float: none !important;
@@ -939,7 +938,7 @@ h3.post-title {
     }
 
     .col-md-6.paddingleft.recent_post_box img {
-    	height: 164px;
+    	height: 205px;
     }
 
 /* .dashboard-top .col-md-6.equal-hgt {
@@ -948,7 +947,7 @@ h3.post-title {
 
     .dashboard-top .scroll-dashboard {
     	overflow-y: scroll;
-    	height: 433px;
+    	height: 512px;
     }
 
     /*Closed on css 24-04-2018*/
@@ -1103,6 +1102,7 @@ h3.post-title {
     	-moz-border-radius: 0 !important;
     	-ms-border-radius: 0 !important;
     	-o-border-radius: 0 !important;
+    	height: 620px;
     }
 
     .scroll-dashboard td {
@@ -1198,7 +1198,7 @@ h3.post-title {
     }
 
     .box.cjnews-box {
-    	height: 677px;
+    	height: 673px;
     	overflow-x: hidden;
     	overflow-y: auto;
     }
@@ -1998,6 +1998,18 @@ h3.post-title {
 
     /*Closed on css 02-07-2018*/
 
+    /*Starts on css 04-07-2018*/
+
+    .main-footer .pull-right {
+    	margin-top: 10px;
+    }
+
+    .main-footer .pull-right br {
+    	display: none;
+    }
+
+    /*Ends on css 04-07-2018*/
+
 
 
     @media screen and (max-width: 1366px) {
@@ -2222,6 +2234,16 @@ h3.post-title {
     .main-footer {
         margin-left: 0px !important;
         } */
+    }
+
+    @media screen and (max-width: 370px) {
+    	.main-footer span {
+    		display: block;
+    	}
+
+    	.main-footer .dash {
+    		display: none;
+    	}
     }
 
     /* Ends Responsive Table */
@@ -2747,6 +2769,31 @@ h3.post-title {
 	.floating-header .btn-primary {
 		font-size: 14px !important;
 		padding: 6px 12px !important;
+		margin-left: 10px;
+	}
+
+	#all_user_list_table input[type=checkbox] ,
+	#email_marketing_preview_form input[type=radio]
+	{
+		position: relative;
+		top: 2px;
+		margin-right: 5px;
+	}
+
+	.tbl-common-btn {
+		font-size: 14px !important;
+		padding: 6px 12px !important;
+		margin-left: 10px;
+		border: 0 !important;
 	}
 
 	/* Ends css on 2018-07-03 */
+
+	/* Starts css on 2018-07-04 */
+
+	#update_company_settings .max-250 {
+		max-width: 250px;
+		margin: 0 auto 15px;
+	}
+
+	/* Ends css on 2018-07-04 */

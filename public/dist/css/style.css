@@ -721,8 +721,8 @@ h3.post-title {
     }
 
     .account-settings .control-label {
-		display: block;
-		color: #333;
+    	display: block;
+    	color: #333;
     	padding: 0;
     	margin-bottom: 10px;
     	width: 100%;
@@ -735,9 +735,9 @@ h3.post-title {
     	-ms-user-select: none;
     	user-select: none;
     	pointer-events: none;
-		font-weight: 700;
+    	font-weight: 700;
     	margin-bottom: 3px;
-	}
+    }
 
     .account-settings .cj-lbl {
     	float: none !important;
@@ -2236,6 +2236,16 @@ h3.post-title {
         } */
     }
 
+    @media screen and (max-width: 991px) {
+    	.dashboard-top .box.box-default, .dashboard-top .box.equal-box {
+    		height: auto;
+    	}
+
+    	.col-md-6.paddingleft.recent_post_box img {
+    		height: auto;
+    	}
+    }
+
     @media screen and (max-width: 370px) {
     	.main-footer span {
     		display: block;
@@ -2746,54 +2756,54 @@ h3.post-title {
 
     .barcode .close {
     	display:none;
-	}
+    }
 
 
-	/* Starts css on 2018-07-03 */
+    /* Starts css on 2018-07-03 */
 
-	.dataTables_wrapper .dataTables_length select.form-control.input-sm {
-		margin: 10px 10px 0 10px !important;
-		padding: 0 10px !important;
-	}
+    .dataTables_wrapper .dataTables_length select.form-control.input-sm {
+    	margin: 10px 10px 0 10px !important;
+    	padding: 0 10px !important;
+    }
 
-	.dataTables_wrapper .dataTables_filter input.form-control.input-sm {
-		margin: 10px 0 0 10px !important;
-		padding: 0 10px !important;
-	}
+    .dataTables_wrapper .dataTables_filter input.form-control.input-sm {
+    	margin: 10px 0 0 10px !important;
+    	padding: 0 10px !important;
+    }
 
-   .floating-header .box-title {
-		position: relative;
-		top: 7px;
-	}
+    .floating-header .box-title {
+    	position: relative;
+    	top: 7px;
+    }
 
-	.floating-header .btn-primary {
-		font-size: 14px !important;
-		padding: 6px 12px !important;
-		margin-left: 10px;
-	}
+    .floating-header .btn-primary {
+    	font-size: 14px !important;
+    	padding: 6px 12px !important;
+    	margin-left: 10px;
+    }
 
-	#all_user_list_table input[type=checkbox] ,
-	#email_marketing_preview_form input[type=radio]
-	{
-		position: relative;
-		top: 2px;
-		margin-right: 5px;
-	}
+    #all_user_list_table input[type=checkbox] ,
+    #email_marketing_preview_form input[type=radio]
+    {
+    	position: relative;
+    	top: 2px;
+    	margin-right: 5px;
+    }
 
-	.tbl-common-btn {
-		font-size: 14px !important;
-		padding: 6px 12px !important;
-		margin-left: 10px;
-		border: 0 !important;
-	}
+    .tbl-common-btn {
+    	font-size: 14px !important;
+    	padding: 6px 12px !important;
+    	margin-left: 10px;
+    	border: 0 !important;
+    }
 
-	/* Ends css on 2018-07-03 */
+    /* Ends css on 2018-07-03 */
 
-	/* Starts css on 2018-07-04 */
+    /* Starts css on 2018-07-04 */
 
-	#update_company_settings .max-250 {
-		max-width: 250px;
-		margin: 0 auto 15px;
-	}
+    #update_company_settings .max-250 {
+    	max-width: 250px;
+    	margin: 0 auto 15px;
+    }
 
 	/* Ends css on 2018-07-04 */

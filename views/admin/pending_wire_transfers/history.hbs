@@ -38,14 +38,12 @@
 									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
 									<td>{{this.amount_usd}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
-									<td>
-										{{#if_eq this.status 1}}
-										Approved
-										{{/if_eq}}
-										{{#if_eq this.status 2}}
-										Rejected
-										{{/if_eq}}
-									</td>
+									{{#if_eq this.status 1}}
+										<td class="text-success"> Approved </td>
+									{{/if_eq}}
+									{{#if_eq this.status 2}}
+										<td class="text-danger">Rejected</td>
+									{{/if_eq}}
 								</tr>
 								{{/each}}
 							</tbody>

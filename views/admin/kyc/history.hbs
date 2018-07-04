@@ -42,14 +42,12 @@
 										<a href="{{this.files}}" target="_blank">{{this.files}}</a>
 									</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
-									<td>
-										{{#if_eq this.status 2}}
-										KYC Approved
-										{{/if_eq}}
-										{{#if_eq this.status 3}}
-										KYC Rejected
-										{{/if_eq}}
-									</td>
+									{{#if_eq this.status 2}}
+									<td class="text-success">KYC Approved</td>
+									{{/if_eq}}
+									{{#if_eq this.status 3}}
+									<td class="text-danger">KYC Rejected</td>
+									{{/if_eq}}
 								</tr>
 								{{/each}}
 							</tbody>

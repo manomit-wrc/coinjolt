@@ -50,14 +50,12 @@
 										MCP Withdraw
 										{{/if_eq}}
 									</td>
-									<td>
-										{{#if_eq this.status 1}}
-										Approved
-										{{/if_eq}}
-										{{#if_eq this.status 2}}
-										Rejected
-										{{/if_eq}}
-									</td>
+									{{#if_eq this.status 1}}
+										<td class="text-success"> Approved </td>
+									{{/if_eq}}
+									{{#if_eq this.status 2}}
+										<td class="text-success"> Rejected </td>
+									{{/if_eq}}
 								</tr>
 								{{/each}}
 							</tbody>

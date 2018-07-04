@@ -71,7 +71,7 @@ module.exports = function (app, models) {
         var blogDetail = await models.blog_post.findAll({ where: { id : blogId}});
 
         var blog_categories = await models.blog_category.findAll({where: {status: 1}});
-        res.render('admin/blog/blog_edit', { layout: 'dashboard', blogDetail: blogDetail, blog_categories: blog_categories});
+        res.render('admin/blog/blog_edit', { layout: 'dashboard', blogDetail: blogDetail, blog_categories: blog_categories, title:"Edit Blog Post"});
             
 
     });

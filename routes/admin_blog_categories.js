@@ -3,19 +3,19 @@ const acl = require('../middlewares/acl');
 module.exports = function (app, models) {
     app.get('/admin/blog-categories', (req, res) =>{
         models.blog_category.findAll({}).then(categoryDetails => {
-            res.render('admin/blog/category_list', { layout: 'dashboard', categoryDetails: categoryDetails});
+            res.render('admin/blog/category_list', { layout: 'dashboard', categoryDetails: categoryDetails, title:"Manage Blog Categories"});
 		});
     });
 
     app.get('/admin/add-blog-category', (req, res) =>{
-        res.render('admin/blog/category_create', { layout: 'dashboard'});
+        res.render('admin/blog/category_create', { layout: 'dashboard', title:"Add Blog Category"});
     });
 
     app.get('/admin/edit_blog_category/:categoryId', (req, res) =>{
         var categoryId = req.params.categoryId;
 
         models.blog_category.findAll({ where: { id : categoryId}}).then(categoryDetail => {
-            res.render('admin/blog/category_edit', { layout: 'dashboard', categoryDetail: categoryDetail});
+            res.render('admin/blog/category_edit', { layout: 'dashboard', categoryDetail: categoryDetail, title:"Edit Blog Category"});
             
 		});
 

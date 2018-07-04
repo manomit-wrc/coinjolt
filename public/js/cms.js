@@ -5,7 +5,7 @@ $(document).ready(function () {
 	CKEDITOR.replace( 'about_us_description' );
 });
 
-function sweetAlertSuccessPopUp (title='',text='', redirect_link='') {
+function sweetAlertAboutUsSuccessPopUp (title='',text='', redirect_link='') {
     swal({
         title: title,
         text: text,
@@ -41,7 +41,8 @@ $('#cms_about_us_submit').on('click', function () {
 	                contentType: false,
 					success: function (resp) {
 						if(resp.status == true) {
-							sweetAlertSuccessPopUp("Thank You.", resp.msg, "/admin/cms/quick-links/about-us");
+							console.log('/admin/cms/quick-links/about-us');
+							//sweetAlertAboutUsSuccessPopUp("Thank You.", resp.msg, "/admin/cms/quick-links/about-us");
 						}
 					}
 				});
@@ -64,6 +65,7 @@ $('#cms-about-us').validate({
 });
 
 $('#cms_about_us_edit').on('click', function (result) {
+	
 	var header_desc_character_count =  $('#about_us_header_description').val();
 	if(header_desc_character_count.length > 90){
 		alert ("Header description maximum 50 characters");
@@ -80,7 +82,7 @@ $('#cms_about_us_edit').on('click', function (result) {
 	        contentType: false,
 			success: function (resp) {
 				if(resp.status == true) {
-					sweetAlertSuccessPopUp("Thank You.", resp.msg, "/admin/cms/quick-links/about-us");
+					sweetAlertAboutUsSuccessPopUp("Thank You.", resp.msg, "/admin/cms/quick-links/about-us");
 				}
 			}
 		});

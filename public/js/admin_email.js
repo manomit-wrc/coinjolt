@@ -10,7 +10,9 @@ $(document).ready(function (e) {
 	CKEDITOR.replace( 'editor100' );
 	CKEDITOR.replace( 'editor1000' );
 	CKEDITOR.replace( 'email_marketing_subject_body' );
-		
+	
+	//CKEDITOR.replace( 'editor1', {allowedContent : "html head title meta link style body"} );
+
 	$('#submit_email_template').on('click', function () {
 
 

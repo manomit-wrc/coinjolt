@@ -2,6 +2,7 @@ var keys = require('../config/key');
 var serialize = require('node-serialize');
 var bcrypt = require('bcrypt-nodejs');
 const acl = require('../middlewares/acl');
+const Op = require('sequelize').Op;
 module.exports = function (app, email_template, User, AWS, send_email, email_draft, Deposit, email_template_type){
 	app.get('/admin/email-template-listings', acl, (req,res) => {
 		email_template.findAll({
@@ -14,7 +15,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		}).then(function(result){
 			if(result){
 				const msg = req.flash('templateDeleteMSG')[0];
-				res.render('admin/email/email_template_listings.hbs',{layout:'dashboard', all_data:result, msg:msg});
+				res.render('admin/email/email_template_listings.hbs',{layout:'dashboard', all_data:result, msg:msg, title:"Email Template"});
 			}
 		});
 	});
@@ -22,7 +23,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 	app.get('/admin/email-template', acl, (req,res) => {
 
 		email_template_type.findAll({}).then(function(result){
-			res.render('admin/email/email_template.hbs',{layout:'dashboard', template_type: result});
+			res.render('admin/email/email_template.hbs',{layout:'dashboard', template_type: result, title:"Email Template"});
 		});
 
 		
@@ -30,17 +31,51 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 
 	app.post('/admin/submit-email-template', acl, (req,res) => {
 
-		email_template.create({
-			template_name: req.body.template_subject,
-			template_desc: req.body.template_description,
-			status: 1,
-			template_type: req.body.template_type
-		}).then(function(result){
-			res.json({
-				status: true,
-				msg: "Email template added successfully."
+		email_template.belongsTo(email_template_type, {foreignKey: 'template_type'});
+			email_template.findAll({
+				where: {
+					template_type: 1 // for registration template
+				},
+				include: [{
+					model: email_template_type
+				}],
+					order: [
+					['id', 'DESC']
+				]
+			}).then(function(response){
+				email_template.count({
+					where: {
+					   template_type: req.body.template_type
+					}
+				}).then(function (count) {
+					if (count > 0) {
+						res.json({
+							status: false,
+							msg: `Template already exists for ${response[0].email_template_type.type} page`
+						});
+					}
+		
+					else{
+		
+							email_template.create({
+								template_name: req.body.template_subject,
+								template_desc: req.body.template_description,
+								status: 1,
+								template_type: req.body.template_type
+							}).then(function(result){
+								res.json({
+									status: true,
+									msg: "Email template added successfully."
+								});
+							});
+		
+					}
+				});
 			});
-		});
+
+		
+		
+
 	});
 
 	app.get('/admin/email-template-edit/:id', acl, (req,res) => {
@@ -57,29 +92,67 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 			})
 
 		]).then(function(result){
-			res.render('admin/email/email_template_edit',{layout:'dashboard',all_data:result[0],template_type: result[1]})
+			res.render('admin/email/email_template_edit',{layout:'dashboard',all_data:result[0],template_type: result[1], title:"Email Template"})
 		});
 
 	});
 
 	app.post('/admin/submit-edit-email-template', acl, (req,res) => {
+		
+		email_template.belongsTo(email_template_type, {foreignKey: 'template_type'});
 
-		email_template.update({	
-			template_name:req.body.template_subject,
-			template_desc: req.body.template_description,
-			template_type: req.body.template_type
-		},{
-			where:{
-				id:req.body.id
-			}
-		}).then(function(result){
-			if(result){
-				res.json({
-					status:true,
-					msg: "Template edit susscessfully."
-				});
-			}
+		email_template.findAll({
+			where: {
+				template_type: 1 // for registration template
+			},
+			include: [{
+				model: email_template_type
+			}],
+				order: [
+				['id', 'DESC'],
+            
+			]
+			
+		}).then(function(response){
+			email_template.count({
+				where: {
+				   template_type: req.body.template_type,
+
+				   id: {
+					[Op.notIn]: [req.body.id]
+				   }
+				   
+				}
+			}).then(function (count) {
+				if (count > 0) {
+					res.json({
+						status: false,
+						msg: `Template already exists for ${response[0].email_template_type.type} page`
+					});
+				}
+
+				else{
+					email_template.update({	
+						template_name:req.body.template_subject,
+						template_desc: req.body.template_description,
+						template_type: req.body.template_type
+					},{
+						where:{
+							id:req.body.id
+						}
+					}).then(function(result){
+						if(result){
+							res.json({
+								status:true,
+								msg: `${response[0].email_template_type.type} template edited susscessfully.`
+							});
+						}
+					});
+				}
+			});
 		});
+		
+		
 	});
 
 	app.get('/admin/email-template-delete/:id', acl, (req,res) => {
@@ -134,7 +207,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 			// console.log(result[3]);
 			// return false;
 			res.render('admin/email/email_marketing',{layout: 'dashboard', allUser:result[0],
-				allSendEmail:result[1], allDraftEmail:result[2], allDepositUsers:result[3]});
+				allSendEmail:result[1], allDraftEmail:result[2], allDepositUsers:result[3], title:"Email Marketing"});
 		});
 	});
 

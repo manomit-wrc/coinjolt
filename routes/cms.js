@@ -133,20 +133,20 @@ module.exports = function (app, models) {
     app.get('/admin/cms/quick-links/terms-of-service', acl, (req, res) =>{
 
         models.cms_terms_of_service.find({}).then(function(terms_of_service){
-            res.render('admin/cms/terms_of_service',{layout: 'dashboard', terms_of_service: terms_of_service});
+            res.render('admin/cms/terms_of_service',{layout: 'dashboard', terms_of_service: terms_of_service, title:"CMS- Terms of Service"});
         });
     });
 
     app.get('/admin/cms/quick-links/risk-disclosures', acl, (req, res) =>{
 
         models.cms_risk_disclosures.find({}).then(function(risk_disclosures){
-            res.render('admin/cms/risk_disclosures',{layout: 'dashboard', risk_disclosures: risk_disclosures});
+            res.render('admin/cms/risk_disclosures',{layout: 'dashboard', risk_disclosures: risk_disclosures, title:"CMS- Risk Disclosure"});
         });
     });
 
     app.get('/admin/cms/quick-links/privacy-policy', acl, (req, res) =>{
         models.cms_privacy_policy.find({}).then(function(privacy_policy){
-            res.render('admin/cms/privacy_policy',{layout: 'dashboard', privacy_policy: privacy_policy});
+            res.render('admin/cms/privacy_policy',{layout: 'dashboard', privacy_policy: privacy_policy, title:"CMS- Privacy Plocy"});
         });
     });
 
@@ -260,7 +260,7 @@ module.exports = function (app, models) {
 
 		}).then(function (result) {
 			var data = JSON.parse(JSON.stringify(result));
-			res.render('admin/cms/about_us', {layout: 'dashboard', details:data});
+			res.render('admin/cms/about_us', {layout: 'dashboard', details:data, title:"CMS- About US"});
 		});
 		
 	});

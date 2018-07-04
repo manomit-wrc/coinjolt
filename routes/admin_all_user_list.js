@@ -9,7 +9,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 			}
 		}).then(function(result){
 			if(result){
-				res.render('admin/user/user_listings',{layout:'dashboard', allUser:result});
+				res.render('admin/user/user_listings',{layout:'dashboard', allUser:result, title:"All User"});
 			}
 		});		
 	});
@@ -24,7 +24,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 				}
 			}).then(function(result1){
 				if(result1){
-					res.render('admin/user/send_email',{layout:'dashboard', userDetails:result, allEmailTemplate:result1})
+					res.render('admin/user/send_email',{layout:'dashboard', userDetails:result, allEmailTemplate:result1, title:"Email"})
 				}
 			});
 		});
@@ -98,7 +98,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		    }
 		   ]
 		}).then(function (result) {
-			res.render('admin/user/send_email_history',{layout:'dashboard', allData:result});
+			res.render('admin/user/send_email_history',{layout:'dashboard', allData:result, title:"Email History"});
 		});
 	});
 

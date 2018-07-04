@@ -2,6 +2,7 @@ var keys = require('../config/key');
 var serialize = require('node-serialize');
 var bcrypt = require('bcrypt-nodejs');
 const acl = require('../middlewares/acl');
+const Op = require('sequelize').Op;
 module.exports = function (app, email_template, User, AWS, send_email, email_draft, Deposit, email_template_type){
 	app.get('/admin/email-template-listings', acl, (req,res) => {
 		email_template.findAll({
@@ -97,23 +98,61 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 	});
 
 	app.post('/admin/submit-edit-email-template', acl, (req,res) => {
+		
+		email_template.belongsTo(email_template_type, {foreignKey: 'template_type'});
 
-		email_template.update({	
-			template_name:req.body.template_subject,
-			template_desc: req.body.template_description,
-			template_type: req.body.template_type
-		},{
-			where:{
-				id:req.body.id
-			}
-		}).then(function(result){
-			if(result){
-				res.json({
-					status:true,
-					msg: "Template edit susscessfully."
-				});
-			}
+		email_template.findAll({
+			where: {
+				template_type: 1 // for registration template
+			},
+			include: [{
+				model: email_template_type
+			}],
+				order: [
+				['id', 'DESC'],
+            
+			]
+			
+		}).then(function(response){
+			email_template.count({
+				where: {
+				   template_type: req.body.template_type,
+
+				   id: {
+					[Op.notIn]: [req.body.id]
+				   }
+				   
+				}
+			}).then(function (count) {
+				if (count > 0) {
+					res.json({
+						status: false,
+						msg: `Template already exists for ${response[0].email_template_type.type} page`
+					});
+				}
+
+				else{
+					email_template.update({	
+						template_name:req.body.template_subject,
+						template_desc: req.body.template_description,
+						template_type: req.body.template_type
+					},{
+						where:{
+							id:req.body.id
+						}
+					}).then(function(result){
+						if(result){
+							res.json({
+								status:true,
+								msg: `${response[0].email_template_type.type} template edited susscessfully.`
+							});
+						}
+					});
+				}
+			});
 		});
+		
+		
 	});
 
 	app.get('/admin/email-template-delete/:id', acl, (req,res) => {

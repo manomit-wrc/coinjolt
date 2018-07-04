@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $('#blog_categories').DataTable({
-        "bSort" : false
+        'aaSorting': [ 1, "desc" ]
     });
 
     var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";

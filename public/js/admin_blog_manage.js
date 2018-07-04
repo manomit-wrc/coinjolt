@@ -14,6 +14,9 @@ $(".blogTitle").each(function(i){
     }
 });
 
+$('#admin_blog_posts').DataTable({
+    'aaSorting': [ 2, "desc" ]
+});
 
 var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
 //var baseURL = "http://localhost:8080/admin/";
@@ -22,9 +25,9 @@ CKEDITOR.replace( 'post_description' );
 
 $(document).ready(function(){
 
-    $('#admin_blog').DataTable({
+    /* $('#admin_blog_posts').DataTable({
         "bSort" : false
-    });
+    }); */
 
 
     $('.deleteBlogBtn').on('click', function(){
@@ -72,6 +75,9 @@ $(document).ready(function(){
             },
             meta_description: {
                 required: true
+            },
+            meta_keywords: {
+                required: true
             }
         },
         messages: {
@@ -93,6 +99,9 @@ $(document).ready(function(){
             },
             meta_description: {
                 required: "Please enter meta description"
+            },
+            meta_keywords: {
+                required: "Please enter meta keywords"
             }
         },
         submitHandler:function(form) {
@@ -168,6 +177,9 @@ $('#edit_blog_post_form').validate({
         },
         edit_meta_description: {
             required: true
+        },
+        edit_meta_keywords: {
+            required: true
         }
     },
     messages: {
@@ -189,6 +201,9 @@ $('#edit_blog_post_form').validate({
         },
         edit_meta_description: {
             required: "Please enter meta description"
+        },
+        edit_meta_keywords: {
+            required: "Please enter meta keywords"
         }
     },
     submitHandler:function(form) {

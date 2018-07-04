@@ -218,7 +218,9 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                         var countryId = req.body.country;
                         if(countryId === "226"){
                             state = req.body.usa_states;
-                        } else {
+                        } else if(countryId === "240") {
+                            state = req.body.canada_states;
+                        }else {
                             state = req.body.state;
                         }
                       if (req.cookies.referral_id === undefined) {
@@ -469,7 +471,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
         
                             console.log("Error:", err);
         
-                            return done(null, false, req.flash('loginMessage', 'Something wrong.Please try again.'));
+                            return done(null, false, req.flash('loginMessage', 'Something wrong. Please try again.'));
         
                         });
                         // end find

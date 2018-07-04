@@ -163,6 +163,10 @@ a {
 
 /* ---- stats.js ---- */
 
+.banner > img {
+	width: 100%;
+}
+
 canvas{
 	display:block;
 	vertical-align:bottom;
@@ -272,6 +276,7 @@ canvas{
 .welcome-section .heading {
 	margin-bottom: 40px;
 	text-align: center;
+	overflow: hidden;
 }
 
 .welcome-section .heading h4::after {
@@ -279,7 +284,7 @@ canvas{
 	content: "";
 	height: 2px;
 	position: absolute;
-	right: 424px;
+	right: 404px;
 	top: 9px;
 	width: 50px;
 }
@@ -414,6 +419,7 @@ canvas{
 .price-wrap {
 	/*background: #025fdf;*/
 	padding: 0;
+	overflow: hidden;
 }
 
 .price-wrap .container-fluid {
@@ -490,6 +496,7 @@ canvas{
 /*Starts Buy Section */
 
 .buy-section {
+	overflow: hidden;
 	padding: 70px 0;
 }
 
@@ -632,6 +639,7 @@ canvas{
 
 .service-section {
 	padding: 70px 0;
+	overflow: hidden;
 }
 
 .service-section .heading {
@@ -661,9 +669,9 @@ canvas{
 	background: #025fdf none repeat scroll 0 0;
 	content: "";
 	height: 2px;
-	right: 410px;
+	right: 377px;
+	top: 10px;
 	position: absolute;
-	top: 12px;
 	width: 50px;
 }
 
@@ -737,6 +745,7 @@ canvas{
 .video-section {
 	background: #025fdf;
 	padding: 70px 0;
+	overflow: hidden;
 }
 
 .video-section .heading h4 {
@@ -787,6 +796,7 @@ canvas{
 
 .security-section {
 	padding: 70px 0;
+	overflow: hidden;
 }
 
 .security-section .heading {
@@ -960,6 +970,10 @@ canvas{
 
 
 /*starts footer section*/
+
+footer {
+	overflow: hidden;
+}
 
 .footer_section {
 	padding: 60px 0;
@@ -1497,6 +1511,10 @@ canvas{
 
 /*Closed on css 28-06-2018*/
 
+.wel-box.animatedParent {
+	overflow: hidden;
+}
+
 /*Starts Responsive CSS*/
 
 @media only screen and (max-width:1280px) {
@@ -1520,7 +1538,7 @@ canvas{
 	}
 
 	.welcome-section .heading h4::after {
-		right: 340px;
+		right: 310px;
 	}
 
 	.buy-section .heading h4::after {
@@ -1640,7 +1658,7 @@ canvas{
 	}
 
 	.welcome-section .heading h4::after {
-		right: 230px;
+		right: 200px;
 	}
 
 	.features-item-s2::before {
@@ -2046,6 +2064,10 @@ canvas{
   	}
   	.indicators-line > .carousel-indicators{
   		display: none;
+  	}
+
+  	.copyright p span {
+  		display: block;
   	}
   }
 

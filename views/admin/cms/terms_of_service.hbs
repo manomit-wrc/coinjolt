@@ -1,11 +1,6 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <div class="title-with-btn pd-612">
-       <div class="pull-left">
-        <h1>Terms Of Service</h1>
-    </div>
-    <div class="clearfix"></div>
-</div>
+    <h1>Terms Of Service</h1>
 
 <ol class="breadcrumb">
   <li>
@@ -22,44 +17,47 @@
 <section class="content container-fluid">
     <!-- Starts email-marketing -->
             <div class="email-marketing">
-          <div class="box box-primary">
-            <div class="box-body">
-                <form name="terms_of_service_form" id="terms_of_service_form" action="" method="POST" enctype="multipart/form-data">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label>Banner Image Title: </label>
-                    <input type="text" class="form-control input-lg" id="banner_image_title" name="banner_image_title" placeholder="Enter Banner Image Title" value="{{terms_of_service.terms_of_service_header_desc}}">
-                  </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="banner_image">Upload Banner Image</label>
-                        <input name="banner_image" class="form-control" id="banner_image" type="file">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Enter Terms Of Service Details</h3>
                     </div>
-                    {{#if terms_of_service.terms_of_service_header_image}}
-                    <div>
-                        <img src="/cms/terms_of_services/{{terms_of_service.terms_of_service_header_image}}" style="width:100px;height:100px;">
-                    </div>
-                    {{/if}}
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="Body">Terms Of Service Content</label>
-                        <textarea name="terms_of_service_body" class="form-control" id="terms_of_service_body" placeholder="Enter Terms Of Service Body">{{terms_of_service.terms_of_service_content}}</textarea>
-                    </div>
-                </div>
-                 <div class="col-md-2 col-md-offset-5 pd-612">
-                    <div class="form-group">
-                        <input class="btn btn-primary save_terms_of_service" value="Edit" type="button">
-                    </div>
-                </div>
-              </div>
+                    <div class="box-body">
+                        <form name="terms_of_service_form" id="terms_of_service_form" action="" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Banner Image Title: </label>
+                                    <input type="text" class="form-control input-lg" id="banner_image_title" name="banner_image_title" placeholder="Enter Banner Image Title" value="{{terms_of_service.terms_of_service_header_desc}}">
+                                </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="banner_image">Upload Banner Image</label>
+                                        <input name="banner_image" class="form-control" id="banner_image" type="file">
+                                    </div>
+                                    {{#if terms_of_service.terms_of_service_header_image}}
+                                    <div>
+                                        <img src="/cms/terms_of_services/{{terms_of_service.terms_of_service_header_image}}" style="width:100px;height:100px;">
+                                    </div>
+                                    {{/if}}
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Body">Terms Of Service Content</label>
+                                        <textarea name="terms_of_service_body" class="form-control" id="terms_of_service_body" placeholder="Enter Terms Of Service Body">{{terms_of_service.terms_of_service_content}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-md-offset-5">
+                                    <div class="form-group">
+                                        <input class="btn btn-primary save_terms_of_service" value="Edit" type="button">
+                                    </div>
+                                </div>
+                            </div>
 
-              </form>
+                    </form>
 
-            </div>
-          </div>
+                    </div>
+                </div>
         </div>
     <!-- Ends email-marketing -->
 </section>

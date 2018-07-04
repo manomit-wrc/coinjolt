@@ -1,7 +1,7 @@
 <section class="content container-fluid">
     <div class="dashboard-top">
         <div class="row">
-            <div class="col-md-6 column-pr-0">
+            <div class="col-md-5 column-pr-0">
                 <div class="box box-default">
                     <div class="box-header with-border">
                         <h3 class="box-title">Wallets</h3>
@@ -76,14 +76,26 @@
                 </div>
                 <!-- /.box -->
             </div>
-            <div class="col-md-6 equal-hgt">
+            <div class="col-md-7 equal-hgt">
                 <div class="box equal-box">
                     <div style="margin-bottom: 4px;" class="box-header">
                         <h3 class="box-title">Latest News</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body ltnews">
-                        <img class="img_' + resp[i].id +'" style="width:100%;" src="dist/img/lading_icon.gif">
+                        {{!--
+                        <img class="img_' + resp[i].id +'" style="width:100%;" src="dist/img/lading_icon.gif"> --}}
+                        {{#each blogPosts}}
+                            <div class="col-md-6 paddingleft recent_post_box">
+                                <a style="color: #000;" href="{{base_url}}blog/{{this.post_slug}}" target="_blank">
+                                    <p>
+                                        <img style="width:100%;" src="{{base_url}}blog_images/{{this.featured_image}}">
+                                    </p>
+                                    <h3 class="post-title">{{this.post_title}}</h3>
+                                </a>
+                                <p class="subdetails">CoinJolt.com</p>
+                            </div>
+                        {{/each}}
                     </div>
                     <!-- /.box-body -->
                 </div>

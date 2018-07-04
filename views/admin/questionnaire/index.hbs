@@ -1,10 +1,10 @@
 <section class="content-header">
-	<h1>All Questions List</h1>
+	<h1>Questionnaire</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">All Questions List</li>
+		<li class="active">Questionnaire</li>
 	</ol>
 	<div class="output-data" style="display:none;"></div>
 	{{#if message}}
@@ -18,7 +18,9 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
-					<!-- /.box-header -->
+					<div class="box-header with-border">
+						<h3 class="box-title">All Questions List</h3>
+					</div>
 					<div class="box-body">
 						<table id="all_question_table" class="table table-striped res-table ques-table">
 							<thead>
@@ -36,7 +38,7 @@
 									<td>{{this.question}}</td>
 									<td data-id="{{this.id}}" title="View Options"></td>
 									<td>
-										<a href="/admin/question/{{this.id}}">View User Answer</a>
+										<a href="/admin/question/{{this.id}}" class="tbl-common-btn btn btn-primary">View User Answer</a>
 									</td>
 								</tr>
 								{{/each}}

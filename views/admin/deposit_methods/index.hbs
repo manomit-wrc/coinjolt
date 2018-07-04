@@ -1,10 +1,10 @@
 <section class="content-header">
-	<h1>Deposit Methods List</h1>
+	<h1>Manage Deposit Methods</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">Deposit Methods List</li>
+		<li class="active">Manage Deposit Methods</li>
 	</ol>
 </section>
 
@@ -14,7 +14,9 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
-					<!-- /.box-header -->
+					<div class="box-header with-border">
+						<h3 class="box-title">Manage Deposit Methods List</h3>
+					</div>
 					<div class="box-body">
 						<table id="pending_transactions_table" class="table table-striped res-table">
 							<thead>
@@ -33,9 +35,9 @@
                                     <td>{{#if_eq this.status '1'}} Enabled {{else}} Disabled {{/if_eq}}</td>
                                     <td>
                                         {{#if_eq this.status '1'}}
-                                            <button class="btn deposit_disable" type="button" value="{{this.id}}">Click To Disable</button>
+                                            <button class="btn deposit_disable btn-danger" type="button" value="{{this.id}}">Click To Disable</button>
                                         {{else}}
-                                            <button class="btn deposit_enable" type="button" value="{{this.id}}">Click To Enable</button>
+                                            <button class="btn deposit_enable btn-success" type="button" value="{{this.id}}">Click To Enable</button>
                                         {{/if_eq}}
                                     </td>
 								</tr>

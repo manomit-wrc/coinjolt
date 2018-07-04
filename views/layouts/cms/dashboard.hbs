@@ -21,7 +21,8 @@
   <link href="/dist/frontend_cms/css/bootstrap.min.css" rel="stylesheet">
   <link href="/dist/frontend_cms/css/style.css" rel="stylesheet">
   <!-- <link href="/dist/frontend_cms/css/bootstrap-touch-slider.css" rel="stylesheet"> -->
-  <link href="/dist/frontend_cms/css/animate.min.css" rel="stylesheet" media="all">
+  <link href="/dist/frontend_cms/css/animations.css" rel="stylesheet" media="all">
+  <link href="/dist/frontend_cms/css/animations-ie-fix.css" rel="stylesheet" media="all">
 
   <!-- FontAwesome Css -->
   <link href="/dist/frontend_cms/css/font-awesome.min.css" rel="stylesheet">
@@ -112,27 +113,27 @@
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            $.get("http://coincap.io/page/BTC", function(data, status){
-                $('.btc').text(data.price_usd.toFixed(2));
-            }); 
-            $.get("http://coincap.io/page/ETH", function(data, status){
+      $(document).ready(function(){
+        $.get("http://coincap.io/page/BTC", function(data, status){
+          $('.btc').text(data.price_usd.toFixed(2));
+        }); 
+        $.get("http://coincap.io/page/ETH", function(data, status){
 
-                $('.eth').text(data.price_usd.toFixed(2));
-            });
-            $.get("http://coincap.io/page/XRP", function(data, status){
-
-                $('.xrp').text(data.price_usd.toFixed(2));
-            }); 
-            $.get("http://coincap.io/page/LTC", function(data, status){
-
-                $('.ltc').text(data.price_usd.toFixed(2));
-            });
-            $.get("http://coincap.io/page/BCH", function(data, status){
-
-                $('.bch').text(data.price_usd.toFixed(2));
-            });
+          $('.eth').text(data.price_usd.toFixed(2));
         });
+        $.get("http://coincap.io/page/XRP", function(data, status){
+
+          $('.xrp').text(data.price_usd.toFixed(2));
+        }); 
+        $.get("http://coincap.io/page/LTC", function(data, status){
+
+          $('.ltc').text(data.price_usd.toFixed(2));
+        });
+        $.get("http://coincap.io/page/BCH", function(data, status){
+
+          $('.bch').text(data.price_usd.toFixed(2));
+        });
+      });
     </script>
 
     <!-- OwlCarousel  -->
@@ -215,7 +216,7 @@
     </script>
 
     <script>
-		var maxHeight = 0;
+      var maxHeight = 0;
       $('.action-box').each(function (i) {
         var height = $('.action-box').eq(i).height();
         if (height > maxHeight)
@@ -223,7 +224,10 @@
       });
 
       $('.action-box').height(maxHeight);
-	  </script>
+    </script>
+
+    
+    <script src="/dist/frontend_cms/js/css3-animate-it.js"></script>
     
   </body>
   </html>

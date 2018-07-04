@@ -721,8 +721,8 @@ h3.post-title {
     }
 
     .account-settings .control-label {
-    	display: block;
-    	color: #666;
+		display: block;
+		color: #333;
     	padding: 0;
     	margin-bottom: 10px;
     	width: 100%;
@@ -735,10 +735,9 @@ h3.post-title {
     	-ms-user-select: none;
     	user-select: none;
     	pointer-events: none;
-    	font-weight: normal;
+		font-weight: 700;
     	margin-bottom: 3px;
-    	text-transform: uppercase;
-    }
+	}
 
     .account-settings .cj-lbl {
     	float: none !important;
@@ -2762,6 +2761,7 @@ h3.post-title {
 		font-size: 14px !important;
 		padding: 6px 12px !important;
 		margin-left: 10px;
+		border: 0 !important;
 	}
 
 	/* Ends css on 2018-07-03 */

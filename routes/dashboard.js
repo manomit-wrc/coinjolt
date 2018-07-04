@@ -133,7 +133,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
       });
     
     app.get('/dashboard', (req, res) => {
-        blog_post.findAll().then( function (blogPosts) {
+        blog_post.findAll({
+            limit: 4,
+            order: [
+                ['id', 'DESC']
+            ]
+        }).then( function (blogPosts) {
             // console.log(JSON.stringify(blogPosts, undefined, 2));
             User.findById(req.user.id).then( function (result) {
                 var result = JSON.parse(JSON.stringify(result));

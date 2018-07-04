@@ -25,47 +25,47 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Update EmailTemplate</h3>
                 </div>
-            <div class="box-body">
-                <form method="post" action="javasript:void(0)" role="form" id="submit-edit-email-template" name="submit-edit-email-template">
-                    <input type="hidden" name="row_id" value="{{all_data.id}}" id="row_id">
-                    {{#if message}}
-                    <div class="alert alert-success">{{message}}</div>
-                    {{/if}}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="Subject">Template Name</label>
-                                <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject" value="{{all_data.template_name}}">
-                                <div id="editTemplateSubjectErr"></div>
+                <div class="box-body">
+                    <form method="post" action="javasript:void(0)" role="form" id="submit-edit-email-template" name="submit-edit-email-template">
+                        <input type="hidden" name="row_id" value="{{all_data.id}}" id="row_id">
+                        {{#if message}}
+                        <div class="alert alert-success">{{message}}</div>
+                        {{/if}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Subject">Template Name</label>
+                                    <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject" value="{{all_data.template_name}}">
+                                    <div id="editTemplateSubjectErr"></div>
+                                </div>
+                            </div>
+                            <!-- div for error display -->
+                            <div class="col-md-12">
+                                <label for="status">Select Email Template:</label>
+                                <select class="form-control" id="edit_email_template" name="edit_email_template">
+                                    {{#each template_type}}
+                                        <option value="{{this.id}}" {{#if_eq template_type.0.template_type '1'}} selected {{/if_eq}}>{{this.type}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Description">Description</label>
+                                    <textarea name="editor1" class="form-control" id="editor1" placeholder="Enter Description">{{all_data.template_desc}}</textarea>
+                                    <div id="editTemplateDescErr"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-md-offset-5">
+                                <div class="form-group">
+                                    <input class="btn btn-primary" type="button" id="submit_edit_email_template" value="Edit" onclick="editEmailTemplate()" />
+
+                                </div>
                             </div>
                         </div>
-                        <!-- div for error display -->
-                        <div class="col-md-12">
-                            <label for="status">Select Email Template:</label>
-                            <select class="form-control" id="edit_email_template" name="edit_email_template">
-                                {{#each template_type}}
-                                    <option value="{{this.id}}" {{#if_eq template_type.0.template_type '1'}} selected {{/if_eq}}>{{this.type}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="Description">Description</label>
-                                <textarea name="editor1" class="form-control" id="editor1" placeholder="Enter Description">{{all_data.template_desc}}</textarea>
-                                <div id="editTemplateDescErr"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-md-offset-5">
-                            <div class="form-group">
-                                <input class="btn btn-primary" type="button" id="submit_edit_email_template" value="Edit" onclick="editEmailTemplate()" />
-
-                            </div>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
+                    </form>
+                </div>
         <!-- /.box-body -->
          </div>
     </div>

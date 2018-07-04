@@ -1,19 +1,11 @@
 <section class="content-header">
-	<h1>All User List</h1>
+	<h1>All User</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
 		</li>
-		<li class="active">All User List</li>
+		<li class="active">All User</li>
 	</ol>
-
-	<div class="box-footer admin-tp-box" style="margin: 10px 0;">
-	    <a href="/admin/send-email-history-list">
-	    	<button type="button" class="btn btn-success">Send Email History</button>
-	    </a>
-
-    	<input type="button" class="btn btn-success" name="send_multiple_email" id="send_multiple_email" value="Send Multiple Email">
-  	</div>
 </section>
 
 <section class="content container-fluid">
@@ -22,7 +14,12 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">
-					<!-- /.box-header -->
+					<div class="box-header with-border floating-header">
+						<h3 class="box-title pull-left">All User List</h3>
+						<a href="/admin/send-email-history-list"  class="btn btn-primary pull-right">Send Email History</a>
+						<input type="button" class="btn btn-primary pull-right" name="send_multiple_email" id="send_multiple_email" value="Send Multiple Email">
+						<div class="clearfix"></div>
+					</div>
 					<div class="box-body">
 						<table id="all_user_list_table" class="table table-striped res-table">
 							<thead>
@@ -50,7 +47,7 @@
 									<td>{{this.first_name}} {{this.last_name}}</td>
 									<td>{{this.email}}</td>
 									<td>
-										<a href='/admin/send-email/{{this.id}}' class="btn approve-req" >Send Email</a>
+										<a href='/admin/send-email/{{this.id}}' class="btn approve-req btn-primary tbl-common-btn" >Send Email</a>
 									</td>
 								</tr>
 								{{/each}}
@@ -69,7 +66,7 @@
 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -113,6 +110,6 @@
 	        </div>
     	</form>
       </div>
-      
+
     </div>
   </div>

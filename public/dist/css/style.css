@@ -938,7 +938,7 @@ h3.post-title {
     }
 
     .col-md-6.paddingleft.recent_post_box img {
-    	height: 205px;
+    	height: 142px;
     }
 
 /* .dashboard-top .col-md-6.equal-hgt {
@@ -947,7 +947,7 @@ h3.post-title {
 
     .dashboard-top .scroll-dashboard {
     	overflow-y: scroll;
-    	height: 512px;
+    	height: 392px;
     }
 
     /*Closed on css 24-04-2018*/
@@ -1102,7 +1102,7 @@ h3.post-title {
     	-moz-border-radius: 0 !important;
     	-ms-border-radius: 0 !important;
     	-o-border-radius: 0 !important;
-    	height: 620px;
+    	height: 500px;
     }
 
     .scroll-dashboard td {
@@ -1779,7 +1779,10 @@ h3.post-title {
     .recent_post_box {
     	min-height: 240px;
     }
-    .dashboard-top .col-md-6.equal-hgt {
+    .dashboard-top .col-md-7.equal-hgt {
+    	padding-left: 0 !important;
+    }
+    .dashboard-top .col-md-5.equal-hgt {
     	padding-left: 0 !important;
     }
     /* Ends css on 2018-06-11 */

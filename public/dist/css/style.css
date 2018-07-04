@@ -430,7 +430,7 @@ body {
 .main-footer p {
 	float: left;
 	margin-bottom: 0;
-	margin-right: 15px;
+	margin-right: 0;
 	margin-top: 6px;
 }
 
@@ -1198,7 +1198,7 @@ h3.post-title {
     }
 
     .box.cjnews-box {
-    	height: 677px;
+    	height: 673px;
     	overflow-x: hidden;
     	overflow-y: auto;
     }
@@ -1998,6 +1998,18 @@ h3.post-title {
 
     /*Closed on css 02-07-2018*/
 
+    /*Starts on css 04-07-2018*/
+
+    .main-footer .pull-right {
+    	margin-top: 10px;
+    }
+
+    .main-footer .pull-right br {
+    	display: none;
+    }
+
+    /*Ends on css 04-07-2018*/
+
 
 
     @media screen and (max-width: 1366px) {
@@ -2222,6 +2234,16 @@ h3.post-title {
     .main-footer {
         margin-left: 0px !important;
         } */
+    }
+
+    @media screen and (max-width: 370px) {
+    	.main-footer span {
+    		display: block;
+    	}
+
+    	.main-footer .dash {
+    		display: none;
+    	}
     }
 
     /* Ends Responsive Table */
@@ -2724,53 +2746,53 @@ h3.post-title {
 
     .barcode .close {
     	display:none;
-	}
+    }
 
 
-	/* Starts css on 2018-07-03 */
+    /* Starts css on 2018-07-03 */
 
-	.dataTables_wrapper .dataTables_length select.form-control.input-sm {
-		margin: 10px 10px 0 10px !important;
-		padding: 0 10px !important;
-	}
+    .dataTables_wrapper .dataTables_length select.form-control.input-sm {
+    	margin: 10px 10px 0 10px !important;
+    	padding: 0 10px !important;
+    }
 
-	.dataTables_wrapper .dataTables_filter input.form-control.input-sm {
-		margin: 10px 0 0 10px !important;
-		padding: 0 10px !important;
-	}
+    .dataTables_wrapper .dataTables_filter input.form-control.input-sm {
+    	margin: 10px 0 0 10px !important;
+    	padding: 0 10px !important;
+    }
 
-   .floating-header .box-title {
-		position: relative;
-		top: 7px;
-	}
+    .floating-header .box-title {
+    	position: relative;
+    	top: 7px;
+    }
 
-	.floating-header .btn-primary {
-		font-size: 14px !important;
-		padding: 6px 12px !important;
-		margin-left: 10px;
-	}
+    .floating-header .btn-primary {
+    	font-size: 14px !important;
+    	padding: 6px 12px !important;
+    	margin-left: 10px;
+    }
 
-	#all_user_list_table input[type=checkbox] ,
-	#email_marketing_preview_form input[type=radio]
-	{
-		position: relative;
-		top: 2px;
-		margin-right: 5px;
-	}
+    #all_user_list_table input[type=checkbox] ,
+    #email_marketing_preview_form input[type=radio]
+    {
+    	position: relative;
+    	top: 2px;
+    	margin-right: 5px;
+    }
 
-	.tbl-common-btn {
-		font-size: 14px !important;
-		padding: 6px 12px !important;
-		margin-left: 10px;
-	}
+    .tbl-common-btn {
+    	font-size: 14px !important;
+    	padding: 6px 12px !important;
+    	margin-left: 10px;
+    }
 
-	/* Ends css on 2018-07-03 */
+    /* Ends css on 2018-07-03 */
 
-	/* Starts css on 2018-07-04 */
+    /* Starts css on 2018-07-04 */
 
-	#update_company_settings .max-250 {
-		max-width: 250px;
-		margin: 0 auto 15px;
-	}
+    #update_company_settings .max-250 {
+    	max-width: 250px;
+    	margin: 0 auto 15px;
+    }
 
 	/* Ends css on 2018-07-04 */

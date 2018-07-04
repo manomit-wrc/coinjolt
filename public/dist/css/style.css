@@ -430,7 +430,7 @@ body {
 .main-footer p {
 	float: left;
 	margin-bottom: 0;
-	margin-right: 15px;
+	margin-right: 0;
 	margin-top: 6px;
 }
 
@@ -1197,7 +1197,7 @@ h3.post-title {
     }
 
     .box.cjnews-box {
-    	height: 677px;
+    	height: 673px;
     	overflow-x: hidden;
     	overflow-y: auto;
     }
@@ -1997,6 +1997,18 @@ h3.post-title {
 
     /*Closed on css 02-07-2018*/
 
+    /*Starts on css 04-07-2018*/
+
+    .main-footer .pull-right {
+    	margin-top: 10px;
+    }
+
+    .main-footer .pull-right br {
+    	display: none;
+    }
+
+    /*Ends on css 04-07-2018*/
+
 
 
     @media screen and (max-width: 1366px) {
@@ -2221,6 +2233,16 @@ h3.post-title {
     .main-footer {
         margin-left: 0px !important;
         } */
+    }
+
+    @media screen and (max-width: 370px) {
+    	.main-footer span {
+    		display: block;
+    	}
+
+    	.main-footer .dash {
+    		display: none;
+    	}
     }
 
     /* Ends Responsive Table */

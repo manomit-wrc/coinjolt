@@ -442,7 +442,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
                                     <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
                                     <p> 
-                                        <a href="${keys.BASE_URL}activated/"${email_key}>
+                                        <a href="${keys.BASE_URL}activated/${email_key}">
                                     ${keys.BASE_URL}activated/${email_key}
                                         </a>
                                     </p>
@@ -770,7 +770,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
                                     <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
                                     <p> 
-                                        <a href="${keys.BASE_URL}activated/"${email_key}>
+                                        <a href="${keys.BASE_URL}activated/${email_key}">
                                     ${keys.BASE_URL}activated/${email_key}
                                         </a>
                                     </p>

@@ -107,158 +107,7 @@ $(document).ready(function (e) {
 		}
 	});
 
-	//email send
-	$('#send_email').on('click', function (e) {
-		var valid = $('#send-email-form').valid();
-		var user_email = $('#to').val();
-		var subject = $('#subject').val();
-		var description = CKEDITOR.instances['editor1'].getData();
-		var user_id = $('#user_id').val();
-		var email_template_id = $('#select_email_template').val();
-		if(email_template_id != ''){
-			email_template_id = email_template_id;
-		}else{
-			email_template_id = 'NULL';
-		}
 
-		if(valid){
-			if(description == ''){
-				alert ("Description can't be left blank");
-				return false;
-			}else{
-				$(':input[type="button"]').prop('disabled', true);
-				$.ajax({
-					type: "POST",
-					url: "/admin/send-email",
-					data:{
-						user_id: user_id,
-						user_email: user_email,
-						subject: subject,
-						description: description,
-						email_template_id: email_template_id
-					},
-					success: function (response) {
-						if(response.status == true){
-							$(':input[type="button"]').prop('disabled', false);
-							swal({
-					            title: 'Thank You',
-					            text: response.msg,
-					            type: "success",
-					            confirmButtonColor: "#DD6B55",
-					            confirmButtonText: "OK"
-					        },  function() {
-					            window.location.href = '/admin/all-user-list';
-					        });
-						}
-					}
-				});
-			}
-		}
-	});
-
-	$('#send-email-form').validate({
-		rules:{
-			subject:{
-				required: true
-			}
-		},
-		messages:{
-			subject:{
-				required: "Please enter subject."
-			}			
-		}
-	});
-
-	$('#send_multiple_email_form').validate({
-		rules:{
-			subject:{
-				required: true
-			}
-		},
-		messages:{
-			subject:{
-				required: "Please enter subject."
-			}			
-		}
-	});
-
-	$('#send_multiple_email_to_user').on('click', function () {
-		var valid = $('#send_multiple_email_form').valid();
-		var all_user_ids = $('#all_user_ids').val();
-		var user_email = $('#to').val();
-		var subject = $('#subject').val();
-		var description = CKEDITOR.instances['editor1'].getData();
-		var email_template_id = $('#select_email_template').val();
-		if(email_template_id != ''){
-			email_template_id = email_template_id;
-		}else{
-			email_template_id = 'NULL';
-		}
-
-		if(valid){
-			if(description == ''){
-				alert ("Description can't be left blank");
-				return false;
-			}else{
-				$(':input[type="button"]').prop('disabled', true);
-				$.ajax({
-					type: "POST",
-					url: "/admin/send-multiple-email-to-user",
-					data:{
-						user_email: user_email,
-						subject: subject,
-						description: description,
-						email_template_id: email_template_id
-					},
-					success: function (response) {
-						if(response.status == true){
-					  		$.ajax({
-					  			type: "POST",
-					  			url: "/admin/entery-to-db-after-send-multipleEmail",
-					  			data:{
-					  				user_email: user_email,
-					  				subject: subject,
-									description: description,
-									email_template_id: email_template_id,
-									all_user_ids: all_user_ids
-					  			},
-					  			success: function (resp){	
-					  				if(resp.status == true){
-					  					$(':input[type="button"]').prop('disabled', false);
-					  					swal({
-								            title: 'Thank You',
-								            text: response.msg,
-								            type: "success",
-								            confirmButtonColor: "#DD6B55",
-								            confirmButtonText: "OK"
-								        },  function() {
-								            window.location.href = '/admin/all-user-list';
-								        });
-					  				}
-					  			}
-					  		});
-						}
-					}
-				});
-			}
-		}
-	});
-
-	$('#select_email_template').on('change', function (e) {
-		var template_id = $('#select_email_template').val();
-		$.ajax({
-			type: "POST",
-			url: "/admin/get-email-template-description",
-			data:{
-				template_id: template_id
-			},
-			success: function (response) {
-				if(response.status == true){
-	              	CKEDITOR.instances['editor1'].setData(response.msg);
-				}
-			}
-		});
-	});
 
 	//start email marketing related work
 	$('#select_individuals_user_related_div').hide();
@@ -612,4 +461,156 @@ $(".email_send_details").on('click', function () {
 			$('#myModal').modal('show')
 		}
 	});
+});
+
+$('#select_email_template').on('change', function (e) {
+	var template_id = $('#select_email_template').val();
+	$.ajax({
+		type: "POST",
+		url: "/admin/get-email-template-description",
+		data:{
+			template_id: template_id
+		},
+		success: function (response) {
+			if(response.status == true){
+              	CKEDITOR.instances['editor1'].setData(response.msg);
+			}
+		}
+	});
+});
+
+$('#send-email-form').validate({
+	rules:{
+		subject:{
+			required: true
+		}
+	},
+	messages:{
+		subject:{
+			required: "Please enter subject."
+		}			
+	}
+});
+
+$('#send_email').on('click', function (e) {
+	var valid = $('#send-email-form').valid();
+	var user_email = $('#to').val();
+	var subject = $('#subject').val();
+	var description = CKEDITOR.instances['editor1'].getData();
+	var user_id = $('#user_id').val();
+	var email_template_id = $('#select_email_template').val();
+	if(email_template_id != ''){
+		email_template_id = email_template_id;
+	}else{
+		email_template_id = 'NULL';
+	}
+
+	if(valid){
+		if(description == ''){
+			alert ("Description can't be left blank");
+			return false;
+		}else{
+			$(':input[type="button"]').prop('disabled', true);
+			$.ajax({
+				type: "POST",
+				url: "/admin/send-email",
+				data:{
+					user_id: user_id,
+					user_email: user_email,
+					subject: subject,
+					description: description,
+					email_template_id: email_template_id
+				},
+				success: function (response) {
+					if(response.status == true){
+						$(':input[type="button"]').prop('disabled', false);
+						swal({
+				            title: 'Thank You',
+				            text: "Email send to the user successfully.",
+				            type: "success",
+				            confirmButtonColor: "#DD6B55",
+				            confirmButtonText: "OK"
+				        },  function() {
+				            window.location.href = '/admin/all-user-list';
+				        });
+					}
+				}
+			});
+		}
+	}
+});
+
+$('#send_multiple_email_form').validate({
+	rules:{
+		subject:{
+			required: true
+		}
+	},
+	messages:{
+		subject:{
+			required: "Please enter subject."
+		}			
+	}
+});
+
+$('#send_multiple_email_to_user').on('click', function () {
+	var valid = $('#send_multiple_email_form').valid();
+	var all_user_ids = $('#all_user_ids').val();
+	var user_email = $('#to').val();
+	var subject = $('#subject').val();
+	var description = CKEDITOR.instances['editor1'].getData();
+	var email_template_id = $('#select_email_template').val();
+	if(email_template_id != ''){
+		email_template_id = email_template_id;
+	}else{
+		email_template_id = 'NULL';
+	}
+
+	if(valid){
+		if(description == ''){
+			alert ("Description can't be left blank");
+			return false;
+		}else{
+			$(':input[type="button"]').prop('disabled', true);
+			$.ajax({
+				type: "POST",
+				url: "/admin/send-multiple-email-to-user",
+				data:{
+					user_email: user_email,
+					subject: subject,
+					description: description,
+					email_template_id: email_template_id
+				},
+				success: function (response) {
+					if(response.status == true){
+				  		$.ajax({
+				  			type: "POST",
+				  			url: "/admin/entery-to-db-after-send-multipleEmail",
+				  			data:{
+				  				user_email: user_email,
+				  				subject: subject,
+								description: description,
+								email_template_id: email_template_id,
+								all_user_ids: all_user_ids
+				  			},
+				  			success: function (resp){	
+				  				if(resp.status == true){
+				  					$(':input[type="button"]').prop('disabled', false);
+				  					swal({
+							            title: 'Thank You',
+							            text: response.msg,
+							            type: "success",
+							            confirmButtonColor: "#DD6B55",
+							            confirmButtonText: "OK"
+							        },  function() {
+							            window.location.href = '/admin/all-user-list';
+							        });
+				  				}
+				  			}
+				  		});
+					}
+				}
+			});
+		}
+	}
 });

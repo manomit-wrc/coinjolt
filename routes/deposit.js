@@ -58,7 +58,7 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
 			}
 		});
 		
-		res.render('deposit/view',{layout: 'dashboard', depositHistory: depositHistory, countries: countries, depositMethods: depositMethods, msg:msg, cancelMsg:cancelMsg});
+		res.render('deposit/view',{layout: 'dashboard', depositHistory: depositHistory, countries: countries, depositMethods: depositMethods, msg:msg, cancelMsg:cancelMsg, title: 'Deposit Funds'});
 
 	});
 

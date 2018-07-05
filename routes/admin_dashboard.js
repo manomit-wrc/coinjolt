@@ -384,6 +384,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				d_amount = result[0].length > 0 ? result[0][0].deposit_amount : 0;
 				w_amount = result[1].length > 0 ? result[1][0].withdraw_amount : 0;
 				user_list_arr.push({
+					user_id: x.id,
 					name: x.first_name + " " + x.last_name,
 					deposit_amount: d_amount,
 					withdraw_amount: w_amount,

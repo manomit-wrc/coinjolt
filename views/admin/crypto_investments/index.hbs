@@ -22,7 +22,7 @@
 							<thead>
 								<tr>
 									<th>ID</th>
-									<th>Name</th>
+									<th>Coin Name</th>
 									<th>Current Value ($)</th>
 									<th>Balance ($)</th>
 									<th>Total Amount ($)</th>
@@ -33,9 +33,9 @@
 								<tr>
 									<td>{{inc @index}}</td>
 									<td>{{this.coin_name}}</td>
-									<td>{{this.coin_rate}}</td>
-									<td>{{this.total_balance}}</td>
-									<td>{{this.total_amt}}</td>
+									<td>{{twoDecimalPoint this.coin_rate}}</td>
+									<td>{{formatCurrency (twoDecimalPoint this.total_balance)}}</td>
+									<td>{{formatCurrency (twoDecimalPoint this.total_amt)}}</td>
 								</tr>
 								{{/each}}
 							</tbody>

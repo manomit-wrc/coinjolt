@@ -34,7 +34,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		email_template.belongsTo(email_template_type, {foreignKey: 'template_type'});
 			email_template.findAll({
 				where: {
-					template_type: 1 // for registration template
+					template_type: req.body.template_type // for registration template
 				},
 				include: [{
 					model: email_template_type
@@ -103,7 +103,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 
 		email_template.findAll({
 			where: {
-				template_type: 1 // for registration template
+				template_type: req.body.template_type // for registration template
 			},
 			include: [{
 				model: email_template_type
@@ -444,6 +444,25 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 				});
 			}
 		});
+	});
+
+	app.post('/admin/delete-send-email-details', acl , (req,res) =>{
+		
+		var send_email_id = req.body.sent_email_id;
+		send_email.destroy({
+		    where: {
+		    	id: send_email_id
+		    }
+		}).then(function (result) {
+			if(result){
+				res.json({
+					status: true,
+					msg: "Record deleted successfully."
+				});
+			}
+		});
+		
+
 	});
 
 	//Send Bulk Password Email Starts

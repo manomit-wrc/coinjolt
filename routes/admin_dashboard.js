@@ -383,8 +383,26 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				var result = JSON.parse(JSON.stringify(values));
 				d_amount = result[0].length > 0 ? result[0][0].deposit_amount : 0;
 				w_amount = result[1].length > 0 ? result[1][0].withdraw_amount : 0;
+				if(x.first_name == null && x.last_name == null){
+					name = x.email;
+				} else 	if(x.first_name == null || x.last_name == null){
+					if(x.first_name == null){
+						f_name = "";
+					} else {
+						f_name = x.first_name;
+					}
+					if(x.last_name == null){
+						l_name = "";
+					} else {
+						l_name = x.last_name;
+					}
+					name = f_name + " " + l_name + " (" + x.email + ")";
+				} else {
+					name = x.first_name + " " + x.last_name + " (" + x.email + ")";
+				}
 				user_list_arr.push({
-					name: x.first_name + " " + x.last_name,
+					user_id: x.id,
+					name: name,
 					deposit_amount: d_amount,
 					withdraw_amount: w_amount,
 					balance: parseFloat(d_amount) - parseFloat(w_amount)

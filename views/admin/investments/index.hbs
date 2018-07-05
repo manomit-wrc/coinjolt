@@ -36,7 +36,7 @@
 						<table id="pending_investments_table" class="table table-striped res-table">
 							<thead>
 								<tr>
-									<th>ID</th>
+									<th>User ID</th>
 									<th>Name</th>
 									<th>Invest Amount ($)</th>
 									<th>Withdraw Amount ($)</th>
@@ -46,11 +46,12 @@
 							<tbody>
 								{{#each all_data}}
 								<tr>
-									<td>{{inc @index}}</td>
+									{{!-- <td>{{inc @index}}</td> --}}
+									<td>{{this.user_id}}</td>
 									<td>{{this.name}}</td>
-									<td>{{this.deposit_amount}}</td>
-									<td>{{this.withdraw_amount}}</td>
-									<td>{{this.balance}}</td>
+									<td>{{formatCurrency (twoDecimalPoint this.deposit_amount)}}</td>
+									<td>{{formatCurrency (twoDecimalPoint this.withdraw_amount)}}</td>
+									<td>{{formatCurrency (twoDecimalPoint this.balance)}}</td>
 								</tr>
 								{{/each}}
 							</tbody>

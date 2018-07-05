@@ -93,7 +93,7 @@ a {
 }
 
 .header-top .mail-part ul li a:hover {
-	color: #43d3e8;
+	color: #202020;
 	text-decoration: none;
 }
 
@@ -554,6 +554,7 @@ canvas{
 	-moz-transition: all 0.3s ease 0s;
 	-ms-transition: all 0.3s ease 0s;
 	-o-transition: all 0.3s ease 0s;
+	height: 410px;
 }
 
 .buy-section .buy-box:hover {

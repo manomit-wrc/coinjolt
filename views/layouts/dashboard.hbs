@@ -1045,8 +1045,10 @@
 
             // Script for showing current currency type purchase type selection
             $('#currency_purchased').on('change', function () {
-                var currencyType =  $("#currency_purchased option:selected").text();
-                var msg = "Current Rate("+currencyType+")"+": "+"$ ";
+                var currencyTypeString =  $("#currency_purchased option:selected").text();
+                var currencyTypeOnly = currencyTypeString.match(/\((.*)\)/);
+                var currencyType = currencyTypeOnly[1];
+                var msg = "Current Rate("+currencyTypeString+")"+": "+"$ ";
                 var amtVal = parseFloat(jQuery("#payAmount").val());
                 if (currencyType !== '' && currencyType !=='Please select a option') {
                     $('.expected').removeClass('alert alert-danger');
@@ -1062,7 +1064,7 @@
                             $('.currentrateexpected').html(msg+roundUpPrice);
                             $('#currentratetext').addClass('alert alert-danger');
                             $('#currentratetext').show();
-                            $('#currentratetext').html('Current Rate('+currencyType+')'+': $'+result.price_usd);
+                            $('#currentratetext').html('Current Rate('+currencyTypeString+')'+': $'+result.price_usd);
                             $('.currentrateexpected').show();
                         },
                         error: function(error) {
@@ -1193,7 +1195,7 @@
                                 var currency_id = result.curr_id;
                                 swal({
                                     title: "Transaction Confirmation",
-                                    text: "You are buying " + actualAmtExpect + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +c_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
+                                    text: "You are buying " + actualAmtExpect + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + " Wallet:\n Current balance: " +c_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
                                     type: "warning",
                                     showCancelButton: true,
                                     confirmButtonClass: "btn-danger",
@@ -1247,8 +1249,10 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
 
             // Script for getting current coin rate for selling coin
             $('#currency_sold').on('change', function () {
-                var currencyType =  $("#currency_sold option:selected").text();
-                var msg = "Current Rate("+currencyType+")"+": "+"$ ";
+                var currencyTypeString =  $("#currency_sold option:selected").text();
+                var currencyTypeOnly = currencyTypeString.match(/\((.*)\)/);
+                var currencyType = currencyTypeOnly[1];
+                var msg = "Current Rate("+currencyTypeString+")"+": "+"$ ";
                 var amtVal = parseFloat(jQuery("#payAmount").val());
                 if (currencyType !== '' && currencyType !=='Please select a option') {
                     $('.expected').removeClass('alert alert-danger');
@@ -1264,7 +1268,7 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                             $('.currentrateexpected').html(msg+roundUpPrice);
                             $('#sell_currentratetext').addClass('alert alert-danger');
                             $('#sell_currentratetext').show();
-                            $('#sell_currentratetext').html('Current Rate('+currencyType+')'+': $'+roundUpPrice);
+                            $('#sell_currentratetext').html('Current Rate('+currencyTypeString+')'+': $'+roundUpPrice);
                             $('.currentrateexpected').show();
                         },
                         error: function(error){
@@ -1459,7 +1463,7 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                                 var currency_id = result.curr_id;
                                 swal({
                                     title: "Transaction Confirmation",
-                                    text: "You are selling " + amtVal + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + "("+currency_value+ ")" + " Wallet:\n Current balance: " +c_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
+                                    text: "You are selling " + amtVal + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + " Wallet:\n Current balance: " +c_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
                                     type: "warning",
                                     showCancelButton: true,
                                     confirmButtonClass: "btn-danger",

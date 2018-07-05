@@ -619,7 +619,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }] 
         }); 
         values = await Currency.findAll({
-            attributes: ['alt_name','currency_id']
+            attributes: ['alt_name','currency_id','display_name']
         });
         res.render('buy-and-sell-coins', {layout: 'dashboard',contents: values,currencyCodes: currencyCodes, title: 'Buy And Sell Coins' });
     });

@@ -13,7 +13,6 @@ const bCrypt = require('bcrypt-nodejs');
 var speakeasy = require('speakeasy');
 const auth = require('../middlewares/auth');
 
-
 module.exports = function (app, passport, models) {
     
     app.get('/', auth, function(req, res) {

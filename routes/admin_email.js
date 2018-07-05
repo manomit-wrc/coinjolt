@@ -446,6 +446,25 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
+	app.post('/admin/delete-send-email-details', acl , (req,res) =>{
+		
+		var send_email_id = req.body.sent_email_id;
+		send_email.destroy({
+		    where: {
+		    	id: send_email_id
+		    }
+		}).then(function (result) {
+			if(result){
+				res.json({
+					status: true,
+					msg: "Record deleted successfully."
+				});
+			}
+		});
+		
+
+	});
+
 	//Send Bulk Password Email Starts
 	/*
 	app.get('/admin/send-password-email', acl, (req,res) => {

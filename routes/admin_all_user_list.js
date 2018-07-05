@@ -98,6 +98,7 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		    }
 		   ]
 		}).then(function (result) {
+
 			res.render('admin/user/send_email_history',{layout:'dashboard', allData:result, title:"Email History"});
 		});
 	});

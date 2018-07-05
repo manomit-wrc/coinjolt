@@ -531,7 +531,9 @@ $('#send_email').on('click', function (e) {
 				            confirmButtonColor: "#DD6B55",
 				            confirmButtonText: "OK"
 				        },  function() {
-				            window.location.href = '/admin/all-user-list';
+
+				            window.location.href = "/admin/send-email-history-list";
+
 				        });
 					}
 				}

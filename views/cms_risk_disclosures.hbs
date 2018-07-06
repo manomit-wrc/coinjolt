@@ -55,7 +55,17 @@
                     <div class="work-widget-thumb">
                       <div class="image-overlay"></div>
                       <a href="{{base_url}}/blog/{{this.post_slug}}">
-                        <img src="blog_images/{{this.featured_image}}" class="img-responsive" alt="{{this.post_title}}">
+                        {{#if_eq this.featured_image ""}}
+                            <img class="img-responsive" src="dist/img/blog_default.png" alt="{{this.post_title}}">
+                        {{else}}   
+                            {{#if_eq this.featured_image null}}
+                                <img class="img-responsive" src="dist/img/blog_default.png" alt="{{this.post_title}}">
+                            {{else}}
+                                {{#if_neq this.featured_image ""}}
+                                    <img class="img-responsive" src="{{base_url}}blog_images/{{this.featured_image}}" alt="{{this.post_title}}">
+                                {{/if_neq}}
+                            {{/if_eq}}    
+                        {{/if_eq}} 
                       </a>
                     </div>      
                     <div class="work-widget-content">
@@ -74,7 +84,17 @@
                     <div class="work-widget-thumb">
                       <div class="image-overlay"></div>
                       <a href="{{base_url}}/blog/{{this.post_slug}}">
-                        <img src="blog_images/{{this.featured_image}}" class="img-responsive" alt="{{this.post_title}}">
+                        {{#if_eq this.featured_image ""}}
+                            <img class="img-responsive" src="dist/img/blog_default.png" alt="{{this.post_title}}">
+                        {{else}}   
+                            {{#if_eq this.featured_image null}}
+                                <img class="img-responsive" src="dist/img/blog_default.png" alt="{{this.post_title}}">
+                            {{else}}
+                                {{#if_neq this.featured_image ""}}
+                                    <img class="img-responsive" src="{{base_url}}blog_images/{{this.featured_image}}" alt="{{this.post_title}}">
+                                {{/if_neq}}
+                            {{/if_eq}}    
+                        {{/if_eq}}
                       </a>
                     </div>      
                     <div class="work-widget-content">

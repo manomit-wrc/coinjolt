@@ -405,11 +405,13 @@ canvas{
 	font-size: 16px;
 	display: table;
 	margin-top: 70px;
+	outline: none !important;
 }
 
 .welcome-section .wel-box a:hover {
 	color: #ffffff;
 	background: #222222 none repeat scroll 0 0;
+	outline: none !important;
 }
 
 /*Ends Welcome Section */
@@ -1346,6 +1348,7 @@ footer {
 .about-section .rgt-box .latest-works-widget li .work-widget-thumb {
 	float: left;
 	width: 15%;
+	position: relative;
 }
 
 .about-section .rgt-box .latest-works-widget li .work-widget-content {
@@ -1358,6 +1361,35 @@ footer {
 	height: 40px;
 	margin: 0;
 	width: 40px;
+}
+
+.about-section .rgt-box .work-widget-thumb .image-overlay {
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+	height: 40px;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	width: 40px;
+	z-index: 999999;
+	transition: all 0.3s ease 0s;
+	-webkit-transition: all 0.3s ease 0s;
+	-moz-transition: all 0.3s ease 0s;
+	-ms-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	cursor: pointer;
+}
+
+.about-section .rgt-box .work-widget-thumb .image-overlay:hover {
+	opacity: 1;
+}
+
+.blog-dtls img {
+	float: right;
 }
 
 .about-section .rgt-box .latest-works-widget li .work-widget-content h6 {
@@ -1384,10 +1416,10 @@ footer {
 }
 
 .about-section .rgt-box .latest-works-widget li .work-widget-content p {
-	font-size: 14px;
+	font-size: 12px;
 	margin-bottom: 0;
 	margin-top: 0;
-	color: #787d85;
+	color: rgba(120, 125, 133, 0.5);
 }
 
 .rgt-box {

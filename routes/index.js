@@ -669,7 +669,7 @@ module.exports = function (app, passport, models) {
         });
     });
 
-     app.get('/blog/:blogDetail', (req,res) =>{
+     app.get('/:blogDetail', (req,res) =>{
         var blogPageSlug = req.params.blogDetail;
         models.blog_post.belongsTo(models.blog_category, {foreignKey: 'post_category_id'});
 

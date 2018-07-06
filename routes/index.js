@@ -12,7 +12,6 @@ AWS.config.update({region: 'us-east-1'});
 const bCrypt = require('bcrypt-nodejs');
 var speakeasy = require('speakeasy');
 const auth = require('../middlewares/auth');
-const blogcontent = require('../middlewares/blogcontent');
 
 module.exports = function (app, passport, models) {
     
@@ -670,7 +669,7 @@ module.exports = function (app, passport, models) {
         });
     });
 
-     app.get('/:blogDetail', blogcontent, (req,res) =>{
+     app.get('/blog/:blogDetail', (req,res) =>{
         
         var blogPageSlug = req.params.blogDetail;
 

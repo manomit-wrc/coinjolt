@@ -12,6 +12,7 @@ AWS.config.update({region: 'us-east-1'});
 const bCrypt = require('bcrypt-nodejs');
 var speakeasy = require('speakeasy');
 const auth = require('../middlewares/auth');
+const blogcontent = require('../middlewares/blogcontent');
 
 module.exports = function (app, passport, models) {
     
@@ -669,8 +670,10 @@ module.exports = function (app, passport, models) {
         });
     });
 
-     app.get('/:blogDetail', (req,res) =>{
+     app.get('/:blogDetail', blogcontent, (req,res) =>{
+        
         var blogPageSlug = req.params.blogDetail;
+
         models.blog_post.belongsTo(models.blog_category, {foreignKey: 'post_category_id'});
 
         Promise.all([
@@ -721,7 +724,6 @@ module.exports = function (app, passport, models) {
             
             res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2], companySettingsData: results[3], postTitle: results[4]});
         });
-        
 
 
     }); 

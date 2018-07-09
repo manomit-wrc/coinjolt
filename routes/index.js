@@ -663,9 +663,16 @@ module.exports = function (app, passport, models) {
     });
 
     app.get('/about-us', (req,res) => {
-        models.cms_about_us.findAll().then(function(result) {
-            var data = JSON.parse(JSON.stringify(result));
-            res.render("cms/about_us", {layout: "cms/dashboard", details:data})
+
+        Promise.all([
+            models.company_setting.findAll({  
+
+            }),
+            models.cms_about_us.findAll({
+
+            })
+        ]).then(function (result) {
+            res.render("cms/about_us", {layout: "cms/dashboard", companySettingsData:result[0],details:result[1]})
         });
     });
 

@@ -93,7 +93,7 @@ a {
 }
 
 .header-top .mail-part ul li a:hover {
-	color: #202020;
+	color: #FFFFFF;
 	text-decoration: none;
 }
 
@@ -753,16 +753,17 @@ canvas{
 
 .video-section .heading h4 {
 	color: #fff;
-	font-size: 17px;
-	font-weight: bold;
+	font-size: 50px;
 	letter-spacing: 1px;
 	margin: 0 0 22px;
 	text-align: center;
+	text-transform: uppercase;
+	font-family: 'AvenirNextLTProBold', sans-serif;
 }
 
 .video-section .heading h3 {
 	color: #ffffff;
-	font-size: 48px;
+	font-size: 36px;
 	letter-spacing: 1px;
 	margin: 0 0 40px;
 	text-align: center;
@@ -1983,94 +1984,103 @@ footer {
 		width: 100%;
 	}
 
-    /* .price-wrap .price-item ul {
-      text-align: center;
-      } */
+	.money-section .col-xs-7, .money-section .col-xs-5 {
+		width: 100%;
+	}
 
-      .money-section .col-xs-7, .money-section .col-xs-5 {
-      	width: 100%;
-      }
+	.money-section img {
+		display: table;
+		float: none;
+		margin: 0 auto;
+		width: 100%;
+	}
 
-      .money-section img {
-      	display: table;
-      	float: none;
-      	margin: 0 auto;
-      	width: 100%;
-      }
+	.money-section .left-part {
+		margin-top: 0;
+		text-align: center;
+	}
 
-      .money-section .left-part {
-      	margin-top: 0;
-      	text-align: center;
-      }
+	.money-section .left-part a {
+		display: table;
+		margin: 20px auto;
+	}
 
-      .money-section .left-part a {
-      	display: table;
-      	margin: 20px auto;
-      }
+	.video-section .heading h4 {
+		font-size: 40px;
+	}
 
-  }
+	.video-section .heading h3 {
+		font-size: 30px;
+	}
 
-  @media only screen and (max-width:480px) {
-  	.buy-section .col-xs-6 {
-  		width: 100%;
-  	}
+}
 
-  	.buy-section .buy-box p {
-  		margin: 0 0 15px;
-  	}
+@media only screen and (max-width:480px) {
+	.buy-section .col-xs-6 {
+		width: 100%;
+	}
 
-  	.money-section .left-part h3 {
-  		font-size: 24px;
-  		line-height: 30px;
-  	}
+	.buy-section .buy-box p {
+		margin: 0 0 15px;
+	}
 
-  	.buy-section .buy-box.bottom {
-  		margin-bottom: 20px;
-  	}
+	.money-section .left-part h3 {
+		font-size: 24px;
+		line-height: 30px;
+	}
 
-  	.service-section .col-xs-4 {
-  		width: 100%;
-  	}
+	.buy-section .buy-box.bottom {
+		margin-bottom: 20px;
+	}
 
-  	.video-section .heading h3 {
-  		font-size: 30px;
-  		margin: 0 0 20px;
-  	}
+	.service-section .col-xs-4 {
+		width: 100%;
+	}
 
-  	.footer_section .col-xs-6 {
-  		width: 100%;
-  	}
+	.video-section .heading h3 {
+		font-size: 20px;
+		margin: 0 0 20px;
+	}
 
-  	.welcome-section img {
-  		margin-bottom: 25px;
-  	}
+	.video-section .heading h4 {
+		font-size: 24px;
+		margin: 0 0 10px;
+	}
 
-  	.header-top .mail-part ul li {
-  		display: block;
-  		line-height: 25px;
-  		margin-right: 0;
-  	}
+	.footer_section .col-xs-6 {
+		width: 100%;
+	}
 
-  	.features-item-s2 {
-  		height: 100px;
-  	}
+	.welcome-section img {
+		margin-bottom: 25px;
+	}
 
-  	.action-box img {
-  		display: table;
-  		float: none;
-  		margin: 0 auto 25px;
-  	}
+	.header-top .mail-part ul li {
+		display: block;
+		line-height: 25px;
+		margin-right: 0;
+	}
 
-  	.action-box .action-text {
-  		margin-left: 0;
-  		text-align: center;
-  	}
+	.features-item-s2 {
+		height: 100px;
+	}
 
-  	#particles-js {
-  		height: 260px;
-  	}
+	.action-box img {
+		display: table;
+		float: none;
+		margin: 0 auto 25px;
+	}
 
-  	.slide-text {
+	.action-box .action-text {
+		margin-left: 0;
+		text-align: center;
+	}
+
+	#particles-js {
+		height: 260px;
+	}
+
+	.slide-text {
   		/*padding: 10px;
   		width: 75%;
   		top: 35%;*/

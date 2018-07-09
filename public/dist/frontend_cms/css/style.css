@@ -1462,6 +1462,7 @@ footer {
 	-ms-border-radius: 4px;
 	-o-border-radius: 4px;
 	margin-bottom: 70px;
+	padding: 25px 0;
 }
 
 .charts-box img {
@@ -1502,6 +1503,11 @@ footer {
 	font-weight: 700;
 	position: relative;
 	text-decoration: none;
+}
+
+.charts-box > h3 {
+	margin: 0;
+	text-align: center;
 }
 
 /*Ends Charts Page*/
@@ -1548,6 +1554,7 @@ footer {
 .wel-box.animatedParent {
 	overflow: hidden;
 }
+
 
 /*Starts Responsive CSS*/
 

@@ -172,6 +172,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" id="check_two_factor_auth" class="btn btn-primary">Verify</button>
+                        <button type="button" id="two_factor_skip" class="btn btn-danger">Skip for now</button>
                     </div>
                 </form>
             </div>
@@ -449,6 +450,10 @@
         if(two_factorAuth_status == 2){
             $('#modal-default').modal({backdrop: 'static', keyboard: false});
         }
+
+        $("#two_factor_skip").on("click", function() {
+            $('#modal-default').modal('hide');
+        });
 
         $('#check_two_factor_auth').on('click', function () {
             var valid = $('#barcode_form').valid();

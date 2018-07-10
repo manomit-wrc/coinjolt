@@ -148,7 +148,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     res.render('dashboard', {
                         layout: 'dashboard',
                         blogPosts: blogPosts,
-                        two_factorAuth_status: 1
+                        two_factorAuth_status: 1,
+                        title:"Dashboard"
                     });
                 }else if (result.two_factorAuth_status == 2) {
                     //two factor authentication
@@ -174,7 +175,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                                         layout: 'dashboard',
                                         blogPosts: blogPosts,
                                         user_details: data,
-                                        two_factorAuth_status: data.two_factorAuth_status
+                                        two_factorAuth_status: data.two_factorAuth_status,
+                                        title:"Dashboard"
                                     });
                                 });
                             }
@@ -277,7 +279,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 res.render('profile-details', {
                     layout: 'dashboard',
                     questionAnswers: qadata,
-                    answer_data: answer_data
+                    answer_data: answer_data,
+                    title: 'Profile Details'
                 });
             });
             
@@ -336,7 +339,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             kyc_details: kyc_details,
             p_institutional_arr: p_institutional_arr,
             shareholders_info: shareholders_info,
-            user_data: user_data
+            user_data: user_data,
+            title: 'Account Settings'
         });
     });
 
@@ -533,7 +537,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             	['id', 'DESC']
         	]
 		}).then(function(invitefrnds){
-			res.render('invite-friends',{layout: 'dashboard', invitefrnds: invitefrnds});
+			res.render('invite-friends',{layout: 'dashboard', invitefrnds: invitefrnds, title: 'Invite Friends'});
 		});
 	});
 
@@ -615,9 +619,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }] 
         }); 
         values = await Currency.findAll({
-            attributes: ['alt_name','currency_id']
+            attributes: ['alt_name','currency_id','display_name']
         });
-        res.render('buy-and-sell-coins', {layout: 'dashboard',contents: values,currencyCodes: currencyCodes });
+        res.render('buy-and-sell-coins', {layout: 'dashboard',contents: values,currencyCodes: currencyCodes, title: 'Buy And Sell Coins' });
     });
 
     app.post('/buy-coin', async (req, res) => {
@@ -916,7 +920,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             
         }
 
-        res.render('transaction-history', {layout: 'dashboard', buy_history:buy_history,sell_history:sell_history,deposit_history:deposit_history,withdrawal_history:withdrawal_history,buy_arr:buy_arr,sell_arr:sell_arr,deposit_arr:deposit_arr,withdraw_arr:withdraw_arr });
+        res.render('transaction-history', {layout: 'dashboard', buy_history:buy_history,sell_history:sell_history,deposit_history:deposit_history,withdrawal_history:withdrawal_history,buy_arr:buy_arr,sell_arr:sell_arr,deposit_arr:deposit_arr,withdraw_arr:withdraw_arr, title: 'Transaction History' });
     });
 
     app.get('/managed-cryptocurrency-portfolio', async(req, res) => {
@@ -1008,7 +1012,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     bank_statement: p_composition[0].get('bank_statement')
                 });
         }
-        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length, p_institutional_modal_arr: p_institutional_modal_arr });
+        res.render('managed-cryptocurrency-portfolio', {layout: 'dashboard', amountInvested: investedamount, firstYearEarning: firstyear,interestEarned: interest_earned, message: msg, p_individual_arr:p_individual_arr, p_institutional_arr: p_institutional_arr, p_individual_arr_length:p_individual_arr.length, p_institutional_arr_length: p_institutional_arr.length, p_institutional_modal_arr: p_institutional_modal_arr, title: 'Managed Cryptocurrency Portfolio' });
 
     });
 

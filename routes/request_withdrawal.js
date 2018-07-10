@@ -11,7 +11,7 @@ module.exports = function (app, withdraw, bank_details, Deposit, models){
                 ['id', 'DESC']
             ]
         }).then(function(withdrawal_history){
-			res.render('request_withdrawal/index',{layout: 'dashboard', withdrawal_history: withdrawal_history});
+			res.render('request_withdrawal/index',{layout: 'dashboard', withdrawal_history: withdrawal_history, title: 'Request Withdrawal'});
 		});
 	});
 

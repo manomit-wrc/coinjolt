@@ -3,7 +3,7 @@ $(document).ready(function() {
         var deposit_id = $(this).val();
 
 		swal({
- 			title: "Depsit Type Enabling Confirmation",
+ 			title: "Deposit Type Enabling Confirmation",
  			text: "Are you sure you want to enable?",
             type: "warning",
             showCancelButton: true,
@@ -30,7 +30,7 @@ $(document).ready(function() {
 		var deposit_id = $(this).val();
 
 		swal({
- 			title: "Depsit Type Disabling Confirmation",
+ 			title: "Deposit Type Disabling Confirmation",
  			text: "Are you sure you want to disable?",
             type: "warning",
             showCancelButton: true,

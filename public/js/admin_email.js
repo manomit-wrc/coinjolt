@@ -389,8 +389,6 @@ $(document).ready(function (e) {
 		});
 	});
 
-	//end
-
 	// sweet alert success function //
  	function sweetAlertSuccessPopUp (title='',text='') {
         swal({
@@ -534,7 +532,9 @@ $('#send_email').on('click', function (e) {
 				            confirmButtonColor: "#DD6B55",
 				            confirmButtonText: "OK"
 				        },  function() {
-				            window.location.href = '/admin/all-user-list';
+
+				            window.location.href = "/admin/send-email-history-list";
+
 				        });
 					}
 				}
@@ -616,4 +616,43 @@ $('#send_multiple_email_to_user').on('click', function () {
 			});
 		}
 	}
+});
+
+$('.delete_emails_send_details').on('click', function(){
+
+	var sent_email_id = $(this).attr('sent-email-id');
+	swal({
+		title: "Are you sure?",
+		text: "Your will not be able to recover this data!",
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonClass: "btn-danger",
+		confirmButtonText: "Yes, delete it!",
+		closeOnConfirm: false
+	},
+	function(){
+		$.ajax({
+			type: "POST",
+			url: "/admin/delete-send-email-details",
+			data:{
+				sent_email_id: sent_email_id
+			}, 
+			success: function (resp) {
+				if(resp.status == true){
+					swal({
+						title: "Thank You",
+						text: resp.msg,
+						type: "success",
+						confirmButtonColor: "#DD6B55",
+						confirmButtonText: "OK"
+					},  function() {
+						window.location.href = '/admin/send-email-history-list';
+					});
+				}
+			}
+		});
+	});
+
+
+
 });

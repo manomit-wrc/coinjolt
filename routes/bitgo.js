@@ -270,7 +270,8 @@ module.exports = (app, models) => {
             ltccAddressDetails: ltccAddressDetails,
             bchAddressDetails: bchAddressDetails,
             rmgAddressDetails: rmgAddressDetails,
-            xrpAddressDetails: xrpAddressDetails
+            xrpAddressDetails: xrpAddressDetails,
+            title: 'Wallets'
         });
 
     });

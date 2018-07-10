@@ -49,9 +49,9 @@
 									{{!-- <td>{{inc @index}}</td> --}}
 									<td>{{this.user_id}}</td>
 									<td>{{this.name}}</td>
-									<td>{{this.deposit_amount}}</td>
-									<td>{{this.withdraw_amount}}</td>
-									<td>{{this.balance}}</td>
+									<td>{{formatCurrency (twoDecimalPoint this.deposit_amount)}}</td>
+									<td>{{formatCurrency (twoDecimalPoint this.withdraw_amount)}}</td>
+									<td>{{formatCurrency (twoDecimalPoint this.balance)}}</td>
 								</tr>
 								{{/each}}
 							</tbody>

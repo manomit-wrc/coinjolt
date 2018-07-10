@@ -26,7 +26,7 @@
                     <select class="form-control" id="currency_purchased" name="currency_purchased">
                       <option value="">Please select a option</option>
                       {{#each contents}}
-                      <option value="{{this.alt_name}}">{{this.currency_id}}</option>
+                      <option value="{{this.alt_name}}">{{this.display_name}} ({{this.currency_id}})</option>
                       {{/each}}
                     </select>
                   </div>
@@ -69,7 +69,7 @@
                     <select class="form-control" id="currency_sold" name="currency_sold">
                       <option value="">Please select a option</option>
                       {{#each contents}}
-                      <option value="{{this.alt_name}}">{{this.currency_id}}</option>
+                      <option value="{{this.alt_name}}">{{this.display_name}} ({{this.currency_id}})</option>
                       {{/each}}
                     </select>
                   </div>

@@ -110,9 +110,12 @@ module.exports = function (app, passport, models) {
 
         var msg = req.flash('loginMessage')[0];
 
-        res.render('login', {
-            message: msg
-        });
+        // res.render('login', {
+        //     message: msg
+        // });
+        res.render('cms/maintenance');
+
+
     });
 
     app.get('/forgot-password', (req, res) =>{
@@ -563,11 +566,12 @@ module.exports = function (app, passport, models) {
         var msg = req.flash('signupMessage')[0];
         var errorMsg = req.flash('signupErrorMessage')[0];
         models.Country.findAll().then(function (country) {
-            res.render('signup', {
-                message: msg,
-                errorMsg: errorMsg,
-                countries: country
-            });
+            // res.render('signup', {
+            //     message: msg,
+            //     errorMsg: errorMsg,
+            //     countries: country
+            // });
+            res.render('cms/maintenance');
         });
     });
 

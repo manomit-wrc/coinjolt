@@ -557,7 +557,9 @@ app.get('/admin/send-password-email', acl, (req,res) => {
 	
 
 	User.findAll({
-		where: {type:2}
+		where: {type:2},
+		limit: 5,
+		offset: 0
 	}).then(results => {
 		async.eachSeries(results, ( item, cb ) => {
 			//console.log(JSON.stringify(item, undefined, 2));
@@ -581,8 +583,8 @@ app.get('/admin/send-password-email', acl, (req,res) => {
 		}, function(err) {
 			console.log(JSON.stringify(user_arr, undefined, 2));
 			async.eachSeries(user_arr, ( item, cb ) => {
-				//var to_addresses = item.email_id;
-				var to_addresses = "nilesh@wrctpl.com";
+				var to_addresses = item.email_id;
+				// var to_addresses = "tamashree@wrctpl.com";
 				//var raw_password = item.password;
 				console.log(to_addresses);
 				//console.log(raw_password);
@@ -780,7 +782,7 @@ app.get('/admin/send-password-email', acl, (req,res) => {
 				
 						<!-- Visually Hidden Preheader Text : BEGIN -->
 						<div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
-						   (Optional) This text will appear in the inbox preview, but not the email body. It can be used to supplement the email subject line or even summarize the email's contents. Extended text preheaders (~490 characters) seems like a better UX for anyone using a screenreader or voice-command apps like Siri to dictate the contents of an email. If this text is not included, email clients will automatically populate it using the text (including image alt text) at the start of the email's body.
+						We have undergone a major platform upgrade.					
 					   </div>
 					   <!-- Visually Hidden Preheader Text : END -->
 				
@@ -872,7 +874,7 @@ app.get('/admin/send-password-email', acl, (req,res) => {
 				
 													You will find that the option for 2 factor authentication has been enabled in the back office. Users are able to switch this feature on and off as they please. <br>
 				
-													If you are unfamiliar with Google Authentication, refer to these pages for <a href="https://itunes.apple.com/ca/app/google-authenticator/id388497605?mt=8">Android</a> or <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_CA">iPhone</a>.<br>
+													If you are unfamiliar with Google Authentication, refer to these pages for <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_CA">Android</a> or <a href="https://itunes.apple.com/ca/app/google-authenticator/id388497605?mt=8">iPhone</a>.<br>
 				
 													We will also be enabling SMS verification in the upcoming days for additional measures of security.<br>
 				

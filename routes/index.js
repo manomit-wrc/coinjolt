@@ -20,7 +20,8 @@ module.exports = function (app, passport, models) {
         models.company_setting.findAll({
 
         }).then(function(companySettingsData){  
-            res.render('cms_body', {layout: 'cms/dashboard', companySettingsData: companySettingsData});
+            //res.render('cms_body', {layout: 'cms/dashboard', companySettingsData: companySettingsData});
+            res.render('cms/maintenance');
         });
     });
 

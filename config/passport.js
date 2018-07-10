@@ -345,7 +345,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 
                                   <!-- HIDDEN PREHEADER TEXT -->
                                   <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'AvenirNextLTPro-Regular', sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-                                    We're thrilled to have you here! Get ready to dive into your new account.
+                                    Registration Successful, Please Activate your account
                                   </div>
                                 
                                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -673,7 +673,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 
                                   <!-- HIDDEN PREHEADER TEXT -->
                                   <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'AvenirNextLTPro-Regular', sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-                                    We're thrilled to have you here! Get ready to dive into your new account.
+                                  Registration Successful, Please Activate your account.
                                   </div>
                                 
                                   <table border="0" cellpadding="0" cellspacing="0" width="100%">

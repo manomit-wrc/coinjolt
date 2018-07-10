@@ -1219,7 +1219,7 @@ footer {
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	padding: 130px 0;
+	padding: 120px 0;
 	position: relative;
 	height: 280px;
 }
@@ -1883,6 +1883,19 @@ footer {
 		margin-bottom: 10px;
 	}
 
+	.all-iner-banner .col-xs-12 {
+		width: 50%;
+	}
+
+	.about-section {
+		padding: 0;
+	}
+
+	.charts-box {
+		margin-bottom: 25px;
+		margin-top: 25px;
+	}
+
 }
 
 @media only screen and (max-width:750px) {
@@ -1903,6 +1916,8 @@ footer {
 	.slide-text {
 		top: 32%;
 	}
+
+
 }
 
 @media only screen and (max-width:640px) {
@@ -1927,6 +1942,10 @@ footer {
 
 	.service-section .col-xs-4 {
 		width: 50%;
+	}
+
+	.service-section .item {
+		height: 320px !important;
 	}
 
 	.service-section .item.bottom {
@@ -2020,7 +2039,46 @@ footer {
 		font-size: 30px;
 	}
 
+	.footer_section {
+		padding: 10px 0 20px;
+	}
+
+	.all-iner-banner .col-xs-12 {
+		width: 100%;
+	}
+
+	.all-iner-banner .page-title {
+		display: block;
+		text-align: center;
+	}
+
+	.all-iner-banner .breadcumb {
+		text-align: center;
+	}
+
+	.all-iner-banner {
+		height: 280px;
+		padding: 100px 0;
+	}
+
+	.footer-sec {
+		min-height: 280px;
+	}
+
+	.all-iner-banner {
+		background-position: right center;
+	}
+
 }
+
+@media only screen and (max-width:490px) {
+
+	.about-section h4::after {
+		border: 0 none;
+	}
+}
+
+
 
 @media only screen and (max-width:480px) {
 	.buy-section .col-xs-6 {
@@ -2116,8 +2174,25 @@ footer {
   		display: none;
   	}
 
+  	.service-section .item {
+  		height: auto !important;
+  	}
+
   	.copyright p span {
   		display: block;
+  	}
+
+  	.copyright p span {
+  		visibility: hidden;
+  	}
+
+  	.copyright p {
+  		line-height: 14px;
+  	}
+
+  	.footer-sec {
+  		height: auto;
+  		min-height: 0;
   	}
   }
 

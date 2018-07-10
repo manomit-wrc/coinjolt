@@ -782,7 +782,7 @@ app.get('/admin/send-password-email', acl, (req,res) => {
 				
 						<!-- Visually Hidden Preheader Text : BEGIN -->
 						<div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
-						We have undergone a major platform upgrade.					
+							We have undergone a major platform upgrade.
 					   </div>
 					   <!-- Visually Hidden Preheader Text : END -->
 				

@@ -819,7 +819,7 @@ h3.post-title {
     .balnrates {
     	float: left;
     	padding-top: 32px;
-    	margin-left: 100px;
+    	margin-left: 170px;
     }
 
     .balnrates .left {
@@ -2030,6 +2030,14 @@ h3.post-title {
     	vertical-align: middle;
     }
 
+    /*Starts on css 10-07-2018*/
+
+    .box-title.pull-left.authen {
+    	margin-top: 6px;
+    }
+
+    /*Ends on css 10-07-2018*/
+
 
 
     @media screen and (max-width: 1366px) {
@@ -2741,6 +2749,7 @@ h3.post-title {
     .onoffswitch-label {
     	display: block; overflow: hidden; cursor: pointer;
     	border: 2px solid #999999; border-radius: 20px;
+    	margin-bottom: 0;
     }
 
     .onoffswitch-inner {
@@ -2827,7 +2836,7 @@ h3.post-title {
     .tbl-common-btn {
     	font-size: 14px !important;
     	padding: 6px 12px !important;
-    	margin-left: 10px;
+    	margin-left: 0;
     	border: 0 !important;
     }
 

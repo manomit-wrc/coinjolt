@@ -122,7 +122,8 @@ module.exports = function (app, passport, models) {
 
         var msg = req.flash('forgotPassMsg')[0];
 
-        res.render('forgot_password', {message: msg});
+        //res.render('forgot_password', {message: msg});
+        res.render('cms/maintenance');
     });    
 
     app.post('/update-password2', (req, res) =>{

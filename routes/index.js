@@ -20,8 +20,7 @@ module.exports = function (app, passport, models) {
         models.company_setting.findAll({
 
         }).then(function(companySettingsData){  
-            //res.render('cms_body', {layout: 'cms/dashboard', companySettingsData: companySettingsData});
-            res.render('cms/maintenance');
+            res.render('cms_body', {layout: 'cms/dashboard', companySettingsData: companySettingsData});
         });
     });
 
@@ -113,17 +112,13 @@ module.exports = function (app, passport, models) {
         res.render('login', {
             message: msg
         });
-        //res.render('cms/maintenance');
-
-
     });
 
     app.get('/forgot-password', (req, res) =>{
 
         var msg = req.flash('forgotPassMsg')[0];
 
-        //res.render('forgot_password', {message: msg});
-        res.render('cms/maintenance');
+        res.render('forgot_password', {message: msg});
     });    
 
     app.post('/update-password2', (req, res) =>{
@@ -567,12 +562,11 @@ module.exports = function (app, passport, models) {
         var msg = req.flash('signupMessage')[0];
         var errorMsg = req.flash('signupErrorMessage')[0];
         models.Country.findAll().then(function (country) {
-            // res.render('signup', {
-            //     message: msg,
-            //     errorMsg: errorMsg,
-            //     countries: country
-            // });
-            res.render('cms/maintenance');
+            res.render('signup', {
+                message: msg,
+                errorMsg: errorMsg,
+                countries: country
+            });
         });
     });
 

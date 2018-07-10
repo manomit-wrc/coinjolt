@@ -199,6 +199,9 @@ $(document).ready(function (e) {
 			            confirmButtonColor: "#DD6B55",
 			            confirmButtonText: "OK"
 			        },  function() {
+			        	$('#subject').val('');
+			        	$('#myEmailMarketingPreviewModal').modal('hide');
+			        	CKEDITOR.instances['editor1'].setData('');
 			            window.location.href = '/admin/email-marketing';
 			        });
 				}

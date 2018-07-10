@@ -213,11 +213,12 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 
 	app.post('/admin/send-email-markeitng', acl, async (req,res) => {
 		var all_user_email = [];
+		
 		if(req.body.users == 'all_registered_user'){
 			await User.findAll({
 				where:{
 					type:2
-				}
+				},
 			}).then(function(result){
 				var all_values = JSON.parse(JSON.stringify(result));
 				for(var j = 0; j < all_values.length; j++){
@@ -231,50 +232,56 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 			var users = req.body.users;
 			var users_array = users.split(",");
 		}
-	
-		var ses = new AWS.SES({apiVersion: '2010-12-01'});
-		ses.sendEmail({
-		   	Source: keys.senderEmail, 
-		   	Destination: { ToAddresses: users_array },
-		   	Message: {
-		       	Subject: {
-		          	Data: req.body.subject
-		       	},
-		       	Body: {
-		           	Html: {
-		           		Charset: "UTF-8",
-		               	Data: req.body.body
-		           	}
-		        }
-		   }
-		}, function(err, data) {
-	    	if(err) throw err;
 
-	    	for(var i = 0 ; i < users_array.length; i++) {
-	    		User.findAll({
-	    			where:{
-	    				email: users_array[i]
-	    			}
-	    		}).then(function (result) {
-	    			if(result){
-	    				var values = JSON.parse(JSON.stringify(result));
-	    				send_email.create({
-				    		user_id: values[0].id,
-				    		email_sub: req.body.subject,
-				    		email_desc: req.body.body,
-				    		send_by_id: req.user.id
-				    	});
-	    			}
-	    			if(i === users_array.length) {
-						res.json({
-							status: true,
-							msg: "Email send to the user successfully."
-						});
-						// return res.send(true);
-					}
-	    		});
+		// console.log(users_array);
+		// return false;
+
+		for(var i = 0; i< users_array.length; i++) {
+			var newEmailArray = new Array();
+			
+			newEmailArray.push(users_array[i]);
+
+	    	const user_details = await User.findAll({ where:{ email: users_array[i]} })
+	    	if(user_details) {
+	    		
+	    		
+		    	var ses = new AWS.SES({apiVersion: '2010-12-01'});
+				ses.sendEmail({
+				   	Source: keys.senderEmail, 
+				   	Destination: { ToAddresses: newEmailArray },
+				   	// Destination: { ToAddresses: ['sobhan@wrctpl.com'] },
+				   	Message: {
+				       	Subject: {
+				          	Data: req.body.subject
+				       	},
+				       	Body: {
+				           	Html: {
+				           		Charset: "UTF-8",
+				               	Data: req.body.body
+				           	}
+				        }
+				   }
+				}, function(err, data) {
+
+					send_email.create({
+			    		user_id: user_details[0].id,
+			    		email_sub: req.body.subject,
+			    		email_desc: req.body.body,
+			    		send_by_id: req.user.id
+		    		});
+				});
 	    	}
-		});
+	    	
+	    	if(i === users_array.length - 1) {
+				res.json({
+					status: true,
+					msg: "Email send to the user successfully."
+				});
+				// return res.send(true);
+			}
+		}
+	
+		
 	});
 
 	app.post('/admin/save-email-as-draft', acl, async (req,res) => {

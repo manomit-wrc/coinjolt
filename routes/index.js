@@ -110,10 +110,10 @@ module.exports = function (app, passport, models) {
 
         var msg = req.flash('loginMessage')[0];
 
-        // res.render('login', {
-        //     message: msg
-        // });
-        res.render('cms/maintenance');
+        res.render('login', {
+            message: msg
+        });
+        //res.render('cms/maintenance');
 
 
     });

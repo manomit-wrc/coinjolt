@@ -263,8 +263,9 @@
 <!--end-->
 
 <script type="text/javascript">
-        var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
+        //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
         //var baseURL = "http://localhost:8080/admin/";
+        var baseURL = "https://www.coinjolt.com/";
         function deleteBlog(blogId){
 
             swal({
@@ -609,7 +610,8 @@
                     success: function (response){
                         if(response.success == true){
                             //start socket
-                            var socket = io.connect('http://localhost:8088');
+                            //var socket = io.connect('http://localhost:8088');
+                            var socket = io.connect('https://www.coinjolt.com');
                             socket.emit('pushNotification', $('#description').val());
                             $('#description').val();
                             socket.on('pushNotification', function(msg){

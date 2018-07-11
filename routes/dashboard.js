@@ -1594,8 +1594,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
               "payment_method": "paypal"
           },
           "redirect_urls": {
-              "return_url": "http://localhost:8080/paypal-success",
-              "cancel_url": "http://localhost:8080/paypal-cancel"
+              "return_url": "https://www.coinjolt.com/paypal-success",
+              "cancel_url": "https://www.coinjolt.com/paypal-cancel"
           },
           "transactions": [{
               "item_list": {

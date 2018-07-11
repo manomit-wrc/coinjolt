@@ -106,7 +106,7 @@ module.exports = function (app, passport, models) {
     });
 
     app.get('/login', function (req, res) {
-
+            
         var msg = req.flash('loginMessage')[0];
 
         res.render('login', {

@@ -271,7 +271,12 @@ app.use(function(req, res, next){
     else {
       res.locals.reffer_link_id = req.user.user_name;
     }
-    res.locals.image = req.user.image;
+    if(req.user.image === null) {
+      res.locals.image = "https://s3.amazonaws.com/coinjoltdev2018/profile/nobody.jpg";
+    } else {
+      res.locals.image = req.user.image;
+    }
+    
     res.locals.identity_proof = req.user.identity_proof;
     res.locals.investor_type = req.user.investor_type;
     res.locals.user = req.user;

@@ -3,8 +3,9 @@ $(document).ready(function(){
         'aaSorting': [ 1, "desc" ]
     });
 
-    var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
+    //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
     //var baseURL = "http://localhost:8080/admin/";
+    var baseURL = "https://www.coinjolt.com/";
 
     $('.save_blog_category').on('click', function(){
 

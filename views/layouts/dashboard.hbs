@@ -263,8 +263,9 @@
 <!--end-->
 
 <script type="text/javascript">
-        var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
+        //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
         //var baseURL = "http://localhost:8080/admin/";
+        var baseURL = "https://www.coinjolt.com/";
         function deleteBlog(blogId){
 
             swal({
@@ -423,7 +424,7 @@
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "OK"
             },  function() {
-                window.location.href=baseURL+"email-template-listings";
+                window.location.href=baseURL+"admin/email-template-listings";
             });
         }
         
@@ -435,7 +436,7 @@
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "OK"
             },  function() {
-                window.location.href=baseURL+"blog-posts";
+                window.location.href=baseURL+"admin/blog-posts";
             });
         }
 

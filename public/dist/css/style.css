@@ -2036,7 +2036,13 @@ h3.post-title {
     	margin-top: 6px;
     }
 
-    /*Ends on css 10-07-2018*/
+	/*Ends on css 10-07-2018*/
+	
+	/*Starts on css 11-07-2018*/
+	.kyc_list th:nth-child(3), .kyc_list td:nth-child(3) {
+		width: 300px !important;
+	}
+	/*Ends on css 11-07-2018*/
 
 
 

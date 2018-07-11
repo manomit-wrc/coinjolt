@@ -252,39 +252,51 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.get('/profile-details', function (req, res) {
 
-       Question.hasMany(Option, {foreignKey: 'question_id'});
-		Question.findAll({
-            include: [{
-                model: Option
-            }]
-        }).then(function(qadata){
-            Answer.findAll({
-                attributes: ['option_id'],
-                where: {
-                    user_id: req.user.id
-                }
-            }).then((answer_data) => {
-                for(var i=0;i<qadata.length;i++) {
-                    for(var j=0;j<qadata[i].Options.length;j++) {
-                        var tempArr = lodash.filter(answer_data, x => x.option_id === qadata[i].Options[j].id);
-                        if(tempArr.length > 0) {
-                            qadata[i].Options[j].answer_status = true;
-                        }
-                        else {
-                            qadata[i].Options[j].answer_status = false;
+        Kyc_details.findAll({
+            where: {
+                user_id: req.user.id
+            },
+            limit: 1,
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        }).then(function(kyc_details){ 
+
+            Question.hasMany(Option, {foreignKey: 'question_id'});
+            Question.findAll({
+                include: [{
+                    model: Option
+                }]
+            }).then(function(qadata){
+                Answer.findAll({
+                    attributes: ['option_id'],
+                    where: {
+                        user_id: req.user.id
+                    }
+                }).then((answer_data) => {
+                    for(var i=0;i<qadata.length;i++) {
+                        for(var j=0;j<qadata[i].Options.length;j++) {
+                            var tempArr = lodash.filter(answer_data, x => x.option_id === qadata[i].Options[j].id);
+                            if(tempArr.length > 0) {
+                                qadata[i].Options[j].answer_status = true;
+                            }
+                            else {
+                                qadata[i].Options[j].answer_status = false;
+                            }
                         }
                     }
-                }
-                
-                res.render('profile-details', {
-                    layout: 'dashboard',
-                    questionAnswers: qadata,
-                    answer_data: answer_data,
-                    title: 'Profile Details'
+                    
+                    res.render('profile-details', {
+                        layout: 'dashboard',
+                        questionAnswers: qadata,
+                        answer_data: answer_data,
+                        title: 'Profile Details',
+                        kyc_details: kyc_details
+                    });
                 });
+                
             });
-            
-		});
+        });
        
     });
 
@@ -1470,7 +1482,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var ssn = '4344';
 
         request({
-            uri: "http://ec2-54-224-110-112.compute-1.amazonaws.com/ecorepay.php",
+            uri: "https://coinjolt.com/ecorepay.php",
             method: "POST",
             //json: true,
             form: {

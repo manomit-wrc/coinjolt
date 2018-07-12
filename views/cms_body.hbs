@@ -9,7 +9,7 @@
     <!-- End  Bootstrap-touch-slider Slider -->
 
     <div class="banner">
-      <img src="/dist/frontend_cms/images/banner.jpg" alt="Banner">
+      <img src="/cms/home_page/{{home_sttings.0.home_page_banner_image}}" alt="Banner">
     </div>
 
     <!-- Starts Webticker Section -->
@@ -40,41 +40,13 @@
         </div>
         <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6 animatedParent">
-            <img class="animated growIn slow go" src="/dist/frontend_cms/images/graph.png" alt="welcome-img">
+            <img class="animated growIn slow go" src="/cms/home_page/{{home_sttings.0.how_it_works_image}}" alt="welcome-img">
           </div>
           <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="wel-box animatedParent">
               <ul class="features-list-s2 animated fadeIn delay-500">
-                <li class="features-item-s2 d-flex">
-                  <div class="features-icon-s2">
-                    <img alt="icon" src="/dist/frontend_cms/images/icon-decentralized.png">
-                  </div>
-                  <div class="features-texts-s2">
-                    <h5 class="features-title-s2">Registration</h5>
-                    {{!-- <p>Create an individual or corporate investment account.</p> --}}
-                    <p>Choose between a self directed account or managed investment account. Available to both individuals and institutions.</p>
-                  </div>
-                </li>
-                <li class="features-item-s2 d-flex">
-                  <div class="features-icon-s2">
-                    <img alt="icon" src="/dist/frontend_cms/images/icon-crowd.png">
-                  </div><div class="features-texts-s2">
-                    <h5 class="features-title-s2">Deposit Funds</h5>
-                    {{!-- <p>Choose from one of the available deposit methods including credit card, wire transfers and cryptocurrency.</p> --}}
-                    <!-- <p>Choose from one of the available deposit methods for account funding.</p> -->
-                    <p>Fund your account through one of the available deposit options.</p>
-                  </div>
-                </li>
-                <li class="features-item-s2 d-flex" >
-                  <div class="features-icon-s2">
-                    <img alt="icon" src="/dist/frontend_cms/images/icon-reward.png">
-                  </div>
-                  <div class="features-texts-s2">
-                    <h5 class="features-title-s2"><!-- Self-Directed or Managed Account: -->Do It Yourself or Invest In a Managed Cryptocurrency Portfolio</h5>
-                    {{!-- <p>Get started with buying and selling cryptocurrencies instantly or speak with one of our digital asset managers to discuss managed investments.</p> --}}
-                    <p>Buy and sell digital assets yourself or apply to be an investor with our managed cryptocurrency portfolio.</p>
-                  </div>
-                </li>
+                
+                {{{home_sttings.0.how_is_works_description}}}
               </ul>
               <!-- <a href="">View info more</a> -->
             </div>
@@ -95,15 +67,16 @@
         <div class="col-md-6 col-sm-6 col-xs-6 ">
           <div class="price-item hot">
             <div class="col-md-3">
-              <img src="/dist/frontend_cms/images/hot-wallets.png" alt="hot-wallets">
+              <img src="cms/home_page/{{home_sttings.0.hot_wallet_image}}" alt="hot-wallets">
             </div>
             <div class="col-md-9">
               <h3>Hot Wallet</h3>
               <ul>
-                <li><i class="fa fa-check"></i>Instantly connect to dozens of cryptocurrency networks to send and receive funds with the most secure wallet in the industry.</li>
+                {{!-- <li><i class="fa fa-check"></i>Instantly connect to dozens of cryptocurrency networks to send and receive funds with the most secure wallet in the industry.</li>
                 <li><i class="fa fa-check"></i>Actively monitored assets with accurately calculated market values.</li>
                 <li><i class="fa fa-check"></i>Transfer funds to a cold wallet for secure offline storage.</li>
-                <li><i class="fa fa-check"></i>Multiple enabled security protocols and automatic lockdown signals to prevent unauthorized access.</li>
+                <li><i class="fa fa-check"></i>Multiple enabled security protocols and automatic lockdown signals to prevent unauthorized access.</li> --}}
+                {{{home_sttings.0.hot_wallet_desc}}}
               </ul>
             </div>
           </div>
@@ -111,14 +84,15 @@
         <div class="col-md-6 col-sm-6 col-xs-6">
           <div class="price-item cold">
             <div class="col-md-3">
-              <img src="/dist/frontend_cms/images/cold-wallets.png" alt="cold-wallets">
+              <img src="cms/home_page/{{home_sttings.0.cold_wallet_image}}" alt="cold-wallets">
             </div>
             <div class="col-md-9">
               <h3>Cold Wallet</h3>
               <ul>
-                <li><i class="fa fa-check"></i>Secure and monitor assets offline to guarantee safety and prevent attempts to breach security.</li>
+                {{!-- <li><i class="fa fa-check"></i>Secure and monitor assets offline to guarantee safety and prevent attempts to breach security.</li>
                 <li><i class="fa fa-check"></i>Accumulate digital assets seamlessly through your back office.</li>
-                <li><i class="fa fa-check"></i>Request to transfer cryptocurrencies to your Hot Wallet to readily engage in cryptocurrency.</li>
+                <li><i class="fa fa-check"></i>Request to transfer cryptocurrencies to your Hot Wallet to readily engage in cryptocurrency.</li> --}}
+                {{{home_sttings.0.cold_wallet_desc}}}
               </ul>
             </div>
           </div>

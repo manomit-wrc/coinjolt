@@ -4,6 +4,7 @@ module.exports = function (app, models) {
 
     //
     var multer  = require('multer');
+    // var im = require('imagemagick');
 	//var multerS3 = require('multer-s3');
 	var fs = require('fs');
 	//var s3 = new AWS.S3();
@@ -28,9 +29,9 @@ module.exports = function (app, models) {
           fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
           cb(null, fileName);
         }
-      });
+    });
 
-      var restrictImgType = function(req, file, cb) {
+    var restrictImgType = function(req, file, cb) {
 
 	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
 	      if (allowedTypes.indexOf(req.file.mimetype) !== -1){
@@ -40,8 +41,37 @@ module.exports = function (app, models) {
 	        // To reject this file pass `false`
 	        cb(null, false);
 	       //cb(new Error('File type not allowed'));// How to pass an error?
-	      }
+        }
 	};
+
+
+    var home_page_storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, 'public/cms/home_page');
+        },
+        filename: function (req, file, cb) {
+          fileExt = file.mimetype.split('/')[1];
+          
+          fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+          cb(null, fileName);
+        }
+    });
+
+    var home_page_restrictImgType = function(req, file, cb) {
+
+        var allowedTypes = ['image/jpeg','image/gif','image/png'];
+          if (allowedTypes.indexOf(req.file.mimetype) !== -1){
+            // To accept the file pass `true`
+            cb(null, true);
+          } else {
+            // To reject this file pass `false`
+            cb(null, false);
+           //cb(new Error('File type not allowed'));// How to pass an error?
+        }
+    };
+
+
+
 
 	var termsOfServicestorage = multer.diskStorage({
 		destination: function (req, file, cb) {
@@ -306,5 +336,95 @@ module.exports = function (app, models) {
 			}
         });
 	});
+
+    app.get('/admin/cms/home-page', acl, (req,res) => {
+        res.render('admin/cms/home_page', {layout: 'dashboard', title:"CMS- Home"});
+    });
+
+    var home_page_all_upload = multer({ storage: home_page_storage, limits: {fileSize:3000000} });
+
+    app.post('/admin/cms/home-page-submit', acl, home_page_all_upload.fields([{
+        name: 'home_page_banner_image', maxCount: 1
+      }, {
+        name: 'how_it_works_image', maxCount: 1
+      }, {
+        name: 'hot_wallet_image', maxCount: 1  
+      }, {
+        name: 'cold_wallet_image', maxCount: 1  
+      },{
+        name: 'video_upload', maxCount: 1  
+      }]), (req, res) => {
+
+        if (req.files.home_page_banner_image[0].filename){
+            // save thumbnail -- should this part go elsewhere?
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.home_page_banner_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.home_page_banner_image[0].filename,
+              width: 1920,
+              height: 652
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }
+        
+        if (req.files.how_it_works_image[0].filename){
+            // save thumbnail -- should this part go elsewhere?
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.how_it_works_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.how_it_works_image[0].filename,
+              width: 667,
+              height: 552
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }
+        
+        if (req.files.hot_wallet_image[0].filename){
+            // save thumbnail -- should this part go elsewhere?
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.hot_wallet_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.hot_wallet_image[0].filename,
+              width: 200,
+              height: 200
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }
+        
+        if (req.files.cold_wallet_image[0].filename){
+            // save thumbnail -- should this part go elsewhere?
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.cold_wallet_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.cold_wallet_image[0].filename,
+              width: 200,
+              height: 200
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+	    }
+        
+
+        models.cms_home_page.create({
+            home_page_banner_image: req.files.home_page_banner_image[0].filename,
+            how_it_works_image: req.files.how_it_works_image[0].filename,
+            how_is_works_description: req.body.how_is_works_description[1],
+            hot_wallet_image: req.files.hot_wallet_image[0].filename,
+            hot_wallet_desc: req.body.hot_wallet_desc[1],
+            cold_wallet_image: req.files.cold_wallet_image[0].filename,
+            cold_wallet_desc: req.body.cold_wallet_desc[1],
+            video_upload: req.files.video_upload[0].filename
+        }).then( function (result) {
+            if(result) {
+                res.json({
+                    status: true,
+                    msg: "Submit successfully."
+                });
+            }
+        });
+    });
     
 };

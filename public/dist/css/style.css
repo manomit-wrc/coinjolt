@@ -2771,13 +2771,13 @@ h3.post-title {
     }
 
     .onoffswitch-inner:before {
-    	content: "YES";
+    	content: "On";
     	padding-left: 10px;
     	background-color: #2FCCFF; color: #FFFFFF;
     }
 
     .onoffswitch-inner:after {
-    	content: "NO";
+    	content: "Off";
     	padding-right: 10px;
     	background-color: #EEEEEE; color: #999999;
     	text-align: right;

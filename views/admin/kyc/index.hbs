@@ -38,7 +38,11 @@
 									<td>
 										<a href="{{this.files}}" target="_blank">{{this.files}}</a>
 									</td>
-									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
+									<td>
+										{{#if_neq this.createdAt "Invalid Date"}}
+											{{dateFormat this.createdAt "MM-DD-YY"}}
+										{{/if_neq}}	
+									</td>
 									<td>
 										<button class="btn approve-req kyc_approved btn-success" data-value="{{this.id}}" data-user_id="{{this.user_id}}">Approve</button>
 										<button class="btn reject-req kyc_reject btn-danger" data-value="{{this.id}}">Reject</button>

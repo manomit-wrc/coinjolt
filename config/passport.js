@@ -175,12 +175,12 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                     }
                 }).then(function (user) {
                     if (!user) {
-                        return done(null, false, req.flash('loginMessage', 'Wrong Username or password'));
+                        return done(null, false, req.flash('loginMessage', 'Wrong username or password'));
 
                     }
 
                     if (!isValidPassword(user.password, password)) {
-                        return done(null, false, req.flash('loginMessage', 'Wrong Username or password'));
+                        return done(null, false, req.flash('loginMessage', 'Wrong username or password'));
 
                     }
 

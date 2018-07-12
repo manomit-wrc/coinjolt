@@ -182,13 +182,13 @@
  					if (response.status == true) {
  						var title = "Approval Successful";
  						var text = "You have successfully approved the withdrawal request.";
- 						sweetAlertSuccessPopUp(title, text);
+ 						customSweetAlertSuccessPopUp1(title, text);
  					}
  				}
  			});
  		});
  	});
-
+	 	
  	$(".pending_withdrawals_reject").on('click', function () {
  		var row_id = $(this).data('value');
  		var amount = $(this).data('amount');
@@ -211,7 +211,7 @@
  					if (response.status == true) {
  						var title = "Rejection Successful";
  						var text = "You have successfully reject the withdrawal request.";
- 						sweetAlertSuccessPopUp(title, text);
+ 						customSweetAlertSuccessPopUp1(title, text);
  					}
  				}
  			});
@@ -219,7 +219,7 @@
  	});
 
  	// sweet alert success function //
- 	function sweetAlertSuccessPopUp (title = '', text = '') {
+ 	function customSweetAlertSuccessPopUp1 (title = '', text = '') {
         swal({
             title: title,
             text: text,

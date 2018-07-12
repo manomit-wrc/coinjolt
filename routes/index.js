@@ -738,7 +738,7 @@ p.center {
                             status: 0,
                             user_email: user_email
                         }).then(function(result){
-                            res.json({status: 0, msg: "An email has been sent, please check your email"});
+                            res.json({status: 0, msg: "An email has been sent to your inbox with instructions on how to reset your password"});
                         });
 
                     });

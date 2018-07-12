@@ -90,11 +90,17 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
 
 	app.post('/pending-wire-transfer-approved', (req,res) => {
 		var amount = req.body.amount;
+		console.log('ENTERED AMOUNT:: ',amount);
 		//for generate 8 digits random number//
 		var digits = 9;	
 		var numfactor = Math.pow(10, parseInt(digits-1));	
 		var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
 		//end//
+
+		function notOnlyALogger(msg){
+			console.log('****log****');
+			console.log(msg);
+		}
 
 		WireTransfer.update({
 			status : 1
@@ -119,6 +125,54 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
 				});
 			}
 		});
+
+		
+		User.findAll({
+            where: {
+                id: req.body.user_id
+			},
+			attributes: ['referral_id'],
+			logging: notOnlyALogger
+        }).then(function (result) {
+			refId = result[0].referral_id;
+			
+			if(refId !== 0){
+				Referral_data.findAll({
+					where: {user_id: req.user.id, referral_id: refId},
+					attributes: [[ sequelize.fn('SUM', sequelize.col('referral_amount')), 'SUM_REF_AMT']]
+				}).then(function(result2){
+					
+					amount2 = result2[0].get('SUM_REF_AMT');
+					if(amount2 !== undefined){
+						if(amount2 < 200){
+							var depositAmount = req.body.amount;
+							var referralAmount = (1/100) * depositAmount;
+							var remainingAmount = (200 - amount2);
+							if(referralAmount > remainingAmount){
+								referralAmount = remainingAmount;	
+							}			
+							Referral_data.create({
+								user_id: req.user.id,
+								referral_id: refId,
+								deposit_amount: depositAmount,
+								referral_amount: referralAmount
+							}).then(function (result3) {
+								
+							}).catch(function (err) {
+								console.log(err);
+							});
+						}
+					}
+				}).catch(function (err2) {
+					console.log(err2);
+				});
+			}
+			
+
+        }).catch(function (err) {
+            console.log(err);
+        });
+		
 	});
 
 	app.post("/pending-wire-transfer-reject", (req,res) => {

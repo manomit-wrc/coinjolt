@@ -202,7 +202,7 @@ helpers: {
       return tempArr.length > 0 ? true : false;
     },
     getUploadedFileExtension: function(value){
-      if(value !== undefined){
+      if(value !== undefined || value !== null){
         return value.substr(value.lastIndexOf('.') + 1);
       }
       

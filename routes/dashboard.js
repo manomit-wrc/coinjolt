@@ -746,7 +746,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             converted_amount: req.body.actualAmtExpect,
             type: 1,
             balance: req.body.balance,
-            currency_id: req.body.currency_id
+            currency_id: req.body.currency_id,
+            payment_method: 0
         }).then(function (result) {
 
             currency_balance.findAndCountAll({
@@ -796,7 +797,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             base_currency: req.body.currencySellType,
             converted_amount: req.body.amtVal,
             balance: req.body.balance,
-            currency_id: req.body.currency_id
+            currency_id: req.body.currency_id,
+            payment_method: 0
         }).then(function (result) {
             
             currency_balance.findAndCountAll({
@@ -1050,7 +1052,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 			amount: amountInvest,
 			current_rate: coinRate,
 			converted_amount: converted_amount,
-			type: type
+            type: type,
+            payment_method: 0
         }).then(function (result) {
             req.flash('investStatusMessage', 'Your investment was made successfully!');
             res.redirect('/managed-cryptocurrency-portfolio');

@@ -1244,7 +1244,12 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
         url : "/confirm_coin_buy",
         data : {amtVal: amtVal,currency_purchased: currency_purchased,coinRate: coinRate,actualAmtExpect:actualAmtExpect,balance:balance,currency_id:currency_id},
         success:function(response) {
+            console.log("success function");
+            console.log(response);
+            console.log("success function2");
+            console.log(response.success);
             if(response.success == true){
+                console.log("success true");
                 window.location.href="/buy-and-sell-coins";
             }
         },

@@ -202,7 +202,8 @@ helpers: {
       return tempArr.length > 0 ? true : false;
     },
     getUploadedFileExtension: function(value){
-      if(typeof value !== 'undefined'){
+
+      if(value != null){
         return value.substr(value.lastIndexOf('.') + 1);
       }
       

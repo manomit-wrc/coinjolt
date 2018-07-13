@@ -6,7 +6,8 @@ $(document).ready(function () {
         "aaSorting": []
     });
 
- 	$(".pending_wire_transfer_approved").on('click', function () {
+ 	//$(".pending_wire_transfer_approved").on('click', function () {
+	$("#pending_wire_transfer_table").on("click", ".pending_wire_transfer_approved", function(){
  		var row_id = $(this).data('value');
         var amount = $(this).data('amount');
  		var user_id = $(this).data('user_id');
@@ -38,7 +39,8 @@ $(document).ready(function () {
  		});
  	});
 
- 	$(".pending_wire_transfer_reject").on('click', function () {
+ 	//$(".pending_wire_transfer_reject").on('click', function () {
+	$("#pending_wire_transfer_table").on("click", ".pending_wire_transfer_reject", function(){
  		var row_id = $(this).data('value');
  		var amount = $(this).data('amount');
 

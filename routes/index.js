@@ -231,492 +231,242 @@ module.exports = function (app, passport, models) {
                             
 
                                 var upper_static_content = `
-                                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Forgot Password</title>
-    <!-- 
-    The style block is collapsed on page load to save you some scrolling.
-    Postmark automatically inlines all CSS properties for maximum email client 
-    compatibility. You can just update styles here, and Postmark does the rest.
--->
-<style type="text/css" rel="stylesheet" media="all">
-/* Base ------------------------------ */
-
-*:not(br):not(tr):not(html) {
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-  box-sizing: border-box;
-}
-
-body {
-  width: 100% !important;
-  height: 100%;
-  margin: 0;
-  line-height: 1.4;
-  background-color: #F2F4F6;
-  color: #74787E;
-  -webkit-text-size-adjust: none;
-}
-
-p,
-ul,
-ol,
-blockquote {
-  line-height: 1.4;
-  text-align: left;
-}
-
-a {
-  color: #3869D4;
-}
-
-a img {
-  border: none;
-}
-
-td {
-  word-break: break-word;
-}
-/* Layout ------------------------------ */
-
-.email-wrapper {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  -premailer-width: 100%;
-  -premailer-cellpadding: 0;
-  -premailer-cellspacing: 0;
-  background-color: #F2F4F6;
-}
-
-.email-content {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  -premailer-width: 100%;
-  -premailer-cellpadding: 0;
-  -premailer-cellspacing: 0;
-}
-/* Masthead ----------------------- */
-
-.email-masthead {
-  padding: 15px 0;
-  text-align: center;
-}
-
-.email-masthead_logo {
-  width: 94px;
-}
-
-.email-masthead_name {
-  font-size: 16px;
-  font-weight: bold;
-  color: #bbbfc3;
-  text-decoration: none;
-  text-shadow: 0 1px 0 white;
-}
-/* Body ------------------------------ */
-
-.email-body {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  -premailer-width: 100%;
-  -premailer-cellpadding: 0;
-  -premailer-cellspacing: 0;
-  border-top: 1px solid #EDEFF2;
-  border-bottom: 1px solid #EDEFF2;
-  background-color: #FFFFFF;
-}
-
-#email-body_inner {
-  width: 570px;
-  padding: 25px;
-  -premailer-width: 570px;
-  -premailer-cellpadding: 0;
-  -premailer-cellspacing: 0;
-  background-color: #FFFFFF;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
-  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
-  -ms-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
-  -o-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
-  
-  margin: 20px auto !important;
-}
-
-.email-footer {
-  width: 570px;
-  margin: 0 auto;
-  padding: 0;
-  -premailer-width: 570px;
-  -premailer-cellpadding: 0;
-  -premailer-cellspacing: 0;
-  text-align: center;
-}
-
-.email-footer p {
-  color: #AEAEAE;
-}
-
-.body-action {
-  width: 100%;
-  margin: 30px auto;
-  padding: 0;
-  -premailer-width: 100%;
-  -premailer-cellpadding: 0;
-  -premailer-cellspacing: 0;
-  text-align: center;
-}
-
-.body-sub {
-  margin-top: 25px;
-  padding-top: 25px;
-  border-top: 1px solid #EDEFF2;
-}
-
-.content-cell {
-  padding: 15px 0 15px;
-}
-
-.preheader {
-  display: none !important;
-  visibility: hidden;
-  mso-hide: all;
-  font-size: 1px;
-  line-height: 1px;
-  max-height: 0;
-  max-width: 0;
-  opacity: 0;
-  overflow: hidden;
-}
-/* Attribute list ------------------------------ */
-
-.attributes {
-  margin: 0 0 21px;
-}
-
-.attributes_content {
-  background-color: #EDEFF2;
-  padding: 16px;
-}
-
-.attributes_item {
-  padding: 0;
-}
-/* Related Items ------------------------------ */
-
-.related {
-  width: 100%;
-  margin: 0;
-  padding: 25px 0 0 0;
-  -premailer-width: 100%;
-  -premailer-cellpadding: 0;
-  -premailer-cellspacing: 0;
-}
-
-.related_item {
-  padding: 10px 0;
-  color: #74787E;
-  font-size: 15px;
-  line-height: 18px;
-}
-
-.related_item-title {
-  display: block;
-  margin: .5em 0 0;
-}
-
-.related_item-thumb {
-  display: block;
-  padding-bottom: 10px;
-}
-
-.related_heading {
-  border-top: 1px solid #EDEFF2;
-  text-align: center;
-  padding: 25px 0 10px;
-}
-/* Discount Code ------------------------------ */
-
-.discount {
-  width: 100%;
-  margin: 0;
-  padding: 24px;
-  -premailer-width: 100%;
-  -premailer-cellpadding: 0;
-  -premailer-cellspacing: 0;
-  background-color: #EDEFF2;
-  border: 2px dashed #9BA2AB;
-}
-
-.discount_heading {
-  text-align: center;
-}
-
-.discount_body {
-  text-align: center;
-  font-size: 15px;
-}
-/* Social Icons ------------------------------ */
-
-.social {
-  width: auto;
-}
-
-.social td {
-  padding: 0;
-  width: auto;
-}
-
-.social_icon {
-  height: 20px;
-  margin: 0 8px 10px 8px;
-  padding: 0;
-}
-/* Data table ------------------------------ */
-
-.purchase {
-  width: 100%;
-  margin: 0;
-  padding: 35px 0;
-  -premailer-width: 100%;
-  -premailer-cellpadding: 0;
-  -premailer-cellspacing: 0;
-}
-
-.purchase_content {
-  width: 100%;
-  margin: 0;
-  padding: 25px 0 0 0;
-  -premailer-width: 100%;
-  -premailer-cellpadding: 0;
-  -premailer-cellspacing: 0;
-}
-
-.purchase_item {
-  padding: 10px 0;
-  color: #74787E;
-  font-size: 15px;
-  line-height: 18px;
-}
-
-.purchase_heading {
-  padding-bottom: 8px;
-  border-bottom: 1px solid #EDEFF2;
-}
-
-.purchase_heading p {
-  margin: 0;
-  color: #9BA2AB;
-  font-size: 12px;
-}
-
-.purchase_footer {
-  padding-top: 15px;
-  border-top: 1px solid #EDEFF2;
-}
-
-.purchase_total {
-  margin: 0;
-  text-align: right;
-  font-weight: bold;
-  color: #2F3133;
-}
-
-.purchase_total--label {
-  padding: 0 15px 0 0;
-}
-/* Utilities ------------------------------ */
-
-.align-right {
-  text-align: right;
-}
-
-.align-left {
-  text-align: left;
-}
-
-.align-center {
-  text-align: center;
-}
-/*Media Queries ------------------------------ */
-
-@media only screen and (max-width: 600px) {
-  .email-body_inner,
-  .email-footer {
-    width: 100% !important;
-}
-}
-
-@media only screen and (max-width: 500px) {
-  .button {
-    width: 100% !important;
-}
-}
-/* Buttons ------------------------------ */
-
-.button {
-  background-color: #3869D4;
-  border-top: 10px solid #3869D4;
-  border-right: 18px solid #3869D4;
-  border-bottom: 10px solid #3869D4;
-  border-left: 18px solid #3869D4;
-  display: inline-block;
-  color: #FFF;
-  text-decoration: none;
-  border-radius: 3px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
-  -webkit-text-size-adjust: none;
-}
-
-.button--green {
-  background-color: #025FDF;
-  border-top: 10px solid #025FDF;
-  border-right: 18px solid #025FDF;
-  border-bottom: 10px solid #025FDF;
-  border-left: 18px solid #025FDF;
-}
-
-.button--red {
-  background-color: #FF6136;
-  border-top: 10px solid #FF6136;
-  border-right: 18px solid #FF6136;
-  border-bottom: 10px solid #FF6136;
-  border-left: 18px solid #FF6136;
-}
-/* Type ------------------------------ */
-
-h1 {
-  margin-top: 0;
-  color: #2F3133;
-  font-size: 19px;
-  font-weight: bold;
-  text-align: left;
-}
-
-h2 {
-  margin-top: 0;
-  color: #2F3133;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: left;
-}
-
-h3 {
-  margin-top: 0;
-  color: #2F3133;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: left;
-}
-
-p {
-  margin-top: 0;
-  color: #74787E;
-  font-size: 16px;
-  line-height: 1.5em;
-  text-align: left;
-}
-
-p.sub {
-  font-size: 12px;
-}
-
-p.center {
-  text-align: center;
-}
-</style>
-</head>
-<body>
-    <span class="preheader">Use this link to reset your password. The link is only valid for 24 hours.</span>
-    <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0">
-      <tr>
-        <td align="center">
-          <table class="email-content" width="100%" cellpadding="0" cellspacing="0">
-            <tr>
-              <td class="email-masthead">
-                <a href="javascript:void(0);" class="email-masthead_name">
-                    <img src="${keys.BASE_URL}dist/img/forgot_template_logo.png" alt="logo" />
-                </a>
-            </td>
-        </tr>
-        <!-- Email Body -->
-        <tr>
-          <td class="email-body" width="100%" cellpadding="0" cellspacing="0">
-          <table id="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0" style="border: 1px solid #ccc;">
-              <!-- Body content -->
-              <tr>
-                <td class="content-cell"> <!-- END STATIC CONTENT -->
+                                <!DOCTYPE html>
+                                <html>
+                                <head>
+                                  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                                  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                                  <!-- Favicon -->
+                                  <link rel="shortcut icon" href="/dist/img/favicon.ico" type="image/x-icon">
+                                  <link rel="icon" href="/dist/img/favicon.ico" type="image/x-icon">
+                                  <style type="text/css">
+                                  /* FONTS */
+                                  @media screen {
+                                    @font-face {
+                                  font-family: 'AvenirNextLTPro-Regular';
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.eot');
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.woff2') format('woff2'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.woff') format('woff'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.ttf') format('truetype'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.svg#AvenirNextLTPro-Regular') format('svg'),
+                                  url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.eot?#iefix') format('embedded-opentype');
+                                  font-weight: normal;
+                                  font-style: normal;
+                                }
+                                
+                                @font-face {
+                                  font-family: 'AvenirNextLTProBold';
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTProBold.eot');
+                                  src: url('/email_template_fonts/fonts/AvenirNextLTProBold.eot') 
+                                  format('embedded-opentype'), url('/email_template_fonts/fonts/AvenirNextLTProBold.woff2') 
+                                  format('woff2'), url('/email_template_fonts/fonts/AvenirNextLTProBold.woff') 
+                                  format('woff'), url('/email_template_fonts/fonts/AvenirNextLTProBold.ttf') 
+                                  format('truetype'), url('/email_template_fonts/fonts/AvenirNextLTProBold.svg#AvenirNextLTProBold') 
+                                  format('svg');
+                                }
+                                  }
+                                
+                                  /* CLIENT-SPECIFIC STYLES */
+                                  body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: 'AvenirNextLTPro-Regular', sans-serif; }
+                                  table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+                                  img { -ms-interpolation-mode: bicubic; }
+                                
+                                  /* RESET STYLES */
+                                  img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+                                  table { border-collapse: collapse !important; }
+                                  body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+                                
+                                  /* iOS BLUE LINKS */
+                                  a[x-apple-data-detectors] {
+                                    color: inherit !important;
+                                    text-decoration: none !important;
+                                    font-size: inherit !important;
+                                    font-family: inherit !important;
+                                    font-weight: inherit !important;
+                                    line-height: inherit !important;
+                                  }
+                                
+                                  /* MOBILE STYLES */
+                                  @media screen and (max-width:600px){
+                                    h1 {
+                                      font-size: 32px !important;
+                                      line-height: 32px !important;
+                                    }
+                                  }
+                                
+                                  /* ANDROID CENTER FIX */
+                                  div[style*="margin: 16px 0;"] { margin: 0 !important; }
+                                </style>
+                                </head>
+                                <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+                                
+                                  <!-- HIDDEN PREHEADER TEXT -->
+                                  <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'AvenirNextLTPro-Regular', sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+                                        Use this link to reset your password.
+                                  </div>
+                                
+                                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    
+                                    <tr>
+                                      <td bgcolor="#025fdf" align="center">
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                            <tr>
+                                            <td align="center" valign="top" width="600">
+                                            <![endif]-->
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                              <tr>
+                                                <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
+                                                  <a href="#" target="_blank">
+                                                    <img alt="Logo" src="${keys.BASE_URL}dist/img/template_logo.png" width="200" height="27" style="display: block; width: 200px; max-width: 200px; min-width: 200px; font-family: 'AvenirNextLTPro-Regular', sans-serif; color: #ffffff; font-size: 18px; filter: invert(1);" border="0">
+                                                  </a>
+                                                </td>
+                                              </tr>
+                                            </table>
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            </td>
+                                            </tr>
+                                            </table>
+                                          <![endif]-->
+                                        </td>
+                                      </tr> <!-- Static Content -->
+                                     
+                                      <tr>
+                                        <td bgcolor="#025fdf" align="center" style="padding: 0px 10px 0px 10px;">
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                            <tr>
+                                            <td align="center" valign="top" width="600">
+                                            <![endif]-->
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                              <tr>
+                                                <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
+                                                  <h1 style="font-size: 48px; font-weight: bold; margin: 0;"></h1>
+                                                </td>
+                                              </tr>
+                                            </table>
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            </td>
+                                            </tr>
+                                            </table>
+                                          <![endif]-->
+                                        </td>
+                                      </tr> <!-- Static Content -->
+                                     
+                                      <tr>
+                                        <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                                            <!--[if (gte mso 9)|(IE)]>
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                            <tr>
+                                            <td align="center" valign="top" width="600">
+                                            <![endif]-->
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                              
+                                              <tr>
+                                                <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
                                 `;
                                 
                                 complete_mail_content += upper_static_content;
+                                
+                                var mid_dynamic_content = editor_content_body;
 
-                                complete_mail_content += editor_content_body;
-
-                                var email_lower_static_content = `
-                                <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
-                                <tr>
-                                  <td align="center">
-                                        <!-- Border based button
-                                           https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
-                                           <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                              <tr>
-                                                <td align="center">
-                                                  <table border="0" cellspacing="0" cellpadding="0">
-                                                    <tr>
-                                                      <td>
-                                                        <a href="${keys.BASE_URL}reset_password/${email_key}" class="button button--green" target="_blank">Reset Password</a>
-                                                    </td>
-                                                </tr>
+                                complete_mail_content += mid_dynamic_content;
+                                
+                                complete_mail_content += `</td></tr>`;
+                                
+                                activate_btn_content = `
+                                    <tr>
+                                    <td bgcolor="#ffffff" align="left">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                        <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
+                                            <table border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td align="center" style="border-radius: 3px;" bgcolor="#025fdf"><a href="${keys.BASE_URL}reset_password/${email_key}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #025fdf; display: inline-block;">Reset Password</a></td>
+                                            </tr>
                                             </table>
                                         </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                                    <p>
-                                    <a href="${keys.BASE_URL}reset_password/${email_key}">${keys.BASE_URL}reset_password/${email_key}</a></p>
-                                    <p>If you did not request this, please email support@coinjolt.com immediately.</p>    
-                                    <p>Additionally, if you have any questions, we’re always happy to help out - just reply to this email.</p>
-                                        <p>Sincerely,</p>
-                                        <p>Coin Jolt Support</p>
-                                        <!-- Sub copy -->
+                                        </tr>
+                                    </table>
                                     </td>
                                 </tr>
-                            </table>
-                            </td>
-                            </tr>
-                            <tr>
-                            <td>
-                                <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td class="content-cell" align="center">
-                                        <p class="sub align-center" style="margin-bottom: 0;">Copyright &copy; 2011 - 2018 CoinJolt.com. All rights reserved.</p>
-                                    </td>
-                                </tr>
-                            </table>
-                            </td>
-                            </tr>
-                            </table>
-                            </td>
-                            </tr>
-                            </table>
-                            </body>
-                            </html>
                                 `;
 
-                                
+                                complete_mail_content += activate_btn_content;
 
-                                complete_mail_content += email_lower_static_content;
+                                lower_static_content = `
+                                    <tr>
+                                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                    
+                                    <p> 
+                                        <a href="${keys.BASE_URL}reset_password/${email_key}">
+                                        ${keys.BASE_URL}reset_password/${email_key}
+                                        </a>
+                                    </p>
+                                    </td>
+                                </tr> <!-- Static Content -->
+                                <tr>
+                                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                    <p style="margin: 0;">If you have any questions, just reply to this email—we're always happy to help out.</p>
+                                    </td>
+                                </tr> <!-- Static Content -->
+                                
+                                <tr>
+                                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                    <p style="margin: 0;">Cheers,<br>The Coin Jolt Team</p>
+                                    </td>
+                                </tr> <!-- Static Content -->
+                    
+                                </table>
+                    
+                    
+                                <!--[if (gte mso 9)|(IE)]>
+                                </td>
+                                </tr>
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr>
+                        <!-- SUPPORT CALLOUT -->
+                        <tr>
+                            <td bgcolor="#f4f4f4" align="center" style="padding: 30px 10px 0px 10px;">
+                                <!--[if (gte mso 9)|(IE)]>
+                                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                <tr>
+                                <td align="center" valign="top" width="600">
+                                <![endif]-->
+                                
+                                <!--[if (gte mso 9)|(IE)]>
+                                </td>
+                                </tr>
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr> <!-- Static Content -->
+                        <!-- FOOTER -->
+                        <tr>
+                            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                                <!--[if (gte mso 9)|(IE)]>
+                                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                <tr>
+                                <td align="center" valign="top" width="600">
+                                <![endif]-->
+                                
+                                <!--[if (gte mso 9)|(IE)]>
+                                </td>
+                                </tr>
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr> <!-- Static Content -->
+                        </table>
+                        
+                    </body>
+                    </html>
+                                `;
+
+                                complete_mail_content += lower_static_content;
    
                                 ses.sendEmail({ 
                                     Source: keys.senderEmail, 

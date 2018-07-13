@@ -134,6 +134,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     
     app.get('/dashboard', (req, res) => {
         blog_post.findAll({
+            where:{
+                post_category_id: 3
+            },
             limit: 4,
             order: [
                 ['id', 'DESC']
@@ -743,7 +746,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             converted_amount: req.body.actualAmtExpect,
             type: 1,
             balance: req.body.balance,
-            currency_id: req.body.currency_id
+            currency_id: req.body.currency_id,
+            payment_method: 0
         }).then(function (result) {
 
             currency_balance.findAndCountAll({
@@ -793,7 +797,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             base_currency: req.body.currencySellType,
             converted_amount: req.body.amtVal,
             balance: req.body.balance,
-            currency_id: req.body.currency_id
+            currency_id: req.body.currency_id,
+            payment_method: 0
         }).then(function (result) {
             
             currency_balance.findAndCountAll({
@@ -1047,7 +1052,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 			amount: amountInvest,
 			current_rate: coinRate,
 			converted_amount: converted_amount,
-			type: type
+            type: type,
+            payment_method: 0
         }).then(function (result) {
             req.flash('investStatusMessage', 'Your investment was made successfully!');
             res.redirect('/managed-cryptocurrency-portfolio');
@@ -1482,7 +1488,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var ssn = '4344';
 
         request({
-            uri: "https://coinjolt.com/ecorepay.php",
+            uri: "http://ec2-52-91-251-249.compute-1.amazonaws.com/ecorepay.php",
             method: "POST",
             //json: true,
             form: {
@@ -1606,8 +1612,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
               "payment_method": "paypal"
           },
           "redirect_urls": {
-              "return_url": "https://www.coinjolt.com/paypal-success",
-              "cancel_url": "https://www.coinjolt.com/paypal-cancel"
+              "return_url": "http://ec2-52-91-251-249.compute-1.amazonaws.com/paypal-success",
+              "cancel_url": "http://ec2-52-91-251-249.compute-1.amazonaws.com/paypal-cancel"
           },
           "transactions": [{
               "item_list": {

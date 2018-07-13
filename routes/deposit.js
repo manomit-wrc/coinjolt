@@ -97,10 +97,6 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
 		var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
 		//end//
 
-		function notOnlyALogger(msg){
-			console.log('****log****');
-			console.log(msg);
-		}
 
 		WireTransfer.update({
 			status : 1
@@ -131,8 +127,7 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
             where: {
                 id: req.body.user_id
 			},
-			attributes: ['referral_id'],
-			logging: notOnlyALogger
+			attributes: ['referral_id']
         }).then(function (result) {
 			refId = result[0].referral_id;
 			

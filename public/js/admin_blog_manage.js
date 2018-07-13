@@ -20,7 +20,8 @@ $('#admin_blog_posts').DataTable({
 
 //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
 //var baseURL = "http://localhost:8080/admin/";
-var baseURL = "https://www.coinjolt.com/";
+//var baseURL = "https://www.coinjolt.com/";
+var baseURL = "http://ec2-52-91-251-249.compute-1.amazonaws.com/";
 // CKEDITOR.replace( 'edit_post_description' );
 CKEDITOR.replace( 'post_description' ); 
 

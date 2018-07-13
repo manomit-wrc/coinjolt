@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('.kyc_approved').on('click', function () {
+	$(".kyc_list").on("click", ".kyc_approved", function(){
 		var row_id = $(this).data('value');
 
 		swal({
@@ -28,7 +28,7 @@ $(document).ready(function() {
  		});
 	});
 
-	$('.kyc_reject').on('click', function () {
+	$(".kyc_list").on("click", ".kyc_reject", function(){
 		var row_id = $(this).data('value');
 
 		swal({

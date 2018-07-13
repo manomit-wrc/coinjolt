@@ -376,7 +376,7 @@ module.exports = function (app, passport, models) {
                                         <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
                                             <table border="0" cellspacing="0" cellpadding="0">
                                             <tr>
-                                                <td align="center" style="border-radius: 3px;" bgcolor="#025fdf"><a href="${keys.BASE_URL}activated/${email_key}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #025fdf; display: inline-block;">Reset Password</a></td>
+                                                <td align="center" style="border-radius: 3px;" bgcolor="#025fdf"><a href="${keys.BASE_URL}reset_password/${email_key}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #025fdf; display: inline-block;">Reset Password</a></td>
                                             </tr>
                                             </table>
                                         </td>
@@ -391,10 +391,10 @@ module.exports = function (app, passport, models) {
                                 lower_static_content = `
                                     <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
+                                    
                                     <p> 
-                                        <a href="${keys.BASE_URL}activated/${email_key}">
-                                    ${keys.BASE_URL}activated/${email_key}
+                                        <a href="${keys.BASE_URL}reset_password/${email_key}">
+                                        ${keys.BASE_URL}reset_password/${email_key}
                                         </a>
                                     </p>
                                     </td>

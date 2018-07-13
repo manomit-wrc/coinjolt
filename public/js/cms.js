@@ -115,3 +115,24 @@ $("#cms_home_page_submit").on('click', function () {
 		}
 	});
 });
+
+$("#cms_home_page_edit").on('click', function () {
+	var form_data = new FormData($('#cms-home-page')[0]);
+	form_data.append('cold_wallet_desc', CKEDITOR.instances['cold_wallet_desc'].getData());
+	form_data.append('hot_wallet_desc', CKEDITOR.instances['hot_wallet_desc'].getData());
+	form_data.append('how_is_works_description', CKEDITOR.instances['how_is_works_description'].getData());
+
+	$.ajax({
+		type: "POST",
+		url: "/admin/cms/home-page-edit",
+		data:form_data,
+		processData: false,
+        contentType: false,
+		success: function (resp) {
+			if(resp.status == true) {
+				alert(resp.msg);
+				window.location.reload();
+			}
+		}
+	});
+});

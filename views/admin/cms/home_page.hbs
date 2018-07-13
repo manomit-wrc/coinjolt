@@ -16,67 +16,160 @@
                     <h3 class="box-title">CMS- Home page details</h3>
                 </div>
                 <div class="box-body">
-                    <form method="post" action="javasript:void(0)" role="form" id="cms-home-page" name="cms-home-page" enctype="multipart/form-data">
+                    {{#not_empty_array home_data}}
+                        <form method="post" action="javasript:void(0)" role="form" id="cms-home-page" name="cms-home-page" enctype="multipart/form-data">
+                            <input type="hidden" name="row_id" id="row_id" value="{{home_data.0.id}}">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Subject">Home page banner image upload</label>
+                                        <input type="file" class="form-control" name="home_page_banner_image" id="home_page_banner_image" value="">
+                                    </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="Subject">Home page banner image upload</label>
-                                    <input type="file" class="form-control" name="home_page_banner_image" id="home_page_banner_image" value="">
+                                    <div>
+                                        <img src="/cms/home_page/resize/{{home_data.0.home_page_banner_image}}" style="width:100px;height:100px;">
+                                        <input type="hidden" id="existing_banner_image" name="existing_banner_image" value="{{home_data.0.home_page_banner_image}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="Subject">How it works image upload</label>
-                                    <input class="form-control" type="file" name="how_it_works_image" id="how_it_works_image" value="">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Subject">How it works image upload</label>
+                                        <input class="form-control" type="file" name="how_it_works_image" id="how_it_works_image" value="">
+                                    </div>
+
+                                    <div>
+                                        <img src="/cms/home_page/resize/{{home_data.0.how_it_works_image}}" style="width:100px;height:100px;">
+                                        <input type="hidden" id="existing_how_it_works_image" name="existing_how_it_works_image" value="{{home_data.0.how_it_works_image}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="Description">How it works description</label>
-                                    <textarea name="how_is_works_description" class="form-control" id="how_is_works_description" placeholder="Enter Description"></textarea>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Description">How it works description</label>
+                                        <textarea name="how_is_works_description" class="form-control" id="how_is_works_description" placeholder="Enter Description">{{home_data.0.how_is_works_description}}</textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="Subject">Hot wallet image upload</label>
-                                    <input class="form-control" type="file" name="hot_wallet_image" id="hot_wallet_image" value="">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Subject">Hot wallet image upload</label>
+                                        <input class="form-control" type="file" name="hot_wallet_image" id="hot_wallet_image" value="">
+                                    </div>
+
+                                    <div>
+                                        <img src="/cms/home_page/resize/{{home_data.0.hot_wallet_image}}" style="width:100px;height:100px;">
+                                        <input type="hidden" id="existing_hot_wallet_image_image" name="existing_hot_wallet_image_image" value="{{home_data.0.hot_wallet_image}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="Description">Hot wallet description</label>
-                                    <textarea name="hot_wallet_desc" class="form-control" id="hot_wallet_desc" placeholder="Enter Description"></textarea>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Description">Hot wallet description</label>
+                                        <textarea name="hot_wallet_desc" class="form-control" id="hot_wallet_desc" placeholder="Enter Description">{{home_data.0.hot_wallet_desc}}</textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="Subject">cold wallet image upload</label>
-                                    <input class="form-control" type="file" name="cold_wallet_image" id="cold_wallet_image" value="">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Subject">cold wallet image upload</label>
+                                        <input class="form-control" type="file" name="cold_wallet_image" id="cold_wallet_image" value="">
+                                    </div>
+
+                                    <div>
+                                        <img src="/cms/home_page/resize/{{home_data.0.cold_wallet_image}}" style="width:100px;height:100px;">
+                                        <input type="hidden" id="existing_cold_wallet_image_image_image" name="existing_cold_wallet_image_image_image" value="{{home_data.0.cold_wallet_image}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="Description">cold wallet description</label>
-                                    <textarea name="cold_wallet_desc" class="form-control" id="cold_wallet_desc" placeholder="Enter Description"></textarea>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Description">cold wallet description</label>
+                                        <textarea name="cold_wallet_desc" class="form-control" id="cold_wallet_desc" placeholder="Enter Description">{{home_data.0.cold_wallet_desc}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Description">Upload video</label>
+                                        <input type="file" name="video_upload" id="video_upload" class="form-control" value="">
+                                    </div>
+
+                                    <div>
+                                       {{!--  <img src="/cms/home_page/{{home_data.0.video_upload}}" style="width:100px;height:100px;"> --}}
+                                        <input type="hidden" id="existing_video_upload" name="existing_video_upload" value="{{home_data.0.video_upload}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 col-md-offset-5">
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" id="cms_home_page_edit" value="Edit" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="Description">Upload video</label>
-                                    <input type="file" name="video_upload" id="video_upload" class="form-control" value="">
+                        </form>
+                    {{/not_empty_array}}
+
+                    {{#empty_array home_data}}
+                        <form method="post" action="javasript:void(0)" role="form" id="cms-home-page" name="cms-home-page" enctype="multipart/form-data">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Subject">Home page banner image upload</label>
+                                        <input type="file" class="form-control" name="home_page_banner_image" id="home_page_banner_image" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Subject">How it works image upload</label>
+                                        <input class="form-control" type="file" name="how_it_works_image" id="how_it_works_image" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Description">How it works description</label>
+                                        <textarea name="how_is_works_description" class="form-control" id="how_is_works_description" placeholder="Enter Description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Subject">Hot wallet image upload</label>
+                                        <input class="form-control" type="file" name="hot_wallet_image" id="hot_wallet_image" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Description">Hot wallet description</label>
+                                        <textarea name="hot_wallet_desc" class="form-control" id="hot_wallet_desc" placeholder="Enter Description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Subject">cold wallet image upload</label>
+                                        <input class="form-control" type="file" name="cold_wallet_image" id="cold_wallet_image" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Description">cold wallet description</label>
+                                        <textarea name="cold_wallet_desc" class="form-control" id="cold_wallet_desc" placeholder="Enter Description"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Description">Upload video</label>
+                                        <input type="file" name="video_upload" id="video_upload" class="form-control" value="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 col-md-offset-5">
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="button" id="cms_home_page_submit" value="Submit" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-2 col-md-offset-5">
-                                <div class="form-group">
-                                    <input class="btn btn-primary" type="button" id="cms_home_page_submit" value="Submit" />
-                                </div>
-                            </div>
-                        </div>
+                        </form>
+                    {{/empty_array}}
 
-                    </form>
+                    
                 </div>
             <!-- /.box-body -->
           </div>

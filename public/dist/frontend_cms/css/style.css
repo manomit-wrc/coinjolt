@@ -352,9 +352,9 @@ canvas{
 }
 
 .welcome-section .wel-box h2 {
-	font-size: 40px;
-	font-weight: bold;
-	margin: 22px 0;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 15px;
 }
 
 .features-texts-s2 h5 {
@@ -482,6 +482,7 @@ canvas{
 .price-wrap .price-item h3 {
 	color: #fff;
 	font-family: AvenirNextLTProBold;
+	margin: 0;
 }
 
 .price-wrap .heading h3 {
@@ -1554,6 +1555,23 @@ footer {
 .wel-box.animatedParent {
 	overflow: hidden;
 }
+
+/*Starts on css 13-07-2018*/
+
+.price-wrap .price-item h2 {
+	 color: #fff;
+	 font-size: 22px;
+	 line-height: 36px;
+}
+
+.price-wrap .price-item p {
+	 color: #fff;
+	 font-size: 19px;
+	 line-height: 36px;
+}
+
+/*Ends on css 13-07-2018*/
+
 
 
 /*Starts Responsive CSS*/

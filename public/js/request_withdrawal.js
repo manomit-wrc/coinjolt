@@ -155,7 +155,9 @@
 
 	});
 
-	$(".pending_withdrawals_approved").on('click', function () {
+	//$(".pending_withdrawals_approved").on('click', function () {
+	$(".pnding_withdwal_tbl").on("click", ".pending_withdrawals_approved", function(){	
+
  		var row_id = $(this).data('value');
  		var amount = $(this).data('amount');
  		var user_id = $(this).data('user_id');
@@ -189,7 +191,9 @@
  		});
  	});
 	 	
- 	$(".pending_withdrawals_reject").on('click', function () {
+ 	//$(".pending_withdrawals_reject").on('click', function () {
+	$(".pnding_withdwal_tbl").on("click", ".pending_withdrawals_reject", function(){	
+
  		var row_id = $(this).data('value');
  		var amount = $(this).data('amount');
  		swal({

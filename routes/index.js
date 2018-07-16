@@ -528,10 +528,13 @@ module.exports = function (app, passport, models) {
             // }else{
                 bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })
                 .then(function(response) {
+                    console.log("Response Access Token");
                     console.log(response.access_token);
                     res.cookie('BITGO_ACCESS_TOKEN',response.access_token);
                     res.redirect('/dashboard');
                 }).catch(function (err) {
+                    console.log("dashboard2");
+                	console.log(err);
                     res.redirect('/dashboard');
                 });
             // }

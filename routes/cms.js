@@ -427,6 +427,9 @@ module.exports = function (app, models) {
                     msg: "Submit successfully."
                 });
             }
+        }).catch(function (err) {
+            console.log("err");
+            console.log(err);
         });
     });
 

@@ -358,7 +358,7 @@ module.exports = function (app, models) {
         name: 'video_upload', maxCount: 1  
       }]), (req, res) => {
 
-        if (req.files.home_page_banner_image[0].filename){
+        if (req.files.home_page_banner_image && req.files.home_page_banner_image.length > 0){
             // save thumbnail -- should this part go elsewhere?
             im.crop({
               srcPath: 'public/cms/home_page/'+ req.files.home_page_banner_image[0].filename,
@@ -371,7 +371,7 @@ module.exports = function (app, models) {
             });
         }
         
-        if (req.files.how_it_works_image[0].filename){
+        if (req.files.how_it_works_image && req.files.how_it_works_image.length > 0){
             // save thumbnail -- should this part go elsewhere?
             im.crop({
               srcPath: 'public/cms/home_page/'+ req.files.how_it_works_image[0].filename,
@@ -384,7 +384,7 @@ module.exports = function (app, models) {
             });
         }
         
-        if (req.files.hot_wallet_image[0].filename){
+        if (req.files.hot_wallet_image && req.files.hot_wallet_image.length > 0){
             // save thumbnail -- should this part go elsewhere?
             im.crop({
               srcPath: 'public/cms/home_page/'+ req.files.hot_wallet_image[0].filename,
@@ -397,7 +397,7 @@ module.exports = function (app, models) {
             });
         }
         
-        if (req.files.cold_wallet_image[0].filename){
+        if (req.files.cold_wallet_image && req.files.cold_wallet_image.length > 0){
             // save thumbnail -- should this part go elsewhere?
             im.crop({
               srcPath: 'public/cms/home_page/'+ req.files.cold_wallet_image[0].filename,
@@ -444,11 +444,11 @@ module.exports = function (app, models) {
       },{
         name: 'video_upload', maxCount: 1  
       }]), (req, res) => {
-        // console.log(req.body);
-        // console.log(req.body.how_is_works_description[1],'desc');
-        // console.log(req.body.hot_wallet_desc[1],'hot wallet');
-        // console.log(req.body.cold_wallet_desc[1],'cold');
-        // console.log(req.files);
+        console.log(req.body);
+        console.log(req.body.how_is_works_description[1],'desc');
+        console.log(req.body.hot_wallet_desc[1],'hot wallet');
+        console.log(req.body.cold_wallet_desc[1],'cold');
+        console.log(req.files);
         // return false;
 
         var home_page_banner_image,how_it_works_image,hot_wallet_image,cold_wallet_image,video_upload;

@@ -117,6 +117,7 @@ $("#cms_home_page_submit").on('click', function () {
 });
 
 $("#cms_home_page_edit").on('click', function () {
+	console.log("edit");
 	var form_data = new FormData($('#cms-home-page')[0]);
 	form_data.append('cold_wallet_desc', CKEDITOR.instances['cold_wallet_desc'].getData());
 	form_data.append('hot_wallet_desc', CKEDITOR.instances['hot_wallet_desc'].getData());

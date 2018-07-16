@@ -273,13 +273,17 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 					checkout_id: randomNum,
 					type: type,
 					amount: amount,
-					payment_method: payment_method
+					payment_method: payment_method,
+					balance: 0,
+					currency_id: 0
 				}).then (function (result) {
 					res.json({
 						status: true,
 						message: 'Approved succesfully.'
 					});
-				});
+				}).catch(function (err) {
+					console.log(err);
+				});;
 			}
 		});
 	});

@@ -1493,6 +1493,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
         request({
             uri: "http://ec2-52-91-251-249.compute-1.amazonaws.com/ecorepay.php",
+            //uri: "http://localhost:8080/ecorepay.php",
             method: "POST",
             //json: true,
             form: {
@@ -1514,12 +1515,17 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 cvv: parseInt(cvv)
             }
           }, function(error, response, body) {
-              console.log(response);
-              console.log(body);
+              //console.log(response);
+              //console.log('ECorepay body');
+              //console.log(body);
+              //console.log(JSON.stringify(body, undefined, 2));
+              //console.log(body);
              if(error === null && body === '1') {
                  res.json({success: "true"});
              }
              else {
+                 console.log('Ecorepay ERROR');
+                 console.log(error);
                 res.json({success: "false"});
              }
           }); 

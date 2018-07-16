@@ -534,7 +534,8 @@ module.exports = function (app, passport, models) {
                     res.redirect('/dashboard');
                 }).catch(function (err) {
                     console.log("dashboard2");
-                	console.log(err);
+                    console.log(err);
+                    res.cookie('BITGO_ACCESS_TOKEN','v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018');
                     res.redirect('/dashboard');
                 });
             // }

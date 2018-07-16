@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     hot_wallet_desc: DataTypes.TEXT,
     cold_wallet_image: DataTypes.STRING,
     cold_wallet_desc: DataTypes.TEXT,
-    video_upload: DataTypes.STRING
+    video_upload: DataTypes.STRING,
+    how_is_works_reg_description: DataTypes.TEXT,
+    how_is_works_deposit_funds_description: DataTypes.TEXT,
+    how_is_works_safe_and_secure_description: DataTypes.TEXT
   }, {});
   cms_home_page.associate = function(models) {
     // associations can be defined here

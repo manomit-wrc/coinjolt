@@ -433,7 +433,13 @@ module.exports = function (app, models) {
         models.cms_home_page.create({
             home_page_banner_image: home_page_banner_image,
             how_it_works_image: how_it_works_image,
-            how_is_works_description: req.body.how_is_works_description[1],
+
+            how_is_works_reg_description: req.body.how_is_works_reg_description[1],
+            
+            how_is_works_deposit_funds_description: req.body.how_is_works_deposit_funds_description[1],
+            
+            how_is_works_safe_and_secure_description: req.body.how_is_works_safe_and_secure_description[1],
+            
             hot_wallet_image: hot_wallet_image,
             hot_wallet_desc: req.body.hot_wallet_desc[1],
             cold_wallet_image: cold_wallet_image,
@@ -463,12 +469,6 @@ module.exports = function (app, models) {
       },{
         name: 'video_upload', maxCount: 1  
       }]), (req, res) => {
-        // console.log(req.body);
-        // console.log(req.body.how_is_works_description[1],'desc');
-        // console.log(req.body.hot_wallet_desc[1],'hot wallet');
-        // console.log(req.body.cold_wallet_desc[1],'cold');
-        // console.log(req.files);
-        // return false;
 
         var home_page_banner_image,how_it_works_image,hot_wallet_image,cold_wallet_image,video_upload;
         if (req.files.home_page_banner_image && req.files.home_page_banner_image.length > 0){
@@ -545,7 +545,13 @@ module.exports = function (app, models) {
         models.cms_home_page.update({
         	home_page_banner_image: home_page_banner_image,
             how_it_works_image: how_it_works_image,
-            how_is_works_description: req.body.how_is_works_description[1],
+            
+            how_is_works_reg_description: req.body.how_is_works_reg_description[1],
+            
+            how_is_works_deposit_funds_description: req.body.how_is_works_deposit_funds_description[1],
+            
+            how_is_works_safe_and_secure_description: req.body.how_is_works_safe_and_secure_description[1],
+            
             hot_wallet_image: hot_wallet_image,
             hot_wallet_desc: req.body.hot_wallet_desc[1],
             cold_wallet_image: cold_wallet_image,

@@ -2,6 +2,7 @@ var BitGo = require('bitgo');
 var bitgo = new BitGo.BitGo({
     env: 'test'
 });
+// var BitGoJS = require('bitgo');
 const keys = require('../config/key');
 const crypto = require('crypto');
 const algorithm = 'aes-256-ctr';
@@ -532,12 +533,22 @@ module.exports = function (app, passport, models) {
                     console.log(response.access_token);
                     res.cookie('BITGO_ACCESS_TOKEN',response.access_token);
                     res.redirect('/dashboard');
-                }).catch(function (err) {
+                })
+                .catch(function (err) {
                     console.log("dashboard2");
                     console.log(err);
                     res.cookie('BITGO_ACCESS_TOKEN','v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018');
                     res.redirect('/dashboard');
                 });
+
+                // var bitgo = new BitGoJS.BitGo({ env: 'test', accessToken:'v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018'});
+                // bitgo.session({}, function callback(err, session) {
+                //   if (err) {
+                //     // handle error
+                //     console.log(err);
+                //   }
+                //   console.dir(session);
+                // });
             // }
         }
     });
@@ -751,3 +762,5 @@ module.exports = function (app, passport, models) {
     }
 
 };
+
+

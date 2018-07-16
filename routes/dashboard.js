@@ -1492,8 +1492,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var ssn = '4344';
 
         request({
-            //uri: "http://ec2-52-91-251-249.compute-1.amazonaws.com/ecorepay.php",
-            uri: "http://localhost:8080/ecorepay.php",
+            uri: "http://ec2-52-91-251-249.compute-1.amazonaws.com/ecorepay.php",
+            //uri: "http://localhost:8080/ecorepay.php",
             method: "POST",
             //json: true,
             form: {
@@ -1519,7 +1519,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
               //console.log('ECorepay body');
               //console.log(body);
               //console.log(JSON.stringify(body, undefined, 2));
-              console.log(body);
+              //console.log(body);
              if(error === null && body === '1') {
                  res.json({success: "true"});
              }

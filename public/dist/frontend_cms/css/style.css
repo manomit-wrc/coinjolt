@@ -284,7 +284,7 @@ canvas{
 	content: "";
 	height: 2px;
 	position: absolute;
-	right: 404px;
+	right: 350px;
 	top: 9px;
 	width: 50px;
 }
@@ -542,9 +542,9 @@ canvas{
 	background: #025fdf none repeat scroll 0 0;
 	content: "";
 	height: 2px;
-	right: 410px;
 	position: absolute;
-	top: 12px;
+	right: 360px;
+    top: 10px;
 	width: 50px;
 }
 
@@ -685,7 +685,7 @@ canvas{
 	background: #025fdf none repeat scroll 0 0;
 	content: "";
 	height: 2px;
-	right: 377px;
+	right: 420px;
 	top: 10px;
 	position: absolute;
 	width: 50px;
@@ -843,7 +843,7 @@ canvas{
 	background: #025fdf none repeat scroll 0 0;
 	content: "";
 	height: 2px;
-	right: 410px;
+	right: 425px;
 	position: absolute;
 	top: 9px;
 	width: 50px;
@@ -1609,7 +1609,7 @@ footer {
 	}
 
 	.welcome-section .heading h4::after {
-		right: 310px;
+		right: 240px;
 	}
 
 	.buy-section .heading h4::after {

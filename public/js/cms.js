@@ -96,6 +96,7 @@ CKEDITOR.replace( 'hot_wallet_desc' );
 CKEDITOR.replace( 'how_is_works_description' );
 
 $("#cms_home_page_submit").on('click', function () {
+	$(':input[type="button"]').prop('disabled', true);
 	var form_data = new FormData($('#cms-home-page')[0]);
 	form_data.append('cold_wallet_desc', CKEDITOR.instances['cold_wallet_desc'].getData());
 	form_data.append('hot_wallet_desc', CKEDITOR.instances['hot_wallet_desc'].getData());
@@ -108,6 +109,7 @@ $("#cms_home_page_submit").on('click', function () {
 		processData: false,
         contentType: false,
 		success: function (resp) {
+			$(':input[type="button"]').prop('disabled', false);
 			if(resp.status == true) {
 				alert(resp.msg);
 				window.location.reload();
@@ -117,7 +119,7 @@ $("#cms_home_page_submit").on('click', function () {
 });
 
 $("#cms_home_page_edit").on('click', function () {
-	console.log("edit");
+	$(':input[type="button"]').prop('disabled', true);
 	var form_data = new FormData($('#cms-home-page')[0]);
 	form_data.append('cold_wallet_desc', CKEDITOR.instances['cold_wallet_desc'].getData());
 	form_data.append('hot_wallet_desc', CKEDITOR.instances['hot_wallet_desc'].getData());
@@ -130,6 +132,7 @@ $("#cms_home_page_edit").on('click', function () {
 		processData: false,
         contentType: false,
 		success: function (resp) {
+			$(':input[type="button"]').prop('disabled', false);
 			if(resp.status == true) {
 				alert(resp.msg);
 				window.location.reload();

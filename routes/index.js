@@ -16,12 +16,19 @@ const auth = require('../middlewares/auth');
 module.exports = function (app, passport, models) {
     
     app.get('/', auth, function(req, res) {
-
-        models.company_setting.findAll({
-
-        }).then(function(companySettingsData){  
-            res.render('cms_body', {layout: 'cms/dashboard', companySettingsData: companySettingsData});
+        Promise.all([
+            models.company_setting.findAll({}),
+            models.cms_home_page.findAll({})
+        ]).then(function (result) {
+            var result = JSON.parse(JSON.stringify(result));
+            res.render('cms_body', {layout: 'cms/dashboard', companySettingsData: result[0], home_sttings:result[1]});
         });
+
+        // models.company_setting.findAll({
+
+        // }).then(function(companySettingsData){  
+        //     res.render('cms_body', {layout: 'cms/dashboard', companySettingsData: companySettingsData});
+        // });
     });
 
     app.get('/terms-of-service', auth, function(req, res) {

@@ -4,6 +4,7 @@ module.exports = function (app, models) {
 
     //
     var multer  = require('multer');
+    var im = require('imagemagick');
 	//var multerS3 = require('multer-s3');
 	var fs = require('fs');
 	//var s3 = new AWS.S3();
@@ -28,9 +29,9 @@ module.exports = function (app, models) {
           fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
           cb(null, fileName);
         }
-      });
+    });
 
-      var restrictImgType = function(req, file, cb) {
+    var restrictImgType = function(req, file, cb) {
 
 	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
 	      if (allowedTypes.indexOf(req.file.mimetype) !== -1){
@@ -40,8 +41,37 @@ module.exports = function (app, models) {
 	        // To reject this file pass `false`
 	        cb(null, false);
 	       //cb(new Error('File type not allowed'));// How to pass an error?
-	      }
+        }
 	};
+
+
+    var home_page_storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, 'public/cms/home_page');
+        },
+        filename: function (req, file, cb) {
+          fileExt = file.mimetype.split('/')[1];
+          
+          fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+          cb(null, fileName);
+        }
+    });
+
+    var home_page_restrictImgType = function(req, file, cb) {
+
+        var allowedTypes = ['image/jpeg','image/gif','image/png'];
+          if (allowedTypes.indexOf(req.file.mimetype) !== -1){
+            // To accept the file pass `true`
+            cb(null, true);
+          } else {
+            // To reject this file pass `false`
+            cb(null, false);
+           //cb(new Error('File type not allowed'));// How to pass an error?
+        }
+    };
+
+
+
 
 	var termsOfServicestorage = multer.diskStorage({
 		destination: function (req, file, cb) {
@@ -306,5 +336,212 @@ module.exports = function (app, models) {
 			}
         });
 	});
+
+    app.get('/admin/cms/home-page', acl, (req,res) => {
+        models.cms_home_page.findAll({}).then(function (result) {
+            var data = JSON.parse(JSON.stringify(result));
+            res.render('admin/cms/home_page', {layout: 'dashboard', title:"CMS- Home", home_data:data});
+        });
+    });
+
+    var home_page_all_upload = multer({ storage: home_page_storage, limits: {fileSize:3000000} });
+
+    app.post('/admin/cms/home-page-submit', acl, home_page_all_upload.fields([{
+        name: 'home_page_banner_image', maxCount: 1
+      }, {
+        name: 'how_it_works_image', maxCount: 1
+      }, {
+        name: 'hot_wallet_image', maxCount: 1  
+      }, {
+        name: 'cold_wallet_image', maxCount: 1  
+      },{
+        name: 'video_upload', maxCount: 1  
+      }]), (req, res) => {
+
+        if (req.files.home_page_banner_image[0].filename){
+            // save thumbnail -- should this part go elsewhere?
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.home_page_banner_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.home_page_banner_image[0].filename,
+              width: 1920,
+              height: 652
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }
+        
+        if (req.files.how_it_works_image[0].filename){
+            // save thumbnail -- should this part go elsewhere?
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.how_it_works_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.how_it_works_image[0].filename,
+              width: 667,
+              height: 552
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }
+        
+        if (req.files.hot_wallet_image[0].filename){
+            // save thumbnail -- should this part go elsewhere?
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.hot_wallet_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.hot_wallet_image[0].filename,
+              width: 200,
+              height: 200
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }
+        
+        if (req.files.cold_wallet_image[0].filename){
+            // save thumbnail -- should this part go elsewhere?
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.cold_wallet_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.cold_wallet_image[0].filename,
+              width: 200,
+              height: 200
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+	    }
+        
+
+        models.cms_home_page.create({
+            home_page_banner_image: req.files.home_page_banner_image[0].filename,
+            how_it_works_image: req.files.how_it_works_image[0].filename,
+            how_is_works_description: req.body.how_is_works_description[1],
+            hot_wallet_image: req.files.hot_wallet_image[0].filename,
+            hot_wallet_desc: req.body.hot_wallet_desc[1],
+            cold_wallet_image: req.files.cold_wallet_image[0].filename,
+            cold_wallet_desc: req.body.cold_wallet_desc[1],
+            video_upload: req.files.video_upload[0].filename
+        }).then( function (result) {
+            if(result) {
+                res.json({
+                    status: true,
+                    msg: "Submit successfully."
+                });
+            }
+        });
+    });
+
+    app.post('/admin/cms/home-page-edit', acl, home_page_all_upload.fields([{
+        name: 'home_page_banner_image', maxCount: 1
+      }, {
+        name: 'how_it_works_image', maxCount: 1
+      }, {
+        name: 'hot_wallet_image', maxCount: 1  
+      }, {
+        name: 'cold_wallet_image', maxCount: 1  
+      },{
+        name: 'video_upload', maxCount: 1  
+      }]), (req, res) => {
+        // console.log(req.body);
+        // console.log(req.body.how_is_works_description[1],'desc');
+        // console.log(req.body.hot_wallet_desc[1],'hot wallet');
+        // console.log(req.body.cold_wallet_desc[1],'cold');
+        // console.log(req.files);
+        // return false;
+
+        var home_page_banner_image,how_it_works_image,hot_wallet_image,cold_wallet_image,video_upload;
+        if (req.files.home_page_banner_image && req.files.home_page_banner_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            home_page_banner_image = req.files.home_page_banner_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.home_page_banner_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.home_page_banner_image[0].filename,
+              width: 1920,
+              height: 652
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            home_page_banner_image = req.body.existing_banner_image;
+        }
+        
+        if (req.files.how_it_works_image && req.files.how_it_works_image.length > 0){
+            // save thumbnail -- should this part go elsewhere?
+            how_it_works_image = req.files.how_it_works_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.how_it_works_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.how_it_works_image[0].filename,
+              width: 667,
+              height: 552
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            how_it_works_image = req.body.existing_hot_wallet_image_image;
+        }
+        
+        if (req.files.hot_wallet_image && req.files.hot_wallet_image.length > 0){
+            // save thumbnail -- should this part go elsewhere?
+            hot_wallet_image = req.files.hot_wallet_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.hot_wallet_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.hot_wallet_image[0].filename,
+              width: 200,
+              height: 200
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            hot_wallet_image = req.body.existing_hot_wallet_image;
+        }
+        
+        if (req.files.cold_wallet_image && req.files.cold_wallet_image.length > 0){
+            // save thumbnail -- should this part go elsewhere?
+            cold_wallet_image = req.files.cold_wallet_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.cold_wallet_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.cold_wallet_image[0].filename,
+              width: 200,
+              height: 200
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+	    }else{
+            cold_wallet_image = req.body.existing_cold_wallet_image_image_image;
+        }
+
+        if(req.files.video_upload && req.files.video_upload.length > 0){
+            video_upload = req.files.video_upload[0].filename;
+        }else{
+            video_upload = req.body.existing_video_upload;
+        }
+
+        models.cms_home_page.update({
+        	home_page_banner_image: home_page_banner_image,
+            how_it_works_image: how_it_works_image,
+            how_is_works_description: req.body.how_is_works_description[1],
+            hot_wallet_image: hot_wallet_image,
+            hot_wallet_desc: req.body.hot_wallet_desc[1],
+            cold_wallet_image: cold_wallet_image,
+            cold_wallet_desc: req.body.cold_wallet_desc[1],
+            video_upload: video_upload
+        },{
+        	where:{
+        		id: req.body.row_id
+        	}
+        }).then(function (result) {
+            console.log(result);
+        	if(result) {
+				res.json({
+					status: true,
+					msg: "Edit successfully."
+				});
+			}
+        });
+    });
     
 };

@@ -3,3 +3,4 @@ config/key.js
 config/config.js
 public/js/pubnub_keys.js
 public/blog_images
+public/cms/home_page

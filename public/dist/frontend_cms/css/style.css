@@ -352,9 +352,9 @@ canvas{
 }
 
 .welcome-section .wel-box h2 {
-    font-size: 28px;
-    font-weight: bold;
-    margin: 0 0 15px;
+	font-size: 28px;
+	font-weight: bold;
+	margin: 0 0 15px;
 }
 
 .features-texts-s2 h5 {
@@ -465,14 +465,25 @@ canvas{
 .price-wrap .price-item ul {
 	list-style-type: none;
 	margin: 25px 0 0;
-	padding: 0 25px;
+	padding: 0 11px;
 }
 
 .price-wrap .price-item ul li {
 	color: #fff;
 	font-size: 19px;
 	line-height: 36px;
-	text-indent: -12px;
+	/*text-indent: -12px;*/
+	position: relative;
+}
+
+.price-wrap .price-item ul li::after {
+	color: #fff;
+	content: "";
+	font-family: fontawesome;
+	font-size: 18px;
+	left: -23px;
+	position: absolute;
+	top: 0;
 }
 
 .price-wrap .price-item ul li .fa {
@@ -1560,15 +1571,15 @@ footer {
 /*Starts on css 13-07-2018*/
 
 .price-wrap .price-item h2 {
-	 color: #fff;
-	 font-size: 22px;
-	 line-height: 36px;
+	color: #fff;
+	font-size: 22px;
+	line-height: 36px;
 }
 
 .price-wrap .price-item p {
-	 color: #fff;
-	 font-size: 19px;
-	 line-height: 36px;
+	color: #fff;
+	font-size: 19px;
+	line-height: 36px;
 }
 
 /*Ends on css 13-07-2018*/

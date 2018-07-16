@@ -544,7 +544,7 @@ canvas{
 	height: 2px;
 	position: absolute;
 	right: 360px;
-    top: 10px;
+	top: 10px;
 	width: 50px;
 }
 
@@ -1613,7 +1613,7 @@ footer {
 	}
 
 	.buy-section .heading h4::after {
-		right: 310px;
+		right: 260px;
 	}
 
 	.service-section .heading h4::after {
@@ -1729,7 +1729,7 @@ footer {
 	}
 
 	.welcome-section .heading h4::after {
-		right: 200px;
+		right: 130px;
 	}
 
 	.features-item-s2::before {
@@ -1757,7 +1757,7 @@ footer {
 	}
 
 	.buy-section .heading h4::after {
-		right: 200px;
+		right: 140px;
 	}
 
 	.buy-section .buy-box {
@@ -1926,6 +1926,10 @@ footer {
 		margin-top: 25px;
 	}
 
+	.video-section .heading h4 {
+		font-size: 40px;
+	}
+
 }
 
 @media only screen and (max-width:750px) {
@@ -2057,8 +2061,8 @@ footer {
 	}
 
 	.money-section .left-part a {
-		display: table;
-		margin: 20px auto;
+		display: inline-block;
+		margin: 20px 10px 20px auto;
 	}
 
 	.video-section .heading h4 {

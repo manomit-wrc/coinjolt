@@ -93,14 +93,18 @@ $('#cms_about_us_edit').on('click', function (result) {
 
 CKEDITOR.replace( 'cold_wallet_desc' );
 CKEDITOR.replace( 'hot_wallet_desc' );
-CKEDITOR.replace( 'how_is_works_description' );
+CKEDITOR.replace( 'how_is_works_reg_description' );
+CKEDITOR.replace( 'how_is_works_deposit_funds_description' );
+CKEDITOR.replace( 'how_is_works_safe_and_secure_description' );
 
 $("#cms_home_page_submit").on('click', function () {
 	$(':input[type="button"]').prop('disabled', true);
 	var form_data = new FormData($('#cms-home-page')[0]);
 	form_data.append('cold_wallet_desc', CKEDITOR.instances['cold_wallet_desc'].getData());
 	form_data.append('hot_wallet_desc', CKEDITOR.instances['hot_wallet_desc'].getData());
-	form_data.append('how_is_works_description', CKEDITOR.instances['how_is_works_description'].getData());
+	form_data.append('how_is_works_reg_description', CKEDITOR.instances['how_is_works_reg_description'].getData());
+	form_data.append('how_is_works_deposit_funds_description', CKEDITOR.instances['how_is_works_deposit_funds_description'].getData());
+	form_data.append('how_is_works_safe_and_secure_description', CKEDITOR.instances['how_is_works_safe_and_secure_description'].getData());
 
 	$.ajax({
 		type: "POST",
@@ -123,7 +127,10 @@ $("#cms_home_page_edit").on('click', function () {
 	var form_data = new FormData($('#cms-home-page')[0]);
 	form_data.append('cold_wallet_desc', CKEDITOR.instances['cold_wallet_desc'].getData());
 	form_data.append('hot_wallet_desc', CKEDITOR.instances['hot_wallet_desc'].getData());
-	form_data.append('how_is_works_description', CKEDITOR.instances['how_is_works_description'].getData());
+	form_data.append('how_is_works_reg_description', CKEDITOR.instances['how_is_works_reg_description'].getData());
+	form_data.append('how_is_works_deposit_funds_description', CKEDITOR.instances['how_is_works_deposit_funds_description'].getData());
+	form_data.append('how_is_works_safe_and_secure_description', CKEDITOR.instances['how_is_works_safe_and_secure_description'].getData());
+
 
 	$.ajax({
 		type: "POST",

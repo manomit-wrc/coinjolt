@@ -441,7 +441,11 @@ module.exports = function (app, models) {
       },{
         name: 'video_upload', maxCount: 1  
       }]), (req, res) => {
-        console.log(req.body);
+        // console.log(req.body);
+        // console.log(req.body.how_is_works_description[1],'desc');
+        // console.log(req.body.hot_wallet_desc[1],'hot wallet');
+        // console.log(req.body.cold_wallet_desc[1],'cold');
+        // console.log(req.files);
         // return false;
 
         var home_page_banner_image,how_it_works_image,hot_wallet_image,cold_wallet_image,video_upload;
@@ -516,7 +520,7 @@ module.exports = function (app, models) {
             video_upload = req.body.existing_video_upload;
         }
 
-        models.cms_about_us.update({
+        models.cms_home_page.update({
         	home_page_banner_image: home_page_banner_image,
             how_it_works_image: how_it_works_image,
             how_is_works_description: req.body.how_is_works_description[1],
@@ -530,6 +534,7 @@ module.exports = function (app, models) {
         		id: req.body.row_id
         	}
         }).then(function (result) {
+            console.log(result);
         	if(result) {
 				res.json({
 					status: true,

@@ -1034,6 +1034,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.post('/save-invest', function(req, res){
+        console.log("mcp invest");
 		var digits = 9;	
 		var numfactor = Math.pow(10, parseInt(digits-1));	
 		var randomNum =  Math.floor(Math.random() * numfactor) + 1;
@@ -1043,7 +1044,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var coinRate = 1;
         var type = 4;
 		var converted_amount = req.body.amount_invest;
-		var userid = req.user.id;
+        var userid = req.user.id;
         
         Deposit.create({
             checkout_id: randomNum,
@@ -1053,11 +1054,14 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 			current_rate: coinRate,
 			converted_amount: converted_amount,
             type: type,
-            payment_method: 0
+            payment_method: 0,
+            balance: 0,
+            currency_id: 0
         }).then(function (result) {
             req.flash('investStatusMessage', 'Your investment was made successfully!');
             res.redirect('/managed-cryptocurrency-portfolio');
         }).catch(function (err) {
+            console.log(err);
         });
     });
     
@@ -1512,9 +1516,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }
           }, function(error, response, body) {
               //console.log(response);
-              console.log('ECorepay body');
-              console.log(body);
+              //console.log('ECorepay body');
+              //console.log(body);
               //console.log(JSON.stringify(body, undefined, 2));
+              console.log(body);
              if(error === null && body === '1') {
                  res.json({success: "true"});
              }

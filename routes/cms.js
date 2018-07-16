@@ -358,68 +358,87 @@ module.exports = function (app, models) {
         name: 'video_upload', maxCount: 1  
       }]), (req, res) => {
 
-        if (req.files.home_page_banner_image[0].filename){
+        var home_page_banner_image,how_it_works_image,hot_wallet_image,cold_wallet_image,video_upload;
+        if (req.files.home_page_banner_image && req.files.home_page_banner_image.length > 0){
             // save thumbnail -- should this part go elsewhere?
+            home_page_banner_image = req.files.home_page_banner_image[0].filename;
             im.crop({
-              srcPath: 'public/cms/home_page/'+ req.files.home_page_banner_image[0].filename,
-              dstPath: 'public/cms/home_page/resize/'+ req.files.home_page_banner_image[0].filename,
+              srcPath: 'public/cms/home_page/'+ home_page_banner_image,
+              dstPath: 'public/cms/home_page/resize/'+ home_page_banner_image.filename,
               width: 1920,
               height: 652
             }, function(err, stdout, stderr){
               if (err) throw err;
               
             });
+        }else{
+            home_page_banner_image = '';
         }
         
-        if (req.files.how_it_works_image[0].filename){
+        if (req.files.how_it_works_image && req.files.how_it_works_image.length > 0){
             // save thumbnail -- should this part go elsewhere?
+            how_it_works_image = req.files.how_it_works_image[0].filename;
             im.crop({
-              srcPath: 'public/cms/home_page/'+ req.files.how_it_works_image[0].filename,
-              dstPath: 'public/cms/home_page/resize/'+ req.files.how_it_works_image[0].filename,
+              srcPath: 'public/cms/home_page/'+ how_it_works_image,
+              dstPath: 'public/cms/home_page/resize/'+ how_it_works_image,
               width: 667,
               height: 552
             }, function(err, stdout, stderr){
               if (err) throw err;
               
             });
+        }else{
+            how_it_works_image = '';
         }
         
-        if (req.files.hot_wallet_image[0].filename){
+        if (req.files.hot_wallet_image && req.files.hot_wallet_image.length > 0){
             // save thumbnail -- should this part go elsewhere?
+            hot_wallet_image = req.files.hot_wallet_image[0].filename;
             im.crop({
-              srcPath: 'public/cms/home_page/'+ req.files.hot_wallet_image[0].filename,
-              dstPath: 'public/cms/home_page/resize/'+ req.files.hot_wallet_image[0].filename,
+              srcPath: 'public/cms/home_page/'+ hot_wallet_image,
+              dstPath: 'public/cms/home_page/resize/'+ hot_wallet_image,
               width: 200,
               height: 200
             }, function(err, stdout, stderr){
               if (err) throw err;
               
             });
+        }else{
+            hot_wallet_image = '';
         }
         
-        if (req.files.cold_wallet_image[0].filename){
+        if (req.files.cold_wallet_image && req.files.cold_wallet_image.length > 0){
             // save thumbnail -- should this part go elsewhere?
+            cold_wallet_image = req.files.cold_wallet_image[0].filename;
             im.crop({
-              srcPath: 'public/cms/home_page/'+ req.files.cold_wallet_image[0].filename,
-              dstPath: 'public/cms/home_page/resize/'+ req.files.cold_wallet_image[0].filename,
+              srcPath: 'public/cms/home_page/'+ cold_wallet_image,
+              dstPath: 'public/cms/home_page/resize/'+ cold_wallet_image,
               width: 200,
               height: 200
             }, function(err, stdout, stderr){
               if (err) throw err;
               
             });
-	    }
+	    }else{
+            cold_wallet_image = '';
+        }
+
+        if(req.files.video_upload && req.files.video_upload.length > 0) {
+            video_upload = req.files.video_upload[0].filename;
+        }else{
+            video_upload = '';
+        }
         
 
         models.cms_home_page.create({
-            home_page_banner_image: req.files.home_page_banner_image[0].filename,
-            how_it_works_image: req.files.how_it_works_image[0].filename,
+            home_page_banner_image: home_page_banner_image,
+            how_it_works_image: how_it_works_image,
             how_is_works_description: req.body.how_is_works_description[1],
-            hot_wallet_image: req.files.hot_wallet_image[0].filename,
+            hot_wallet_image: hot_wallet_image,
             hot_wallet_desc: req.body.hot_wallet_desc[1],
-            cold_wallet_image: req.files.cold_wallet_image[0].filename,
+            cold_wallet_image: cold_wallet_image,
             cold_wallet_desc: req.body.cold_wallet_desc[1],
-            video_upload: req.files.video_upload[0].filename
+            video_upload: video_upload
         }).then( function (result) {
             if(result) {
                 res.json({
@@ -427,6 +446,9 @@ module.exports = function (app, models) {
                     msg: "Submit successfully."
                 });
             }
+        }).catch(function (err) {
+            console.log("err");
+            console.log(err);
         });
     });
 

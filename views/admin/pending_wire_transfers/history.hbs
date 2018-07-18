@@ -26,6 +26,7 @@
 								<tr>
 									<th>ID</th>
 									<th>Name</th>
+									<th>Email</th>
 									<th>Amount</th>
 									<th>Date</th>
 									<th>Status</th>
@@ -36,6 +37,7 @@
 								<tr>
 									<td>{{this.id}}</td>
 									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
+									<td>{{this.User.email}}</td>
 									<td>{{this.amount_usd}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 									{{#if_eq this.status 1}}

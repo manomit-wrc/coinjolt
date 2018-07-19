@@ -7,7 +7,7 @@ const dateFormat = require('dateformat');
 var request = require('sync-request');
 const acl = require('../middlewares/acl');
 
-module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method, company_setting, blog_post, blog_category, portfolio_composition) {
+module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method, company_setting, blog_post, blog_category, portfolio_composition, deposit_method_type) {
 	const styles = {
 		headerDark: {
 			font: {
@@ -444,11 +444,45 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/deposit-methods', acl, (req, res) =>{
+	app.get('/admin/deposit-methods', acl, async(req, res) =>{
 
-		deposit_method.findAll({}).then(result => {
-			res.render('admin/deposit_methods/index', { layout: 'dashboard', deposit_methodsData: result, title:"Manage Deposit Methods"});
+		const errormsg = req.flash('depositMethodAddErrorMsg')[0];
+
+		const successmsg = req.flash('depositMethodAddSuccessMsg')[0];
+
+		const editsuccessmsg = req.flash('depositMethodEditSuccessMsg')[0];
+
+		deposit_method_type.belongsTo(deposit_method, {foreignKey: 'deposit_method_id'});
+
+		let depositMethodDetails = await deposit_method_type.findAll({
+			include: [{
+				model: deposit_method
+			}]
 		});
+
+		let depositMethods = await deposit_method.findAll({});
+
+		res.render('admin/deposit_methods/index', { layout: 'dashboard', depositMethodDetails: depositMethodDetails, depositMethods: depositMethods, title:"Manage Deposit Methods", errormsg: errormsg, successmsg: successmsg, editsuccessmsg: editsuccessmsg});
+
+		
+	});
+
+	app.get('/admin/edit-deposit-method/:depositId', async(req, res) =>{
+
+		var depositId = req.params.depositId;
+
+		let depositMethods = await deposit_method.findAll({});
+
+		let specDepositRecord = await deposit_method_type.findOne({
+			where: {
+				deposit_method_id: depositId
+			}
+		});
+
+		//console.log(JSON.stringify(specDepositRecord, undefined, 2));
+
+		res.render('admin/deposit_methods/edit_deposit_method', { layout: 'dashboard', title:"Manage Deposit Methods", depositMethods: depositMethods, specDepositRecord: specDepositRecord})
+
 	});
 
 	app.get('/admin/company-settings', acl, (req, res) =>{
@@ -513,6 +547,127 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 
 		blog_category.findAll({where: {status: 1}}).then(function(blog_categories){
 			res.render('admin/blog/blog_create', {layout: 'dashboard', blog_categories: blog_categories, title:"Add Blog Post"});
+		});
+	});
+
+	app.post('/add-deposit-method', async(req, res) =>{
+	
+		var paymentMethodType = req.body.payment_type;
+
+		let depositMethodType = await deposit_method_type.findAndCountAll({
+			where: {deposit_method_id: paymentMethodType}
+		});
+		
+
+		var queryFields = {};
+
+		var depositMethodCount = depositMethodType.count;
+
+		if(depositMethodCount > 0){
+
+			var depositMethodId = depositMethodType.rows[0].deposit_method_id;
+
+			let depositMethodName = await deposit_method.findOne({
+				attributes: ['method_name'],
+				where:{id:depositMethodId}
+			});
+
+			depositMethodName = depositMethodName.method_name;
+
+			req.flash('depositMethodAddErrorMsg', `${depositMethodName} already added, please choose another option`);
+			res.redirect('/admin/deposit-methods');
+		
+		}
+
+		else{
+
+			if(paymentMethodType == 1){
+
+				queryFields.deposit_method_id = paymentMethodType;
+				queryFields.ecorepay_account_id = req.body.ecorepay_account_id;
+				queryFields.ecorepay_authentication_id = req.body.ecorepay_auth_id;
+
+			}
+			else if(paymentMethodType == 2){
+
+				queryFields.deposit_method_id = paymentMethodType;
+				queryFields.bank_name = req.body.bank_name;
+				queryFields.account_name = req.body.account_name;
+				queryFields.bank_address = req.body.bank_address;
+				queryFields.branch_number = req.body.branch_number;
+				queryFields.institution_number = req.body.institution_number;
+				queryFields.account_number = req.body.account_number;
+				queryFields.routing_number = req.body.routing_number;
+				queryFields.swift_code = req.body.swift_code;
+				queryFields.reference_email = req.body.reference_email;
+
+			}  
+			else{
+
+				queryFields.deposit_method_id = paymentMethodType;
+				queryFields.paypal_payment_mode = req.body.paypal_mode_type;
+				queryFields.paypal_client_id = req.body.paypal_client_id;
+				queryFields.paypal_client_secret = req.body.paypal_client_secret;
+
+			}
+
+			deposit_method_type.create(queryFields).then(function(result){
+				req.flash('depositMethodAddSuccessMsg', 'Payment method successfully added');
+				res.redirect('/admin/deposit-methods');
+			});
+
+		}
+
+	});
+
+	app.post('/edit-deposit-method', (req, res) =>{
+
+		var paymentMethodType = req.body.edit_payment_type;
+
+		var queryFields = {};
+
+		if(paymentMethodType == 1){
+
+			queryFields.deposit_method_id = paymentMethodType;
+			queryFields.ecorepay_account_id = req.body.edit_ecorepay_account_id;
+			queryFields.ecorepay_authentication_id = req.body.edit_ecorepay_auth_id;
+
+		}
+		else if(paymentMethodType == 2){
+
+			queryFields.deposit_method_id = paymentMethodType;
+			queryFields.bank_name = req.body.edit_bank_name;
+			queryFields.account_name = req.body.edit_account_name;
+			queryFields.bank_address = req.body.edit_bank_address;
+			queryFields.branch_number = req.body.edit_branch_number;
+			queryFields.institution_number = req.body.edit_institution_number;
+			queryFields.account_number = req.body.edit_account_number;
+			queryFields.routing_number = req.body.edit_routing_number;
+			queryFields.swift_code = req.body.edit_swift_code;
+			queryFields.reference_email = req.body.edit_reference_email;
+
+		}  
+		else{
+
+			queryFields.deposit_method_id = paymentMethodType;
+			queryFields.paypal_payment_mode = req.body.edit_paypal_mode_type;
+			queryFields.paypal_client_id = req.body.edit_paypal_client_id;
+			queryFields.paypal_client_secret = req.body.edit_paypal_client_secret;
+
+		}
+
+		deposit_method_type.update({
+			queryFields
+		},{
+			where :{
+				id : paymentMethodType
+			}
+		}).then (function (result) {
+
+		//console.log(JSON.stringify(req.body, undefined, 2));
+
+			req.flash('depositMethodEditSuccessMsg', 'Deposit method edited successfully');
+			res.redirect('/admin/deposit-methods');
 		});
 	});
 

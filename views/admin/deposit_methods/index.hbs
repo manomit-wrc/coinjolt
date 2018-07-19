@@ -15,48 +15,45 @@
 			<div class="col-md-12">
 				<div class="box">
 					<div class="box-header with-border">
-						<h3 class="box-title">Manage Deposit Methods List</h3>
+						<h3 class="box-title">Deposit Methods List</h3>
 
 						{{#if errormsg}}
-							<div class="alert alert-error" id="depositMethodErrMsg">{{errormsg}}</div>
-						{{/if}}
-
-						{{#if successmsg}}
-							<div class="alert alert-success" id="depositMethodSuccessMsg">{{successmsg}}</div>
-						{{/if}}
-
-						{{#if editsuccessmsg}}
-							<div class="alert alert-success" id="depositMethodSuccessMsg">
-								{{editsuccessmsg}}
-							</div>
+						<div class="alert alert-error" id="depositMethodErrMsg">{{errormsg}}</div>
+						{{/if}} {{#if successmsg}}
+						<div class="alert alert-success" id="depositMethodSuccessMsg">{{successmsg}}</div>
+						{{/if}} {{#if editsuccessmsg}}
+						<div class="alert alert-success" id="depositMethodSuccessMsg">
+							{{editsuccessmsg}}
+						</div>
 						{{/if}}
 
 						<!-- add button -->
 						<button data-toggle="modal" data-target="#paymentAddModal" class="btn btn-primary pull-right">Add</button>
 					</div>
 					<div class="box-body">
-						<table id="pending_transactions_table" class="table table-striped res-table">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>Deposit Method Name</th>
-									
-                                    <th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								{{#each depositMethodDetails}}
-								<tr>
-									<td>{{this.id}}</td>
-                                    <td>{{this.deposit_method.method_name}}</td>
+						<div class="deposit_methods">
+							<table id="dmethods_table" class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Deposit Method Name</th>
 
-									<td><a href="/admin/edit-deposit-method/{{this.id}}" data-depositId="{{this.id}}" class="tbl-common-btn btn btn-primary editPaymentMethod">Edit</a></td>
-									<td><a href="#" class="btn btn-danger tbl-common-btn deletePaymentMethod">Delete</a></td>
-                                    
-								</tr>
-								{{/each}}
-							</tbody>
-						</table>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{{#each depositMethodDetails}}
+									<tr>
+										<td>{{this.id}}</td>
+										<td>{{this.deposit_method.method_name}}</td>
+
+										<td><a href="/admin/edit-deposit-method/{{this.id}}" data-depositId="{{this.id}}" class="tbl-common-btn btn btn-primary editPaymentMethod">Edit</a><a href="#" class="btn btn-danger tbl-common-btn deletePaymentMethod">Delete</a></td>
+
+									</tr>
+									{{/each}}
+								</tbody>
+							</table>
+						</div>
 						<!-- paymentAddModal starts -->
 						<div id="paymentAddModal" class="modal fade" role="dialog">
 							<div class="modal-dialog">
@@ -68,8 +65,8 @@
 										<h4 class="modal-title">Add Payment Method</h4>
 									</div>
 									<div class="modal-body">
-										
-										
+
+
 
 										<!-- start form -->
 										<form name="add_payment_method_form" id="add_payment_method_form" action="/add-deposit-method" method="POST">
@@ -98,13 +95,15 @@
 													<div class="col-md-12">
 														<div class="form-group">
 															<label for="paypal_client_id">Client Id: </label>
-															<input class="form-control input-lg" id="paypal_client_id" name="paypal_client_id" placeholder="Enter Paypal client id" value="" type="text">
+															<input class="form-control input-lg" id="paypal_client_id" name="paypal_client_id" placeholder="Enter Paypal client id" value=""
+															 type="text">
 														</div>
 													</div>
 													<div class="col-md-12">
 														<div class="form-group">
 															<label for="paypal_client_secret">Client Secret: </label>
-															<input class="form-control input-lg" id="paypal_client_secret" name="paypal_client_secret" placeholder="Enter Paypal client secret" value="" type="text">
+															<input class="form-control input-lg" id="paypal_client_secret" name="paypal_client_secret" placeholder="Enter Paypal client secret"
+															 value="" type="text">
 														</div>
 													</div>
 												</div>
@@ -115,13 +114,15 @@
 													<div class="col-md-12">
 														<div class="form-group">
 															<label for="ecorepay_account_id">Ecorepay Account Id: </label>
-															<input class="form-control input-lg" id="ecorepay_account_id" name="ecorepay_account_id" placeholder="Enter Ecorepay Account Id" value="" type="text">
+															<input class="form-control input-lg" id="ecorepay_account_id" name="ecorepay_account_id" placeholder="Enter Ecorepay Account Id"
+															 value="" type="text">
 														</div>
 													</div>
 													<div class="col-md-12">
 														<div class="form-group">
 															<label for="ecorepay_auth_id">Ecorepay Authentication Id: </label>
-															<input class="form-control input-lg" id="ecorepay_auth_id" name="ecorepay_auth_id" placeholder="Enter Ecorepay Authentication Id" value="" type="text">
+															<input class="form-control input-lg" id="ecorepay_auth_id" name="ecorepay_auth_id" placeholder="Enter Ecorepay Authentication Id"
+															 value="" type="text">
 														</div>
 													</div>
 												</div>
@@ -156,19 +157,20 @@
 													<div class="col-md-12">
 														<div class="form-group">
 															<label>Institution Number:</label>
-															<input class="form-control" placeholder="Enter Institution Number" name="institution_number" id="institution_number" value="" type="text">
+															<input class="form-control" placeholder="Enter Institution Number" name="institution_number" id="institution_number" value=""
+															 type="text">
 														</div>
 													</div>
 													<div class="col-md-12">
 														<div class="form-group">
 															<label>Account Number:</label>
-															<input class="form-control" placeholder="Enter Account Number" name="account_number" id="account_number" value=""  type="text">
+															<input class="form-control" placeholder="Enter Account Number" name="account_number" id="account_number" value="" type="text">
 														</div>
 													</div>
 													<div class="col-md-12">
 														<div class="form-group">
 															<label>Routing Number (USA):</label>
-															<input class="form-control" placeholder="Enter Routing Number" name="routing_number" id="routing_number" value=""  type="text">
+															<input class="form-control" placeholder="Enter Routing Number" name="routing_number" id="routing_number" value="" type="text">
 														</div>
 													</div>
 													<div class="col-md-12">
@@ -188,30 +190,30 @@
 
 
 											</div>
-												<div class="row">
-													<div class="col-md-2 col-md-offset-5 pd-612">
-														<div class="form-group">
-															<input class="btn btn-primary add_payment_method" id="add_payment_method" value="Add" type="submit">
-														</div>
+											<div class="row">
+												<div class="col-md-2 col-md-offset-5 pd-612">
+													<div class="form-group">
+														<input class="btn btn-primary add_payment_method" id="add_payment_method" value="Add" type="submit">
 													</div>
 												</div>
 											</div>
-
-              							</form>
-
-										<!-- end form -->
 									</div>
-								</div>
 
+									</form>
+
+									<!-- end form -->
+								</div>
 							</div>
+
 						</div>
-						<!-- end -->
 					</div>
+					<!-- end -->
 				</div>
 			</div>
-			<!-- /.box-body -->
 		</div>
-		<!-- /.box -->
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
 	</div>
 	<!-- Ends Deposit Funds -->
 </section>

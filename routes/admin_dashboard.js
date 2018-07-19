@@ -475,7 +475,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 
 		let specDepositRecord = await deposit_method_type.findOne({
 			where: {
-				deposit_method_id: depositId
+				id: depositId
 			}
 		});
 
@@ -622,6 +622,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 
 	app.post('/edit-deposit-method', (req, res) =>{
 
+		var deposit_payment_id = req.body.deposit_payment_id;	
 		var paymentMethodType = req.body.edit_payment_type;
 
 		var queryFields = {};
@@ -656,11 +657,9 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 
 		}
 
-		deposit_method_type.update({
-			queryFields
-		},{
+		deposit_method_type.update(queryFields,{
 			where :{
-				id : paymentMethodType
+				id : deposit_payment_id
 			}
 		}).then (function (result) {
 

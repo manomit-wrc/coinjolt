@@ -257,6 +257,48 @@ $(document).ready(function() {
 		}
 	});
 
+	$('#dmethods_table').on('click', '.deletePaymentMethod', function(){
+		var paymentMethodId = $(this).data('id');
+		swal({
+			title: "Confirmation of Removal",
+			text: "Are you sure to delete this record?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonClass: "btn-danger",
+			confirmButtonText: "Confirm",
+			cancelButtonText: "Cancel",
+			closeOnConfirm: false,
+			closeOnCancel: false,
+			customClass: 'swal-wide'
+		},
+		function(isConfirm) {
+			if (isConfirm) {
+				swal({
+					title: "Success",
+					text: "You successfully deleted deposit method.",
+					type: "success"
+				},
+				function(isConfirm) {
+					if (isConfirm) {
+						$.ajax({
+							type: "POST",
+							url: '/admin/remove_deposit_method',
+							data: {paymentMethodId: paymentMethodId},
+							success: function (response) {
+								if(response.status == true){
+									location.href = '/admin/deposit-methods';
+								}
+							}
+						});
+					}
+				});
+
+			} else {
+				swal("Cancelled", "You cancelled the deletion.", "error");
+			}
+		});
+	});
+
 	// sweet alert success function //
  	function sweetAlertSuccessPopUp (title='',text='') {
         swal({

@@ -47,7 +47,14 @@
 										<td>{{this.id}}</td>
 										<td>{{this.deposit_method.method_name}}</td>
 
-										<td><a href="/admin/edit-deposit-method/{{this.id}}" data-depositId="{{this.id}}" class="tbl-common-btn btn btn-primary editPaymentMethod">Edit</a><a href="#" class="btn btn-danger tbl-common-btn deletePaymentMethod">Delete</a></td>
+										<td>
+											<a href="/admin/edit-deposit-method/{{this.id}}" data-depositId="{{this.id}}" class="tbl-common-btn btn btn-primary editPaymentMethod">Edit</a>
+
+										{{!-- 	<a href="#" class="btn btn-danger tbl-common-btn deletePaymentMethod">Delete</a> --}}
+
+											<button type="button" class="btn btn-danger tbl-common-btn deletePaymentMethod" data-id="{{this.id}}">Delete</button>
+
+										</td>
 
 									</tr>
 									{{/each}}

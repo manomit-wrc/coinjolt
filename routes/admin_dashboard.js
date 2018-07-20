@@ -670,6 +670,17 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
+	app.post('/admin/remove_deposit_method', (req, res) =>{
+		var depositMethodId = req.body.paymentMethodId;
+		deposit_method_type.destroy({
+            where: {
+                id: depositMethodId
+            }
+        }).then(function (result) {
+			res.json({msg: 'You successfully deleted the deposit method', status: true});
+		});
+	});
+
 	function sendJSON(res, httpCode, body) {
 		var response = JSON.stringify(body);
 		res.send(httpCode, response);

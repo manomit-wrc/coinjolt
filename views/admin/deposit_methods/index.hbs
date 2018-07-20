@@ -15,41 +15,212 @@
 			<div class="col-md-12">
 				<div class="box">
 					<div class="box-header with-border">
-						<h3 class="box-title">Manage Deposit Methods List</h3>
+						<h3 class="box-title">Deposit Methods List</h3>
+
+						{{#if errormsg}}
+						<div class="alert alert-error" id="depositMethodErrMsg">{{errormsg}}</div>
+						{{/if}} {{#if successmsg}}
+						<div class="alert alert-success" id="depositMethodSuccessMsg">{{successmsg}}</div>
+						{{/if}} {{#if editsuccessmsg}}
+						<div class="alert alert-success" id="depositMethodSuccessMsg">
+							{{editsuccessmsg}}
+						</div>
+						{{/if}}
+
+						<!-- add button -->
+						<button data-toggle="modal" data-target="#paymentAddModal" class="btn btn-primary pull-right">Add</button>
 					</div>
 					<div class="box-body">
-						<table id="pending_transactions_table" class="table table-striped res-table">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>Deposit Method Name</th>
-									<th>Status</th>
-                                    <th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								{{#each deposit_methodsData}}
-								<tr>
-									<td>{{this.id}}</td>
-                                    <td>{{this.method_name}}</td>
-                                    <td>{{#if_eq this.status '1'}} Enabled {{else}} Disabled {{/if_eq}}</td>
-                                    <td>
-                                        {{#if_eq this.status '1'}}
-                                            <button class="btn deposit_disable btn-danger" type="button" value="{{this.id}}">Click To Disable</button>
-                                        {{else}}
-                                            <button class="btn deposit_enable btn-success" type="button" value="{{this.id}}">Click To Enable</button>
-                                        {{/if_eq}}
-                                    </td>
-								</tr>
-								{{/each}}
-							</tbody>
-						</table>
+						<div class="deposit_methods">
+							<table id="dmethods_table" class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Deposit Method Name</th>
+
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{{#each depositMethodDetails}}
+									<tr>
+										<td>{{this.id}}</td>
+										<td>{{this.deposit_method.method_name}}</td>
+
+										<td>
+											<a href="/admin/edit-deposit-method/{{this.id}}" data-depositId="{{this.id}}" class="tbl-common-btn btn btn-primary editPaymentMethod">Edit</a>
+
+										{{!-- 	<a href="#" class="btn btn-danger tbl-common-btn deletePaymentMethod">Delete</a> --}}
+
+											<button type="button" class="btn btn-danger tbl-common-btn deletePaymentMethod" data-id="{{this.id}}">Delete</button>
+
+										</td>
+
+									</tr>
+									{{/each}}
+								</tbody>
+							</table>
+						</div>
+						<!-- paymentAddModal starts -->
+						<div id="paymentAddModal" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Add Payment Method</h4>
+									</div>
+									<div class="modal-body">
+
+
+
+										<!-- start form -->
+										<form name="add_payment_method_form" id="add_payment_method_form" action="/add-deposit-method" method="POST">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<label for="blog_post_title">Payment Method: </label>
+														<select class="form-control valid" id="payment_type" name="payment_type">
+															{{#each depositMethods}}
+																<option value="{{this.id}}" >{{this.method_name}}</option>
+															{{/each}}
+														</select>
+													</div>
+												</div>
+												<!-- paypal form -->
+												<div id="paypalForm" style="display:none;">
+													<div class="col-md-12">
+														<div class="form-group">
+															<label for="paypal_mode_type">Payment Mode: </label>
+															<select class="form-control valid" id="paypal_mode_type" name="paypal_mode_type">
+																<option value="sandbox">Sandbox</option>
+																<option value="live">Live</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
+															<label for="paypal_client_id">Client Id: </label>
+															<input class="form-control input-lg" id="paypal_client_id" name="paypal_client_id" placeholder="Enter Paypal client id" value=""
+															 type="text">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
+															<label for="paypal_client_secret">Client Secret: </label>
+															<input class="form-control input-lg" id="paypal_client_secret" name="paypal_client_secret" placeholder="Enter Paypal client secret"
+															 value="" type="text">
+														</div>
+													</div>
+												</div>
+												<!-- end paypal form -->
+
+												<!-- start ecorepay form -->
+												<div id="ecorepayForm" style="display:none;">
+													<div class="col-md-12">
+														<div class="form-group">
+															<label for="ecorepay_account_id">Ecorepay Account Id: </label>
+															<input class="form-control input-lg" id="ecorepay_account_id" name="ecorepay_account_id" placeholder="Enter Ecorepay Account Id"
+															 value="" type="text">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
+															<label for="ecorepay_auth_id">Ecorepay Authentication Id: </label>
+															<input class="form-control input-lg" id="ecorepay_auth_id" name="ecorepay_auth_id" placeholder="Enter Ecorepay Authentication Id"
+															 value="" type="text">
+														</div>
+													</div>
+												</div>
+												<!-- end ecorepay form -->
+
+												<!-- start wire transfer form -->
+												<div id="wireTransferForm" style="display:none;">
+													<div class="col-md-12">
+														<div class="form-group">
+															<label>Bank Name:</label>
+															<input class="form-control" placeholder="Enter Bank Name" name="bank_name" id="bank_name" value="" type="text">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
+															<label>Account Name:</label>
+															<input class="form-control" placeholder="Enter Account Name" name="account_name" id="account_name" value="" type="text">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
+															<label>Bank Address:</label>
+															<input class="form-control" placeholder="Enter Bank Address" name="bank_address" id="bank_address" value="" type="text">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
+															<label>Branch Number:</label>
+															<input class="form-control" placeholder="Enter Branch Number" name="branch_number" id="branch_number" value="" type="text">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
+															<label>Institution Number:</label>
+															<input class="form-control" placeholder="Enter Institution Number" name="institution_number" id="institution_number" value=""
+															 type="text">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
+															<label>Account Number:</label>
+															<input class="form-control" placeholder="Enter Account Number" name="account_number" id="account_number" value="" type="text">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
+															<label>Routing Number (USA):</label>
+															<input class="form-control" placeholder="Enter Routing Number" name="routing_number" id="routing_number" value="" type="text">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
+															<label>Swift Code (International):</label>
+															<input class="form-control" placeholder="Enter Swift Code" name="swift_code" id="swift_code" value="" type="text">
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
+															<label>Reference:</label>
+															<input class="form-control" placeholder="Enter reference email" name="reference_email" id="reference_email" value="" type="text">
+														</div>
+													</div>
+												</div>
+												<!-- end wire transfer form -->
+
+
+											</div>
+											<div class="row">
+												<div class="col-md-2 col-md-offset-5 pd-612">
+													<div class="form-group">
+														<input class="btn btn-primary add_payment_method" id="add_payment_method" value="Add" type="submit">
+													</div>
+												</div>
+											</div>
+									</div>
+
+									</form>
+
+									<!-- end form -->
+								</div>
+							</div>
+
+						</div>
 					</div>
+					<!-- end -->
 				</div>
 			</div>
-			<!-- /.box-body -->
 		</div>
-		<!-- /.box -->
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
 	</div>
 	<!-- Ends Deposit Funds -->
 </section>

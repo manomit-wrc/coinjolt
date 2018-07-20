@@ -1,4 +1,4 @@
-module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,Country,deposit_method) {
+module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,Country,deposit_method,deposit_method_type) {
 	const Op = require('sequelize').Op;
 	const sequelize = require('sequelize');
 	app.get('/deposit-funds', async (req,res) => {
@@ -52,13 +52,26 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
 
 		let countries = await Country.findAll();
 
-		let depositMethods = await deposit_method.findAll({
+		// let depositMethods = await deposit_method.findAll({
+		// 	where: {
+        //         status: 1
+		// 	}
+		// });
+
+		deposit_method_type.belongsTo(deposit_method, {foreignKey: 'deposit_method_id'});
+		let depositMethods = await deposit_method_type.findAll({
+			include: [{
+				model: deposit_method
+			}]
+		});
+
+		let bankWireTransferDetails = await deposit_method_type.findOne({
 			where: {
-                status: 1
+				deposit_method_id: '2' // deposit method is bank wire transfer
 			}
 		});
 		
-		res.render('deposit/view',{layout: 'dashboard', depositHistory: depositHistory, countries: countries, depositMethods: depositMethods, msg:msg, cancelMsg:cancelMsg, title: 'Deposit Funds'});
+		res.render('deposit/view',{layout: 'dashboard', depositHistory: depositHistory, countries: countries, depositMethods: depositMethods, bankWireTransferDetails: bankWireTransferDetails, msg:msg, cancelMsg:cancelMsg, title: 'Deposit Funds'});
 
 	});
 

@@ -96,6 +96,12 @@ CKEDITOR.replace( 'hot_wallet_desc' );
 CKEDITOR.replace( 'how_is_works_reg_description' );
 CKEDITOR.replace( 'how_is_works_deposit_funds_description' );
 CKEDITOR.replace( 'how_is_works_safe_and_secure_description' );
+CKEDITOR.replace( 'div1_desc' );
+CKEDITOR.replace( 'div2_desc' );
+CKEDITOR.replace( 'div3_desc' );
+CKEDITOR.replace( 'div4_desc' );
+CKEDITOR.replace( 'div5_desc' );
+CKEDITOR.replace( 'div6_desc' );
 
 $("#cms_home_page_submit").on('click', function () {
 	$(':input[type="button"]').prop('disabled', true);
@@ -105,6 +111,12 @@ $("#cms_home_page_submit").on('click', function () {
 	form_data.append('how_is_works_reg_description', CKEDITOR.instances['how_is_works_reg_description'].getData());
 	form_data.append('how_is_works_deposit_funds_description', CKEDITOR.instances['how_is_works_deposit_funds_description'].getData());
 	form_data.append('how_is_works_safe_and_secure_description', CKEDITOR.instances['how_is_works_safe_and_secure_description'].getData());
+	form_data.append('div1_desc', CKEDITOR.instances['div1_desc'].getData());
+	form_data.append('div2_desc', CKEDITOR.instances['div2_desc'].getData());
+	form_data.append('div3_desc', CKEDITOR.instances['div3_desc'].getData());
+	form_data.append('div4_desc', CKEDITOR.instances['div4_desc'].getData());
+	form_data.append('div5_desc', CKEDITOR.instances['div5_desc'].getData());
+	form_data.append('div6_desc', CKEDITOR.instances['div6_desc'].getData());
 
 	$.ajax({
 		type: "POST",
@@ -130,6 +142,12 @@ $("#cms_home_page_edit").on('click', function () {
 	form_data.append('how_is_works_reg_description', CKEDITOR.instances['how_is_works_reg_description'].getData());
 	form_data.append('how_is_works_deposit_funds_description', CKEDITOR.instances['how_is_works_deposit_funds_description'].getData());
 	form_data.append('how_is_works_safe_and_secure_description', CKEDITOR.instances['how_is_works_safe_and_secure_description'].getData());
+	form_data.append('div1_desc', CKEDITOR.instances['div1_desc'].getData());
+	form_data.append('div2_desc', CKEDITOR.instances['div2_desc'].getData());
+	form_data.append('div3_desc', CKEDITOR.instances['div3_desc'].getData());
+	form_data.append('div4_desc', CKEDITOR.instances['div4_desc'].getData());
+	form_data.append('div5_desc', CKEDITOR.instances['div5_desc'].getData());
+	form_data.append('div6_desc', CKEDITOR.instances['div6_desc'].getData());
 
 
 	$.ajax({

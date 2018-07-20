@@ -150,6 +150,7 @@ module.exports = (app, models) => {
         // console.log(accessToken);
         console.log(req.cookies.BITGO_ACCESS_TOKEN);
         var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
+        //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: 'v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018'});
         console.log("accessToken verified");
         
         // var bigtoSession = await bitgo.session();
@@ -278,6 +279,7 @@ module.exports = (app, models) => {
 
     app.post('/wallet-create', function (req,res) {
         var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
+        //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: 'v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018'});
         var user_id = req.user.id;
 		var data = {
             "passphrase": keys.BITGO_PASSWORD,

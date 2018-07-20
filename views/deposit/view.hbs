@@ -35,11 +35,8 @@
                       <option value="">Please choose from one of the available deposit options </option>
 
                       {{#each depositMethods}}
-
-                       {{!--  <option value="1">Credit Card</option>
-                        <option value="2">Bank Wire Transfer</option> --}}
-                        <option value="{{this.id}}">{{this.method_name}}</option>
-
+                        {{!-- <option value="{{this.id}}">{{this.method_name}}</option> --}}
+                        <option value="{{this.deposit_method.id}}">{{this.deposit_method.method_name}}</option>
                       {{/each}}
 
                     </select><br>
@@ -370,39 +367,39 @@
         </div>
         <div class="form-group">
           <label>Bank Name:</label>
-          <input type="text" class="form-control" placeholder="Bank of Nova Scotia" name="bankname" id="bankname" value="Bank of Nova Scotia" readonly>
+          <input type="text" class="form-control" placeholder="Bank of Nova Scotia" name="bankname" id="bankname" value="{{bankWireTransferDetails.bank_name}}" readonly>
         </div>
         <div class="form-group">
           <label>Account Name:</label>
-          <input type="text" class="form-control" placeholder="Kano Investments Inc" name="accountnumber" id="accountnumber"  value="Kano Investments Inc" readonly>
+          <input type="text" class="form-control" placeholder="Kano Investments Inc" name="accountnumber" id="accountnumber"  value="{{bankWireTransferDetails.account_name}}" readonly>
         </div>
         <div class="form-group">
           <label>Bank Address:</label>
-          <input type="text" class="form-control" placeholder="11666 Steveston Hwy #3020, Richmond, BC, V7A 5J3" name="bankaddress" id="bankaddress" value="11666 Steveston Hwy #3020, Richmond, BC, V7A 5J3" readonly>
+          <input type="text" class="form-control" placeholder="11666 Steveston Hwy #3020, Richmond, BC, V7A 5J3" name="bankaddress" id="bankaddress" value="{{bankWireTransferDetails.bank_address}}" readonly>
         </div>
         <div class="form-group">
           <label>Branch Number:</label>
-          <input type="text" class="form-control" placeholder="51920" name="branchnumber" id="branchnumber" value="51920" readonly>
+          <input type="text" class="form-control" placeholder="51920" name="branchnumber" id="branchnumber" value="{{bankWireTransferDetails.branch_number}}" readonly>
         </div>
         <div class="form-group">
           <label>Institution Number:</label>
-          <input type="text" class="form-control" placeholder="002" name="institutionnumber" id="institutionnumber" value="002" readonly>
+          <input type="text" class="form-control" placeholder="002" name="institutionnumber" id="institutionnumber" value="{{bankWireTransferDetails.institution_number}}" readonly>
         </div>
         <div class="form-group">
           <label>Account Number:</label>
-          <input type="text" class="form-control" placeholder="0091782" name="accountnumber" id="accountnumber" value="0091782" readonly>
+          <input type="text" class="form-control" placeholder="0091782" name="accountnumber" id="accountnumber" value="{{bankWireTransferDetails.account_number}}" readonly>
         </div>
         <div class="form-group">
           <label>Routing Number (USA):</label>
-          <input type="text" class="form-control" placeholder="026002532" name="routingnumber" id="routingnumber" value="026002532" readonly>
+          <input type="text" class="form-control" placeholder="026002532" name="routingnumber" id="routingnumber" value="{{bankWireTransferDetails.routing_number}}" readonly>
           </div>
         <div class="form-group">
           <label>Swift Code (International):</label>
-          <input type="text" class="form-control" placeholder="NOSCCATT" name="swiftcode" id="swiftcode" value="NOSCCATT" readonly>
+          <input type="text" class="form-control" placeholder="NOSCCATT" name="swiftcode" id="swiftcode" value="{{bankWireTransferDetails.swift_code}}" readonly>
         </div>
         <div class="form-group">
           <label>Reference:</label>
-          <input type="text" class="form-control" placeholder="support@coinjolt.com" name="reference" id="reference" value="support@coinjolt.com" readonly>
+          <input type="text" class="form-control" placeholder="support@coinjolt.com" name="reference" id="reference" value="{{bankWireTransferDetails.reference_email}}" readonly>
         </div>
         </div>
       <div style="margin-top: -10%;" class="modal-footer">

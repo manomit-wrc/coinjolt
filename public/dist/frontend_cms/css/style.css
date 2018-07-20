@@ -284,7 +284,7 @@ canvas{
 	content: "";
 	height: 2px;
 	position: absolute;
-	right: 404px;
+	right: 350px;
 	top: 9px;
 	width: 50px;
 }
@@ -542,9 +542,9 @@ canvas{
 	background: #025fdf none repeat scroll 0 0;
 	content: "";
 	height: 2px;
-	right: 410px;
 	position: absolute;
-	top: 12px;
+	right: 360px;
+	top: 10px;
 	width: 50px;
 }
 
@@ -685,7 +685,7 @@ canvas{
 	background: #025fdf none repeat scroll 0 0;
 	content: "";
 	height: 2px;
-	right: 377px;
+	right: 420px;
 	top: 10px;
 	position: absolute;
 	width: 50px;
@@ -843,7 +843,7 @@ canvas{
 	background: #025fdf none repeat scroll 0 0;
 	content: "";
 	height: 2px;
-	right: 410px;
+	right: 425px;
 	position: absolute;
 	top: 9px;
 	width: 50px;
@@ -1609,11 +1609,11 @@ footer {
 	}
 
 	.welcome-section .heading h4::after {
-		right: 310px;
+		right: 240px;
 	}
 
 	.buy-section .heading h4::after {
-		right: 310px;
+		right: 260px;
 	}
 
 	.service-section .heading h4::after {
@@ -1729,7 +1729,7 @@ footer {
 	}
 
 	.welcome-section .heading h4::after {
-		right: 200px;
+		right: 130px;
 	}
 
 	.features-item-s2::before {
@@ -1757,7 +1757,7 @@ footer {
 	}
 
 	.buy-section .heading h4::after {
-		right: 200px;
+		right: 140px;
 	}
 
 	.buy-section .buy-box {
@@ -1926,6 +1926,10 @@ footer {
 		margin-top: 25px;
 	}
 
+	.video-section .heading h4 {
+		font-size: 40px;
+	}
+
 }
 
 @media only screen and (max-width:750px) {
@@ -2057,8 +2061,8 @@ footer {
 	}
 
 	.money-section .left-part a {
-		display: table;
-		margin: 20px auto;
+		display: inline-block;
+		margin: 20px 10px 20px auto;
 	}
 
 	.video-section .heading h4 {

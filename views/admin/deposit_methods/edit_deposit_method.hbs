@@ -1,0 +1,172 @@
+<section class="content-header">
+    <h1>Manage Deposit Methods</h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li>
+            <a href="/admin/deposit-methods">Manage Deposit Methods</a>
+        </li>
+        <li class="active">Edit</li>
+    </ol>
+</section>
+<section class="content container-fluid">
+    <div class="deposit-funds">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Edit Deposit Method</h3>
+                    </div>
+                    <div class="box-body">
+                        <form name="edit_payment_method_form" id="edit_payment_method_form" action="/edit-deposit-method" method="POST">
+                            <input type="hidden" name="deposit_payment_id" value="{{specDepositRecord.id}}">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="blog_post_title">Payment Method: </label>
+                                        <select class="form-control valid" id="payment_type" name="edit_payment_type">
+                    {{!-- {{#each depositMethods}}
+                        <option value="{{this.id}}" {{#if_eq this.id ../specDepositRecord.deposit_method_id}} selected="selected" {{/if_eq}}{{#if_neq this.id ../specDepositRecord.deposit_method_id}} disabled="disabled" {{/if_neq}}>{{this.method_name}}</option>
+                    {{/each}} --}}
+                    {{#each depositMethods}}
+                        {{#if_eq this.id ../specDepositRecord.deposit_method_id}}
+                            <option value="{{this.id}}"  selected="selected">{{this.method_name}}</option>
+                        {{/if_eq}}    
+                    {{/each}}
+                </select>
+                                    </div>
+                                </div>
+                                <!-- paypal form -->
+                                <div id="edit_paypalForm" {{#if_neq specDepositRecord.deposit_method_id '3'}}style="display:none;" {{/if_neq}}>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="edit_paypal_mode_type">Payment Mode: </label>
+                                            <select class="form-control valid" id="edit_paypal_mode_type" name="edit_paypal_mode_type">
+                        <option value="sandbox" {{#if_eq specDepositRecord.paypal_payment_mode 'sandbox'}} selected="selected" {{/if_eq}}>Sandbox</option>
+                        <option value="live" {{#if_eq specDepositRecord.paypal_payment_mode 'live'}} selected="selected" {{/if_eq}}>Live</option>
+                    </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="edit_paypal_client_id">Client Id: </label>
+                                            <input class="form-control input-lg" id="edit_paypal_client_id" name="edit_paypal_client_id" placeholder="Enter Paypal client id"
+                                                value="{{specDepositRecord.paypal_client_id}}" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="edit_paypal_client_secret">Client Secret: </label>
+                                            <input class="form-control input-lg" id="edit_paypal_client_secret" name="edit_paypal_client_secret" placeholder="Enter Paypal client secret"
+                                                value="{{specDepositRecord.paypal_client_secret}}" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end paypal form -->
+
+                                <!-- start ecorepay form -->
+                                <div id="edit_ecorepayForm" {{#if_neq specDepositRecord.deposit_method_id '1'}}style="display:none;" {{/if_neq}}>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="edit_ecorepay_account_id">Ecorepay Account Id: </label>
+                                            <input class="form-control input-lg" id="edit_ecorepay_account_id" name="edit_ecorepay_account_id" placeholder="Enter Ecorepay Account Id"
+                                                value="{{specDepositRecord.ecorepay_account_id}}" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="edit_ecorepay_auth_id">Ecorepay Authentication Id: </label>
+                                            <input class="form-control input-lg" id="edit_ecorepay_auth_id" name="edit_ecorepay_auth_id" placeholder="Enter Ecorepay Authentication Id"
+                                                value="{{specDepositRecord.ecorepay_authentication_id}}" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end ecorepay form -->
+
+                                <!-- start wire transfer form -->
+                                <div id="edit_wireTransferForm" {{#if_neq specDepositRecord.deposit_method_id '2'}}style="display:none;" {{/if_neq}}>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Bank Name:</label>
+                                            <input class="form-control" placeholder="Enter Bank Name" name="edit_bank_name" id="edit_bank_name" value="{{specDepositRecord.bank_name}}"
+                                                type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Account Name:</label>
+                                            <input class="form-control" placeholder="Enter Account Name" name="edit_account_name" id="edit_account_name" value="{{specDepositRecord.account_name}}"
+                                                type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Bank Address:</label>
+                                            <input class="form-control" placeholder="Enter Bank Address" name="edit_bank_address" id="edit_bank_address" value="{{specDepositRecord.bank_address}}"
+                                                type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Branch Number:</label>
+                                            <input class="form-control" placeholder="Enter Branch Number" name="edit_branch_number" id="edit_branch_number" value="{{specDepositRecord.branch_number}}"
+                                                type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Institution Number:</label>
+                                            <input class="form-control" placeholder="Enter Institution Number" name="edit_institution_number" id="edit_institution_number"
+                                                value="{{specDepositRecord.institution_number}}" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Account Number:</label>
+                                            <input class="form-control" placeholder="Enter Account Number" name="edit_account_number" id="edit_account_number" value="{{specDepositRecord.account_number}}"
+                                                type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Routing Number (USA):</label>
+                                            <input class="form-control" placeholder="Enter Routing Number" name="edit_routing_number" id="edit_routing_number" value="{{specDepositRecord.routing_number}}"
+                                                type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Swift Code (International):</label>
+                                            <input class="form-control" placeholder="Enter Swift Code" name="edit_swift_code" id="edit_swift_code" value="{{specDepositRecord.swift_code}}"
+                                                type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Reference:</label>
+                                            <input class="form-control" placeholder="Enter reference email" name="edit_reference_email" id="edit_reference_email" value="{{specDepositRecord.reference_email}}"
+                                                type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end wire transfer form -->
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 col-md-offset-5 pd-612">
+                                    <div class="form-group">
+                                        <input class="btn btn-primary edit_payment_method" id="edit_payment_method" value="Edit" type="submit">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>

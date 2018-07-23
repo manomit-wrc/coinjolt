@@ -29,7 +29,28 @@ module.exports = (sequelize, DataTypes) => {
     div3_desc: DataTypes.TEXT,
     div4_desc: DataTypes.TEXT,
     div5_desc: DataTypes.TEXT,
-    div6_desc: DataTypes.TEXT
+    div6_desc: DataTypes.TEXT,
+    buy_sell_div1_image: DataTypes.STRING,
+    buy_sell_div2_image: DataTypes.STRING,
+    buy_sell_div3_image: DataTypes.STRING,
+    buy_sell_div4_image: DataTypes.STRING,
+    buy_sell_div1_heading: DataTypes.STRING,
+    buy_sell_div2_heading: DataTypes.STRING,
+    buy_sell_div3_heading: DataTypes.STRING,
+    buy_sell_div4_heading: DataTypes.STRING,
+    buy_sell_div1_desc: DataTypes.TEXT,
+    buy_sell_div2_desc: DataTypes.TEXT,
+    buy_sell_div3_desc: DataTypes.TEXT,
+    buy_sell_div4_desc: DataTypes.TEXT,
+    risk_disclousure_div1_image: DataTypes.STRING,
+    risk_disclousure_div2_image: DataTypes.STRING,
+    risk_disclousure_div3_image: DataTypes.STRING,
+    risk_disclousure_div1_heading: DataTypes.STRING,
+    risk_disclousure_div2_heading: DataTypes.STRING,
+    risk_disclousure_div3_heading: DataTypes.STRING,
+    risk_disclousure_div1_desc: DataTypes.TEXT,
+    risk_disclousure_div2_desc: DataTypes.TEXT,
+    risk_disclousure_div3_desc: DataTypes.TEXT
   }, {});
   cms_home_page.associate = function(models) {
     // associations can be defined here

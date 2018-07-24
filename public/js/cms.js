@@ -102,6 +102,13 @@ CKEDITOR.replace( 'div3_desc' );
 CKEDITOR.replace( 'div4_desc' );
 CKEDITOR.replace( 'div5_desc' );
 CKEDITOR.replace( 'div6_desc' );
+CKEDITOR.replace( 'buy_sell_div1_desc' );
+CKEDITOR.replace( 'buy_sell_div2_desc' );
+CKEDITOR.replace( 'buy_sell_div3_desc' );
+CKEDITOR.replace( 'buy_sell_div4_desc' );
+CKEDITOR.replace( 'risk_disclousure_div1_desc' );
+CKEDITOR.replace( 'risk_disclousure_div2_desc' );
+CKEDITOR.replace( 'risk_disclousure_div3_desc' );
 
 $("#cms_home_page_submit").on('click', function () {
 	$(':input[type="button"]').prop('disabled', true);
@@ -117,6 +124,14 @@ $("#cms_home_page_submit").on('click', function () {
 	form_data.append('div4_desc', CKEDITOR.instances['div4_desc'].getData());
 	form_data.append('div5_desc', CKEDITOR.instances['div5_desc'].getData());
 	form_data.append('div6_desc', CKEDITOR.instances['div6_desc'].getData());
+	form_data.append('buy_sell_div1_desc', CKEDITOR.instances['buy_sell_div1_desc'].getData());
+	form_data.append('buy_sell_div2_desc', CKEDITOR.instances['buy_sell_div2_desc'].getData());
+	form_data.append('buy_sell_div3_desc', CKEDITOR.instances['buy_sell_div3_desc'].getData());
+	form_data.append('buy_sell_div4_desc', CKEDITOR.instances['buy_sell_div4_desc'].getData());
+	form_data.append('risk_disclousure_div1_desc', CKEDITOR.instances['risk_disclousure_div1_desc'].getData());
+	form_data.append('risk_disclousure_div2_desc', CKEDITOR.instances['risk_disclousure_div2_desc'].getData());
+	form_data.append('risk_disclousure_div3_desc', CKEDITOR.instances['risk_disclousure_div3_desc'].getData());
+
 
 	$.ajax({
 		type: "POST",
@@ -148,6 +163,13 @@ $("#cms_home_page_edit").on('click', function () {
 	form_data.append('div4_desc', CKEDITOR.instances['div4_desc'].getData());
 	form_data.append('div5_desc', CKEDITOR.instances['div5_desc'].getData());
 	form_data.append('div6_desc', CKEDITOR.instances['div6_desc'].getData());
+	form_data.append('buy_sell_div1_desc', CKEDITOR.instances['buy_sell_div1_desc'].getData());
+	form_data.append('buy_sell_div2_desc', CKEDITOR.instances['buy_sell_div2_desc'].getData());
+	form_data.append('buy_sell_div3_desc', CKEDITOR.instances['buy_sell_div3_desc'].getData());
+	form_data.append('buy_sell_div4_desc', CKEDITOR.instances['buy_sell_div4_desc'].getData());
+	form_data.append('risk_disclousure_div1_desc', CKEDITOR.instances['risk_disclousure_div1_desc'].getData());
+	form_data.append('risk_disclousure_div2_desc', CKEDITOR.instances['risk_disclousure_div2_desc'].getData());
+	form_data.append('risk_disclousure_div3_desc', CKEDITOR.instances['risk_disclousure_div3_desc'].getData());
 
 
 	$.ajax({

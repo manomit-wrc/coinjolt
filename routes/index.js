@@ -1,6 +1,7 @@
 var BitGo = require('bitgo');
 var bitgo = new BitGo.BitGo({
-    env: 'test'
+    env: 'prod',
+    accessToken: process.env.ACCESS_TOKEN
 });
 // var BitGoJS = require('bitgo');
 const keys = require('../config/key');
@@ -524,22 +525,31 @@ module.exports = function (app, passport, models) {
         if (req.user.type === '1') {
             res.redirect('/admin/dashboard');
         } else {
+        
+            bitgo.session({}, function callback(err, session) {
+            if (err) {
+                // handle error
+            }
+            res.redirect('/dashboard');
+            //res.send(session);
+            console.dir(session);
+            });
             // if(req.user.two_factorAuth_status == 1){
                 // res.render('two_factor_authentication');
             // }else{
-                bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })
-                .then(function(response) {
-                    console.log("Response Access Token");
-                    console.log(response.access_token);
-                    res.cookie('BITGO_ACCESS_TOKEN',response.access_token);
-                    res.redirect('/dashboard');
-                })
-                .catch(function (err) {
-                    console.log("dashboard2");
-                    console.log(err);
-                    res.cookie('BITGO_ACCESS_TOKEN','v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018');
-                    res.redirect('/dashboard');
-                });
+                // bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })
+                // .then(function(response) {
+                //     console.log("Response Access Token");
+                //     console.log(response.access_token);
+                //     res.cookie('BITGO_ACCESS_TOKEN',response.access_token);
+                //     res.redirect('/dashboard');
+                // })
+                // .catch(function (err) {
+                //     console.log("dashboard2");
+                //     console.log(err);
+                //     res.cookie('BITGO_ACCESS_TOKEN','v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018');
+                //     res.redirect('/dashboard');
+                // });
 
                 // var bitgo = new BitGoJS.BitGo({ env: 'test', accessToken:'v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018'});
                 // bitgo.session({}, function callback(err, session) {

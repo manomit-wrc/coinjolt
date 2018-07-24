@@ -48,7 +48,8 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 			}).then(function(response){
 				email_template.count({
 					where: {
-					   template_type: req.body.template_type
+					   template_type: req.body.template_type,
+					   status: 1
 					}
 				}).then(function (count) {
 					if (count > 0) {
@@ -120,7 +121,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 			email_template.count({
 				where: {
 				   template_type: req.body.template_type,
-
+				   status: 1,	
 				   id: {
 					[Op.notIn]: [req.body.id]
 				   }

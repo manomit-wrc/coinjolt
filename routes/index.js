@@ -525,15 +525,19 @@ module.exports = function (app, passport, models) {
         if (req.user.type === '1') {
             res.redirect('/admin/dashboard');
         } else {
-        
-            bitgo.session({}, function callback(err, session) {
+            console.log(process.env.ACCESS_TOKEN);
+             bitgo.session({}, function callback(err, session) {
             if (err) {
                 // handle error
+                console.log(err);
             }
             res.redirect('/dashboard');
             //res.send(session);
-            console.dir(session);
+            console.log(session);
             });
+            
+            
+           
             // if(req.user.two_factorAuth_status == 1){
                 // res.render('two_factor_authentication');
             // }else{
@@ -651,7 +655,7 @@ module.exports = function (app, passport, models) {
                             //var accessToken = result.access_token;
                             //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: accessToken});
                             var data = {
-                                "passphrase": 'COinjolt123!!',
+                                "passphrase": 'Mmitra!@#4',
                                 "label": "Coinjolt Bitgo Wallet"
                             }
                             bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {

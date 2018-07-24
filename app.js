@@ -13,6 +13,7 @@ var models = require("./models");
 const keys = require('./config/key');
 var AWS = require('aws-sdk');
 const helmet = require('helmet');
+require('dotenv').config({path: 'variables.env'});
 AWS.config.update({region: 'us-east-1'});
 // var BitGo = require('bitgo');
 // var bitgo = new BitGo.BitGo({

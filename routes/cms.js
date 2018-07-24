@@ -355,10 +355,35 @@ module.exports = function (app, models) {
       }, {
         name: 'cold_wallet_image', maxCount: 1  
       },{
-        name: 'video_upload', maxCount: 1  
+        name: 'div1', maxCount: 1  
+      },{
+        name: 'div2', maxCount: 1  
+      },{
+        name: 'div3', maxCount: 1  
+      },{
+        name: 'div4', maxCount: 1  
+      },{
+        name: 'div5', maxCount: 1  
+      },{
+        name: 'div6', maxCount: 1  
+      },{
+        name: 'buy_sell_div1_image', maxCount: 1  
+      },{
+        name: 'buy_sell_div2_image', maxCount: 1  
+      },{
+        name: 'buy_sell_div3_image', maxCount: 1  
+      },{
+        name: 'buy_sell_div4_image', maxCount: 1  
+      },{
+        name: 'risk_disclousure_div1_image', maxCount: 1  
+      },{
+        name: 'risk_disclousure_div2_image', maxCount: 1  
+      },{
+        name: 'risk_disclousure_div3_image', maxCount: 1  
       }]), (req, res) => {
 
-        var home_page_banner_image,how_it_works_image,hot_wallet_image,cold_wallet_image,video_upload;
+        var home_page_banner_image,how_it_works_image,hot_wallet_image,cold_wallet_image,video_uploadindustry_Leading_Div_1_Image, industry_Leading_Div_2_Image, industry_Leading_Div_3_Image, industry_Leading_Div_4_Image, industry_Leading_Div_5_Image, industry_Leading_Div_6_Image, buy_sell_div1_image, buy_sell_div2_image, buy_sell_div3_image, buy_sell_div4_image, risk_disclousure_div1_image, risk_disclousure_div2_image, risk_disclousure_div3_image;
+
         if (req.files.home_page_banner_image && req.files.home_page_banner_image.length > 0){
             // save thumbnail -- should this part go elsewhere?
             home_page_banner_image = req.files.home_page_banner_image[0].filename;
@@ -428,6 +453,227 @@ module.exports = function (app, models) {
         }else{
             video_upload = '';
         }
+
+        if (req.files.div1 && req.files.div1.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            industry_Leading_Div_1_Image = req.files.div1[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.div1[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.div1[0].filename,
+              width: 72,
+              height: 72
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            industry_Leading_Div_1_Image = '';
+        }
+
+        if (req.files.div2 && req.files.div2.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            industry_Leading_Div_2_Image = req.files.div2[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.div2[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.div2[0].filename,
+              width: 72,
+              height: 72
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            industry_Leading_Div_2_Image = '';
+        }
+
+        if (req.files.div3 && req.files.div3.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            industry_Leading_Div_3_Image = req.files.div3[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.div3[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.div3[0].filename,
+              width: 72,
+              height: 72
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            industry_Leading_Div_3_Image = '';
+        }
+
+        if (req.files.div4 && req.files.div4.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            industry_Leading_Div_4_Image = req.files.div4[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.div4[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.div4[0].filename,
+              width: 72,
+              height: 72
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            industry_Leading_Div_4_Image = '';
+        }
+
+        if (req.files.div5 && req.files.div5.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            industry_Leading_Div_5_Image = req.files.div5[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.div5[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.div5[0].filename,
+              width: 72,
+              height: 72
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            industry_Leading_Div_5_Image = '';
+        }
+
+        if (req.files.div6 && req.files.div6.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            industry_Leading_Div_6_Image = req.files.div6[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.div6[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.div6[0].filename,
+              width: 72,
+              height: 72
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            industry_Leading_Div_6_Image = '';
+        }
+
+        if (req.files.buy_sell_div1_image && req.files.buy_sell_div1_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            buy_sell_div1_image = req.files.buy_sell_div1_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.buy_sell_div1_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.buy_sell_div1_image[0].filename,
+              width: 118,
+              height: 112
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            buy_sell_div1_image = '';
+        }
+
+        if (req.files.buy_sell_div2_image && req.files.buy_sell_div2_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            buy_sell_div2_image = req.files.buy_sell_div2_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.buy_sell_div2_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.buy_sell_div2_image[0].filename,
+              width: 118,
+              height: 112
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            buy_sell_div2_image = '';
+        }
+
+        if (req.files.buy_sell_div3_image && req.files.buy_sell_div3_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            buy_sell_div3_image = req.files.buy_sell_div3_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.buy_sell_div3_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.buy_sell_div3_image[0].filename,
+              width: 118,
+              height: 112
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            buy_sell_div3_image = '';
+        }
+
+        if (req.files.buy_sell_div4_image && req.files.buy_sell_div4_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            buy_sell_div4_image = req.files.buy_sell_div4_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.buy_sell_div4_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.buy_sell_div4_image[0].filename,
+              width: 118,
+              height: 112
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            buy_sell_div4_image = '';
+        }
+
+        if (req.files.risk_disclousure_div1_image && req.files.risk_disclousure_div1_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            risk_disclousure_div1_image = req.files.risk_disclousure_div1_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.risk_disclousure_div1_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.risk_disclousure_div1_image[0].filename,
+              width: 100,
+              height: 100
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            risk_disclousure_div1_image = '';
+        }
+
+        if (req.files.risk_disclousure_div2_image && req.files.risk_disclousure_div2_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            risk_disclousure_div2_image = req.files.risk_disclousure_div2_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.risk_disclousure_div2_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.risk_disclousure_div2_image[0].filename,
+              width: 100,
+              height: 100
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            risk_disclousure_div2_image = '';
+        }
+
+        if (req.files.risk_disclousure_div3_image && req.files.risk_disclousure_div3_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            risk_disclousure_div3_image = req.files.risk_disclousure_div3_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.risk_disclousure_div3_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.risk_disclousure_div3_image[0].filename,
+              width: 100,
+              height: 100
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            risk_disclousure_div3_image = '';
+        }
         
 
         models.cms_home_page.create({
@@ -444,7 +690,45 @@ module.exports = function (app, models) {
             hot_wallet_desc: req.body.hot_wallet_desc[1],
             cold_wallet_image: cold_wallet_image,
             cold_wallet_desc: req.body.cold_wallet_desc[1],
-            video_upload: video_upload
+            industry_leading_div1_image : industry_Leading_Div_1_Image,
+            industry_leading_div2_image : industry_Leading_Div_2_Image,
+            industry_leading_div3_image : industry_Leading_Div_3_Image,
+            industry_leading_div4_image : industry_Leading_Div_4_Image,
+            industry_leading_div5_image : industry_Leading_Div_5_Image,
+            industry_leading_div6_image : industry_Leading_Div_6_Image,
+            div1_heading : req.body.div1_heading,
+            div2_heading : req.body.div2_heading,
+            div3_heading : req.body.div3_heading,
+            div4_heading : req.body.div4_heading,
+            div5_heading : req.body.div5_heading,
+            div6_heading : req.body.div6_heading,
+            div1_desc : req.body.div1_desc[1],
+            div2_desc : req.body.div2_desc[1],
+            div3_desc : req.body.div3_desc[1],
+            div4_desc : req.body.div4_desc[1],
+            div5_desc : req.body.div5_desc[1],
+            div6_desc : req.body.div6_desc[1],
+            buy_sell_div1_image: buy_sell_div1_image,
+            buy_sell_div2_image: buy_sell_div2_image,
+            buy_sell_div3_image: buy_sell_div3_image,
+            buy_sell_div4_image: buy_sell_div4_image,
+            buy_sell_div1_heading : req.body.buy_sell_div1_heading,
+            buy_sell_div2_heading : req.body.buy_sell_div2_heading,
+            buy_sell_div3_heading : req.body.buy_sell_div3_heading,
+            buy_sell_div4_heading : req.body.buy_sell_div4_heading,
+            buy_sell_div1_desc : req.body.buy_sell_div1_desc[1],
+            buy_sell_div2_desc : req.body.buy_sell_div2_desc[1],
+            buy_sell_div3_desc : req.body.buy_sell_div3_desc[1],
+            buy_sell_div4_desc : req.body.buy_sell_div4_desc[1],
+            risk_disclousure_div1_image : risk_disclousure_div1_image,
+            risk_disclousure_div2_image : risk_disclousure_div2_image,
+            risk_disclousure_div3_image : risk_disclousure_div3_image,
+            risk_disclousure_div1_heading : req.body.risk_disclousure_div1_heading,
+            risk_disclousure_div2_heading : req.body.risk_disclousure_div2_heading,
+            risk_disclousure_div3_heading : req.body.risk_disclousure_div3_heading,
+            risk_disclousure_div1_desc : req.body.risk_disclousure_div1_desc[1],
+            risk_disclousure_div2_desc : req.body.risk_disclousure_div2_desc[1],
+            risk_disclousure_div3_desc : req.body.risk_disclousure_div3_desc[1]
         }).then( function (result) {
             if(result) {
                 res.json({
@@ -480,9 +764,24 @@ module.exports = function (app, models) {
         name: 'div5', maxCount: 1  
       },{
         name: 'div6', maxCount: 1  
+      },{
+        name: 'buy_sell_div1_image', maxCount: 1  
+      },{
+        name: 'buy_sell_div2_image', maxCount: 1  
+      },{
+        name: 'buy_sell_div3_image', maxCount: 1  
+      },{
+        name: 'buy_sell_div4_image', maxCount: 1  
+      },{
+        name: 'risk_disclousure_div1_image', maxCount: 1  
+      },{
+        name: 'risk_disclousure_div2_image', maxCount: 1  
+      },{
+        name: 'risk_disclousure_div3_image', maxCount: 1  
       }]), (req, res) => {
 
-        var home_page_banner_image,how_it_works_image,hot_wallet_image,cold_wallet_image,video_upload, industry_Leading_Div_1_Image, industry_Leading_Div_2_Image, industry_Leading_Div_3_Image, industry_Leading_Div_4_Image, industry_Leading_Div_5_Image, industry_Leading_Div_6_Image;
+        var home_page_banner_image,how_it_works_image,hot_wallet_image,cold_wallet_image,video_upload, industry_Leading_Div_1_Image, industry_Leading_Div_2_Image, industry_Leading_Div_3_Image, industry_Leading_Div_4_Image, industry_Leading_Div_5_Image, industry_Leading_Div_6_Image, buy_sell_div1_image, buy_sell_div2_image, buy_sell_div3_image, buy_sell_div4_image, risk_disclousure_div1_image, risk_disclousure_div2_image, risk_disclousure_div3_image;
+
         
         if (req.files.home_page_banner_image && req.files.home_page_banner_image.length > 0){
 
@@ -658,6 +957,125 @@ module.exports = function (app, models) {
             industry_Leading_Div_6_Image = req.body.existing_div6_image;
         }
 
+        if (req.files.buy_sell_div1_image && req.files.buy_sell_div1_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            buy_sell_div1_image = req.files.buy_sell_div1_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.buy_sell_div1_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.buy_sell_div1_image[0].filename,
+              width: 118,
+              height: 112
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            buy_sell_div1_image = req.body.existing_buy_sell_div1_image;
+        }
+
+        if (req.files.buy_sell_div2_image && req.files.buy_sell_div2_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            buy_sell_div2_image = req.files.buy_sell_div2_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.buy_sell_div2_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.buy_sell_div2_image[0].filename,
+              width: 118,
+              height: 112
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            buy_sell_div2_image = req.body.existing_buy_sell_div2_image;
+        }
+
+        if (req.files.buy_sell_div3_image && req.files.buy_sell_div3_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            buy_sell_div3_image = req.files.buy_sell_div3_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.buy_sell_div3_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.buy_sell_div3_image[0].filename,
+              width: 118,
+              height: 112
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            buy_sell_div3_image = req.body.existing_buy_sell_div3_image;
+        }
+
+        if (req.files.buy_sell_div4_image && req.files.buy_sell_div4_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            buy_sell_div4_image = req.files.buy_sell_div4_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.buy_sell_div4_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.buy_sell_div4_image[0].filename,
+              width: 118,
+              height: 112
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            buy_sell_div4_image = req.body.existing_buy_sell_div4_image;
+        }
+
+        if (req.files.risk_disclousure_div1_image && req.files.risk_disclousure_div1_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            risk_disclousure_div1_image = req.files.risk_disclousure_div1_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.risk_disclousure_div1_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.risk_disclousure_div1_image[0].filename,
+              width: 100,
+              height: 100
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            risk_disclousure_div1_image = req.body.existing_risk_disclousure_div1_image;
+        }
+
+        if (req.files.risk_disclousure_div2_image && req.files.risk_disclousure_div2_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            risk_disclousure_div2_image = req.files.risk_disclousure_div2_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.risk_disclousure_div2_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.risk_disclousure_div2_image[0].filename,
+              width: 100,
+              height: 100
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            risk_disclousure_div2_image = req.body.existing_risk_disclousure_div2_image;
+        }
+
+        if (req.files.risk_disclousure_div3_image && req.files.risk_disclousure_div3_image.length > 0){
+
+            // save thumbnail -- should this part go elsewhere?
+            risk_disclousure_div3_image = req.files.risk_disclousure_div3_image[0].filename;
+            im.crop({
+              srcPath: 'public/cms/home_page/'+ req.files.risk_disclousure_div3_image[0].filename,
+              dstPath: 'public/cms/home_page/resize/'+ req.files.risk_disclousure_div3_image[0].filename,
+              width: 100,
+              height: 100
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              
+            });
+        }else{
+            risk_disclousure_div3_image = req.body.existing_risk_disclousure_div3_image;
+        }
+
         models.cms_home_page.update({
         	home_page_banner_image: home_page_banner_image,
             how_it_works_image: how_it_works_image,
@@ -689,7 +1107,28 @@ module.exports = function (app, models) {
             div3_desc : req.body.div3_desc[1],
             div4_desc : req.body.div4_desc[1],
             div5_desc : req.body.div5_desc[1],
-            div6_desc : req.body.div6_desc[1]
+            div6_desc : req.body.div6_desc[1],
+            buy_sell_div1_image: buy_sell_div1_image,
+            buy_sell_div2_image: buy_sell_div2_image,
+            buy_sell_div3_image: buy_sell_div3_image,
+            buy_sell_div4_image: buy_sell_div4_image,
+            buy_sell_div1_heading : req.body.buy_sell_div1_heading,
+            buy_sell_div2_heading : req.body.buy_sell_div2_heading,
+            buy_sell_div3_heading : req.body.buy_sell_div3_heading,
+            buy_sell_div4_heading : req.body.buy_sell_div4_heading,
+            buy_sell_div1_desc : req.body.buy_sell_div1_desc[1],
+            buy_sell_div2_desc : req.body.buy_sell_div2_desc[1],
+            buy_sell_div3_desc : req.body.buy_sell_div3_desc[1],
+            buy_sell_div4_desc : req.body.buy_sell_div4_desc[1],
+            risk_disclousure_div1_image : risk_disclousure_div1_image,
+            risk_disclousure_div2_image : risk_disclousure_div2_image,
+            risk_disclousure_div3_image : risk_disclousure_div3_image,
+            risk_disclousure_div1_heading : req.body.risk_disclousure_div1_heading,
+            risk_disclousure_div2_heading : req.body.risk_disclousure_div2_heading,
+            risk_disclousure_div3_heading : req.body.risk_disclousure_div3_heading,
+            risk_disclousure_div1_desc : req.body.risk_disclousure_div1_desc[1],
+            risk_disclousure_div2_desc : req.body.risk_disclousure_div2_desc[1],
+            risk_disclousure_div3_desc : req.body.risk_disclousure_div3_desc[1]
         },{
         	where:{
         		id: req.body.row_id

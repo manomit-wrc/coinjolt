@@ -12,9 +12,14 @@ var Client = require('node-rest-client').Client;
  
 var client = new Client();
 
+// var BitGo = require('bitgo');
+// var bitgo = new BitGo.BitGo({
+//     env: 'test'
+// });
 var BitGo = require('bitgo');
 var bitgo = new BitGo.BitGo({
-    env: 'test'
+    env: 'prod',
+    accessToken: process.env.ACCESS_TOKEN
 });
 //for two factor authentication
 var speakeasy = require('speakeasy');
@@ -1492,7 +1497,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var ssn = '4344';
 
         request({
-            uri: "http://ec2-52-91-251-249.compute-1.amazonaws.com/ecorepay.php",
+            uri: "http://ec2-34-230-81-205.compute-1.amazonaws.com/ecorepay.php",
             //uri: "http://localhost:8080/ecorepay.php",
             method: "POST",
             //json: true,
@@ -1563,8 +1568,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 
                         console.log("sender_id");
                         console.log(userid);
-                        var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
-                        bitgoVerify.wallets().get({
+                        //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
+                        bitgo.wallets().get({
                             id: walletId
                         }, function (err, wallet) {
                             if (err) {
@@ -1622,8 +1627,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
               "payment_method": "paypal"
           },
           "redirect_urls": {
-              "return_url": "http://ec2-52-91-251-249.compute-1.amazonaws.com/paypal-success",
-              "cancel_url": "http://ec2-52-91-251-249.compute-1.amazonaws.com/paypal-cancel"
+              "return_url": "http://ec2-34-230-81-205.compute-1.amazonaws.com/paypal-success",
+              "cancel_url": "http://ec2-34-230-81-205.compute-1.amazonaws.com/paypal-cancel"
           },
           "transactions": [{
               "item_list": {

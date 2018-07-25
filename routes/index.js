@@ -525,15 +525,19 @@ module.exports = function (app, passport, models) {
         if (req.user.type === '1') {
             res.redirect('/admin/dashboard');
         } else {
-        
-            bitgo.session({}, function callback(err, session) {
+            console.log(process.env.ACCESS_TOKEN);
+             bitgo.session({}, function callback(err, session) {
             if (err) {
                 // handle error
+                console.log(err);
             }
             res.redirect('/dashboard');
             //res.send(session);
-            console.dir(session);
+            console.log(session);
             });
+            
+            
+           
             // if(req.user.two_factorAuth_status == 1){
                 // res.render('two_factor_authentication');
             // }else{
@@ -640,21 +644,21 @@ module.exports = function (app, passport, models) {
                         }
                     }).then(function (user) {
                         var user_id = user.id;
-                        bitgo.authenticate({
-                            username: keys.BITGO_USERNAME,
-                            password: keys.BITGO_PASSWORD,
-                            otp: keys.BITGO_OTP
-                        }, function (err, result) {
-                            if (err) {
-                                return console.log(err);
-                            }
-                            var accessToken = result.access_token;
-                            var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: accessToken});
+                        // bitgo.authenticate({
+                        //     username: keys.BITGO_USERNAME,
+                        //     password: keys.BITGO_PASSWORD,
+                        //     otp: keys.BITGO_OTP
+                        // }, function (err, result) {
+                            // if (err) {
+                            //     return console.log(err);
+                            // }
+                            //var accessToken = result.access_token;
+                            //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: accessToken});
                             var data = {
-                                "passphrase": keys.BITGO_PASSWORD,
+                                "passphrase": 'Mmitra!@#4',
                                 "label": "Coinjolt Bitgo Wallet"
                             }
-                            bitgoVerify.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
+                            bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
                                 if (walleterr) {
                                     console.dir(walleterr);
                                     throw new Error("Could not create wallet!");
@@ -681,7 +685,7 @@ module.exports = function (app, passport, models) {
                                     bitgokeychain_public: bitgokeychain_public
                                 });
                             });
-                        });
+                        // });
 
                         req.flash('loginMessage', 'Your account activated successfully. We have created a Bitgo wallet for you. Please login to continue.');
                         res.redirect('/login');

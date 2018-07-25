@@ -288,7 +288,7 @@ module.exports = (app, models) => {
         var user_id = req.user.id;
 		var data = {
             "passphrase": 'COinjolt123!!',
-            "label": "Coinjolt Bitgo Wallet"
+            "label": "Coin Jolt"
         }
         bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
             if (walleterr) {

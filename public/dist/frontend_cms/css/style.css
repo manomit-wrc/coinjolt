@@ -752,6 +752,7 @@ canvas{
 	font-size: 15px;
 	margin: 0;
 	display: block;
+	font-family: "AvenirNextLTPro-Regular" !important;
 }
 
 /*Ends Service Section */
@@ -897,6 +898,7 @@ canvas{
 	font-size: 17px;
 	margin: 0;
 	display: block;
+	font-family: "AvenirNextLTPro-Regular" !important;
 }
 
 /*Ends Security Section */

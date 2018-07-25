@@ -118,9 +118,21 @@ module.exports = function (app, passport, models) {
 
         var msg = req.flash('loginMessage')[0];
 
-        res.render('login', {
-            message: msg
-        });
+        if(req.user != undefined && req.user.type == '2'){
+            res.redirect('/account/dashboard');
+        }
+
+        else if(req.user != undefined && req.user.type == '1'){
+            res.redirect('/admin/dashboard');
+        }
+
+        else{
+            res.render('login', {
+                message: msg
+            });
+        }
+
+        
     });
 
     app.get('/forgot-password', (req, res) =>{

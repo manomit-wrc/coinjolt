@@ -1542,7 +1542,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var destinationAddress = "";
         var coin_amount = req.body.coin_amount;
         var amountSatoshis = coin_amount * 1e8;
-        var walletPassphrase = keys.BITGO_PASSWORD;
+        var walletPassphrase = 'COinjolt123!!';
         var userid = req.user.id;
         var currency_id = "1";
         var walletDbId;

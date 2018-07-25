@@ -132,7 +132,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         })
       });
     
-    app.get('/dashboard', (req, res) => {
+    app.get('/account/dashboard', (req, res) => {
         blog_post.findAll({
             where:{
                 post_category_id: 3
@@ -185,7 +185,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                             }
                         });
                     });
-                    //end
                 }
             });
         });
@@ -248,12 +247,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }
     });
 
-    app.get('/logout', function (req, res) {
+    app.get('/account/logout', function (req, res) {
         req.logout();
         res.redirect('/login');
     });
 
-    app.get('/profile-details', function (req, res) {
+    app.get('/account/profile-details', function (req, res) {
 
         Kyc_details.findAll({
             where: {
@@ -303,7 +302,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
        
     });
 
-    app.get('/account-settings', async function (req, res) {
+    app.get('/account/account-settings', async function (req, res) {
         var user_all_details = await User.findById(req.user.id);
         var user_data = JSON.parse(JSON.stringify(user_all_details));
 
@@ -494,7 +493,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 }
             }).then(function(result){
                     req.flash('profileMessage', 'Profile updated successfully');
-                    res.redirect('/account-settings');
+                    res.redirect('/account/account-settings');
             });
         }).catch(function (err) {
             console.log(err);
@@ -538,7 +537,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/invite-friends', function (req,res) {
+    app.get('/account/invite-friends', function (req,res) {
 		Referral_data.belongsTo(User, {foreignKey: 'user_id'});
 
 		Referral_data.findAll({
@@ -556,7 +555,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 		});
 	});
 
-    app.get('/submit-a-request', function (req, res) {
+    app.get('/account/submit-a-request', function (req, res) {
         const msg = req.flash('supportMessage')[0];
         res.render('submit-a-request', {
             layout: 'dashboard',
@@ -605,7 +604,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/buy-and-sell-coins', async (req, res) => {
+    app.get('/account/buy-and-sell-coins', async (req, res) => {
         var values = '';
         var buy_history = '';
         
@@ -833,7 +832,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
     
-    app.get('/transaction-history', async (req, res) =>{
+    app.get('/account/transaction-history', async (req, res) =>{
         var buy_arr = [];
         var sell_arr = [];
         var deposit_arr = [];
@@ -940,7 +939,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         res.render('transaction-history', {layout: 'dashboard', buy_history:buy_history,sell_history:sell_history,deposit_history:deposit_history,withdrawal_history:withdrawal_history,buy_arr:buy_arr,sell_arr:sell_arr,deposit_arr:deposit_arr,withdraw_arr:withdraw_arr, title: 'Transaction History' });
     });
 
-    app.get('/managed-cryptocurrency-portfolio', async(req, res) => {
+    app.get('/account/managed-cryptocurrency-portfolio', async(req, res) => {
         var investedamount = 0;
 		var firstyear = 0;
 		var secondyear = 0;
@@ -1093,7 +1092,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
             }
         }).then(function (result) {
-            res.redirect('/profile-details');
+            res.redirect('/account/profile-details');
         }).catch(function (err) {
             console.log(err);
         });
@@ -1622,8 +1621,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
               "payment_method": "paypal"
           },
           "redirect_urls": {
-              "return_url": "http://ec2-52-91-251-249.compute-1.amazonaws.com/paypal-success",
-              "cancel_url": "http://ec2-52-91-251-249.compute-1.amazonaws.com/paypal-cancel"
+              "return_url": "http://ec2-34-230-81-205.compute-1.amazonaws.com/account/paypal-success",
+              "cancel_url": "http://ec2-34-230-81-205.compute-1.amazonaws.com/account/paypal-cancel"
           },
           "transactions": [{
               "item_list": {
@@ -1647,7 +1646,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         
       });
       
-      app.get('/paypal-success', (req, res) => { 
+      app.get('/account/paypal-success', (req, res) => { 
         const payerId = req.query.PayerID;
         const paymentId = req.query.paymentId;
         const priceVal = req.session.paypal_price;
@@ -1684,15 +1683,15 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     currency_id: 0
                 });
                 req.flash('payPalSuccessMsg', 'Your payment has been successful');
-                res.redirect('/deposit-funds');
+                res.redirect('/account/deposit-funds');
           }
         });
 
       });
       
-      app.get('/paypal-cancel', (req, res) => {
+      app.get('/account/paypal-cancel', (req, res) => {
         req.flash('payPalCancelMsg', 'Your payment has been cancelled');
-        res.redirect('/deposit-funds');
+        res.redirect('/account/deposit-funds');
       });
 
     app.get('/settings', (req,res) => {

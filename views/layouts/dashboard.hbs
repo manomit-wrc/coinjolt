@@ -986,7 +986,7 @@
                             if(response.success === true) {
                                 $(".errorIDProof").removeClass('error').addClass('success');
                                 $("#id-proof-view").attr('href', '/id-proof/'+response.file_name);
-                                window.location.href = "/account-settings";
+                                window.location.href = "/account/account-settings";
                             }
                             else {
                                 $(".errorIDProof").removeClass('success').addClass('error');
@@ -1251,7 +1251,7 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
             console.log(response.success);
             if(response.success == true){
                 console.log("success true");
-                window.location.href="/buy-and-sell-coins";
+                window.location.href="/account/buy-and-sell-coins";
             }
         },
         error:function(xhr) {
@@ -1519,7 +1519,7 @@ function sellFormSubmit(finalusdBalance, coinRate, amtVal, currencySellType, bal
         data : {finalusdBalance: finalusdBalance,coinRate: coinRate,amtVal: amtVal,currencySellType:currencySellType,balance:balance,currency_id:currency_id},
         success:function(response) {
             if (response.success == true) {
-                window.location.href="/buy-and-sell-coins";
+                window.location.href="/account/buy-and-sell-coins";
             }
         },
         error:function(xhr) {
@@ -1608,7 +1608,7 @@ $('.deleteShareholderInfo').on('click', function(){
         url: "/remove-shareholderInfo", 
         dataType: "json",
         success: function(response) {
-            window.location.href = "/account-settings";
+            window.location.href = "/account/account-settings";
         },
         error: function(error) {
             console.log(error);
@@ -1804,7 +1804,7 @@ $('.deleteShareholderInfo').on('click', function(){
                                 confirmButtonText: "OK"
                             },function(isConfirm){
                                 if(isConfirm){
-                                    window.location.href = "/managed-cryptocurrency-portfolio";
+                                    window.location.href = "/account/managed-cryptocurrency-portfolio";
                                 }
                             });
 
@@ -1867,7 +1867,7 @@ $('.deleteShareholderInfo').on('click', function(){
                                 confirmButtonText: "OK"
                             },function(isConfirm){
                                 if(isConfirm){
-                                    window.location.href = "/managed-cryptocurrency-portfolio";
+                                    window.location.href = "/account/managed-cryptocurrency-portfolio";
                                 }
                             });
 
@@ -2031,7 +2031,7 @@ $('.deleteShareholderInfo').on('click', function(){
                             confirmButtonText: "OK"
                         },function(isConfirm){
                             if(isConfirm){
-                                window.location.href = "/managed-cryptocurrency-portfolio";
+                                window.location.href = "/account/managed-cryptocurrency-portfolio";
                             }
                         });
 
@@ -2807,7 +2807,7 @@ function remove(event){
                                     confirmButtonText: "OK"
                                 },function(isConfirm){
                                     if(isConfirm){
-                                        window.location.href = "/wallets";
+                                        window.location.href = "/account/wallets";
                                     }
                                 });
                             }

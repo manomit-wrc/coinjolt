@@ -131,7 +131,7 @@ module.exports = (app, models) => {
         });
     });
 
-    app.get('/wallets', async (req, res) => {
+    app.get('/account/wallets', async (req, res) => {
         // var walletId = '2MwDGsK8XmELd41t8GVK7G39vemcEjEUvYU';
         var btcBalance = 0;
         var ethBalance = 0;

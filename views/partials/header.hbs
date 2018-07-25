@@ -1,6 +1,6 @@
 <header class="main-header">
     <!-- Logo -->
-    <a {{#if_eq user.type 1}} href="/admin/dashboard" {{/if_eq}} {{#if_eq user.type 2}} href="/dashboard" {{/if_eq}} class="logo">
+    <a {{#if_eq user.type 1}} href="/admin/dashboard" {{/if_eq}} {{#if_eq user.type 2}} href="/account/dashboard" {{/if_eq}} class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini">
             <img alt="-lg-logo" src="/dist/img/mini-logo.png">
@@ -89,10 +89,10 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="/profile-details" class="btn btn-default btn-flat">Profile</a>
+                                <a href="/account/profile-details" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="/account/logout" class="btn btn-default btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>

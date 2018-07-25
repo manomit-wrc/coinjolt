@@ -33,7 +33,7 @@
           <li>
             <div class="work-widget-thumb">
               <div class="image-overlay"></div>
-              <a href="{{base_url}}/blog/{{this.post_slug}}">
+              <a href="{{base_url}}/{{this.post_slug}}">
                 {{#if_eq this.featured_image ""}}
                     <img class="img-responsive" src="/dist/img/blog_default.png" alt="{{this.post_title}}">
                 {{else}}   
@@ -48,7 +48,7 @@
               </a>
             </div>      
             <div class="work-widget-content">
-              <h6><a href="{{base_url}}/blog/{{this.post_slug}}">{{this.post_title}}</a></h6>
+              <h6><a href="{{base_url}}/{{this.post_slug}}">{{this.post_title}}</a></h6>
               <p>{{dateFormat this.createdAt "MMMM DD, YYYY"}}</p>                    
             </div>
           </li>
@@ -64,7 +64,7 @@
           <li>
             <div class="work-widget-thumb">
               <div class="image-overlay"></div>
-              <a href="{{base_url}}/blog/{{this.post_slug}}">
+              <a href="{{base_url}}/{{this.post_slug}}">
                 {{#if_eq this.featured_image ""}}
                     <img class="img-responsive" src="/dist/img/blog_default.png" alt="{{this.post_title}}">
                 {{else}}   
@@ -79,7 +79,7 @@
               </a>
             </div>      
             <div class="work-widget-content">
-              <h6><a href="{{base_url}}/blog/{{this.post_slug}}">{{this.post_title}}</a></h6>
+              <h6><a href="{{base_url}}/{{this.post_slug}}">{{this.post_title}}</a></h6>
               <p>{{dateFormat this.createdAt "MM DD,YYYY"}}</p> 
             </div>
           </li>

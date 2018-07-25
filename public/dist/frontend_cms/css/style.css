@@ -752,6 +752,11 @@ canvas{
 	font-size: 15px;
 	margin: 0;
 	display: block;
+	font-family: "AvenirNextLTPro-Regular" !important;
+}
+
+.service-section .item span p {
+  font-family: AvenirNextLTPro-Regular;
 }
 
 /*Ends Service Section */
@@ -893,10 +898,15 @@ canvas{
 	font-family: "AvenirNextLTProBold",sans-serif;
 }
 
+.security-section .item span p {
+  font-family: "AvenirNextLTPro-Regular";
+}
+
 .security-section .item span {
 	font-size: 17px;
 	margin: 0;
 	display: block;
+	font-family: "AvenirNextLTPro-Regular" !important;
 }
 
 /*Ends Security Section */

@@ -6,7 +6,7 @@ $(document).ready(function(){
     //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
     //var baseURL = "http://localhost:8080/admin/";
     //var baseURL = "https://www.coinjolt.com/";
-    var baseURL = "http://ec2-52-91-251-249.compute-1.amazonaws.com/";
+    var baseURL = "http://ec2-34-230-81-205.compute-1.amazonaws.com/";
 
     $('.save_blog_category').on('click', function(){
 
@@ -89,7 +89,7 @@ $(document).ready(function(){
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "OK"
         },  function() {
-            window.location.href=baseURL+"blog-categories";
+            window.location.href=baseURL+"admin/blog-categories";
         });
     }
 });

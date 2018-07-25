@@ -27,7 +27,7 @@
                             <table class="table">
                                 <tr>
                                     <td class="col-xs-2">
-                                        <img src="dist/img/usd.png" alt="">
+                                        <img src="../dist/img/usd.png" alt="">
                                     </td>
                                     <td class="col-xs-4 padding16">DOLLAR
                                         <span style="color:red;">(USD)</span>
@@ -41,7 +41,7 @@
                                 </tr>
                                 <tr>
                                     <td class="col-xs-2">
-                                        <img src="dist/img/mcpicon.png" alt="" width="34">
+                                        <img src="../dist/img/mcpicon.png" alt="" width="34">
                                     </td>
                                     <td class="col-xs-4 padding16">MANAGED PORTFOLIO
                                         <span style="color:red;">(MCP)</span>
@@ -88,16 +88,16 @@
                         <img class="img_' + resp[i].id +'" style="width:100%;" src="dist/img/lading_icon.gif"> --}}
                         {{#each blogPosts}}
                             <div class="col-md-6 paddingleft recent_post_box">
-                                <a style="color: #000;" href="{{base_url}}blog/{{this.post_slug}}" target="_blank">
+                                <a style="color: #000;" href="http://ec2-34-230-81-205.compute-1.amazonaws.com/{{this.post_slug}}" target="_blank">
                                     <p>
                                         {{#if_eq this.featured_image ""}}
-                                            <img style="width:100%;" src="dist/img/blog_default.png">
+                                            <img style="width:100%;" src="http://ec2-34-230-81-205.compute-1.amazonaws.com/dist/img/blog_default.png">
                                         {{else}}   
                                             {{#if_eq this.featured_image null}}
-                                                <img style="width:100%;" src="dist/img/blog_default.png">
+                                                <img style="width:100%;" src="http://ec2-34-230-81-205.compute-1.amazonaws.com/dist/img/blog_default.png">
                                             {{else}}
                                                 {{#if_neq this.featured_image ""}}
-                                                    <img style="width:100%;" src="{{base_url}}blog_images/{{this.featured_image}}">
+                                                    <img style="width:100%;" src="http://ec2-34-230-81-205.compute-1.amazonaws.com/blog_images/{{this.featured_image}}">
                                                 {{/if_neq}}
                                             {{/if_eq}}    
                                         {{/if_eq}}      

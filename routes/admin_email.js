@@ -32,6 +32,8 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 
 	app.post('/admin/submit-email-template', acl, (req,res) => {
 
+		
+
 		email_template.belongsTo(email_template_type, {foreignKey: 'template_type'});
 			email_template.findAll({
 				where: {

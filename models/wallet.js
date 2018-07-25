@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     backupkeychain_private: DataTypes.TEXT,
     backupkeychain_public: DataTypes.TEXT,
     bitgokeychain_public: DataTypes.TEXT,
-    bitgokeychain_private: DataTypes.TEXT
+    bitgokeychain_private: DataTypes.TEXT,
+    currency_id: DataTypes.INTEGER
   }, {});
   wallet.associate = function(models) {
     // associations can be defined here

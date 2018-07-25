@@ -298,7 +298,7 @@ $('#ok').click(function(event){
 	$('#close').click(function(event){
 		event.preventDefault();
 		$("#totalamount").val("$" + amount);
-		window.location.href="/deposit-funds";
+		window.location.href="/account/deposit-funds";
 	});
 });
 

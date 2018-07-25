@@ -143,7 +143,7 @@
 								$(".returnMsg1").show();
 								$(".returnMsg1").html("<p>Withdraw request received.</p>");
 								setTimeout( function(){ 
-									window.location.href="/request-withdrawal";
+									window.location.href="/account/request-withdrawal";
 								}  , 3000 );
 							}
 						}

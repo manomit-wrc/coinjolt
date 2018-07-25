@@ -118,9 +118,21 @@ module.exports = function (app, passport, models) {
 
         var msg = req.flash('loginMessage')[0];
 
-        res.render('login', {
-            message: msg
-        });
+        if(req.user != undefined && req.user.type == '2'){
+            res.redirect('/account/dashboard');
+        }
+
+        else if(req.user != undefined && req.user.type == '1'){
+            res.redirect('/admin/dashboard');
+        }
+
+        else{
+            res.render('login', {
+                message: msg
+            });
+        }
+
+        
     });
 
     app.get('/forgot-password', (req, res) =>{
@@ -526,17 +538,18 @@ module.exports = function (app, passport, models) {
             res.redirect('/admin/dashboard');
         } else {
             console.log(process.env.ACCESS_TOKEN);
-             bitgo.session({}, function callback(err, session) {
-            if (err) {
-                // handle error
-                console.log(err);
-            }
-            res.redirect('/dashboard');
-            //res.send(session);
-            console.log(session);
-            });
+            // bitgo.session({}, function callback(err, session) {
+            // if (err) {
+            //     // handle error
+            //     console.log(err);
+            // }
+            // res.redirect('/dashboard');
+            // //res.send(session);
+            // console.log(session);
+            // });
             
-            
+            // added today
+            res.redirect('/account/dashboard');
            
             // if(req.user.two_factorAuth_status == 1){
                 // res.render('two_factor_authentication');
@@ -710,7 +723,7 @@ module.exports = function (app, passport, models) {
         });
     });
 
-     app.get('/blog/:blogDetail', (req,res) =>{
+     app.get('/:blogDetail', (req,res) =>{
         
         var blogPageSlug = req.params.blogDetail;
 

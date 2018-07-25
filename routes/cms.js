@@ -193,7 +193,7 @@ module.exports = function (app, models) {
 
             res.json({
                 status:true,
-                msg: "Terms Of Service Added Successfully"
+                msg: "Any changes were updated successfully."
             });
         }
         else {
@@ -208,7 +208,7 @@ module.exports = function (app, models) {
             });
             res.json({
                 status:true,
-                msg: "Terms Of Service Modified Successfully"
+                msg: "Any changes were updated successfully."
             });
         }
 
@@ -228,7 +228,7 @@ module.exports = function (app, models) {
 
             res.json({
                 status:true,
-                msg: "Risk Disclosure Added Successfully"
+                msg: "Any changes were updated successfully."
             });
         }
         else {
@@ -243,7 +243,7 @@ module.exports = function (app, models) {
             });
             res.json({
                 status:true,
-                msg: "Risk Disclosure Modified Successfully"
+                msg: "Any changes were updated successfully."
             });
         }
 
@@ -262,7 +262,7 @@ module.exports = function (app, models) {
 
             res.json({
                 status:true,
-                msg: "Privacy Policy Added Successfully"
+                msg: "Privacy Policy Updated"
             });
         }
         else {
@@ -277,7 +277,7 @@ module.exports = function (app, models) {
             });
             res.json({
                 status:true,
-                msg: "Privacy Policy Modified Successfully"
+                msg: "Privacy Policy Updated"
             });
         }
 
@@ -290,7 +290,7 @@ module.exports = function (app, models) {
 
 		}).then(function (result) {
 			var data = JSON.parse(JSON.stringify(result));
-			res.render('admin/cms/about_us', {layout: 'dashboard', details:data, title:"CMS- About US"});
+			res.render('admin/cms/about_us', {layout: 'dashboard', details:data, title:"Coin Jolt - About US"});
 		});
 		
 	});
@@ -308,7 +308,7 @@ module.exports = function (app, models) {
 			if(result) {
 				res.json({
 					status: true,
-					msg: "Submit successfully."
+					msg: "Submission successful."
 				});
 			}
 		});
@@ -331,7 +331,7 @@ module.exports = function (app, models) {
         	if(result) {
 				res.json({
 					status: true,
-					msg: "Edit successfully."
+					msg: "Any changes were updated successfully.."
 				});
 			}
         });
@@ -340,7 +340,7 @@ module.exports = function (app, models) {
     app.get('/admin/cms/home-page', acl, (req,res) => {
         models.cms_home_page.findAll({}).then(function (result) {
             var data = JSON.parse(JSON.stringify(result));
-            res.render('admin/cms/home_page', {layout: 'dashboard', title:"CMS- Home", home_data:data});
+            res.render('admin/cms/home_page', {layout: 'dashboard', title:"Coin Jolt - Home", home_data:data});
         });
     });
 
@@ -733,7 +733,7 @@ module.exports = function (app, models) {
             if(result) {
                 res.json({
                     status: true,
-                    msg: "Submit successfully."
+                    msg: "Submission successful."
                 });
             }
         }).catch(function (err) {
@@ -1138,7 +1138,7 @@ module.exports = function (app, models) {
         	if(result) {
 				res.json({
 					status: true,
-					msg: "Edit successfully."
+					msg: "Any changes were updated successfully."
 				});
 			}
         });

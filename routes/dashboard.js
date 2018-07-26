@@ -564,7 +564,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         const msg = req.flash('supportMessage')[0];
         res.render('submit-a-request', {
             layout: 'dashboard',
-            message: msg
+            message: msg,
+            title: 'Submit A Request'
         });
     });
 
@@ -602,7 +603,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }).then(function (supports) {
             res.render('requests-support', {
 				layout: 'dashboard',
-				supports: supports
+                supports: supports,
+                title: 'Request Support'
 			});
         }).catch(function (err) {
             console.log(err);

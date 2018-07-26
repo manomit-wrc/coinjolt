@@ -2717,7 +2717,8 @@ function remove(event){
             },
             function(isConfirm) {
                 if (isConfirm) {
-                    /*$.ajax({
+                    //alert('hi');
+                    $.ajax({
                         type: "POST",
                         url: '/wallet-create',
                         data : {currency_id: currency_id, currency_code: currency_code},
@@ -2732,14 +2733,14 @@ function remove(event){
                                         confirmButtonText: "OK"
                                     },function(isConfirm){
                                         if(isConfirm){
-                                            window.location.href = "/wallets";
+                                            window.location.href = "/account/wallets";
                                         }
                                     });
                                 }    
 
                             }
                         });
-                        */
+                        
                 } else {
                     swal("Cancelled", "You cancelled creating a Coin Jolt wallet.", "error");
                 }

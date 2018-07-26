@@ -1,10 +1,10 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-  <h1>Buy and Sell Digital Currencies</h1>
+  <h1>Buy and Sell Coins</h1>
   <ol class="breadcrumb">
     <li>
       <a href="#">
-        <i class="fa fa-dashboard"></i> Home</a>
+        <i class="fa fa-dashboard"></i>Home</a>
     </li>
     <li class="active">Buy and Sell Coins</li>
   </ol>
@@ -24,7 +24,7 @@
                 <form action="/buy-coin" method="post">
                   <div class="form-group">
                     <select class="form-control" id="currency_purchased" name="currency_purchased">
-                      <option value="">Please select a option</option>
+                      <option value="">Please select a digital currency.</option>
                       {{#each contents}}
                       <option value="{{this.alt_name}}">{{this.display_name}} ({{this.currency_id}})</option>
                       {{/each}}
@@ -67,14 +67,14 @@
                 <form action="" method="post">
                   <div class="form-group">
                     <select class="form-control" id="currency_sold" name="currency_sold">
-                      <option value="">Please select a option</option>
+                      <option value="">Please select a digital currency.</option>
                       {{#each contents}}
                       <option value="{{this.alt_name}}">{{this.display_name}} ({{this.currency_id}})</option>
                       {{/each}}
                     </select>
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control" id="sellAmount" name="sellAmount" placeholder="Enter Amount of Coin">
+                    <input type="text" class="form-control" id="sellAmount" name="sellAmount" placeholder="Enter Amount">
                   </div>
                   <p class="sell_expected" style="display:none;" role="alert"></p>
                   <div class="" id="sell_currentratetext" role="alert">
@@ -93,19 +93,19 @@
                 </form>
                 {{/if_eq}} {{#if_eq user.kycApproved "1"}}
                 <div class="form-group">
-                  <p>Sell is disabled because your ID Proof is submitted but not verified yet.</p>
+                  <p>Sell feature is disabled because your ID hasn't been verified.</p>
                 </div>
                 {{/if_eq}} {{#if_eq user.kycApproved "3"}}
                 <div class="form-group">
                   <label>Sell</label>
-                  <p>Sell is disabled because your ID Proof is rejected. Please upload correct ID Proof in
-                    <a href="/account-settings">Account Settings</a>.</p>
+                  <p>Sell feature is disabled because your ID has been rejected. Please upload a valid ID in
+                    <a href="/account-settings">account settings</a>.</p>
                 </div>
                 {{/if_eq}} {{#if_eq user.kycApproved "0"}}
                 <div class="form-group">
                   <label>Sell</label>
-                  <p>Sell is disabled because your ID Proof is not uploaded yet. Please upload your ID Proof in
-                    <a href="/account-settings">Account Settings</a>.</p>
+                  <p>Sell is disabled because your ID Proof is not uploaded yet. Please upload a valid ID in
+                    <a href="/account-settings">account settings</a>.</p>
                 </div>
                 {{/if_eq}}
                 </div>
@@ -167,7 +167,7 @@
                       {{#each user.currency}}
                       <tr>
                         <td class="col-xs-4">
-                          <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
+                          <div class="s-s-{{toUpperCase this.display_name}} currency-logo-sprite"></div>
                         </td>
                         <td class="col-xs-4">{{this.display_name}}
                           <span style="color:red;">({{toUpperCase this.alt_name}})</span>
@@ -309,7 +309,7 @@
 					    channel: 'bitcoin-feed',
 					    message: {
 					      eon: {
-					        'BitCoin': response.BTC.CNY.toFixed(2)
+					        'Bitcoin': response.BTC.CNY.toFixed(2)
 					      }
 					    }
 					  });
@@ -354,7 +354,7 @@
           var eonData = {labels: true,type: 'line'};
           var eonAxis = {y: {padding: {top:topPadding, bottom:bottomPadding}},
                         x: {type: 'timeseries',tick: {format: '%H:%M:%S'}}};
-          // Create the EON Chart for BitCoin and bind its div
+          // Create the EON Chart for Bitcoin and bind its div
           eon.chart({
             channels: ['bitcoin-feed'],
             history: true,
@@ -367,7 +367,7 @@
               axis: eonAxis
             }
           });
-          // Create the Ether Chart for BitCoin and bind its div
+          // Create the Ether Chart for Bitcoin and bind its div
           eon.chart({
             channels: ['ether-feed'],
             history: true,
@@ -380,7 +380,7 @@
               axis: eonAxis
             }
           });
-          // Create the LiteCoin Chart for BitCoin and bind its div
+          // Create the LiteCoin Chart for Bitcoin and bind its div
           eon.chart({
             channels: ['eos-feed'],
             history: true,

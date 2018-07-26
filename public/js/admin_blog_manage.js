@@ -84,26 +84,26 @@ $(document).ready(function(){
         },
         messages: {
             blog_post_title: {
-                required: "Please enter blog post title"
+                required: "Please enter a blog post title."
             },
             post_slug: {
-                required: "Please enter post slug"
+                required: "Please enter a post slug."
             },
             post_featured_image: {
                 //required: "Please select featured image to upload",
-                extension: "Must be image type"
+                extension: "Must be a valid image type."
             },
             blog_desc:{
-                required:"Please enter post description"
+                required:"Please enter a post description."
             },
             meta_title: {
-                required: "Please enter meta title"
+                required: "Please enter a meta title."
             },
             meta_description: {
-                required: "Please enter meta description"
+                required: "Please enter a meta description."
             },
             meta_keywords: {
-                required: "Please enter meta keywords"
+                required: "Please enter a meta keywords."
             }
         },
         submitHandler:function(form) {
@@ -138,7 +138,7 @@ $(document).ready(function(){
             text: text,
             type: "success",
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "OK"
+            confirmButtonText: "CONFIRM"
         },  function() {
             window.location.href=baseURL+"blog-posts";
         });
@@ -186,26 +186,26 @@ $('#edit_blog_post_form').validate({
     },
     messages: {
         edit_blog_post_title: {
-            required: "Please enter blog post title"
+            required: "Please enter a blog post title."
         },
         edit_post_slug: {
-            required: "Please enter post slug"
+            required: "Please enter a post slug."
         },
         edit_post_featured_image: {
             //required: "Please select featured image to upload",
-            extension: "Must be image type"
+            extension: "Must be a valid image type."
         },
         post_description:{
-            required:"Please enter post description"
+            required:"Please enter a post description."
         },
         edit_meta_title: {
-            required: "Please enter meta title"
+            required: "Please enter a meta title."
         },
         edit_meta_description: {
-            required: "Please enter meta description"
+            required: "Please enter a meta description."
         },
         edit_meta_keywords: {
-            required: "Please enter meta keywords"
+            required: "Please enter meta keywords."
         }
     },
     submitHandler:function(form) {
@@ -244,7 +244,7 @@ function sweetAlertSuccessPopUp (title='',text='') {
         text: text,
         type: "success",
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "OK"
+        confirmButtonText: "CONFIRM"
     },  function() {
         window.location.href=baseURL+"admin/blog-posts";
     });

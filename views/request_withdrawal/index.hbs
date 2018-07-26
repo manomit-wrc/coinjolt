@@ -3,7 +3,7 @@
         <ol class="breadcrumb">
           <li>
             <a href="/dashboard">
-              <i class="fa fa-dashboard"></i> Home</a>
+              <i class="fa fa-dashboard"></i>Home</a>
           </li>
           <li class="active">Request Withdrawal</li>
         </ol>
@@ -38,8 +38,8 @@
                 <div class="form-group col-md-6">
                   <select name="payment_type" id="payment_type" class="form-control">
                     <option value="">Select payout type</option>
-                    <option value="Bank">Bank Wire Transfer (1-2 Business Days)</option>
-                    <option value="Check">Check by Mail (14 Business Days)</option>
+                    <option value="Bank">Bank Wire Transfer (Up to 7 Business Days)</option>
+                    <option value="Check">Check by Mail (Up to 14 Business Days)</option>
                   </select>
                 </div>
                 <div class="bank_details" style="display: none">
@@ -77,19 +77,19 @@
                 <div class="col-md-4 col-md-offset-5">
                   <p class="expected" style="display: none;color: #008000;"></p>
                   <div class="btnall">
-                    <input type="submit" name="Submit" value="Withdraw" id="cc-submit2" class="btn btn-primary" >
-                    <p style="display:none;padding-right: 85px;" class="loaderImg"><img src="https://coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif" ></p>
+                    <input type="submit" name="Submit" value="Withdraw Funds" id="cc-submit2" class="btn btn-primary" >
+                    <p style="display:none;padding-right: 85px;" class="loaderImg"><img src="/dist/img/lading_icon.gif" ></p>
                   </div>
                 </div>
                 <div class="check" style="display:none;">
                   <div class="personal-info" style="display: block;">
                     <div class="form-group col-md-6">
                       <label>First Name:</label>
-                      <input type="text" class="form-control" placeholder="First Name" name="firstname" id="firstname" value="Ken" required="required" readonly>
+                      <input type="text" class="form-control" placeholder="First Name" name="firstname" id="firstname" value="Coin" required="required" readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label>Last Name:</label>
-                      <input type="text" class="form-control" placeholder="Last Name" name="lastname" id="lastname" value="Russell" required="required" readonly>
+                      <input type="text" class="form-control" placeholder="Last Name" name="lastname" id="lastname" value="Jolt, Inc" required="required" readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label>Email Address:</label>
@@ -97,33 +97,33 @@
                     </div>
                     <div class="form-group col-md-6">
                       <label>Phone Number:</label>
-                      <input type="text" class="form-control" placeholder="Phone Number" name="phone" id="phone" required="required" value="604-353-1042" readonly>
+                      <input type="text" class="form-control" placeholder="Phone Number" name="phone" id="phone" required="required" value="1-(888)-998-9980" readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label>Date of Birth:</label>
                       <input type="hidden" class="form-control" placeholder="Date of Birth" name="dob" id="dob" required="required" value="19931027">
                       <!-- <input type="date" class="form-control" placeholder="Date of Birth" name="dob" id="dob" required="required" value="19931027"> -->
-                      <input type="date" class="form-control" placeholder="Date of Birth"  value="1993-10-27"  readonly>
+                      <input type="date" class="form-control" placeholder="Date of Birth"  value="1953-10-27"  readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label>Address:</label>
-                      <input type="text" class="form-control" placeholder="Address" name="address" id="address" value="3085 Point Grey Road" required="required" readonly>
+                      <input type="text" class="form-control" placeholder="Address" name="address" id="address" value="270 Park Avenue" required="required" readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label>City:</label>
-                      <input type="text" class="form-control" placeholder="City" name="city" id="city" value="Vancouver" required="required" readonly>
+                      <input type="text" class="form-control" placeholder="City" name="city" id="city" value="New York" required="required" readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label>State or Province:</label>
-                      <input type="text" class="form-control" placeholder="State or Province" name="state" id="state" value="BC" required="required" readonly>
+                      <input type="text" class="form-control" placeholder="State or Province" name="state" id="state" value="NY" required="required" readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label>Postal Code:</label>
-                      <input type="text" class="form-control" placeholder="Postcode" name="postcode" id="postcode" value="V6K 1A7" required="required" readonly>
+                      <input type="text" class="form-control" placeholder="Postcode" name="postcode" id="postcode" value="10017" required="required" readonly>
                     </div>
                     <div class="form-group col-md-6">
                       <label>Country:</label>
-                      <input type="text" class="form-control" placeholder="Country" name="country" id="country" value="CA" required="required" readonly>
+                      <input type="text" class="form-control" placeholder="Country" name="country" id="country" value="USA" required="required" readonly>
                     </div>
                   </div>
                 </div>
@@ -155,14 +155,14 @@
                               <div class="form-group col-md-6">
                                 <input type="text" placeholder="Institution Number" class="form-control" value="" name="institutionnumber" id="institutionnumber" required="required">
                               </div>
-                              <p style="text-align: center;"><span style="color: red;">*</span> Wire transfers can anywhere between 1-7 business days to be processed. A incurrance fee of $15 - $30 is applied for every wire transfer.</p>
+                              <p style="text-align: center;"><span style="color: red;">*</span> Wire transfers can take anywhere between 2-3 business days to be processed.</p>
                             </div> -->
                             <!-- <div class="col-md-4 col-md-offset-5">
                               <p class="expected" style="display: none;color: #008000;"></p>
                               <p style="display:none" class='errormsg'></p>
                               <div class="btnall">
-                                <input type="submit" name="Submit" value="Withdraw" id="cc-submit1" class="btn btn-primary" >
-                                <p style="display:none;padding-right: 85px;" class="loaderImg"><img src="https://coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif" ></p>
+                                <input type="submit" name="Submit" value="Withdraw Funds" id="cc-submit1" class="btn btn-primary" >
+                                <p style="display:none;padding-right: 85px;" class="loaderImg"><img src="/dist/img/lading_icon.gif" ></p>
                               </div>
                             </div> -->
                             <input type="hidden" id="PayType" value="withdraw">
@@ -171,13 +171,13 @@
                         </div>
                         {{/if_eq}}
                         {{#if_eq user.kycApproved "1"}}
-                          <p>Withdrawal is disabled because your ID Proof is submitted but not verified yet.</p>
+                          <p>Withdrawal is disabled because your ID has not been verified yet.</p>
                         {{/if_eq}}
                         {{#if_eq user.kycApproved "3"}}
-                          <p>Withdrawal is disabled because your ID Proof is rejected. Please upload correct ID Proof in <a href="/account/account-settings">Account Settings</a>.</p>
+                          <p>Withdrawal is disabled because your ID has been rejected. Please upload a valid piece of ID in your <a href="/account/account-settings">account settings</a>.</p>
                         {{/if_eq}}
                         {{#if_eq user.kycApproved "0"}}
-                          <p>Withdrawal is disabled because your ID Proof is not uploaded yet. Please upload your ID Proof in <a href="/account/account-settings">Account Settings</a>.</p>
+                          <p>Withdrawal is disabled because your ID has not been uploaded yet. Please upload a valid piece of ID in your <a href="/account/account-settings">account settings</a>.</p>
                         {{/if_eq}}
                       </div>
 
@@ -185,7 +185,7 @@
 
                       
   <!-- <td></td> 
-  <th>Transaction Id</th> -->
+  <th>Transaction ID</th> -->
 
   <!-- Pending Wire Transfer -->
 
@@ -265,7 +265,7 @@
                             {{#each user.currency}}
                             <tr>    
                                 <td class="col-xs-4">
-                                    <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
+                                    <div class="s-s-{{toUpperCase this.display_name}} currency-logo-sprite"></div>
                                 </td>
                                 <td class="col-xs-4">{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
                                 <td class="wallet_crp col-xs-4">

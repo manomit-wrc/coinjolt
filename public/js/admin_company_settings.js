@@ -31,27 +31,27 @@ $(document).ready(function (e) {
         },
         messages: {
             phone_number: {
-                required: "Please enter phone number"
+                required: "Please enter a valid phone number."
             },
             email_address: {
-                required: "Please enter email address",
-                email: "Please enter valid email address"
+                required: "Please enter a valid email address.",
+                email: "Please enter valid email address."
             },
             fb_url: {
-                required: "Please enter facebook url",
-                url: "Please enter valid facebook url"
+                required: "Please enter a valid Facebook URL.",
+                url: "Please enter valid Facebook URL."
             },
             twitter_url: {
-                required: "Please enter twitter url",
-                url: "Please enter valid twitter url"
+                required: "Please enter a valid Twitter URL.",
+                url: "Please enter valid Twitter URL."
             },
             linkedIn_url: {
-                required: "Please enter linked in url",
-                url: "Please enter valid linked in url"
+                required: "Please enter a valid LinkedIn URL.",
+                url: "Please enter a valid LinkedIn URL."
             },
             instagram_url: {
-                required: "Please enter instagram url",
-                url: "Please enter valid instagram url"
+                required: "Please enter a valid Instagram URL.",
+                url: "Please enter valid Instagram URL."
             }
         },
         submitHandler:function(form) {

@@ -3,12 +3,12 @@ $(document).ready(function() {
 		var row_id = $(this).data('value');
 
 		swal({
- 			title: "KYC Confirmation",
- 			text: "Are you sure you want to accept?",
+ 			title: "Know Your Customer Confirmation",
+ 			text: "Are you sure you want to accept these files?",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
-            confirmButtonText: "Confirm",
+            confirmButtonText: "Accept",
             closeOnConfirm: false
  		}, function () {
  			$.ajax ({
@@ -19,8 +19,8 @@ $(document).ready(function() {
  				},
  				success : function (response) {
  					if(response.status == true){
- 						var title = "Approval Successful";
- 						var text = "You have successfully approved the KYC.";
+ 						var title = "Know Your Customer Confirmation";
+ 						var text = "You have successfully approved these KYC documents.";
  						sweetAlertSuccessPopUp(title,text);
  					}
  				}
@@ -32,12 +32,12 @@ $(document).ready(function() {
 		var row_id = $(this).data('value');
 
 		swal({
- 			title: "KYC Confirmation",
- 			text: "Are you sure you want to reject?",
+ 			title: "Know Your Customer Confirmation",
+ 			text: "Are you sure you want to reject these documents?",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
-            confirmButtonText: "Confirm",
+            confirmButtonText: "Accept",
             closeOnConfirm: false
  		}, function () {
  			$.ajax({
@@ -48,8 +48,8 @@ $(document).ready(function() {
  				},
  				success : function (response) {
  					if(response.status == true){
- 						var title = "Rejection Successful";
- 						var text = "You have successfully reject the KYC.";
+ 						var title = "Know Your Customer Confirmation";
+ 						var text = "You have rejected these KYC documents.";
  						sweetAlertSuccessPopUp(title,text);
  					}
  				}

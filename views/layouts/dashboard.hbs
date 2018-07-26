@@ -429,7 +429,7 @@
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "OK"
             },  function() {
-                window.location.href=baseURL+"admin/email-template-listings";
+                window.location.href=baseURL+"admin/email-template";
             });
         }
         
@@ -1062,6 +1062,11 @@
                 var currencyType = currencyTypeOnly[1];
                 var msg = "Current Rate("+currencyTypeString+")"+": "+"$ ";
                 var amtVal = parseFloat(jQuery("#payAmount").val());
+
+                var currencyTypeName = currencyTypeString.split("("); 
+
+                var currencyTypeFullName = currencyTypeName[0]; 
+
                 if (currencyType !== '' && currencyType !=='Please select a option.') {
                     $('.expected').removeClass('alert alert-danger');
                     $('.expected').html('');
@@ -1076,7 +1081,9 @@
                             $('.currentrateexpected').html(msg+roundUpPrice);
                             $('#currentratetext').addClass('alert alert-danger');
                             $('#currentratetext').show();
-                            $('#currentratetext').html('Current Rate('+currencyTypeString+')'+': $'+result.price_usd);
+
+                            $('#currentratetext').html('Current Rate ('+currencyTypeFullName+'- '+currencyType+')'+': $'+result.price_usd);
+
                             $('.currentrateexpected').show();
                         },
                         error: function(error) {
@@ -1107,7 +1114,7 @@
                 var currency_purchased = jQuery("#currency_purchased").val();
                 var currencyType =  $("#currency_purchased option:selected").val();
                 var currentUsdBal = {{user.currentUsdBalance}};
-                var errmsg = "Amount exceeds current balance of " + currentUsdBal + " USD, <a href='/deposit-funds'>click here to deposit funds.</a>";
+                var errmsg = "Amount exceeds current balance of " + currentUsdBal + " USD, <a href='/account/deposit-funds'>click here to deposit funds.</a>";
                 if (parseFloat(amtVal) > parseFloat(currentUsdBal)) {
                     $('.expected').addClass('alert alert-danger');
                     $('.expected').html(errmsg);
@@ -1271,7 +1278,12 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                 var currencyType = currencyTypeOnly[1];
                 var msg = "Current Rate("+currencyTypeString+")"+": "+"$ ";
                 var amtVal = parseFloat(jQuery("#payAmount").val());
-                if (currencyType !== '' && currencyType !=='Please select a digital currency') {
+
+                var currencySoldTypeName = currencyTypeString.split("("); 
+
+                var currencyTypeSoldFullName = currencySoldTypeName[0]; 
+
+                if (currencyType !== '' && currencyType !=='Please select a option') {
                     $('.expected').removeClass('alert alert-danger');
                     $('.expected').html('');
                     $('.expected').hide();
@@ -1285,8 +1297,11 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                             $('.currentrateexpected').html(msg+roundUpPrice);
                             $('#sell_currentratetext').addClass('alert alert-danger');
                             $('#sell_currentratetext').show();
-                            $('#sell_currentratetext').html('Current Rate('+currencyTypeString+')'+': $'+roundUpPrice);
+
+                            //$('#sell_currentratetext').html('Current Rate('+currencyTypeString+')'+': $'+roundUpPrice);
                             $('.currentrateexpected').show();
+
+                            $('#sell_currentratetext').html('Current Rate ('+currencyTypeSoldFullName+'- '+currencyType+')'+': $'+roundUpPrice);
                         },
                         error: function(error){
                             console.log(error);
@@ -2192,7 +2207,7 @@ $('.deleteShareholderInfo').on('click', function(){
     $(function () {
        "use strict"; 
                  //DONUT CHART 
-                 $.get("/get-donut-chart", function( data ) {
+                 $.get("/account/get-donut-chart", function( data ) {
                     load_donut_chart(data.chart_array);
                 });
                  

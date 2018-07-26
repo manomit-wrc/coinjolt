@@ -43,8 +43,8 @@ $('#cms_about_us_submit').on('click', function () {
 	                contentType: false,
 					success: function (resp) {
 						if(resp.status == true) {
-							console.log('/admin/cms/quick-links/about-us');
-							//sweetAlertAboutUsSuccessPopUp("Thank You.", resp.msg, "/admin/cms/quick-links/about-us");
+							console.log('/admin/configuration/quick-links/about-us');
+							//sweetAlertAboutUsSuccessPopUp("Thank You.", resp.msg, "/admin/configuration/quick-links/about-us");
 						}
 					}
 				});
@@ -84,7 +84,7 @@ $('#cms_about_us_edit').on('click', function (result) {
 	        contentType: false,
 			success: function (resp) {
 				if(resp.status == true) {
-					sweetAlertAboutUsSuccessPopUp("Thank You.", resp.msg, "/admin/cms/quick-links/about-us");
+					sweetAlertAboutUsSuccessPopUp("Thank You.", resp.msg, "/admin/configuration/quick-links/about-us");
 				}
 			}
 		});

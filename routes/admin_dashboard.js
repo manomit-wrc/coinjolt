@@ -126,7 +126,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/crypto_investments', acl, (req, res) => {
+	app.get('/admin/managed-cryptocurrency-portfolio', acl, (req, res) => {
 		currency_balance.belongsTo(Currency, {foreignKey: 'currency_id'});
 		currency_balance.findAll({
 			attributes: [ 'Currency.display_name', [sequelize.fn('SUM',sequelize.col('balance')),'total_balance'] ],
@@ -160,11 +160,11 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 					total_amt: total_amt
 				});
 			}
-			res.render('admin/crypto_investments/index', { layout: 'dashboard', 'all_data': coin_list_arr, title:"Total Crypto Portfolio" });
+			res.render('admin/crypto_investments/index', { layout: 'dashboard', 'all_data': coin_list_arr, title:"Managed Cryptocurrency Portfolio" });
 		});
 	});
 
-	app.get('/admin/transactions', acl, (req, res) => {
+	app.get('/admin/most-recent-transactions', acl, (req, res) => {
 		Deposit.belongsTo(User, {foreignKey: 'user_id'});
 		Deposit.findAll({
 			include: [{
@@ -174,11 +174,11 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				['id', 'DESC']
 			]
 		}).then(result => {
-			res.render('admin/transactions/index', { layout: 'dashboard', all_data: result, title:"Transactions" });
+			res.render('admin/transactions/index', { layout: 'dashboard', all_data: result, title:"Most Recent Transactions" });
 		});
 	});
 
-	app.get('/admin/question', acl, (req, res) => {
+	app.get('/admin/questionnaire', acl, (req, res) => {
 		Question.findAll().then(result => {
 			res.render('admin/questionnaire/index', { layout: 'dashboard', all_data: result, title:"Questionnaire" });
 		});
@@ -199,7 +199,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/question/:id', acl, async (req, res) => {
+	app.get('/admin/questionnaire/:id', acl, async (req, res) => {
 		var ques_data = await Question.findById(req.params['id']);
 		Answer.belongsTo(User, {foreignKey: 'user_id'});
 		Answer.belongsTo(Option, {foreignKey: 'option_id'});
@@ -217,11 +217,11 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 			],
 		});
 
-		res.render('admin/questionnaire/answer', { layout: 'dashboard', all_data: result, question: ques_data.question, title:"Question" });
+		res.render('admin/questionnaire/answer', { layout: 'dashboard', all_data: result, question: ques_data.question, title:"Questionnaire" });
 		
 	});
 
-	app.get('/admin/pending-withdrawals', acl, (req, res) => {
+	app.get('/admin/manage-withdrawals', acl, (req, res) => {
 		Withdraw.belongsTo(User, {foreignKey: 'user_id'});
 		Withdraw.findAll({
 			where: {
@@ -317,7 +317,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/transactions/generate', acl, (req, res) => {
+	app.get('/admin/most-recent-transactions/generate', acl, (req, res) => {
 		Deposit.belongsTo(User, {foreignKey: 'user_id'});
 		Deposit.findAll({
 			attributes: ['id', 'amount', 'createdAt', 'type', 'User.first_name', 'User.last_name'],
@@ -352,7 +352,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/investments', acl, async (req, res) => {
+	app.get('/admin/user-activity', acl, async (req, res) => {
 		var user_list = await User.findAll({
 			where: {
 				type: 2
@@ -412,7 +412,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 					balance: parseFloat(d_amount) - parseFloat(w_amount)
 				});
 				if (index === user_list.length - 1) {
-					res.render('admin/investments/index', { layout: 'dashboard', 'all_data': user_list_arr, title:"Total Investments" });
+					res.render('admin/investments/index', { layout: 'dashboard', 'all_data': user_list_arr, title:"User Activity" });
 				}
 			});
 		});
@@ -444,7 +444,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.get('/admin/deposit-methods', acl, async(req, res) =>{
+	app.get('/admin/deposit-options', acl, async(req, res) =>{
 
 		const errormsg = req.flash('depositMethodAddErrorMsg')[0];
 
@@ -462,7 +462,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 
 		let depositMethods = await deposit_method.findAll({});
 
-		res.render('admin/deposit_methods/index', { layout: 'dashboard', depositMethodDetails: depositMethodDetails, depositMethods: depositMethods, title:"Manage Deposit Methods", errormsg: errormsg, successmsg: successmsg, editsuccessmsg: editsuccessmsg});
+		res.render('admin/deposit_methods/index', { layout: 'dashboard', depositMethodDetails: depositMethodDetails, depositMethods: depositMethods, title:"Deposit Options", errormsg: errormsg, successmsg: successmsg, editsuccessmsg: editsuccessmsg});
 
 		
 	});
@@ -485,12 +485,12 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 
 	});
 
-	app.get('/admin/company-settings', acl, (req, res) =>{
+	app.get('/admin/company-details', acl, (req, res) =>{
 
 		company_setting.findAll({
 
         }).then(function(companySettingsData){  
-            res.render('admin/company_settings', {layout: 'dashboard', companySettingsData: companySettingsData, title:"Company Settings"});
+            res.render('admin/company_settings', {layout: 'dashboard', companySettingsData: companySettingsData, title:"Company Details"});
         });
 	});
 
@@ -535,10 +535,10 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		
 	});
 
-	app.get('/admin/blog-posts', (req, res) =>{
+	app.get('/admin/blog', (req, res) =>{
 
 		blog_post.findAll({}).then(function(blog_posts){
-			res.render('admin/blog/blog_posts', {layout: 'dashboard', blog_posts: blog_posts, title:"Manage Blog"});
+			res.render('admin/blog/blog_posts', {layout: 'dashboard', blog_posts: blog_posts, title:"Blog"});
 		});
 
 	});
@@ -575,7 +575,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 			depositMethodName = depositMethodName.method_name;
 
 			req.flash('depositMethodAddErrorMsg', `${depositMethodName} already added, please choose another option`);
-			res.redirect('/admin/deposit-methods');
+			res.redirect('/admin/deposit-options');
 		
 		}
 
@@ -613,7 +613,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 
 			deposit_method_type.create(queryFields).then(function(result){
 				req.flash('depositMethodAddSuccessMsg', 'Payment method successfully added');
-				res.redirect('/admin/deposit-methods');
+				res.redirect('/admin/deposit-options');
 			});
 
 		}
@@ -666,7 +666,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		//console.log(JSON.stringify(req.body, undefined, 2));
 
 			req.flash('depositMethodEditSuccessMsg', 'Deposit method edited successfully');
-			res.redirect('/admin/deposit-methods');
+			res.redirect('/admin/deposit-options');
 		});
 	});
 

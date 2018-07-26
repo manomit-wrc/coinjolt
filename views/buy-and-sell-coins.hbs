@@ -98,14 +98,14 @@
                 {{/if_eq}} {{#if_eq user.kycApproved "3"}}
                 <div class="form-group">
                   <label>Sell</label>
-                  <p>Sell feature is disabled because your ID has been rejected. Please upload a valid ID in
-                    <a href="/account-settings">account settings</a>.</p>
+                  <p>Sell is disabled because your ID Proof is rejected. Please upload correct ID Proof in
+                    <a href="/account/account-settings">Account Settings</a>.</p>
                 </div>
                 {{/if_eq}} {{#if_eq user.kycApproved "0"}}
                 <div class="form-group">
                   <label>Sell</label>
-                  <p>Sell is disabled because your ID Proof is not uploaded yet. Please upload a valid ID in
-                    <a href="/account-settings">account settings</a>.</p>
+                  <p>Sell is disabled because your ID Proof is not uploaded yet. Please upload your ID Proof in
+                    <a href="/account/account-settings">Account Settings</a>.</p>
                 </div>
                 {{/if_eq}}
                 </div>
@@ -146,7 +146,7 @@
                     <table class="table">
                       <tr>
                         <td class="col-xs-4">
-                          <img src="dist/img/usd.png" alt="">
+                          <img src="../dist/img/usd.png" alt="">
                         </td>
                         <td class="col-xs-4">DOLLAR
                           <span style="color:red;">(USD)</span>
@@ -157,7 +157,7 @@
                       </tr>
                       <tr>
                         <td class="col-xs-4">
-                          <img src="dist/img/mcpicon.png" alt="" width="34">
+                          <img src="../dist/img/mcpicon.png" alt="" width="34">
                         </td>
                         <td class="col-xs-4">MANAGED PORTFOLIO
                           <span style="color:red;">(MCP)</span>
@@ -167,7 +167,7 @@
                       {{#each user.currency}}
                       <tr>
                         <td class="col-xs-4">
-                          <div class="s-s-{{toUpperCase this.display_name}} currency-logo-sprite"></div>
+                          <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
                         </td>
                         <td class="col-xs-4">{{this.display_name}}
                           <span style="color:red;">({{toUpperCase this.alt_name}})</span>
@@ -294,7 +294,7 @@
   </div>
 </section>
 <!-- /.content -->
-<script type='text/javascript' src='js/pubnub_keys.js'></script>
+<script type='text/javascript' src='../js/pubnub_keys.js'></script>
     <script type="text/javascript">
 		var pubnub = new PubNub({
 		    publishKey:   config.PUBLISH_KEY,

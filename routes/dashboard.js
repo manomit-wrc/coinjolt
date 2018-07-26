@@ -1105,7 +1105,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/get-donut-chart', (req, res)=> {
+    app.get('/account/get-donut-chart', (req, res)=> {
         var response_arr = [];
         lodash.each(req.user.currencyBalance, x => {
             response_arr.push({

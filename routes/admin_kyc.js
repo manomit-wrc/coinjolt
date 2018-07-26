@@ -3,7 +3,7 @@ module.exports = function (app, Kyc_details, User) {
 	const sequelize = require('sequelize');
 	const acl = require('../middlewares/acl');
 
-	app.get('/admin/kyc', acl, (req,res) => {
+	app.get('/admin/kyc-documentation', acl, (req,res) => {
 		Kyc_details.belongsTo(User, {foreignKey: 'user_id'});
 
 		Kyc_details.findAll({
@@ -14,7 +14,7 @@ module.exports = function (app, Kyc_details, User) {
 		    	model: User
 	  		}],
 		}).then(function(result){
-			res.render('admin/kyc/index',{layout:'dashboard', all_data:result, title:"KYC"});
+			res.render('admin/kyc/index',{layout:'dashboard', all_data:result, title:"KYC Documentation"});
 		});
 	});
 

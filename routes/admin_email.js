@@ -5,7 +5,7 @@ const acl = require('../middlewares/acl');
 const Op = require('sequelize').Op;
 const async = require('async');
 module.exports = function (app, email_template, User, AWS, send_email, email_draft, Deposit, email_template_type){
-	app.get('/admin/email-template-listings', acl, (req,res) => {
+	app.get('/admin/email-template', acl, (req,res) => {
 		email_template.findAll({
 			where:{
 				status:1
@@ -21,7 +21,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.get('/admin/email-template', acl, (req,res) => {
+	app.get('/admin/email-template/add', acl, (req,res) => {
 
 		email_template_type.findAll({}).then(function(result){
 			res.render('admin/email/email_template.hbs',{layout:'dashboard', template_type: result, title:"Email Template"});
@@ -169,12 +169,12 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		}).then(function(result){
 			if(result){
 				req.flash('templateDeleteMSG', 'Template deleted successfully.');
-                res.redirect('/admin/email-template-listings');
+                res.redirect('/admin/email-template');
 			}
 		});
 	});
 
-	app.get('/admin/email-marketing', acl, (req,res) => {
+	app.get('/admin/email-users', acl, (req,res) => {
 		Deposit.belongsTo(User, {foreignKey: 'user_id'})
 		Promise.all([
 			User.findAll({
@@ -211,7 +211,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 			// console.log(result[3]);
 			// return false;
 			res.render('admin/email/email_marketing',{layout: 'dashboard', allUser:result[0],
-				allSendEmail:result[1], allDraftEmail:result[2], allDepositUsers:result[3], title:"Email Marketing"});
+				allSendEmail:result[1], allDraftEmail:result[2], allDepositUsers:result[3], title:"Email Users"});
 		});
 	});
 

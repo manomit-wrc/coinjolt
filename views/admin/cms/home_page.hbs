@@ -1,8 +1,8 @@
 <section class="content-header">
-    <h1>Home Page</h1>
+    <h1>Configuration Settings</h1>
     <ol class="breadcrumb">
-        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-         <li class="active"> CMS- Home page </li>
+        <li><a href="/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+         <li class="active">Configuration Settings</li>
     </ol>
 </section>
 <div class="loader"></div>
@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">CMS- Home page details</h3>
+                    <h3 class="box-title">Configuration Settings</h3>
                 </div>
                 <div class="box-body">
                     {{#not_empty_array home_data}}
@@ -22,7 +22,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="Subject">Home page banner image upload</label>
+                                        <label for="Subject">Main Banner Image</label>
                                         <input type="file" class="form-control" name="home_page_banner_image" id="home_page_banner_image" value="">
                                     </div>
 
@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="Subject">How it works image upload</label>
+                                        <label for="Subject">Secondary Image</label>
                                         <input class="form-control" type="file" name="how_it_works_image" id="how_it_works_image" value="">
                                     </div>
 
@@ -44,22 +44,21 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="Description">Register for Free Description</label>
+                                        <label for="Description">Sub Headline 1</label>
                                         <textarea name="how_is_works_reg_description" class="form-control" id="how_is_works_reg_description" placeholder="Enter Description">{{home_data.0.how_is_works_reg_description}}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="Description">Deposit Funds Description</label>
+                                        <label for="Description">Sub Headline 2</label>
                                         <textarea name="how_is_works_deposit_funds_description" class="form-control" id="how_is_works_deposit_funds_description" placeholder="Enter Description">{{home_data.0.how_is_works_deposit_funds_description}}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="Description">Safe and Secure Asset Management
- Description</label>
+                                        <label for="Description">Sub Headline 3</label>
                                         <textarea name="how_is_works_safe_and_secure_description" class="form-control" id="how_is_works_safe_and_secure_description" placeholder="Enter Description">{{home_data.0.how_is_works_safe_and_secure_description}}</textarea>
                                     </div>
                                 </div>

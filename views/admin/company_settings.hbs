@@ -1,8 +1,8 @@
 <section class="content-header">
-    <h1>Company Settings</h1>
+    <h1>Company Details</h1>
     <ol class="breadcrumb">
-        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Company Settings</li>
+        <li><a href="/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active">Company Details</li>
     </ol>
 </section>
 <section class="content container-fluid">
@@ -13,37 +13,37 @@
                     {{!-- <form method="post" action="/account-settings" role="form" id="update_profile" name="update_profile"> --}}
                         <div class="box">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Set Your Settings</h3>
+                                <h3 class="box-title">Set Company Details</h3>
                             </div>
                             <div class="box-body">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Phone Number </label>
+                                        <label class="control-label">Phone Number</label>
                                         <input type="text" placeholder="Enter Phone Number" class="form-control" value="{{companySettingsData.0.phone_number}}" name="phone_number" id="phone_number">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Email </label>
+                                        <label class="control-label">Email</label>
                                         <input type="email" class="form-control" placeholder="Email" name="email_address" id="email_address" value="{{companySettingsData.0.email}}">
                                     </div>
                                     {{!-- <div class="form-group col-md-6">
-                                        <label class="control-label">Website Url </label>
-                                        <input class="form-control" id="website_url" type="text" name="website_url" placeholder="Enter Website url" value="{{companySettingsData.0.website_url}}">
+                                        <label class="control-label">Website URL</label>
+                                        <input class="form-control" id="website_url" type="text" name="website_url" placeholder="Enter Website URL" value="{{companySettingsData.0.website_url}}">
                                     </div> --}}
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Facebook Url </label>
-                                        <input id="fb_url" class="form-control" type="text" name="fb_url" value="{{companySettingsData.0.facebook_url}}" placeholder="Enter Facebook url">
+                                        <label class="control-label">Facebook URL</label>
+                                        <input id="fb_url" class="form-control" type="text" name="fb_url" value="{{companySettingsData.0.facebook_url}}" placeholder="Enter Facebook URL">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Twitter Url </label>
-                                        <input id="twitter_url" class="form-control" type="text" name="twitter_url" value="{{companySettingsData.0.twitter_url}}" placeholder="Enter Twitter url">
+                                        <label class="control-label">Twitter URL</label>
+                                        <input id="twitter_url" class="form-control" type="text" name="twitter_url" value="{{companySettingsData.0.twitter_url}}" placeholder="Enter Twitter URL">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">LinkedIn Url </label>
-                                        <input id="linkedIn_url" class="form-control" type="text" name="linkedIn_url" value="{{companySettingsData.0.linkedin_url}}" placeholder="Enter LinkedIn url">
+                                        <label class="control-label">LinkedIn URL</label>
+                                        <input id="linkedIn_url" class="form-control" type="text" name="linkedIn_url" value="{{companySettingsData.0.linkedin_url}}" placeholder="Enter LinkedIn URL">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="control-label">Instagram Url </label>
-                                        <input id="instagram_url" class="form-control" type="text" name="instagram_url" value="{{companySettingsData.0.instagram_url}}" placeholder="Enter Instagram url">
+                                        <label class="control-label">Instagram URL</label>
+                                        <input id="instagram_url" class="form-control" type="text" name="instagram_url" value="{{companySettingsData.0.instagram_url}}" placeholder="Enter Instagram URL">
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group max-250">
-                                            <button class="btn btn-primary subbtn btn-block" type="submit" name="update_company_settings" id="update_company_settings" >Save and Update </button>
+                                            <button class="btn btn-primary subbtn btn-block" type="submit" name="update_company_settings" id="update_company_settings" >Save and Update</button>
                                         </div>
                                     </div>
                                 </div>

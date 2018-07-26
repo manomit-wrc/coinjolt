@@ -2,13 +2,13 @@
 <section class="content-header">
   <div class="title-with-btn pd-612">
     <div class="pull-left">
-      <h1>Wallet</h1>
+      <h1>Wallets</h1>
     </div>
-    {{#if_eq count 0}}
+    {{!-- {{#if_eq count 0}}
     <div class="pull-left">
-      <button class="btn btn-primary wallet-btn" id="wallet_create">Add Wallet</button>
+      <button class="btn btn-primary wallet-btn" id="wallet_create">Generate Wallets</button>
     </div>
-    {{/if_eq}}
+    {{/if_eq}} --}}
     <div class="clearfix"></div>
   </div>
  
@@ -17,7 +17,7 @@
       <a href="#">
         <i class="fa fa-dashboard"></i> Home</a>
     </li>
-    <li class="active">Wallet</li>
+    <li class="active">Wallets</li>
   </ol>
 </section>
 <!-- Main content -->
@@ -75,26 +75,25 @@
                         <div id="bitcoin" class="collapse">
                           <div class="mywallt">
                             <div class="middle">
-                              {{#if_neq btcAddressDetails.count 0}}
+                              {{!-- {{#if_neq btcAddressDetails.count 0}}
                               <div class="address">
                                 <p>This is your Bitcoin address:</p>
                               </div>
                               <ul class="list-group">
                                 <li class="list-group-item">
-                                  {{btcAddressDetails.rows.0.address}} {{!--
-                                  <span class="badge">test</span> --}}
+                                  {{btcAddressDetails.rows.0.address}}
                                 </li>
                               </ul>
-                              {{/if_neq}}
+                              {{/if_neq}} --}}
                               <div class="all-btn">
-                                {{#if_neq count 0}} {{#if_eq btcAddressDetails.count 0}}
+                                {{#if_eq btcWallet.count 0}}
+                                  <button type="button" class="btn btn-primary wallet_create" data-datac="1" data-code="btc">
+                                  <i class="fa fa-plus"></i>Generate Wallet</button>
+                                {{/if_eq}}  
+                                {{!-- {{#if_neq count 0}} {{#if_eq btcAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="1">
                                   <i class="fa fa-plus"></i>Generate Bitcoin address</button>
-                                {{/if_eq}} {{/if_neq}} {{!--
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                                {{/if_eq}} {{/if_neq}} --}}
                               </div>
                             </div>
                           </div>
@@ -120,26 +119,25 @@
                         <div id="ethereum" class="collapse">
                           <div class="mywallt">
                             <div class="middle">
-                              {{#if_neq ethAddressDetails.count 0}}
+                              {{!-- {{#if_neq ethAddressDetails.count 0}}
                               <div class="address">
                                 <p>This is your Ethereum address:</p>
                               </div>
                               <ul class="list-group">
                                 <li class="list-group-item">
-                                  {{ethAddressDetails.rows.0.address}} {{!--
-                                  <span class="badge">test</span> --}}
+                                  {{ethAddressDetails.rows.0.address}}
                                 </li>
                               </ul>
-                              {{/if_neq}}
+                              {{/if_neq}} --}}
                               <div class="all-btn">
-                                {{#if_neq count 0}} {{#if_eq ethAddressDetails.count 0}}
+                                {{#if_eq ethWallet.count 0}}
+                                  <button type="button" class="btn btn-primary wallet_create" data-datac="2" data-code="eth">
+                                  <i class="fa fa-plus"></i>Generate Wallet</button>
+                                {{/if_eq}}  
+                                {{!-- {{#if_neq count 0}} {{#if_eq ethAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="2">
                                   <i class="fa fa-plus"></i>Generate Ethereum address</button>
-                                {{/if_eq}} {{/if_neq}} {{!--
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                                {{/if_eq}} {{/if_neq}}  --}}
                               </div>
                             </div>
                           </div>
@@ -165,26 +163,25 @@
                         <div id="ltc" class="collapse">
                           <div class="mywallt">
                             <div class="middle">
-                              {{#if_neq ltccAddressDetails.count 0}}
+                              {{!-- {{#if_neq ltccAddressDetails.count 0}}
                               <div class="address">
                                 <p>This is your Litecoin address:</p>
                               </div>
                               <ul class="list-group">
                                 <li class="list-group-item">
-                                  {{ltccAddressDetails.rows.0.address}} {{!--
-                                  <span class="badge">test</span> --}}
+                                  {{ltccAddressDetails.rows.0.address}}
                                 </li>
                               </ul>
-                              {{/if_neq}}
+                              {{/if_neq}} --}}
                               <div class="all-btn">
-                                {{#if_neq count 0}} {{#if_eq ltccAddressDetails.count 0}}
+                                {{#if_eq ltcWallet.count 0}}
+                                  <button type="button" class="btn btn-primary wallet_create" data-datac="3" data-code="ltc">
+                                  <i class="fa fa-plus"></i>Generate Wallet</button>
+                                {{/if_eq}}  
+                                {{!-- {{#if_neq count 0}} {{#if_eq ltccAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="3">
                                   <i class="fa fa-plus"></i>Generate Litecoin address</button>
-                                {{/if_eq}} {{/if_neq}} {{!--
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                                {{/if_eq}} {{/if_neq}}  --}}
                               </div>
                             </div>
                           </div>
@@ -210,26 +207,25 @@
                         <div id="bch" class="collapse">
                           <div class="mywallt">
                             <div class="middle">
-                              {{#if_neq bchAddressDetails.count 0}}
+                              {{!-- {{#if_neq bchAddressDetails.count 0}}
                               <div class="address">
                                 <p>This is your Bitcoin Cash address:</p>
                               </div>
                               <ul class="list-group">
                                 <li class="list-group-item">
-                                  {{bchAddressDetails.rows.0.address}} {{!--
-                                  <span class="badge">test</span> --}}
+                                  {{bchAddressDetails.rows.0.address}}
                                 </li>
                               </ul>
-                              {{/if_neq}}
+                              {{/if_neq}} --}}
                               <div class="all-btn">
-                                {{#if_neq count 0}} {{#if_eq bchAddressDetails.count 0}}
+                                {{#if_eq bchWallet.count 0}}
+                                  <button type="button" class="btn btn-primary wallet_create" data-datac="5" data-code="bch">
+                                  <i class="fa fa-plus"></i>Generate Wallet</button>
+                                {{/if_eq}}  
+                                {{!-- {{#if_neq count 0}} {{#if_eq bchAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="5">
                                   <i class="fa fa-plus"></i>Generate Bitcoin Cash address</button>
-                                {{/if_eq}} {{/if_neq}} {{!--
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                                {{/if_eq}} {{/if_neq}} --}}
                               </div>
                             </div>
                           </div>
@@ -255,26 +251,25 @@
                         <div id="rmg" class="collapse">
                           <div class="mywallt">
                             <div class="middle">
-                              {{#if_neq rmgAddressDetails.count 0}}
+                              {{!-- {{#if_neq rmgAddressDetails.count 0}}
                               <div class="address">
                                 <p>This is your Royal Mint Gold address:</p>
                               </div>
                               <ul class="list-group">
                                 <li class="list-group-item">
-                                  {{rmgAddressDetails.rows.0.address}} {{!--
-                                  <span class="badge">test</span> --}}
+                                  {{rmgAddressDetails.rows.0.address}}
                                 </li>
                               </ul>
-                              {{/if_neq}}
+                              {{/if_neq}} --}}
                               <div class="all-btn">
-                                {{#if_neq count 0}} {{#if_eq rmgAddressDetails.count 0}}
+                                {{#if_eq rmgWallet.count 0}}
+                                  <button type="button" class="btn btn-primary wallet_create" data-datac="46" data-code="rmg">
+                                  <i class="fa fa-plus"></i>Generate Wallet</button>
+                                {{/if_eq}}  
+                                {{!-- {{#if_neq count 0}} {{#if_eq rmgAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="46">
                                   <i class="fa fa-plus"></i>Generate Royal Mint Gold address</button>
-                                {{/if_eq}} {{/if_neq}} {{!--
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                                {{/if_eq}} {{/if_neq}} --}}
                               </div>
                             </div>
                           </div>
@@ -300,26 +295,25 @@
                         <div id="xrp" class="collapse">
                           <div class="mywallt">
                             <div class="middle">
-                              {{#if_neq xrpAddressDetails.count 0}}
+                              {{!-- {{#if_neq xrpAddressDetails.count 0}}
                               <div class="address">
                                 <p>This is your Ripple address:</p>
                               </div>
                               <ul class="list-group">
                                 <li class="list-group-item">
-                                  {{xrpAddressDetails.rows.0.address}} {{!--
-                                  <span class="badge">test</span> --}}
+                                  {{xrpAddressDetails.rows.0.address}}
                                 </li>
                               </ul>
-                              {{/if_neq}}
+                              {{/if_neq}} --}}
                               <div class="all-btn">
-                                {{#if_neq count 0}} {{#if_eq xrpAddressDetails.count 0}}
+                                {{#if_eq xrpWallet.count 0}}
+                                  <button type="button" class="btn btn-primary wallet_create" data-datac="4" data-code="xrp">
+                                  <i class="fa fa-plus"></i>Generate Wallet</button>
+                                {{/if_eq}}  
+                                {{!-- {{#if_neq count 0}} {{#if_eq xrpAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="4">
                                   <i class="fa fa-plus"></i>Generate Ripple address</button>
-                                {{/if_eq}} {{/if_neq}} {{!--
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-refresh"></i>Activate Auto Exchange</button>
-                                <button type="button" class="btn btn-primary">
-                                  <i class="fa fa-tag"></i>Send an Email invoice</button> --}}
+                                {{/if_eq}} {{/if_neq}}  --}}
                               </div>
                             </div>
                           </div>
@@ -394,8 +388,8 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="exampleInputPassword1">To the bitcoin address</label>
-                          <input type="text" class="form-control" id="coin_address" name="coin_address" placeholder="Enter a bitcoin address">
+                          <label for="exampleInputPassword1">To the Bitcoin address</label>
+                          <input type="text" class="form-control" id="coin_address" name="coin_address" placeholder="Enter a Bitcoin address">
                         </div>
                       </div>
                       {{!-- <div class="col-md-6">
@@ -541,7 +535,7 @@
                       <div class="col-md-5 last">
                         <h3>Cold Wallet</h3>
                         <div class="form-group">
-                          <label for="">Balance</label>
+                          <label for="">Balances</label>
                           <input type="text" class="form-control" id="" placeholder="Balance">
                         </div>
                         <div class="form-group">
@@ -613,7 +607,7 @@
                           </select>
                         </div>
                         <div class="form-group">
-                          <label for="">Balance</label>
+                          <label for="">Balances</label>
                           <input type="text" class="form-control" id="" placeholder="Enter amount">
                         </div>
                         <div class="form-group">
@@ -636,7 +630,7 @@
                           <input type="text" class="form-control" id="" placeholder="Enter amount">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputPassword1">Balance</label>
+                          <label for="exampleInputPassword1">Balances</label>
                           <input type="text" class="form-control" id="" placeholder="Balance">
                         </div>
                       </div>

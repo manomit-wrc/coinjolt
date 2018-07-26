@@ -30,7 +30,7 @@ const paypal = require('paypal-rest-sdk');
 
 
 paypal.configure({
-    'mode': 'sandbox', //sandbox or live
+    'mode': 'live', //sandbox or live
     'client_id': 'AUATycL0pSdb7ivwQB2fBA8w-rTO68U_GwxTfVhg4U7DisEnADJ1KBisL1DJkwlbaH59BVBx8SDhHUNN',
     'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
 });
@@ -162,9 +162,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 }else if (result.two_factorAuth_status == 2) {
                     //two factor authentication
                     var secret = speakeasy.generateSecret({
-                        issuer: 'Coinjolt',
+                        issuer: 'Coin Jolt',
                         length: 20,
-                        name: 'Coinjolt'
+                        name: 'Coin Jolt'
                     });
 
                     QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
@@ -564,7 +564,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         const msg = req.flash('supportMessage')[0];
         res.render('submit-a-request', {
             layout: 'dashboard',
-            message: msg
+            message: msg,
+            title: 'Submit A Request'
         });
     });
 
@@ -594,7 +595,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/requests-support', function (req, res) {
+    app.get('/account/requests-support', function (req, res) {
         Support.findAll({
             where: {
                 user_id: req.user.id
@@ -602,7 +603,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }).then(function (supports) {
             res.render('requests-support', {
 				layout: 'dashboard',
-				supports: supports
+                supports: supports,
+                title: 'Request Support'
 			});
         }).catch(function (err) {
             console.log(err);

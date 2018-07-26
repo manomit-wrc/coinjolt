@@ -139,27 +139,56 @@ module.exports = (app, models) => {
         var bchBalance = 0;
         var rmgBalance = 0;
         var xrpBalance = 0;
-        //var accessToken;
-
-        // await bitgo.authenticate({
-        //     username: keys.BITGO_USERNAME,
-        //     password: keys.BITGO_PASSWORD,
-        //     otp: keys.BITGO_OTP
-        // }, function (err, result) {
-        //     if (err) {
-        //         return console.log(err);
-        //     }
-        //     accessToken = result.access_token;
-        //     console.log("accessToken");
-        // });
-        // console.log(accessToken);
-        //console.log(req.cookies.BITGO_ACCESS_TOKEN);
-        //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
-        //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: 'v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018'});
         console.log("accessToken verified");
-        
-        // var bigtoSession = await bitgo.session();
-        // console.log(bigtoSession);
+
+        // get btc wallet
+        let btcWallet = await models.wallet.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '1'
+            }
+        });
+        console.log('btcWallet');
+        console.log(btcWallet.count);
+        // get eth wallet
+        let ethWallet = await models.wallet.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '2'
+            }
+        });
+        console.log('ethBalance');
+        console.log(ethWallet.count);
+        // get ltc wallet
+        let ltcWallet = await models.wallet.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '3'
+            }
+        });
+        // get bch wallet
+        let bchWallet = await models.wallet.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '5'
+            }
+        });
+        // get rmg wallet
+        let rmgWallet = await models.wallet.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '46'
+            }
+        });
+        // get xrp wallet
+        let xrpWallet = await models.wallet.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '4'
+            }
+        });
+
+
 
         let walletDetails = await models.wallet.findAndCountAll({
             where: {
@@ -277,37 +306,99 @@ module.exports = (app, models) => {
             bchAddressDetails: bchAddressDetails,
             rmgAddressDetails: rmgAddressDetails,
             xrpAddressDetails: xrpAddressDetails,
-            title: 'Wallets'
+            title: 'Wallets',
+            btcWallet: btcWallet,
+            ethWallet: ethWallet,
+            ltcWallet: ltcWallet,
+            bchWallet: bchWallet,
+            rmgWallet: rmgWallet,
+            xrpWallet: xrpWallet
         });
 
     });
 
+    // app.post('/wallet-create', function (req,res) {
+    //     //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
+    //     //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: 'v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018'});
+    //     var user_id = req.user.id;
+	// 	var data = {
+    //         "passphrase": 'COinjolt123!!',
+    //         "label": "Coin Jolt"
+    //     }
+    //     bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
+    //         if (walleterr) {
+    //             console.dir(walleterr);
+    //             throw new Error("Could not create wallet!");
+    //         }
+    //         console.dir(walletResult);
+    //         // console.log("User keychain encrypted xPrv: " + walletResult.userKeychain.encryptedXprv);
+    //         // console.log("Backup keychain xPub: " + walletResult.backupKeychain.xPub);
+    //         walletId = walletResult.wallet.wallet.id;
+    //         label = walletResult.wallet.wallet.label;
+    //         userkeychain_public = walletResult.userKeychain.xpub;
+    //         userkeychain_private = walletResult.userKeychain.xprv;
+    //         backupkeychain_private = walletResult.backupKeychain.xprv;
+    //         backupkeychain_public = walletResult.backupKeychain.xpub;
+    //         bitgokeychain_public = walletResult.bitgoKeychain.xpub;
+    //     }).then(function (createWallet) {
+    //         models.wallet.create({
+    //             user_id: user_id,
+    //             bitgo_wallet_id: walletId,
+    //             label: label,
+    //             userkeychain_public: userkeychain_public,
+    //             userkeychain_private: userkeychain_private,
+    //             backupkeychain_private: backupkeychain_private,
+    //             backupkeychain_public: backupkeychain_public,
+    //             bitgokeychain_public: bitgokeychain_public
+    //         }).then(function (result) {
+    //             res.json({
+    //                 success: true
+    //             });
+    //         });
+    //     });
+    // });
+
+
     app.post('/wallet-create', function (req,res) {
-        //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
-        //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: 'v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018'});
         var user_id = req.user.id;
-		var data = {
-            "passphrase": 'COinjolt123!!',
-            "label": "Coinjolt Bitgo Wallet"
-        }
-        bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
-            if (walleterr) {
-                console.dir(walleterr);
-                throw new Error("Could not create wallet!");
-            }
+        var currency_id = req.body.currency_id;
+        var currency_code = req.body.currency_code;
+        console.log(currency_id);
+        console.log(currency_code);
+		// var data = {
+        //     "passphrase": 'COinjolt123!!',
+        //     "label": "Coin Jolt"
+        // }
+        // bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
+        //     if (walleterr) {
+        //         console.dir(walleterr);
+        //         throw new Error("Could not create wallet!");
+        //     }
+        //     console.dir(walletResult);
+        //     // console.log("User keychain encrypted xPrv: " + walletResult.userKeychain.encryptedXprv);
+        //     // console.log("Backup keychain xPub: " + walletResult.backupKeychain.xPub);
+        //     walletId = walletResult.wallet.wallet.id;
+        //     label = walletResult.wallet.wallet.label;
+        //     userkeychain_public = walletResult.userKeychain.xpub;
+        //     userkeychain_private = walletResult.userKeychain.xprv;
+        //     backupkeychain_private = walletResult.backupKeychain.xprv;
+        //     backupkeychain_public = walletResult.backupKeychain.xpub;
+        //     bitgokeychain_public = walletResult.bitgoKeychain.xpub;
+        // })
+        bitgo.coin(currency_code).wallets()
+        .generateWallet({ label: 'Coin Jolt Wallet 3', passphrase: 'COinjolt123!!' })
+        .then(function (walletResult) {
             console.dir(walletResult);
-            // console.log("User keychain encrypted xPrv: " + walletResult.userKeychain.encryptedXprv);
-            // console.log("Backup keychain xPub: " + walletResult.backupKeychain.xPub);
-            walletId = walletResult.wallet.wallet.id;
-            label = walletResult.wallet.wallet.label;
-            userkeychain_public = walletResult.userKeychain.xpub;
-            userkeychain_private = walletResult.userKeychain.xprv;
-            backupkeychain_private = walletResult.backupKeychain.xprv;
-            backupkeychain_public = walletResult.backupKeychain.xpub;
-            bitgokeychain_public = walletResult.bitgoKeychain.xpub;
-        }).then(function (createWallet) {
+            walletId = walletResult.wallet._wallet.id;
+            label = walletResult.wallet._wallet.label;
+            userkeychain_public = walletResult.userKeychain.pub;
+            userkeychain_private = walletResult.userKeychain.prv;
+            backupkeychain_private = walletResult.backupKeychain.prv;
+            backupkeychain_public = walletResult.backupKeychain.pub;
+            bitgokeychain_public = walletResult.bitgoKeychain.pub;
             models.wallet.create({
                 user_id: user_id,
+                currency_id: currency_id,
                 bitgo_wallet_id: walletId,
                 label: label,
                 userkeychain_public: userkeychain_public,

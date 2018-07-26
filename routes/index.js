@@ -668,8 +668,8 @@ module.exports = function (app, passport, models) {
                             //var accessToken = result.access_token;
                             //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: accessToken});
                             var data = {
-                                "passphrase": 'Mmitra!@#4',
-                                "label": "Coinjolt Bitgo Wallet"
+                                "passphrase": 'COinjolt123!!',
+                                "label": "Coin Jolt"
                             }
                             bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
                                 if (walleterr) {

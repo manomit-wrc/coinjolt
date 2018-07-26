@@ -1062,6 +1062,11 @@
                 var currencyType = currencyTypeOnly[1];
                 var msg = "Current Rate("+currencyTypeString+")"+": "+"$ ";
                 var amtVal = parseFloat(jQuery("#payAmount").val());
+
+                var currencyTypeName = currencyTypeString.split("("); 
+
+                var currencyTypeFullName = currencyTypeName[0]; 
+
                 if (currencyType !== '' && currencyType !=='Please select a option.') {
                     $('.expected').removeClass('alert alert-danger');
                     $('.expected').html('');
@@ -1076,7 +1081,9 @@
                             $('.currentrateexpected').html(msg+roundUpPrice);
                             $('#currentratetext').addClass('alert alert-danger');
                             $('#currentratetext').show();
-                            $('#currentratetext').html('Current Rate('+currencyTypeString+')'+': $'+result.price_usd);
+
+                            $('#currentratetext').html('Current Rate ('+currencyTypeFullName+'- '+currencyType+')'+': $'+result.price_usd);
+
                             $('.currentrateexpected').show();
                         },
                         error: function(error) {
@@ -1271,6 +1278,11 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                 var currencyType = currencyTypeOnly[1];
                 var msg = "Current Rate("+currencyTypeString+")"+": "+"$ ";
                 var amtVal = parseFloat(jQuery("#payAmount").val());
+
+                var currencySoldTypeName = currencyTypeString.split("("); 
+
+                var currencyTypeSoldFullName = currencySoldTypeName[0]; 
+
                 if (currencyType !== '' && currencyType !=='Please select a option') {
                     $('.expected').removeClass('alert alert-danger');
                     $('.expected').html('');
@@ -1285,8 +1297,11 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                             $('.currentrateexpected').html(msg+roundUpPrice);
                             $('#sell_currentratetext').addClass('alert alert-danger');
                             $('#sell_currentratetext').show();
-                            $('#sell_currentratetext').html('Current Rate('+currencyTypeString+')'+': $'+roundUpPrice);
+
+                            //$('#sell_currentratetext').html('Current Rate('+currencyTypeString+')'+': $'+roundUpPrice);
                             $('.currentrateexpected').show();
+
+                            $('#sell_currentratetext').html('Current Rate ('+currencyTypeSoldFullName+'- '+currencyType+')'+': $'+roundUpPrice);
                         },
                         error: function(error){
                             console.log(error);

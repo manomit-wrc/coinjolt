@@ -2853,6 +2853,10 @@ h3.post-title {
     #update_company_settings .max-250 {
     	max-width: 250px;
     	margin: 0 auto 15px;
-    }
+	}
+	
+	.uppertext{
+		text-transform: uppercase !important;
+	}
 
 	/* Ends css on 2018-07-04 */

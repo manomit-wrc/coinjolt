@@ -2,14 +2,14 @@ var keys = require('../config/key');
 const acl = require('../middlewares/acl');
 
 module.exports = function (app, email_template, User, AWS, send_email) {
-	app.get('/admin/all-user-list', acl, (req,res) => {
+	app.get('/admin/all-users', acl, (req,res) => {
 		User.findAll({
 			where:{
 				type:2
 			}
 		}).then(function(result){
 			if(result){
-				res.render('admin/user/user_listings',{layout:'dashboard', allUser:result, title:"All User"});
+				res.render('admin/user/user_listings',{layout:'dashboard', allUser:result, title:"All Users"});
 			}
 		});		
 	});

@@ -286,7 +286,7 @@ $(document).ready(function() {
 							data: {paymentMethodId: paymentMethodId},
 							success: function (response) {
 								if(response.status == true){
-									location.href = '/admin/deposit-methods';
+									location.href = '/admin/deposit-options';
 								}
 							}
 						});

@@ -160,21 +160,21 @@ module.exports = function (app, models) {
     var privacyPolicyUpload = multer({ storage: privacyPolicyStorage, limits: {fileSize:3000000, fileFilter:restrictPrivacyPolicyImgType} });
     
 
-    app.get('/admin/cms/quick-links/terms-of-service', acl, (req, res) =>{
+    app.get('/admin/configuration/quick-links/terms-of-service', acl, (req, res) =>{
 
         models.cms_terms_of_service.find({}).then(function(terms_of_service){
             res.render('admin/cms/terms_of_service',{layout: 'dashboard', terms_of_service: terms_of_service, title:"CMS- Terms of Service"});
         });
     });
 
-    app.get('/admin/cms/quick-links/risk-disclosures', acl, (req, res) =>{
+    app.get('/admin/configuration/quick-links/risk-disclosures', acl, (req, res) =>{
 
         models.cms_risk_disclosures.find({}).then(function(risk_disclosures){
             res.render('admin/cms/risk_disclosures',{layout: 'dashboard', risk_disclosures: risk_disclosures, title:"CMS- Risk Disclosure"});
         });
     });
 
-    app.get('/admin/cms/quick-links/privacy-policy', acl, (req, res) =>{
+    app.get('/admin/configuration/quick-links/privacy-policy', acl, (req, res) =>{
         models.cms_privacy_policy.find({}).then(function(privacy_policy){
             res.render('admin/cms/privacy_policy',{layout: 'dashboard', privacy_policy: privacy_policy, title:"CMS- Privacy Plocy"});
         });
@@ -284,7 +284,7 @@ module.exports = function (app, models) {
     });
     var upload = multer({ storage: storage, limits: {fileSize:3000000, fileFilter:restrictImgType} });
 
-	app.get('/admin/cms/quick-links/about-us', acl, (req,res) => {
+	app.get('/admin/configuration/quick-links/about-us', acl, (req,res) => {
 
 		models.cms_about_us.findAll({
 
@@ -337,7 +337,7 @@ module.exports = function (app, models) {
         });
 	});
 
-    app.get('/admin/cms/home-page', acl, (req,res) => {
+    app.get('/admin/configuration/home-page', acl, (req,res) => {
         models.cms_home_page.findAll({}).then(function (result) {
             var data = JSON.parse(JSON.stringify(result));
             res.render('admin/cms/home_page', {layout: 'dashboard', title:"CMS- Home", home_data:data});

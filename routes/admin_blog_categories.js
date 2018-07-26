@@ -3,7 +3,7 @@ const acl = require('../middlewares/acl');
 module.exports = function (app, models) {
     app.get('/admin/blog-categories', (req, res) =>{
         models.blog_category.findAll({}).then(categoryDetails => {
-            res.render('admin/blog/category_list', { layout: 'dashboard', categoryDetails: categoryDetails, title:"Manage Blog Categories"});
+            res.render('admin/blog/category_list', { layout: 'dashboard', categoryDetails: categoryDetails, title:"Blog Categories"});
 		});
     });
 

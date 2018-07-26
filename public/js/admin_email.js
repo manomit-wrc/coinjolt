@@ -202,7 +202,7 @@ $(document).ready(function (e) {
 			        	$('#subject').val('');
 			        	$('#myEmailMarketingPreviewModal').modal('hide');
 			        	CKEDITOR.instances['editor1'].setData('');
-			            window.location.href = '/admin/email-marketing';
+			            window.location.href = '/admin/email-users';
 			        });
 				}
 			}
@@ -238,7 +238,7 @@ $(document).ready(function (e) {
 			            confirmButtonColor: "#DD6B55",
 			            confirmButtonText: "OK"
 			        },  function() {
-			            window.location.href = '/admin/email-marketing';
+			            window.location.href = '/admin/email-users';
 			        });
 				}
 			}
@@ -291,7 +291,7 @@ $(document).ready(function (e) {
 				            confirmButtonColor: "#DD6B55",
 				            confirmButtonText: "OK"
 				        },  function() {
-				            window.location.href = '/admin/email-marketing';
+				            window.location.href = '/admin/email-users';
 				        });
 					}
 				}
@@ -346,7 +346,7 @@ $(document).ready(function (e) {
 			            confirmButtonColor: "#DD6B55",
 			            confirmButtonText: "OK"
 			        },  function() {
-			            window.location.href = '/admin/email-marketing';
+			            window.location.href = '/admin/email-users';
 			        });
 				}
 			}
@@ -381,7 +381,7 @@ $(document).ready(function (e) {
 				            confirmButtonColor: "#DD6B55",
 				            confirmButtonText: "OK"
 				        },  function() {
-				            window.location.href = '/admin/email-marketing';
+				            window.location.href = '/admin/email-users';
 				        });
 					}
 				}
@@ -398,7 +398,7 @@ $(document).ready(function (e) {
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "OK"
         },  function() {
-            window.location.href = '/admin/email-template-listings';
+            window.location.href = '/admin/email-template';
         });
     }
 });
@@ -606,7 +606,7 @@ $('#send_multiple_email_to_user').on('click', function () {
 							            confirmButtonColor: "#DD6B55",
 							            confirmButtonText: "OK"
 							        },  function() {
-							            window.location.href = '/admin/all-user-list';
+							            window.location.href = '/admin/all-users';
 							        });
 				  				}
 				  			}

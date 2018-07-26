@@ -2207,7 +2207,7 @@ $('.deleteShareholderInfo').on('click', function(){
     $(function () {
        "use strict"; 
                  //DONUT CHART 
-                 $.get("/get-donut-chart", function( data ) {
+                 $.get("/account/get-donut-chart", function( data ) {
                     load_donut_chart(data.chart_array);
                 });
                  

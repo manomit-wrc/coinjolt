@@ -1628,8 +1628,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
               "payment_method": "paypal"
           },
           "redirect_urls": {
-              "return_url": "http://ec2-34-230-81-205.compute-1.amazonaws.com/account/paypal-success",
-              "cancel_url": "http://ec2-34-230-81-205.compute-1.amazonaws.com/account/paypal-cancel"
+              "return_url": "http://localhost:8080/paypal-success",
+              "cancel_url": "http://localhost:8080/paypal-cancel"
           },
           "transactions": [{
               "item_list": {

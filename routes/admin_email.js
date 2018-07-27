@@ -21,7 +21,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
-	app.get('/admin/email-template', acl, (req,res) => {
+	app.get('/admin/email-template/add', acl, (req,res) => {
 
 		email_template_type.findAll({}).then(function(result){
 			res.render('admin/email/email_template.hbs',{layout:'dashboard', template_type: result, title:"Email Template"});

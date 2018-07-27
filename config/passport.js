@@ -129,7 +129,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                        done(null, user);
 
                     } catch (err) {
-                      console.log('Opps, an error occurred', err);
+                      console.log('Opps, an error occurred.', err);
                     }
                     
                   }
@@ -166,7 +166,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                 }
 
                 if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-                    return done(null, false, req.flash('loginMessage', 'Please select captcha'));
+                    return done(null, false, req.flash('loginMessage', 'Please select captcha.'));
                 }
 
                 User.findOne({
@@ -175,17 +175,17 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                     }
                 }).then(function (user) {
                     if (!user) {
-                        return done(null, false, req.flash('loginMessage', 'Wrong username or password'));
+                        return done(null, false, req.flash('loginMessage', 'Wrong username or password.'));
 
                     }
 
                     if (!isValidPassword(user.password, password)) {
-                        return done(null, false, req.flash('loginMessage', 'Wrong username or password'));
+                        return done(null, false, req.flash('loginMessage', 'Wrong username or password.'));
 
                     }
 
                     if(user.status != "1") {
-                        return done(null, false, req.flash('loginMessage', 'Account not activated. Please contact administrator')); 
+                        return done(null, false, req.flash('loginMessage', 'Account not activated. Please contact support.')); 
                     }
 
                     var userinfo = user.get();
@@ -196,7 +196,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
 
                     console.log("Error:", err);
 
-                    return done(null, false, req.flash('loginMessage', 'Something wrong.Please try again.'));
+                    return done(null, false, req.flash('loginMessage', 'Something went wrong. Please try again.'));
 
                 });
             }
@@ -213,7 +213,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
 
                 User.count({ where: {email: email} }).then(function(count){
                     if (count > 0) {
-                      return done(null, false, req.flash('signupErrorMessage', 'That email is already taken.'));
+                      return done(null, false, req.flash('signupErrorMessage', 'That email address is already being used.'));
                     } else {
                         var countryId = req.body.country;
                         if(countryId === "226"){
@@ -242,8 +242,9 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             postal_code: req.body.zip,
                             two_factorAuth_secret_key: '',
                             two_factorAuth_qr_code_image: '',
-                            two_factorAuth_status: 2
+                            two_factorAuth_status: 2,
                             // investor_type: req.body.investor_type
+                            investor_type: 2
     
                         }).then(function(result){
 
@@ -452,13 +453,13 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 </tr> <!-- Static Content -->
                                 <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">If you have any questions, just reply to this email—we're always happy to help out.</p>
+                                    <p style="margin: 0;">If you have any questions, just reply to this email — we're always happy to help out.</p>
                                     </td>
                                 </tr> <!-- Static Content -->
                                 
                                 <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">Cheers,<br>The Coin Jolt Team</p>
+                                    <p style="margin: 0;">- Coin Jolt Support</p>
                                     </td>
                                 </tr> <!-- Static Content -->
                     
@@ -571,8 +572,9 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 postal_code: req.body.zip,
                                 two_factorAuth_secret_key: '',
                                 two_factorAuth_qr_code_image: '',
-                                two_factorAuth_status: 2
+                                two_factorAuth_status: 2,
                                 // investor_type: req.body.investor_type
+                                investor_type: 2
         
                             }).then(function(result){
                             
@@ -784,13 +786,13 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 </tr> <!-- Static Content -->
                                 <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">If you have any questions, just reply to this email—we're always happy to help out.</p>
+                                    <p style="margin: 0;">If you have any questions, just reply to this email — we're always happy to help out.</p>
                                     </td>
                                 </tr> <!-- Static Content -->
                                 
                                 <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">Cheers,<br>The Coin Jolt Team</p>
+                                    <p style="margin: 0;">- Coin Jolt Support</p>
                                     </td>
                                 </tr> <!-- Static Content -->
                     
@@ -864,7 +866,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 });
                             });
 
-                                return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account'));
+                                return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account.'));
 
                             }).catch(function(err){
                                 console.log('error');
@@ -875,7 +877,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
         
                             console.log("Error:", err);
         
-                            return done(null, false, req.flash('loginMessage', 'Something wrong. Please try again.'));
+                            return done(null, false, req.flash('loginMessage', 'Something went wrong. Please try again.'));
         
                         });
                         // end find

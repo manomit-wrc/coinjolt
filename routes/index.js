@@ -756,7 +756,7 @@ module.exports = function (app, passport, models) {
         });
     });
 
-     app.get('/:blogDetail', (req,res) =>{
+     app.get('/:blogDetail', auth, (req,res) =>{
         
         var blogPageSlug = req.params.blogDetail;
 

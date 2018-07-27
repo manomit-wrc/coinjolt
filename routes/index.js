@@ -139,7 +139,17 @@ module.exports = function (app, passport, models) {
 
         var msg = req.flash('forgotPassMsg')[0];
 
-        res.render('forgot_password', {message: msg});
+        if(req.user != undefined && req.user.type == '2'){
+            res.redirect('/account/dashboard');
+         }
+        
+        else if(req.user != undefined && req.user.type == '1'){
+            res.redirect('/admin/dashboard');
+        }
+        
+        else{
+            res.render('forgot_password', {message: msg}); 
+        }
     });    
 
     app.post('/update-password2', (req, res) =>{
@@ -608,13 +618,24 @@ module.exports = function (app, passport, models) {
 
         var msg = req.flash('signupMessage')[0];
         var errorMsg = req.flash('signupErrorMessage')[0];
-        models.Country.findAll().then(function (country) {
-            res.render('signup', {
-                message: msg,
-                errorMsg: errorMsg,
-                countries: country
+
+        if(req.user != undefined && req.user.type == '2'){
+            res.redirect('/account/dashboard');
+         }
+        
+        else if(req.user != undefined && req.user.type == '1'){
+            res.redirect('/admin/dashboard');
+        }
+        
+        else{
+            models.Country.findAll().then(function (country) {
+                res.render('signup', {
+                    message: msg,
+                    errorMsg: errorMsg,
+                    countries: country
+                });
             });
-        });
+        }
     });
 
 

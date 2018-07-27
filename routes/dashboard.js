@@ -12,6 +12,8 @@ var Client = require('node-rest-client').Client;
  
 var client = new Client();
 
+const user_acl = require('../middlewares/user_acl');
+
 // var BitGo = require('bitgo');
 // var bitgo = new BitGo.BitGo({
 //     env: 'test'
@@ -137,7 +139,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         })
       });
     
-    app.get('/account/dashboard', (req, res) => {
+    app.get('/account/dashboard', user_acl, (req, res) => {
         blog_post.findAll({
             where:{
                 post_category_id: 3
@@ -257,7 +259,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         res.redirect('/login');
     });
 
-    app.get('/account/profile-details', function (req, res) {
+    app.get('/account/profile-details', user_acl, function (req, res) {
 
         Kyc_details.findAll({
             where: {
@@ -307,7 +309,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
        
     });
 
-    app.get('/account/account-settings', async function (req, res) {
+    app.get('/account/account-settings', user_acl, async function (req, res) {
         var user_all_details = await User.findById(req.user.id);
         var user_data = JSON.parse(JSON.stringify(user_all_details));
 
@@ -542,7 +544,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/account/invite-friends', function (req,res) {
+    app.get('/account/invite-friends', user_acl, function (req,res) {
 		Referral_data.belongsTo(User, {foreignKey: 'user_id'});
 
 		Referral_data.findAll({
@@ -560,7 +562,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 		});
 	});
 
-    app.get('/account/submit-a-request', function (req, res) {
+    app.get('/account/submit-a-request', user_acl, function (req, res) {
         const msg = req.flash('supportMessage')[0];
         res.render('submit-a-request', {
             layout: 'dashboard',
@@ -595,7 +597,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/account/requests-support', function (req, res) {
+    app.get('/account/requests-support', user_acl, function (req, res) {
         Support.findAll({
             where: {
                 user_id: req.user.id
@@ -611,7 +613,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/account/buy-and-sell-coins', async (req, res) => {
+    app.get('/account/buy-and-sell-coins', user_acl, async (req, res) => {
         var values = '';
         var buy_history = '';
         
@@ -839,7 +841,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
     
-    app.get('/account/transaction-history', async (req, res) =>{
+    app.get('/account/transaction-history', user_acl, async (req, res) =>{
         var buy_arr = [];
         var sell_arr = [];
         var deposit_arr = [];
@@ -946,7 +948,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         res.render('transaction-history', {layout: 'dashboard', buy_history:buy_history,sell_history:sell_history,deposit_history:deposit_history,withdrawal_history:withdrawal_history,buy_arr:buy_arr,sell_arr:sell_arr,deposit_arr:deposit_arr,withdraw_arr:withdraw_arr, title: 'Transaction History' });
     });
 
-    app.get('/account/managed-cryptocurrency-portfolio', async(req, res) => {
+    app.get('/account/managed-cryptocurrency-portfolio', user_acl, async(req, res) => {
         var investedamount = 0;
 		var firstyear = 0;
 		var secondyear = 0;
@@ -1105,7 +1107,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/account/get-donut-chart', (req, res)=> {
+    app.get('/account/get-donut-chart', user_acl, (req, res)=> {
         var response_arr = [];
         lodash.each(req.user.currencyBalance, x => {
             response_arr.push({
@@ -1701,7 +1703,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         res.redirect('/account/deposit-funds');
       });
 
-    app.get('/settings', (req,res) => {
+    app.get('/settings', user_acl, (req,res) => {
         res.render('settings', {layout: 'dashboard'});
     });
     

@@ -30,7 +30,7 @@ const paypal = require('paypal-rest-sdk');
 
 
 paypal.configure({
-    'mode': 'live', //sandbox or live
+    'mode': 'sandbox', //sandbox or live
     'client_id': 'AUATycL0pSdb7ivwQB2fBA8w-rTO68U_GwxTfVhg4U7DisEnADJ1KBisL1DJkwlbaH59BVBx8SDhHUNN',
     'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
 });
@@ -1628,8 +1628,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
               "payment_method": "paypal"
           },
           "redirect_urls": {
-              "return_url": "http://localhost:8080/paypal-success",
-              "cancel_url": "http://localhost:8080/paypal-cancel"
+              "return_url": "http://ec2-34-230-81-205.compute-1.amazonaws.com/account/paypal-success",
+              "cancel_url": "http://ec2-34-230-81-205.compute-1.amazonaws.com/account/paypal-cancel"
           },
           "transactions": [{
               "item_list": {

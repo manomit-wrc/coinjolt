@@ -30,8 +30,8 @@ $(document).ready(function () {
  				},
  				success : function (response) {
  					if(response.status == true){
- 						var title = "Approval Successful";
- 						var text = "You have successfully approved the wire transfer.";
+ 						var title = "Transaction Confirmation";
+ 						var text = "You have successfully approved this wire transfer.";
  						sweetAlertSuccessPopUp(title,text);
  					}
  				}
@@ -61,8 +61,8 @@ $(document).ready(function () {
  				},
  				success : function (response) {
  					if(response.status == true){
- 						var title = "Rejection Successful";
- 						var text = "You have successfully reject the wire transfer.";
+ 						var title = "Transaction Confirmation";
+ 						var text = "You have successfully rejected this wire transfer.";
  						sweetAlertSuccessPopUp(title,text);
  					}
  				}

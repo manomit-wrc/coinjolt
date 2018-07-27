@@ -21,7 +21,7 @@ $(document).ready(function(){
         },
         messages: {
             blog_category_title: {
-                required: "Please enter blog category title"
+                required: "Please enter a blog category name."
             }
         },
         submitHandler:function(form) {
@@ -56,7 +56,7 @@ $(document).ready(function(){
         },
         messages: {
             edit_blog_category_title: {
-                required: "Please enter blog category title"
+                required: "Please enter a blog category name."
             }
         },
         submitHandler:function(form) {
@@ -87,7 +87,7 @@ $(document).ready(function(){
             text: text,
             type: "success",
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "OK"
+            confirmButtonText: "CONFIRM"
         },  function() {
             window.location.href=baseURL+"admin/blog-categories";
         });

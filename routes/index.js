@@ -671,24 +671,36 @@ module.exports = function (app, passport, models) {
                                 "passphrase": 'COinjolt123!!',
                                 "label": "Coin Jolt"
                             }
-                            bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
-                                if (walleterr) {
-                                    console.dir(walleterr);
-                                    throw new Error("Could not create wallet!");
-                                }
-                                console.dir(walletResult);
-                                // console.log("User keychain encrypted xPrv: " + walletResult.userKeychain.encryptedXprv);
-                                // console.log("Backup keychain xPub: " + walletResult.backupKeychain.xPub);
-                                walletId = walletResult.wallet.wallet.id;
-                                label = walletResult.wallet.wallet.label;
-                                userkeychain_public = walletResult.userKeychain.xpub;
-                                userkeychain_private = walletResult.userKeychain.xprv;
-                                backupkeychain_private = walletResult.backupKeychain.xprv;
-                                backupkeychain_public = walletResult.backupKeychain.xpub;
-                                bitgokeychain_public = walletResult.bitgoKeychain.xpub;
-                            }).then(function (createWallet) {
+                            // bitgo.wallets().createWalletWithKeychains(data, function (walleterr, walletResult) {
+                            //     if (walleterr) {
+                            //         console.dir(walleterr);
+                            //         throw new Error("Could not create wallet!");
+                            //     }
+                            //     console.dir(walletResult);
+                            //     // console.log("User keychain encrypted xPrv: " + walletResult.userKeychain.encryptedXprv);
+                            //     // console.log("Backup keychain xPub: " + walletResult.backupKeychain.xPub);
+                            //     walletId = walletResult.wallet.wallet.id;
+                            //     label = walletResult.wallet.wallet.label;
+                            //     userkeychain_public = walletResult.userKeychain.xpub;
+                            //     userkeychain_private = walletResult.userKeychain.xprv;
+                            //     backupkeychain_private = walletResult.backupKeychain.xprv;
+                            //     backupkeychain_public = walletResult.backupKeychain.xpub;
+                            //     bitgokeychain_public = walletResult.bitgoKeychain.xpub;
+                            // })
+                            bitgo.coin('btc').wallets()
+                            .generateWallet({ label: 'Coin Jolt Wallet-' + user.email + "-btc", passphrase: 'COinjolt123!!' })
+                            .then(function (createWallet) {
+                                walletId = createWallet.wallet._wallet.id;
+                                label = createWallet.wallet._wallet.label;
+                                userkeychain_public = createWallet.userKeychain.pub;
+                                userkeychain_private = createWallet.userKeychain.prv;
+                                backupkeychain_private = createWallet.backupKeychain.prv;
+                                backupkeychain_public = createWallet.backupKeychain.pub;
+                                bitgokeychain_public = createWallet.bitgoKeychain.pub;
+
                                 models.wallet.create({
                                     user_id: user_id,
+                                    currency_id: '1',
                                     bitgo_wallet_id: walletId,
                                     label: label,
                                     userkeychain_public: userkeychain_public,
@@ -700,7 +712,7 @@ module.exports = function (app, passport, models) {
                             });
                         // });
 
-                        req.flash('loginMessage', 'Your account activated successfully. We have created a Bitgo wallet for you. Please login to continue.');
+                        req.flash('loginMessage', 'Your account activated successfully. We have created a Bitgo Bitcoin wallet for you. Please login to continue.');
                         res.redirect('/login');
                     })
 

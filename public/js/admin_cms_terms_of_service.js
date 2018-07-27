@@ -17,10 +17,10 @@ $(document).ready(function (e) {
         },
         messages: {
             banner_image_title: {
-                required: "Please enter banner image title"
+                required: "Please enter banner image title."
             },
             terms_of_service_body: {
-                required: "Please enter terms of service content"
+                required: "Please enter terms of service content."
             }
         },
         submitHandler:function(form) {

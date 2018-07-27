@@ -33,7 +33,7 @@ $(document).ready(function (e) {
 					},
 					success: function (response) {
 						if(response.status == true){
-							sweetAlertSuccessPopUp('Thank You',response.msg);
+							sweetAlertSuccessPopUp('Email Template Confirmation',response.msg);
 						}
 					}
 				});
@@ -52,7 +52,7 @@ $(document).ready(function (e) {
 		},
 		messages:{
 			subject:{
-				required: "Please enter template name."
+				required: "Please enter a template name."
 			},
 			editor1:{
 				required: "Template description can not be left blank."
@@ -80,7 +80,7 @@ $(document).ready(function (e) {
 					},
 					success: function (response) {
 						if(response.status == true){
-							sweetAlertSuccessPopUp('Thank You',response.msg);
+							sweetAlertSuccessPopUp('Email Template Confirmation',response.msg);
 						}
 					}
 				});
@@ -99,7 +99,7 @@ $(document).ready(function (e) {
 		},
 		messages:{
 			subject:{
-				required: "Please enter template name."
+				required: "Please enter a template name."
 			},
 			editor1:{
 				required: "Template description can not be left blank."
@@ -165,7 +165,7 @@ $(document).ready(function (e) {
 		},
 		messages:{
 			subject_line:{
-				required: "Please enter subject."
+				required: "Please enter a subject line."
 			}			
 		}
 	});
@@ -193,11 +193,11 @@ $(document).ready(function (e) {
 				$(':input[type="button"]').prop('disabled', false);
 				if(resp.status == true){
 					swal({
-			            title: 'Thank You.',
+			            title: 'Email Users Confirmation',
 			            text: resp.msg,
 			            type: "success",
 			            confirmButtonColor: "#DD6B55",
-			            confirmButtonText: "OK"
+			            confirmButtonText: "CONFIRM"
 			        },  function() {
 			        	$('#subject').val('');
 			        	$('#myEmailMarketingPreviewModal').modal('hide');
@@ -232,11 +232,11 @@ $(document).ready(function (e) {
 				$(':input[type="button"]').prop('disabled', false);
 				if(resp.status == true){
 					swal({
-			            title: 'Thank You.',
+			            title: 'Email Draft Confirmation',
 			            text: resp.msg,
 			            type: "success",
 			            confirmButtonColor: "#DD6B55",
-			            confirmButtonText: "OK"
+			            confirmButtonText: "CONFIRM"
 			        },  function() {
 			            window.location.href = '/admin/email-users';
 			        });
@@ -267,12 +267,12 @@ $(document).ready(function (e) {
 		var user_row_email_id = $(this).attr('user_row_id');
 
 		swal({
-		  title: "Are you sure?",
+		  title: "Deletion Confirmation",
 		  text: "Your will not be able to recover this data!",
 		  type: "warning",
 		  showCancelButton: true,
 		  confirmButtonClass: "btn-danger",
-		  confirmButtonText: "Yes, delete it!",
+		  confirmButtonText: "CONFIRM",
 		  closeOnConfirm: false
 		},
 		function(){
@@ -285,11 +285,11 @@ $(document).ready(function (e) {
 				success: function (resp) {
 					if(resp.status == true){
 						swal({
-				            title: "Thank You",
+				            title: "Deletion Confirmation",
 				            text: resp.msg,
 				            type: "success",
 				            confirmButtonColor: "#DD6B55",
-				            confirmButtonText: "OK"
+				            confirmButtonText: "CONFIRM"
 				        },  function() {
 				            window.location.href = '/admin/email-users';
 				        });
@@ -340,11 +340,11 @@ $(document).ready(function (e) {
 				$(':input[type="button"]').prop('disabled', false);
 				if(resp.status == true){
 					swal({
-			            title: 'Thank You.',
+			            title: 'Send Draft Confirmation',
 			            text: resp.msg,
 			            type: "success",
 			            confirmButtonColor: "#DD6B55",
-			            confirmButtonText: "OK"
+			            confirmButtonText: "CONFIRM"
 			        },  function() {
 			            window.location.href = '/admin/email-users';
 			        });
@@ -357,12 +357,12 @@ $(document).ready(function (e) {
 		var user_row_draft_id = $(this).attr('user_row_id');
 
 		swal({
-		  title: "Are you sure?",
+		  title: "Deletion Confirmation",
 		  text: "Your will not be able to recover this data!",
 		  type: "warning",
 		  showCancelButton: true,
 		  confirmButtonClass: "btn-danger",
-		  confirmButtonText: "Yes, delete it!",
+		  confirmButtonText: "CONFIRM",
 		  closeOnConfirm: false
 		},
 		function(){
@@ -375,11 +375,11 @@ $(document).ready(function (e) {
 				success: function (resp) {
 					if(resp.status == true){
 						swal({
-				            title: "Thank You",
+				            title: "Delete Draft Confirmation",
 				            text: resp.msg,
 				            type: "success",
 				            confirmButtonColor: "#DD6B55",
-				            confirmButtonText: "OK"
+				            confirmButtonText: "CONFIRM"
 				        },  function() {
 				            window.location.href = '/admin/email-users';
 				        });
@@ -396,7 +396,7 @@ $(document).ready(function (e) {
             text: text,
             type: "success",
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "OK"
+            confirmButtonText: "CONFIRM"
         },  function() {
             window.location.href = '/admin/email-template';
         });
@@ -526,11 +526,11 @@ $('#send_email').on('click', function (e) {
 					if(response.status == true){
 						$(':input[type="button"]').prop('disabled', false);
 						swal({
-				            title: 'Thank You',
-				            text: "Email send to the user successfully.",
+				            title: 'Send Email Confirmation',
+				            text: "Email sent successfully.",
 				            type: "success",
 				            confirmButtonColor: "#DD6B55",
-				            confirmButtonText: "OK"
+				            confirmButtonText: "CONFIRM"
 				        },  function() {
 
 				            window.location.href = "/admin/send-email-history-list";
@@ -551,7 +551,7 @@ $('#send_multiple_email_form').validate({
 	},
 	messages:{
 		subject:{
-			required: "Please enter subject."
+			required: "Please enter a subject line."
 		}			
 	}
 });
@@ -600,11 +600,11 @@ $('#send_multiple_email_to_user').on('click', function () {
 				  				if(resp.status == true){
 				  					$(':input[type="button"]').prop('disabled', false);
 				  					swal({
-							            title: 'Thank You',
+							            title: 'Send Email Confirmation',
 							            text: response.msg,
 							            type: "success",
 							            confirmButtonColor: "#DD6B55",
-							            confirmButtonText: "OK"
+							            confirmButtonText: "CONFIRM"
 							        },  function() {
 							            window.location.href = '/admin/all-users';
 							        });
@@ -622,12 +622,12 @@ $('.delete_emails_send_details').on('click', function(){
 
 	var sent_email_id = $(this).attr('sent-email-id');
 	swal({
-		title: "Are you sure?",
+		title: "Deletion Confirmation",
 		text: "Your will not be able to recover this data!",
 		type: "warning",
 		showCancelButton: true,
 		confirmButtonClass: "btn-danger",
-		confirmButtonText: "Yes, delete it!",
+		confirmButtonText: "CONFIRM",
 		closeOnConfirm: false
 	},
 	function(){
@@ -640,11 +640,11 @@ $('.delete_emails_send_details').on('click', function(){
 			success: function (resp) {
 				if(resp.status == true){
 					swal({
-						title: "Thank You",
+						title: "Deletion Confirmation",
 						text: resp.msg,
 						type: "success",
 						confirmButtonColor: "#DD6B55",
-						confirmButtonText: "OK"
+						confirmButtonText: "CONFIRM"
 					},  function() {
 						window.location.href = '/admin/send-email-history-list';
 					});

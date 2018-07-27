@@ -17,10 +17,10 @@ $(document).ready(function (e) {
         },
         messages: {
             privacy_policy_image_title: {
-                required: "Please enter privacy policy image title"
+                required: "Please enter privacy policy image title."
             },
             privacy_policy_body: {
-                required: "Please enter privacy policy content"
+                required: "Please enter privacy policy content."
             }
         },
         submitHandler:function(form) {

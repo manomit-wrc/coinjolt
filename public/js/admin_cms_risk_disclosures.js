@@ -17,10 +17,10 @@ $(document).ready(function (e) {
         },
         messages: {
             risk_disclosures_image_title: {
-                required: "Please enter risk disclosure image title"
+                required: "Please enter risk disclosure image title."
             },
             risk_disclosures_body: {
-                required: "Please enter risk disclosure content"
+                required: "Please enter risk disclosure content."
             }
         },
         submitHandler:function(form) {

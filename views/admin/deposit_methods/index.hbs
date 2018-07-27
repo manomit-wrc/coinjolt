@@ -2,7 +2,7 @@
 	<h1>Manage Deposit Methods</h1>
 	<ol class="breadcrumb">
 		<li>
-			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
+			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Home</a>
 		</li>
 		<li class="active">Manage Deposit Methods</li>
 	</ol>
@@ -37,7 +37,6 @@
 									<tr>
 										<th>ID</th>
 										<th>Deposit Method Name</th>
-
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -80,7 +79,7 @@
 											<div class="row">
 												<div class="col-md-12">
 													<div class="form-group">
-														<label for="blog_post_title">Payment Method: </label>
+														<label for="blog_post_title">Payment Method:</label>
 														<select class="form-control valid" id="payment_type" name="payment_type">
 															{{#each depositMethods}}
 																<option value="{{this.id}}" >{{this.method_name}}</option>
@@ -92,7 +91,7 @@
 												<div id="paypalForm" style="display:none;">
 													<div class="col-md-12">
 														<div class="form-group">
-															<label for="paypal_mode_type">Payment Mode: </label>
+															<label for="paypal_mode_type">Payment Mode:</label>
 															<select class="form-control valid" id="paypal_mode_type" name="paypal_mode_type">
 																<option value="sandbox">Sandbox</option>
 																<option value="live">Live</option>
@@ -101,14 +100,14 @@
 													</div>
 													<div class="col-md-12">
 														<div class="form-group">
-															<label for="paypal_client_id">Client Id: </label>
+															<label for="paypal_client_id">Client ID:</label>
 															<input class="form-control input-lg" id="paypal_client_id" name="paypal_client_id" placeholder="Enter Paypal client id" value=""
 															 type="text">
 														</div>
 													</div>
 													<div class="col-md-12">
 														<div class="form-group">
-															<label for="paypal_client_secret">Client Secret: </label>
+															<label for="paypal_client_secret">Client Secret:</label>
 															<input class="form-control input-lg" id="paypal_client_secret" name="paypal_client_secret" placeholder="Enter Paypal client secret"
 															 value="" type="text">
 														</div>
@@ -120,15 +119,15 @@
 												<div id="ecorepayForm" style="display:none;">
 													<div class="col-md-12">
 														<div class="form-group">
-															<label for="ecorepay_account_id">Ecorepay Account Id: </label>
-															<input class="form-control input-lg" id="ecorepay_account_id" name="ecorepay_account_id" placeholder="Enter Ecorepay Account Id"
+															<label for="ecorepay_account_id">eCorepay Account ID:</label>
+															<input class="form-control input-lg" id="ecorepay_account_id" name="ecorepay_account_id" placeholder="Enter eCorepay Account ID"
 															 value="" type="text">
 														</div>
 													</div>
 													<div class="col-md-12">
 														<div class="form-group">
-															<label for="ecorepay_auth_id">Ecorepay Authentication Id: </label>
-															<input class="form-control input-lg" id="ecorepay_auth_id" name="ecorepay_auth_id" placeholder="Enter Ecorepay Authentication Id"
+															<label for="ecorepay_auth_id">eCorepay Authentication ID: </label>
+															<input class="form-control input-lg" id="ecorepay_auth_id" name="ecorepay_auth_id" placeholder="Enter eCorepay Authentication ID"
 															 value="" type="text">
 														</div>
 													</div>

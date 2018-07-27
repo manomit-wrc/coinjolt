@@ -1,8 +1,8 @@
 <section class="content-header">
-    <h1>Manage Deposit Methods</h1>
+    <h1>Manage Deposit Options</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a>
+            <a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Home</a>
         </li>
         <li>
             <a href="/admin/deposit-options">Manage Deposit Methods</a>
@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Edit Deposit Method</h3>
+                        <h3 class="box-title">Edit Deposit Options</h3>
                     </div>
                     <div class="box-body">
                         <form name="edit_payment_method_form" id="edit_payment_method_form" action="/edit-deposit-method" method="POST">
@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="blog_post_title">Payment Method: </label>
+                                        <label for="blog_post_title">Payment Option: </label>
                                         <select class="form-control valid" id="payment_type" name="edit_payment_type">
                     {{!-- {{#each depositMethods}}
                         <option value="{{this.id}}" {{#if_eq this.id ../specDepositRecord.deposit_method_id}} selected="selected" {{/if_eq}}{{#if_neq this.id ../specDepositRecord.deposit_method_id}} disabled="disabled" {{/if_neq}}>{{this.method_name}}</option>
@@ -41,7 +41,7 @@
                                 <div id="edit_paypalForm" {{#if_neq specDepositRecord.deposit_method_id '3'}}style="display:none;" {{/if_neq}}>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="edit_paypal_mode_type">Payment Mode: </label>
+                                            <label for="edit_paypal_mode_type">Payment Mode:</label>
                                             <select class="form-control valid" id="edit_paypal_mode_type" name="edit_paypal_mode_type">
                         <option value="sandbox" {{#if_eq specDepositRecord.paypal_payment_mode 'sandbox'}} selected="selected" {{/if_eq}}>Sandbox</option>
                         <option value="live" {{#if_eq specDepositRecord.paypal_payment_mode 'live'}} selected="selected" {{/if_eq}}>Live</option>
@@ -50,14 +50,14 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="edit_paypal_client_id">Client Id: </label>
+                                            <label for="edit_paypal_client_id">Client ID:</label>
                                             <input class="form-control input-lg" id="edit_paypal_client_id" name="edit_paypal_client_id" placeholder="Enter Paypal client id"
                                                 value="{{specDepositRecord.paypal_client_id}}" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="edit_paypal_client_secret">Client Secret: </label>
+                                            <label for="edit_paypal_client_secret">Client Secret:</label>
                                             <input class="form-control input-lg" id="edit_paypal_client_secret" name="edit_paypal_client_secret" placeholder="Enter Paypal client secret"
                                                 value="{{specDepositRecord.paypal_client_secret}}" type="text">
                                         </div>
@@ -69,14 +69,14 @@
                                 <div id="edit_ecorepayForm" {{#if_neq specDepositRecord.deposit_method_id '1'}}style="display:none;" {{/if_neq}}>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="edit_ecorepay_account_id">Ecorepay Account Id: </label>
+                                            <label for="edit_ecorepay_account_id">eCorepay Account ID: </label>
                                             <input class="form-control input-lg" id="edit_ecorepay_account_id" name="edit_ecorepay_account_id" placeholder="Enter Ecorepay Account Id"
                                                 value="{{specDepositRecord.ecorepay_account_id}}" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="edit_ecorepay_auth_id">Ecorepay Authentication Id: </label>
+                                            <label for="edit_ecorepay_auth_id">eCorepay Authentication ID: </label>
                                             <input class="form-control input-lg" id="edit_ecorepay_auth_id" name="edit_ecorepay_auth_id" placeholder="Enter Ecorepay Authentication Id"
                                                 value="{{specDepositRecord.ecorepay_authentication_id}}" type="text">
                                         </div>
@@ -137,15 +137,15 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Swift Code (International):</label>
-                                            <input class="form-control" placeholder="Enter Swift Code" name="edit_swift_code" id="edit_swift_code" value="{{specDepositRecord.swift_code}}"
+                                            <label>SWIFT Code (International):</label>
+                                            <input class="form-control" placeholder="Enter SWIFT Code" name="edit_swift_code" id="edit_swift_code" value="{{specDepositRecord.swift_code}}"
                                                 type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Reference:</label>
-                                            <input class="form-control" placeholder="Enter reference email" name="edit_reference_email" id="edit_reference_email" value="{{specDepositRecord.reference_email}}"
+                                            <input class="form-control" placeholder="Enter Reference Email" name="edit_reference_email" id="edit_reference_email" value="{{specDepositRecord.reference_email}}"
                                                 type="text">
                                         </div>
                                     </div>
@@ -157,7 +157,7 @@
                             <div class="row">
                                 <div class="col-md-2 col-md-offset-5 pd-612">
                                     <div class="form-group">
-                                        <input class="btn btn-primary edit_payment_method" id="edit_payment_method" value="Edit" type="submit">
+                                        <input class="btn btn-primary edit_payment_method" id="edit_payment_method" value="Save and Update" type="submit">
                                     </div>
                                 </div>
                             </div>

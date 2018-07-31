@@ -360,7 +360,7 @@
         <!-- animateSuccessTip -->
         <h2 style="text-align: center;">Success! A pending wire transfer has been added to your account.</h2>
         <p style="text-align: left;">Wire transfers can take anywhere between 5-7 business days to be processed. Once the deposit have been received, our system will automatically credit your balance. Please write or print out the following information to provide to your local branch.</p>
-        <form method="post">
+        <form method="post" name="pdf_form" id="pdf_form">
         <div class="form-group">
           <label>Total Amount (Pending Wire Transfer):</label>
           <input type="text" class="form-control" placeholder="Total Amount" name="totalamount" id="totalamount" value="Bank of Nova Scotia" readonly>
@@ -404,7 +404,7 @@
         </div>
       <div style="margin-top: -10%;" class="modal-footer">
         <button type="button" class="btn btn-default" id="ok" >OK</button>
-        <a href="https://coinjolt.com/dashboard/pdf" target="_blank" class="btn btn-primary" id="pdf" style="margin-top: 4.8%">Print as PDF</a>
+        <a href="javascript:void(0)" class="btn btn-primary" id="pdf" style="margin-top: 4.8%">Print as PDF</a>
         <button type="button" class="btn btn-default" id="close">Close</button>
       </div>
       </form>

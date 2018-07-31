@@ -139,6 +139,12 @@ module.exports = (app, models) => {
         var bchBalance = 0;
         var rmgBalance = 0;
         var xrpBalance = 0;
+        var btcBlncNew = 0;
+        var ethBlncNew = 0;
+        var ltcBlncNew = 0;
+        var bchBlncNew = 0;
+        var rmgBlncNew = 0;
+        var xrpBlncNew = 0;
         console.log("accessToken verified");
 
         // get btc wallet
@@ -152,8 +158,18 @@ module.exports = (app, models) => {
             let btcCoin = await bitgo.coin('btc').wallets().get({ id: btcWallet.rows[0].bitgo_wallet_id });
             btcBalance = btcCoin._wallet.balance;
         }
-        
-        
+        let btcBlncDb = await models.currency_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '1'
+            }
+        });
+        if(btcBlncDb.count > 0){
+            btcBlncNew = btcBlncDb.rows[0].balance;
+        }
+        let btcBlncFinal = btcBalance + btcBlncNew;
+        btcBlncFinal = parseFloat(Math.round(btcBlncFinal * 100) / 100).toFixed(4);
+
         // get eth wallet
         let ethWallet = await models.wallet.findAndCountAll({
             where: {
@@ -165,6 +181,17 @@ module.exports = (app, models) => {
             let ethCoin = await bitgo.coin('eth').wallets().get({ id: ethWallet.rows[0].bitgo_wallet_id });
             ethBalance = ethCoin._wallet.balance;
         }
+        let ethBlncDb = await models.currency_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '2'
+            }
+        });
+        if(ethBlncDb.count > 0){
+            ethBlncNew = ethBlncDb.rows[0].balance;
+        }
+        let ethBlncFinal = ethBalance + ethBlncNew;
+        ethBlncFinal = parseFloat(Math.round(ethBlncFinal * 100) / 100).toFixed(4);
         
         // get ltc wallet
         let ltcWallet = await models.wallet.findAndCountAll({
@@ -177,6 +204,17 @@ module.exports = (app, models) => {
             let ltcCoin = await bitgo.coin('ltc').wallets().get({ id: ltcWallet.rows[0].bitgo_wallet_id });
             ltcBalance = ltcCoin._wallet.balance;
         }
+        let ltcBlncDb = await models.currency_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '3'
+            }
+        });
+        if(ltcBlncDb.count > 0){
+            ltcBlncNew = ltcBlncDb.rows[0].balance;
+        }
+        let ltcBlncFinal = ltcBalance + ltcBlncNew;
+        ltcBlncFinal = parseFloat(Math.round(ltcBlncFinal * 100) / 100).toFixed(4);
         
         // get bch wallet
         let bchWallet = await models.wallet.findAndCountAll({
@@ -189,6 +227,17 @@ module.exports = (app, models) => {
             let bchCoin = await bitgo.coin('bch').wallets().get({ id: bchWallet.rows[0].bitgo_wallet_id });
             bchBalance = bchCoin._wallet.balance;
         }
+        let bchBlncDb = await models.currency_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '5'
+            }
+        });
+        if(bchBlncDb.count > 0){
+            bchBlncNew = bchBlncDb.rows[0].balance;
+        }
+        let bchBlncFinal = bchBalance + bchBlncNew;
+        bchBlncFinal = parseFloat(Math.round(bchBlncFinal * 100) / 100).toFixed(4);
         
         // get rmg wallet
         let rmgWallet = await models.wallet.findAndCountAll({
@@ -201,6 +250,17 @@ module.exports = (app, models) => {
             let rmgCoin = await bitgo.coin('rmg').wallets().get({ id: rmgWallet.rows[0].bitgo_wallet_id });
             rmgBalance = rmgCoin._wallet.balance;
         }
+        let rmgBlncDb = await models.currency_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '46'
+            }
+        });
+        if(rmgBlncDb.count > 0){
+            rmgBlncNew = rmgBlncDb.rows[0].balance;
+        }
+        let rmgBlncFinal = rmgBalance + rmgBlncNew;
+        rmgBlncFinal = parseFloat(Math.round(rmgBlncFinal * 100) / 100).toFixed(4);
         
         // get xrp wallet
         let xrpWallet = await models.wallet.findAndCountAll({
@@ -211,8 +271,19 @@ module.exports = (app, models) => {
         });
         if(xrpWallet.count > 0){
             let xrpCoin = await bitgo.coin('xrp').wallets().get({ id: xrpWallet.rows[0].bitgo_wallet_id });
-            xrpBalance = xrpCoin._wallet.balance;
+            xrpBalance = xrpCoin._wallet.spendableBalanceString;
         }
+        let xrpBlncDb = await models.currency_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '4'
+            }
+        });
+        if(xrpBlncDb.count > 0){
+            xrpBlncNew = xrpBlncDb.rows[0].balance;
+        }
+        let xrpBlncFinal = xrpBalance + xrpBlncNew;
+        xrpBlncFinal = parseFloat(Math.round(xrpBlncFinal * 100) / 100).toFixed(4);
 
 
         //bitcoin
@@ -272,12 +343,12 @@ module.exports = (app, models) => {
         res.render('wallets', {
             layout: 'dashboard',
             //count: count,
-            btcBalance : btcBalance,
-            ethBalance : ethBalance,
-            ltcBalance: ltcBalance,
-            bchBalance: bchBalance,
-            rmgBalance: rmgBalance,
-            xrpBalance: xrpBalance,
+            btcBalance : btcBlncFinal,
+            ethBalance : ethBlncFinal,
+            ltcBalance: ltcBlncFinal,
+            bchBalance: bchBlncFinal,
+            rmgBalance: rmgBlncFinal,
+            xrpBalance: xrpBlncFinal,
             btcAddressDetails: btcAddressDetails,
             ethAddressDetails: ethAddressDetails,
             ltccAddressDetails: ltccAddressDetails,
@@ -305,7 +376,7 @@ module.exports = (app, models) => {
         
         if(currency_id == '2') { // if ethereum
             bitgo.coin(currency_code).wallets()
-            .generateWallet({ label: 'Coin Jolt Wallet-' + email + "-" + currency_code, passphrase: 'COinjolt123!!', enterprise: '5a2b266b441c857b0786b282c7310749' })
+            .generateWallet({ label: email + "-" + currency_code, passphrase: 'COinjolt123!!', enterprise: '5a2b266b441c857b0786b282c7310749' })
             .then(function (walletResult) {
                 console.dir(walletResult);
                 walletId = walletResult.wallet._wallet.id;
@@ -335,7 +406,7 @@ module.exports = (app, models) => {
             });
         } else { // for other coins except ethereum
             bitgo.coin(currency_code).wallets()
-            .generateWallet({ label: 'Coin Jolt Wallet-' + email + "-" + currency_code, passphrase: 'COinjolt123!!' })
+            .generateWallet({ label: email + "-" + currency_code, passphrase: 'COinjolt123!!' })
             .then(function (walletResult) {
                 console.dir(walletResult);
                 walletId = walletResult.wallet._wallet.id;

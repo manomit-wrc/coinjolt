@@ -1,16 +1,16 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-        <h1>Edit Blog Post</h1>
+        <h1>Edit a Blog Post</h1>
 
 <ol class="breadcrumb">
   <li>
     <a href="/dashboard">
-      <i class="fa fa-dashboard"></i> Home</a>
+      <i class="fa fa-dashboard"></i>Home</a>
   </li>
    <li>
-    <a href="/admin/blog"> Manage Blog</a>
+    <a href="/admin/blog">Manage Blog</a>
   </li>
-  <li class="active">Edit Blog Post</li>
+  <li class="active">Edit a Blog Post</li>
 </ol>
 </section>
 
@@ -29,21 +29,21 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="blog_post_title">Post Title: </label>
+                    <label for="blog_post_title">Post Title:</label>
                     <input type="text" class="form-control input-lg" id="edit_blog_post_title" name="edit_blog_post_title" placeholder="Enter Post Title" value="{{blogDetail.0.post_title}}">
                   </div>
                 </div>
 
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="post_slug">Post slug</label>
+                        <label for="post_slug">Post Slug:</label>
                          <input type="text" class="form-control input-lg" id="edit_post_slug" name="edit_post_slug" placeholder="Post Slug" value="{{blogDetail.0.post_slug}}">
                     </div>
                 </div>
 
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="post_description">Post Description: </label>
+                    <label for="post_description">Post Description:</label>
 
                     <textarea name="post_description" class="form-control" id="post_description" placeholder="Enter Post Description">{{{blogDetail.0.post_description}}}</textarea>
                   </div>
@@ -51,7 +51,7 @@
 
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="edit_post_featured_image">Upload Featured Image</label>
+                        <label for="edit_post_featured_image">Upload a Featured Image:</label>
                         <input name="edit_post_featured_image" class="form-control" id="edit_post_featured_image" type="file">
                     </div>
                     {{#if blogDetail.0.featured_image}}
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="col-md-12">
-                    <label for="edit_post_category">Post category:</label>
+                    <label for="edit_post_category">Post Category:</label>
                     <select class="form-control" id="edit_post_category" name="edit_post_category">
                       {{#each blog_categories}}
                         <option value="{{this.id}}" {{#if_eq this.id ../blogDetail.0.post_category_id}}selected{{/if_eq}}>{{this.category_name}}</option>
@@ -73,27 +73,27 @@
 
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="meta_title">Meta Title: </label>
+                    <label for="meta_title">Meta Title:</label>
                     <input type="text" class="form-control input-lg" id="edit_meta_title" name="edit_meta_title" placeholder="Enter Meta Title" value="{{blogDetail.0.meta_title}}">
                   </div>
                 </div>
                 <div class="col-md-12">
                      <div class="form-group">
-                        <label for="edit_meta_description">Meta Description: </label>
+                        <label for="edit_meta_description">Meta Description:</label>
                         <textarea class="form-control input-lg" id="edit_meta_description" name="edit_meta_description" placeholder="Enter Meta Description">{{blogDetail.0.meta_description}}</textarea>
                     </div>
                 </div>
 
                  <div class="col-md-12">
                      <div class="form-group">
-                        <label for="edit_meta_keywords">Meta Keywords: </label>
-                        <textarea class="form-control input-lg" id="edit_meta_keywords" name="edit_meta_keywords" placeholder="Enter Meta keywords">{{blogDetail.0.meta_keywords}}</textarea>
+                        <label for="edit_meta_keywords">Meta Keywords:</label>
+                        <textarea class="form-control input-lg" id="edit_meta_keywords" name="edit_meta_keywords" placeholder="Enter Meta Keywords">{{blogDetail.0.meta_keywords}}</textarea>
                     </div>
                 </div>
 
                  <div class="col-md-2 col-md-offset-5 pd-612">
                     <div class="form-group">
-                        <input class="btn btn-primary edit_blog" id="edit_blog" value="Edit Post" type="button">
+                        <input class="btn btn-primary edit_blog" id="edit_blog" value="Save and Update" type="button">
                     </div>
                 </div>
               </div>

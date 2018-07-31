@@ -59,7 +59,7 @@ module.exports = function (app, models) {
         }).then(function(resp){
             res.json({
                 status:true,
-                msg: "Blog Post created successfully"
+                msg: "Blog post created successfully."
             });
         });
         
@@ -112,7 +112,7 @@ module.exports = function (app, models) {
         }).then(function(resp){
             res.json({
                 status:true,
-                msg: "Blog Post edited successfully"
+                msg: "Blog post saved and updated."
             });
         });
 
@@ -135,7 +135,7 @@ module.exports = function (app, models) {
                 id: blogID
             }
         }).then(function (result) {
-            res.json({status: true, msg: "Blog post deleted successfully"});
+            res.json({status: true, msg: "Blog post deleted successfully."});
         });
 
     });

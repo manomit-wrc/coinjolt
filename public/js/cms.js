@@ -44,7 +44,7 @@ $('#cms_about_us_submit').on('click', function () {
 					success: function (resp) {
 						if(resp.status == true) {
 							console.log('/admin/configuration/quick-links/about-us');
-							//sweetAlertAboutUsSuccessPopUp("Thank You.", resp.msg, "/admin/configuration/quick-links/about-us");
+							//sweetAlertAboutUsSuccessPopUp("Saved.", resp.msg, "/admin/configuration/quick-links/about-us");
 						}
 					}
 				});

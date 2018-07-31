@@ -250,7 +250,7 @@
                                 <td class="col-xs-4">
                                     <img src="../dist/img/usd.png" alt="">
                                 </td>
-                                <td class="col-xs-4">DOLLAR <span style="color:red;">(USD)</span></td>
+                                <td class="col-xs-4">DOLLAR <span style="color:red;"> (USD)</span></td>
                                 <td class="col-xs-4">
                                     {{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
                                 </td>
@@ -259,7 +259,7 @@
                                 <td class="col-xs-4">
                                     <img src="../dist/img/mcpicon.png" alt="" width="34">
                                 </td>
-                                <td class="col-xs-4">MANAGED PORTFOLIO<span style="color:red;">(MCP)</span></td>
+                                <td class="col-xs-4">MANAGED PORTFOLIO<span style="color:red;"> (MCP)</span></td>
                                 <td class="col-xs-4">{{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}</td>
                             </tr>
                             {{#each user.currency}}
@@ -267,7 +267,7 @@
                                 <td class="col-xs-4">
                                     <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
                                 </td>
-                                <td class="col-xs-4">{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
+                                <td class="col-xs-4 uppertext">{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
                                 <td class="wallet_crp col-xs-4">
                                         {{twoDecimalPoint (checkCurrencies this.alt_name ../user.currencyBalance)}}
                                 </td>

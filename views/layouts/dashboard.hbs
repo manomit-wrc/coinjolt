@@ -441,7 +441,7 @@
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "OK"
             },  function() {
-                window.location.href=baseURL+"admin/blog-posts";
+                window.location.href=baseURL+"admin/blog";
             });
         }
 
@@ -531,7 +531,7 @@
                             window.location.reload();
                         });
                     }else if (resp.status == 'true') {
-                        window.location.href = "/dashboard";
+                        window.location.href = "/account/dashboard";
                     }
                     
                 }
@@ -1114,6 +1114,15 @@
                 var currency_purchased = jQuery("#currency_purchased").val();
                 var currencyType =  $("#currency_purchased option:selected").val();
                 var currentUsdBal = {{user.currentUsdBalance}};
+
+                var currencyTypeString2 =  $("#currency_purchased option:selected").text();
+                var currencyTypeOnly2 = currencyTypeString2.match(/\((.*)\)/);
+                var currencyType2 = currencyTypeOnly2[1];
+                var currencyTypeName2 = currencyTypeString2.split("("); 
+                var currencyTypeFullName2 = currencyTypeName2[0];
+
+
+
                 var errmsg = "Amount exceeds current balance of " + currentUsdBal + " USD, <a href='/account/deposit-funds'>click here to deposit funds.</a>";
                 if (parseFloat(amtVal) > parseFloat(currentUsdBal)) {
                     $('.expected').addClass('alert alert-danger');
@@ -1149,7 +1158,7 @@
                         $('#currentratetext').addClass('alert alert-danger');
                         $('#calculatedamount').addClass('alert alert-success');
                         jQuery('#calculatedamount').show();
-                        jQuery('#calculatedamount').html('Calculated Amount('+currencyType+')'+': '+ parseFloat(amtVal/coinRate) );
+                        jQuery('#calculatedamount').html('Calculated Amount ('+ currencyTypeFullName2 + ' - ' + currencyType2+')'+': '+ parseFloat(amtVal/coinRate) );
                         jQuery("#cc-submit").prop('disabled', false);
                         $('.expected').removeClass('alert alert-danger');
                         $('.expected').html('');
@@ -1332,6 +1341,15 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                 var currencySellType = jQuery("#currency_sold option:selected").val();
                 var cryptocurrency_bal = 0;
                 var astatus = 0;
+
+                var currencyTypeString3 =  $("#currency_sold option:selected").text();
+                var currencyTypeOnly3 = currencyTypeString3.match(/\((.*)\)/);
+                var currencyType3 = currencyTypeOnly3[1];
+                var currencySoldTypeName3 = currencyTypeString3.split("("); 
+                var currencyTypeSoldFullName3 = currencySoldTypeName3[0]; 
+
+
+
                 if (!jQuery.isNumeric(jQuery("#sellAmount").val())) {
                     $('.sell_expected').addClass('alert alert-danger');
                     $('.sell_expected').html('Please enter a valid number.');
@@ -1358,7 +1376,7 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                     $('#sell_currentratetext').addClass('alert alert-danger');
                     $('#sell_calculatedamount').addClass('alert alert-success');
                     $('#sell_calculatedamount').show();
-                    $('#sell_calculatedamount').html('Calculated Amount('+currencyType+')'+': $'+ parseFloat(calcultedSellAmount) );
+                    $('#sell_calculatedamount').html('Calculated Amount ('+currencyTypeSoldFullName3+ ' - ' + currencyType3 + ')'+': $'+ parseFloat(calcultedSellAmount) );
                     $('.sell_expected').removeClass('alert alert-danger');
                     $('.sell_expected').html('');
                     $('.sell_expected').hide();
@@ -1425,7 +1443,7 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                                     $('#sell_currentratetext').addClass('alert alert-danger');
                                     $('#sell_calculatedamount').addClass('alert alert-success');
                                     jQuery('#sell_calculatedamount').show();
-                                    jQuery('#sell_calculatedamount').html('Calculated Amount('+currencyType+')'+': $'+ parseFloat(calcultedSellAmount) );
+                                    jQuery('#sell_calculatedamount').html('Calculated Amount ('+currencyType+')'+': $'+ parseFloat(calcultedSellAmount) );
                                     $('.sell_expected').removeClass('alert alert-danger');
                                     $('.sell_expected').html('');
                                     $('.sell_expected').hide();
@@ -1652,7 +1670,7 @@ $('.deleteShareholderInfo').on('click', function(){
                         var market_cap_usd = market_cap_usd.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                         var price_usd = price_usd.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                         var market_vol_usd = market_vol_usd.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-                        $tr = $tr + '<tr><td class="currency-name"><div class="s-s-' + resp[i].id + ' currency-logo-sprite"></div> <span class="currency-symbol">' + resp[i].name + '</span></td><td>$' + market_cap_usd + '</td><td>$' + price_usd + '</td><td>$' + market_vol_usd + '</td><td class="' + $class + '">' + resp[i].percent_change_24h + '%</td>';
+                        $tr = $tr + '<tr><td class="currency-name uppertext"><div class="s-s-' + resp[i].id + ' currency-logo-sprite"></div> <span class="currency-symbol">' + resp[i].name + '</span></td><td>$' + market_cap_usd + '</td><td>$' + price_usd + '</td><td>$' + market_vol_usd + '</td><td class="' + $class + '">' + resp[i].percent_change_24h + '%</td>';
                     });
                     $("#currency_table").html($tr);
                     $('#example1').DataTable({
@@ -2428,10 +2446,10 @@ $('.deleteShareholderInfo').on('click', function(){
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Language', 'Speakers (in millions)'],
-          ['Bitcoin', 4],
-          ['Ethereum',  1.2],
-          ['ICO Tokens', 1],
-          ['Alt Coins', 1],
+          ['BITCOIN', 4],
+          ['ETHEREUM',  1.2],
+          ['ICO TOKEN', 1],
+          ['ALT COINS', 1],
           ]);
 
         var options = {

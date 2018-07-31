@@ -787,6 +787,17 @@
                     email_address: {
                         required: true,
                         email: true
+                    },
+                    'shareholder_name[]': {
+                        required: true
+                    },
+                    'articles_incorporation[]': {
+                        required: true,
+                        extension: 'jpg|JPG|jpeg|JPEG|png|PNG|pdf|PDF|doc|docx|DOC|DOCX'
+                    },
+                    'shareholder_id[]': {
+                        required: true,
+                        extension: 'jpg|JPG|jpeg|JPEG|png|PNG|pdf|PDF|doc|docx|DOC|DOCX'
                     }
                 },
                 messages: {
@@ -855,7 +866,83 @@
                     email_address: {
                         required: "Please enter a valid email address.",
                         email: "Please enter a valid email address."
+                    },
+                    'shareholder_name[]': {
+                        required: "Please enter shareholder name"
+                    },
+                    'articles_incorporation[]': {
+                        required: "Please upload address proof",
+                        extension: 'Invalid file type'
+                    },
+                    'shareholder_id[]': {
+                        required: "Please upload govt issue id",
+                        extension: 'Invalid file type'
                     }
+                },
+                submitHandler:function(form) {
+                    var form_data = new FormData();
+                    var upload_file_name = [];
+
+                    var proof_of_address = [];
+
+                    var shareholder_name = [];
+
+                    $(".file-dynmc").each(function(index) {
+                        if(this.files[0]) {
+                            proof_of_address.push({
+                                folder_name: $(this).data('temp-name'),
+                                folder_name_another: $(".file-dynmc-1").data('temp-name'),
+                                temp_file_name: this.files[0].name
+                            })
+                            form_data.append('upload_docs_dynmc', this.files[0]);
+                            form_data.append('upload_docs_dynmc-1', $(".file-dynmc-1")[index].files[0]);
+
+                        }
+                    });
+
+                     $(".shareholder_name").each(function(index) {
+                        form_data.append('shareholder_name', $(this).val());
+                    }); 
+
+                    // start
+                     $.ajax({
+                        type: "POST",
+                        url: "/save-shareholderData",
+                        data: form_data,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        /*beforeSend: function() {
+                            $(".loader-gif").css('display', 'block');
+                            $("#submit_institution_modal_data").prop('disabled', true);
+                        },  */
+                        success: function(response) {
+                            console.log('Ajax Success');
+                            //$(".loader-gif").css('display', 'none');
+                            //$("#submit_institution_modal_data").prop('disabled', false);
+
+                            /* swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                            },function(isConfirm){
+                                if(isConfirm){
+                                    window.location.href = "/account/managed-cryptocurrency-portfolio";
+                                }
+                            }); */
+
+                        },
+                        error: function(xhr) {
+                            console.log('Ajax Error');
+
+                            //$(".loader-gif").css('display', 'none');
+                            //$("#submit_institution_modal_data").prop('disabled', false);
+                        }
+                    });
+                    // end
+
+
                 }
             });
 
@@ -2078,6 +2165,8 @@ $('.deleteShareholderInfo').on('click', function(){
 
             /* Script for validating individual modal form */
             
+
+
             $('#submit_individual_modal_data').on('click', function(){
                 $('#individualModalForm').submit();
             });

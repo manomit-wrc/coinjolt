@@ -1652,8 +1652,8 @@ $('.deleteShareholderInfo').on('click', function(){
                         var market_cap_usd = market_cap_usd.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                         var price_usd = price_usd.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                         var market_vol_usd = market_vol_usd.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-                        $tr = $tr + '<tr><td class="currency-name"><div class="s-s-' + resp[i].id + ' currency-logo-sprite"></div> <span class="currency-symbol">' + resp[i].name + '</span></td><td>$' + market_cap_usd + '</td><td>$' + price_usd + '</td><td>$' + market_vol_usd + '</td><td class="' + $class + '">' + resp[i].percent_change_24h + '%</td>';
-                    });
+                        $tr = $tr + '<tr><td class="currency-name uppertext"><div class="s-s-' + resp[i].id + ' currency-logo-sprite"></div> <span class="currency-symbol">' + resp[i].name + '</span></td><td>$' + market_cap_usd + '</td><td>$' + price_usd + '</td><td>$' + market_vol_usd + '</td><td class="' + $class + '">' + resp[i].percent_change_24h + '%</td>';
+                    });     
                     $("#currency_table").html($tr);
                     $('#example1').DataTable({
                         "order": [[1, "desc"]],

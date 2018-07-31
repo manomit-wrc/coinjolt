@@ -1,9 +1,11 @@
 
+const user_acl = require('../middlewares/user_acl');
+
 module.exports = function (app, withdraw, bank_details, Deposit, models){
 	const Op = require('sequelize').Op;
 	const sequelize = require('sequelize');
 
-	app.get('/account/request-withdrawal', function (req,res) {
+	app.get('/account/request-withdrawal', user_acl, function (req,res) {
 		Deposit.findAll({
             where: {user_id: req.user.id, type: 3},
             limit: 5,

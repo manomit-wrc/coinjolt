@@ -344,6 +344,11 @@ body {
 	width: 35px;
 }
 
+.main-sidebar .sidebar-menu li a .fa.fa-angle-right.pull-right {
+    position: absolute;
+    right: 0;
+}
+
 .main-sidebar .sidebar-menu li a:hover,
 .main-sidebar .sidebar-menu li a.active
 {

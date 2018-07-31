@@ -1,13 +1,10 @@
 module.exports = (req, res, next) => {
 	if(req.isAuthenticated()) {
-		if (req.path == '/dashboard') {
-			
+		if(req.user.type === '2') {
 			next();
 		}
-
-		else if(req.path == '/logout'){
-			
-			next();
+		else {
+			res.redirect('/admin/dashboard');
 		}
 	}
 };

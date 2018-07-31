@@ -348,7 +348,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 
                                   <!-- HIDDEN PREHEADER TEXT -->
                                   <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'AvenirNextLTPro-Regular', sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-                                    Registration completed successfully, please activate your account.
+                                    Registration successful, please check your email for instructions on how to activate your account.
                                   </div>
                                 
                                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -533,7 +533,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 });
                             });
     
-                            return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account'));
+                            return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email for instructions on how to activate your account'));
 
                         }).catch(function(err){
                             console.log(err);
@@ -866,7 +866,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 });
                             });
 
-                                return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email to activate your account.'));
+                                return done(null, false, req.flash('signupMessage', 'Registration successful. Please check your email to activate your account.'));
 
                             }).catch(function(err){
                                 console.log('error');

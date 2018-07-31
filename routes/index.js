@@ -171,14 +171,14 @@ module.exports = function (app, passport, models) {
                         }, {
                             where: {email: userEmail}
                         }).then(function(response){
-                            res.json({status: 1, msg: 'Your password has been updated, please login'});
+                            res.json({status: 1, msg: 'Your password has been updated, please login.'});
                         });
                     }).catch(function (err) {
                         console.log(err);
                     });
                 }
                 else{
-                    res.json({status: 2, msg: 'The link has been expired please try again'});
+                    res.json({status: 2, msg: 'The link has been expired, please try again.'});
                 }
             
         });
@@ -202,7 +202,7 @@ module.exports = function (app, passport, models) {
         const rand_key = encrypt(rKeys);
         var ses = new AWS.SES({apiVersion: '2010-12-01'});
         var user_email = req.body.prevEmail;
-        var subject = 'Request received for Forgot Password';
+        var subject = 'Request received for a password reset.';
         email_key = rand_key+"/";
 
         models.User.count({ where: {email: prevEmail} }).then(function(count){
@@ -211,7 +211,7 @@ module.exports = function (app, passport, models) {
                     where: {status: 1,email: prevEmail}
                 }).then(function(response){
                     if(response.length === 0){
-                        res.json({status: 1, msg: "Your Account is not activated"});
+                        res.json({status: 1, msg: "Your account has not yet been activated"});
 
                     }
                     else{
@@ -432,13 +432,13 @@ module.exports = function (app, passport, models) {
                                 </tr> <!-- Static Content -->
                                 <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">If you have any questions, just reply to this email—we're always happy to help out.</p>
+                                    <p style="margin: 0;">If you have any questions, just reply to this email — we're always happy to help out.</p>
                                     </td>
                                 </tr> <!-- Static Content -->
                                 
                                 <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">Cheers,<br>The Coin Jolt Team</p>
+                                    <p style="margin: 0;">-<br>Coin Jolt Support</p>
                                     </td>
                                 </tr> <!-- Static Content -->
                     
@@ -519,14 +519,14 @@ module.exports = function (app, passport, models) {
                             status: 0,
                             user_email: user_email
                         }).then(function(result){
-                            res.json({status: 0, msg: "An email has been sent to your inbox with instructions on how to reset your password"});
+                            res.json({status: 0, msg: "An email has been sent to your inbox with instructions on how to reset your password."});
                         });
 
                     });
 
             }
             else{
-                res.json({status: 2, msg: "User not found"});
+                res.json({status: 2, msg: "User not found, please try again."});
             }
             
         });  
@@ -662,7 +662,7 @@ module.exports = function (app, passport, models) {
             }
         }).then(function (count) {
             if (count > 0) {
-                req.flash('loginMessage', 'Account is already activated. Please login to continue.');
+                req.flash('loginMessage', 'This account has already been activated. Please login to continue.');
                 res.redirect('/login');
             } else {
                 models.User.update({
@@ -709,7 +709,7 @@ module.exports = function (app, passport, models) {
                             //     bitgokeychain_public = walletResult.bitgoKeychain.xpub;
                             // })
                             bitgo.coin('btc').wallets()
-                            .generateWallet({ label: 'Coin Jolt Wallet-' + user.email + "-btc", passphrase: 'COinjolt123!!' })
+                            .generateWallet({ label: user.email + "-btc", passphrase: 'COinjolt123!!' })
                             .then(function (createWallet) {
                                 walletId = createWallet.wallet._wallet.id;
                                 label = createWallet.wallet._wallet.label;
@@ -733,7 +733,7 @@ module.exports = function (app, passport, models) {
                             });
                         // });
 
-                        req.flash('loginMessage', 'Your account activated successfully. We have created a Bitgo Bitcoin wallet for you. Please login to continue.');
+                        req.flash('loginMessage', 'Your account has been activated successfully. We have generated wallet addresses for you. Please login to continue.');
                         res.redirect('/login');
                     })
 

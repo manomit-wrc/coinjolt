@@ -1595,6 +1595,57 @@ footer {
 /*Ends on css 13-07-2018*/
 
 
+	/* Starts on css 30-7-2018 */
+
+	.saboxplugin-wrap {
+		border: 1px solid #EEE;
+		overflow: hidden;
+		clear: both;
+		padding: 8px;
+	}
+
+	.saboxplugin-wrap .logo-box {
+		width: 16%;
+		float: left;
+	}
+
+	.saboxplugin-wrap .logo-box img {
+		max-width: 100px;
+		float: left;
+	}
+
+	.saboxplugin-wrap .authorname {
+		width: 84%;
+		float: right;
+		padding: 25px 0;
+	}
+
+	.saboxplugin-wrap .authorname a {
+		font-size: 18px;
+		line-height: 25px;
+		color: #000;
+		text-decoration: none !important;
+	}
+
+	.saboxplugin-wrap .authorname p {
+		font-size: 14px;
+		line-height: 17px;
+		margin-bottom: 0;
+		margin-top: 8px;
+	}
+
+	.saboxplugin-wrap .authorname p a {
+		font-size: 14px;
+		color: #025fdf;
+	}
+
+	
+
+	
+
+	/* Ends on css 30-7-2018 */
+
+
 
 /*Starts Responsive CSS*/
 

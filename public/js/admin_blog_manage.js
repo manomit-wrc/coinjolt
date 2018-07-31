@@ -140,7 +140,7 @@ $(document).ready(function(){
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "CONFIRM"
         },  function() {
-            window.location.href=baseURL+"blog-posts";
+            window.location.href=baseURL+"admin/blog";
         });
     }
 
@@ -246,6 +246,6 @@ function sweetAlertSuccessPopUp (title='',text='') {
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "CONFIRM"
     },  function() {
-        window.location.href=baseURL+"admin/blog-posts";
+        window.location.href=baseURL+"admin/blog";
     });
 }

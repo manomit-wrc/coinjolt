@@ -26,7 +26,7 @@
                     <select class="form-control" id="currency_purchased" name="currency_purchased">
                       <option value="">Please select a digital currency.</option>
                       {{#each contents}}
-                      <option value="{{this.alt_name}}">{{this.display_name}} ({{this.currency_id}})</option>
+                      <option class="uppertext" value="{{this.alt_name}}">{{this.display_name}} ({{this.currency_id}})</option>
                       {{/each}}
                     </select>
                   </div>
@@ -69,7 +69,7 @@
                     <select class="form-control" id="currency_sold" name="currency_sold">
                       <option value="">Please select a digital currency.</option>
                       {{#each contents}}
-                      <option value="{{this.alt_name}}">{{this.display_name}} ({{this.currency_id}})</option>
+                      <option class="uppertext" value="{{this.alt_name}}">{{this.display_name}} ({{this.currency_id}})</option>
                       {{/each}}
                     </select>
                   </div>
@@ -98,14 +98,14 @@
                 {{/if_eq}} {{#if_eq user.kycApproved "3"}}
                 <div class="form-group">
                   <label>Sell</label>
-                  <p>Sell is disabled because your ID Proof is rejected. Please upload correct ID Proof in
-                    <a href="/account/account-settings">Account Settings</a>.</p>
+                  <p>Sell feature is disabled because your ID hasn't been approved. Please upload correct a valid ID in
+                    <a href="/account/account-settings">account settings</a>.</p>
                 </div>
                 {{/if_eq}} {{#if_eq user.kycApproved "0"}}
                 <div class="form-group">
                   <label>Sell</label>
-                  <p>Sell is disabled because your ID Proof is not uploaded yet. Please upload your ID Proof in
-                    <a href="/account/account-settings">Account Settings</a>.</p>
+                  <p>Sell feature is disabled because your ID hasn't been approved. Please upload correct a valid ID in
+                    <a href="/account/account-settings">account settings</a>.</p>
                 </div>
                 {{/if_eq}}
                 </div>
@@ -348,7 +348,7 @@
               subscribeKey: config.SUBSCRIBE_KEY
             });
           // EON Charts configuration
-          var pointLimit = 2;
+          var pointLimit = 6;
           var topPadding = 100;
           var bottomPadding = 100;
           var eonData = {labels: true,type: 'line'};

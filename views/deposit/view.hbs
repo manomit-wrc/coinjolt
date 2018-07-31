@@ -1,5 +1,5 @@
 <section class="content-header">
-        <h1>SHA-256 Encrypted Form</h1>
+        <h1>Safe and Secure Form</h1>
         <ol class="breadcrumb">
           <li>
             <a href="/dashboard">
@@ -78,13 +78,13 @@
                         <div class="col-md-6">
                           <label>Card Expiration Date (MM)</label>
                           <select class="form-control" name="cardexpmonth" id="cardexpmonth">
-                            <option value='1'    >1</option><option value='2'    >2</option><option value='3'    >3</option><option value='4'    >4</option><option value='5'    >5</option><option value='6'    >6</option><option value='7'    >7</option><option value='8'    >8</option><option value='9'    >9</option><option value='10'    >10</option><option value='11'    >11</option><option value='12'    >12</option>                            </select>
+                            <option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>                            </select>
 
                         </div>
                         <div class="col-md-6">
                           <label>Card Expiration Date (YY)</label>
                           <select class="form-control"  name="cardexpyear" id="cardexpyear">
-                            <option value='2018'    >2018</option><option value='2019'    >2019</option><option value='2020'    >2020</option><option value='2021'    >2021</option><option value='2022'    >2022</option><option value='2023'    >2023</option><option value='2024'    >2024</option><option value='2025'    >2025</option><option value='2026'    >2026</option><option value='2027'    >2027</option><option value='2028'    >2028</option><option value='2029'    >2029</option><option value='2030'    >2030</option><option value='2031'    >2031</option><option value='2032'    >2032</option><option value='2033'    >2033</option><option value='2034'    >2034</option><option value='2035'    >2035</option><option value='2036'    >2036</option><option value='2037'    >2037</option>                            </select>
+                            <option value='2018'>2018</option><option value='2019'>2019</option><option value='2020'>2020</option><option value='2021'>2021</option><option value='2022'>2022</option><option value='2023'>2023</option><option value='2024'>2024</option><option value='2025'>2025</option><option value='2026'>2026</option><option value='2027'>2027</option><option value='2028'>2028</option><option value='2029'>2029</option><option value='2030'>2030</option><option value='2031'>2031</option><option value='2032'>2032</option><option value='2033'>2033</option><option value='2034'>2034</option><option value='2035'>2035</option><option value='2036'>2036</option><option value='2037'>2037</option>                            </select>
 
                         </div>
                       </div>
@@ -107,7 +107,7 @@
                     </p>
                     <p style="display:none;color: red;background-color: rgb(242, 222, 222); border-color: rgb(235, 204, 209);padding: 9px;font-size: 15px;margin-bottom: 16px;" class="creditCardFormErrorMsg">Please fill out all of the fields. </p>
                     
-                    <p style="display:none" class="loaderImg"><img src="https://coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif"></p>
+                    <p style="display:none" class="loaderImg"><img src="/ajax-loader-1.gif"></p>
                     <p class="ecore_error"></p>
                     <p class="ecore_res"></p>
                   </div>
@@ -172,7 +172,7 @@
                   </div>
                 </div>
                </div>
-                    <div id="wr-transfer" style="display:none"><p style="margin-left: 2%; text-align: center;"><span style="color: red;">*</span>Enter the deposit amount and print out the information on the following PDF to provide to your local branch. Wire transfers typically take between 5-7 business days to be processed. There may be a $30 - $50 wire transfer fee depending on your financial institution.</p></div>
+                    <div id="wr-transfer" style="display:none"><p style="margin-left: 2%; text-align: center;"><span style="color: red;">*</span>Enter your desired deposit amount and our banking partners information will be displayed to provide to your local branch. Wire transfers typically take between 2-3 business days to be processed.</p></div>
               </form>
             </div>
               </div>
@@ -209,7 +209,7 @@
                                 <td class="col-xs-4">
                                     <img src="../dist/img/usd.png" alt="">
                                 </td>
-                                <td>DOLLAR <span style="color:red;">(USD)</span></td>
+                                <td>DOLLAR <span style="color:red;"> (USD)</span></td>
                                 <td class="col-xs-4">
                                     {{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
                                 </td>
@@ -359,8 +359,8 @@
         </div>
         <!-- animateSuccessTip -->
         <h2 style="text-align: center;">Success! A pending wire transfer has been added to your account.</h2>
-        <p style="text-align: left;">Wire transfers can take anywhere between 5-7 business days to be processed. Once the deposit have been received, our system will automatically credit your balance. Please write or print out the following information to provide to your local branch.</p>
-        <form method="post" name="pdf_form" id="pdf_form">
+        <p style="text-align: left;">Wire transfers can take anywhere between 2-3 business days to be processed. Once the transfer has been processed, our system will automatically credit your balance. You can write or print out the following information to provide to your local branch.</p>
+        <form method="post">
         <div class="form-group">
           <label>Total Amount (Pending Wire Transfer):</label>
           <input type="text" class="form-control" placeholder="Total Amount" name="totalamount" id="totalamount" value="Bank of Nova Scotia" readonly>
@@ -394,7 +394,7 @@
           <input type="text" class="form-control" placeholder="026002532" name="routingnumber" id="routingnumber" value="{{bankWireTransferDetails.routing_number}}" readonly>
           </div>
         <div class="form-group">
-          <label>Swift Code (International):</label>
+          <label>SWIFT Code (International):</label>
           <input type="text" class="form-control" placeholder="NOSCCATT" name="swiftcode" id="swiftcode" value="{{bankWireTransferDetails.swift_code}}" readonly>
         </div>
         <div class="form-group">
@@ -404,7 +404,8 @@
         </div>
       <div style="margin-top: -10%;" class="modal-footer">
         <button type="button" class="btn btn-default" id="ok" >OK</button>
-        <a href="javascript:void(0)" class="btn btn-primary" id="pdf" style="margin-top: 4.8%">Print as PDF</a>
+        <a href="/dashboard/pdf" target="_blank" class="btn btn-primary" id="pdf" style="margin-top: 4.8%">Print as PDF</a>
+        {{!-- <a href="javascript:void(0)" class="btn btn-primary" id="pdf" style="margin-top: 4.8%">Print as PDF</a> --}}
         <button type="button" class="btn btn-default" id="close">Close</button>
       </div>
       </form>

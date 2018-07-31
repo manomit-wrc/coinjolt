@@ -1,10 +1,10 @@
 <section class="content-header">
-	<h1>Manage Deposit Methods</h1>
+	<h1>Manage Deposit Options</h1>
 	<ol class="breadcrumb">
 		<li>
 			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Home</a>
 		</li>
-		<li class="active">Manage Deposit Methods</li>
+		<li class="active">Manage Deposit Options</li>
 	</ol>
 </section>
 
@@ -15,7 +15,7 @@
 			<div class="col-md-12">
 				<div class="box">
 					<div class="box-header with-border">
-						<h3 class="box-title">Deposit Methods List</h3>
+						<h3 class="box-title">Manage Deposit Options</h3>
 
 						{{#if errormsg}}
 						<div class="alert alert-error" id="depositMethodErrMsg">{{errormsg}}</div>
@@ -36,7 +36,7 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>Deposit Method Name</th>
+										<th>Deposit Option</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -47,11 +47,11 @@
 										<td>{{this.deposit_method.method_name}}</td>
 
 										<td>
-											<a href="/admin/edit-deposit-method/{{this.id}}" data-depositId="{{this.id}}" class="tbl-common-btn btn btn-primary editPaymentMethod">Edit</a>
+											<a href="/admin/edit-deposit-method/{{this.id}}" data-depositId="{{this.id}}" class="tbl-common-btn btn btn-primary editPaymentMethod">Save</a>
 
-										{{!-- 	<a href="#" class="btn btn-danger tbl-common-btn deletePaymentMethod">Delete</a> --}}
+										{{!-- 	<a href="#" class="btn btn-danger tbl-common-btn deletePaymentMethod">Remove</a> --}}
 
-											<button type="button" class="btn btn-danger tbl-common-btn deletePaymentMethod" data-id="{{this.id}}">Delete</button>
+											<button type="button" class="btn btn-danger tbl-common-btn deletePaymentMethod" data-id="{{this.id}}">Remove</button>
 
 										</td>
 
@@ -68,7 +68,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title">Add Payment Method</h4>
+										<h4 class="modal-title">Add a Payment Method</h4>
 									</div>
 									<div class="modal-body">
 
@@ -101,14 +101,14 @@
 													<div class="col-md-12">
 														<div class="form-group">
 															<label for="paypal_client_id">Client ID:</label>
-															<input class="form-control input-lg" id="paypal_client_id" name="paypal_client_id" placeholder="Enter Paypal client id" value=""
+															<input class="form-control input-lg" id="paypal_client_id" name="paypal_client_id" placeholder="Enter Paypal Client ID" value=""
 															 type="text">
 														</div>
 													</div>
 													<div class="col-md-12">
 														<div class="form-group">
 															<label for="paypal_client_secret">Client Secret:</label>
-															<input class="form-control input-lg" id="paypal_client_secret" name="paypal_client_secret" placeholder="Enter Paypal client secret"
+															<input class="form-control input-lg" id="paypal_client_secret" name="paypal_client_secret" placeholder="Enter Paypal Secret Key"
 															 value="" type="text">
 														</div>
 													</div>

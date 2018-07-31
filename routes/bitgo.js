@@ -495,7 +495,10 @@ module.exports = (app, models) => {
         var type = "1";
 
         models.wallet.findAndCountAll({
-            where: {user_id: req.user.id}
+            where: {
+                user_id: req.user.id,
+                currency_id: currency_id
+            }
         }).then(results => {
             var count = results.count;
             if(count > 0){

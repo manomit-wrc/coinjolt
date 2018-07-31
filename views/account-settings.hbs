@@ -7,7 +7,7 @@
 </section>
 <section class="content container-fluid">
     <div class="account-settings">
-        <form method="post" action="/account-settings" role="form" id="update_profile" name="update_profile" enctype="multipart/form-data">
+        <form method="post" action="/account-settings" role="form" id="update_profile" name="update_profile">
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-12 column-pr-0">
@@ -60,7 +60,7 @@
                                                 <input type="file" name="async_upload" id="async_upload"> 
                                                 <div class="brsw-btn">Upload Picture</div>
                                                 <p class="loaderImg" style="display:none; text-align:center;">
-                                                    <img src="ajax-loader-1.gif" class="loader-gif">
+                                                    <img src="../ajax-loader-1.gif" class="loader-gif">
                                                 </p>
                                             </div>
                                         </div>
@@ -356,57 +356,81 @@
                                                         </div>
                                                     </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        
+                                        {{!-- <div class="col-md-12 col-sm-12 col-xs-12" id="shareholder_div">
+                                            <div class="col-md-2 col-md-offset-10">
+                                                <div class="plus-btn">
+                                                    <button class="btn btn-primary" onclick="append(event)">+</button>
+                                                    <button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 multiple_div">
+                                                <div class="col-md-4" id="test">                                            
+                                                    <div class="form-group">
+                                                        <label>Shareholder Name:</label>
+                                                        <input placeholder="First and Last Name" name="shareholder_name" class="form-control shareholder_name" id="shareholder_name" value="" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group articles_incorporation_div">
+                                                        <label>Proof of Address:</label>
+                                                        <input name="articles_incorporation" class="form-control articles_incorporation" id="articles_incorporation" type="file">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Government Issued ID:</label>
+                                                        <input name="shareholder_id" class="form-control shareholder_id" id="shareholder_id" value="" type="file">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div> --}}
+                                        <!-- end institutional details form -->
+
+                                        <!-- shareholder dynamic add begin -->
+                                        {{!-- <div id="shareholder_div">
+                                            <div class="">
+                                                <div class="col-md-12">
+                                                    <label class="shareholders-box">Add or Remove Shareholders</label>
+                                                    <button class="btn btn-primary" onclick="append(event)">+</button>
+                                                    <button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
+                                                    <span style="margin-bottom: 5%;"></span>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                        <!-- end -->
+
+                                        <div class="clearfix"></div>
+                                        
+                                </div>
+                            </div>
+                        </div>
+                        <div class="update-btn row">
+                            <div class="col-md-12 text-center">
+                                <div class="updateMsg col-md-12" style="display: none"></div>
+                                <p class="loaderImg" style="display:none; text-align:center;">
+                                    <img src="../ajax-loader-1.gif">
+                                </p>
+                                <button class="btn btn-primary subbtn btn-block" type="submit" name="updatesubmit" id="updatesubmit" style="margin-bottom: 40px;">Update</button>
+                            </div>
+                        </div>
+                    {{!-- </form> --}}
+                </div>
+            </div>
+        </form>
+        
+    </div>
+    <!-- start shareholder form -->
+         <div class="box">
+             <div class="box-header with-border">
+                <h3 class="box-title">Shareholder Details</h3>
+             </div>
+             <div class="col-md-12">
                                             <div class="shareholders">
                                 <div class="table-responsive">
-                                    {{!-- <div class="modal fade" id="shareholderInfoModal" role="dialog">
-                                                        <div class="modal-dialog share-holder-details-popup">
-
-                                                            <!-- Modal content-->
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal">×</button>
-                                                                    <h4 class="modal-title">Share Holder Details</h4>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="col-md-3">
-                                                                                <label>Shareholder Name : </label>
-                                                                            </div>
-                                                                            <div class="col-md-9">	
-                                                                                <p id="id">qsd</p>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="col-md-6">
-                                                                            
-                                                                            <div class="col-md-6">
-                                                                                <label>Proof of Address: </label>
-                                                                            </div>
-                                                                            <div class="col-md-6">	
-                                                                                <a href=""><img src="" width="100px" height="100px"></a>
-                                                                            </div>
-                                                                            
-                                                                        </div>
-
-                                                                        <div class="col-md-6">
-                                                                            
-                                                                            <div class="col-md-6">
-                                                                                <label>Government Issued ID: </label>
-                                                                            </div>
-                                                                            <div class="col-md-6">	
-                                                                                <a href="">	<img src="" width="100px" height="100px"></a>
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div>
-                                                    </div> --}}<div class="modal fade" id="1271" role="dialog">
+                                   <div class="modal fade" id="1271" role="dialog">
                                                         <div class="modal-dialog modal-lg modal-sm share-holder-details-popup">
 
                                                             <!-- Modal content-->
@@ -554,70 +578,25 @@
                                         </div>
                                     </div>
                                         </div>
-                                        {{!-- <div class="col-md-12 col-sm-12 col-xs-12" id="shareholder_div">
-                                            <div class="col-md-2 col-md-offset-10">
-                                                <div class="plus-btn">
-                                                    <button class="btn btn-primary" onclick="append(event)">+</button>
-                                                    <button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 col-sm-12 col-xs-12 multiple_div">
-                                                <div class="col-md-4" id="test">                                            
-                                                    <div class="form-group">
-                                                        <label>Shareholder Name:</label>
-                                                        <input placeholder="First and Last Name" name="shareholder_name" class="form-control shareholder_name" id="shareholder_name" value="" type="text">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group articles_incorporation_div">
-                                                        <label>Proof of Address:</label>
-                                                        <input name="articles_incorporation" class="form-control articles_incorporation" id="articles_incorporation" type="file">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Government Issued ID:</label>
-                                                        <input name="shareholder_id" class="form-control shareholder_id" id="shareholder_id" value="" type="file">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div> --}}
-                                        <!-- end institutional details form -->
-
-                                        <!-- shareholder dynamic add begin -->
-                                        <div id="shareholder_div">
-                                            <div class="">
-                                                <div class="col-md-12">
-                                                    <label class="shareholders-box">Add or Remove Shareholders</label>
-                                                    <button class="btn btn-primary" onclick="append(event)">+</button>
-                                                    <button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
-                                                    <span style="margin-bottom: 5%;"></span>
-                                                    <br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end -->
-
-                                        <div class="clearfix"></div>
-                                        
+             <form method="post" action="/save-shareholderData" name="shareholderForm" id="shareholderForm" enctype="multipart/form-data">
+                 <div class="box-body">
+                     <div id="shareholder_div">
+                            <div class="">
+                                <div class="col-md-12">
+                                    <label class="shareholders-box">Add or Remove Shareholders</label>
+                                    <button class="btn btn-primary" onclick="append(event)">+</button>
+                                    <button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
+                                    <span style="margin-bottom: 5%;"></span>
+                                    <br>
                                 </div>
                             </div>
                         </div>
-                        <div class="update-btn row">
-                            <div class="col-md-12 text-center">
-                                <div class="updateMsg col-md-12" style="display: none"></div>
-                                <p class="loaderImg" style="display:none; text-align:center;">
-                                    <img src="ajax-loader-1.gif">
-                                </p>
-                                <button class="btn btn-primary subbtn btn-block" type="submit" name="updatesubmit" id="updatesubmit" style="margin-bottom: 40px;">Update</button>
-                            </div>
-                        </div>
-                    {{!-- </form> --}}
-                </div>
-            </div>
-        </form>
-    </div>
+                       
+                 </div>
+                  <button class="btn btn-primary subbtn btn-block" type="submit" name="updateshareholderdata" id="updateshareholderdata" style="margin-bottom: 40px;">Save Shareholder</button>
+             </form>
+         </div>
+        <!-- end shareholder form -->
 </section>
 
 <!-- Change Password Modal -->

@@ -787,18 +787,8 @@
                     email_address: {
                         required: true,
                         email: true
-                    },
-                    'shareholder_name[]': {
-                        required: true
-                    },
-                    'articles_incorporation[]': {
-                        required: true,
-                        extension: 'jpg|JPG|jpeg|JPEG|png|PNG|pdf|PDF|doc|docx|DOC|DOCX'
-                    },
-                    'shareholder_id[]': {
-                        required: true,
-                        extension: 'jpg|JPG|jpeg|JPEG|png|PNG|pdf|PDF|doc|docx|DOC|DOCX'
                     }
+                    
                 },
                 messages: {
                     user_name: {
@@ -866,7 +856,71 @@
                     email_address: {
                         required: "Please enter a valid email address.",
                         email: "Please enter a valid email address."
+                    }
+                    
+                },
+                submitHandler:function(form) {
+                    
+                   
+                     
+
+                    // start
+                     $.ajax({
+                        type: "POST",
+                        url: "/account-settings",
+                        data: form_data,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function() {
+                            //$(".loader-gif").css('display', 'block');
+                            $("#updatesubmit").prop('disabled', true);
+                        },  
+                        success: function(response) {
+                            //$(".loader-gif").css('display', 'none');
+                            $("#updatesubmit").prop('disabled', false);
+                            if(response.success == 'true'){
+                                swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                                },function(isConfirm){
+                                    if(isConfirm){
+                                        window.location.href = "/account/account-settings";
+                                    }
+                                }); 
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log('Ajax Error');
+
+                            //$(".loader-gif").css('display', 'none');
+                            $("#updatesubmit").prop('disabled', false);
+                        }
+                    });
+                    // end
+
+
+                }
+            });
+
+            // Shareholder form validation
+            $("#shareholderForm").validate({
+                rules: {
+                    'shareholder_name[]': {
+                        required: true
                     },
+                    'articles_incorporation[]': {
+                        required: true,
+                        extension: 'jpg|JPG|jpeg|JPEG|png|PNG|pdf|PDF|doc|docx|DOC|DOCX'
+                    },
+                    'shareholder_id[]': {
+                        required: true,
+                        extension: 'jpg|JPG|jpeg|JPEG|png|PNG|pdf|PDF|doc|docx|DOC|DOCX'
+                    }
+                },
+                messages: {
                     'shareholder_name[]': {
                         required: "Please enter shareholder name"
                     },
@@ -880,6 +934,7 @@
                     }
                 },
                 submitHandler:function(form) {
+
                     var form_data = new FormData();
                     var upload_file_name = [];
 
@@ -900,51 +955,49 @@
                         }
                     });
 
-                     $(".shareholder_name").each(function(index) {
+                    $(".shareholder_name").each(function(index) {
                         form_data.append('shareholder_name', $(this).val());
                     }); 
+                    
+                    form_data.append('proof_of_address', JSON.stringify(proof_of_address)); 
 
-                    // start
-                     $.ajax({
+                      $.ajax({
                         type: "POST",
                         url: "/save-shareholderData",
                         data: form_data,
                         cache: false,
                         processData: false,
                         contentType: false,
-                        /*beforeSend: function() {
-                            $(".loader-gif").css('display', 'block');
-                            $("#submit_institution_modal_data").prop('disabled', true);
-                        },  */
+                        beforeSend: function() {
+                            //$(".loader-gif").css('display', 'block');
+                            $("#updateshareholderdata").prop('disabled', true);
+                        },  
                         success: function(response) {
-                            console.log('Ajax Success');
                             //$(".loader-gif").css('display', 'none');
-                            //$("#submit_institution_modal_data").prop('disabled', false);
-
-                            /* swal({
+                            $("#updateshareholderdata").prop('disabled', false);
+                            if(response.success == 'true'){
+                                swal({
                                 icon: "success",
                                 title: response.msg,
                                 confirmButtonClass: "btn-success",
                                 confirmButtonText: "OK"
-                            },function(isConfirm){
-                                if(isConfirm){
-                                    window.location.href = "/account/managed-cryptocurrency-portfolio";
-                                }
-                            }); */
-
+                                },function(isConfirm){
+                                    if(isConfirm){
+                                        window.location.href = "/account/account-settings";
+                                    }
+                                }); 
+                            }
                         },
                         error: function(xhr) {
                             console.log('Ajax Error');
 
                             //$(".loader-gif").css('display', 'none');
-                            //$("#submit_institution_modal_data").prop('disabled', false);
+                            $("#updateshareholderdata").prop('disabled', false);
                         }
                     });
-                    // end
-
-
                 }
-            });
+            })
+            // end
 
             // Script for Change password
             $("#changepassword").click(function(e) {
@@ -2694,7 +2747,7 @@ $('.deleteShareholderInfo').on('click', function(){
     event.preventDefault();
     var shareholder = document.getElementById('test');
 
-    $('#shareholder_div').append('<div class="multiple_div"><div class="col-md-4" id="name"><div class="form-group appnd"><label for="shareholder_name">Name:</label><input type="text" name="shareholder_name[]" class="form-control shareholder_name" id="shareholder_name" value=""><label for="shareholder_name" generated="true" class="error"></label></div></div><div class="col-md-4 " id="address"><div class="form-group articles_incorporation_div appnd" ><label>Proof of Address:</label><input type="file" name="articles_incorporation[]" class="form-control articles_incorporation file-dynmc" id="" data-temp-name="address_proof"><label for="articles_incorporation" generated="true" class="error"></label></div></div><div class="col-md-4 " id="government_id"  ><div class="form-group appnd"><label>Government Issued ID:</label><input type="file" name="shareholder_id[]" class="form-control shareholder_id file-dynmc-1" id="shareholder_id" value="" data-temp-name="govt_id"><label for="shareholder_id" generated="true" class="error"></label></div></div></div>');
+    $('#shareholder_div').append('<div class="multiple_div"><div class="col-md-4" id="name"><div class="form-group appnd"><label for="shareholder_name">Name:</label><input type="text" name="shareholder_name[]" class="form-control shareholder_name" id="shareholder_name" value=""><label for="shareholder_name" generated="true" class="error"></label></div></div><div class="col-md-4 " id="address"><div class="form-group articles_incorporation_div appnd" ><label>Proof of Address:</label><input type="file" name="proof_of_address[]" class="form-control articles_incorporation file-dynmc" id="" data-temp-name="address_proof"><label for="articles_incorporation" generated="true" class="error"></label></div></div><div class="col-md-4 " id="government_id"  ><div class="form-group appnd"><label>Government Issued ID:</label><input type="file" name="shareholder_id[]" class="form-control shareholder_id file-dynmc-1" id="shareholder_id" value="" data-temp-name="govt_id"><label for="shareholder_id" generated="true" class="error"></label></div></div></div>');
     document.getElementById('remove').removeAttribute('disabled','disabled');
 }
 

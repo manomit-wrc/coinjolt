@@ -2907,7 +2907,8 @@ function remove(event){
         $( "#coin-send-btn" ).click(function(event) {
                     //event.preventDefault();
                     var coin_address = $( "#coin_address" ).val();	
-                    var coin_amount = $( "#coin_amount" ).val();	
+                    var coin_amount = $( "#coin_amount" ).val();
+                    var currency_id = $( "#currency_send_id" ).val();	
                     $( "#coinsenderrormsg" ).show();
                     $( "#coinsenderrormsg" ).empty();
                     if (coin_amount <= 0) {
@@ -2921,7 +2922,7 @@ function remove(event){
                         $.ajax({
                             type: "POST",
                             url: '/send-currency',
-                            data : {coin_address: coin_address, coin_amount: coin_amount},
+                            data : {coin_address: coin_address, coin_amount: coin_amount, currency_id: currency_id},
                             beforeSend: function() {
                                 $(".loader-gif").css('display', 'block');
                             },

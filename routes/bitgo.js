@@ -479,7 +479,8 @@ module.exports = (app, models) => {
         });
 
     });
-    
+
+    /*
     app.post('/send-currency', function(req, res){
         var destinationAddress = req.body.coin_address;
         var coin_amount = req.body.coin_amount;
@@ -583,4 +584,125 @@ module.exports = (app, models) => {
             }
         });
     });
+    */
+
+    app.post('/send-currency', function(req, res){
+        var destinationAddress = req.body.coin_address;
+        var coin_amount = req.body.coin_amount;
+        var amountSatoshis = coin_amount * 1e8;
+        var walletPassphrase = 'COinjolt123!!';
+        var userid = req.user.id;
+        // var currency_id = "1";
+        var walletDbId;
+        var walletId;
+        var destinationAddressId;
+        var receiver_id;
+        var walletBalance;
+        var type = "1";
+        var currency_id = req.body.currency_id;
+        var currency_code;
+        if(currency_id == '1'){
+            currency_code = "btc";
+        } else if(currency_id == '2'){
+            currency_code = "eth";
+        } else if(currency_id == '3'){
+            currency_code = "ltc";
+        } else if(currency_id == '5'){
+            currency_code = "bch";
+        } else if(currency_id == '46'){
+            currency_code = "rmg";
+        } else if(currency_id == '4'){
+            currency_code = "xrp";
+        }
+
+        models.wallet.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: currency_id
+            }
+        }).then(results => {
+            var count = results.count;
+            if(count > 0){
+                console.log("wallet found");
+                // console.log(JSON.stringify(results, undefined, 2));
+                walletDbId = results.rows[0].id;
+                walletId = results.rows[0].bitgo_wallet_id;
+                console.log("walletId");
+                console.log(walletDbId);
+                console.log(walletId);
+                models.wallet_address.findAndCountAll({
+                    where: {
+                        address: destinationAddress, 
+                        currency_id: currency_id,
+                        user_id: {
+                            [Op.ne]: req.user.id
+                        }
+                    }
+                }).then(addressResults => {
+                    var destinationAddressCount = addressResults.count;
+                    if(destinationAddressCount > 0){
+                        console.log("address found");
+                        destinationAddressId = addressResults.rows[0].id;
+                        receiver_id = addressResults.rows[0].user_id;
+                        console.log("destinationAddressId");
+                        console.log(destinationAddressId);
+                        console.log("walletId2");
+                        console.log(walletDbId);
+                        console.log(walletId);
+                        console.log("sender_id");
+                        console.log(userid);
+                        console.log("receiver_id");
+                        console.log(receiver_id);
+                        //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
+                        bitgo.coin(currency_code).wallets().get({ id: walletId })
+                        .then(function(wallet) {
+                            // walletBalance = (wallet.balance() / 1e8).toFixed(4);
+                            if(currency_id == '4') { // ripple (xrp)
+                                walletBalance = wallet._wallet.spendableBalanceString;
+                            } else {
+                                walletBalance = wallet._wallet.balance;
+                            }
+                            
+                            console.log("walletBalance");
+                            console.log(walletBalance);
+                            if((walletBalance == 0) || (walletBalance < amountSatoshis)){
+                                res.json({success: "3", message: "You have not enough wallet balance to send coin."});
+                            } else {
+                                let params = {
+                                    amount: amountSatoshis,
+                                    address: destinationAddress,
+                                    walletPassphrase: walletPassphrase
+                                  };
+
+                                  wallet.send(params)
+                                  .then(function (walletTransaction) {
+                                    models.wallet_transaction.create({
+                                        sender_id: userid,
+                                        receiver_id: receiver_id,
+                                        currency_id: currency_id,
+                                        wallet_id: walletDbId,
+                                        address_id: destinationAddressId,
+                                        amount: amountSatoshis,
+                                        type: type
+                                    }).then(function (result) {
+                                        res.json({success: "1", message: "You have sent coin successfully."});
+                                    });
+                                });
+                            }
+                        });
+                    } else {
+                        res.json({success: "2", message: "Wallet address not found."});
+                    }
+                });
+            }
+            else{
+                res.json({success: "0", message: "Wallet not found. Please create wallet."});
+            }
+        });
+    });
+
+
+
+
+
 };

@@ -1686,6 +1686,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     });
 
+    /* 
     app.post('/deposit-currency', function(req, res){
         var destinationAddress = "";
         var coin_amount = req.body.coin_amount;
@@ -1743,6 +1744,81 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                                     }
                                     console.dir(result);
                                 }).then(function (walletTransaction) {
+                                    wallet_transaction.create({
+                                        sender_id: userid,
+                                        receiver_id: "0",
+                                        currency_id: currency_id,
+                                        wallet_id: walletDbId,
+                                        address_id: "0",
+                                        amount: amountSatoshis,
+                                        type: type
+                                    }).then(function (result) {
+                                        res.json({success: "1", message: "You have sent coin successfully."});
+                                    });
+                                });
+                            }
+                        });
+                    
+                
+            }
+            else{
+                res.json({success: "0", message: "Wallet not found. Please create wallet."});
+            }
+        });
+    });
+    */
+
+    app.post('/deposit-currency', function(req, res){
+        var destinationAddress = "";
+        var coin_amount = req.body.coin_amount;
+        var amountSatoshis = coin_amount * 1e8;
+        var walletPassphrase = 'COinjolt123!!';
+        var userid = req.user.id;
+        var currency_id = "1";
+        var walletDbId;
+        var walletId;
+        var destinationAddressId;
+        var receiver_id;
+        var walletBalance;
+        var type = "2";
+        var currency_code = "btc";
+
+        wallet.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: currency_id
+            }
+        }).then(results => {
+            var count = results.count;
+            if(count > 0){
+                console.log("wallet found");
+                // console.log(JSON.stringify(results, undefined, 2));
+                walletDbId = results.rows[0].id;
+                walletId = results.rows[0].bitgo_wallet_id;
+                console.log("walletId");
+                console.log(walletDbId);
+                console.log(walletId);
+                console.log("address found");
+                
+                        console.log("sender_id");
+                        console.log(userid);
+                        //var bitgoVerify = new BitGo.BitGo({env: 'test', accessToken: req.cookies.BITGO_ACCESS_TOKEN});
+                        bitgo.coin(currency_code).wallets().get({ id: walletId })
+                        .then(function(wallet) {
+                            // walletBalance = (wallet.balance() / 1e8).toFixed(4);
+                            walletBalance = wallet._wallet.balance;
+                            console.log("walletBalance");
+                            console.log(walletBalance);
+                            if((walletBalance == 0) || (walletBalance < amountSatoshis)){
+                                res.json({success: "2", message: "You have not enough wallet balance to send coin."});
+                            } else {
+                                let params = {
+                                    amount: amountSatoshis,
+                                    address: destinationAddress,
+                                    walletPassphrase: walletPassphrase
+                                  };
+                                  wallet.send(params)
+                                  .then(function (walletTransaction) {
                                     wallet_transaction.create({
                                         sender_id: userid,
                                         receiver_id: "0",

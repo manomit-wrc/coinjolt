@@ -4,7 +4,7 @@
 
 <ol class="breadcrumb">
   <li>
-    <a href="/dashboard">
+    <a href="/admin/dashboard">
       <i class="fa fa-dashboard"></i>Home</a>
   </li>
    <li>
@@ -94,7 +94,14 @@
                 <div class="col-md-12">
                      <div class="form-group">
                         <label for="meta_keywords">Author Name:</label>
-                        <input type="text" class="form-control input-lg" id="post_author_name" name="post_author_name" placeholder="Author Name" value="{{blogDetail.0.post_author}}">
+                        <input type="text" class="form-control input-lg" id="edit_post_author_name" name="edit_post_author_name" placeholder="Author Name" value="{{blogDetail.0.post_author}}">
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                     <div class="form-group">
+                        <label for="edit_author_description">Author Description:</label>
+                        <textarea class="form-control input-lg" id="edit_author_description" name="edit_author_description" placeholder="Enter Author Description">{{blogDetail.0.post_author_description}}</textarea>
                     </div>
                 </div>
 

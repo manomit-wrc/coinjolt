@@ -55,7 +55,8 @@ module.exports = function (app, models) {
             status: 1,
             post_category_id: req.body.post_category,
             meta_keywords: req.body.meta_keywords,
-            post_author: req.body.post_author_name
+            post_author: req.body.post_author_name,
+            post_author_description: req.body.author_description
         }).then(function(resp){
             res.json({
                 status:true,
@@ -103,7 +104,8 @@ module.exports = function (app, models) {
             status: 1,
             post_category_id: req.body.edit_post_category,
             meta_keywords: req.body.edit_meta_keywords,
-            post_author: req.body.post_author_name
+            post_author: req.body.edit_post_author_name,
+            post_author_description: req.body.edit_author_description
         },{
             where: {
                 id: blog_Id 

@@ -83,6 +83,10 @@ $(document).ready(function(){
             },
             post_author_name: {
                 required: true
+            },
+            author_description: {
+                required: true,
+                maxlength: 500
             }
         },
         messages: {
@@ -110,6 +114,10 @@ $(document).ready(function(){
             },
             post_author_name: {
                 required: "Please enter author name"
+            },
+            author_description: {
+                required: "Please enter author description",
+                maxlength: "Author description should be within 500 characters"
             }
         },
         submitHandler:function(form) {
@@ -188,6 +196,13 @@ $('#edit_blog_post_form').validate({
         },
         edit_meta_keywords: {
             required: true
+        },
+        edit_post_author_name: {
+            required: true
+        },
+        edit_author_description: {
+            required: true,
+            maxlength: 500
         }
     },
     messages: {
@@ -212,6 +227,13 @@ $('#edit_blog_post_form').validate({
         },
         edit_meta_keywords: {
             required: "Please enter meta keywords."
+        },
+        edit_post_author_name: {
+            required: "Please enter author name"
+        },
+        edit_author_description: {
+            required: "Please enter author description",
+            maxlength: "Author description should be within 500 characters"
         }
     },
     submitHandler:function(form) {

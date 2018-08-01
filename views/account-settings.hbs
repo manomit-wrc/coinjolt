@@ -424,178 +424,182 @@
     </div>
     <!-- start shareholder form -->
          <div class="box">
-             <div class="box-header with-border">
+            <div class="box-header with-border">
                 <h3 class="box-title">Shareholder Details</h3>
-             </div>
-             <div class="col-md-12">
-                    <div class="shareholders">
-                        <div class="table-responsive">
-                            <div class="modal fade" id="1271" role="dialog">
-                                <div class="modal-dialog modal-lg modal-sm share-holder-details-popup">
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                            <div class="shareholders">
+                                <div class="table-responsive">
+                                    <div class="modal fade" id="1271" role="dialog">
+                                        <div class="modal-dialog modal-lg modal-sm share-holder-details-popup">
 
-                                                            <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">×</button>
-                                            <h4 class="modal-title">Share Holder Details</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="col-md-3">
-                                                        <label>Shareholder Name : </label>
-                                                    </div>
-                                                    <div class="col-md-9">	
-                                                        <p id="id">asd</p>
-                                                    </div>
+                                                                    <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                                    <h4 class="modal-title">Share Holder Details</h4>
                                                 </div>
-
-                                                <div class="col-md-6">
-                                                    
-                                                    <div class="col-md-6">
-                                                        <label>Proof of Address: </label>
-                                                    </div>
-                                                    <div class="col-md-6">	
-                                                        <a href=""><img src="" width="100px" height="100px"></a>
-                                                    </div>
-                                                    
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    
-                                                    <div class="col-md-6">
-                                                        <label>Government Issued ID: </label>
-                                                    </div>
-                                                    <div class="col-md-6">	
-                                                        <a href="">	<img src="" width="100px" height="100px"></a>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Shareholders</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                    <tbody>
-                                        {{#each shareholders_info}}
-                                            <div class="modal fade" id="{{this.id}}" role="dialog">
-                                                <div class="modal-dialog modal-lg modal-sm share-holder-details-popup">
-
-                                                    <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal">×</button>
-                                                        <h4 class="modal-title">Share Holder Details</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-3">
-                                                                    <label>Shareholder Name : </label>
-                                                                </div>
-                                                                <div class="col-md-9">	
-                                                                    <p id="id">{{this.shareholder_name}}</p>
-                                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-3">
+                                                                <label>Shareholder Name : </label>
                                                             </div>
-
-                                                            <div class="col-md-6">
-                                                                
-                                                                <div class="col-md-6">
-                                                                    <label>Proof of Address: </label>
-                                                                </div>
-                                                                <div class="col-md-6">	
-                                                                    
-                                                                    {{#if (multiple_if (getUploadedFileExtension this.address_proof) 'jpg' ) }}
-                                                                            <img src="{{this.address_proof}}" width="100px" height="100px">
-                                                                        {{else if (multiple_if (getUploadedFileExtension this.address_proof) 'png' )}}
-                                                                            <img src="{{this.address_proof}}" width="100px" height="100px">
-                                                                        {{else if (multiple_if (getUploadedFileExtension this.address_proof) 'jpeg' )}}
-                                                                            <img src="{{this.address_proof}}" width="100px" height="100px">
-                                                                        {{else}}
-                                                                            <a href="{{this.address_proof}}" target="_blank">Link To Proof Of Address</a>
-                                                                    {{/if}}
-
-                                                                </div>
-                                                                
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                
-                                                                <div class="col-md-6">
-                                                                    <label>Government Issued ID: </label>
-                                                                </div>
-                                                                <div class="col-md-6">	
-
-                                                                    {{#if (multiple_if (getUploadedFileExtension this.government_issued_id) 'jpg' ) }}
-                                                                            <img src="{{this.government_issued_id}}" width="100px" height="100px">
-                                                                        {{else if (multiple_if (getUploadedFileExtension this.government_issued_id) 'png' )}}
-                                                                            <img src="{{this.government_issued_id}}" width="100px" height="100px">
-                                                                        {{else if (multiple_if (getUploadedFileExtension this.government_issued_id) 'jpeg' )}}
-                                                                            <img src="{{this.government_issued_id}}" width="100px" height="100px">
-                                                                        {{else}}
-                                                                            <a href="{{this.government_issued_id}}" target="_blank">Link To Government Issued Id</a>
-                                                                    {{/if}}
-
-
-                                                                </div>
-                                                                
+                                                            <div class="col-md-9">	
+                                                                <p id="id">asd</p>
                                                             </div>
                                                         </div>
+
+                                                        <div class="col-md-6">
+                                                            
+                                                            <div class="col-md-6">
+                                                                <label>Proof of Address: </label>
+                                                            </div>
+                                                            <div class="col-md-6">	
+                                                                <a href=""><img src="" width="100px" height="100px"></a>
+                                                            </div>
+                                                            
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            
+                                                            <div class="col-md-6">
+                                                                <label>Government Issued ID: </label>
+                                                            </div>
+                                                            <div class="col-md-6">	
+                                                                <a href="">	<img src="" width="100px" height="100px"></a>
+                                                            </div>
+                                                            
+                                                        </div>
                                                     </div>
-
                                                 </div>
 
-                                                </div>
                                             </div>
-                                            <tr>
-                                                <td>{{this.shareholder_name}}</td>
-                                                <td><a href="javascript:void(0)" class="btn btn-primary" id="showShareholderInfo" data-toggle="modal" data-target="#{{this.id}}">View</a>
-                                                    <button class="btn btn-primary deleteShareholderInfo" type="button" data-sid="{{this.id}}" >Delete</button></td>
-                                            </tr>
-                                        {{/each}}
-                                        {{!-- <tr>
-                                            <td>qsd</td>
-                                            <td><a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#1211">View</a>
-                                                <button class="btn btn-primary" onclick="deleteShare(121)">Delete</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>asd</td>
-                                            <td><a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#1271">View</a>
-                                                <button class="btn btn-primary" onclick="deleteShare(127)">Delete</button></td>
-                                        </tr> --}}
 
-                                    </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-             <form method="post" action="/save-shareholderData" name="shareholderForm" id="shareholderForm" enctype="multipart/form-data">
-                 <div class="box-body">
-                     <div id="shareholder_div">
-                            <div class="">
-                                <div class="col-md-12">
-                                    <label class="shareholders-box">Add or Remove Shareholders</label>
-                                    <button class="btn btn-primary" onclick="append(event)">+</button>
-                                    <button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
-                                    <span style="margin-bottom: 5%;"></span>
-                                    <br>
+                                        </div>
+                                    </div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Shareholders</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                            <tbody>
+                                                {{#each shareholders_info}}
+                                                    <div class="modal fade" id="{{this.id}}" role="dialog">
+                                                        <div class="modal-dialog modal-lg modal-sm share-holder-details-popup">
+
+                                                            <!-- Modal content-->
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                                <h4 class="modal-title">Share Holder Details</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-3">
+                                                                            <label>Shareholder Name : </label>
+                                                                        </div>
+                                                                        <div class="col-md-9">	
+                                                                            <p id="id">{{this.shareholder_name}}</p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        
+                                                                        <div class="col-md-6">
+                                                                            <label>Proof of Address: </label>
+                                                                        </div>
+                                                                        <div class="col-md-6">	
+                                                                            
+                                                                            {{#if (multiple_if (getUploadedFileExtension this.address_proof) 'jpg' ) }}
+                                                                                    <img src="{{this.address_proof}}" width="100px" height="100px">
+                                                                                {{else if (multiple_if (getUploadedFileExtension this.address_proof) 'png' )}}
+                                                                                    <img src="{{this.address_proof}}" width="100px" height="100px">
+                                                                                {{else if (multiple_if (getUploadedFileExtension this.address_proof) 'jpeg' )}}
+                                                                                    <img src="{{this.address_proof}}" width="100px" height="100px">
+                                                                                {{else}}
+                                                                                    <a href="{{this.address_proof}}" target="_blank">Link To Proof Of Address</a>
+                                                                            {{/if}}
+
+                                                                        </div>
+                                                                        
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        
+                                                                        <div class="col-md-6">
+                                                                            <label>Government Issued ID: </label>
+                                                                        </div>
+                                                                        <div class="col-md-6">	
+
+                                                                            {{#if (multiple_if (getUploadedFileExtension this.government_issued_id) 'jpg' ) }}
+                                                                                    <img src="{{this.government_issued_id}}" width="100px" height="100px">
+                                                                                {{else if (multiple_if (getUploadedFileExtension this.government_issued_id) 'png' )}}
+                                                                                    <img src="{{this.government_issued_id}}" width="100px" height="100px">
+                                                                                {{else if (multiple_if (getUploadedFileExtension this.government_issued_id) 'jpeg' )}}
+                                                                                    <img src="{{this.government_issued_id}}" width="100px" height="100px">
+                                                                                {{else}}
+                                                                                    <a href="{{this.government_issued_id}}" target="_blank">Link To Government Issued Id</a>
+                                                                            {{/if}}
+
+
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <tr>
+                                                        <td>{{this.shareholder_name}}</td>
+                                                        <td><a href="javascript:void(0)" class="btn btn-primary" id="showShareholderInfo" data-toggle="modal" data-target="#{{this.id}}">View</a>
+                                                            <button class="btn btn-primary deleteShareholderInfo" type="button" data-sid="{{this.id}}" >Delete</button></td>
+                                                    </tr>
+                                                {{/each}}
+                                                {{!-- <tr>
+                                                    <td>qsd</td>
+                                                    <td><a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#1211">View</a>
+                                                        <button class="btn btn-primary" onclick="deleteShare(121)">Delete</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>asd</td>
+                                                    <td><a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#1271">View</a>
+                                                        <button class="btn btn-primary" onclick="deleteShare(127)">Delete</button></td>
+                                                </tr> --}}
+
+                                            </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                       
-                 </div>
-                  <button class="btn btn-primary subbtn btn-block" type="submit" name="updateshareholderdata" id="updateshareholderdata" style="margin-bottom: 40px;">Save Shareholder</button>
-             </form>
-         </div>
+                    </div>
+                    <form method="post" action="/save-shareholderData" name="shareholderForm" id="shareholderForm" enctype="multipart/form-data">
+                        <div class="box-body">
+                            <div id="shareholder_div">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="shareholders-box">Add or Remove Shareholders</label>
+                                        <button class="btn btn-primary" onclick="append(event)">+</button>
+                                        <button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
+                                        <span style="margin-bottom: 5%;"></span>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>        
+            </div>
+            
+                <button class="btn btn-primary subbtn btn-block" type="submit" name="updateshareholderdata" id="updateshareholderdata" style="margin-bottom: 40px;">Save Shareholder</button>
+            </form>
         <!-- end shareholder form -->
 </section>
 

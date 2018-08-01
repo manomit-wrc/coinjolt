@@ -24,7 +24,7 @@
                 <form action="/buy-coin" method="post">
                   <div class="form-group">
                     <select class="form-control" id="currency_purchased" name="currency_purchased">
-                      <option value="">Please select a digital currency.</option>
+                      <option value="">Please select an option.</option>
                       {{#each contents}}
                       <option class="uppertext" value="{{this.alt_name}}">{{this.display_name}} ({{this.currency_id}})</option>
                       {{/each}}
@@ -67,7 +67,7 @@
                 <form action="" method="post">
                   <div class="form-group">
                     <select class="form-control" id="currency_sold" name="currency_sold">
-                      <option value="">Please select a digital currency.</option>
+                      <option value="">Please select an option.</option>
                       {{#each contents}}
                       <option class="uppertext" value="{{this.alt_name}}">{{this.display_name}} ({{this.currency_id}})</option>
                       {{/each}}
@@ -98,13 +98,13 @@
                 {{/if_eq}} {{#if_eq user.kycApproved "3"}}
                 <div class="form-group">
                   <label>Sell</label>
-                  <p>Sell feature is disabled because your ID hasn't been approved. Please upload correct a valid ID in
+                  <p>Sell feature is disabled because your ID hasn't been approved. Please upload correct a valid ID in your
                     <a href="/account/account-settings">account settings</a>.</p>
                 </div>
                 {{/if_eq}} {{#if_eq user.kycApproved "0"}}
                 <div class="form-group">
                   <label>Sell</label>
-                  <p>Sell feature is disabled because your ID hasn't been approved. Please upload correct a valid ID in
+                  <p>Sell feature is disabled because your ID hasn't been approved. Please upload correct a valid ID in your 
                     <a href="/account/account-settings">account settings</a>.</p>
                 </div>
                 {{/if_eq}}
@@ -269,7 +269,7 @@
     </div> --}}
     <!-- Ends Market Capitalization Graph -->
     <!-- Starts Cryptocurrency Live Chart -->
-    <div class="crypto-live-chart">
+    {{!-- <div class="crypto-live-chart">
       <div class="row">
         <div class="col-md-12">
           <div class="box">
@@ -289,7 +289,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
     <!-- Ends Cryptocurrency Live Chart -->
   </div>
 </section>

@@ -80,6 +80,9 @@ $(document).ready(function(){
             },
             meta_keywords: {
                 required: true
+            },
+            post_author_name: {
+                required: true
             }
         },
         messages: {
@@ -104,6 +107,9 @@ $(document).ready(function(){
             },
             meta_keywords: {
                 required: "Please enter a meta keywords."
+            },
+            post_author_name: {
+                required: "Please enter author name"
             }
         },
         submitHandler:function(form) {

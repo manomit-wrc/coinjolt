@@ -320,6 +320,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 	app.get('/admin/most-recent-transactions/generate', acl, (req, res) => {
 		Deposit.belongsTo(User, {foreignKey: 'user_id'});
 		Deposit.findAll({
+			attributes: ['id', 'amount', 'createdAt', 'type', 'User.first_name', 'User.last_name'],
 			include: [{
 				model: User
 			}],
@@ -327,22 +328,11 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 				['id', 'DESC']
 			]
 		}).then(result => {
-			var result = JSON.parse(JSON.stringify(result));
-
 			var resultArr = [];
-			var full_name;
-
 			for (var i = 0; i < result.length; i++) {
-				
-				if(result[i].User != null){
-					full_name = result[i].User.first_name + " " + result[i].User.last_name;
-				}else{
-					full_name = ''
-				}
-
 				resultArr.push({
 					id: result[i].id,
-					name: full_name,
+					name: result[i].User.first_name + " " + result[i].User.last_name,
 					amount: result[i].amount,
 					type: result[i].type,
 					createdAt: result[i].createdAt

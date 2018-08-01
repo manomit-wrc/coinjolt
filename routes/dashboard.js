@@ -427,7 +427,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.post('/account-settings', function (req, res) {
-
         var countryId = req.body.country;
         if (countryId === "226") {
             state = req.body.usa_states;
@@ -1462,87 +1461,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     //         layout: 'dashboard'
     //     });
     // });
-    var upload_shareholder_docs = multer();
-    app.post('/save-shareholderData', upload_shareholder_docs.any(), (req, res) =>{
-
-        console.log('**PROOF OF ADDRESS******'); // ok
-        var upload_docs_dynmc = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc");
-        console.log(upload_docs_dynmc);
-        console.log('***END*****');
-
-       /*  console.log('**GOVT ISSUED ID******');   //ok
-        var upload_docs_dynmc_1 = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc-1");
-        console.log(upload_docs_dynmc_1);
-        console.log('***END*****'); */
-
-
-        var upload_docs_dynmc = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc");
-        var upload_docs_dynmc_1 = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc-1");
-        async.eachSeries(upload_docs_dynmc, ( item, cb ) => {
-            console.log('**JSON after upload****');
-            
-           
-            var tempArr = lodash.filter(JSON.parse(req.body.proof_of_address), x => x.temp_file_name === item.originalname);
-
-            console.log(tempArr);
-
-            var upload_path = tempArr[0].folder_name+"/"+item.originalname;
-
-            var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
-
-            s3bucket.upload(params, function(err, data) {
-                if (err) {
-                    console.log("Error uploading data. ", err);
-                    cb(err)
-                } else {
-                    console.log("Success uploading data");
-                    cb()
-                }
-            })
-        
-        }, function(err) {
-            shareholder.destroy({
-                where: {
-                    user_id: req.user.id
-                }
-            });
-            async.eachSeries(upload_docs_dynmc_1, (item, cb ) => {
-                var index = upload_docs_dynmc_1.indexOf(item);
-
-                var tempArr = lodash.filter(JSON.parse(req.body.proof_of_address), x => x.temp_file_name === item.originalname);
-                var upload_path = "govt_id/"+item.originalname;
-
-                shareholder.create({
-                    user_id: req.user.id,
-                    shareholder_name: req.body.shareholder_name[index] ,
-                    address_proof: keys.S3_URL + "address_proof/"+upload_docs_dynmc[index].originalname,
-                    government_issued_id: keys.S3_URL + upload_path
-                });
-
-                var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
-
-
-
-                s3bucket.upload(params, function(err, data) {
-                    if (err) {
-                        console.log("Error uploading data. ", err);
-                        cb(err)
-                    } else {
-                        console.log("Success uploading data");
-                        cb()
-                    }
-                })
-            }, function(err,data) {
-                if(err)
-                    console.log(err);
-                res.redirect('/account/account-settings');    
-            });
-
-
-        });
-
-
-    });
 
     app.post('/remove-shareholderInfo', (req, res) =>{
         var shareHolderId = req.body.shareholderId;

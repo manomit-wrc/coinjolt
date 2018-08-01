@@ -316,11 +316,6 @@ $("#usd_amount").blur(function(){
 	}
 });
 
-$("#pdf").on('click', function () {
- 	var doc = document.getElementById("#pdf_form");
- 	doc.print();
-});
-
 
 // $( "#deposit_funds_bwt" ).click(function(event) {
 // 	$("#selecterror").hide();

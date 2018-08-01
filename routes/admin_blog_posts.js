@@ -123,7 +123,7 @@ module.exports = function (app, models) {
         
         var blogID = req.body.blogId;
         const getBlogImage = await models.blog_post.findAll({where: {id: blogID}});
-        console.log(JSON.stringify(getBlogImage, undefined, 2));
+        
         var imgName = getBlogImage[0].featured_image;
 
         if(imgName!= ''){

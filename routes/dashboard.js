@@ -1224,7 +1224,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.post('/save-institutionalIndividual-data', (req, res) => {
 
-        console.log(JSON.stringify(req.body, undefined, 2));
 
         var businessName = req.body.business_name;
         var businessNumber = req.body.business_number;

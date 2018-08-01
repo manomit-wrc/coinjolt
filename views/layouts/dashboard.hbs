@@ -285,13 +285,13 @@
             },
             function(isConfirm) {
                 if (isConfirm) {
-                    swal({
-                        title: "Blog post deleted successful.",
-                        text: "You have successfully deleted the blog post.",
-                        type: "success"
-                    },
-                    function(isConfirm) {
-                        if (isConfirm) {
+                    //swal({
+                        //title: "Blog post deleted successful.",
+                        //text: "You have successfully deleted the blog post.",
+                        //type: "success"
+                    //},
+                    //function(isConfirm) {
+                        //if (isConfirm) {
                             $.ajax({
                                 type: "POST",
                                 url: '/admin/remove_blog_content',
@@ -302,8 +302,9 @@
                                     }
                                 }
                             });
-                        }
-                    });
+                        //}
+                    //}
+                    //);
 
                 } else {
                     swal("Cancelled", "You cancelled deleting this blog post.", "error");
@@ -1361,7 +1362,7 @@
                                 var currency_id = result.curr_id;
                                 swal({
                                     title: "Transaction Confirmation",
-                                    text: "You are buying " + actualAmtExpect + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + " Wallet:\n Current balance: " +c_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
+                                    text: "You are buying " + actualAmtExpect + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + " Wallet:\n Current balance: " +c_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): $0.00",
                                     type: "warning",
                                     showCancelButton: true,
                                     confirmButtonClass: "btn-danger",
@@ -1651,7 +1652,7 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                                 var currency_id = result.curr_id;
                                 swal({
                                     title: "Transaction Confirmation",
-                                    text: "You are selling " + amtVal + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + " Wallet:\n Current balance: " +c_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): You will be charged a total amount of $0.00 to complete this transaction.",
+                                    text: "You are selling " + amtVal + " " + currency_name + " at the current market rate of " + Number(coinRate).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "\n\nUSD  Wallet:\nCurrent balance:$" +currentUsdBalance+"\nFinal balance:$"+finalusdBalance+"\n\n" + currency_name + " Wallet:\n Current balance: " +c_blnc+"\n Final balance: " +t_amt+ "\n\nTransaction fee (0%): $0.00",
                                     type: "warning",
                                     showCancelButton: true,
                                     confirmButtonClass: "btn-danger",

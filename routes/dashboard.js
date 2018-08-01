@@ -427,6 +427,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.post('/account-settings', function (req, res) {
+
+        //console.log(JSON.stringify(req.body, undefined, 2));
+
         var countryId = req.body.country;
         if (countryId === "226") {
             state = req.body.usa_states;
@@ -505,6 +508,77 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }).catch(function (err) {
             console.log(err);
         });
+    });
+
+    
+    var upload_shareholder_docs = multer();
+    app.post('/save-shareholderData', upload_shareholder_docs.any(), (req, res) =>{
+
+        
+        var upload_docs_dynmc = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc");
+        
+        var upload_docs_dynmc_1 = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc-1");
+
+        
+        async.eachSeries(upload_docs_dynmc, ( item, cb ) => {
+
+            var tempArr = lodash.filter(JSON.parse(req.body.proof_of_address), x => x.temp_file_name === item.originalname);
+
+            var upload_path = tempArr[0].folder_name+"/"+item.originalname;
+
+            var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
+
+            s3bucket.upload(params, function(err, data) {
+                if (err) {
+                    console.log("Error uploading data. ", err);
+                    cb(err)
+                } else {
+                    console.log("Success uploading data");
+                    cb()
+                }
+            })
+        
+        }, function(err) {
+            shareholder.destroy({
+                where: {
+                    user_id: req.user.id
+                }
+            });
+            async.eachSeries(upload_docs_dynmc_1, (item, cb ) => {
+                var index = upload_docs_dynmc_1.indexOf(item);
+
+                var tempArr = lodash.filter(JSON.parse(req.body.proof_of_address), x => x.temp_file_name === item.originalname);
+                var upload_path = "govt_id/"+item.originalname;
+
+                shareholder.create({
+                    user_id: req.user.id,
+                    shareholder_name: req.body.shareholder_name[index] ,
+                    address_proof: keys.S3_URL + "address_proof/"+upload_docs_dynmc[index].originalname,
+                    government_issued_id: keys.S3_URL + upload_path
+                });
+
+                var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
+
+
+
+                s3bucket.upload(params, function(err, data) {
+                    if (err) {
+                        console.log("Error uploading data. ", err);
+                        cb(err)
+                    } else {
+                        console.log("Success uploading data");
+                        cb()
+                    }
+                })
+            }, function(err,data) {
+                if(err)
+                    console.log(err);
+            });
+
+            res.json({ msg: 'Saved', success: "true" });
+        });
+
+
     });
 
     app.post('/save-referral-name', function (req, res) {
@@ -1150,7 +1224,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.post('/save-institutionalIndividual-data', (req, res) => {
 
-        console.log(JSON.stringify(req.body, undefined, 2));
 
         var businessName = req.body.business_name;
         var businessNumber = req.body.business_number;
@@ -1276,6 +1349,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             async.eachSeries(upload_docs, ( item, cb ) => {
                 console.log("Here");
                 var tempArr = lodash.filter(JSON.parse(req.body.upload_file_name), x => x.temp_file_name === item.originalname);
+                console.log('****');
+                console.log(JSON.stringify(tempArr, undefined, 2));
+                console.log('****');
                 var upload_path = tempArr[0].folder_name+"/"+item.originalname;
                 
                 var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
@@ -1461,6 +1537,75 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     //         layout: 'dashboard'
     //     });
     // });
+    
+    /* app.post('/save-shareholderData', upload_shareholder_docs.any(), (req, res) =>{
+
+        
+        var upload_docs_dynmc = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc");
+        
+        var upload_docs_dynmc_1 = lodash.filter(req.files, x => x.fieldname === "upload_docs_dynmc-1");
+
+        
+        async.eachSeries(upload_docs_dynmc, ( item, cb ) => {
+
+            var tempArr = lodash.filter(JSON.parse(req.body.proof_of_address), x => x.temp_file_name === item.originalname);
+
+            var upload_path = tempArr[0].folder_name+"/"+item.originalname;
+
+            var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
+
+            s3bucket.upload(params, function(err, data) {
+                if (err) {
+                    console.log("Error uploading data. ", err);
+                    cb(err)
+                } else {
+                    console.log("Success uploading data");
+                    cb()
+                }
+            })
+        
+        }, function(err) {
+            shareholder.destroy({
+                where: {
+                    user_id: req.user.id
+                }
+            });
+            async.eachSeries(upload_docs_dynmc_1, (item, cb ) => {
+                var index = upload_docs_dynmc_1.indexOf(item);
+
+                var tempArr = lodash.filter(JSON.parse(req.body.proof_of_address), x => x.temp_file_name === item.originalname);
+                var upload_path = "govt_id/"+item.originalname;
+
+                shareholder.create({
+                    user_id: req.user.id,
+                    shareholder_name: req.body.shareholder_name[index] ,
+                    address_proof: keys.S3_URL + "address_proof/"+upload_docs_dynmc[index].originalname,
+                    government_issued_id: keys.S3_URL + upload_path
+                });
+
+                var params = {Key: upload_path, Body: item.buffer, ACL:'public-read'};
+
+
+
+                s3bucket.upload(params, function(err, data) {
+                    if (err) {
+                        console.log("Error uploading data. ", err);
+                        cb(err)
+                    } else {
+                        console.log("Success uploading data");
+                        cb()
+                    }
+                })
+            }, function(err,data) {
+                if(err)
+                    console.log(err);
+            });
+
+            res.json({ msg: 'Saved', success: "true" });
+        });
+
+
+    }); */
 
     app.post('/remove-shareholderInfo', (req, res) =>{
         var shareHolderId = req.body.shareholderId;

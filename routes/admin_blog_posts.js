@@ -33,7 +33,7 @@ module.exports = function (app, models) {
     var blogImageUpload = multer({ storage: blogImageStorage, limits: {fileSize:3000000, fileFilter:restrictBlogImgType} });
 
     app.post('/admin/post_blog_content', acl, blogImageUpload.single('post_featured_image'), async(req,res) => {
-        
+
         var photo = null;
         var allowedTypes = ['image/jpeg','image/gif','image/png'];
         var postImage = '';
@@ -52,10 +52,10 @@ module.exports = function (app, models) {
             featured_image: postImage,
             meta_title: req.body.meta_title,
             meta_description: req.body.meta_description,
-            author_id: req.user.id,
             status: 1,
             post_category_id: req.body.post_category,
-            meta_keywords: req.body.meta_keywords
+            meta_keywords: req.body.meta_keywords,
+            post_author: req.body.post_author_name
         }).then(function(resp){
             res.json({
                 status:true,
@@ -100,10 +100,10 @@ module.exports = function (app, models) {
             featured_image: postImage,
             meta_title: req.body.edit_meta_title,
             meta_description: req.body.edit_meta_description,
-            author_id: req.user.id,
             status: 1,
             post_category_id: req.body.edit_post_category,
-            meta_keywords: req.body.edit_meta_keywords
+            meta_keywords: req.body.edit_meta_keywords,
+            post_author: req.body.post_author_name
         },{
             where: {
                 id: blog_Id 
@@ -123,7 +123,7 @@ module.exports = function (app, models) {
         
         var blogID = req.body.blogId;
         const getBlogImage = await models.blog_post.findAll({where: {id: blogID}});
-        console.log(JSON.stringify(getBlogImage, undefined, 2));
+        
         var imgName = getBlogImage[0].featured_image;
 
         if(imgName!= ''){

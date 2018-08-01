@@ -786,6 +786,7 @@
                         required: true,
                         email: true
                     }
+                    
                 },
                 messages: {
                     user_name: {
@@ -854,8 +855,147 @@
                         required: "Please enter a valid email address.",
                         email: "Please enter a valid email address."
                     }
+                    
+                },
+                submitHandler:function(form) {
+                    
+                   
+                     
+
+                    // start
+                     $.ajax({
+                        type: "POST",
+                        url: "/account-settings",
+                        data: form_data,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function() {
+                            //$(".loader-gif").css('display', 'block');
+                            $("#updatesubmit").prop('disabled', true);
+                        },  
+                        success: function(response) {
+                            //$(".loader-gif").css('display', 'none');
+                            $("#updatesubmit").prop('disabled', false);
+                            if(response.success == 'true'){
+                                swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                                },function(isConfirm){
+                                    if(isConfirm){
+                                        window.location.href = "/account/account-settings";
+                                    }
+                                }); 
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log('Ajax Error');
+
+                            //$(".loader-gif").css('display', 'none');
+                            $("#updatesubmit").prop('disabled', false);
+                        }
+                    });
+                    // end
+
+
                 }
             });
+
+            // Shareholder form validation
+            $("#shareholderForm").validate({
+                rules: {
+                    'shareholder_name[]': {
+                        required: true
+                    },
+                    'articles_incorporation[]': {
+                        required: true,
+                        extension: 'jpg|JPG|jpeg|JPEG|png|PNG|pdf|PDF|doc|docx|DOC|DOCX'
+                    },
+                    'shareholder_id[]': {
+                        required: true,
+                        extension: 'jpg|JPG|jpeg|JPEG|png|PNG|pdf|PDF|doc|docx|DOC|DOCX'
+                    }
+                },
+                messages: {
+                    'shareholder_name[]': {
+                        required: "Please enter shareholder name"
+                    },
+                    'articles_incorporation[]': {
+                        required: "Please upload address proof",
+                        extension: 'Invalid file type'
+                    },
+                    'shareholder_id[]': {
+                        required: "Please upload govt issue id",
+                        extension: 'Invalid file type'
+                    }
+                },
+                submitHandler:function(form) {
+
+                    var form_data = new FormData();
+                    var upload_file_name = [];
+
+                    var proof_of_address = [];
+
+                    var shareholder_name = [];
+
+                    $(".file-dynmc").each(function(index) {
+                        if(this.files[0]) {
+                            proof_of_address.push({
+                                folder_name: $(this).data('temp-name'),
+                                folder_name_another: $(".file-dynmc-1").data('temp-name'),
+                                temp_file_name: this.files[0].name
+                            })
+                            form_data.append('upload_docs_dynmc', this.files[0]);
+                            form_data.append('upload_docs_dynmc-1', $(".file-dynmc-1")[index].files[0]);
+
+                        }
+                    });
+
+                    $(".shareholder_name").each(function(index) {
+                        form_data.append('shareholder_name', $(this).val());
+                    }); 
+                    
+                    form_data.append('proof_of_address', JSON.stringify(proof_of_address)); 
+
+                      $.ajax({
+                        type: "POST",
+                        url: "/save-shareholderData",
+                        data: form_data,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function() {
+                            //$(".loader-gif").css('display', 'block');
+                            $("#updateshareholderdata").prop('disabled', true);
+                        },  
+                        success: function(response) {
+                            //$(".loader-gif").css('display', 'none');
+                            $("#updateshareholderdata").prop('disabled', false);
+                            if(response.success == 'true'){
+                                swal({
+                                icon: "success",
+                                title: response.msg,
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "OK"
+                                },function(isConfirm){
+                                    if(isConfirm){
+                                        window.location.href = "/account/account-settings";
+                                    }
+                                }); 
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log('Ajax Error');
+
+                            //$(".loader-gif").css('display', 'none');
+                            $("#updateshareholderdata").prop('disabled', false);
+                        }
+                    });
+                }
+            })
+            // end
 
             // Script for Change password
             $("#changepassword").click(function(e) {
@@ -2603,7 +2743,7 @@ $('.deleteShareholderInfo').on('click', function(){
     event.preventDefault();
     var shareholder = document.getElementById('test');
 
-    $('#shareholder_div').append('<div class="multiple_div"><div class="col-md-4" id="name"><div class="form-group appnd"><label for="shareholder_name">Name:</label><input type="text" name="shareholder_name[]" class="form-control shareholder_name" id="shareholder_name" value=""><label for="shareholder_name" generated="true" class="error"></label></div></div><div class="col-md-4 " id="address"><div class="form-group articles_incorporation_div appnd" ><label>Proof of Address:</label><input type="file" name="articles_incorporation[]" class="form-control articles_incorporation file-dynmc" id="" data-temp-name="address_proof"><label for="articles_incorporation" generated="true" class="error"></label></div></div><div class="col-md-4 " id="government_id"  ><div class="form-group appnd"><label>Government Issued ID:</label><input type="file" name="shareholder_id[]" class="form-control shareholder_id file-dynmc-1" id="shareholder_id" value="" data-temp-name="govt_id"><label for="shareholder_id" generated="true" class="error"></label></div></div></div>');
+    $('#shareholder_div').append('<div class="multiple_div row"><div class="col-md-4" id="name"><div class="form-group appnd"><label for="shareholder_name">Name:</label><input type="text" name="shareholder_name[]" class="form-control shareholder_name" id="shareholder_name" value=""><label for="shareholder_name" generated="true" class="error"></label></div></div><div class="col-md-4 " id="address"><div class="form-group articles_incorporation_div appnd" ><label>Proof of Address:</label><input type="file" name="proof_of_address[]" class="form-control articles_incorporation file-dynmc" id="" data-temp-name="address_proof"><label for="articles_incorporation" generated="true" class="error"></label></div></div><div class="col-md-4 " id="government_id"  ><div class="form-group appnd"><label>Government Issued ID:</label><input type="file" name="shareholder_id[]" class="form-control shareholder_id file-dynmc-1" id="shareholder_id" value="" data-temp-name="govt_id"><label for="shareholder_id" generated="true" class="error"></label></div></div></div>');
     document.getElementById('remove').removeAttribute('disabled','disabled');
 }
 

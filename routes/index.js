@@ -807,7 +807,6 @@ module.exports = function (app, passport, models) {
         })
 
         ]).then(function (results) {
-            
             res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2], companySettingsData: results[3], postTitle: results[4]});
         });
 

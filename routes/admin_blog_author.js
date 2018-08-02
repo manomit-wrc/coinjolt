@@ -1,6 +1,7 @@
 const sequelize = require('sequelize');
 const acl = require('../middlewares/acl');
 var multer = require('multer');
+var fs = require('fs');
 module.exports = function (app, models) {
 
     var blogAuthorImageStorage = multer.diskStorage({
@@ -36,8 +37,6 @@ module.exports = function (app, models) {
 
         var authorDetails = await models.author.findAll({});
 
-        //console.log(JSON.stringify(authorDetails, undefined, 2));
-
         res.render('admin/blog/blog_authors', { layout: 'dashboard', title:"Blog Authors", authorDetails: authorDetails});
     });
 
@@ -67,6 +66,20 @@ module.exports = function (app, models) {
                 msg: "Author created successfully."
             });
         });
+    });
+
+    app.post('/admin/remove_author', async(req, res) =>{
+
+        var authorId = req.body.authorId;
+
+        models.author.destroy({
+            where: {
+                id: authorId
+            }
+        }).then(function (result) {
+            res.json({status: true, msg: "Author deleted successfully."});
+        });
+
 
 
     });

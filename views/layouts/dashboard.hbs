@@ -286,13 +286,7 @@
             },
             function(isConfirm) {
                 if (isConfirm) {
-                    //swal({
-                        //title: "Blog post deleted successful.",
-                        //text: "You have successfully deleted the blog post.",
-                        //type: "success"
-                    //},
-                    //function(isConfirm) {
-                        //if (isConfirm) {
+                    
                             $.ajax({
                                 type: "POST",
                                 url: '/admin/remove_blog_content',
@@ -303,10 +297,7 @@
                                     }
                                 }
                             });
-                        //}
-                    //}
-                    //);
-
+                    
                 } else {
                     swal("Cancelled", "You cancelled deleting this blog post.", "error");
                 }
@@ -421,6 +412,43 @@
             }
         }
 
+        function deleteAuthor(authorId){
+            //alert(authorId);
+             swal({
+                title: "Confirm Deletion of Author",
+                text: "Are you sure?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Confirm",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                customClass: 'swal-wide'
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    
+                            $.ajax({
+                                type: "POST",
+                                url: '/admin/remove_author',
+                                data: {authorId: authorId},
+                                success: function (response) {
+                                    if(response.status == true){
+                                        sweetAlertAuthorSuccessPopUp('Success',response.msg);
+                                    }
+                                }
+                            });
+                    
+                } else {
+                    swal("Cancelled", "You cancelled deleting this author.", "error");
+                }
+            }
+            );
+
+
+        }
+
         function sweetAlertEditSuccessPopUp(title='',text='') {
             swal({
                 title: title,
@@ -442,6 +470,18 @@
                 confirmButtonText: "OK"
             },  function() {
                 window.location.href=baseURL+"admin/blog";
+            });
+        }
+
+        function sweetAlertAuthorSuccessPopUp (title='',text='') {
+            swal({
+                title: title,
+                text: text,
+                type: "success",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK"
+            },  function() {
+                window.location.href=baseURL+"admin/blog-authors";
             });
         }
 

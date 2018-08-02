@@ -52,9 +52,9 @@
                 <ul class="latest-works-widget">
                   {{#each latest_news}}
                   <li>
-                    <div class="work-widget-thumb">
-                      <div class="image-overlay"></div>
+                    <div class="work-widget-thumb">                      
                       <a href="{{base_url}}/{{this.post_slug}}">
+                        <div class="image-overlay"></div>
                         {{#if_eq this.featured_image ""}}
                             <img class="img-responsive" src="dist/img/blog_default.png" alt="{{this.post_title}}">
                         {{else}}   
@@ -82,8 +82,8 @@
                   {{#each featured_posts}}
                   <li>
                     <div class="work-widget-thumb">
-                      <div class="image-overlay"></div>
                       <a href="{{base_url}}/{{this.post_slug}}">
+                        <div class="image-overlay"></div>
                         {{#if_eq this.featured_image ""}}
                             <img class="img-responsive" src="dist/img/blog_default.png" alt="{{this.post_title}}">
                         {{else}}   

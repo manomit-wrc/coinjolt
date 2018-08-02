@@ -15,19 +15,11 @@
         <div class="saboxplugin-wrap">
           <div class="logo-box">
 
-            {{#if_eq blogContent.0.post_author_image ""}}
-                <img class="img-responsive" src="../dist/frontend_cms/images/icon.png" alt="author default image"> 
-                 {{else}} 
-                      {{#if_eq blogContent.0.post_author_image null}}
-                        <img class="img-responsive" src="../dist/frontend_cms/images/icon.png" alt="author default image"> 
-                      {{else}} 
-                        {{#if_neq blogContent.0.post_author_image ""}}
-                          <img src="/blog_images/{{blogContent.0.post_author_image}}" class="img-responsive" alt="author image"> 
-                        {{/if_neq}}
-                      {{/if_eq}} 
-            {{/if_eq}}
-
-            
+            {{#if_neq postTitle.0.author null}}
+              <img class="img-responsive" src="../author_images/{{postTitle.0.author.author_image}}" alt="author default image"> 
+            {{else}} 
+                <img class="img-responsive" src="../dist/frontend_cms/images/icon.png" alt="author default image">
+            {{/if_neq}}            
 
           </div>
           <div class="authorname">

@@ -82,7 +82,7 @@ $(document).ready(function(){
         }
 
     });
-     
+
 
     function sweetAlertSuccessPopUp (title='',text='') {
         swal({

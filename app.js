@@ -302,6 +302,7 @@ require('./routes/admin_deposit_type')(app, models.deposit_method);
 require('./routes/cms')(app, models);
 require('./routes/admin_blog_posts')(app, models);
 require('./routes/admin_blog_categories')(app, models);
+require('./routes/admin_blog_author')(app, models);
 app.listen(port);
 console.log('The magic happens on port ' + port);
 

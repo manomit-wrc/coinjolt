@@ -1,0 +1,69 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Add an Author</h1>
+
+<ol class="breadcrumb">
+  <li>
+    <a href="/admin/dashboard">
+      <i class="fa fa-dashboard"></i>Home</a>
+  </li>
+  <li>
+    <a href="/admin/blog-authors">Manage Author</a>
+  </li>
+  <li class="active">Add an Author</li>
+</ol>
+</section>
+
+<div class="loader"></div>
+
+<!-- Main content -->
+<section class="content container-fluid">
+    <!-- Starts email-marketing -->
+            <div class="email-marketing">
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create an Author</h3>
+            </div>
+            <div class="box-body">
+                <form name="create_author_form" id="create_author_form" action="" method="POST" enctype="multipart/form-data">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="blog_post_title">Author Name:</label>
+                    <input type="text" class="form-control input-lg" id="author_name" name="author_name" placeholder="Author Name" value="">
+                  </div>
+                </div>
+
+                
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="post_description">Author Bio:</label>
+
+                    <textarea name="author_bio" class="form-control" id="author_bio" placeholder="Author Bio"></textarea>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="author_image">Upload author Image</label>
+                        <input name="author_image" class="form-control" id="author_image" type="file">
+                    </div>
+                </div>
+
+                 <div class="col-md-2 col-md-offset-5">
+                    <div class="form-group">
+                        <input class="btn btn-primary save_author" id="save_author" value="Create Author" type="button">
+                    </div>
+                </div>
+              </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+    <!-- Ends email-marketing -->
+</section>
+<!-- /.content -->
+

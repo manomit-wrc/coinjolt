@@ -1,0 +1,73 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Edit Author</h1>
+
+<ol class="breadcrumb">
+  <li>
+    <a href="/admin/dashboard">
+      <i class="fa fa-dashboard"></i>Home</a>
+  </li>
+  <li>
+    <a href="/admin/blog-authors">Manage Author</a>
+  </li>
+  <li class="active">Edit Author</li>
+</ol>
+</section>
+
+<div class="loader"></div>
+
+<!-- Main content -->
+<section class="content container-fluid">
+    <!-- Starts email-marketing -->
+            <div class="email-marketing">
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Edit an Author</h3>
+            </div>
+            <div class="box-body">
+                <form name="edit_author_form" id="edit_author_form" action="" method="POST" enctype="multipart/form-data">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="edit_author_name">Author Name:</label>
+                    <input type="text" class="form-control input-lg" id="edit_author_name" name="edit_author_name" placeholder="Author Name" value="{{authorDetail.0.author_name}}">
+                  </div>
+                </div>
+
+                
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="edit_author_bio">Author Bio:</label>
+
+                    <textarea name="edit_author_bio" class="form-control" id="edit_author_bio" placeholder="Author Bio">{{authorDetail.0.author_bio}}</textarea>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="edit_author_image">Upload author Image</label>
+                        <input name="edit_author_image" class="form-control" id="edit_author_image" type="file">
+                    </div>
+                     {{#if authorDetail.0.author_image}}
+                    <div>
+                        <img src="/author_images/{{authorDetail.0.author_image}}" width="50" height="50" />
+                    </div>
+                    {{/if}}
+
+                </div>
+
+                 <div class="col-md-2 col-md-offset-5">
+                    <div class="form-group">
+                        <input class="btn btn-primary edit_author" id="edit_author" value="Edit and Save Author" type="button">
+                    </div>
+                </div>
+              </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+</section>
+

@@ -83,6 +83,62 @@ $(document).ready(function(){
 
     });
 
+    $('#edit_author').on('click', function(){
+
+        $('#edit_author_form').submit();
+    });
+
+    $('#edit_author_form').validate({
+        ignore: [],
+        debug: false,
+        rules: {
+            edit_author_name: {
+                required: true
+            },
+            edit_author_bio: {
+                required: true
+            },
+            edit_author_image: {
+                extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
+            }
+        },
+        messages: {
+            edit_author_name: {
+                required: "Please enter author name."
+            },
+            edit_author_bio: {
+                required: "Please enter author bio."
+            },
+            edit_author_image: {
+                extension: "Must be a valid image type."
+            }
+        },
+        submitHandler:function(form) {
+            
+            var form_data = new FormData($('#edit_author_form')[0]);
+            
+            var authorIdArr = window.location.pathname.split( '/' );
+            var authorId = authorIdArr[3];
+
+            form_data.append('author_id',authorId);
+
+            $.ajax({
+                type: "POST",
+                url: '/admin/update_blog_author',
+                data: form_data,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if(response.status == true){
+                        sweetAlertSuccessPopUp('Success',response.msg);
+                    }
+                }
+            });
+
+        }
+
+    });
 
     function sweetAlertSuccessPopUp (title='',text='') {
         swal({

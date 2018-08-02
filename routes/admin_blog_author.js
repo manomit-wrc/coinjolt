@@ -45,8 +45,17 @@ module.exports = function (app, models) {
 		
     });
 
+    app.get('/admin/edit_author/:authorId', async(req, res) =>{
+        var authorId = req.params.authorId;
+
+        var authorDetail = await models.author.findAll({ where: { id : authorId}});
+        
+        res.render('admin/blog/author_edit', { layout: 'dashboard', authorDetail: authorDetail, title:"Edit Author"});
+            
+
+    });
+
     app.post('/admin/post_blog_author', blogAuthorImageUpload.single('author_image'),async(req, res) =>{
-        //console.log(JSON.stringify(req.body, undefined, 2));
 
         if(req.file !== undefined){
 
@@ -66,6 +75,41 @@ module.exports = function (app, models) {
                 msg: "Author created successfully."
             });
         });
+    });
+
+    app.post('/admin/update_blog_author', blogAuthorImageUpload.single('edit_author_image'),async(req, res) =>{ 
+        
+        var postImage = '';
+        var prevImage = '';
+
+        var author_Id = req.body.author_id;
+
+        prevImage = await models.author.findAll({where: {id: author_Id}});
+
+        if(req.file !== undefined){
+
+            postImage = req.file.filename;
+        }
+        else{
+            postImage = prevImage[0].author_image; 
+        }
+
+        const update = await models.author.update({
+            author_name: req.body.edit_author_name,
+            author_bio: req.body.edit_author_bio,
+            author_image: postImage
+        },{
+            where: {
+                id: author_Id 
+    
+            }
+        }).then(function(resp){
+            res.json({
+                status:true,
+                msg: "Author saved and updated."
+            });
+        });
+
     });
 
     app.post('/admin/remove_author', async(req, res) =>{

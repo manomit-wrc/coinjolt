@@ -104,7 +104,14 @@
                                     </p>
                                     <h3 class="post-title">{{this.post_title}}</h3>
                                 </a>
-                                <p class="subdetails">{{ this.post_author  }}</p>
+                                {{!-- <p class="subdetails">{{ this.post_author  }}</p> --}}
+                                <p class="subdetails">
+                                    {{#if_neq this.author null}}
+                                        {{this.author.author_name}}
+                                    {{else}} 
+                                        Coinjolt.com
+                                    {{/if_neq}}      
+                                </p>
                             </div>
                         {{/each}}
                     </div>

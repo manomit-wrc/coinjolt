@@ -57,7 +57,7 @@ module.exports = function (app, models) {
             status: 1,
             post_category_id: req.body.post_category,
             meta_keywords: req.body.meta_keywords,
-            post_author: req.body.post_author_name
+            author_id: req.body.post_author_name
         }).then(function(resp){
             res.json({
                 status:true,
@@ -73,7 +73,8 @@ module.exports = function (app, models) {
         var blogDetail = await models.blog_post.findAll({ where: { id : blogId}});
 
         var blog_categories = await models.blog_category.findAll({where: {status: 1}});
-        res.render('admin/blog/blog_edit', { layout: 'dashboard', blogDetail: blogDetail, blog_categories: blog_categories, title:"Edit Blog Post"});
+        var authors = await models.author.findAll();
+        res.render('admin/blog/blog_edit', { layout: 'dashboard', blogDetail: blogDetail, blog_categories: blog_categories, title:"Edit Blog Post", authors: authors});
             
 
     });
@@ -105,7 +106,7 @@ module.exports = function (app, models) {
             status: 1,
             post_category_id: req.body.edit_post_category,
             meta_keywords: req.body.edit_meta_keywords,
-            post_author: req.body.post_author_name
+            author_id: req.body.edit_post_author_name
         },{
             where: {
                 id: blog_Id 

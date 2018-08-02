@@ -205,7 +205,8 @@ $('#edit_blog_post_form').validate({
         },
         edit_post_author_name: {
             required: true
-        },
+        }
+        /*
         edit_author_description: {
             required: true,
             maxlength: 500
@@ -214,6 +215,7 @@ $('#edit_blog_post_form').validate({
             //required: true,
             extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
         }
+        */
     },
     messages: {
         edit_blog_post_title: {
@@ -240,7 +242,8 @@ $('#edit_blog_post_form').validate({
         },
         edit_post_author_name: {
             required: "Please enter author name"
-        },
+        }
+        /*
         edit_author_description: {
             required: "Please enter author description",
             maxlength: "Author description should be within 500 characters"
@@ -248,6 +251,7 @@ $('#edit_blog_post_form').validate({
         edit_author_image: {
             extension: "Must be a valid image type."
         }
+        */
     },
     submitHandler:function(form) {
 

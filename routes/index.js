@@ -761,6 +761,7 @@ module.exports = function (app, passport, models) {
         var blogPageSlug = req.params.blogDetail;
 
         models.blog_post.belongsTo(models.blog_category, {foreignKey: 'post_category_id'});
+        models.blog_post.belongsTo(models.author, {foreignKey: 'author_id'});
 
         Promise.all([
             models.blog_post.findAndCountAll({
@@ -798,15 +799,21 @@ module.exports = function (app, passport, models) {
                where: {
                     post_slug: blogPageSlug
                 },
-                include: [{
-                    model: models.blog_category
-                }],
+                include: [
+                    {
+                        model: models.blog_category
+                    },
+                    {
+                        model: models.author
+                    }
+                ],
                 order: [
                     ['id', 'DESC']
                 ]
         })
 
         ]).then(function (results) {
+            console.log(JSON.stringify(results[4], undefined, 2));
             res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2], companySettingsData: results[3], postTitle: results[4]});
         });
 

@@ -5,7 +5,7 @@
     <h1 class="blgpart">{{postTitle.0.post_title }}</h1>
     <ol class="breadcrumb">
       <li><a title="" href="">Home</a></li>
-      <li><a href="">Latest News</a></li>
+      <li><a href="">{{postTitle.0.blog_category.category_name }}</a></li>
       <li class="current">{{postTitle.0.post_title }}</li>
     </ol>
     <!-- <h2>{{postTitle.0.blog_category.category_name}}</h2> -->
@@ -32,7 +32,12 @@
           </div>
           <div class="authorname">
             <a href="" data-toggle="modal" data-target="#blogAuthorModal-{{postTitle.0.id }}">
-              {{ blogContent.0.post_author  }}
+              {{!-- {{ blogContent.0.post_author  }} --}}
+              {{#if_neq postTitle.0.author null}}
+                {{postTitle.0.author.author_name}}
+              {{else}} 
+                  Coinjolt.com
+              {{/if_neq}}
             </a> {{!--
             <p>Buy and sell digital assets instantly safely and securely with ZERO fees. Choose between doing it yourself or
               invest in a managed cryptocurrency portfolio.&nbsp;<a href="/signup">Click here to create a free account.</a></p>
@@ -131,7 +136,14 @@
         <button type="button" class="close" data-dismiss="modal">×</button>
       </div>
       <div class="modal-body">
-        <p>{{ blogContent.0.post_author_description }}</p>
+        <p>
+          {{!-- {{ blogContent.0.post_author_description }} --}}
+          {{#if_neq postTitle.0.author null}}
+            {{postTitle.0.author.author_bio}}
+          {{else}} 
+              Buy and sell digital assets instantly safely and securely with ZERO fees. Choose between doing it yourself or invest in a managed cryptocurrency portfolio.
+          {{/if_neq}}  
+        </p>
       </div>
     </div>
   </div>

@@ -96,8 +96,13 @@
 
                 <div class="col-md-12">
                      <div class="form-group">
-                        <label for="meta_keywords">Author Name:</label>
-                        <input type="text" class="form-control input-lg" id="post_author_name" name="post_author_name" placeholder="Author Name" value="">
+                        <label for="post_author_name">Author Name:</label>
+                        {{!-- <input type="text" class="form-control input-lg" id="post_author_name" name="post_author_name" placeholder="Author Name" value=""> --}}
+                        <select class="form-control" id="edit_post_author_name" name="edit_post_author_name">
+                          {{#each authors}}
+                            <option value="{{this.id}}">{{this.author_name}}</option>
+                          {{/each}}
+                        </select>
                     </div>
                 </div>
 

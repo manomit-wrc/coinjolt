@@ -87,6 +87,9 @@ $(document).ready(function(){
             author_description: {
                 required: true,
                 maxlength: 500
+            },
+            post_author_image: {
+                extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
             }
         },
         messages: {
@@ -118,6 +121,9 @@ $(document).ready(function(){
             author_description: {
                 required: "Please enter author description",
                 maxlength: "Author description should be within 500 characters"
+            },
+            post_author_image: {
+                extension: "Must be a valid image type."
             }
         },
         submitHandler:function(form) {
@@ -203,6 +209,10 @@ $('#edit_blog_post_form').validate({
         edit_author_description: {
             required: true,
             maxlength: 500
+        },
+        edit_author_image: {
+            //required: true,
+            extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
         }
     },
     messages: {
@@ -234,6 +244,9 @@ $('#edit_blog_post_form').validate({
         edit_author_description: {
             required: "Please enter author description",
             maxlength: "Author description should be within 500 characters"
+        },
+        edit_author_image: {
+            extension: "Must be a valid image type."
         }
     },
     submitHandler:function(form) {

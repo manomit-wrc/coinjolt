@@ -32,31 +32,44 @@ module.exports = function (app, models) {
 
     var blogImageUpload = multer({ storage: blogImageStorage, limits: {fileSize:3000000, fileFilter:restrictBlogImgType} });
 
-    app.post('/admin/post_blog_content', acl, blogImageUpload.single('post_featured_image'), async(req,res) => {
 
-        var photo = null;
-        var allowedTypes = ['image/jpeg','image/gif','image/png'];
-        var postImage = '';
-        if(req.file !== undefined){
+        app.post('/admin/post_blog_content', acl, blogImageUpload.fields([{
+            name: 'post_featured_image', maxCount: 1
+          }, {
+            name: 'post_author_image', maxCount: 1
+          }]), async(req, res) =>{
 
-            postImage = req.file.filename;
-        }
-        else{
-            postImage = '';
-        }
+            var postFeaturedImg, postAuthorImg;
+
+            if (req.files.post_featured_image && req.files.post_featured_image.length > 0){
+
+                postFeaturedImg = req.files.post_featured_image[0].filename;
+                
+            }else{
+                postFeaturedImg = '';        
+            }
+
+            
+            if (req.files.post_author_image && req.files.post_author_image.length > 0){
+
+                postAuthorImg = req.files.post_author_image[0].filename;
+                
+            }else{
+                postAuthorImg = ''; 
+            }
 
         const insert = await models.blog_post.create({
             post_title: req.body.blog_post_title,
             post_description: req.body.post_description,
             post_slug: req.body.post_slug,
-            featured_image: postImage,
+            featured_image: postFeaturedImg,
             meta_title: req.body.meta_title,
             meta_description: req.body.meta_description,
             status: 1,
             post_category_id: req.body.post_category,
             meta_keywords: req.body.meta_keywords,
             post_author: req.body.post_author_name,
-            post_author_description: req.body.author_description
+            post_author_image: postAuthorImg
         }).then(function(resp){
             res.json({
                 status:true,
@@ -77,35 +90,51 @@ module.exports = function (app, models) {
 
     });
 
-    app.post('/admin/update_blog_content', acl, blogImageUpload.single('edit_post_featured_image'), async(req, res) =>{
+    //app.post('/admin/update_blog_content', acl, blogImageUpload.single('edit_post_featured_image'), async(req, res) =>{
 
-        var postImage = '';
-        var prevImage = '';
+        app.post('/admin/update_blog_content', acl, blogImageUpload.fields([{
+            name: 'edit_post_featured_image', maxCount: 1
+          }, {
+            name: 'edit_author_image', maxCount: 1
+          }]), async(req, res) =>{
+
+        var editPostFeaturedImage = '';
+        var editPostAuthorImage = '';
+        var prevImages;
 
         var blog_Id = req.body.blog_id;
 
-        prevImage = await models.blog_post.findAll({where: {id: blog_Id}});
+        prevImages = await models.blog_post.findAll({where: {id: blog_Id}});
 
-        if(req.file !== undefined){
+        if (req.files.edit_post_featured_image && req.files.edit_post_featured_image.length > 0){
 
-            postImage = req.file.filename;
+            editPostFeaturedImage = req.files.edit_post_featured_image[0].filename;
+            
+        }else{
+            editPostFeaturedImage = prevImages[0].featured_image;        
         }
-        else{
-            postImage = prevImage[0].featured_image; 
+
+        
+        if (req.files.edit_author_image && req.files.edit_author_image.length > 0){
+
+            editPostAuthorImage = req.files.edit_author_image[0].filename;
+            
+        }else{
+            editPostAuthorImage = prevImages[0].post_author_image; 
         }
 
         const update = await models.blog_post.update({
             post_title: req.body.edit_blog_post_title,
             post_description: req.body.edit_post_description,
             post_slug: req.body.edit_post_slug,
-            featured_image: postImage,
+            featured_image: editPostFeaturedImage,
             meta_title: req.body.edit_meta_title,
             meta_description: req.body.edit_meta_description,
             status: 1,
             post_category_id: req.body.edit_post_category,
             meta_keywords: req.body.edit_meta_keywords,
-            post_author: req.body.edit_post_author_name,
-            post_author_description: req.body.edit_author_description
+            post_author: req.body.post_author_name,
+            post_author_image : editPostAuthorImage
         },{
             where: {
                 id: blog_Id 

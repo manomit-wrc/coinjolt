@@ -98,12 +98,26 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
+                 {{!-- <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="edit_author_image">Upload a Author Image</label>
+                        <input name="edit_author_image" class="form-control" id="edit_author_image" type="file">
+                    </div>
+                    {{#if blogDetail.0.post_author_image}}
+                    <div>
+                        <img src="/blog_images/{{blogDetail.0.post_author_image}}" width="50" height="50" />
+                    </div>
+                    {{/if}}
+                </div> --}}
+
+                
+
+               {{!--  <div class="col-md-12">
                      <div class="form-group">
-                        <label for="edit_author_description">Author Description:</label>
+                        <label for="edit_author_description">Author Bio:</label>
                         <textarea class="form-control input-lg" id="edit_author_description" name="edit_author_description" placeholder="Enter Author Description">{{blogDetail.0.post_author_description}}</textarea>
                     </div>
-                </div>
+                </div> --}}
 
                  <div class="col-md-2 col-md-offset-5 pd-612">
                     <div class="form-group">

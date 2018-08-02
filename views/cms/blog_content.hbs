@@ -14,7 +14,21 @@
         {{{ blogContent.0.post_description }}}
         <div class="saboxplugin-wrap">
           <div class="logo-box">
-            <img src="../dist/frontend_cms/images/icon.png">
+
+            {{#if_eq blogContent.0.post_author_image ""}}
+                <img class="img-responsive" src="../dist/frontend_cms/images/icon.png" alt="author default image"> 
+                 {{else}} 
+                      {{#if_eq blogContent.0.post_author_image null}}
+                        <img class="img-responsive" src="../dist/frontend_cms/images/icon.png" alt="author default image"> 
+                      {{else}} 
+                        {{#if_neq blogContent.0.post_author_image ""}}
+                          <img src="/blog_images/{{blogContent.0.post_author_image}}" class="img-responsive" alt="author image"> 
+                        {{/if_neq}}
+                      {{/if_eq}} 
+            {{/if_eq}}
+
+            
+
           </div>
           <div class="authorname">
             <a href="" data-toggle="modal" data-target="#blogAuthorModal-{{postTitle.0.id }}">

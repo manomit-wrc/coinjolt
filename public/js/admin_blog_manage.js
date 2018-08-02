@@ -83,11 +83,14 @@ $(document).ready(function(){
             },
             post_author_name: {
                 required: true
-            },
-            author_description: {
+            }
+            /* author_description: {
                 required: true,
                 maxlength: 500
             }
+            post_author_image: {
+                extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
+            } */
         },
         messages: {
             blog_post_title: {
@@ -114,11 +117,14 @@ $(document).ready(function(){
             },
             post_author_name: {
                 required: "Please enter author name"
-            },
-            author_description: {
+            }
+            /* author_description: {
                 required: "Please enter author description",
                 maxlength: "Author description should be within 500 characters"
-            }
+            },
+            post_author_image: {
+                extension: "Must be a valid image type."
+            } */
         },
         submitHandler:function(form) {
             var post_description = CKEDITOR.instances['post_description'].getData();
@@ -203,6 +209,10 @@ $('#edit_blog_post_form').validate({
         edit_author_description: {
             required: true,
             maxlength: 500
+        },
+        edit_author_image: {
+            //required: true,
+            extension: 'jpg|JPG|jpeg|JPEG|png|PNG'
         }
     },
     messages: {
@@ -234,6 +244,9 @@ $('#edit_blog_post_form').validate({
         edit_author_description: {
             required: "Please enter author description",
             maxlength: "Author description should be within 500 characters"
+        },
+        edit_author_image: {
+            extension: "Must be a valid image type."
         }
     },
     submitHandler:function(form) {

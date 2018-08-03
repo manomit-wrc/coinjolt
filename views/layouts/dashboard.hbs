@@ -643,6 +643,8 @@
         $('#support_saubmit_from_user').on('click', function () {
             var subject = $('#subject').val();
             var details = $('#description').val();
+            console.log(subject);
+            console.log(details);
 
             if(subject != '' && details != ''){
                 $.ajax({

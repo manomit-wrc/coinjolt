@@ -45,7 +45,7 @@ module.exports = function (app, models) {
 		
     });
 
-    app.get('/admin/edit_author/:authorId', async(req, res) =>{
+    app.get('/admin/edit_author/:authorId', acl, async(req, res) =>{
         var authorId = req.params.authorId;
 
         var authorDetail = await models.author.findAll({ where: { id : authorId}});

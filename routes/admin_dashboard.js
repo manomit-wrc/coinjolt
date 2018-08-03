@@ -467,7 +467,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		
 	});
 
-	app.get('/admin/edit-deposit-method/:depositId', async(req, res) =>{
+	app.get('/admin/edit-deposit-method/:depositId', acl, async(req, res) =>{
 
 		var depositId = req.params.depositId;
 
@@ -494,7 +494,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
         });
 	});
 
-	app.post('/admin/update-company-settings', async (req, res) =>{
+	app.post('/admin/update-company-settings', acl, async (req, res) =>{
 
 		const data = await company_setting.findAll({});
 
@@ -535,7 +535,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		
 	});
 
-	app.get('/admin/blog', (req, res) =>{
+	app.get('/admin/blog', acl, (req, res) =>{
 
 		blog_post.findAll({}).then(function(blog_posts){
 			res.render('admin/blog/blog_posts', {layout: 'dashboard', blog_posts: blog_posts, title:"Blog"});
@@ -543,7 +543,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 
 	});
 
-	app.get('/admin/create-blog-post', (req, res) =>{
+	app.get('/admin/create-blog-post', acl, (req, res) =>{
 
 		blog_category.findAll({where: {status: 1}}).then(function(blog_categories){
 			author.findAll().then(function(authors){
@@ -552,7 +552,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.post('/add-deposit-method', async(req, res) =>{
+	app.post('/add-deposit-method', acl, async(req, res) =>{
 	
 		var paymentMethodType = req.body.payment_type;
 
@@ -622,7 +622,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 
 	});
 
-	app.post('/edit-deposit-method', (req, res) =>{
+	app.post('/edit-deposit-method', acl, (req, res) =>{
 
 		var deposit_payment_id = req.body.deposit_payment_id;	
 		var paymentMethodType = req.body.edit_payment_type;
@@ -672,7 +672,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		});
 	});
 
-	app.post('/admin/remove_deposit_method', (req, res) =>{
+	app.post('/admin/remove_deposit_method', acl, (req, res) =>{
 		var depositMethodId = req.body.paymentMethodId;
 		deposit_method_type.destroy({
             where: {

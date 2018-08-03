@@ -67,7 +67,7 @@ module.exports = function (app, models) {
         
     });
 
-    app.get('/admin/edit_blog_content/:blogId', async(req, res) =>{
+    app.get('/admin/edit_blog_content/:blogId', acl, async(req, res) =>{
         var blogId = req.params.blogId;
 
         var blogDetail = await models.blog_post.findAll({ where: { id : blogId}});

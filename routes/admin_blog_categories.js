@@ -1,17 +1,17 @@
 const sequelize = require('sequelize');
 const acl = require('../middlewares/acl');
 module.exports = function (app, models) {
-    app.get('/admin/blog-categories', (req, res) =>{
+    app.get('/admin/blog-categories', acl, (req, res) =>{
         models.blog_category.findAll({}).then(categoryDetails => {
             res.render('admin/blog/category_list', { layout: 'dashboard', categoryDetails: categoryDetails, title:"Blog Categories"});
 		});
     });
 
-    app.get('/admin/add-blog-category', (req, res) =>{
+    app.get('/admin/add-blog-category', acl, (req, res) =>{
         res.render('admin/blog/category_create', { layout: 'dashboard', title:"Add Blog Category"});
     });
 
-    app.get('/admin/edit_blog_category/:categoryId', (req, res) =>{
+    app.get('/admin/edit_blog_category/:categoryId', acl, (req, res) =>{
         var categoryId = req.params.categoryId;
 
         models.blog_category.findAll({ where: { id : categoryId}}).then(categoryDetail => {

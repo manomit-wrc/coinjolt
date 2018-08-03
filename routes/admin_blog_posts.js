@@ -2,6 +2,7 @@ const sequelize = require('sequelize');
 const acl = require('../middlewares/acl');
 var multer = require('multer');
 var fs = require('fs');
+const Op = require('sequelize').Op;
 module.exports = function (app, models) {
 
     var blogImageStorage = multer.diskStorage({
@@ -39,6 +40,7 @@ module.exports = function (app, models) {
         var photo = null;
         var allowedTypes = ['image/jpeg','image/gif','image/png'];
         var postImage = '';
+        var postSlug = req.body.post_slug;
         if(req.file !== undefined){
 
             postImage = req.file.filename;
@@ -46,24 +48,42 @@ module.exports = function (app, models) {
         else{
             postImage = '';
         }
-
-        const insert = await models.blog_post.create({
-            post_title: req.body.blog_post_title,
-            post_description: req.body.post_description,
-            post_slug: req.body.post_slug,
-            featured_image: postImage,
-            meta_title: req.body.meta_title,
-            meta_description: req.body.meta_description,
-            status: 1,
-            post_category_id: req.body.post_category,
-            meta_keywords: req.body.meta_keywords,
-            author_id: req.body.post_author_name
-        }).then(function(resp){
-            res.json({
-                status:true,
-                msg: "Blog post created successfully."
-            });
+        
+        var blogPosts = await models.blog_post.count({
+            where: {
+                post_slug: postSlug,
+                status: 1
+                
+             }
         });
+
+        if(blogPosts > 0){
+            res.json({
+                status: false,
+                msg: `Post already exists with the slug "${postSlug}"`
+            });
+        } 
+
+           else{
+               
+                const insert = await models.blog_post.create({
+                    post_title: req.body.blog_post_title,
+                    post_description: req.body.post_description,
+                    post_slug: req.body.post_slug,
+                    featured_image: postImage,
+                    meta_title: req.body.meta_title,
+                    meta_description: req.body.meta_description,
+                    status: 1,
+                    post_category_id: req.body.post_category,
+                    meta_keywords: req.body.meta_keywords,
+                    author_id: req.body.post_author_name
+                }).then(function(resp){
+                    res.json({
+                        status:true,
+                        msg: "Blog post created successfully."
+                    });
+                });
+           }
         
     });
 
@@ -82,44 +102,62 @@ module.exports = function (app, models) {
     app.post('/admin/update_blog_content', acl, blogImageUpload.single('edit_post_featured_image'), async(req, res) =>{
 
         var postImage = '';
-        var prevImage = '';
+        var prevBlogDetail;
 
         var blog_Id = req.body.blog_id;
 
-        prevImage = await models.blog_post.findAll({where: {id: blog_Id}});
-
+        prevBlogDetail = await models.blog_post.findAll({where: {id: blog_Id}});
         if(req.file !== undefined){
 
             postImage = req.file.filename;
         }
         else{
-            postImage = prevImage[0].featured_image; 
+            postImage = prevBlogDetail[0].featured_image; 
         }
 
-        const update = await models.blog_post.update({
-            post_title: req.body.edit_blog_post_title,
-            post_description: req.body.edit_post_description,
-            post_slug: req.body.edit_post_slug,
-            featured_image: postImage,
-            meta_title: req.body.edit_meta_title,
-            meta_description: req.body.edit_meta_description,
-            status: 1,
-            post_category_id: req.body.edit_post_category,
-            meta_keywords: req.body.edit_meta_keywords,
-            author_id: req.body.edit_post_author_name
-        },{
+        var blogPosts = await models.blog_post.count({
             where: {
-                id: blog_Id 
-    
-            }
-        }).then(function(resp){
-            res.json({
-                status:true,
-                msg: "Blog post saved and updated."
-            });
+                post_slug: req.body.edit_post_slug,
+                status: 1,
+                id: {
+                    [Op.ne]: blog_Id
+                }
+                
+             }
         });
 
-      
+        if(blogPosts > 0){
+            res.json({
+                status: false,
+                msg: `Post already exists with the slug "${req.body.edit_post_slug}"`
+            });
+        } 
+
+        else{
+            const update = await models.blog_post.update({
+                post_title: req.body.edit_blog_post_title,
+                post_description: req.body.edit_post_description,
+                post_slug: req.body.edit_post_slug,
+                featured_image: postImage,
+                meta_title: req.body.edit_meta_title,
+                meta_description: req.body.edit_meta_description,
+                status: 1,
+                post_category_id: req.body.edit_post_category,
+                meta_keywords: req.body.edit_meta_keywords,
+                author_id: req.body.edit_post_author_name
+            },{
+                where: {
+                    id: blog_Id 
+        
+                }
+            }).then(function(resp){
+                res.json({
+                    status:true,
+                    msg: "Blog post saved and updated."
+                });
+            });
+        }
+
     });
 
     app.post('/admin/remove_blog_content', async(req, res) =>{

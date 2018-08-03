@@ -144,6 +144,9 @@ $(document).ready(function(){
                     if(response.status == true){
                         sweetAlertSuccessPopUp('Success',response.msg);
                     }
+                    if(response.status == false){
+                        swal("Warning", response.msg, "error");
+                    }
                 }
             });
 
@@ -275,11 +278,13 @@ $('#edit_blog_post_form').validate({
                 if(response.status == true){
                     sweetAlertSuccessPopUp('Success',response.msg);
                 }
+                if(response.status == false){
+                    swal("Warning", response.msg, "error");
+                }
             }
         });
 
     }
-
 
 });
 

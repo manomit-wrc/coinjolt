@@ -650,27 +650,24 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.post('/submit-a-request', function (req, res) {
+    app.post('/account/submit-a-request', function (req, res) {
         Support.create({
             user_id: req.user.id,
             title: req.body.subject.trim(),
-            enquiry: req.body.description.trim()
+            enquiry: req.body.description.trim(),
+            status: '0'
         }).then(function (result) {
-            // req.flash('supportMessage', 'Request sent successfully');
-            // res.redirect('/submit-a-request');
-            /* var pushNotifications = require("push-notifications");
-            var io = require('socket.io')(8088);
-            io.on('connection', function(socket){
-                socket.on('pushNotification', function(msg){
-                    io.emit('pushNotification', msg);
-                });
+            req.flash('supportMessage', 'Request sent successfully');
+            res.redirect('/account/submit-a-request');
+            // var pushNotifications = require("push-notifications");
+            // var io = require('socket.io')(8088);
+            // io.on('connection', function(socket){
+            //     socket.on('pushNotification', function(msg){
+            //         io.emit('pushNotification', msg);
+            //     });
 
-                pushNotifications.push(io, {title: req.body.subject.trim(), body : req.body.description.trim()});  
-            }); */
-            
-            res.json({
-                success: true
-            });
+            //     pushNotifications.push(io, {title: req.body.subject.trim(), body : req.body.description.trim()});  
+            // });
         }).catch(function (err) {
             console.log(err);
         });
@@ -1867,7 +1864,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                                                 currentBalance = cold_wallet_balance.rows[0].balance;
                                                 updatedBalance = currentBalance + amountSatoshis;
                                                 cold_wallet_balance.update({
-                                                    balance: balance
+                                                    balance: updatedBalance
                                                 }, {
                                                         where: {
                                                             user_id: userid, currency_id: currency_id

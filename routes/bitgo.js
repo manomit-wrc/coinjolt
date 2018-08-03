@@ -7,6 +7,7 @@ var bitgo = new BitGo.BitGo({
     env: 'prod',
     accessToken: process.env.ACCESS_TOKEN
 });
+const user_acl = require('../middlewares/user_acl');
 const keys = require('../config/key');
 const Op = require('sequelize').Op;
 
@@ -133,7 +134,8 @@ module.exports = (app, models) => {
         });
     });
 
-    app.get('/account/wallets', two_factor_checking, async (req, res) => {
+
+    app.get('/account/wallets', two_factor_checking, user_acl, async (req, res) => {
         // var walletId = '2MwDGsK8XmELd41t8GVK7G39vemcEjEUvYU';
         var btcBalance = 0;
         var ethBalance = 0;

@@ -1,7 +1,7 @@
 const sequelize = require('sequelize');
 const acl = require('../middlewares/acl');
 module.exports = function (app, models) {
-    app.get('/admin/blog-categories', (req, res) =>{
+    app.get('/admin/blog-categories', acl, (req, res) =>{
         models.blog_category.findAll({}).then(categoryDetails => {
             res.render('admin/blog/category_list', { layout: 'dashboard', categoryDetails: categoryDetails, title:"Blog Categories"});
 		});

@@ -2,11 +2,11 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
 	const Op = require('sequelize').Op;
 	const sequelize = require('sequelize');
 	const acl = require('../middlewares/acl');
-	
 
+	const user_acl = require('../middlewares/user_acl');
 	const two_factor_checking = require('../middlewares/two_factor_checking');
 
-	app.get('/account/deposit-funds', two_factor_checking, async (req,res) => {
+	app.get('/account/deposit-funds', two_factor_checking, user_acl, async (req,res) => {
 		const msg = req.flash('payPalSuccessMsg')[0];
 		const cancelMsg = req.flash('payPalCancelMsg')[0];
 		/* WireTransfer.belongsTo(User, {foreignKey: 'user_id'});
@@ -88,7 +88,7 @@ module.exports = function(app,Deposit,WireTransfer,User,Referral_data,Currency,C
 		});
 	});
 
-	app.get('/admin/bank-wire-transfers',acl, (req,res) => {
+	app.get('/admin/bank-wire-transfers', acl, (req,res) => {
 		WireTransfer.belongsTo(User, {foreignKey: 'user_id'});
 
 		WireTransfer.findAll({

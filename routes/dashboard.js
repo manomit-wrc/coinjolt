@@ -13,6 +13,7 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 
 const user_acl = require('../middlewares/user_acl');
+const two_factor_checking = require('../middlewares/two_factor_checking');
 
 // var BitGo = require('bitgo');
 // var bitgo = new BitGo.BitGo({
@@ -37,7 +38,7 @@ paypal.configure({
     'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
 });
 
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation, blog_post, email_template, email_template_type, author) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation, blog_post, email_template, email_template_type, author, cold_wallet_balance) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var s3bucket = new AWS.S3({accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey, params: {Bucket: 'coinjoltdev2018'}});
@@ -263,7 +264,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         res.redirect('/login');
     });
 
-    app.get('/account/profile-details', user_acl, function (req, res) {
+    app.get('/account/profile-details', user_acl, two_factor_checking, function (req, res) {
 
         Kyc_details.findAll({
             where: {
@@ -313,7 +314,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
        
     });
 
-    app.get('/account/account-settings', user_acl, async function (req, res) {
+    app.get('/account/account-settings', user_acl, two_factor_checking, async function (req, res) {
         var user_all_details = await User.findById(req.user.id);
         var user_data = JSON.parse(JSON.stringify(user_all_details));
 
@@ -430,7 +431,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.post('/account-settings', function (req, res) {
+    app.post('/account-settings', two_factor_checking, function (req, res) {
 
         //console.log(JSON.stringify(req.body, undefined, 2));
 
@@ -622,7 +623,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/account/invite-friends', user_acl, function (req,res) {
+    app.get('/account/invite-friends', user_acl, two_factor_checking, function (req,res) {
 		Referral_data.belongsTo(User, {foreignKey: 'user_id'});
 
 		Referral_data.findAll({
@@ -640,7 +641,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 		});
 	});
 
-    app.get('/account/submit-a-request', user_acl, function (req, res) {
+    app.get('/account/submit-a-request', user_acl, two_factor_checking, function (req, res) {
         const msg = req.flash('supportMessage')[0];
         res.render('submit-a-request', {
             layout: 'dashboard',
@@ -675,7 +676,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/account/requests-support', user_acl, function (req, res) {
+    app.get('/account/requests-support', user_acl,two_factor_checking, function (req, res) {
         Support.findAll({
             where: {
                 user_id: req.user.id
@@ -691,7 +692,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/account/buy-and-sell-coins', user_acl, async (req, res) => {
+    app.get('/account/buy-and-sell-coins', user_acl,two_factor_checking, async (req, res) => {
         var values = '';
         var buy_history = '';
         
@@ -919,7 +920,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
     
-    app.get('/account/transaction-history', user_acl, async (req, res) =>{
+    app.get('/account/transaction-history', user_acl, two_factor_checking, async (req, res) =>{
         var buy_arr = [];
         var sell_arr = [];
         var deposit_arr = [];
@@ -1026,7 +1027,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         res.render('transaction-history', {layout: 'dashboard', buy_history:buy_history,sell_history:sell_history,deposit_history:deposit_history,withdrawal_history:withdrawal_history,buy_arr:buy_arr,sell_arr:sell_arr,deposit_arr:deposit_arr,withdraw_arr:withdraw_arr, title: 'Transaction History' });
     });
 
-    app.get('/account/managed-cryptocurrency-portfolio', user_acl, async(req, res) => {
+    app.get('/account/managed-cryptocurrency-portfolio', user_acl, two_factor_checking, async(req, res) => {
         var investedamount = 0;
 		var firstyear = 0;
 		var secondyear = 0;
@@ -1185,7 +1186,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/account/get-donut-chart', user_acl, (req, res)=> {
+    app.get('/account/get-donut-chart', user_acl, two_factor_checking, (req, res)=> {
         var response_arr = [];
         lodash.each(req.user.currencyBalance, x => {
             response_arr.push({
@@ -1773,19 +1774,42 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     */
 
     app.post('/deposit-currency', function(req, res){
-        var destinationAddress = "";
         var coin_amount = req.body.coin_amount;
         var amountSatoshis = coin_amount * 1e8;
         var walletPassphrase = 'COinjolt123!!';
         var userid = req.user.id;
-        var currency_id = "1";
+        // var currency_id = "1";
         var walletDbId;
         var walletId;
-        var destinationAddressId;
+        //var destinationAddressId;
         var receiver_id;
         var walletBalance;
         var type = "2";
-        var currency_code = "btc";
+        var currency_id = req.body.currency_id;
+        var currency_code;
+        var destinationAddress;
+        if(currency_id == '1'){
+            currency_code = "btc";
+            destinationAddress = "3M7mjWjnpjxtcCKDPZm6TnekuuvCqUFkP6";
+        } else if(currency_id == '2'){
+            currency_code = "eth";
+            destinationAddress = "";
+        } else if(currency_id == '3'){
+            currency_code = "ltc";
+            destinationAddress = "M9Z9aLhj9bvQbkNZaKGfnaDkX5DWXMscsb";
+        } else if(currency_id == '5'){
+            currency_code = "bch";
+            destinationAddress = "3NoziQ69RkHLR9hFSqvJBFUczNt8wDdqBQ";
+        } else if(currency_id == '46'){
+            currency_code = "rmg";
+            destinationAddress = "";
+        } else if(currency_id == '4'){
+            currency_code = "xrp";
+            destinationAddress = "rark8zi3HawtpU7mYsfMCYZE1e7sGdMg1N?dt=0";
+        }
+        console.log(currency_id);
+        console.log(currency_code);
+        console.log(destinationAddress);          
 
         wallet.findAndCountAll({
             where: {
@@ -1810,7 +1834,11 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         bitgo.coin(currency_code).wallets().get({ id: walletId })
                         .then(function(wallet) {
                             // walletBalance = (wallet.balance() / 1e8).toFixed(4);
-                            walletBalance = wallet._wallet.balance;
+                            if(currency_id == '4') { // ripple (xrp)
+                                walletBalance = wallet._wallet.spendableBalanceString;
+                            } else {
+                                walletBalance = wallet._wallet.balance;
+                            }
                             console.log("walletBalance");
                             console.log(walletBalance);
                             if((walletBalance == 0) || (walletBalance < amountSatoshis)){
@@ -1832,7 +1860,32 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                                         amount: amountSatoshis,
                                         type: type
                                     }).then(function (result) {
-                                        res.json({success: "1", message: "You have sent coin successfully."});
+                                        cold_wallet_balance.findAndCountAll({
+                                            where: { user_id: userid, currency_id: currency_id }
+                                        }).then(function (cold_wallet_balance) {
+                                            if (cold_wallet_balance.count > 0) {
+                                                currentBalance = cold_wallet_balance.rows[0].balance;
+                                                updatedBalance = currentBalance + amountSatoshis;
+                                                cold_wallet_balance.update({
+                                                    balance: balance
+                                                }, {
+                                                        where: {
+                                                            user_id: userid, currency_id: currency_id
+                                                        }
+                                                }).then(function (result_cold_wallet) {
+                                                    res.json({success: "1", message: "You have sent coin successfully."});
+                                                });
+                                            } else {
+                                                currency_balance.create({
+                                                    user_id: userid,
+                                                    balance: amountSatoshis,
+                                                    currency_id: currency_id
+                                        
+                                                }).then(function (result_cold_wallet) {
+                                                    res.json({success: "1", message: "You have sent coin successfully."});
+                                                });
+                                            }
+                                        });
                                     });
                                 });
                             }
@@ -1928,7 +1981,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         res.redirect('/account/deposit-funds');
       });
 
-    app.get('/settings', user_acl, (req,res) => {
+    app.get('/settings', user_acl, two_factor_checking, (req,res) => {
         res.render('settings', {layout: 'dashboard'});
     });
     

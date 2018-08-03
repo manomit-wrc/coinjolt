@@ -535,7 +535,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 		
 	});
 
-	app.get('/admin/blog', (req, res) =>{
+	app.get('/admin/blog', acl, (req, res) =>{
 
 		blog_post.findAll({}).then(function(blog_posts){
 			res.render('admin/blog/blog_posts', {layout: 'dashboard', blog_posts: blog_posts, title:"Blog"});

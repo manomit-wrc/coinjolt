@@ -3008,7 +3008,8 @@ function remove(event){
             });
 
             $( "#amt_deposit_btn" ).click(function() {
-                var amountdeposit = $( "#amount_deposit" ).val();	
+                var amountdeposit = $( "#amount_deposit" ).val();
+                var currency_id = $( "#curncy_select" ).val();		
                 $( "#depositerrormsg" ).show();
                 $( "#depositerrormsg" ).empty();
                 if (amountdeposit <= 0) {
@@ -3018,7 +3019,7 @@ function remove(event){
                     $.ajax({
                         type: "POST",
                         url: '/deposit-currency',
-                        data : {coin_amount: amountdeposit},
+                        data : {coin_amount: amountdeposit, currency_id: currency_id},
                         beforeSend: function() {
                             $(".loader-gif").css('display', 'block');
                         },

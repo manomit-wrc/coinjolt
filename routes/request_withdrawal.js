@@ -2,8 +2,10 @@
 module.exports = function (app, withdraw, bank_details, Deposit, models){
 	const Op = require('sequelize').Op;
 	const sequelize = require('sequelize');
+	const two_factor_checking = require('../middlewares/two_factor_checking');
 
-	app.get('/account/request-withdrawal', function (req,res) {
+
+	app.get('/account/request-withdrawal', two_factor_checking, function (req,res) {
 		Deposit.findAll({
             where: {user_id: req.user.id, type: 3},
             limit: 5,

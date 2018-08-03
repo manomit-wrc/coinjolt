@@ -10,6 +10,8 @@ var bitgo = new BitGo.BitGo({
 const keys = require('../config/key');
 const Op = require('sequelize').Op;
 
+const two_factor_checking = require('../middlewares/two_factor_checking');
+
 module.exports = (app, models) => {
     app.get('/bitgo/login', (req, res) => {
         bitgo.authenticate({
@@ -131,7 +133,7 @@ module.exports = (app, models) => {
         });
     });
 
-    app.get('/account/wallets', async (req, res) => {
+    app.get('/account/wallets', two_factor_checking, async (req, res) => {
         // var walletId = '2MwDGsK8XmELd41t8GVK7G39vemcEjEUvYU';
         var btcBalance = 0;
         var ethBalance = 0;

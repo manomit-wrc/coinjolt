@@ -14,7 +14,6 @@ AWS.config.update({region: 'us-east-1'});
 const bCrypt = require('bcrypt-nodejs');
 var speakeasy = require('speakeasy');
 const auth = require('../middlewares/auth');
-const page_not_found = require('../middlewares/page_not_found');
 
 module.exports = function (app, passport, models) {
     
@@ -757,67 +756,78 @@ module.exports = function (app, passport, models) {
         });
     });
                             
-     app.get('/:blogDetail', auth, page_not_found, (req,res) =>{
+     app.get('/:blogDetail', auth, async(req,res) =>{
         
         var blogPageSlug = req.params.blogDetail;
 
         models.blog_post.belongsTo(models.blog_category, {foreignKey: 'post_category_id'});
         models.blog_post.belongsTo(models.author, {foreignKey: 'author_id'});
-
-        Promise.all([
-            models.blog_post.findAndCountAll({
-                where: {
-                    post_slug: blogPageSlug
-                }
-            }),
-
-            models.blog_post.findAll({  // featured 
-                where: {
-                    post_category_id: 1
-                },
-                limit: 6,
-                order: [
-                    ['createdAt', 'DESC']
-                ]
-            }),
-
-            models.blog_post.findAll({  // latest news
-                where: {
-                    post_category_id: 3
-                },
-                limit: 6,
-                order: [
-                    ['createdAt', 'DESC']
-                ]
-            }),
-
-            models.company_setting.findAll({
-
-            }),
-
-             
-            models.blog_post.findAll({
-               where: {
-                    post_slug: blogPageSlug
-                },
-                include: [
-                    {
-                        model: models.blog_category
-                    },
-                    {
-                        model: models.author
-                    }
-                ],
-                order: [
-                    ['id', 'DESC']
-                ]
-        })
-
-        ]).then(function (results) {
-            console.log(JSON.stringify(results[4], undefined, 2));
-            res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2], companySettingsData: results[3], postTitle: results[4]});
+        
+        var blogPostDetails = await models.blog_post.findAndCountAll({
+            where: {
+                post_slug: blogPageSlug
+            }
         });
+        
+        if(blogPostDetails.count == 0){
+            res.render('error');
+        }
 
+        else{
+            Promise.all([
+                models.blog_post.findAndCountAll({
+                    where: {
+                        post_slug: blogPageSlug
+                    }
+                }),
+    
+                models.blog_post.findAll({  // featured 
+                    where: {
+                        post_category_id: 1
+                    },
+                    limit: 6,
+                    order: [
+                        ['createdAt', 'DESC']
+                    ]
+                }),
+    
+                models.blog_post.findAll({  // latest news
+                    where: {
+                        post_category_id: 3
+                    },
+                    limit: 6,
+                    order: [
+                        ['createdAt', 'DESC']
+                    ]
+                }),
+    
+                models.company_setting.findAll({
+    
+                }),
+    
+                 
+                models.blog_post.findAll({
+                   where: {
+                        post_slug: blogPageSlug
+                    },
+                    include: [
+                        {
+                            model: models.blog_category
+                        },
+                        {
+                            model: models.author
+                        }
+                    ],
+                    order: [
+                        ['id', 'DESC']
+                    ]
+            })
+    
+            ]).then(function (results) {
+                console.log(JSON.stringify(results[4], undefined, 2));
+                res.render("cms/blog_content", {layout: "cms/dashboard", blogContent: results[0].rows,featured_posts: results[1], latest_news: results[2], companySettingsData: results[3], postTitle: results[4]});
+            });
+        }
 
     }); 
 

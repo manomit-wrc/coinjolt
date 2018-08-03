@@ -2,11 +2,11 @@
 <section class="content-header">
   <div class="title-with-btn pd-612">
     <div class="pull-left">
-      <h1>Wallets</h1>
+      <h1>Hot and Cold Wallets</h1>
     </div>
     {{!-- {{#if_eq count 0}}
     <div class="pull-left">
-      <button class="btn btn-primary wallet-btn" id="wallet_create">Generate Wallets</button>
+      <button class="btn btn-primary wallet-btn" id="wallet_create">Generate Wallet Address</button>
     </div>
     {{/if_eq}} --}}
     <div class="clearfix"></div>
@@ -17,7 +17,7 @@
       <a href="/account/dashboard">
         <i class="fa fa-dashboard"></i> Home</a>
     </li>
-    <li class="active">Wallets</li>
+    <li class="active">Hot and Cold Wallets</li>
   </ol>
 </section>
 <!-- Main content -->
@@ -32,7 +32,7 @@
             <ul class="nav nav-tabs">
               <li class="active">
                 <a href="#tab1primary" data-toggle="tab">
-                  <span class="glyphicon glyphicon-btc"></span>Balance</a>
+                  <span class="glyphicon glyphicon-btc"></span>Balances</a>
               </li>
               <li>
                 <a href="#tab2primary" data-toggle="tab">
@@ -60,8 +60,8 @@
                         <div class="content-box">
                           <div class="collaps pull-left">
                             {{!-- <i class="fa fa-bitcoin"></i> --}}
-                            <img src="/dist/img/coins/btc.jpg"/>
-                            <a data-toggle="collapse" data-target="#bitcoin">BITCOIN</a>
+                            <div class="s-s-bitcoin currency-logo-sprite"></div>
+                            <a style="text-decoration: none;" data-toggle="collapse" data-target="#bitcoin">Bitcoin</a>
                           </div>
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
@@ -77,7 +77,7 @@
                               <div class="all-btn">
                                 {{#if_eq btcWallet.count 0}}
                                   <button type="button" class="btn btn-primary wallet_create" data-datac="1" data-code="btc">
-                                  <i class="fa fa-plus"></i>Generate Wallet</button>
+                                  <i class="fa fa-plus"></i>Generate Wallet Address</button>
                                 {{else}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
@@ -87,12 +87,12 @@
                                 {{/if_eq}}  
                                 {{#if_neq btcWallet.count 0}} {{#if_eq btcAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="1" data-code="btc">
-                                  <i class="fa fa-plus"></i>Generate BITCOIN address</button>
+                                  <i class="fa fa-plus"></i>Generate Bitcoin address</button>
                                 {{/if_eq}} {{/if_neq}}
                                 {{#if_neq btcAddressDetails.count 0}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>BITCOIN Address: </strong>{{btcAddressDetails.rows.0.address}}
+                                      <strong>Bitcoin Address: </strong>{{btcAddressDetails.rows.0.address}}
                                     </li>
                                   </ul>
                                 {{/if_neq}}
@@ -106,7 +106,7 @@
                       <div class="bit-tabs">
                         <div class="content-box">
                           <div class="collaps pull-left">
-                            <img src="/dist/img/coins/ethereum.jpg"/>
+                            <div class="s-s-ethereum currency-logo-sprite"></div>
                             <a data-toggle="collapse" data-target="#ethereum">Ethereum</a>
                           </div>
                           <div class="fltrgt-box pull-right">
@@ -123,7 +123,7 @@
                               <div class="all-btn">
                                 {{#if_eq ethWallet.count 0}}
                                   <button type="button" class="btn btn-primary wallet_create" data-datac="2" data-code="eth">
-                                  <i class="fa fa-plus"></i>Generate Wallet</button>
+                                  <i class="fa fa-plus"></i>Generate Wallet Address</button>
                                 {{else}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
@@ -152,7 +152,7 @@
                       <div class="bit-tabs">
                         <div class="content-box">
                           <div class="collaps pull-left">
-                            <img src="/dist/img/coins/litecoin.jpg"/>
+                            <div class="s-s-litecoin currency-logo-sprite"></div>
                             <a data-toggle="collapse" data-target="#ltc">Litecoin</a>
                           </div>
                           <div class="fltrgt-box pull-right">
@@ -169,7 +169,7 @@
                               <div class="all-btn">
                                 {{#if_eq ltcWallet.count 0}}
                                   <button type="button" class="btn btn-primary wallet_create" data-datac="3" data-code="ltc">
-                                  <i class="fa fa-plus"></i>Generate Wallet</button>
+                                  <i class="fa fa-plus"></i>Generate Wallet Address</button>
                                 {{else}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
@@ -198,7 +198,7 @@
                       <div class="bit-tabs">
                         <div class="content-box">
                           <div class="collaps pull-left">
-                            <img src="/dist/img/coins/bitcoin-cash.jpg"/>
+                            <div class="s-s-bitcoin-cash currency-logo-sprite"></div>
                             <a data-toggle="collapse" data-target="#bch">Bitcoin Cash</a>
                           </div>
                           <div class="fltrgt-box pull-right">
@@ -244,7 +244,7 @@
                       <div class="bit-tabs">
                         <div class="content-box">
                           <div class="collaps pull-left">
-                            <img src="/dist/img/coins/royal-mint-gold.jpg"/>
+                            <div class="s-s-royal mint gold currency-logo-sprite"></div>
                             <a data-toggle="collapse" data-target="#rmg">Royal Mint Gold</a>
                           </div>
                           <div class="fltrgt-box pull-right">
@@ -290,7 +290,7 @@
                       <div class="bit-tabs">
                         <div class="content-box">
                           <div class="collaps pull-left">
-                            <img src="/dist/img/coins/ripple.jpg"/>
+                            <div class="s-s-ripple currency-logo-sprite"></div>
                             <a data-toggle="collapse" data-target="#xrp">Ripple</a>
                           </div>
                           <div class="fltrgt-box pull-right">
@@ -307,7 +307,7 @@
                               <div class="all-btn">
                                 {{#if_eq xrpWallet.count 0}}
                                   <button type="button" class="btn btn-primary wallet_create" data-datac="4" data-code="xrp">
-                                  <i class="fa fa-plus"></i>Generate Wallet</button>
+                                  <i class="fa fa-plus"></i>Generate Wallet Address</button>
                                 {{else}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
@@ -356,13 +356,13 @@
                         <option value="46">Royal Mint Gold (RMG)</option>
                         <option value="4">Ripple (XRP)</option>
                       </select>
-                      {{!-- <label for="exampleInputPassword1">Send Bitcoin</label> --}}
+                      {{!-- <label for="exampleInputPassword1">Send cryptocurrency</label> --}}
                     </div>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="exampleInputPassword1">To the address</label>
-                          <input type="text" class="form-control" id="coin_address" name="coin_address" placeholder="Enter a Bitcoin address">
+                          <input type="text" class="form-control" id="coin_address" name="coin_address" placeholder="Enter recipient address">
                         </div>
                       </div>
                       {{!-- <div class="col-md-6">
@@ -418,7 +418,7 @@
                           <label class="note">
                             <input type="checkbox" id="myCheck" onclick="myFunction()">Add a note to this payment
                           </label>
-                          <textarea placeholder="Optional payment description for your transaction history. Will not be submitted to the recipient."
+                          <textarea placeholder="Optional payment description for your transaction history. These details will not be passed through to the recipient."
                             id="comment" name="comment" class="form-control"></textarea>
                         </div>
                         <div class="notebox">

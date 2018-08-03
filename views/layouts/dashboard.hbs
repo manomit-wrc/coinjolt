@@ -170,10 +170,10 @@
 							<button type="button" id="check_two_factor_auth" class="btn btn-primary">Continue</button>
 							<button type="button" id="two_factor_skip" class="btn btn-danger">Skip, setup later.</button>
 							</div>
-							<div style="float: center;"><a target="_blank" href="https://itunes.apple.com/ca/app/google-authenticator/id388497605?mt=8"><img width="200px;" src="/dist/img/app-store.png"></a> <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en" target="_blank"><img width="200px;" src="/dist/img/google-play.png"></a></div>
+							<div style="float: center;"><a target="_blank" href="https://itunes.apple.com/ca/app/google-authenticator/id388497605?mt=8"><img width="200px;" src="/dist/img/app-store.png"></a> <br/> <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en" target="_blank"><img width="200px;" src="/dist/img/google-play.png"></a></div>
 							<center><img src="/dist/img/2fa.png"></center>
 							<br/> 
-							<p style="float: left; margin-left: 3%;">Additionally, you can learn more about 2-Step Verification by <a target="_blank" href="https://www.google.com/landing/2step/">clicking here.</a></p>
+							<p style="float: left; margin-left: 3%;">Additionally, you can learn more about 2-Step Verification by <a target="_blank" href="https://en.wikipedia.org/wiki/Google_Authenticator">clicking here.</a></p>
                           </div>
                       </div>
                 </form>
@@ -455,7 +455,7 @@
                 text: text,
                 type: "success",
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "OK"
+                confirmButtonText: "Confirm"
             },  function() {
                 window.location.href=baseURL+"admin/email-template";
             });
@@ -467,7 +467,7 @@
                 text: text,
                 type: "success",
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "OK"
+                confirmButtonText: "Confirm"
             },  function() {
                 window.location.href=baseURL+"admin/blog";
             });
@@ -479,7 +479,7 @@
                 text: text,
                 type: "success",
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "OK"
+                confirmButtonText: "Confirm"
             },  function() {
                 window.location.href=baseURL+"admin/blog-authors";
             });
@@ -523,7 +523,7 @@
                                 text: "Two factor authentication verified successfully.",
                                 type: "success",
                                 confirmButtonColor: "#DD6B55",
-                                confirmButtonText: "OK"
+                                confirmButtonText: "Confirm"
                             },  function() {
                                 $('#modal-default').modal('hide');
                                 window.location.reload();
@@ -566,7 +566,7 @@
                             text: resp.msg,
                             type: "warning",
                             confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "OK"
+                            confirmButtonText: "Confirm"
                         },  function() {
                             window.location.reload();
                         });
@@ -667,11 +667,11 @@
                             //end
 
                             swal({
-                                title: 'Thank You',
-                                text: 'Request submission successful.',
-                                type: "success",
+                                title: 'Message sent.',
+                                text: 'A m.',
+                                type: "We'll get back to you at the earliest convenience.",
                                 confirmButtonColor: "#DD6B55",
-                                confirmButtonText: "OK"
+                                confirmButtonText: "Confirm"
                             },  function() {
                                 window.location.reload();
                             });
@@ -924,7 +924,7 @@
                                 icon: "success",
                                 title: response.msg,
                                 confirmButtonClass: "btn-success",
-                                confirmButtonText: "OK"
+                                confirmButtonText: "Confirm"
                                 },function(isConfirm){
                                     if(isConfirm){
                                         window.location.href = "/account/account-settings";
@@ -1020,7 +1020,7 @@
                                 icon: "success",
                                 title: response.msg,
                                 confirmButtonClass: "btn-success",
-                                confirmButtonText: "OK"
+                                confirmButtonText: "Confirm"
                                 },function(isConfirm){
                                     if(isConfirm){
                                         window.location.href = "/account/account-settings";
@@ -1876,10 +1876,10 @@ $('.deleteShareholderInfo').on('click', function(){
                 },
                 messages: {
                     subject: {
-                        required: "Please enter a subject"
+                        required: "Please enter a subject."
                     },
                     description: {
-                        required: "Please enter description"
+                        required: "Please enter a detailed message."
                     }
                 }
             });
@@ -1893,7 +1893,7 @@ $('.deleteShareholderInfo').on('click', function(){
                 },
                 messages: {
                     notes: {
-                        required: "Please enter your notes"
+                        required: "Please enter notes"
                     }
                 }
             });
@@ -1914,7 +1914,7 @@ $('.deleteShareholderInfo').on('click', function(){
                                     icon: "success",
                                     title: response.msg,
                                     confirmButtonClass: "btn-success",
-                                    confirmButtonText: "OK"
+                                    confirmButtonText: "Confirm"
                                 },function(isConfirm){
 
                                 });
@@ -2018,7 +2018,7 @@ $('.deleteShareholderInfo').on('click', function(){
                                 icon: "success",
                                 title: response.msg,
                                 confirmButtonClass: "btn-success",
-                                confirmButtonText: "OK"
+                                confirmButtonText: "Confirm"
                             },function(isConfirm){
                                 if(isConfirm){
                                     window.location.href = "/account/managed-cryptocurrency-portfolio";
@@ -2081,7 +2081,7 @@ $('.deleteShareholderInfo').on('click', function(){
                                 icon: "success",
                                 title: response.msg,
                                 confirmButtonClass: "btn-success",
-                                confirmButtonText: "OK"
+                                confirmButtonText: "Confirm"
                             },function(isConfirm){
                                 if(isConfirm){
                                     window.location.href = "/account/managed-cryptocurrency-portfolio";
@@ -2147,41 +2147,41 @@ $('.deleteShareholderInfo').on('click', function(){
                 },
                 messages: {
                     account_name: {
-                        required: "Please enter bank account holder name"
+                        required: "Please enter bank account holder name."
                     },
                     bank_country: {
-                        required: "Please enter country of bank account"
+                        required: "Please enter country of bank account."
                     },
                     account_number: {
-                     required: "Please enter account number",
-                     number: "Only numbers are accepted",
-                     minlength: "Account number can have exactly 7 digits",
-                     maxlength: "Account number can have exactly 7 digits"
+                     required: "Please enter account number.",
+                     number: "Only numbers are accepted.",
+                     minlength: "Account number should have exactly 7 digits.",
+                     maxlength: "Account number should have exactly 7 digits."
                  },
                  routing_number: {
-                    required: "Please enter routing number",
-                    number: "Only numbers are accepted",
-                    minlength: "Routing number can have exactly 9 digits",
-                    maxlength: "Routing number can have exactly 9 digits"
+                    required: "Please enter routing number.",
+                    number: "Only numbers are accepted.",
+                    minlength: "Routing number should have exactly 9 digits.",
+                    maxlength: "Routing number should have exactly 9 digits."
                 },
                 phone_number: {
-                    required: "Please enter phone number",
-                    number: "Only numbers are accepted"
+                    required: "Please enter a phone number.",
+                    number: "Only numbers are accepted."
                 },
                 email_address: {
-                    required: "Please enter email address",
-                    email: "Please enter valid email address"
+                    required: "Please enter an email address.",
+                    email: "Please enter a valid email address."
                 },
                 'shareholder_name[]': {
-                    required: "Please enter shareholder name"
+                    required: "Please enter shareholder name."
                 },
                 'articles_incorporation[]': {
-                    required: "Please upload address proof",
-                    extension: 'Invalid file type'
+                    required: "Please upload address documentation.",
+                    extension: 'Invalid file type.'
                 },
                 'shareholder_id[]': {
-                    required: "Please upload govt issue id",
-                    extension: 'Invalid file type'
+                    required: "Please upload a government issued ID.",
+                    extension: 'Invalid file type.'
                 }
             },
             submitHandler:function(form) {
@@ -2245,7 +2245,7 @@ $('.deleteShareholderInfo').on('click', function(){
                             icon: "success",
                             title: response.msg,
                             confirmButtonClass: "btn-success",
-                            confirmButtonText: "OK"
+                            confirmButtonText: "Confirm"
                         },function(isConfirm){
                             if(isConfirm){
                                 window.location.href = "/account/managed-cryptocurrency-portfolio";
@@ -2311,30 +2311,30 @@ $('.deleteShareholderInfo').on('click', function(){
             },
             messages: {
                 account_name_individual: {
-                    required: "Please enter bank account holder name"
+                    required: "Please enter bank account holder name."
                 },
                 bank_country_individual: {
-                    required: "Please enter country of bank account"
+                    required: "Please enter country of bank account."
                 },
                 account_number_individual: {
-                 required: "Please enter account number",
-                 number: "Only numbers are accepted",
-                 minlength: "Account number can have exactly 7 digits",
-                 maxlength: "Account number can have exactly 7 digits"
+                 required: "Please enter account number.",
+                 number: "Only numbers are accepted.",
+                 minlength: "Account number should have exactly 7 digits.",
+                 maxlength: "Account number should have exactly 7 digits."
              },
              routing_number_individual: {
-                required: "Please enter routing number",
-                number: "Only numbers are accepted",
-                minlength: "Routing number can have exactly 9 digits",
-                maxlength: "Routing number can have exactly 9 digits"
+                required: "Please enter routing number.",
+                number: "Only numbers are accepted.",
+                minlength: "Routing number should have exactly 9 digits.",
+                maxlength: "Routing number should have exactly 9 digits."
             },
             phone_number_individual: {
-                required: "Please enter phone number",
-                number: "Only numbers are accepted"
+                required: "Please enter a phone number.",
+                number: "Only numbers are accepted."
             },
             email_address_individual: {
-                required: "Please enter email address",
-                email: "Please enter valid email address"
+                required: "Please enter an email address.",
+                email: "Please enter a valid email address."
             }
         },
         submitHandler:function(form) {
@@ -2899,7 +2899,7 @@ function remove(event){
                                         title: "Success",
                                         text: "You have generated a Coin Jolt wallet successfully.",
                                         confirmButtonClass: "btn-success",
-                                        confirmButtonText: "OK"
+                                        confirmButtonText: "Confirm"
                                     },function(isConfirm){
                                         if(isConfirm){
                                             window.location.href = "/account/wallets";
@@ -2946,10 +2946,10 @@ function remove(event){
                             if(response.success == true){
                                 swal({
                                     icon: "success",
-                                    title: "Success",
-                                    text: "You have created a Coin Jolt address successfully.",
+                                    title: "Congratulations!",
+                                    text: "You have generated a wallet address successfully.",
                                     confirmButtonClass: "btn-success",
-                                    confirmButtonText: "OK"
+                                    confirmButtonText: "Confirm"
                                 },function(isConfirm){
                                     if(isConfirm){
                                         window.location.href = "/account/wallets";
@@ -2960,7 +2960,7 @@ function remove(event){
                         }
                     });
                 } else {
-                    swal("Cancelled", "You cancelled creating the address.", "error");
+                    swal("Cancelled", "You cancelled creating a new wallet address.", "error");
                 }
             });
         });
@@ -2999,7 +2999,7 @@ function remove(event){
                 $(this).val($(this).val().replace(/[^0-9\.]/g,''));
                 if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
                     event.preventDefault();
-                    $( "#depositerrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number</p>');
+                    $( "#depositerrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number.</p>');
                     $('#depositerrormsg').show();
                 } else {
                     $('#depositerrormsg').hide();
@@ -3012,7 +3012,7 @@ function remove(event){
                 $( "#depositerrormsg" ).show();
                 $( "#depositerrormsg" ).empty();
                 if (amountdeposit <= 0) {
-                    $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be greater than 0</p>');
+                    $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be greater than 0.</p>');
                     return false;
                 } else {
                     $.ajax({
@@ -3034,7 +3034,7 @@ function remove(event){
                                     title: "Success",
                                     text: response.message,
                                     confirmButtonClass: "btn-success",
-                                    confirmButtonText: "OK"
+                                    confirmButtonText: "Confirm"
                                 },function(isConfirm){
                                     if(isConfirm){
                                         window.location.href = "/account/wallets";
@@ -3092,11 +3092,11 @@ function remove(event){
                     $( "#coinsenderrormsg" ).show();
                     $( "#coinsenderrormsg" ).empty();
                     if (coin_amount <= 0) {
-                        $( "#coinsenderrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be greater than 0</p>');
+                        $( "#coinsenderrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be greater than 0.</p>');
                         return false;
                     } else if(coin_address == "") {
                         $( "#coinsenderrormsg" ).empty();
-                        $( "#coinsenderrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid address to send Bitcoin.</p>');
+                        $( "#coinsenderrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid recipient address to send funds.</p>');
                         return false;
                     } else {
                         $.ajax({
@@ -3118,7 +3118,7 @@ function remove(event){
                                         title: "Success",
                                         text: response.message,
                                         confirmButtonClass: "btn-success",
-                                        confirmButtonText: "OK"
+                                        confirmButtonText: "Confirm"
                                     },function(isConfirm){
                                         if(isConfirm){
                                             window.location.href = "/wallets";

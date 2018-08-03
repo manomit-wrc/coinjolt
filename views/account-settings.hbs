@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>Account Settings</h1>
     <ol class="breadcrumb">
-        <li><a href="/account/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/account/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
         <li class="active">Account Settings</li>
     </ol>
 </section>
@@ -13,7 +13,7 @@
                     <div class="col-md-12 column-pr-0">
                         <div class="box box-default">
                             <div class="box-header with-border">
-                                <h3 class="box-title pull-left authen">2FA authentication</h3>
+                                <h3 class="box-title pull-left authen">2FA Authentication</h3>
                                 <div class="pull-right">
                                     <div class="onoffswitch">
                                         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" {{#if_eq user_data.two_factorAuth_status 1}} checked="checked" {{/if_eq}}>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Edit Profile </h3>
+                            <h3 class="box-title">Edit Profile</h3>
                         </div>
                         <div class="box-body">
                             <div class="row">
@@ -115,13 +115,13 @@
                                             <a style="cursor:pointer; margin-left: 16px;" data-toggle="modal" data-target="#myModalIDProof">Change</a>
                                         </strong>
                                         {{#if_eq kyc_details.0.status 1}}
-                                        <span style="float: right; font-weight: bold;">ID Proof Submitted</span>
+                                        <span style="float: right; font-weight: bold;">ID Verification Submitted</span>
                                         {{/if_eq}}
                                         {{#if_eq kyc_details.0.status 2}}
-                                        <span style="float: right; font-weight: bold;">ID Proof Approved</span>
+                                        <span style="float: right; font-weight: bold;">ID Verification Approved</span>
                                         {{/if_eq}}
                                         {{#if_eq kyc_details.0.status 3}}
-                                        <span style="float: right; font-weight: bold;">ID Proof Rejected</span>
+                                        <span style="float: right; font-weight: bold;">ID Verification Rejected</span>
                                         {{/if_eq}}
                                     </div>
                                 </div>
@@ -291,8 +291,8 @@
                                                             <div class="form-group">
                                                                 <label for="settlement_currency">Settlement Currency:</label>
                                                                 <select name="settlement_currency" class="form-control" id="settlement_currency">
-                                                                    <option value="flat" {{#if_eq p_institutional_arr.0.field_5 'flat'}} selected="selected" {{/if_eq}}>Flat(USD,EUR,YEN)</option>
-                                                                    <option value="cryptocurrency" {{#if_eq p_institutional_arr.0.field_5 'cryptocurrency'}} selected="selected" {{/if_eq}}>Cryptocurrency(BTC,ETC,XRC)</option>
+                                                                    <option value="flat" {{#if_eq p_institutional_arr.0.field_5 'flat'}} selected="selected" {{/if_eq}}>Flat (USD,EUR,YEN)</option>
+                                                                    <option value="cryptocurrency" {{#if_eq p_institutional_arr.0.field_5 'cryptocurrency'}} selected="selected" {{/if_eq}}>Cryptocurrency (BTC,ETC,XRC)</option>
 
                                                                 </select>
                                                             </div>
@@ -392,7 +392,7 @@
                                         {{!-- <div id="shareholder_div">
                                             <div class="">
                                                 <div class="col-md-12">
-                                                    <label class="shareholders-box">Add or Remove Shareholders</label>
+                                                    <label style="margin-right: 2%;" class="shareholders-box">Add Shareholders</label>
                                                     <button class="btn btn-primary" onclick="append(event)">+</button>
                                                     <button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
                                                     <span style="margin-bottom: 5%;"></span>
@@ -439,13 +439,13 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">×</button>
-                                                    <h4 class="modal-title">Share Holder Details</h4>
+                                                    <h4 class="modal-title">Shareholder Details</h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="col-md-3">
-                                                                <label>Shareholder Name : </label>
+                                                                <label>Shareholder Name:</label>
                                                             </div>
                                                             <div class="col-md-9">	
                                                                 <p id="id">asd</p>
@@ -455,7 +455,7 @@
                                                         <div class="col-md-6">
                                                             
                                                             <div class="col-md-6">
-                                                                <label>Proof of Address: </label>
+                                                                <label>Proof of Address:</label>
                                                             </div>
                                                             <div class="col-md-6">	
                                                                 <a href=""><img src="" width="100px" height="100px"></a>
@@ -466,7 +466,7 @@
                                                         <div class="col-md-6">
                                                             
                                                             <div class="col-md-6">
-                                                                <label>Government Issued ID: </label>
+                                                                <label>Government Issued ID:</label>
                                                             </div>
                                                             <div class="col-md-6">	
                                                                 <a href="">	<img src="" width="100px" height="100px"></a>
@@ -483,7 +483,7 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Shareholders</th>
+                                                <th>Name</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -512,7 +512,7 @@
                                                                     <div class="col-md-6">
                                                                         
                                                                         <div class="col-md-6">
-                                                                            <label>Proof of Address: </label>
+                                                                            <label>Proof of Address:</label>
                                                                         </div>
                                                                         <div class="col-md-6">	
                                                                             
@@ -598,7 +598,7 @@
                 </div>        
             </div>
             
-                <button class="btn btn-primary subbtn btn-block" type="submit" name="updateshareholderdata" id="updateshareholderdata" style="margin-bottom: 40px;">Save Shareholder</button>
+                <button class="btn btn-primary subbtn btn-block" type="submit" name="updateshareholderdata" id="updateshareholderdata" style="margin-bottom: 40px;">Update Shareholders Information</button>
             </form>
         <!-- end shareholder form -->
 </section>
@@ -631,7 +631,7 @@
             </div>
             <div class="modal-footer" style="clear: both">
                 <p class="loaderImg" style="display:none; text-align:center;">
-                    <img src="http://dev.coinjolt.com/wp-content/uploads/2017/10/ajax-loader-1.gif" class="loader-gif">
+                    <img src="/ajax-loader-1.gif" class="loader-gif">
                 </p>
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel_password" name="cancel_password">Cancel</button>
                 <button type="button" id="changepassword" class="btn btn-primary" name="changepassword">Change Password</button>
@@ -646,7 +646,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <strong><h3 class="modal-title" style="color: #3b3f4a">Upload ID Proof</h3></strong>
+                <strong><h3 class="modal-title" style="color: #3b3f4a">Upload ID</h3></strong>
             </div>
             <div class="modal-body">
                 <form method="post" id="frmIDChange" name="frmIDChange" enctype="multipart/form-data">
@@ -655,12 +655,12 @@
                     <div class="form-group col-md-12">
                         <div class="upld">
                             <input type="file" name="async_uploads" id="async_uploads">
-                            <div class="load-idproof"><i class="fa fa-upload"></i> Upload ID Proof</div>
+                            <div class="load-idproof"><i class="fa fa-upload"></i> Upload ID</div>
                         </div>
                     </div>
                     <div class="form-group col-md-12 id-submit">
                         <button type="submit" id="uploadidproof" class="btn btn-primary id-save" name="uploadidproof">Save</button>
-                        <img id="loaderimg" src="https://coinjolt.com/wp-content/uploads/2017/10/AjaxLoader.gif" class="vc_single_image-img attachment-full" alt="" style="width: 16px; margin: 0 auto; display: none;margin-left: 12px;">
+                        <img id="loaderimg" src="/ajax-loader-1.gif" class="vc_single_image-img attachment-full" alt="" style="width: 16px; margin: 0 auto; display: none;margin-left: 12px;">
                     </div>
                 </form>
             </div>

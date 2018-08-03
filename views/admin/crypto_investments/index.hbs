@@ -23,7 +23,7 @@
 							<thead>
 								<tr>
 									<th>ID</th>
-									<th>Cryptocurrency</th>
+									<th>Coin</th>
 									<th>Current Market Rate ($)</th>
 									<th>Balance ($)</th>
 									<th>Total Amount ($)</th>
@@ -33,7 +33,7 @@
 								{{#each all_data}}
 								<tr>
 									<td>{{inc @index}}</td>
-									<td class="uppertext">{{this.coin_name}}</td>
+									<td class="lowertext">{{this.coin_name}}</td>
 									<td>{{twoDecimalPoint this.coin_rate}}</td>
 									<td>{{formatCurrency (twoDecimalPoint this.total_balance)}}</td>
 									<td>{{formatCurrency (twoDecimalPoint this.total_amt)}}</td>

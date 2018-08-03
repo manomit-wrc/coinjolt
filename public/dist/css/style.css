@@ -1795,13 +1795,13 @@ h3.post-title {
 
     /* Starts on css 13-06-2018 */
 
-    .sidebar-menu.tree {
+    /* .sidebar-menu.tree {
     	height: 640px !important;
-    }
+    } */
 
-    .slimScrollDiv {
+    /* .slimScrollDiv {
     	height: 640px !important;
-    }
+    } */
 
 
 
@@ -2164,13 +2164,13 @@ h3.post-title {
     		padding: 0;
     	}
 
-    	.slimScrollDiv {
+    	/* .slimScrollDiv {
     		height: 500px !important;
-    	}
+    	} */
 
-    	.sidebar-menu.tree {
+    	/* .sidebar-menu.tree {
     		height: 500px !important;
-    	}
+    	} */
     }
 
 
@@ -2255,16 +2255,38 @@ h3.post-title {
 
 
 
-      /* Ends css on 2018-05-29 */
+	  /* Ends css on 2018-05-29 */
+
+
+
+	  /* Starts Custom styles */
+
+	  .slimScrollBar {
+		  z-index: 999999 !important;
+	  }
+
+	  .sidebar-collapse  .slimScrollBar {
+		z-index: 0 !important;
+		display: none !important;
+	}
+
+	.slimScrollBar.op-0 {
+		opacity: 0 !important;
+	}
+
+	.slimScrollBar.op-1 {
+		opacity: 1 !important;
+		right: 0 !important;
+	}
 
       @media screen and (max-width: 1280px) {
-      	.sidebar-menu.tree {
+      	/* .sidebar-menu.tree {
       		height: 500px !important;
       	}
 
       	.slimScrollDiv {
       		height: 500px !important;
-      	}
+      	} */
       }
 
       @media screen and (max-width: 1024px) {

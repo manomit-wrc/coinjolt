@@ -657,7 +657,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }).then(function (result) {
             // req.flash('supportMessage', 'Request sent successfully');
             // res.redirect('/submit-a-request');
-            var pushNotifications = require("push-notifications");
+            /* var pushNotifications = require("push-notifications");
             var io = require('socket.io')(8088);
             io.on('connection', function(socket){
                 socket.on('pushNotification', function(msg){
@@ -665,7 +665,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 });
 
                 pushNotifications.push(io, {title: req.body.subject.trim(), body : req.body.description.trim()});  
-            });
+            }); */
             
             res.json({
                 success: true

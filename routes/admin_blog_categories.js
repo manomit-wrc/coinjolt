@@ -7,11 +7,11 @@ module.exports = function (app, models) {
 		});
     });
 
-    app.get('/admin/add-blog-category', (req, res) =>{
+    app.get('/admin/add-blog-category', acl, (req, res) =>{
         res.render('admin/blog/category_create', { layout: 'dashboard', title:"Add Blog Category"});
     });
 
-    app.get('/admin/edit_blog_category/:categoryId', (req, res) =>{
+    app.get('/admin/edit_blog_category/:categoryId', acl, (req, res) =>{
         var categoryId = req.params.categoryId;
 
         models.blog_category.findAll({ where: { id : categoryId}}).then(categoryDetail => {

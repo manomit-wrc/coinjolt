@@ -4,8 +4,10 @@ module.exports = function (app, withdraw, bank_details, Deposit, models){
 	const sequelize = require('sequelize');
 	const acl = require('../middlewares/acl');
 	const user_acl = require('../middlewares/user_acl');
+	const two_factor_checking = require('../middlewares/two_factor_checking');
 
-	app.get('/account/request-withdrawal', user_acl, function (req,res) {
+
+	app.get('/account/request-withdrawal', two_factor_checking, user_acl, function (req,res) {
 		Deposit.findAll({
             where: {user_id: req.user.id, type: 3},
             limit: 5,

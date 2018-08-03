@@ -14,6 +14,7 @@ AWS.config.update({region: 'us-east-1'});
 const bCrypt = require('bcrypt-nodejs');
 var speakeasy = require('speakeasy');
 const auth = require('../middlewares/auth');
+const page_not_found = require('../middlewares/page_not_found');
 
 module.exports = function (app, passport, models) {
     
@@ -755,8 +756,8 @@ module.exports = function (app, passport, models) {
             res.render("cms/about_us", {layout: "cms/dashboard", companySettingsData:result[0],details:result[1]})
         });
     });
-
-     app.get('/:blogDetail', auth, (req,res) =>{
+                            
+     app.get('/:blogDetail', auth, page_not_found, (req,res) =>{
         
         var blogPageSlug = req.params.blogDetail;
 

@@ -37,7 +37,7 @@ paypal.configure({
     'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
 });
 
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation, blog_post, email_template, email_template_type, author) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation, blog_post, email_template, email_template_type, author, cold_wallet_balance) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var s3bucket = new AWS.S3({accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey, params: {Bucket: 'coinjoltdev2018'}});
@@ -1773,19 +1773,42 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     */
 
     app.post('/deposit-currency', function(req, res){
-        var destinationAddress = "";
         var coin_amount = req.body.coin_amount;
         var amountSatoshis = coin_amount * 1e8;
         var walletPassphrase = 'COinjolt123!!';
         var userid = req.user.id;
-        var currency_id = "1";
+        // var currency_id = "1";
         var walletDbId;
         var walletId;
-        var destinationAddressId;
+        //var destinationAddressId;
         var receiver_id;
         var walletBalance;
         var type = "2";
-        var currency_code = "btc";
+        var currency_id = req.body.currency_id;
+        var currency_code;
+        var destinationAddress;
+        if(currency_id == '1'){
+            currency_code = "btc";
+            destinationAddress = "3M7mjWjnpjxtcCKDPZm6TnekuuvCqUFkP6";
+        } else if(currency_id == '2'){
+            currency_code = "eth";
+            destinationAddress = "";
+        } else if(currency_id == '3'){
+            currency_code = "ltc";
+            destinationAddress = "M9Z9aLhj9bvQbkNZaKGfnaDkX5DWXMscsb";
+        } else if(currency_id == '5'){
+            currency_code = "bch";
+            destinationAddress = "3NoziQ69RkHLR9hFSqvJBFUczNt8wDdqBQ";
+        } else if(currency_id == '46'){
+            currency_code = "rmg";
+            destinationAddress = "";
+        } else if(currency_id == '4'){
+            currency_code = "xrp";
+            destinationAddress = "rark8zi3HawtpU7mYsfMCYZE1e7sGdMg1N?dt=0";
+        }
+        console.log(currency_id);
+        console.log(currency_code);
+        console.log(destinationAddress);          
 
         wallet.findAndCountAll({
             where: {
@@ -1810,7 +1833,11 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                         bitgo.coin(currency_code).wallets().get({ id: walletId })
                         .then(function(wallet) {
                             // walletBalance = (wallet.balance() / 1e8).toFixed(4);
-                            walletBalance = wallet._wallet.balance;
+                            if(currency_id == '4') { // ripple (xrp)
+                                walletBalance = wallet._wallet.spendableBalanceString;
+                            } else {
+                                walletBalance = wallet._wallet.balance;
+                            }
                             console.log("walletBalance");
                             console.log(walletBalance);
                             if((walletBalance == 0) || (walletBalance < amountSatoshis)){
@@ -1832,7 +1859,32 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                                         amount: amountSatoshis,
                                         type: type
                                     }).then(function (result) {
-                                        res.json({success: "1", message: "You have sent coin successfully."});
+                                        cold_wallet_balance.findAndCountAll({
+                                            where: { user_id: userid, currency_id: currency_id }
+                                        }).then(function (cold_wallet_balance) {
+                                            if (cold_wallet_balance.count > 0) {
+                                                currentBalance = cold_wallet_balance.rows[0].balance;
+                                                updatedBalance = currentBalance + amountSatoshis;
+                                                cold_wallet_balance.update({
+                                                    balance: balance
+                                                }, {
+                                                        where: {
+                                                            user_id: userid, currency_id: currency_id
+                                                        }
+                                                }).then(function (result_cold_wallet) {
+                                                    res.json({success: "1", message: "You have sent coin successfully."});
+                                                });
+                                            } else {
+                                                currency_balance.create({
+                                                    user_id: userid,
+                                                    balance: amountSatoshis,
+                                                    currency_id: currency_id
+                                        
+                                                }).then(function (result_cold_wallet) {
+                                                    res.json({success: "1", message: "You have sent coin successfully."});
+                                                });
+                                            }
+                                        });
                                     });
                                 });
                             }

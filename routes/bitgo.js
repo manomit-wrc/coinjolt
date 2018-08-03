@@ -145,9 +145,15 @@ module.exports = (app, models) => {
         var bchBlncNew = 0;
         var rmgBlncNew = 0;
         var xrpBlncNew = 0;
+        var btcBlncCold = 0;
+        var ethBlncCold = 0;
+        var ltcBlncCold = 0;
+        var bchBlncCold = 0;
+        var rmgBlncCold = 0;
+        var xrpBlncCold = 0;
         console.log("accessToken verified");
 
-        // get btc wallet
+        // get btc wallet------------------------------
         let btcWallet = await models.wallet.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -158,6 +164,7 @@ module.exports = (app, models) => {
             let btcCoin = await bitgo.coin('btc').wallets().get({ id: btcWallet.rows[0].bitgo_wallet_id });
             btcBalance = btcCoin._wallet.balance;
         }
+
         let btcBlncDb = await models.currency_balance.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -170,7 +177,21 @@ module.exports = (app, models) => {
         let btcBlncFinal = btcBalance + btcBlncNew;
         btcBlncFinal = parseFloat(Math.round(btcBlncFinal * 100) / 100).toFixed(4);
 
-        // get eth wallet
+        let btcCold = await models.cold_wallet_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '1'
+            }
+        });
+        if (btcCold.count > 0) {
+            btcBlncCold = btcCold.rows[0].balance;
+        }
+        btcBlncFinal = btcBlncFinal + btcBlncCold;
+        btcBlncFinal = parseFloat(Math.round(btcBlncFinal * 100) / 100).toFixed(4);
+        // btc ends----------------------------------------------------------------
+
+
+        // get eth wallet------------------------------
         let ethWallet = await models.wallet.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -181,6 +202,7 @@ module.exports = (app, models) => {
             let ethCoin = await bitgo.coin('eth').wallets().get({ id: ethWallet.rows[0].bitgo_wallet_id });
             ethBalance = ethCoin._wallet.balance;
         }
+
         let ethBlncDb = await models.currency_balance.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -192,8 +214,22 @@ module.exports = (app, models) => {
         }
         let ethBlncFinal = ethBalance + ethBlncNew;
         ethBlncFinal = parseFloat(Math.round(ethBlncFinal * 100) / 100).toFixed(4);
+
+        let ethCold = await models.cold_wallet_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '2'
+            }
+        });
+        if (ethCold.count > 0) {
+            ethBlncCold = ethCold.rows[0].balance;
+        }
+        ethBlncFinal = ethBlncFinal + ethBlncCold;
+        ethBlncFinal = parseFloat(Math.round(ethBlncFinal * 100) / 100).toFixed(4);
+        // eth ends----------------------------------------------------------------
+
         
-        // get ltc wallet
+        // get ltc wallet------------------------------
         let ltcWallet = await models.wallet.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -204,6 +240,7 @@ module.exports = (app, models) => {
             let ltcCoin = await bitgo.coin('ltc').wallets().get({ id: ltcWallet.rows[0].bitgo_wallet_id });
             ltcBalance = ltcCoin._wallet.balance;
         }
+
         let ltcBlncDb = await models.currency_balance.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -215,8 +252,22 @@ module.exports = (app, models) => {
         }
         let ltcBlncFinal = ltcBalance + ltcBlncNew;
         ltcBlncFinal = parseFloat(Math.round(ltcBlncFinal * 100) / 100).toFixed(4);
+
+        let ltcCold = await models.cold_wallet_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '3'
+            }
+        });
+        if (ltcCold.count > 0) {
+            ltcBlncCold = ltcCold.rows[0].balance;
+        }
+        ltcBlncFinal = ltcBlncFinal + ltcBlncCold;
+        ltcBlncFinal = parseFloat(Math.round(ltcBlncFinal * 100) / 100).toFixed(4);
+        // ltc ends----------------------------------------------------------------
+
         
-        // get bch wallet
+        // get bch wallet------------------------------
         let bchWallet = await models.wallet.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -227,6 +278,7 @@ module.exports = (app, models) => {
             let bchCoin = await bitgo.coin('bch').wallets().get({ id: bchWallet.rows[0].bitgo_wallet_id });
             bchBalance = bchCoin._wallet.balance;
         }
+
         let bchBlncDb = await models.currency_balance.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -238,8 +290,22 @@ module.exports = (app, models) => {
         }
         let bchBlncFinal = bchBalance + bchBlncNew;
         bchBlncFinal = parseFloat(Math.round(bchBlncFinal * 100) / 100).toFixed(4);
+
+        let bchCold = await models.cold_wallet_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '5'
+            }
+        });
+        if (bchCold.count > 0) {
+            bchBlncCold = bchCold.rows[0].balance;
+        }
+        bchBlncFinal = bchBlncFinal + bchBlncCold;
+        bchBlncFinal = parseFloat(Math.round(bchBlncFinal * 100) / 100).toFixed(4);
+        // bch ends----------------------------------------------------------------
+
         
-        // get rmg wallet
+        // get rmg wallet------------------------------
         let rmgWallet = await models.wallet.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -250,6 +316,7 @@ module.exports = (app, models) => {
             let rmgCoin = await bitgo.coin('rmg').wallets().get({ id: rmgWallet.rows[0].bitgo_wallet_id });
             rmgBalance = rmgCoin._wallet.balance;
         }
+
         let rmgBlncDb = await models.currency_balance.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -261,8 +328,22 @@ module.exports = (app, models) => {
         }
         let rmgBlncFinal = rmgBalance + rmgBlncNew;
         rmgBlncFinal = parseFloat(Math.round(rmgBlncFinal * 100) / 100).toFixed(4);
+
+        let rmgCold = await models.cold_wallet_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '46'
+            }
+        });
+        if (rmgCold.count > 0) {
+            rmgBlncCold = rmgCold.rows[0].balance;
+        }
+        rmgBlncFinal = rmgBlncFinal + rmgBlncCold;
+        rmgBlncFinal = parseFloat(Math.round(rmgBlncFinal * 100) / 100).toFixed(4);
+        // rmg ends----------------------------------------------------------------
+
         
-        // get xrp wallet
+        // get xrp wallet------------------------------
         let xrpWallet = await models.wallet.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -273,6 +354,7 @@ module.exports = (app, models) => {
             let xrpCoin = await bitgo.coin('xrp').wallets().get({ id: xrpWallet.rows[0].bitgo_wallet_id });
             xrpBalance = xrpCoin._wallet.spendableBalanceString;
         }
+        
         let xrpBlncDb = await models.currency_balance.findAndCountAll({
             where: {
                 user_id: req.user.id,
@@ -284,6 +366,19 @@ module.exports = (app, models) => {
         }
         let xrpBlncFinal = xrpBalance + xrpBlncNew;
         xrpBlncFinal = parseFloat(Math.round(xrpBlncFinal * 100) / 100).toFixed(4);
+
+        let xrpCold = await models.cold_wallet_balance.findAndCountAll({
+            where: {
+                user_id: req.user.id,
+                currency_id: '4'
+            }
+        });
+        if (xrpCold.count > 0) {
+            xrpBlncCold = xrpCold.rows[0].balance;
+        }
+        xrpBlncFinal = xrpBlncFinal + xrpBlncCold;
+        xrpBlncFinal = parseFloat(Math.round(xrpBlncFinal * 100) / 100).toFixed(4);
+        // xrp ends----------------------------------------------------------------
 
 
         //bitcoin

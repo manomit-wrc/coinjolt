@@ -260,7 +260,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-require('./routes/index')(app, passport, models);
+require('./routes/index')(app, passport, models, models.User);
 
 app.use(function(req, res, next){
   if (req.isAuthenticated())

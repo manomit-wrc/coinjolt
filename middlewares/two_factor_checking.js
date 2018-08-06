@@ -1,13 +1,10 @@
 module.exports = (req, res, next) => {
 	if(req.isAuthenticated()) {
-		if(req.user.two_factorAuth_status === 1 && req.user.two_factorAuth_verified == 'Active') {
+		if(req.user.two_factorAuth_status === 1) {
 			next();
 		}
-		else if(req.user.two_factorAuth_status === 2){
-			next();
-		}
-		else{
-			res.redirect('/login');
+		else {
+			res.redirect('/account/dashboard');
 		}
 	}
 };

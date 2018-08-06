@@ -253,7 +253,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 				ses.sendEmail({
 				   	Source: keys.senderEmail, 
 				   	Destination: { ToAddresses: newEmailArray },
-				   	// Destination: { ToAddresses: ['sobhan@wrctpl.com'] },
+				   	// Destination: { ToAddresses: ['support@coinjolt.com'] },
 				   	Message: {
 				       	Subject: {
 				          	Data: req.body.subject
@@ -279,7 +279,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 	    	if(i === users_array.length - 1) {
 				res.json({
 					status: true,
-					msg: "Email send to the user successfully."
+					msg: "Email sent to the user successfully."
 				});
 				// return res.send(true);
 			}
@@ -430,7 +430,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		    			if(i === users_array.length) {
 							res.json({
 								status: true,
-								msg: "Email send to the user successfully."
+								msg: "Email sent to the user successfully."
 							});
 							// return res.send(true);
 						}
@@ -594,7 +594,7 @@ app.get('/admin/send-password-email', acl, (req,res) => {
 			console.log(JSON.stringify(user_arr, undefined, 2));
 			async.eachSeries(user_arr, ( item, cb ) => {
 				var to_addresses = item.email_id;
-				// var to_addresses = "tamashree@wrctpl.com";
+				// var to_addresses = "support@coinjolt.com";
 				//var raw_password = item.password;
 				console.log(to_addresses);
 				//console.log(raw_password);
@@ -876,28 +876,24 @@ app.get('/admin/send-password-email', acl, (req,res) => {
 											<td style="padding: 0 40px 20px 40px; font-family: sans-serif; font-size: 15px; line-height: 25px; color: #555555; text-align: left; font-weight:normal;">
 											<p style="margin: 15px 0;">Dear users, clients and partners,<br><br>
 				
-													We have undergone a major platform upgrade.<br>
+													We have undergone a platform upgrade.<br>
 				
-													First and foremost, all assets are secure and ZERO holdings are in jeopardy. We will be resuming business operations as usual very shortly.<br>
+													First and foremost, all assets are secure. We will be resuming business operations very shortly.<br>
 				
-													In the meantime – you will need to update your password in order to access the new dashboard. This is for security purposes and to ensure your account remains safe.<br>
+													In the meantime – you will need to update your password in order to access the new dashboard. This is for security purposes and to ensure your account remains secure.<br>
 				
 													You will find that the option for 2 factor authentication has been enabled in the back office. Users are able to switch this feature on and off as they please. <br>
 				
 													If you are unfamiliar with Google Authentication, refer to these pages for <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_CA">Android</a> or <a href="https://itunes.apple.com/ca/app/google-authenticator/id388497605?mt=8">iPhone</a>.<br>
 				
-													We will also be enabling SMS verification in the upcoming days for additional measures of security.<br>
-				
-													There will be some finalizations made in the upcoming days as the system was designed to be incredibly robust with multiple layers of intelligence to prevent any breaches in security or DDoS attempts.<br>
-				
 													In the meantime, your patience and understanding is appreciated.<br>
 				
-												We hope you have a great rest of your day. There will be a follow up email very shortly.</p>
+													There will be a follow up email very shortly.</p>
 											</td>
 										</tr>
 										<tr>
 											<td style="padding: 0px 40px 20px 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; text-align: left; font-weight:normal;">
-												<p style="margin: 0;">Yours sincerely,</p>
+												<p style="margin: 0;">Be great,</p>
 											</td>
 										</tr>
 				
@@ -911,7 +907,7 @@ app.get('/admin/send-password-email', acl, (req,res) => {
 															<table width="" cellpadding="0" cellspacing="0" border="0">
 															  <tr>
 																<td align="left" style="font-family: sans-serif; font-size:14px; line-height:20px; color:#222222; font-weight:bold;" class="body-text">
-																  <p style="font-family: 'Montserrat', sans-serif; font-size:14px; line-height:20px; color:#222222; font-weight:bold; padding:0; margin:0;" class="body-text">Coin Jolt Support</p>   
+																  <p style="font-family: 'Montserrat', sans-serif; font-size:14px; line-height:20px; color:#222222; font-weight:bold; padding:0; margin:0;" class="body-text">- Coin Jolt</p>   
 															  </td>               
 														  </tr>                            
 													  </table>

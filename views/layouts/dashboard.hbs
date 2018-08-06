@@ -144,10 +144,10 @@
 
 
         <!-- //two factor authentication pop-up -->
-        <!-- <div>
+        <div>
             <input type="hidden" name="two_factor_auth_status" id="two_factor_auth_status" value="{{two_factorAuth_status}}">
-        </div> -->
-        <!-- <div class="modal fade barcode" id="modal-default">
+        </div>
+        <div class="modal fade barcode" id="modal-default">
           <div class="modal-dialog">
             <div class="modal-content">
                 <form class="form-horizontal" name="barcode_form" id="barcode_form" action="javascript:void(0)" method="POST">
@@ -166,11 +166,11 @@
                                 <div class="col-sm-7">
                                   <input type="text" class="form-control" name="user_secret_key" id="user_secret_key" placeholder="6 Digit Code">
                             </div>
+							<button style="float: center;" type="button" id="check_two_factor_auth" class="btn btn-primary">Verify Access</button>
 								<div style="margin-left: 10%;" class="modal-footer">
-							<button type="button" id="check_two_factor_auth" class="btn btn-primary">Continue</button>
-							<button type="button" id="two_factor_skip" class="btn btn-danger">Skip, setup later.</button>
+							<!--<button type="button" id="two_factor_skip" class="btn btn-danger">Skip, setup later.</button>-->
 							</div>
-							<div style="float: center;"><a target="_blank" href="https://itunes.apple.com/ca/app/google-authenticator/id388497605?mt=8"><img width="200px;" src="/dist/img/app-store.png"></a> <br/> <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en" target="_blank"><img width="200px;" src="/dist/img/google-play.png"></a></div>
+							<div style="float: left; margin-left: 15%;"><a target="_blank" href="https://itunes.apple.com/ca/app/google-authenticator/id388497605?mt=8"><img width="200px;" src="/dist/img/app-store.png"></a></div><div style="float: right; margin-right: 15%;"><a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en" target="_blank"><img width="200px;" src="/dist/img/google-play.png"></a></div>
 							<center><img src="/dist/img/2fa.png"></center>
 							<br/> 
 							<p style="float: left; margin-left: 3%;">Additionally, you can learn more about 2-Step Verification by <a target="_blank" href="https://en.wikipedia.org/wiki/Google_Authenticator">clicking here.</a></p>
@@ -179,7 +179,7 @@
                 </form>
             </div>
             <!-- /.modal-content -->
-        <!-- </div> -->
+        </div>
         <!-- /.modal-dialog -->
     </div>
     <!-- //end -->
@@ -488,68 +488,68 @@
     </script>
 
     <script type="text/javascript">
-        // setTimeout(function() { 
-        //     $(".loader").fadeOut("slow");
-        // }, 2000);
+        setTimeout(function() { 
+            $(".loader").fadeOut("slow");
+        }, 2000);
 
-        // var two_factorAuth_status = $('#two_factor_auth_status').val();
-        // if(two_factorAuth_status == 2){
-        //     $('#modal-default').modal({backdrop: 'static', keyboard: false});
-        // }
+        var two_factorAuth_status = $('#two_factor_auth_status').val();
+        if(two_factorAuth_status == 2){
+            $('#modal-default').modal({backdrop: 'static', keyboard: false});
+        }
 
-        // $("#two_factor_skip").on("click", function() {
-        //     $('#modal-default').modal('hide');
-        // });
+        $("#two_factor_skip").on("click", function() {
+            $('#modal-default').modal('hide');
+        });
 
-        // $('#check_two_factor_auth').on('click', function () {
-        //     var valid = $('#barcode_form').valid();
-        //     if(valid){
-        //         var two_factor_auth_secret_key = $('#two_fa_secret_key').val();
-        //         var user_secret_key = $('#user_secret_key').val();
+        $('#check_two_factor_auth').on('click', function () {
+            var valid = $('#barcode_form').valid();
+            if(valid){
+                var two_factor_auth_secret_key = $('#two_fa_secret_key').val();
+                var user_secret_key = $('#user_secret_key').val();
 
-        //         $(':input[type="button"]').prop('disabled', true);
-        //         $.ajax({
-        //             type: "POST",
-        //             url: "/check_two_factor_authentication",
-        //             data:{
-        //                 two_factor_auth_secret_key: two_factor_auth_secret_key,
-        //                 user_secret_key: user_secret_key
-        //             },
-        //             success: function (resp) {
-        //                 if(resp.status == true){
-        //                     $(':input[type="button"]').prop('disabled', false);
-        //                     swal({
-        //                         title: "Success",
-        //                         text: "Two factor authentication verified successfully.",
-        //                         type: "success",
-        //                         confirmButtonColor: "#DD6B55",
-        //                         confirmButtonText: "Confirm"
-        //                     },  function() {
-        //                         $('#modal-default').modal('hide');
-        //                         window.location.reload();
-        //                     });
-        //                 }else if(resp.status == false) {
-        //                     $(':input[type="button"]').prop('disabled', false);
-        //                     $('#user_secret_key').val('');
-        //                     swal("Oh no!", "Two factor authentication verified failed. Please scan the QR code and enter the sectret key again.");
-        //                 }
-        //             }
-        //         });
-        //     }
-        // });
+                $(':input[type="button"]').prop('disabled', true);
+                $.ajax({
+                    type: "POST",
+                    url: "/check_two_factor_authentication",
+                    data:{
+                        two_factor_auth_secret_key: two_factor_auth_secret_key,
+                        user_secret_key: user_secret_key
+                    },
+                    success: function (resp) {
+                        if(resp.status == true){
+                            $(':input[type="button"]').prop('disabled', false);
+                            swal({
+                                title: "Success",
+                                text: "Two factor authentication verified successfully.",
+                                type: "success",
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Confirm"
+                            },  function() {
+                                $('#modal-default').modal('hide');
+                                window.location.reload();
+                            });
+                        }else if(resp.status == false) {
+                            $(':input[type="button"]').prop('disabled', false);
+                            $('#user_secret_key').val('');
+                            swal("Oh No!", "The code entered was invalid. Please try again."); 
+                        }
+                    }
+                });
+            }
+        });
 
-        // $('#barcode_form').validate({
-        //     rules:{
-        //         user_secret_key:{
-        //             required: true
-        //         }
-        //     },
-        //     messages:{
-        //         user_secret_key:{
-        //             required: "Please enter your 6 digit code."
-        //         }
-        //     }
-        // });
+        $('#barcode_form').validate({
+            rules:{
+                user_secret_key:{
+                    required: true
+                }
+            },
+            messages:{
+                user_secret_key:{
+                    required: "Please enter the 6 digit authentication code."
+                }
+            }
+        });
 
         $('#myonoffswitch').on('change', function (e) {
             var value = e.currentTarget.checked;
@@ -571,16 +571,7 @@
                             window.location.reload();
                         });
                     }else if (resp.status == 'true') {
-                        // window.location.href = "/account/dashboard";
-                        swal({
-                            title: "Confirmation!",
-                            text: resp.msg,
-                            type: "success",
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Confirm"
-                        },  function() {
-                            window.location.reload();
-                        });
+                        window.location.href = "/account/dashboard";
                     }
                     
                 }
@@ -2637,10 +2628,10 @@ $('.deleteShareholderInfo').on('click', function(){
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Language', 'Speakers (in millions)'],
-          ['BITCOIN', 4],
-          ['ETHEREUM',  1.2],
-          ['ICO TOKEN', 1],
-          ['ALT COINS', 1],
+          ['bitcoin', 4],
+          ['ethereum',  1.2],
+          ['ico tokens', 1],
+          ['alt coins', 1],
           ]);
 
         var options = {
@@ -2658,7 +2649,8 @@ $('.deleteShareholderInfo').on('click', function(){
 
             
             // slices: [{color: '#fc7c59'}, {color: '#ed5565'}, {color: '#ec87c0'}, {color: '#5d9cec'}],
-            tooltip:{'text':'percentage'}
+            tooltip:{'text':'percentage'},
+            fontSize: 9
 
         };
         var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
@@ -3084,6 +3076,60 @@ function remove(event){
             $( "#coinsenderrormsg" ).hide();
         });
 
+        $('#currency_send_id').on('change', function () {
+            var currencyTypeString = $("#currency_send_id option:selected").text();
+            var currencyTypeOnly = currencyTypeString.match(/\((.*)\)/);
+            var currencyType = currencyTypeOnly[1];
+            var msg = "Current Rate(" + currencyTypeString + ")" + ": " + "$ ";
+            var currencyTypeName = currencyTypeString.split("(");
+            var currencyTypeFullName = currencyTypeName[0];
+            var coin_amount = parseFloat(jQuery("#coin_amount").val());
+            
+
+            if (currencyType !== '' && currencyType !== 'Please selet an option') {
+                $.ajax({
+                    type: 'GET',
+                    url: "https://coincap.io/page/" + currencyType,
+                    dataType: "json",
+                    success: function (result) {
+                        $('#coin_rate').val(result.price_usd);
+                        var roundUpPrice = parseFloat(Math.round(result.price_usd * 100) / 100).toFixed(2);
+                        $('#currentratetext2').addClass('alert alert-danger');
+                        $('#currentratetext2').show();
+                        $('#currentratetext2').html('Current Rate (' + currencyTypeFullName + '- ' + currencyType + ')' + ': $' + result.price_usd);
+                        $('#addresstext').addClass('alert alert-danger');
+                        $('#addresstext').show();
+                        $('#addresstext').html('Be sure to enter the proper recipient address respective to the cryptocurrency selected');
+
+                        $('#currentratetext2').addClass('alert alert-danger');
+                        $('#calculatedamount2').addClass('alert alert-success');
+                        jQuery('#calculatedamount2').show();
+                        jQuery('#calculatedamount2').html('Calculated USD Value: $'+  parseFloat(coin_amount/result.price_usd) );
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+            else {
+                $('#currentratetext2').removeClass('alert alert-danger');
+                $('#currentratetext2').html('');
+                $('#addresstext').removeClass('alert alert-danger');
+                $('#addresstext').html('');
+
+                $('#calculatedamount2').html('');
+                $('#calculatedamount2').removeClass('alert alert-success');
+                $('#calculatedamount2').hide();
+                var coin_rate = parseFloat(jQuery('#coin_rate').val());
+                var amtExpect = parseFloat(coin_amount / coin_rate);
+                if (isNaN(amtExpect)) {
+                    $('#calculatedamount2').html('');
+                    $('#calculatedamount2').removeClass('alert alert-success');
+                    $('#calculatedamount2').css('display','none');
+                }
+            }
+        });
+
         $('#coin_amount').on('keyup', function(event) {
             $(this).val($(this).val().replace(/[^0-9\.]/g,''));
             if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
@@ -3091,6 +3137,34 @@ function remove(event){
                 $( "#coinsenderrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number</p>');
                 $('#coinsenderrormsg').show();
             } else {
+
+                var coin_amount = parseFloat(jQuery("#coin_amount").val());
+                var coin_rate = parseFloat(jQuery('#coin_rate').val());
+                var currencyTypeString2 =  $("#currency_send_id option:selected").text();
+                var currencyTypeOnly2 = currencyTypeString2.match(/\((.*)\)/);
+                var currencyType2 = currencyTypeOnly2[1];
+                var currencyTypeName2 = currencyTypeString2.split("("); 
+                var currencyTypeFullName2 = currencyTypeName2[0];
+
+                if (currencyType2 === '') {
+                    $('#calculatedamount2').html('');
+                    $('#calculatedamount2').removeClass('alert alert-success');
+                    $('#calculatedamount2').hide();
+                    var amtExpect = parseFloat(coin_amount / coin_rate);
+                    if (isNaN(amtExpect)) {
+                        $('#calculatedamount2').html('');
+                        $('#calculatedamount2').removeClass('alert alert-success');
+                        $('#calculatedamount2').css('display','none');
+                    }
+                } else {
+                    var amtExpect = parseFloat(coin_amount/coin_rate);
+                    $('#currentratetext2').addClass('alert alert-danger');
+                    $('#calculatedamount2').addClass('alert alert-success');
+                    jQuery('#calculatedamount2').show();
+                    jQuery('#calculatedamount2').html('Calculated USD Value: $'+  parseFloat(coin_amount/coin_rate) );
+                }
+
+
                 $('#coinsenderrormsg').hide();
                 $('#coinsenderrormsg').html('');
             }
@@ -3098,6 +3172,7 @@ function remove(event){
 
         $( "#coin-send-btn" ).click(function(event) {
                     //event.preventDefault();
+                    var coin_name = $( "#currency_send_id" ).val();	
                     var coin_address = $( "#coin_address" ).val();	
                     var coin_amount = $( "#coin_amount" ).val();
                     var currency_id = $( "#currency_send_id" ).val();	
@@ -3109,6 +3184,10 @@ function remove(event){
                     } else if(coin_address == "") {
                         $( "#coinsenderrormsg" ).empty();
                         $( "#coinsenderrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid recipient address to send funds.</p>');
+                        return false;
+                    } else if(coin_name == "") {
+                        $( "#coinsenderrormsg" ).empty();
+                        $( "#coinsenderrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please select a coin to send funds.</p>');
                         return false;
                     } else {
                         $.ajax({
@@ -3133,7 +3212,7 @@ function remove(event){
                                         confirmButtonText: "Confirm"
                                     },function(isConfirm){
                                         if(isConfirm){
-                                            window.location.href = "/wallets";
+                                            window.location.href = "/account/wallets";
                                         }
                                     });
                                 }

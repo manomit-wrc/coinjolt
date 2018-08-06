@@ -2080,6 +2080,30 @@ h3.post-title {
 
 	/*Ends on css 03-08-2018*/
 
+	/*Starts on css 06-08-2018*/
+
+	span.usd_wallet_blnc {
+		display: table;
+		color: #ccc;
+		font-size: 16px !important;
+	}
+
+	.wallet_cal_display .alert.alert-danger {
+		background: #B5E61D !important;
+		border: 1px solid #B5E61D;
+	}
+
+	.wallet_cal_display .alert.alert-success {
+		background: #FFAEC9 !important;
+		border: 1px solid #FFAEC9;
+	}
+
+	#addresstext {
+		width: 50%;
+	}
+
+	/*Ends on css 06-08-2018*/
+
 
 
     @media screen and (max-width: 1366px) {

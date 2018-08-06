@@ -28,7 +28,7 @@
     <div class="col-md-12">
       <div class="box tabs">
         <div class="total-usd-bal">
-          <strong>Total USD Balance:</strong> <span>${{twoDecimalPoint totalUsdBlnc}}</span>
+          <strong>Total USD Balance:</strong> <span>${{formatCurrency (twoDecimalPoint totalUsdBlnc)}}</span>
         </div>
         <div class="panel with-nav-tabs">
           <div class="panel-heading">
@@ -36,6 +36,16 @@
               <li class="active">
                 <a href="#tab1primary" data-toggle="tab">
                   <span class="glyphicon glyphicon-btc"></span>Balances</a>
+              </li>
+              <li>
+                <a href="#tabHotWallet" data-toggle="tab">
+                  <span class="glyphicon"><i class="fa fa-expeditedssl"></i></span>Hot Wallet
+                </a>
+              </li>
+              <li>
+                <a href="#tabColdWallet" data-toggle="tab">
+                  <span class="glyphicon"><i class="fa fa-expeditedssl"></i></span>Cold Wallet
+                </a>
               </li>
               <li>
                 <a href="#tab2primary" data-toggle="tab">
@@ -58,6 +68,7 @@
                 <div class="body-wallets">
                   <div class="row">
                     <div class="col-md-12">
+					<p>Generate a wallet address to deposit cryptocurrencies, transact and use Coin Jolt applications freely.</p>
                       <!--BTC tabs starts-->
                       <div class="bit-tabs">
                         <div class="content-box">
@@ -69,7 +80,7 @@
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>{{btcBalance}} 
-                                <strong>BTC</strong> (${{twoDecimalPoint totalBtcUsd}})
+                                <strong>BTC</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint totalBtcUsd)}} USD</span>
                               </span>
                             </div>
                           </div>
@@ -115,7 +126,7 @@
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>{{ethBalance}}
-                                <strong>ETH</strong> (${{twoDecimalPoint totalEthUsd}})
+                                <strong>ETH</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint totalEthUsd)}} USD</span>
                               </span>
                             </div>
                           </div>
@@ -161,7 +172,7 @@
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>{{ltcBalance}}
-                                <strong>LTC</strong> (${{twoDecimalPoint totalLtcUsd}})
+                                <strong>LTC</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint totalLtcUsd)}} USD</span>
                               </span>
                             </div>
                           </div>
@@ -207,7 +218,7 @@
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>{{bchBalance}}
-                                <strong>BCH</strong> (${{twoDecimalPoint totalBchUsd}})
+                                <strong>BCH</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint totalBchUsd)}} USD</span>
                               </span>
                             </div>
                           </div>
@@ -244,7 +255,7 @@
                       </div>
                       <!--BCH tabs ends-->
                       <!--RMG tabs starts-->
-                      <div class="bit-tabs">
+                      {{!-- <div class="bit-tabs">
                         <div class="content-box">
                           <div class="collaps pull-left">
                             <div class="s-s-royal mint gold currency-logo-sprite"></div>
@@ -253,7 +264,7 @@
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>{{rmgBalance}}
-                                <strong>RMG</strong> (${{twoDecimalPoint totalRmgUsd}})
+                                <strong>RMG</strong> (${{formatCurrency (twoDecimalPoint totalRmgUsd)}})
                               </span>
                             </div>
                           </div>
@@ -287,7 +298,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> --}}
                       <!--RMG tabs ends-->
                       <!--XRP tabs starts-->
                       <div class="bit-tabs">
@@ -299,7 +310,7 @@
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>{{xrpBalance}}
-                                <strong>XRP</strong> (${{twoDecimalPoint totalXrpUsd}})
+                                <strong>XRP</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint totalXrpUsd)}} USD</span>
                               </span>
                             </div>
                           </div>
@@ -352,15 +363,17 @@
                     <div class="form-group">
                       <label for="exampleInputPassword1">Select Currency</label>
                       <select name="currency_send_id" id="currency_send_id" class="form-control">
+                        <option value="">Please selet an option</option>
                         <option value="1">Bitcoin (BTC)</option>
                         <option value="2">Ethereum (ETH)</option>
                         <option value="3">Litecoin (LTC)</option>
                         <option value="5">Bitcoin Cash (BCH)</option>
-                        <option value="46">Royal Mint Gold (RMG)</option>
+                        {{!-- <option value="46">Royal Mint Gold (RMG)</option> --}}
                         <option value="4">Ripple (XRP)</option>
                       </select>
                       {{!-- <label for="exampleInputPassword1">Send cryptocurrency</label> --}}
                     </div>
+                    <div id="addresstext" role="alert"></div>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
@@ -396,6 +409,11 @@
                           <label for="exampleInputPassword1">Amount</label>
                           <input type="text" class="form-control" id="coin_amount" name="coin_amount" placeholder="min 0.0001 BTC">
                         </div>
+                        <input type="hidden" id="coin_rate" name="coin_rate" value="" />
+                        <div class="wallet_cal_display">
+                          <div class="" id="currentratetext2" role="alert"></div>
+                          <div class="" id="calculatedamount2" role="alert"></div>
+                        </div>  
                       </div>
                       {{!-- <div class="col-md-4">
                         <div class="form-group">
@@ -656,6 +674,265 @@
               </div>
 
               <!-- tab part four -->
+
+
+
+
+              <!-- tab tabHotWallet -->
+              <div class="tab-pane fade" id="tabHotWallet">
+                <div class="body-wallets">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <!--BTC tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            {{!-- <i class="fa fa-bitcoin"></i> --}}
+                            <div class="s-s-bitcoin currency-logo-sprite"></div>
+                            <span class="wlt_coin">Bitcoin</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{btcHotOnly}} 
+                                <strong>BTC</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint btcHotOnlyUsd)}} USD</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <!--BTC tabs ends-->
+                      <!--ETH tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <div class="s-s-ethereum currency-logo-sprite"></div>
+                            <span class="wlt_coin">Ethereum</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{ethHotOnly}}
+                                <strong>ETH</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint ethHotOnlyUsd)}} USD</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <!--ETH tabs ends-->
+                      <!--LTC tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <div class="s-s-litecoin currency-logo-sprite"></div>
+                            <span class="wlt_coin">Litecoin</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{ltcHotOnly}}
+                                <strong>LTC</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint ltcHotOnlyUsd)}} USD</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <!--LTC tabs ends-->
+                      <!--BCH tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <div class="s-s-bitcoin-cash currency-logo-sprite"></div>
+                            <span class="wlt_coin">Bitcoin Cash</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{bchHotOnly}}
+                                <strong>BCH</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint bchHotOnlyUsd)}} USD</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <!--BCH tabs ends-->
+                      <!--RMG tabs starts-->
+                      {{!-- <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <div class="s-s-royal mint gold currency-logo-sprite"></div>
+                            <span class="wlt_coin">Royal Mint Gold</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{rmgHotOnly}}
+                                <strong>RMG</strong> (${{formatCurrency (twoDecimalPoint rmgHotOnlyUsd)}})
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                            </div>
+                          </div>
+                        </div>
+                      </div> --}}
+                      <!--RMG tabs ends-->
+                      <!--XRP tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <div class="s-s-ripple currency-logo-sprite"></div>
+                            <span class="wlt_coin">Ripple</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{xrpHotOnly}}
+                                <strong>XRP</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint xrpHotOnlyUsd)}} USD</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <!--XRP tabs ends-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- tab tabHotWallet -->
+
+
+
+
+              <!-- tab tabColdWallet -->
+              <div class="tab-pane fade" id="tabColdWallet">
+                <div class="body-wallets">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <!--BTC tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            {{!-- <i class="fa fa-bitcoin"></i> --}}
+                            <div class="s-s-bitcoin currency-logo-sprite"></div>
+                            <span class="wlt_coin">Bitcoin</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{btcColdOnly}} 
+                                <strong>BTC</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint btcColdOnlyUsd)}} USD</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <!--BTC tabs ends-->
+                      <!--ETH tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <div class="s-s-ethereum currency-logo-sprite"></div>
+                            <span class="wlt_coin">Ethereum</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{ethColdOnly}}
+                                <strong>ETH</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint ethColdOnlyUsd)}} USD</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <!--ETH tabs ends-->
+                      <!--LTC tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <div class="s-s-litecoin currency-logo-sprite"></div>
+                            <span class="wlt_coin">Litecoin</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{ltcColdOnly}}
+                                <strong>LTC</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint ltcColdOnlyUsd)}} USD</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <!--LTC tabs ends-->
+                      <!--BCH tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <div class="s-s-bitcoin-cash currency-logo-sprite"></div>
+                            <span class="wlt_coin">Bitcoin Cash</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{bchColdOnly}}
+                                <strong>BCH</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint bchColdOnlyUsd)}} USD</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <!--BCH tabs ends-->
+                      <!--RMG tabs starts-->
+                      {{!-- <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <div class="s-s-royal mint gold currency-logo-sprite"></div>
+                            <span class="wlt_coin">Royal Mint Gold</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{rmgColdOnly}}
+                                <strong>RMG</strong> (${{formatCurrency (twoDecimalPoint rmgColdOnlyUsd)}})
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                            </div>
+                          </div>
+                        </div>
+                      </div> --}}
+                      <!--RMG tabs ends-->
+                      <!--XRP tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <div class="s-s-ripple currency-logo-sprite"></div>
+                            <span class="wlt_coin">Ripple</span>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>{{xrpColdOnly}}
+                                <strong>XRP</strong> <span class="usd_wallet_blnc">${{formatCurrency (twoDecimalPoint xrpColdOnlyUsd)}} USD</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <!--XRP tabs ends-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- tab tabColdWallet -->
+
+
+
+
+
+
+
             </div>
 
           </div>

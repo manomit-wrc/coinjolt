@@ -172,7 +172,7 @@
                   </div>
                 </div>
                </div>
-                    <div id="wr-transfer" style="display:none"><p style="margin-left: 2%; text-align: center;"><span style="color: red;">*</span>Enter your desired deposit amount and our banking partners information will be displayed to provide to your local branch. Wire transfers typically take between 2-3 business days to be processed.</p></div>
+                    <div id="wr-transfer" style="display:none"><p style="margin-left: 2%; text-align: center;"><span style="color: red;">*</span>Enter the deposit amount to view our banking partner details to provide to your local branch. Wire transfers typically take between 2-3 business days to be processed.</p></div>
               </form>
             </div>
               </div>
@@ -224,7 +224,12 @@
                             {{#each user.currency}}
                             <tr>    
                                 <td class="col-xs-4">
-                                   <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite" ></div>
+                                   {{!-- <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite" ></div> --}}
+                                  {{#if_eq this.display_name "Bitcoin Cash"}}
+                                      <div class="s-s-bitcoin-cash currency-logo-sprite"></div>
+                                  {{else}}    
+                                      <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
+                                  {{/if_eq}}
                                 </td>
                                 <td class="col-xs-4 uppertext">{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
                                 <td class="wallet_crp col-xs-4">
@@ -259,7 +264,7 @@
                     {{#each depositHistory}}
                     <tr>
                         <td>USD</td>
-                        <td>${{formatCurrency (fiveDecimalPoint this.amount)}}</td>
+                        <td>${{formatCurrency (twoDecimalPoint this.amount)}}</td>
                         <td>{{#if_eq this.payment_method '1'}}
                             Credit Card 
                             {{/if_eq}}
@@ -358,11 +363,11 @@
           </div>
         </div>
         <!-- animateSuccessTip -->
-        <h2 style="text-align: center;">Success! A pending wire transfer has been added to your account.</h2>
-        <p style="text-align: left;">Wire transfers can take anywhere between 2-3 business days to be processed. Once the transfer has been processed, our system will automatically credit your balance. You can write or print out the following information to provide to your local branch.</p>
+        <h2 style="text-align: center;">A pending wire transfer has been added to your account.</h2>
+        <p style="text-align: left;">Simply write or print out the following information to provide to your local branch.</p>
         <form method="post">
         <div class="form-group">
-          <label>Total Amount (Pending Wire Transfer):</label>
+          <label>Total Amount:</label>
           <input type="text" class="form-control" placeholder="Total Amount" name="totalamount" id="totalamount" value="Bank of Nova Scotia" readonly>
         </div>
         <div class="form-group">
@@ -394,7 +399,7 @@
           <input type="text" class="form-control" placeholder="026002532" name="routingnumber" id="routingnumber" value="{{bankWireTransferDetails.routing_number}}" readonly>
           </div>
         <div class="form-group">
-          <label>SWIFT Code (International):</label>
+          <label>Swift Code:</label>
           <input type="text" class="form-control" placeholder="NOSCCATT" name="swiftcode" id="swiftcode" value="{{bankWireTransferDetails.swift_code}}" readonly>
         </div>
         <div class="form-group">

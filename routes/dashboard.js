@@ -140,7 +140,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         })
       });
     
-    app.get('/account/dashboard', user_acl, two_factor_checking, (req, res) => {
+    app.get('/account/dashboard', user_acl, (req, res) => {
         blog_post.belongsTo(author, {foreignKey: 'author_id'});
         blog_post.findAll({
             where:{
@@ -157,53 +157,47 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             // console.log(JSON.stringify(blogPosts, undefined, 2));
             User.findById(req.user.id).then( function (result) {
                 var result = JSON.parse(JSON.stringify(result));
-                res.render('dashboard', {
-                    layout: 'dashboard',
-                    blogPosts: blogPosts,
-                    // two_factorAuth_status: 1,
-                    title:"Dashboard"
-                });
 
-                // if(result.two_factorAuth_status == 1){
-                //     // res.render('two_factor_authentication');
-                //     res.render('dashboard', {
-                //         layout: 'dashboard',
-                //         blogPosts: blogPosts,
-                //         two_factorAuth_status: 1,
-                //         title:"Dashboard"
-                //     });
-                // }else if (result.two_factorAuth_status == 2) {
-                //     //two factor authentication
-                //     var secret = speakeasy.generateSecret({
-                //         issuer: 'Coin Jolt',
-                //         length: 20,
-                //         name: 'Coin Jolt'
-                //     });
+                if(result.two_factorAuth_status == 1){
+                    // res.render('two_factor_authentication');
+                    res.render('dashboard', {
+                        layout: 'dashboard',
+                        blogPosts: blogPosts,
+                        two_factorAuth_status: 1,
+                        title:"Dashboard"
+                    });
+                }else if (result.two_factorAuth_status == 2) {
+                    //two factor authentication
+                    var secret = speakeasy.generateSecret({
+                        issuer: 'Coin Jolt',
+                        length: 20,
+                        name: 'Coin Jolt'
+                    });
 
-                //     QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
-                //         User.update({
-                //             two_factorAuth_secret_key: secret.base32,
-                //             two_factorAuth_qr_code_image: image_data
-                //         },{
-                //             where:{
-                //                 id: req.user.id
-                //             }
-                //         }).then( result => {
-                //             if(result) {
-                //                 User.findById(req.user.id).then(user_update_result => {
-                //                     var data = JSON.parse(JSON.stringify(user_update_result));
-                //                     res.render('dashboard', {
-                //                         layout: 'dashboard',
-                //                         blogPosts: blogPosts,
-                //                         user_details: data,
-                //                         two_factorAuth_status: data.two_factorAuth_status,
-                //                         title:"Dashboard"
-                //                     });
-                //                 });
-                //             }
-                //         });
-                //     });
-                // }
+                    QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
+                        User.update({
+                            two_factorAuth_secret_key: secret.base32,
+                            two_factorAuth_qr_code_image: image_data
+                        },{
+                            where:{
+                                id: req.user.id
+                            }
+                        }).then( result => {
+                            if(result) {
+                                User.findById(req.user.id).then(user_update_result => {
+                                    var data = JSON.parse(JSON.stringify(user_update_result));
+                                    res.render('dashboard', {
+                                        layout: 'dashboard',
+                                        blogPosts: blogPosts,
+                                        user_details: data,
+                                        two_factorAuth_status: data.two_factorAuth_status,
+                                        title:"Dashboard"
+                                    });
+                                });
+                            }
+                        });
+                    });
+                }
             });
         });
     });
@@ -258,28 +252,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 });
             }
         }else if (option == 'true') {
-            if(two_factorAuth_status == 2){
-                User.update({
-                    two_factorAuth_status: 1
-                },{
-                    where:{
-                        id: req.user.id
-                    }
-                }).then(result_data => {
-                    if(result_data){
-                        res.json({
-                            status: option,
-                            msg:"Your two factor authentication is enable. "
-                        });
-                    }
-                });
-            }
-
-
-            // res.json({
-            //     status: option,
-            //     msg:"Your two factor authentication is disabled. "
-            // });
+            res.json({
+                status: option,
+                msg:"Your two factor authentication is disabled. "
+            });
         }
     });
 
@@ -455,7 +431,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.post('/account-settings', function (req, res) {
+    app.post('/account-settings', two_factor_checking, function (req, res) {
 
         //console.log(JSON.stringify(req.body, undefined, 2));
 
@@ -647,7 +623,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/account/invite-friends', user_acl, function (req,res) {
+    app.get('/account/invite-friends', user_acl, two_factor_checking, function (req,res) {
 		Referral_data.belongsTo(User, {foreignKey: 'user_id'});
 
 		Referral_data.findAll({
@@ -665,7 +641,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 		});
 	});
 
-    app.get('/account/submit-a-request', user_acl, function (req, res) {
+    app.get('/account/submit-a-request', user_acl, two_factor_checking, function (req, res) {
         const msg = req.flash('supportMessage')[0];
         res.render('submit-a-request', {
             layout: 'dashboard',
@@ -697,7 +673,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/account/requests-support', user_acl, two_factor_checking, function (req, res) {
+    app.get('/account/requests-support', user_acl,two_factor_checking, function (req, res) {
         Support.findAll({
             where: {
                 user_id: req.user.id
@@ -713,7 +689,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         });
     });
 
-    app.get('/account/buy-and-sell-coins', user_acl, two_factor_checking, async (req, res) => {
+    app.get('/account/buy-and-sell-coins', user_acl,two_factor_checking, async (req, res) => {
         var values = '';
         var buy_history = '';
         

@@ -2334,6 +2334,10 @@ h3.post-title {
 		right: 0 !important;
 	}
 
+	.content-wrapper{
+		margin-top: -250px;
+	}
+
       @media screen and (max-width: 1280px) {
       	/* .sidebar-menu.tree {
       		height: 500px !important;

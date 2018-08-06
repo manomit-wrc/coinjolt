@@ -42,6 +42,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "paypal-rest-sdk": "^1.8.1",
+    "pdfkit": "^0.8.3",
     "push-notifications": "^1.0.1",
     "qrcode": "^1.2.0",
     "request": "^2.85.0",

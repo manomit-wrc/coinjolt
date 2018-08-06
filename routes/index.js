@@ -12,15 +12,10 @@ var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
 
 const bCrypt = require('bcrypt-nodejs');
-
-//for two factor authentication
 var speakeasy = require('speakeasy');
-var QRCode = require('qrcode');
-//end
-
 const auth = require('../middlewares/auth');
 
-module.exports = function (app, passport, models, User) {
+module.exports = function (app, passport, models) {
     
     app.get('/', auth, function(req, res) {
         Promise.all([
@@ -553,45 +548,6 @@ module.exports = function (app, passport, models, User) {
             res.redirect('/admin/dashboard');
         } else {
             console.log(process.env.ACCESS_TOKEN);
-
-            if(req.user.two_factorAuth_status == 2){
-              res.redirect('/account/dashboard');
-            }
-            if (req.user.two_factorAuth_status == 1) {
-                var secret = speakeasy.generateSecret({
-                    issuer: 'Coin Jolt',
-                    length: 20,
-                    name: 'Coin Jolt'
-                });
-
-                QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
-                    User.update({
-                        two_factorAuth_secret_key: secret.base32,
-                        two_factorAuth_qr_code_image: image_data
-                    },{
-                        where:{
-                            id: req.user.id
-                        }
-                    }).then( result => {
-                        if(result) {
-                            User.findById(req.user.id).then(user_update_result => {
-                                var data = JSON.parse(JSON.stringify(user_update_result));
-                                res.render('two_factor_authentication', {
-                                    // layout: 'dashboard',
-                                    // blogPosts: blogPosts,
-                                    user_details: data,
-                                    two_factorAuth_status: data.two_factorAuth_status,
-                                    title:"2FA Verification"
-                                });
-                            });
-                        }
-                    });
-                });
-                // res.render('two_factor_authentication', {two_factorAuth_status: req.user.two_factorAuth_status});
-            }
-
-
-
             // bitgo.session({}, function callback(err, session) {
             // if (err) {
             //     // handle error
@@ -603,7 +559,7 @@ module.exports = function (app, passport, models, User) {
             // });
             
             // added today
-            
+            res.redirect('/account/dashboard');
            
             // if(req.user.two_factorAuth_status == 1){
                 // res.render('two_factor_authentication');

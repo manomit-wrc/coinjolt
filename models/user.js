@@ -26,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
     two_factorAuth_secret_key: DataTypes.STRING,
     two_factorAuth_qr_code_image: DataTypes.TEXT,
     two_factorAuth_status: DataTypes.INTEGER,
-    two_factorAuth_verified: DataTypes.STRING,
     raw_password: DataTypes.STRING
   }, {});
   User.associate = function(models) {

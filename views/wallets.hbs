@@ -27,6 +27,9 @@
   <div class="row">
     <div class="col-md-12">
       <div class="box tabs">
+        <div class="total-usd-bal">
+          <strong>Total USD Balance:</strong> <span>${{twoDecimalPoint totalUsdBlnc}}</span>
+        </div>
         <div class="panel with-nav-tabs">
           <div class="panel-heading">
             <ul class="nav nav-tabs">
@@ -65,8 +68,8 @@
                           </div>
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
-                              <span>{{btcBalance}}
-                                <strong>BTC</strong>
+                              <span>{{btcBalance}} 
+                                <strong>BTC</strong> (${{twoDecimalPoint totalBtcUsd}})
                               </span>
                             </div>
                           </div>
@@ -112,7 +115,7 @@
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>{{ethBalance}}
-                                <strong>ETH</strong>
+                                <strong>ETH</strong> (${{twoDecimalPoint totalEthUsd}})
                               </span>
                             </div>
                           </div>
@@ -158,7 +161,7 @@
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>{{ltcBalance}}
-                                <strong>LTC</strong>
+                                <strong>LTC</strong> (${{twoDecimalPoint totalLtcUsd}})
                               </span>
                             </div>
                           </div>
@@ -204,7 +207,7 @@
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>{{bchBalance}}
-                                <strong>BCH</strong>
+                                <strong>BCH</strong> (${{twoDecimalPoint totalBchUsd}})
                               </span>
                             </div>
                           </div>
@@ -250,7 +253,7 @@
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>{{rmgBalance}}
-                                <strong>RMG</strong>
+                                <strong>RMG</strong> (${{twoDecimalPoint totalRmgUsd}})
                               </span>
                             </div>
                           </div>
@@ -296,7 +299,7 @@
                           <div class="fltrgt-box pull-right">
                             <div class="claculate">
                               <span>{{xrpBalance}}
-                                <strong>XRP</strong>
+                                <strong>XRP</strong> (${{twoDecimalPoint totalXrpUsd}})
                               </span>
                             </div>
                           </div>

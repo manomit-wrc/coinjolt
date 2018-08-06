@@ -2050,6 +2050,37 @@ h3.post-title {
 	/*Ends on css 11-07-2018*/
 
 
+	/*Starts on css 03-08-2018*/
+
+	.total-usd-bal {
+		background: #2a2f40;
+		width: 260px;
+		position: absolute;
+		right: 30px;
+		top: 20px;
+		color: #fff;
+		-webkit-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+		-moz-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+		-ms-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+		-o-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+		box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+		padding: 15px 20px;
+		border-radius: 50px;
+		font-size: 14px;
+		text-align: center;
+	}
+
+	.total-usd-bal strong {
+		margin-right: 10px;
+	}
+
+	.total-usd-bal span {
+		font-weight: bold;
+	}
+
+	/*Ends on css 03-08-2018*/
+
+
 
     @media screen and (max-width: 1366px) {
     	.balance-box {

@@ -121,7 +121,90 @@
   <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- iCheck -->
   <script src="/plugins/iCheck/icheck.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+
+  <script type="text/javascript">
+    $(document).ready(function (){
+      setTimeout(function() { 
+            $(".loader").fadeOut("slow");
+        }, 2000);
+
+        var two_factorAuth_status = $('#two_factor_auth_status').val();
+        if(two_factorAuth_status == 1){
+            $('#modal-default').modal({backdrop: 'static', keyboard: false});
+        }
+
+        $("#two_factor_skip").on("click", function() {
+            $('#modal-default').modal('hide');
+        });
+
+        $('#check_two_factor_auth').on('click', function () {
+            var valid = $('#barcode_form').valid();
+            if(valid){
+                var two_factor_auth_secret_key = $('#two_fa_secret_key').val();
+                var user_secret_key = $('#user_secret_key').val();
+
+                $(':input[type="button"]').prop('disabled', true);
+                $.ajax({
+                    type: "POST",
+                    url: "/check_two_factor_authentication",
+                    data:{
+                        two_factor_auth_secret_key: two_factor_auth_secret_key,
+                        user_secret_key: user_secret_key
+                    },
+                    success: function (resp) {
+                        if(resp.status == true){
+                            $(':input[type="button"]').prop('disabled', false);
+                            swal({
+                                title: "Success",
+                                text: "Two factor authentication verified successfully.",
+                                type: "success",
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Confirm"
+                            },  function() {
+                                $.ajax({
+                                  type: "POST",
+                                  url: "/change_2faAuthVerified_status",
+                                  data: {
+                                    status: 'Active'
+                                  },
+                                  success: function (resp) {
+                                    if(resp.status == true){
+                                      window.location.href = "/account/dashboard";
+                                    }
+                                  }
+                                });
+                            });
+                        }else if(resp.status == false) {
+                            $(':input[type="button"]').prop('disabled', false);
+                            $('#user_secret_key').val('');
+                            swal("Oh no!", "Two factor authentication verified failed. Please scan the QR code and enter the sectret key again.");
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#barcode_form').validate({
+            rules:{
+                user_secret_key:{
+                    required: true
+                }
+            },
+            messages:{
+                user_secret_key:{
+                    required: "Please enter your 6 digit code."
+                }
+            }
+        });
+
+        // $(window).bind('beforeunload',function(){
+        //   return 'You are trying to skip 2FA Verification. Please verify 2FA process for further actions.';
+        // });
+    });
+  </script>
+
   <script>
     $(function () {
       $('input').iCheck({

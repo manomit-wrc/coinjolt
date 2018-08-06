@@ -3,8 +3,11 @@ module.exports = (req, res, next) => {
 		if(req.user.two_factorAuth_status === 1) {
 			next();
 		}
-		else {
-			res.redirect('/account/dashboard');
+		else if(req.user.two_factorAuth_status === 2){
+			next();
+		}
+		else{
+			res.redirect('/login/2FA-Verification');
 		}
 	}
 };

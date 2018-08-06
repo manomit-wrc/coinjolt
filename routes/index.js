@@ -548,46 +548,57 @@ module.exports = function (app, passport, models) {
             res.redirect('/admin/dashboard');
         } else {
             console.log(process.env.ACCESS_TOKEN);
-            // bitgo.session({}, function callback(err, session) {
-            // if (err) {
-            //     // handle error
-            //     console.log(err);
-            // }
-            // res.redirect('/dashboard');
-            // //res.send(session);
-            // console.log(session);
-            // });
-            
-            // added today
-            res.redirect('/account/dashboard');
-           
-            // if(req.user.two_factorAuth_status == 1){
-                // res.render('two_factor_authentication');
-            // }else{
-                // bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })
-                // .then(function(response) {
-                //     console.log("Response Access Token");
-                //     console.log(response.access_token);
-                //     res.cookie('BITGO_ACCESS_TOKEN',response.access_token);
-                //     res.redirect('/dashboard');
-                // })
-                // .catch(function (err) {
-                //     console.log("dashboard2");
-                //     console.log(err);
-                //     res.cookie('BITGO_ACCESS_TOKEN','v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018');
-                //     res.redirect('/dashboard');
-                // });
 
-                // var bitgo = new BitGoJS.BitGo({ env: 'test', accessToken:'v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018'});
-                // bitgo.session({}, function callback(err, session) {
-                //   if (err) {
-                //     // handle error
-                //     console.log(err);
-                //   }
-                //   console.dir(session);
-                // });
-            // }
+            if(req.user.two_factorAuth_status == 2){
+              res.redirect('/account/dashboard');
+            }
+            if (req.user.two_factorAuth_status == 1) {
+                res.redirect('/login/2FA-Verification');
+            }
+           
         }
+    });
+
+    app.get('/login/2FA-Verification', async (req,res) => {
+      var secret = speakeasy.generateSecret({
+          issuer: 'Coin Jolt',
+          length: 20,
+          name: 'Coin Jolt'
+      });
+
+      QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
+          User.update({
+              two_factorAuth_secret_key: secret.base32,
+              two_factorAuth_qr_code_image: image_data
+          },{
+              where:{
+                  id: req.user.id
+              }
+          }).then( result => {
+              if(result) {
+                  User.findById(req.user.id).then(user_update_result => {
+                      var data = JSON.parse(JSON.stringify(user_update_result));
+                      res.render('two_factor_authentication', {
+                          user_details: data,
+                          two_factorAuth_status: data.two_factorAuth_status,
+                          title:"2FA Verification"
+                      });
+                  });
+              }
+          });
+      });
+    });
+
+    app.post('/change_2faAuthVerified_status', async (req,res) => {
+      var user = await User.findOne({id : req.user.id});
+      if(user){
+        user.two_factorAuth_verified = req.body.status;
+        if(user.save()){
+          res.json({
+            status: true
+          })
+        }
+      }
     });
 
 

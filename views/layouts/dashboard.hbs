@@ -492,65 +492,6 @@
             $(".loader").fadeOut("slow");
         }, 2000);
 
-        var two_factorAuth_status = $('#two_factor_auth_status').val();
-        if(two_factorAuth_status == 2){
-            $('#modal-default').modal({backdrop: 'static', keyboard: false});
-        }
-
-        $("#two_factor_skip").on("click", function() {
-            $('#modal-default').modal('hide');
-        });
-
-        $('#check_two_factor_auth').on('click', function () {
-            var valid = $('#barcode_form').valid();
-            if(valid){
-                var two_factor_auth_secret_key = $('#two_fa_secret_key').val();
-                var user_secret_key = $('#user_secret_key').val();
-
-                $(':input[type="button"]').prop('disabled', true);
-                $.ajax({
-                    type: "POST",
-                    url: "/check_two_factor_authentication",
-                    data:{
-                        two_factor_auth_secret_key: two_factor_auth_secret_key,
-                        user_secret_key: user_secret_key
-                    },
-                    success: function (resp) {
-                        if(resp.status == true){
-                            $(':input[type="button"]').prop('disabled', false);
-                            swal({
-                                title: "Success",
-                                text: "Two factor authentication verified successfully.",
-                                type: "success",
-                                confirmButtonColor: "#DD6B55",
-                                confirmButtonText: "Confirm"
-                            },  function() {
-                                $('#modal-default').modal('hide');
-                                window.location.reload();
-                            });
-                        }else if(resp.status == false) {
-                            $(':input[type="button"]').prop('disabled', false);
-                            $('#user_secret_key').val('');
-                            swal("Oh no!", "Two factor authentication verified failed. Please scan the QR code and enter the sectret key again.");
-                        }
-                    }
-                });
-            }
-        });
-
-        $('#barcode_form').validate({
-            rules:{
-                user_secret_key:{
-                    required: true
-                }
-            },
-            messages:{
-                user_secret_key:{
-                    required: "Please enter your 6 digit code."
-                }
-            }
-        });
-
         $('#myonoffswitch').on('change', function (e) {
             var value = e.currentTarget.checked;
             $.ajax({

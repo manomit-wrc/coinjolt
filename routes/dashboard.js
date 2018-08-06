@@ -143,7 +143,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         })
       });
     
-    app.get('/account/dashboard', user_acl, (req, res) => {
+    app.get('/account/dashboard', user_acl, two_factor_checking, async (req, res) => {
         blog_post.belongsTo(author, {foreignKey: 'author_id'});
         blog_post.findAll({
             where:{
@@ -255,16 +255,42 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 });
             }
         }else if (option == 'true') {
-            res.json({
-                status: option,
-                msg:"Your two factor authentication is disabled. "
-            });
+            if(two_factorAuth_status == 2){
+                User.update({
+                    two_factorAuth_status: 1,
+                    two_factorAuth_verified : 'Active'
+                },{
+                    where:{
+                        id: req.user.id
+                    }
+                }).then(result_data => {
+                    if(result_data){
+                        res.json({
+                            status: option,
+                            msg:"Your two factor authentication is enable. "
+                        });
+                    }
+                });
+            }
+
+
+            // res.json({
+            //     status: option,
+            //     msg:"Your two factor authentication is disabled. "
+            // });
         }
     });
 
-    app.get('/account/logout', function (req, res) {
-        req.logout();
-        res.redirect('/login');
+    app.get('/account/logout', async function (req, res) {
+        var user = await User.findOne({id: req.user.id});
+        if(user){
+            user.two_factorAuth_verified = 'Inactive';
+            if(user.save()){
+                req.logout();
+                res.redirect('/login');
+            }
+        }
+        
     });
 
     app.get('/account/profile-details', user_acl, two_factor_checking, function (req, res) {

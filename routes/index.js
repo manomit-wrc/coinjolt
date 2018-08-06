@@ -558,40 +558,8 @@ module.exports = function (app, passport, models, User) {
               res.redirect('/account/dashboard');
             }
             if (req.user.two_factorAuth_status == 1) {
-                var secret = speakeasy.generateSecret({
-                    issuer: 'Coin Jolt',
-                    length: 20,
-                    name: 'Coin Jolt'
-                });
-
-                QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
-                    User.update({
-                        two_factorAuth_secret_key: secret.base32,
-                        two_factorAuth_qr_code_image: image_data
-                    },{
-                        where:{
-                            id: req.user.id
-                        }
-                    }).then( result => {
-                        if(result) {
-                            User.findById(req.user.id).then(user_update_result => {
-                                var data = JSON.parse(JSON.stringify(user_update_result));
-                                res.render('two_factor_authentication', {
-                                    // layout: 'dashboard',
-                                    // blogPosts: blogPosts,
-                                    user_details: data,
-                                    two_factorAuth_status: data.two_factorAuth_status,
-                                    title:"2FA Verification"
-                                });
-                            });
-                        }
-                    });
-                });
-                // res.render('two_factor_authentication', {two_factorAuth_status: req.user.two_factorAuth_status});
+                res.redirect('/login/2FA-Verification');
             }
-
-
-
             // bitgo.session({}, function callback(err, session) {
             // if (err) {
             //     // handle error
@@ -632,6 +600,48 @@ module.exports = function (app, passport, models, User) {
                 // });
             // }
         }
+    });
+
+    app.get('/login/2FA-Verification', async (req,res) => {
+      var secret = speakeasy.generateSecret({
+          issuer: 'Coin Jolt',
+          length: 20,
+          name: 'Coin Jolt'
+      });
+
+      QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
+          User.update({
+              two_factorAuth_secret_key: secret.base32,
+              two_factorAuth_qr_code_image: image_data
+          },{
+              where:{
+                  id: req.user.id
+              }
+          }).then( result => {
+              if(result) {
+                  User.findById(req.user.id).then(user_update_result => {
+                      var data = JSON.parse(JSON.stringify(user_update_result));
+                      res.render('two_factor_authentication', {
+                          user_details: data,
+                          two_factorAuth_status: data.two_factorAuth_status,
+                          title:"2FA Verification"
+                      });
+                  });
+              }
+          });
+      });
+    });
+
+    app.post('/change_2faAuthVerified_status', async (req,res) => {
+      var user = await User.findOne({id : req.user.id});
+      if(user){
+        user.two_factorAuth_verified = req.body.status;
+        if(user.save()){
+          res.json({
+            status: true
+          })
+        }
+      }
     });
 
 

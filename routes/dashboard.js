@@ -140,7 +140,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         })
       });
     
-    app.get('/account/dashboard', user_acl, two_factor_checking, (req, res) => {
+    app.get('/account/dashboard', user_acl, two_factor_checking, async (req, res) => {
         blog_post.belongsTo(author, {foreignKey: 'author_id'});
         blog_post.findAll({
             where:{
@@ -260,7 +260,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }else if (option == 'true') {
             if(two_factorAuth_status == 2){
                 User.update({
-                    two_factorAuth_status: 1
+                    two_factorAuth_status: 1,
+                    two_factorAuth_verified : 'Active'
                 },{
                     where:{
                         id: req.user.id

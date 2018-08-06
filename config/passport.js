@@ -188,13 +188,8 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                         return done(null, false, req.flash('loginMessage', 'Account not activated. Please contact support.')); 
                     }
 
-                    user.two_factorAuth_verified = 'Active';
-                    if(user.save()){
-                      var userinfo = user.get();
-                      return done(null, userinfo);
-                    }
-
-                    
+                    var userinfo = user.get();
+                    return done(null, userinfo);
 
 
                 }).catch(function (err) {
@@ -248,6 +243,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             two_factorAuth_secret_key: '',
                             two_factorAuth_qr_code_image: '',
                             two_factorAuth_status: 2,
+                            two_factorAuth_verified: 'Inactive',
                             // investor_type: req.body.investor_type
                             investor_type: 2
     

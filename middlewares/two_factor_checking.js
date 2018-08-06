@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
 			next();
 		}
 		else{
-			res.redirect('/login');
+			res.redirect('/login/2FA-Verification');
 		}
 	}
 };

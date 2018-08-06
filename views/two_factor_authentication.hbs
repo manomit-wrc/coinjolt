@@ -189,9 +189,18 @@
                                 confirmButtonColor: "#DD6B55",
                                 confirmButtonText: "Confirm"
                             },  function() {
-                                // $('#modal-default').modal('hide');
-                                // window.location.reload();
-                                window.location.href = "/account/dashboard"
+                                $.ajax({
+                                  type: "POST",
+                                  url: "/change_2faAuthVerified_status",
+                                  data: {
+                                    status: 'Active'
+                                  },
+                                  success: function (resp) {
+                                    if(resp.status == true){
+                                      window.location.href = "/account/dashboard";
+                                    }
+                                  }
+                                });
                             });
                         }else if(resp.status == false) {
                             $(':input[type="button"]').prop('disabled', false);
@@ -215,6 +224,10 @@
                 }
             }
         });
+
+        // $(window).bind('beforeunload',function(){
+        //   return 'You are trying to skip 2FA Verification. Please verify 2FA process for further actions.';
+        // });
     });
   </script>
 

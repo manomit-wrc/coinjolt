@@ -188,8 +188,13 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                         return done(null, false, req.flash('loginMessage', 'Account not activated. Please contact support.')); 
                     }
 
-                    var userinfo = user.get();
-                    return done(null, userinfo);
+                    user.two_factorAuth_verified = 'Active';
+                    if(user.save()){
+                      var userinfo = user.get();
+                      return done(null, userinfo);
+                    }
+
+                    
 
 
                 }).catch(function (err) {

@@ -283,9 +283,16 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }
     });
 
-    app.get('/account/logout', function (req, res) {
-        req.logout();
-        res.redirect('/login');
+    app.get('/account/logout', async function (req, res) {
+        var user = await User.findOne({id: req.user.id});
+        if(user){
+            user.two_factorAuth_verified = 'Inactive';
+            if(user.save()){
+                req.logout();
+                res.redirect('/login');
+            }
+        }
+        
     });
 
     app.get('/account/profile-details', user_acl, two_factor_checking, function (req, res) {

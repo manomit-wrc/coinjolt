@@ -16,6 +16,7 @@ const bCrypt = require('bcrypt-nodejs');
 //for two factor authentication
 var speakeasy = require('speakeasy');
 var QRCode = require('qrcode');
+
 //end
 
 const auth = require('../middlewares/auth');

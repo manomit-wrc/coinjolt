@@ -13,6 +13,8 @@ const Op = require('sequelize').Op;
 
 const two_factor_checking = require('../middlewares/two_factor_checking');
 
+var request = require('sync-request');
+
 module.exports = (app, models) => {
     app.get('/bitgo/login', (req, res) => {
         bitgo.authenticate({
@@ -90,7 +92,7 @@ module.exports = (app, models) => {
     app.get('/bitgo/send-coins', (req, res) => {
         var destinationAddress = '2MwDGsK8XmELd41t8GVK7G39vemcEjEUvYU';
         var amountSatoshis = 0.1 * 1e8;
-        var walletPassphrase = 'Mmitra!@#4';
+        var walletPassphrase = 'COinjolt123!!';
         var walletId = '2MziMaFRQTj5DfWD3f3pwhCihgah8Ed46se';
 
         bitgo.wallets().get({
@@ -143,18 +145,50 @@ module.exports = (app, models) => {
         var bchBalance = 0;
         var rmgBalance = 0;
         var xrpBalance = 0;
+
         var btcBlncNew = 0;
         var ethBlncNew = 0;
         var ltcBlncNew = 0;
         var bchBlncNew = 0;
         var rmgBlncNew = 0;
         var xrpBlncNew = 0;
+
         var btcBlncCold = 0;
         var ethBlncCold = 0;
         var ltcBlncCold = 0;
         var bchBlncCold = 0;
         var rmgBlncCold = 0;
         var xrpBlncCold = 0;
+
+        var totalBtcUsd;
+        var totalEthUsd;
+        var totalLtcUsd;
+        var totalBchUsd;
+        var totalRmgUsd;
+        var totalXrpUsd;        
+        var totalUsdBlnc;
+
+        var btcColdOnly;
+        var ethColdOnly;
+        var ltcColdOnly;
+        var bchColdOnly;
+        var rmgColdOnly;
+        var xrpColdOnly;
+
+        var btcColdOnlyUsd;
+        var ethColdOnlyUsd;
+        var ltcColdOnlyUsd;
+        var bchColdOnlyUsd;
+        var rmgColdOnlyUsd;
+        var xrpColdOnlyUsd;
+
+        var btcHotOnlyUsd;
+        var ethHotOnlyUsd;
+        var ltcHotOnlyUsd;
+        var bchHotOnlyUsd;
+        var rmgHotOnlyUsd;
+        var xrpHotOnlyUsd;
+
         console.log("accessToken verified");
 
         // get btc wallet------------------------------
@@ -192,6 +226,25 @@ module.exports = (app, models) => {
         }
         btcBlncFinal = btcBlncFinal + btcBlncCold;
         btcBlncFinal = parseFloat(Math.round(btcBlncFinal * 100) / 100).toFixed(4);
+
+        var responseBtc = request(
+            'GET',
+            'https://coincap.io/page/BTC'
+        );
+        let coin_rate_btc = JSON.parse(responseBtc.body);
+        coinRateBtc = coin_rate_btc.price_usd;
+        totalBtcUsd = parseFloat(coinRateBtc) * parseFloat(btcBlncFinal);
+
+        //only cold wallet balance
+        btcColdOnly = btcBlncNew + btcBlncCold;
+        btcColdOnly = parseFloat(Math.round(btcColdOnly * 100) / 100).toFixed(4);
+
+        btcColdOnlyUsd = parseFloat(coinRateBtc) * parseFloat(btcColdOnly);
+
+        btcHotOnlyUsd = parseFloat(coinRateBtc) * parseFloat(btcBalance);
+        
+
+
         // btc ends----------------------------------------------------------------
 
 
@@ -230,6 +283,24 @@ module.exports = (app, models) => {
         }
         ethBlncFinal = ethBlncFinal + ethBlncCold;
         ethBlncFinal = parseFloat(Math.round(ethBlncFinal * 100) / 100).toFixed(4);
+
+        var responseEth = request(
+            'GET',
+            'https://coincap.io/page/ETH'
+        );
+        let coin_rate_eth = JSON.parse(responseEth.body);
+        coinRateEth = coin_rate_eth.price_usd;
+        totalEthUsd = parseFloat(coinRateEth) * parseFloat(ethBlncFinal);
+
+        //only cold wallet balance
+        ethColdOnly = ethBlncNew + ethBlncCold;
+        ethColdOnly = parseFloat(Math.round(ethColdOnly * 100) / 100).toFixed(4);
+        
+        ethColdOnlyUsd = parseFloat(coinRateEth) * parseFloat(ethColdOnly);
+
+        ethHotOnlyUsd = parseFloat(coinRateEth) * parseFloat(ethBalance);
+
+
         // eth ends----------------------------------------------------------------
 
         
@@ -268,6 +339,24 @@ module.exports = (app, models) => {
         }
         ltcBlncFinal = ltcBlncFinal + ltcBlncCold;
         ltcBlncFinal = parseFloat(Math.round(ltcBlncFinal * 100) / 100).toFixed(4);
+
+        var responseLtc = request(
+            'GET',
+            'https://coincap.io/page/LTC'
+        );
+        let coin_rate_ltc = JSON.parse(responseLtc.body);
+        coinRateLtc = coin_rate_ltc.price_usd;
+        totalLtcUsd = parseFloat(coinRateLtc) * parseFloat(ltcBlncFinal);
+
+        //only cold wallet balance
+        ltcColdOnly = ltcBlncNew + ltcBlncCold;
+        ltcColdOnly = parseFloat(Math.round(ltcColdOnly * 100) / 100).toFixed(4);
+
+        ltcColdOnlyUsd = parseFloat(coinRateLtc) * parseFloat(ltcColdOnly);
+
+        ltcHotOnlyUsd = parseFloat(coinRateLtc) * parseFloat(ltcBalance);
+
+
         // ltc ends----------------------------------------------------------------
 
         
@@ -306,6 +395,24 @@ module.exports = (app, models) => {
         }
         bchBlncFinal = bchBlncFinal + bchBlncCold;
         bchBlncFinal = parseFloat(Math.round(bchBlncFinal * 100) / 100).toFixed(4);
+
+        var responseBch = request(
+            'GET',
+            'https://coincap.io/page/BCH'
+        );
+        let coin_rate_bch = JSON.parse(responseBch.body);
+        coinRateBch = coin_rate_bch.price_usd;
+        totalBchUsd = parseFloat(coinRateBch) * parseFloat(bchBlncFinal);
+
+        //only cold wallet balance
+        bchColdOnly = bchBlncNew + bchBlncCold;
+        bchColdOnly = parseFloat(Math.round(bchColdOnly * 100) / 100).toFixed(4);
+
+        bchColdOnlyUsd = parseFloat(coinRateBch) * parseFloat(bchColdOnly);
+
+        bchHotOnlyUsd = parseFloat(coinRateBch) * parseFloat(bchBalance);
+
+
         // bch ends----------------------------------------------------------------
 
         
@@ -344,6 +451,25 @@ module.exports = (app, models) => {
         }
         rmgBlncFinal = rmgBlncFinal + rmgBlncCold;
         rmgBlncFinal = parseFloat(Math.round(rmgBlncFinal * 100) / 100).toFixed(4);
+
+        var responseRmg = request(
+            'GET',
+            'https://coincap.io/page/RMG'
+        );
+        let coin_rate_rmg = JSON.parse(responseRmg.body);
+        // coinRateRmg = coin_rate_rmg.price_usd;
+        coinRateRmg = "0";
+        totalRmgUsd = parseFloat(coinRateRmg) * parseFloat(rmgBlncFinal);
+
+         //only cold wallet balance
+         rmgColdOnly = rmgBlncNew + rmgBlncCold;
+         rmgColdOnly = parseFloat(Math.round(rmgColdOnly * 100) / 100).toFixed(4);
+
+         rmgColdOnlyUsd = parseFloat(coinRateRmg) * parseFloat(rmgColdOnly);
+
+         rmgHotOnlyUsd = parseFloat(coinRateRmg) * parseFloat(rmgBalance);
+
+
         // rmg ends----------------------------------------------------------------
 
         
@@ -382,7 +508,28 @@ module.exports = (app, models) => {
         }
         xrpBlncFinal = xrpBlncFinal + xrpBlncCold;
         xrpBlncFinal = parseFloat(Math.round(xrpBlncFinal * 100) / 100).toFixed(4);
+
+        var responseXrp = request(
+            'GET',
+            'https://coincap.io/page/XRP'
+        );
+        let coin_rate_xrp = JSON.parse(responseXrp.body);
+        coinRateXrp = coin_rate_xrp.price_usd;
+        totalXrpUsd = parseFloat(coinRateXrp) * parseFloat(xrpBlncFinal);
+
+        //only cold wallet balance
+        xrpColdOnly = xrpBlncNew + xrpBlncCold;
+        xrpColdOnly = parseFloat(Math.round(xrpColdOnly * 100) / 100).toFixed(4);
+
+        xrpColdOnlyUsd = parseFloat(coinRateXrp) * parseFloat(xrpColdOnly);
+
+        xrpHotOnlyUsd = parseFloat(coinRateXrp) * parseFloat(xrpBalance);
+
+
         // xrp ends----------------------------------------------------------------
+
+        totalUsdBlnc = totalBtcUsd + totalEthUsd + totalLtcUsd + totalBchUsd + totalRmgUsd + totalXrpUsd;
+        totalUsdBlnc = parseFloat(Math.round(totalUsdBlnc * 100) / 100).toFixed(4);
 
 
         //bitcoin
@@ -461,7 +608,43 @@ module.exports = (app, models) => {
             bchWallet: bchWallet,
             rmgWallet: rmgWallet,
             xrpWallet: xrpWallet,
-            walletTransaction: walletTransaction
+            walletTransaction: walletTransaction,
+            totalBtcUsd: totalBtcUsd,
+            totalEthUsd: totalEthUsd,
+            totalLtcUsd: totalLtcUsd,
+            totalBchUsd: totalBchUsd,
+            totalRmgUsd: totalRmgUsd,
+            totalXrpUsd: totalXrpUsd,
+            totalUsdBlnc: totalUsdBlnc,
+
+            btcColdOnly :btcColdOnly,
+            ethColdOnly :ethColdOnly,
+            ltcColdOnly :ltcColdOnly,
+            bchColdOnly:bchColdOnly,
+            rmgColdOnly:rmgColdOnly,
+            xrpColdOnly:xrpColdOnly,
+
+            btcColdOnlyUsd: btcColdOnlyUsd,
+            ethColdOnlyUsd: ethColdOnlyUsd,
+            ltcColdOnlyUsd: ltcColdOnlyUsd,
+            bchColdOnlyUsd: bchColdOnlyUsd,
+            rmgColdOnlyUsd: rmgColdOnlyUsd,
+            xrpColdOnlyUsd: xrpColdOnlyUsd,
+
+            btcHotOnly : btcBalance,
+            ethHotOnly : ethBalance,
+            ltcHotOnly: ltcBalance,
+            bchHotOnly: bchBalance,
+            rmgHotOnly: rmgBalance,
+            xrpHotOnly: xrpBalance,
+
+            btcHotOnlyUsd: btcHotOnlyUsd,
+            ethHotOnlyUsd: ethHotOnlyUsd,
+            ltcHotOnlyUsd: ltcHotOnlyUsd,
+            bchHotOnlyUsd: bchHotOnlyUsd,
+            rmgHotOnlyUsd: rmgHotOnlyUsd,
+            xrpHotOnlyUsd: xrpHotOnlyUsd
+
         });
 
     });

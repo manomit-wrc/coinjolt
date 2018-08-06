@@ -144,8 +144,6 @@
 
 
         <!-- //two factor authentication pop-up -->
-        
-        <!-- /.modal-dialog -->
     </div>
     <!-- //end -->
 </div>
@@ -2534,10 +2532,10 @@ $('.deleteShareholderInfo').on('click', function(){
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Language', 'Speakers (in millions)'],
-          ['BITCOIN', 4],
-          ['ETHEREUM',  1.2],
-          ['ICO TOKEN', 1],
-          ['ALT COINS', 1],
+          ['bitcoin', 4],
+          ['ethereum',  1.2],
+          ['ico tokens', 1],
+          ['alt coins', 1],
           ]);
 
         var options = {
@@ -2555,7 +2553,8 @@ $('.deleteShareholderInfo').on('click', function(){
 
             
             // slices: [{color: '#fc7c59'}, {color: '#ed5565'}, {color: '#ec87c0'}, {color: '#5d9cec'}],
-            tooltip:{'text':'percentage'}
+            tooltip:{'text':'percentage'},
+            fontSize: 9
 
         };
         var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
@@ -2994,6 +2993,60 @@ function remove(event){
             $( "#coinsenderrormsg" ).hide();
         });
 
+        $('#currency_send_id').on('change', function () {
+            var currencyTypeString = $("#currency_send_id option:selected").text();
+            var currencyTypeOnly = currencyTypeString.match(/\((.*)\)/);
+            var currencyType = currencyTypeOnly[1];
+            var msg = "Current Rate(" + currencyTypeString + ")" + ": " + "$ ";
+            var currencyTypeName = currencyTypeString.split("(");
+            var currencyTypeFullName = currencyTypeName[0];
+            var coin_amount = parseFloat(jQuery("#coin_amount").val());
+            
+
+            if (currencyType !== '' && currencyType !== 'Please selet an option') {
+                $.ajax({
+                    type: 'GET',
+                    url: "https://coincap.io/page/" + currencyType,
+                    dataType: "json",
+                    success: function (result) {
+                        $('#coin_rate').val(result.price_usd);
+                        var roundUpPrice = parseFloat(Math.round(result.price_usd * 100) / 100).toFixed(2);
+                        $('#currentratetext2').addClass('alert alert-danger');
+                        $('#currentratetext2').show();
+                        $('#currentratetext2').html('Current Rate (' + currencyTypeFullName + '- ' + currencyType + ')' + ': $' + result.price_usd);
+                        $('#addresstext').addClass('alert alert-danger');
+                        $('#addresstext').show();
+                        $('#addresstext').html('Be sure to enter the proper recipient address respective to the cryptocurrency selected');
+
+                        $('#currentratetext2').addClass('alert alert-danger');
+                        $('#calculatedamount2').addClass('alert alert-success');
+                        jQuery('#calculatedamount2').show();
+                        jQuery('#calculatedamount2').html('Calculated USD Value: $'+  parseFloat(coin_amount/result.price_usd) );
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+            else {
+                $('#currentratetext2').removeClass('alert alert-danger');
+                $('#currentratetext2').html('');
+                $('#addresstext').removeClass('alert alert-danger');
+                $('#addresstext').html('');
+
+                $('#calculatedamount2').html('');
+                $('#calculatedamount2').removeClass('alert alert-success');
+                $('#calculatedamount2').hide();
+                var coin_rate = parseFloat(jQuery('#coin_rate').val());
+                var amtExpect = parseFloat(coin_amount / coin_rate);
+                if (isNaN(amtExpect)) {
+                    $('#calculatedamount2').html('');
+                    $('#calculatedamount2').removeClass('alert alert-success');
+                    $('#calculatedamount2').css('display','none');
+                }
+            }
+        });
+
         $('#coin_amount').on('keyup', function(event) {
             $(this).val($(this).val().replace(/[^0-9\.]/g,''));
             if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
@@ -3001,6 +3054,34 @@ function remove(event){
                 $( "#coinsenderrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number</p>');
                 $('#coinsenderrormsg').show();
             } else {
+
+                var coin_amount = parseFloat(jQuery("#coin_amount").val());
+                var coin_rate = parseFloat(jQuery('#coin_rate').val());
+                var currencyTypeString2 =  $("#currency_send_id option:selected").text();
+                var currencyTypeOnly2 = currencyTypeString2.match(/\((.*)\)/);
+                var currencyType2 = currencyTypeOnly2[1];
+                var currencyTypeName2 = currencyTypeString2.split("("); 
+                var currencyTypeFullName2 = currencyTypeName2[0];
+
+                if (currencyType2 === '') {
+                    $('#calculatedamount2').html('');
+                    $('#calculatedamount2').removeClass('alert alert-success');
+                    $('#calculatedamount2').hide();
+                    var amtExpect = parseFloat(coin_amount / coin_rate);
+                    if (isNaN(amtExpect)) {
+                        $('#calculatedamount2').html('');
+                        $('#calculatedamount2').removeClass('alert alert-success');
+                        $('#calculatedamount2').css('display','none');
+                    }
+                } else {
+                    var amtExpect = parseFloat(coin_amount/coin_rate);
+                    $('#currentratetext2').addClass('alert alert-danger');
+                    $('#calculatedamount2').addClass('alert alert-success');
+                    jQuery('#calculatedamount2').show();
+                    jQuery('#calculatedamount2').html('Calculated USD Value: $'+  parseFloat(coin_amount/coin_rate) );
+                }
+
+
                 $('#coinsenderrormsg').hide();
                 $('#coinsenderrormsg').html('');
             }
@@ -3008,6 +3089,7 @@ function remove(event){
 
         $( "#coin-send-btn" ).click(function(event) {
                     //event.preventDefault();
+                    var coin_name = $( "#currency_send_id" ).val();	
                     var coin_address = $( "#coin_address" ).val();	
                     var coin_amount = $( "#coin_amount" ).val();
                     var currency_id = $( "#currency_send_id" ).val();	
@@ -3019,6 +3101,10 @@ function remove(event){
                     } else if(coin_address == "") {
                         $( "#coinsenderrormsg" ).empty();
                         $( "#coinsenderrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid recipient address to send funds.</p>');
+                        return false;
+                    } else if(coin_name == "") {
+                        $( "#coinsenderrormsg" ).empty();
+                        $( "#coinsenderrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please select a coin to send funds.</p>');
                         return false;
                     } else {
                         $.ajax({
@@ -3043,7 +3129,7 @@ function remove(event){
                                         confirmButtonText: "Confirm"
                                     },function(isConfirm){
                                         if(isConfirm){
-                                            window.location.href = "/wallets";
+                                            window.location.href = "/account/wallets";
                                         }
                                     });
                                 }

@@ -265,7 +265,12 @@
                             {{#each user.currency}}
                             <tr>    
                                 <td class="col-xs-4">
-                                    <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
+                                    {{!-- <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div> --}}
+                                  {{#if_eq this.display_name "Bitcoin Cash"}}
+                                      <div class="s-s-bitcoin-cash currency-logo-sprite"></div>
+                                  {{else}}    
+                                      <div class="s-s-{{toLowerCase this.display_name}} currency-logo-sprite"></div>
+                                  {{/if_eq}} 
                                 </td>
                                 <td class="col-xs-4 uppertext">{{this.display_name}} <span style="color:red;">({{toUpperCase this.alt_name}})</span></td>
                                 <td class="wallet_crp col-xs-4">

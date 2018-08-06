@@ -34,7 +34,7 @@
 								<tr>
 									<td>{{inc @index}}</td>
 									<td class="lowertext">{{this.coin_name}}</td>
-									<td>{{twoDecimalPoint this.coin_rate}}</td>
+									<td>{{formatCurrency (twoDecimalPoint this.coin_rate)}}</td>
 									<td>{{formatCurrency (twoDecimalPoint this.total_balance)}}</td>
 									<td>{{formatCurrency (twoDecimalPoint this.total_amt)}}</td>
 								</tr>

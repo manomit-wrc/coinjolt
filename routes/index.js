@@ -13,9 +13,13 @@ AWS.config.update({region: 'us-east-1'});
 
 const bCrypt = require('bcrypt-nodejs');
 var speakeasy = require('speakeasy');
+var QRCode = require('qrcode');
+
+//end
+
 const auth = require('../middlewares/auth');
 
-module.exports = function (app, passport, models) {
+module.exports = function (app, passport, models, User) {
     
     app.get('/', auth, function(req, res) {
         Promise.all([

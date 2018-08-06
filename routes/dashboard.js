@@ -31,6 +31,9 @@ var QRCode = require('qrcode');
 
 const paypal = require('paypal-rest-sdk');
 
+const pdfDocument = require('pdfkit');
+const fs = require('fs');
+var doc = new pdfDocument;
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
@@ -38,7 +41,7 @@ paypal.configure({
     'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
 });
 
-module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation, blog_post, email_template, email_template_type, author, cold_wallet_balance) {
+module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation, blog_post, email_template, email_template_type, author, cold_wallet_balance, deposit_method_type, WireTransfer) {
 
     var s3 = new AWS.S3({ accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey });
     var s3bucket = new AWS.S3({accessKeyId: keys.accessKeyId, secretAccessKey: keys.secretAccessKey, params: {Bucket: 'coinjoltdev2018'}});
@@ -2006,6 +2009,111 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.get('/settings', user_acl, two_factor_checking, (req,res) => {
         res.render('settings', {layout: 'dashboard'});
+    });
+
+    app.get('/dashboard/genPdf', user_acl, two_factor_checking, async(req, res) =>{
+        
+        
+            let bankWireTransferDetails = await deposit_method_type.findOne({
+                where: {
+                    deposit_method_id: '2' // deposit method is bank wire transfer
+                }
+            });
+
+            let wireTransferAmt = await WireTransfer.findOne({
+                attributes: ['amount_usd'],
+                limit: 1,
+                order: [
+                    ['id', 'DESC']
+                ]
+            });
+
+            var wTransferAmount = JSON.stringify(wireTransferAmt).split(":");
+
+            var onlyWireTransferAmt = wTransferAmount[1];
+
+            onlyWireTransferAmt = onlyWireTransferAmt.replace(/"|}|"/g,'');
+
+            var bankName = JSON.stringify(bankWireTransferDetails.bank_name);
+
+            bankName = bankName.replace(/"/g,'');
+
+           
+            var bankAccountName = JSON.stringify(bankWireTransferDetails.account_name);
+
+            bankAccountName = bankAccountName.replace(/"/g,'');
+
+            var bankAddress = JSON.stringify(bankWireTransferDetails.bank_address);
+
+            bankAddress = bankAddress.replace(/"/g,'');
+
+            var bankBranchNumber = JSON.stringify(bankWireTransferDetails.branch_number);
+
+            bankBranchNumber = bankBranchNumber.replace(/"/g,'');
+           
+            var bankInstitutionNumber = JSON.stringify(bankWireTransferDetails.institution_number);
+            bankInstitutionNumber = bankInstitutionNumber.replace(/"/g,'');
+
+            var bankAccountNumber = JSON.stringify(bankWireTransferDetails.account_number);
+            bankAccountNumber = bankAccountNumber.replace(/"/g,'');
+
+            var bankRoutingNumber = JSON.stringify(bankWireTransferDetails.routing_number);
+            bankRoutingNumber = bankRoutingNumber.replace(/"/g,'');
+
+            var bankSwiftNumber = JSON.stringify(bankWireTransferDetails.swift_code);
+            bankSwiftNumber = bankSwiftNumber.replace(/"/g,'');
+
+            var referenceEmail = JSON.stringify(bankWireTransferDetails.reference_email);
+            referenceEmail = referenceEmail.replace(/"/g,'');
+            
+
+            var strPdf = '';
+
+            var timeStmp = 'bankWireTransferData_'+ new Date().getTime()+'.pdf';
+
+            strPdf += `Total Amount(Pending Wire Transfer): ${onlyWireTransferAmt} \n`;
+            strPdf += `Bank Name: ${bankName} \n`;
+            strPdf += `Account Name: ${bankAccountName}  \n`;
+            strPdf += `Bank Address: ${bankAddress} \n`;
+            
+            strPdf += `Branch Number: ${bankBranchNumber}  \n`;
+            strPdf += `Institution Number: ${bankInstitutionNumber}  \n`;
+            strPdf += `Account Number: ${bankAccountNumber}  \n`;
+            strPdf += `Routing Number (USA): ${bankRoutingNumber}  \n`;
+            strPdf += `SWIFT Code (International): ${bankSwiftNumber}  \n`;
+            strPdf += `Reference: ${referenceEmail}  \n`;
+
+            doc.pipe(fs.createWriteStream('public/wireTransfer_pdfs/'+timeStmp));
+
+            doc.fontSize(15)
+                .text(strPdf, 100,100);
+            doc.end();
+
+            // display pdf in browser
+
+           
+            //var filename = timeStmp; 
+            //console.log('File name: ',timeStmp);
+
+            //res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+            //res.setHeader('Content-type', 'application/pdf');
+           
+            //fs.createReadStream('public/wireTransfer_pdfs/'+timeStmp).pipe(res);
+            
+            // end display
+
+
+            var file = fs.createReadStream('public/wireTransfer_pdfs/'+timeStmp);
+            //var stat = fs.statSync('public/wireTransfer_pdfs/'+timeStmp);
+            //res.setHeader('Content-Length', stat.size);
+            res.setHeader('Content-type', 'application/pdf');
+            //res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
+            res.setHeader("Content-Disposition", "attachment; filename=test.pdf");
+            file.pipe(res);
+
+           
+           
+
     });
     
 };

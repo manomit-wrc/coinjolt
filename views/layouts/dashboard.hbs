@@ -646,15 +646,7 @@
         // })(); 
         //end
 
-        $(function () {
-            'use strict';
-                // SLIMSCROLL FOR CHAT WIDGET
-                var heightSidebar = $(".sidebar").height();
-                console.log("heightSidebar:" +heightSidebar);
-                $('.sidebar').slimScroll({
-                    height: heightSidebar
-                });
-            });
+       
 
         $(function () {
             $('#example2').DataTable({
@@ -2997,15 +2989,28 @@ function remove(event){
 
     <script>
        $(document).ready(function() {
-              // SLIMSCROLL FOR CHAT WIDGET
-              //var sidebarHeight = $(".sidebar .sidebar-menu ul").height();
-              $('.sidebar .sidebar-menu').slimScroll({
-                //height: sidebarHeight + "px"
-                height: "500",
-                alwaysVisible: true
+           $('.main-sidebar').slimScroll({
+                color: '#455A64',
+                size: '10px',
+				alwaysVisible: false,
+                width: '250px',
+                allowPageScroll: true
             });
 
-
+           $(".sidebar-toggle").click(function() {
+               if ( $(".sidebar-collapse").length == 0 ) {
+                    //alert(123);
+                    $(".slimScrollBar").hide();
+                    $(".slimScrollBar").addClass("op-0");
+                }
+                else {
+                    //alert(456);
+                    $(".slimScrollBar").hide();
+                    $(".slimScrollBar").removeClass("op-0");
+                }
+           });
+            
+ 
           });
       </script>
 

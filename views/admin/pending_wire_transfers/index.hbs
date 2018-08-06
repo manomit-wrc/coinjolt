@@ -37,7 +37,7 @@
 									<td>{{this.id}}</td>
 									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
 									<td>{{this.User.email}}</td>
-									<td>{{this.amount_usd}}</td>
+									<td>{{formatCurrency (twoDecimalPoint amount_usd)}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 									<td>
 										<button class="btn approve-req pending_wire_transfer_approved btn-success" data-value="{{this.id}}" data-user_id="{{this.user_id}}" data-amount="{{this.amount_usd}}">Approve</button>

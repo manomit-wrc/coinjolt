@@ -560,35 +560,6 @@ module.exports = function (app, passport, models, User) {
                 res.redirect('/login/2FA-Verification');
             }
            
-            
-            
-           
-            // if(req.user.two_factorAuth_status == 1){
-                // res.render('two_factor_authentication');
-            // }else{
-                // bitgo.authenticate({ username: keys.BITGO_USERNAME, password: keys.BITGO_PASSWORD, otp: keys.BITGO_OTP })
-                // .then(function(response) {
-                //     console.log("Response Access Token");
-                //     console.log(response.access_token);
-                //     res.cookie('BITGO_ACCESS_TOKEN',response.access_token);
-                //     res.redirect('/dashboard');
-                // })
-                // .catch(function (err) {
-                //     console.log("dashboard2");
-                //     console.log(err);
-                //     res.cookie('BITGO_ACCESS_TOKEN','v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018');
-                //     res.redirect('/dashboard');
-                // });
-
-                // var bitgo = new BitGoJS.BitGo({ env: 'test', accessToken:'v2xb1e1a1487f5b606c7982c4bd14370841eadaa48509f244f6672a4a587e36d018'});
-                // bitgo.session({}, function callback(err, session) {
-                //   if (err) {
-                //     // handle error
-                //     console.log(err);
-                //   }
-                //   console.dir(session);
-                // });
-            // }
         }
     });
 

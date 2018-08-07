@@ -2109,27 +2109,18 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
             // display pdf in browser
 
-           
-            //var filename = timeStmp; 
-            //console.log('File name: ',timeStmp);
-
-            //res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
-            //res.setHeader('Content-type', 'application/pdf');
-           
-            //fs.createReadStream('public/wireTransfer_pdfs/'+timeStmp).pipe(res);
+          
+            /* var file = fs.createReadStream('wireTransfer_pdfs/'+timeStmp);
             
-            // end display
-
-
-            var file = fs.createReadStream('public/wireTransfer_pdfs/'+timeStmp);
-            //var stat = fs.statSync('public/wireTransfer_pdfs/'+timeStmp);
-            //res.setHeader('Content-Length', stat.size);
+            
             res.setHeader('Content-type', 'application/pdf');
-            //res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
+            
             res.setHeader("Content-Disposition", "attachment; filename=test.pdf");
-            file.pipe(res);
+            file.pipe(res); */
 
-           
+           // End display
+
+           res.redirect(keys.BASE_URL+'wireTransfer_pdfs/'+timeStmp);
            
 
     });

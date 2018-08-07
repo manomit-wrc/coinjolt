@@ -287,10 +287,17 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         // return false;
         if(user){
             // user.two_factorAuth_verified = 'Inactive';
-            user.update({
+            // user.update({
+            //     two_factorAuth_verified : 'Inactive'
+            // },{
+            //     where:{
+            //         id: req.user.id
+            //     }
+            // })
+            User.update({
                 two_factorAuth_verified : 'Inactive'
-            },{
-                where:{
+            }, {
+                where: {
                     id: req.user.id
                 }
             }).then(result => {

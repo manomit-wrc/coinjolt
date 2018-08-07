@@ -596,12 +596,25 @@ module.exports = function (app, passport, models, User) {
     app.post('/change_2faAuthVerified_status', async (req,res) => {
       var user = await User.findOne({id : req.user.id});
       if(user){
-        user.two_factorAuth_verified = req.body.status;
-        if(user.save()){
-          res.json({
-            status: true
-          })
-        }
+        // user.two_factorAuth_verified = req.body.status;
+        // if(user.save()){
+        //   res.json({
+        //     status: true
+        //   })
+        // }
+        User.update({
+            two_factorAuth_verified : req.body.status
+        }, {
+            where: {
+                id: req.user.id
+            }
+        }).then(result => {
+            if(result){
+                res.json({
+                        status: true
+                      })
+            }
+        });
       }
     });
 

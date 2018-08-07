@@ -1660,7 +1660,7 @@ $('#amount_invest').on('keyup', function(event) {
     $(this).val($(this).val().replace(/[^0-9\.]/g,''));
     if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
         event.preventDefault();
-        jQuery( "#investerrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number</p>');
+        jQuery( "#investerrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number.</p>');
         $('#investerrormsg').show();
     } else {
         $('#investerrormsg').hide();
@@ -1695,7 +1695,7 @@ $('#amount_withdraw').on('keyup', function(event) {
     $(this).val($(this).val().replace(/[^0-9\.]/g,''));
     if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
         event.preventDefault();
-        jQuery( "#withdrawerrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number</p>');
+        jQuery( "#withdrawerrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number.</p>');
         $('#withdrawerrormsg').show();
     } else {
         $('#withdrawerrormsg').hide();
@@ -1712,11 +1712,11 @@ jQuery( "#amt_withd_btn" ).click(function() {
         if (amountwithdraw >= 1000) {
             return true;
         } else {
-            jQuery( "#withdrawerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be equal or greater than $1000</p>');
+            jQuery( "#withdrawerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be equal or greater than $10,000.</p>');
             return false; 
         }
     } else {								
-        jQuery( "#withdrawerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Your USD account balance is too low i.e. ($'+useramountUSD+'). The minimum withdraw amount should be equal or greater then $1000.</p>');
+        jQuery( "#withdrawerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Your USD account balance is too low i.e. ($'+useramountUSD+'). The minimum withdrawal amount should be equal or greater then $1000.</p>');
         return false;
     }
 });
@@ -2299,7 +2299,7 @@ $('.deleteShareholderInfo').on('click', function(){
         var colorArray = ['#991AFF', '#E666FF', '#4DB3FF', '#1AB399', '#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC', '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC', '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399', '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680', '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933', '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF', '#B366CC', '#4D8000', '#B33300', '#CC80CC', '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399', '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680'];
         var donut = new Morris.Donut({ 
            element: 'sales-chart', 
-           resize: true,              
+           resize: false,              
            colors: colorArray, 
            data: chart_data, 
            hideHover: 'auto',
@@ -2532,10 +2532,10 @@ $('.deleteShareholderInfo').on('click', function(){
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Language', 'Speakers (in millions)'],
-          ['bitcoin', 4],
-          ['ethereum',  1.2],
-          ['ico tokens', 1],
-          ['alt coins', 1],
+          ['Bitcoin', 4],
+          ['Ethereum',  1.2],
+          ['ICO Tokens', 1],
+          ['Alt Coins', 1],
           ]);
 
         var options = {
@@ -2545,7 +2545,8 @@ $('.deleteShareholderInfo').on('click', function(){
           height:'100%',
             // chartArea:{left: '0', top: '0%',height: '80%', width: '80%'}
             // legend: 'none',
-            pieSliceText: 'label',
+            pieSliceText: 'none',
+			fontSize: '4',
             title: '',
             // pieStartAngle: 100,
             
@@ -2902,6 +2903,61 @@ function remove(event){
                 $( "#depositerrormsg" ).hide();
             });
 
+
+            $('#curncy_select').on('change', function () {
+            var currencyTypeString = $("#curncy_select option:selected").text();
+            var currencyTypeOnly = currencyTypeString.match(/\((.*)\)/);
+            var currencyType = currencyTypeOnly[1];
+            var msg = "Current Rate(" + currencyTypeString + ")" + ": " + "$ ";
+            var currencyTypeName = currencyTypeString.split("(");
+            var currencyTypeFullName = currencyTypeName[0];
+            var coin_amount = parseFloat(jQuery("#amount_deposit").val());
+            
+
+            if (currencyType != '0' && currencyType != 'Please select an option') {
+                $.ajax({
+                    type: 'GET',
+                    url: "https://coincap.io/page/" + currencyType,
+                    dataType: "json",
+                    success: function (result) {
+                        $('#coin_rate3').val(result.price_usd);
+                        var roundUpPrice = parseFloat(Math.round(result.price_usd * 100) / 100).toFixed(2);
+                        $('#currentratetext3').addClass('alert alert-danger');
+                        $('#currentratetext3').show();
+                        $('#currentratetext3').html('Current Rate (' + currencyTypeFullName + '- ' + currencyType + ')' + ': $' + result.price_usd);
+                        
+
+                        $('#currentratetext3').addClass('alert alert-danger');
+                        $('#calculatedamount3').addClass('alert alert-success');
+                        jQuery('#calculatedamount3').show();
+                        jQuery('#calculatedamount3').html('Calculated USD Value: $'+  parseFloat(coin_amount/result.price_usd) );
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+            else {
+                    $('#currentratetext3').removeClass('alert alert-danger');
+                    $('#currentratetext3').html('');
+
+                    $('#calculatedamount3').html('');
+                    $('#calculatedamount3').removeClass('alert alert-success');
+                    $('#calculatedamount3').hide();
+                    var coin_rate3 = parseFloat(jQuery('#coin_rate3').val());
+                    var amtExpect = parseFloat(coin_amount / coin_rate3);
+                    if (isNaN(amtExpect)) {
+                        $('#calculatedamount3').html('');
+                        $('#calculatedamount3').removeClass('alert alert-success');
+                        $('#calculatedamount3').css('display','none');
+                    }
+                }
+            });
+
+
+
+
+
             $('#amount_deposit').on('keyup', function(event) {
                 $(this).val($(this).val().replace(/[^0-9\.]/g,''));
                 if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
@@ -2909,6 +2965,36 @@ function remove(event){
                     $( "#depositerrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number.</p>');
                     $('#depositerrormsg').show();
                 } else {
+
+                    var coin_amount4 = parseFloat(jQuery("#amount_deposit").val());
+                    var coin_rate4 = parseFloat(jQuery('#coin_rate3').val());
+                    var currencyTypeString4 =  $("#curncy_select option:selected").text();
+                    var currencyTypeOnly4 = currencyTypeString4.match(/\((.*)\)/);
+                    var currencyType4 = currencyTypeOnly4[1];
+                    var currencyTypeName4 = currencyTypeString4.split("("); 
+                    var currencyTypeFullName4 = currencyTypeName4[0];
+
+                    if (currencyType4 == '0' || currencyType4 == '') {
+                        console.log("usd");
+                        $('#calculatedamount3').html('');
+                        $('#calculatedamount3').removeClass('alert alert-success');
+                        $('#calculatedamount3').hide();
+                        var amtExpect4 = parseFloat(coin_amount4 / coin_rate4);
+                        if (isNaN(amtExpect4)) {
+                            $('#calculatedamount3').html('');
+                            $('#calculatedamount3').removeClass('alert alert-success');
+                            $('#calculatedamount3').css('display','none');
+                        }
+                    } else {
+                            console.log("not usd");
+                            //var amtExpect = parseFloat(coin_amount/coin_rate);
+                            $('#currentratetext3').addClass('alert alert-danger');
+                            $('#calculatedamount3').addClass('alert alert-success');
+                            jQuery('#calculatedamount3').show();
+                            jQuery('#calculatedamount3').html('Calculated USD Value: $'+  parseFloat(coin_amount4/coin_rate4) );
+                    }
+
+
                     $('#depositerrormsg').hide();
                     $('#depositerrormsg').html('');
                 }
@@ -2916,41 +3002,92 @@ function remove(event){
 
             $( "#amt_deposit_btn" ).click(function() {
                 var amountdeposit = $( "#amount_deposit" ).val();
-                var currency_id = $( "#curncy_select" ).val();		
+                var currency_id = $( "#curncy_select" ).val();
+                //var current_usd_balance = $("#current_usd_balance").val();		
                 $( "#depositerrormsg" ).show();
                 $( "#depositerrormsg" ).empty();
-                if (amountdeposit <= 0) {
+                //console.log("currency_id");
+                //console.log(currency_id);
+                //console.log("current_usd_balance");
+                //console.log(current_usd_balance);
+                //console.log("amountdeposit");
+                //console.log(amountdeposit);
+                //console.log("-----------------------------------------------------------------------------------");
+                if (currency_id == "") {
+                     $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please select an option to send funds.</p>');
+                    return false;
+                } else if (amountdeposit <= 0) {
                     $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be greater than 0.</p>');
                     return false;
                 } else {
-                    $.ajax({
-                        type: "POST",
-                        url: '/deposit-currency',
-                        data : {coin_amount: amountdeposit, currency_id: currency_id},
-                        beforeSend: function() {
-                            $(".loader-gif").css('display', 'block');
-                        },
-                        success: function (response){
-                            $(".loader-gif").css('display', 'none');
-                            if(response.success == "0" || response.success == "2"){
-                                $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">' + response.message + '</p>');
-                                $( "#depositerrormsg" ).show();
+                    if (currency_id != "0") { // if cryptocurrency deposited
+                        $.ajax({
+                            type: "POST",
+                            url: '/deposit-currency',
+                            data : {coin_amount: amountdeposit, currency_id: currency_id},
+                            beforeSend: function() {
+                                $(".loader-gif").css('display', 'block');
+                            },
+                            success: function (response){
+                                $(".loader-gif").css('display', 'none');
+                                if(response.success == "0" || response.success == "2"){
+                                    $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">' + response.message + '</p>');
+                                    $( "#depositerrormsg" ).show();
+                                }
+                                if(response.success == "1"){
+                                    swal({
+                                        icon: "success",
+                                        title: "Success",
+                                        text: response.message,
+                                        confirmButtonClass: "btn-success",
+                                        confirmButtonText: "OK"
+                                    },function(isConfirm){
+                                        if(isConfirm){
+                                            window.location.href = "/account/managed-cryptocurrency-portfolio";
+                                        }
+                                    });
+                                }
                             }
-                            if(response.success == "1"){
-                                swal({
-                                    icon: "success",
-                                    title: "Success",
-                                    text: response.message,
-                                    confirmButtonClass: "btn-success",
-                                    confirmButtonText: "Confirm"
-                                },function(isConfirm){
-                                    if(isConfirm){
-                                        window.location.href = "/account/wallets";
+                        });
+                    } else { // if usd deposited
+                         //else {
+                            console.log("usd");
+                            console.log(currency_id);
+
+                            $.ajax({
+                                type: "POST",
+                                url: '/invest-usd-from-mcp',
+                                data : {coin_amount: amountdeposit, currency_id: currency_id},
+                                beforeSend: function() {
+                                    $(".loader-gif").css('display', 'block');
+                                },
+                                success: function (response){
+                                    $(".loader-gif").css('display', 'none');
+                                    if(response.success == "0"){
+                                        $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">' + response.message + '</p>');
+                                        $( "#depositerrormsg" ).show();
                                     }
-                                });
-                            }
-                        }
-                    });
+                                    if(response.success == "1"){
+                                        swal({
+                                            icon: "success",
+                                            title: "Success",
+                                            text: response.message,
+                                            confirmButtonClass: "btn-success",
+                                            confirmButtonText: "Confirm"
+                                        },function(isConfirm){
+                                            if(isConfirm){
+                                                window.location.href = "/account/managed-cryptocurrency-portfolio";
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+
+
+                        //}    
+                    }    
+
+
                 }
             });
 

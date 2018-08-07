@@ -38,7 +38,7 @@
 									<td>{{this.id}}</td>
 									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
 									<td>{{this.User.email}}</td>
-									<td>{{this.amount_usd}}</td>
+									<td>{{formatCurrency (twoDecimalPoint amount_usd)}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 									{{#if_eq this.status 1}}
 										<td class="text-success"> Approved </td>

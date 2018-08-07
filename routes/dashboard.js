@@ -283,12 +283,23 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     app.get('/account/logout', async function (req, res) {
         var user = await User.findOne({id: req.user.id});
+        // console.log(user);
+        // return false;
         if(user){
-            user.two_factorAuth_verified = 'Inactive';
-            if(user.save()){
-                req.logout();
-                res.redirect('/login');
-            }
+            // user.two_factorAuth_verified = 'Inactive';
+            user.update({
+                two_factorAuth_verified : 'Inactive'
+            },{
+                where:{
+                    id: req.user.id
+                }
+            }).then(result => {
+                if(result){
+                    req.logout();
+                    res.redirect('/login');
+                }
+            });
+            
         }
         
     });

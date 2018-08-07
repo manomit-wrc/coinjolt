@@ -35,7 +35,7 @@
 								<tr>
 									<td>{{this.id}}</td>
 									<td>{{this.User.first_name}} {{this.User.last_name}}</td>
-									<td>{{this.amount}}</td>
+									<td>{{formatCurrency (twoDecimalPoint this.amount)}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 									<td>
 										{{#if_eq this.type 0}}

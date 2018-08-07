@@ -440,7 +440,7 @@
                     <div class="box-body">
                        
                             <div class="row">
-                                <form action="/save-invest" method="post" id="MCPinvest" style="width:100%; float:left; margin-bottom: 3px;">
+                                {{!-- <form action="/save-invest" method="post" id="MCPinvest" style="width:100%; float:left; margin-bottom: 3px;">
                                     {{#if message}}
                                         <div class="alert alert-success" id="investsuccessmsg" style="margin-left:5px;width:70%;">{{message}}</div>
                                     {{/if}}
@@ -462,32 +462,40 @@
                                         </div>
                                     </div>  
                                     <div class="col-md-12" id="investerrormsg" style="display:none;"> </div>  
-                                </form>
+                                </form> --}}
 								{{!-- <form method="post" action="/save-deposit" id="curncy-names" class="curncy-names"> --}}
 									<div class="gap">
 										<div class="col-md-12">
 											<div class="form-group">
-												<label>Deposit Funds with Currency</label>
+												{{!-- <label>Deposit Funds with Currency</label> --}}
 												<select class="form-control curncy-select" id="curncy_select" name="curncy_select">
-													<option value="1">Bitcoin</option>
-													<option value="2">Ethereum</option>
-													<option value="3">Litecoin</option>
-													<option value="5">Bitcoin Cash</option>
-													<option value="46">Royal Mint Gold</option>
-													<option value="4">Ripple</option>
+													<option value="">Please select an option</option>
+													<option value="0">USD</option>
+													<option value="1">Bitcoin (BTC)</option>
+													<option value="2">Ethereum (ETH)</option>
+													<option value="3">Litecoin (LTC)</option>
+													<option value="5">Bitcoin Cash (BCH)</option>
+													{{!-- <option value="46">Royal Mint Gold (RMG)</option> --}}
+													<option value="4">Ripple (XRP)</option>
 												</select>
 											</div>
 										</div>
 										<div class="col-md-12">
 											<div class="form-group">
 												<input type="text" name="amount_deposit" id="amount_deposit" class="form-control" placeholder="0.00000000">
+												{{!-- <input type="hidden" name="current_usd_balance" id="current_usd_balance" class="form-control" value="{{user.currentUsdBalance}}"> --}}
 											</div>
+											<input type="hidden" id="coin_rate3" name="coin_rate3" value="" />
+											<div class="wallet_cal_display">
+											<div class="" id="currentratetext3" role="alert"></div>
+											<div class="" id="calculatedamount3" role="alert"></div>
+											</div> 
 										</div>
 									</div>
 									<div class="gap">
 										<div class="col-md-12">
 											<div class="form-group">
-												<input class="btn btn-block btn-primary" id="amt_deposit_btn" name="DepositCurrency" type="button" value="Invest With Wallet Balance" />
+												<input class="btn btn-block btn-primary" id="amt_deposit_btn" name="DepositCurrency" type="button" value="Invest Funds" />
 											</div>
 										</div>
 									</div>
@@ -541,10 +549,10 @@
                             </div> --}}
                             <p>The following is a chart that displays the annual averages of traditional asset classes. At the pinnacle the highest return was 79% in a single year, whereas our managed cryptocurrency portfolio has performed at a bare minimum of 200% each year since 2011.</p>
                             {{!-- <p>At the pinnacle, the highest return was 79% , whereas our managed cryptocurrency portfolio does a conservative minimum of 200% each year, since 2011. We're glad to present our managed cryptocurrency portfolio as one of the leading investment opportunities in the world.</p> --}}
-                            <center><img src="/dist/img/asset-class-returns.png" width="90%"></center>
+                            <center><img src="/dist/img/asset-class-returns.png" width="75%"></center>
                             {{!-- <br>
                             <p>The following is another chart just with Bitcoin.</p>
-                            <center><img src="/dist/img/annual-average-returns.png" width="90%"></center> --}}
+                            <center><img src="/dist/img/annual-average-returns.png" width="75%"></center> --}}
                         </div>
                         <!-- /.box-body -->
                     </div>

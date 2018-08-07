@@ -26,8 +26,9 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                       var deposit_amount = 0;
                       var curr_brought = 0;
                       var curr_sold = 0;
-                      var mcp_invest = 0;
+                      var mcp_deposit = 0;
                       var mcp_withdraw = 0;
+                      var mcp_invest = 0;
                       var accessToken;
                   
                       sold_amount = await Deposit.findAll({   
@@ -50,11 +51,23 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                       where: {user_id: id, type: 0},
                           attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'TOT_DEP_AMT']]
                       });
+
+                    //   mcp_deposit = await Deposit.findAll({   
+                    //     where: {user_id: id, type: 4},
+                    //     attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'MCP_DEPOSIT_AMT']]
+                    //  });
+
+                      mcp_invest = await Deposit.findAll({
+                        where: {user_id: id, type: 6},
+                        attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'MCP_INVEST_AMT']]
+                      });
                   
                        var cal_currusd = sold_amount[0].get('SELL_TOTAL_AMT') - withdraw_amount[0].get('TOT_USD_AMT');
                        var new_currusd = cal_currusd - transaction_amount[0].get('TOT_AMT');
                        var curr_usd = new_currusd + deposit_amount[0].get('TOT_DEP_AMT');
-                       var final = parseFloat(Math.round(curr_usd * 100) / 100).toFixed(4);
+                       //var curr_usd2 = curr_usd + mcp_deposit[0].get('MCP_DEPOSIT_AMT');
+                       var curr_usd3 = curr_usd - mcp_invest[0].get('MCP_INVEST_AMT');
+                       var final = parseFloat(Math.round(curr_usd3 * 100) / 100).toFixed(4);
                         
                         function notOnlyALogger(msg){
                             console.log('****log****');
@@ -81,10 +94,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             });                 
                        var currency_list = await Currency.findAll();
 
-                       mcp_invest = await Deposit.findAll({   
-                            where: {user_id: id, type: 4},
-                            attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'MCP_INVEST_AMT']]
-                        });
+                       
                   
 
                         mcp_withdraw = await Deposit.findAll({
@@ -92,8 +102,13 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             attributes: [[ sequelize.fn('SUM', sequelize.col('amount')), 'MCP_WITHDRAW_AMT']]
                         });
 
+                        
+
+                        //var mcp_final = mcp_deposit[0].get('MCP_DEPOSIT_AMT') - mcp_withdraw[0].get('MCP_WITHDRAW_AMT');
+                        //var mcp_final2 = mcp_final - mcp_invest[0].get('MCP_INVEST_AMT');
                         var mcp_final = mcp_invest[0].get('MCP_INVEST_AMT') - mcp_withdraw[0].get('MCP_WITHDRAW_AMT');
                         var mcp_final_blnc = parseFloat(Math.round(mcp_final * 100) / 100).toFixed(4);
+                        
 
                         var bank_details = await models.bank_details.findAll({
                             where: {user_id: id}
@@ -243,7 +258,6 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             two_factorAuth_secret_key: '',
                             two_factorAuth_qr_code_image: '',
                             two_factorAuth_status: 2,
-                            two_factorAuth_verified: 'Inactive',
                             // investor_type: req.body.investor_type
                             investor_type: 2
     
@@ -575,7 +589,6 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 two_factorAuth_qr_code_image: '',
                                 two_factorAuth_status: 2,
                                 // investor_type: req.body.investor_type
-                                two_factorAuth_verified: 'Inactive',
                                 investor_type: 2
         
                             }).then(function(result){

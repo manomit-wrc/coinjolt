@@ -146,15 +146,18 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     app.get('/account/dashboard', user_acl, two_factor_checking, async (req, res) => {
         blog_post.belongsTo(author, {foreignKey: 'author_id'});
         blog_post.findAll({
-            where:{
-                post_category_id: 3
-            },
+            // where:{
+            //     post_category_id: 3
+            // },
             include: [{
                 model: author
             }],
             limit: 4,
+            // order: [
+            //     ['id', 'DESC']
+            // ]
             order: [
-                ['id', 'DESC']
+                ['createdAt', 'DESC']
             ]
         }).then( function (blogPosts) {
             // console.log(JSON.stringify(blogPosts, undefined, 2));
@@ -282,10 +285,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.get('/account/logout', async function (req, res) {
-        var user = await User.findOne({id: req.user.id});
+        //var user = await User.findOne({id: req.user.id});
         // console.log(user);
         // return false;
-        if(user){
+        //if(user){
             // user.two_factorAuth_verified = 'Inactive';
             // user.update({
             //     two_factorAuth_verified : 'Inactive'
@@ -307,7 +310,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                 }
             });
             
-        }
+        //}
         
     });
 
@@ -1190,7 +1193,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             currency_id: 0
         }).then(function (result) {
             req.flash('investStatusMessage', 'Your investment was made successfully!');
-            res.redirect('/managed-cryptocurrency-portfolio');
+            res.redirect('/account/managed-cryptocurrency-portfolio');
         }).catch(function (err) {
             console.log(err);
         });
@@ -1210,7 +1213,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 			withdraw_type: type
         }).then(function (result) {
             req.flash('investStatusMessage', 'Your withdraw request received successfully!');
-            res.redirect('/managed-cryptocurrency-portfolio');
+            res.redirect('/account/managed-cryptocurrency-portfolio');
         }).catch(function (err) {
         });
     });
@@ -1942,6 +1945,58 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }
         });
     });
+
+
+
+    app.post('/invest-usd-from-mcp', function(req, res){
+        var usd_amount = req.body.coin_amount;
+        var userid = req.user.id;
+        var coinjolt_user_id = "1";
+        var user_transaction_type = "6";
+        var coinjolt_user_transaction_type = "4";
+        var digits = 9;	
+		var numfactor = Math.pow(10, parseInt(digits-1));	
+        var randomNum =  Math.floor(Math.random() * numfactor) + 1;
+        var currentUsdBalance = req.user.currentUsdBalance;
+        
+        if(parseFloat(currentUsdBalance) < parseFloat(usd_amount)) {
+            res.json({success: "0", message: "Invested amount exceeded current USD balance: " + currentUsdBalance});
+        } else {
+            // create user row for mcp invest
+            Deposit.create({
+                checkout_id: randomNum,
+                transaction_id: randomNum,
+                user_id: userid,
+                amount: usd_amount,
+                type: user_transaction_type,
+                payment_method: 0,
+                balance: 0,
+                currency_id: 0
+            }).then(function (mcpInvest) {
+                // create coin jolt user row for mcp deposit
+                var digits2 = 9;	
+                var numfactor2 = Math.pow(10, parseInt(digits2-1));	
+                var randomNum2 =  Math.floor(Math.random() * numfactor2) + 1;
+                Deposit.create({
+                    checkout_id: randomNum2,
+                    transaction_id: randomNum2,
+                    user_id: coinjolt_user_id,
+                    amount: usd_amount,
+                    type: coinjolt_user_transaction_type,
+                    payment_method: 0,
+                    balance: 0,
+                    currency_id: 0
+                }).then(function (mcpDeposit) {
+                    res.json({success: "1", message: "You have invested USD successfully."});
+                })
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+        
+    });
+
+
         
     app.post('/paypal', (req, res) => {
         const price = parseInt(req.body.amount);
@@ -2109,18 +2164,27 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
             // display pdf in browser
 
-          
-            /* var file = fs.createReadStream('wireTransfer_pdfs/'+timeStmp);
+           
+            //var filename = timeStmp; 
+            //console.log('File name: ',timeStmp);
+
+            //res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+            //res.setHeader('Content-type', 'application/pdf');
+           
+            //fs.createReadStream('public/wireTransfer_pdfs/'+timeStmp).pipe(res);
             
-            
+            // end display
+
+
+            var file = fs.createReadStream('public/wireTransfer_pdfs/'+timeStmp);
+            //var stat = fs.statSync('public/wireTransfer_pdfs/'+timeStmp);
+            //res.setHeader('Content-Length', stat.size);
             res.setHeader('Content-type', 'application/pdf');
-            
+            //res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
             res.setHeader("Content-Disposition", "attachment; filename=test.pdf");
-            file.pipe(res); */
+            file.pipe(res);
 
-           // End display
-
-           res.redirect(keys.BASE_URL+'wireTransfer_pdfs/'+timeStmp);
+           
            
 
     });

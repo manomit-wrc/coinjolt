@@ -368,49 +368,49 @@
         <p style="text-align: left;">Simply write or print out the following information to provide to your local branch. Once the wire transfer has been initiated, our system will automatically credit your account balance with the following amount.</p>
         <form method="post">
         <div class="form-group">
-          <label>Total Amount:</label>
+          <label>Total Amount:</label><br>
           <input type="text" class="form-control" placeholder="Total Amount" name="totalamount" id="totalamount" value="Bank of Nova Scotia" readonly>
         </div>
         <div class="form-group">
-          <label>Bank Name:</label>
+          <label>Bank Name:</label><br>
           <input type="text" class="form-control" placeholder="Bank of Nova Scotia" name="bankname" id="bankname" value="{{bankWireTransferDetails.bank_name}}" readonly>
         </div>
         <div class="form-group">
-          <label>Account Name:</label>
+          <label>Account Name:</label><br>
           <input type="text" class="form-control" placeholder="Kano Investments Inc" name="accountnumber" id="accountnumber"  value="{{bankWireTransferDetails.account_name}}" readonly>
         </div>
         <div class="form-group">
-          <label>Bank Address:</label>
+          <label>Bank Address:</label><br>
           <input type="text" class="form-control" placeholder="11666 Steveston Hwy #3020, Richmond, BC, V7A 5J3" name="bankaddress" id="bankaddress" value="{{bankWireTransferDetails.bank_address}}" readonly>
         </div>
         <div class="form-group">
-          <label>Branch Number:</label>
+          <label>Branch Number:</label><br>
           <input type="text" class="form-control" placeholder="51920" name="branchnumber" id="branchnumber" value="{{bankWireTransferDetails.branch_number}}" readonly>
         </div>
         <div class="form-group">
-          <label>Institution Number:</label>
+          <label>Institution Number:</label><br>
           <input type="text" class="form-control" placeholder="002" name="institutionnumber" id="institutionnumber" value="{{bankWireTransferDetails.institution_number}}" readonly>
         </div>
         <div class="form-group">
-          <label>Account Number:</label>
+          <label>Account Number:</label><br>
           <input type="text" class="form-control" placeholder="0091782" name="accountnumber" id="accountnumber" value="{{bankWireTransferDetails.account_number}}" readonly>
         </div>
         <div class="form-group">
-          <label>Routing Number (USA):</label>
+          <label>Routing Number (USA):</label><br>
           <input type="text" class="form-control" placeholder="026002532" name="routingnumber" id="routingnumber" value="{{bankWireTransferDetails.routing_number}}" readonly>
           </div>
         <div class="form-group">
-          <label>Swift Code:</label>
+          <label>Swift Code:</label><br>
           <input type="text" class="form-control" placeholder="NOSCCATT" name="swiftcode" id="swiftcode" value="{{bankWireTransferDetails.swift_code}}" readonly>
         </div>
         <div class="form-group">
-          <label>Reference:</label>
+          <label>Reference:</label><br>
           <input type="text" class="form-control" placeholder="support@coinjolt.com" name="reference" id="reference" value="{{bankWireTransferDetails.reference_email}}" readonly>
         </div>
         </div>
       <div style="margin-top: -10%;" class="modal-footer">
         <button type="button" class="btn btn-default" id="ok" >OK</button>
-        <a href="/dashboard/pdf" target="_blank" class="btn btn-primary" id="pdf" style="margin-top: 4.8%">Print as PDF</a>
+        <a href="/dashboard/genPdf" target="_blank" class="btn btn-primary" id="pdf" style="margin-top: 4.8%">Print as PDF</a>
         {{!-- <a href="javascript:void(0)" class="btn btn-primary" id="pdf" style="margin-top: 4.8%">Print as PDF</a> --}}
         <button type="button" class="btn btn-default" id="close">Close</button>
       </div>

@@ -2156,11 +2156,31 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             strPdf += `SWIFT Code (International): ${bankSwiftNumber}  \n`;
             strPdf += `Reference: ${referenceEmail}  \n`;
 
-            doc.pipe(fs.createWriteStream('public/wireTransfer_pdfs/'+timeStmp));
+            // doc.pipe(fs.createWriteStream('public/wireTransfer_pdfs/'+timeStmp));
 
-            doc.fontSize(15)
-                .text(strPdf, 100,100);
-            doc.end();
+            // doc.fontSize(15)
+            //     .text(strPdf, 100,100);
+            // doc.end();
+
+            var pdf = await new pdfDocument({
+              size: 'LEGAL', // See other page sizes here: https://github.com/devongovett/pdfkit/blob/d95b826475dd325fb29ef007a9c1bf7a527e9808/lib/page.coffee#L69
+              info: {
+                Title: 'Bank Wire Transfer PDF',
+                Author: 'Coin Jolt',
+              }
+            });
+
+            // Write stuff into PDF
+            pdf.text(strPdf);
+
+            // Stream contents to a file
+            pdf.pipe(
+                fs.createWriteStream('public/wireTransfer_pdfs/'+timeStmp)
+            ).on('finish', function () {
+                console.log('PDF closed');
+            });
+            // Close PDF and write file.
+            pdf.end();
 
             // display pdf in browser
 

@@ -33,7 +33,7 @@ const paypal = require('paypal-rest-sdk');
 
 const pdfDocument = require('pdfkit');
 const fs = require('fs');
-var doc = new pdfDocument;
+
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
@@ -2094,8 +2094,9 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             strPdf += `SWIFT Code (International): ${bankSwiftNumber}  \n`;
             strPdf += `Reference: ${referenceEmail}  \n`;
 
+            var doc = new pdfDocument;
             doc.pipe(fs.createWriteStream('public/wireTransfer_pdfs/'+timeStmp));
-
+            
             doc.fontSize(15)
                 .text(strPdf, 100,100);
             doc.end();

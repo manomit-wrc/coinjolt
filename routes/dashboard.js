@@ -31,7 +31,6 @@ var QRCode = require('qrcode');
 
 const paypal = require('paypal-rest-sdk');
 
-const pdfDocument = require('pdfkit');
 const fs = require('fs');
 
 
@@ -2023,99 +2022,94 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     });
 
     app.get('/dashboard/genPdf', user_acl, two_factor_checking, async(req, res) =>{
+        let pdf = require('handlebars-pdf');
+       
+        var timeStmp = 'bankWireTransferData_'+ new Date().getTime()+'.pdf';
+
+        let wireTransferAmt = await WireTransfer.findOne({
+            attributes: ['amount_usd'],
+            limit: 1,
+            order: [
+                ['id', 'DESC']
+            ]
+        });
+
+        let bankWireTransferDetails = await deposit_method_type.findOne({
+			where: {
+				deposit_method_id: '2' // deposit method is bank wire transfer
+			}
+        });
         
-        
-            let bankWireTransferDetails = await deposit_method_type.findOne({
-                where: {
-                    deposit_method_id: '2' // deposit method is bank wire transfer
-                }
+        var wTransferAmount = JSON.stringify(wireTransferAmt).split(":");
+
+        var onlyWireTransferAmt = wTransferAmount[1];
+
+        onlyWireTransferAmt = onlyWireTransferAmt.replace(/"|}|"/g,'');
+
+        let document = {
+            template: `
+            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 3px; margin-top: 0px;">Pending Wire Transfer Details</h3>
+            <p style="font-size: 14px; font-weight: 400; margin-bottom: 15px; margin-top: 0px;">Provide the following banking details at your local branch.</p>  
+            <form method="post">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-size: 12px;font-weight: 700;">
+                    Total Amount:</label>
+                    <input type="text" class="form-control" placeholder="Total Amount" name="totalamount" id="totalamount" value="${ onlyWireTransferAmt}" readonly style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #eeeeee; background-image: none;border: 1px solid #ccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;font-size: 14px; font-weight: 400;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-size: 12px;font-weight: 700;">Bank Name:</label>
+                <input type="text" class="form-control" placeholder="Bank of Nova Scotia" name="bankname" id="bankname" value="${bankWireTransferDetails.bank_name}" readonly style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #eeeeee; background-image: none;border: 1px solid #ccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;font-size: 14px; font-weight: 400;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-size: 12px;font-weight: 700;">Account Name:</label>
+                <input type="text" class="form-control" placeholder="Kano Investments Inc" name="accountnumber" id="accountnumber"  value="${bankWireTransferDetails.account_name}" readonly style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #eeeeee; background-image: none;border: 1px solid #ccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;font-size: 14px; font-weight: 400;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-size: 12px;font-weight: 700;">Bank Address:</label>
+                <input type="text" class="form-control" placeholder="11666 Steveston Hwy #3020, Richmond, BC, V7A 5J3" name="bankaddress" id="bankaddress" value="${bankWireTransferDetails.bank_address}" readonly style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #eeeeee; background-image: none;border: 1px solid #ccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;font-size: 14px; font-weight: 400;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-size: 12px;font-weight: 700;">Branch Number:</label>
+                <input type="text" class="form-control" placeholder="51920" name="branchnumber" id="branchnumber" value="${bankWireTransferDetails.branch_number}" readonly style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #eeeeee; background-image: none;border: 1px solid #ccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;font-size: 14px; font-weight: 400;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-size: 12px;font-weight: 700;">Institution Number:</label>
+                <input type="text" class="form-control" placeholder="002" name="institutionnumber" id="institutionnumber" value="${bankWireTransferDetails.institution_number}" readonly style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #eeeeee; background-image: none;border: 1px solid #ccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;font-size: 14px; font-weight: 400;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-size: 12px;font-weight: 700;">Account Number:</label>
+                <input type="text" class="form-control" placeholder="0091782" name="accountnumber" id="accountnumber" value="${bankWireTransferDetails.account_number}" readonly style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #eeeeee; background-image: none;border: 1px solid #ccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;font-size: 14px; font-weight: 400;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-size: 12px;font-weight: 700;">Routing Number (USA):</label>
+                <input type="text" class="form-control" placeholder="026002532" name="routingnumber" id="routingnumber" value="${bankWireTransferDetails.routing_number}" readonly style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #eeeeee; background-image: none;border: 1px solid #ccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;font-size: 14px; font-weight: 400;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-size: 12px;font-weight: 700;">Swift Code:</label>
+                <input type="text" class="form-control" placeholder="NOSCCATT" name="swiftcode" id="swiftcode" value="${bankWireTransferDetails.swift_code}" readonly style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #eeeeee; background-image: none;border: 1px solid #ccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;font-size: 14px; font-weight: 400;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: inline-block;max-width: 100%;margin-bottom: 5px;font-size: 12px;font-weight: 700;">Reference:</label>
+                <input type="text" class="form-control" placeholder="support@coinjolt.com" name="reference" id="reference" value="${bankWireTransferDetails.reference_email}" readonly style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #eeeeee; background-image: none;border: 1px solid #ccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;font-size: 14px; font-weight: 400;">
+                </div>
+                </div>
+         
+          </form>`,
+            context: {
+                msg: 'Hello world'
+            },
+            path: 'public/wireTransfer_pdfs/'+timeStmp
+        };
+     
+        pdf.create(document)
+            .then(result => {
+                res.redirect(keys.BASE_URL+'wireTransfer_pdfs/'+timeStmp);
+                
+            })
+            .catch(error => {
+                console.error(error)
             });
 
-            let wireTransferAmt = await WireTransfer.findOne({
-                attributes: ['amount_usd'],
-                limit: 1,
-                order: [
-                    ['id', 'DESC']
-                ]
-            });
-
-            var wTransferAmount = JSON.stringify(wireTransferAmt).split(":");
-
-            var onlyWireTransferAmt = wTransferAmount[1];
-
-            onlyWireTransferAmt = onlyWireTransferAmt.replace(/"|}|"/g,'');
-
-            var bankName = JSON.stringify(bankWireTransferDetails.bank_name);
-
-            bankName = bankName.replace(/"/g,'');
-
-           
-            var bankAccountName = JSON.stringify(bankWireTransferDetails.account_name);
-
-            bankAccountName = bankAccountName.replace(/"/g,'');
-
-            var bankAddress = JSON.stringify(bankWireTransferDetails.bank_address);
-
-            bankAddress = bankAddress.replace(/"/g,'');
-
-            var bankBranchNumber = JSON.stringify(bankWireTransferDetails.branch_number);
-
-            bankBranchNumber = bankBranchNumber.replace(/"/g,'');
-           
-            var bankInstitutionNumber = JSON.stringify(bankWireTransferDetails.institution_number);
-            bankInstitutionNumber = bankInstitutionNumber.replace(/"/g,'');
-
-            var bankAccountNumber = JSON.stringify(bankWireTransferDetails.account_number);
-            bankAccountNumber = bankAccountNumber.replace(/"/g,'');
-
-            var bankRoutingNumber = JSON.stringify(bankWireTransferDetails.routing_number);
-            bankRoutingNumber = bankRoutingNumber.replace(/"/g,'');
-
-            var bankSwiftNumber = JSON.stringify(bankWireTransferDetails.swift_code);
-            bankSwiftNumber = bankSwiftNumber.replace(/"/g,'');
-
-            var referenceEmail = JSON.stringify(bankWireTransferDetails.reference_email);
-            referenceEmail = referenceEmail.replace(/"/g,'');
-            
-
-            var strPdf = '';
-
-            var timeStmp = 'bankWireTransferData_'+ new Date().getTime()+'.pdf';
-
-            strPdf += `Total Amount(Pending Wire Transfer): ${onlyWireTransferAmt} \n`;
-            strPdf += `Bank Name: ${bankName} \n`;
-            strPdf += `Account Name: ${bankAccountName}  \n`;
-            strPdf += `Bank Address: ${bankAddress} \n`;
-            
-            strPdf += `Branch Number: ${bankBranchNumber}  \n`;
-            strPdf += `Institution Number: ${bankInstitutionNumber}  \n`;
-            strPdf += `Account Number: ${bankAccountNumber}  \n`;
-            strPdf += `Routing Number (USA): ${bankRoutingNumber}  \n`;
-            strPdf += `SWIFT Code (International): ${bankSwiftNumber}  \n`;
-            strPdf += `Reference: ${referenceEmail}  \n`;
-
-            var doc = new pdfDocument;
-            doc.pipe(fs.createWriteStream('public/wireTransfer_pdfs/'+timeStmp));
-            
-            doc.fontSize(15)
-                .text(strPdf, 100,100);
-            doc.end();
-
-            // display pdf in browser
-
-          
-            /* var file = fs.createReadStream('wireTransfer_pdfs/'+timeStmp);
-            
-            
-            res.setHeader('Content-type', 'application/pdf');
-            
-            res.setHeader("Content-Disposition", "attachment; filename=test.pdf");
-            file.pipe(res); */
-
-           // End display
-
-           res.redirect(keys.BASE_URL+'wireTransfer_pdfs/'+timeStmp);
-           
 
     });
     

@@ -445,13 +445,20 @@ module.exports = function (app, passport, models, User) {
                                     <p style="margin: 0;">-<br>Coin Jolt Support</p>
                                     </td>
                                 </tr> <!-- Static Content -->
-                    
+
+                                <tr>
+                                <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
+                                    <strong>Disclaimer:</strong>Coin Jolt.com iss a platform that connects consumers to qualified custodians, digital wallets and cryptocurrency exchanges. The company is not a custodian, is not a digital wallet and is not an exchange.<br> Self-directed investments processed through Coin Jolt.com have not been endorsed by the IRS or any government or regulatory agency. The IRS does not review, approve, or endorse any investments, including Bitcoins in an IRA. 
+                                </td>
+                                </tr>  
+                                
                                 </table>
                     
                     
                                 <!--[if (gte mso 9)|(IE)]>
                                 </td>
                                 </tr>
+                                
                                 </table>
                             <![endif]-->
                             </td>

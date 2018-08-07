@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
    return[
     queryInterface.addColumn(
-      'users',
+      'Users',
       'two_factorAuth_verified',
       {
         type: Sequelize.STRING,

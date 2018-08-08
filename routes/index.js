@@ -452,23 +452,23 @@ module.exports = function (app, passport, models, User) {
                                   <td  bgcolor="#ffffff" style="text-align: center;"> 
                                     <ul style="list-style-type: none;margin: 30px 0 30px 0; padding: 0;">
                                       <li style="display: inline-block;margin-right: 10px">
-                                        <a href="https://www.facebook.com/coinjolt" style="text-decoration: none;height: 30px;width: 30px;border: 2px solid #025fdf;color: #025fdf;display: block;line-height: 30px;border-radius: 50%;    font-size: 16px;">
-                                          <i class="fa fa-facebook"></i>
+                                        <a href="https://www.facebook.com/coinjolt" style="text-decoration: none; display: block;">
+                                            <img  src="dist/img/fb-icon.png" alt="">
                                         </a>
                                       </li>
                                       <li style="display: inline-block;margin-right: 10px">
-                                        <a href="https://www.linkedin.com/in/coinjolt/" style="text-decoration: none;height: 30px;width: 30px;border: 2px solid #025fdf;color: #025fdf;display: block;line-height: 30px;border-radius: 50%;    font-size: 16px;">
-                                          <i class="fa fa-linkedin"></i>
+                                        <a href="https://www.linkedin.com/in/coinjolt/" style="text-decoration: none; display: block;">
+                                            <img  src="dist/img/li-icon.png" alt="">
                                         </a>
                                       </li>
                                     <li style="display: inline-block;margin-right: 10px">
-                                     <a href="https://twitter.com/coinjolt" style="text-decoration: none;height: 30px;width: 30px;border: 2px solid #025fdf;color: #025fdf;display: block;line-height: 30px;border-radius: 50%;    font-size: 16px;">
-                                        <i class="fa fa-twitter"></i>
+                                     <a href="https://twitter.com/coinjolt" style="text-decoration: none; display: block;">
+                                       <img  src="dist/img/tw-icon.png" alt="">
                                       </a>
                                     </li>
                                      <li style="display: inline-block;">
-                                       <a href="#" style="text-decoration: none;height: 30px;width: 30px;border: 2px solid #025fdf;color: #025fdf;display: block;line-height: 30px;border-radius: 50%;    font-size: 16px;">
-                                          <i class="fa fa-youtube"></i>
+                                       <a href="tel:1-888-998-9980" style="text-decoration: none; display: block;">
+                                          <img  src="dist/img/sk-icon.png" alt="">
                                         </a>
                                       </li>
                                     </ul>

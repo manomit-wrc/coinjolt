@@ -2104,6 +2104,13 @@ h3.post-title {
 
 	/*Ends on css 06-08-2018*/
 
+	/*Ends on css 08-08-2018*/	
+	span.input-group-addon.blog_date_span:last-child {
+		/* padding: 5px; */
+		border: 1px solid #ccc;
+	}
+	/*Ends on css 08-08-2018*/
+
 
 
     @media screen and (max-width: 1366px) {

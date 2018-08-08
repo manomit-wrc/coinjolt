@@ -32,6 +32,13 @@ $(document).ready(function(){
         "bSort" : false
     }); */
 
+    $('#datetimepicker_blog_create').datetimepicker({
+        locale: 'ru'
+    });
+    $('#datetimepicker_blog_create_edit').datetimepicker({
+        locale: 'ru'
+    });
+
 
     $('.deleteBlogBtn').on('click', function(){
         var blogDelId = $(this).data('id');
@@ -84,6 +91,9 @@ $(document).ready(function(){
             },
             post_author_name: {
                 required: true
+            },
+            blog_publish_date: {
+                required: true
             }
             /* author_description: {
                 required: true,
@@ -118,6 +128,9 @@ $(document).ready(function(){
             },
             post_author_name: {
                 required: "Please enter author name"
+            },
+            blog_publish_date: {
+                required: "Please enter publish date"
             }
             /* author_description: {
                 required: "Please enter author description",
@@ -209,6 +222,9 @@ $('#edit_blog_post_form').validate({
         },
         edit_post_author_name: {
             required: true
+        },
+        blog_publish_date_edit: {
+            required: true
         }
         /*
         edit_author_description: {
@@ -246,6 +262,9 @@ $('#edit_blog_post_form').validate({
         },
         edit_post_author_name: {
             required: "Please enter author name"
+        },
+        blog_publish_date_edit: {
+            required: "Please enter publish date"
         }
         /*
         edit_author_description: {

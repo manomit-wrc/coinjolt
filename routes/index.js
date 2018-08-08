@@ -85,7 +85,10 @@ module.exports = function (app, passport, models, User) {
 
             models.blog_post.findAll({  // featured 
                 where: {
-                    post_category_id: 1
+                    //post_category_id: 1
+                    createdAt: {
+                        lte: new Date()
+                    }
                 },
                 limit: 6,
                 order: [
@@ -95,7 +98,10 @@ module.exports = function (app, passport, models, User) {
 
             models.blog_post.findAll({  // latest news
                 where: {
-                    post_category_id: 3
+                    //post_category_id: 3
+                    createdAt: {
+                        lte: new Date()
+                    }
                 },
                 limit: 6,
                 order: [
@@ -446,7 +452,7 @@ module.exports = function (app, passport, models, User) {
                                 <!-- Starts Footer Sec -->
                                 <tr>
                                   <td bgcolor="#ffffff" style="text-align: center;"><a href="#" target="_blank">
-                                      <img alt="Logo" src="dist/img/template_logo.png" style="display: table;  max-width: 100%; height: auto, font-family: 'AvenirNextLTPro-Regular', sans-serif; color: #ffffff; font-size: 16px; filter: invert(1);margin: 0 auto;" border="0">
+                                      <img alt="Logo" src="${keys.BASE_URL}dist/img/template_logo_black.png" style="display: table;  max-width: 100%; height: auto, font-family: 'AvenirNextLTPro-Regular', sans-serif; color: #ffffff; font-size: 16px; filter: invert(1);margin: 0 auto;" border="0">
                                     </a>
                                   </td>
                                 </tr>
@@ -455,22 +461,22 @@ module.exports = function (app, passport, models, User) {
                                     <ul style="list-style-type: none;margin: 30px 0 30px 0; padding: 0;">
                                       <li style="display: inline-block;margin-right: 10px">
                                         <a href="https://www.facebook.com/coinjolt" style="text-decoration: none; display: block;">
-                                            <img  src="dist/img/fb-icon.png" alt="">
+                                            <img  src="${keys.BASE_URL}dist/img/fb-icon.png" alt="">
                                         </a>
                                       </li>
                                       <li style="display: inline-block;margin-right: 10px">
                                         <a href="https://www.linkedin.com/in/coinjolt/" style="text-decoration: none; display: block;">
-                                            <img  src="dist/img/li-icon.png" alt="">
+                                            <img  src="${keys.BASE_URL}dist/img/li-icon.png" alt="">
                                         </a>
                                       </li>
                                     <li style="display: inline-block;margin-right: 10px">
                                      <a href="https://twitter.com/coinjolt" style="text-decoration: none; display: block;">
-                                       <img  src="dist/img/tw-icon.png" alt="">
+                                       <img  src="${keys.BASE_URL}dist/img/tw-icon.png" alt="">
                                       </a>
                                     </li>
                                      <li style="display: inline-block;">
                                        <a href="tel:1-888-998-9980" style="text-decoration: none; display: block;">
-                                          <img  src="dist/img/sk-icon.png" alt="">
+                                          <img  src="${keys.BASE_URL}dist/img/sk-icon.png" alt="">
                                         </a>
                                       </li>
                                     </ul>
@@ -479,7 +485,7 @@ module.exports = function (app, passport, models, User) {
                                 <tr>
                                   <td bgcolor="#ffffff" style="text-align: center;">
                                     <p style="margin-bottom: 30px; font-size: 16px;">
-                                        
+                                                
                                     Copyright &copy; 2018   <strong style="font-size: 16px;">Coin Jolt</strong>. All Rights Reserved.
                                     </p>
                                   </td>
@@ -617,7 +623,7 @@ module.exports = function (app, passport, models, User) {
             failureFlash: true
     }),
     function (req, res) {
-        
+        console.log('User email:: ', req.body.email);
         if (req.user.type === '1') {
             res.redirect('/admin/dashboard');
         } else {
@@ -806,7 +812,7 @@ module.exports = function (app, passport, models, User) {
                             //     backupkeychain_public = walletResult.backupKeychain.xpub;
                             //     bitgokeychain_public = walletResult.bitgoKeychain.xpub;
                             // })
-                            bitgo.coin('btc').wallets()
+                            /* bitgo.coin('btc').wallets()
                             .generateWallet({ label: user.email + "-btc", passphrase: 'COinjolt123!!' })
                             .then(function (createWallet) {
                                 walletId = createWallet.wallet._wallet.id;
@@ -828,10 +834,10 @@ module.exports = function (app, passport, models, User) {
                                     backupkeychain_public: backupkeychain_public,
                                     bitgokeychain_public: bitgokeychain_public
                                 });
-                            });
+                            }); */
                         // });
 
-                        req.flash('loginActivationMessage', 'Your account has been activated successfully. We have generated wallet addresses for you. Please login to continue.');
+                        req.flash('loginActivationMessage', 'Your account has been activated successfully. Please login to continue.');
                         res.redirect('/login');
                     })
 
@@ -907,7 +913,10 @@ module.exports = function (app, passport, models, User) {
     
                 models.blog_post.findAll({  // featured 
                     where: {
-                        post_category_id: 1
+                        //post_category_id: 1
+                        createdAt: {
+                            lte: new Date()
+                        }
                     },
                     limit: 6,
                     order: [
@@ -917,7 +926,10 @@ module.exports = function (app, passport, models, User) {
     
                 models.blog_post.findAll({  // latest news
                     where: {
-                        post_category_id: 3
+                        //post_category_id: 3
+                        createdAt: {
+                            lte: new Date()
+                        }
                     },
                     limit: 6,
                     order: [

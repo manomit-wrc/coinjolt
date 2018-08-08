@@ -13,11 +13,11 @@
 @font-face {
 	font-family: 'AvenirNextLTProBold';
 	src: url('../fonts/AvenirNextLTProBold.eot');
-	src: url('../fonts/AvenirNextLTProBold.eot') 
-	format('embedded-opentype'), url('../fonts/AvenirNextLTProBold.woff2') 
-	format('woff2'), url('../fonts/AvenirNextLTProBold.woff') 
-	format('woff'), url('../fonts/AvenirNextLTProBold.ttf') 
-	format('truetype'), url('../fonts/AvenirNextLTProBold.svg#AvenirNextLTProBold') 
+	src: url('../fonts/AvenirNextLTProBold.eot')
+	format('embedded-opentype'), url('../fonts/AvenirNextLTProBold.woff2')
+	format('woff2'), url('../fonts/AvenirNextLTProBold.woff')
+	format('woff'), url('../fonts/AvenirNextLTProBold.ttf')
+	format('truetype'), url('../fonts/AvenirNextLTProBold.svg#AvenirNextLTProBold')
 	format('svg');
 }
 
@@ -40,7 +40,7 @@ body {
 ::selection {
 	color: #fff;
 	background: #025fdf;
-}  
+}
 
 /* Starts General  */
 
@@ -1639,11 +1639,65 @@ footer {
 		color: #025fdf;
 	}
 
-	
 
-	
+
+
 
 	/* Ends on css 30-7-2018 */
+
+	/* Starts css on 2018-08-08 */
+
+	.whitepaper-box {
+		-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+		-moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+		-ms-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+		-o-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+		box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+		padding: 20px;
+		margin-top: 10px;
+	}
+	.whitepaper-box .para-list  {
+		margin-bottom: 30px;
+		border: 1px solid  #025fdf;
+		padding: 0;
+		background: #fff;
+	}
+
+	.whitepaper-box .para-list .heading {
+		margin-bottom: 0;
+		font-size: 16px;
+		color: #fff;
+		margin: 0;
+		padding: 10px 20px;
+		background:  #025fdf;
+		font-weight: bold;
+	}
+
+	.whitepaper-box .para-list .heading .number {
+		background: #fff;
+		color: #025fdf;
+		height: 25px;
+		width: 25px;
+		line-height: 25px;
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		-ms-border-radius: 50%;
+		-o-border-radius: 50%;
+		border-radius: 50%;
+		display: inline-block;
+		text-align: center;
+		margin-right: 10px;
+	}
+
+	.whitepaper-box .para-list .content {
+		padding: 20px;
+	}
+
+	.whitepaper-box .para-list .content p {
+		margin-bottom: 20px;
+	}
+
+	/* Ends css on 2018-08-08 */
 
 
 
@@ -1726,7 +1780,7 @@ footer {
 		margin: 15px 0;
 	}
 	/* since 3.1.0 */
-	.navbar-collapse.collapse.in { 
+	.navbar-collapse.collapse.in {
 		display: block!important;
 	}
 	.collapsing {
@@ -2257,7 +2311,7 @@ footer {
   		line-height: 18px;
   		margin-bottom: 10px;
   	}
-  	.slide-text > a.btn-default, 
+  	.slide-text > a.btn-default,
   	.slide-text > a.btn-primary {
   		font-size: 10px;
   		line-height: 10px;

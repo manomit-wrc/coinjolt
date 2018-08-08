@@ -2042,7 +2042,7 @@ h3.post-title {
     }
 
 	/*Ends on css 10-07-2018*/
-	
+
 	/*Starts on css 11-07-2018*/
 	.kyc_list th:nth-child(3), .kyc_list td:nth-child(3) {
 		width: 300px !important;
@@ -2940,10 +2940,11 @@ h3.post-title {
     	max-width: 250px;
     	margin: 0 auto 15px;
 	}
-	
+
 	.uppertext{
 		text-transform: uppercase !important;
 	}
 
 	/* Ends css on 2018-07-04 */
+
 

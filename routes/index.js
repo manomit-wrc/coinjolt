@@ -121,6 +121,7 @@ module.exports = function (app, passport, models, User) {
     app.get('/login', function (req, res) {
 
         var msg = req.flash('loginMessage')[0];
+        var loginActivationMessage = req.flash('loginActivationMessage')[0];
 
         if(req.user != undefined && req.user.type == '2'){
             res.redirect('/account/dashboard');
@@ -132,7 +133,8 @@ module.exports = function (app, passport, models, User) {
 
         else{
             res.render('login', {
-                message: msg
+                message: msg,
+                loginActivationMessage: loginActivationMessage
             });
         }
 
@@ -697,7 +699,7 @@ module.exports = function (app, passport, models, User) {
             }
         }).then(function (count) {
             if (count > 0) {
-                req.flash('loginMessage', 'This account has already been activated. Please login to continue.');
+                req.flash('loginActivationMessage', 'This account has already been activated. Please login to continue.');
                 res.redirect('/login');
             } else {
                 models.User.update({
@@ -768,7 +770,7 @@ module.exports = function (app, passport, models, User) {
                             });
                         // });
 
-                        req.flash('loginMessage', 'Your account has been activated successfully. We have generated wallet addresses for you. Please login to continue.');
+                        req.flash('loginActivationMessage', 'Your account has been activated successfully. We have generated wallet addresses for you. Please login to continue.');
                         res.redirect('/login');
                     })
 

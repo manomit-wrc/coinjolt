@@ -2175,4 +2175,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     });
     
+    app.get('/account/shareholders', user_acl, two_factor_checking, (req,res) => {
+        res.render('shareholders', {layout: 'dashboard', title:"Shareholders"});
+    });
+
 };

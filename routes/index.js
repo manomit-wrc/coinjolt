@@ -268,6 +268,7 @@ module.exports = function (app, passport, models, User) {
                                   <!-- Favicon -->
                                   <link rel="shortcut icon" href="/dist/img/favicon.ico" type="image/x-icon">
                                   <link rel="icon" href="/dist/img/favicon.ico" type="image/x-icon">
+                                  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
                                   <style type="text/css">
                                   /* FONTS */
                                   @media screen {
@@ -429,7 +430,7 @@ module.exports = function (app, passport, models, User) {
                                     
                                     <p> 
                                         <a href="${keys.BASE_URL}reset_password/${email_key}">
-                                        ${keys.BASE_URL}reset_password/${email_key}
+                                        Alternatively, you can click here to take the same action.
                                         </a>
                                     </p>
                                     </td>
@@ -440,17 +441,77 @@ module.exports = function (app, passport, models, User) {
                                     </td>
                                 </tr> <!-- Static Content -->
                                 
+                                <!-- Starts Footer Sec -->
                                 <tr>
-                                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">-<br>Coin Jolt Support</p>
-                                    </td>
-                                </tr> <!-- Static Content -->
-
+                                  <td bgcolor="#ffffff" style="text-align: center;"><a href="#" target="_blank">
+                                      <img alt="Logo" src="dist/img/template_logo.png" style="display: table;  max-width: 100%; height: auto, font-family: 'AvenirNextLTPro-Regular', sans-serif; color: #ffffff; font-size: 16px; filter: invert(1);margin: 0 auto;" border="0">
+                                    </a>
+                                  </td>
+                                </tr>
                                 <tr>
-                                <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
-                                    <strong>Disclaimer:</strong>Coin Jolt.com iss a platform that connects consumers to qualified custodians, digital wallets and cryptocurrency exchanges. The company is not a custodian, is not a digital wallet and is not an exchange.<br> Self-directed investments processed through Coin Jolt.com have not been endorsed by the IRS or any government or regulatory agency. The IRS does not review, approve, or endorse any investments, including Bitcoins in an IRA. 
-                                </td>
-                                </tr>  
+                                  <td  bgcolor="#ffffff" style="text-align: center;"> 
+                                    <ul style="list-style-type: none;margin: 30px 0 30px 0; padding: 0;">
+                                      <li style="display: inline-block;margin-right: 10px">
+                                        <a href="https://www.facebook.com/coinjolt" style="text-decoration: none;height: 30px;width: 30px;border: 2px solid #025fdf;color: #025fdf;display: block;line-height: 30px;border-radius: 50%;    font-size: 16px;">
+                                          <i class="fa fa-facebook"></i>
+                                        </a>
+                                      </li>
+                                      <li style="display: inline-block;margin-right: 10px">
+                                        <a href="https://www.linkedin.com/in/coinjolt/" style="text-decoration: none;height: 30px;width: 30px;border: 2px solid #025fdf;color: #025fdf;display: block;line-height: 30px;border-radius: 50%;    font-size: 16px;">
+                                          <i class="fa fa-linkedin"></i>
+                                        </a>
+                                      </li>
+                                    <li style="display: inline-block;margin-right: 10px">
+                                     <a href="https://twitter.com/coinjolt" style="text-decoration: none;height: 30px;width: 30px;border: 2px solid #025fdf;color: #025fdf;display: block;line-height: 30px;border-radius: 50%;    font-size: 16px;">
+                                        <i class="fa fa-twitter"></i>
+                                      </a>
+                                    </li>
+                                     <li style="display: inline-block;">
+                                       <a href="#" style="text-decoration: none;height: 30px;width: 30px;border: 2px solid #025fdf;color: #025fdf;display: block;line-height: 30px;border-radius: 50%;    font-size: 16px;">
+                                          <i class="fa fa-youtube"></i>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td bgcolor="#ffffff" style="text-align: center;">
+                                    <p style="margin-bottom: 30px; font-size: 16px;">
+                                        
+                                    Copyright &copy; 2018   <strong style="font-size: 16px;">Coin Jolt</strong>. All Rights Reserved.
+                                    </p>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td bgcolor="#ffffff" style="text-align: center;">
+                                   <p style="font-size: 14px; ">
+                                     <strong style="font-size: 16px; margin-bottom: 10px;display: block;">
+                                       Our mailing address is:
+                                     </strong>
+                                      Ontario,Canada
+                                   </p> 
+                                  </td>
+                                </tr>
+                                
+                                <tr>
+                                  <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
+                                      <p style="font-size: 14px; ">
+                                         These Website Terms and Conditions of Use (“Terms”) are effective as of July 11, 2018.
+                                        <br>
+                                        COINJOLT.COM (“Coin Jolt,” “we” or “us”) reserves the right to change, modify, add or remove portions of the Terms at any time for any reason and in our sole discretion. We suggest that you (“you,” “your” or “User”) periodically review the Terms for amendments.
+                                      
+                                    </p>
+                                     
+                                  </td>
+                                </tr>
+                                <tr>
+                                 <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
+                                    <a href="http://ec2-34-230-81-205.compute-1.amazonaws.com/terms-of-service" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Terms of Service</a>
+                                       <a href="http://ec2-34-230-81-205.compute-1.amazonaws.com/privacy-policy" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Privacy Policy</a>
+                                        <a href="http://ec2-34-230-81-205.compute-1.amazonaws.com/risk-disclosures" style="color: #025fdf; font-size: 14px;">Risk Disclosure</a>
+                                  </td>
+                                </tr>
+                                <!-- Ends Footer Sec -->
                                 
                                 </table>
                     

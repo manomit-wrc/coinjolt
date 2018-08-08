@@ -812,7 +812,7 @@ module.exports = function (app, passport, models, User) {
                             //     backupkeychain_public = walletResult.backupKeychain.xpub;
                             //     bitgokeychain_public = walletResult.bitgoKeychain.xpub;
                             // })
-                            bitgo.coin('btc').wallets()
+                            /* bitgo.coin('btc').wallets()
                             .generateWallet({ label: user.email + "-btc", passphrase: 'COinjolt123!!' })
                             .then(function (createWallet) {
                                 walletId = createWallet.wallet._wallet.id;
@@ -834,10 +834,10 @@ module.exports = function (app, passport, models, User) {
                                     backupkeychain_public: backupkeychain_public,
                                     bitgokeychain_public: bitgokeychain_public
                                 });
-                            });
+                            }); */
                         // });
 
-                        req.flash('loginActivationMessage', 'Your account has been activated successfully. We have generated wallet addresses for you. Please login to continue.');
+                        req.flash('loginActivationMessage', 'Your account has been activated successfully. Please login to continue.');
                         res.redirect('/login');
                     })
 

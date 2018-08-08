@@ -838,7 +838,7 @@ module.exports = function (app, passport, models, User) {
         });
     });
 
-    app.get('/about-us', (req,res) => {
+    app.get('/about-us', auth, (req,res) => {
 
         Promise.all([
             models.company_setting.findAll({  
@@ -849,6 +849,32 @@ module.exports = function (app, passport, models, User) {
             })
         ]).then(function (result) {
             res.render("cms/about_us", {layout: "cms/dashboard", companySettingsData:result[0],details:result[1]})
+        });
+    });
+
+    app.get('/shareholders', auth, (req,res) => {
+        Promise.all([
+            models.company_setting.findAll({  
+
+            }),
+            models.cms_about_us.findAll({
+
+            })
+        ]).then(function (result) {
+            res.render("cms/shareholders", {layout: "cms/dashboard", companySettingsData:result[0],details:result[1]})
+        });
+    });
+
+    app.get('/whitepapers', auth, (req,res) => {
+        Promise.all([
+            models.company_setting.findAll({  
+
+            }),
+            models.cms_about_us.findAll({
+
+            })
+        ]).then(function (result) {
+            res.render("cms/whitepapers", {layout: "cms/dashboard", companySettingsData:result[0],details:result[1]})
         });
     });
                             
@@ -925,7 +951,9 @@ module.exports = function (app, passport, models, User) {
             });
         }
 
-    }); 
+    });
+    
+    
 
     function encrypt(text) {
         var cipher = crypto.createCipher(algorithm, password)

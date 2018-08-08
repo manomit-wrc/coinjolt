@@ -145,9 +145,12 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
     app.get('/account/dashboard', user_acl, two_factor_checking, async (req, res) => {
         blog_post.belongsTo(author, {foreignKey: 'author_id'});
         blog_post.findAll({
-            // where:{
-            //     post_category_id: 3
-            // },
+            where:{
+                //post_category_id: 3
+                createdAt: {
+                    lte: new Date()
+                }
+            },
             include: [{
                 model: author
             }],

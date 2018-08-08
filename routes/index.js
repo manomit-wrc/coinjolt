@@ -85,7 +85,10 @@ module.exports = function (app, passport, models, User) {
 
             models.blog_post.findAll({  // featured 
                 where: {
-                    post_category_id: 1
+                    //post_category_id: 1
+                    createdAt: {
+                        lte: new Date()
+                    }
                 },
                 limit: 6,
                 order: [
@@ -95,7 +98,10 @@ module.exports = function (app, passport, models, User) {
 
             models.blog_post.findAll({  // latest news
                 where: {
-                    post_category_id: 3
+                    //post_category_id: 3
+                    createdAt: {
+                        lte: new Date()
+                    }
                 },
                 limit: 6,
                 order: [
@@ -907,7 +913,10 @@ module.exports = function (app, passport, models, User) {
     
                 models.blog_post.findAll({  // featured 
                     where: {
-                        post_category_id: 1
+                        //post_category_id: 1
+                        createdAt: {
+                            lte: new Date()
+                        }
                     },
                     limit: 6,
                     order: [
@@ -917,7 +926,10 @@ module.exports = function (app, passport, models, User) {
     
                 models.blog_post.findAll({  // latest news
                     where: {
-                        post_category_id: 3
+                        //post_category_id: 3
+                        createdAt: {
+                            lte: new Date()
+                        }
                     },
                     limit: 6,
                     order: [

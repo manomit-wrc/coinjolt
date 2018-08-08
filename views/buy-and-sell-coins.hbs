@@ -63,7 +63,7 @@
                   <h3 class="box-title">Sell</h3>
                 </div>
                 <div class="box-body">
-  {{#if_eq user.kycApproved "2"}}
+  {{!-- {{#if_eq user.kycApproved "2"}} --}}
                 <form action="" method="post">
                   <div class="form-group">
                     <select class="form-control" id="currency_sold" name="currency_sold">
@@ -91,23 +91,24 @@
                     </div>
                   </div>
                 </form>
-                {{/if_eq}} {{#if_eq user.kycApproved "1"}}
-                <div class="form-group">
+                {{!-- {{/if_eq}}  --}}
+                {{!-- {{#if_eq user.kycApproved "1"}} --}}
+                {{!-- <div class="form-group">
                   <p>Sell feature is disabled because your ID hasn't been verified.</p>
-                </div>
-                {{/if_eq}} {{#if_eq user.kycApproved "3"}}
-                <div class="form-group">
+                </div> --}}
+                {{!-- {{/if_eq}} {{#if_eq user.kycApproved "3"}} --}}
+                {{!-- <div class="form-group">
                   <label>Sell</label>
                   <p>Sell feature is disabled because your ID hasn't been approved. Please upload correct a valid ID in your
                     <a href="/account/account-settings">account settings</a>.</p>
-                </div>
-                {{/if_eq}} {{#if_eq user.kycApproved "0"}}
-                <div class="form-group">
+                </div> --}}
+                {{!-- {{/if_eq}} {{#if_eq user.kycApproved "0"}} --}}
+                {{!-- <div class="form-group">
                   <label>Sell</label>
                   <p>Sell feature is disabled because your ID hasn't been approved. Please upload correct a valid ID in your 
                     <a href="/account/account-settings">account settings</a>.</p>
-                </div>
-                {{/if_eq}}
+                </div> --}}
+                {{!-- {{/if_eq}} --}}
                 </div>
               </div>
 

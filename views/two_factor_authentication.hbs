@@ -111,6 +111,7 @@
       </form>
     </div> --}}
     <!-- /.login-box-body -->
+    {{!-- for 1st time scan pop up --}}
     <div>
             <input type="hidden" name="two_factor_auth_status" id="two_factor_auth_status" value="{{two_factorAuth_status}}">
         </div>
@@ -143,6 +144,38 @@
               <center><img src="/dist/img/2fa.png"></center>
               <br/> 
               <p style="float: left; margin-left: 3%;">Additionally, you can learn more about 2-Step Verification by <a target="_blank" href="https://en.wikipedia.org/wiki/Google_Authenticator">clicking here.</a></p>
+                          </div>
+                      </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+  </div>
+
+{{!-- /pop-up after scan --}}
+  <div>
+    <input type="hidden" name="two_factorAuth_scan_verified" id="two_factorAuth_scan_verified" value="{{two_factorAuth_scan_verified}}">
+    <div class="modal fade barcode" id="modal-default-again">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-horizontal" name="barcode_form_again" id="barcode_form_again" action="javascript:void(0)" method="POST">
+                    <input type="hidden" name="two_fa_secret_key_after_scan" id="two_fa_secret_key_after_scan" value="{{user_details.two_factorAuth_secret_key}}">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                            <h4 style="text-align: center; font-weight: bold;" class="modal-title">Setup Google Two Factor Authentication</h4>
+               </div>
+              <div class="modal-body">
+              <br/><br/>
+                            <div style="text-align: center;" class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Enter Code:</label>
+                                <div class="col-sm-7">
+                                  <input type="text" class="form-control" name="user_secret_key_again" id="user_secret_key_again" placeholder="6 Digit Code">
+                            </div>
+                <div style="margin-left: 10%;" class="modal-footer">
+              <button type="button" id="check_two_factor_auth_after_scan" class="btn btn-primary">Continue</button>
+
+              </div>
                           </div>
                       </div>
                 </form>
@@ -247,6 +280,84 @@
                 user_secret_key:{
                     required: "Please enter your 6 digit code."
                 }
+            }
+        });
+
+        var two_factorAuth_scan_verified = $('#two_factorAuth_scan_verified').val();
+        if(two_factorAuth_scan_verified == 1){
+            $('#modal-default-again').modal({backdrop: 'static', keyboard: false});
+            $('#modal-default').modal("hide");
+        }
+
+        $('#barcode_form_again').validate({
+            rules:{
+                user_secret_key_again:{
+                    required: true
+                }
+            },
+            messages:{
+                user_secret_key_again:{
+                    required: "Please enter your 6 digit code."
+                }
+            }
+        });
+
+        $('#check_two_factor_auth_after_scan').on('click', function () {
+            var valid = $('#barcode_form_again').valid();
+            if(valid){
+                var two_factor_auth_secret_key = $('#two_fa_secret_key').val();
+                var user_secret_key = $('#user_secret_key_again').val();
+
+                $(':input[type="button"]').prop('disabled', true);
+                $.ajax({
+                    type: "POST",
+                    url: "/check_two_factor_authentication",
+                    data:{
+                        two_factor_auth_secret_key: two_factor_auth_secret_key,
+                        user_secret_key: user_secret_key
+                    },
+                    success: function (resp) {
+                        if(resp.status == true){
+                            $(':input[type="button"]').prop('disabled', false);
+                            swal({
+                                title: "Success",
+                                text: "Two factor authentication verified successfully.",
+                                type: "success",
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Confirm"
+                            },  function() {
+                                $.ajax({
+                                  type: "POST",
+                                  url: "/change_2faAuthVerified_status",
+                                  data: {
+                                    status: 'Active'
+                                  },
+                                  success: function (resp) {
+                                    if(resp.status == true){
+                                      // window.location.href = "/account/dashboard";
+                                      $.ajax({
+                                        type: "POST",
+                                        url: "/change_2faAuthVerified_status",
+                                        data:{
+                                          status: 'Active'
+                                        },
+                                        success: function (resp) {
+                                          if(resp.status == true){
+                                            window.location.href = "/account/dashboard";
+                                          }
+                                        }
+                                      });
+                                    }
+                                  }
+                                });
+                            });
+                        }else if(resp.status == false) {
+                            $(':input[type="button"]').prop('disabled', false);
+                            $('#user_secret_key').val('');
+                            swal("Oh no!", "Two factor authentication verified failed. Please scan the QR code and enter the sectret key again.");
+                        }
+                    }
+                });
             }
         });
 

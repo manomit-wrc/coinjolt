@@ -353,7 +353,7 @@
                             });
                         }else if(resp.status == false) {
                             $(':input[type="button"]').prop('disabled', false);
-                            $('#user_secret_key').val('');
+                            $('#user_secret_key_again').val('');
                             swal("Oh no!", "Two factor authentication verified failed. Please scan the QR code and enter the sectret key again.");
                         }
                     }

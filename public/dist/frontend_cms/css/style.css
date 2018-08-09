@@ -1705,12 +1705,19 @@ footer {
 		margin-right: 10px;
 	}
 
-	.whitepaper-box .para-list .content {
+	.whitepaper-box .para-list .para-content {
 		padding: 20px;
 	}
 
-	.whitepaper-box .para-list .content p {
+	.whitepaper-box .para-list .para-content p {
 		margin-bottom: 20px;
+	}
+
+	#whitepaperV1Modal h3,
+	#whitepaperVModal h3
+	{
+		font-size: 14px;
+		font-weight: bold;
 	}
 
 	/* Ends css on 2018-08-08 */

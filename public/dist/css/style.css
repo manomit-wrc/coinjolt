@@ -2337,9 +2337,11 @@ h3.post-title {
 
       /* Starts Custom styles */
 
-      .slimScrollBar {
-      	z-index: 999999 !important;
-      }
+
+	  .slimScrollBar {
+		  z-index: 999998 !important;
+	  }
+
 
       .sidebar-collapse  .slimScrollBar {
       	z-index: 0 !important;
@@ -2358,6 +2360,129 @@ h3.post-title {
       .content-wrapper{
       	margin-top: -250px;
       }
+
+
+
+/* Starts css on 2018-08-08 */
+
+.whitepaper-box {
+	-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	-moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	-ms-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	-o-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	padding: 20px;
+	margin-top: 10px;
+}
+
+.whitepaper-box .whitepaper-box-cover {
+	background: #025FDF;
+	margin: -20px -20px 20px -20px;
+	padding: 20px;
+	text-align: center;
+	color: #fff;
+}
+
+.whitepaper-box .whitepaper-box-cover p {
+	margin: 0;
+	font-style: italic;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.whitepaper-box .para-list  {
+	margin-bottom: 30px;
+	border: 1px solid  #025fdf;
+	padding: 0;
+	background: #fff;
+}
+
+.whitepaper-box .para-list .heading {
+	margin-bottom: 0;
+	font-size: 16px;
+	color: #fff;
+	margin: 0;
+	padding: 10px 20px;
+	background:  #025fdf;
+	font-weight: bold;
+}
+
+.whitepaper-box .para-list .heading .number {
+	background: #fff;
+	color: #025fdf;
+	height: 25px;
+	width: 25px;
+	line-height: 25px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+	display: inline-block;
+	text-align: center;
+	margin-right: 10px;
+}
+
+.whitepaper-box .para-list .para-content {
+	padding: 20px;
+}
+
+.whitepaper-box .para-list .para-content p {
+	margin-bottom: 20px;
+}
+
+
+/*Starts Charts Page*/
+
+
+.action-box {
+	background: #025fdf none repeat scroll 0 0;
+	padding: 45px 25px;
+}
+
+.action-box img {
+	float: left;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.action-box .action-text {
+	color: #fff;
+	margin-left: 100px;
+}
+
+.action-box .action-text h3 {
+	color: #fff;
+	font-size: 20px;
+	margin: 0 0 5px;
+	text-transform: uppercase;
+}
+
+.action-box .action-text p {
+	color: rgba(255, 255, 255, 0.8);
+	margin-bottom: 10px;
+}
+
+.action-box .action-text a {
+	color: #fff;
+	display: inline-block;
+	font-weight: 700;
+	position: relative;
+	text-decoration: none;
+}
+
+.charts-box > h3 {
+	margin: 0;
+	text-align: center;
+}
+
+/*Ends Charts Page*/
+
+
+
+
+/* Ends css on 2018-08-08 */
+
 
       @media screen and (max-width: 1280px) {
       	/* .sidebar-menu.tree {
@@ -2391,7 +2516,11 @@ h3.post-title {
 
     	.dataTables_wrapper {
     		overflow-y: scroll;
-    	}
+		}
+		
+		.action-box {
+			margin-bottom: 25px;
+		}
     }
 
     @media screen and (max-width: 536px) {
@@ -2399,7 +2528,21 @@ h3.post-title {
     	#update_profile > .row > .col-md-12 > .col-md-12 > .box > .box-body > .row + .row > .col-md-12 > h4 + span + hr + .col-md-12 > strong + span {
     		float: left !important;
     	}
-    }
+	}
+	
+	
+@media only screen and (max-width:480px) {
+	.action-box img {
+		display: table;
+		float: none;
+		margin: 0 auto 25px;
+	}
+
+	.action-box .action-text {
+		margin-left: 0;
+		text-align: center;
+	}
+  }
 
     @media screen and (max-width: 370px) {
     	.main-footer span {

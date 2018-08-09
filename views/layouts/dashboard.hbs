@@ -3363,6 +3363,15 @@ $('#investsuccessmsg').delay(2000).fadeOut();
     });
 </script>
 
+ <script>
+      var maxHeight = 0;
+      $('.action-box').each(function (i) {
+        var height = $('.action-box').eq(i).height();
+        if (height > maxHeight)
+          maxHeight = height;
+      });
 
+      $('.action-box').height(maxHeight);
+    </script>
 </body>
 </html>>

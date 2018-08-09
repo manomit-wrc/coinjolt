@@ -2156,7 +2156,7 @@ h3.post-title {
 
 
 
-    	@media screen and (min-width: 1600px) {
+    	@media screen and (min-width: 1367px) {
     		.balance-box .left.dblock {
     			display: block !important;
     		}
@@ -2566,6 +2566,10 @@ h3.post-title {
     	.action-box {
     		margin-bottom: 25px;
     	}
+
+    	.slimScrollBar {
+    		display: none !important;
+    	}
     }
 
     @media screen and (max-width: 536px) {
@@ -2596,6 +2600,10 @@ h3.post-title {
 
     	.main-footer .dash {
     		display: none;
+    	}
+
+    	.para-list .para-content ol {
+    		padding: 0 0 0 15px;
     	}
     }
 

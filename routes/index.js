@@ -15,6 +15,8 @@ const bCrypt = require('bcrypt-nodejs');
 var speakeasy = require('speakeasy');
 var QRCode = require('qrcode');
 
+// var twoFactor = require('node-2fa');
+
 //end
 
 const auth = require('../middlewares/auth');
@@ -640,13 +642,28 @@ module.exports = function (app, passport, models, User) {
     });
 
     app.get('/login/2FA-Verification', async (req,res) => {
+      var user = await User.findOne({id:req.user.id});
+
       var secret = speakeasy.generateSecret({
           issuer: 'Coin Jolt',
-          length: 20,
+          length: 30,
           name: 'Coin Jolt'
       });
 
+
+
       QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
+        if(user.two_factorAuth_scan_verified == 1){
+
+          res.render('two_factor_authentication', {
+              user_details: user,
+              two_factorAuth_status: user.two_factorAuth_status,
+              two_factorAuth_scan_verified: user.two_factorAuth_scan_verified,
+              title:"2FA Verification"
+          });
+
+        }else{
+
           User.update({
               two_factorAuth_secret_key: secret.base32,
               two_factorAuth_qr_code_image: image_data
@@ -666,7 +683,64 @@ module.exports = function (app, passport, models, User) {
                   });
               }
           });
+        }
+          
       });
+
+
+      // var newSecret = twoFactor.generateSecret({name: 'Coin Jolt', account: 'johndoe'});
+      // console.log(newSecret);
+      // if(newSecret){
+      //   User.update({
+      //       two_factorAuth_secret_key: newSecret.secret,
+      //       two_factorAuth_qr_code_image: newSecret.qr
+      //   },{
+      //       where:{
+      //           id: req.user.id
+      //       }
+      //   }).then( result => {
+      //       if(result) {
+      //           User.findById(req.user.id).then(user_update_result => {
+      //               var data = JSON.parse(JSON.stringify(user_update_result));
+      //               res.render('two_factor_authentication', {
+      //                   user_details: data,
+      //                   two_factorAuth_status: data.two_factorAuth_status,
+      //                   title:"2FA Verification"
+      //               });
+      //           });
+      //       }
+      //   });
+      // }
+
+
+
+    });
+
+
+    app.post('/check_two_factor_authentication', async (req,res) => {
+        var two_factor_auth_secret_key = req.body.two_factor_auth_secret_key;
+        var userToken = req.body.user_secret_key;
+
+        var verified = await speakeasy.totp.verify({
+          secret: two_factor_auth_secret_key,
+          encoding: 'base32',
+          token: userToken
+        });
+
+        if(verified == true) {
+            User.update({
+                two_factorAuth_status: 1,
+                two_factorAuth_scan_verified: 1
+            },{
+                where:{
+                    id: req.user.id
+                }
+            });
+        }
+
+        res.json({
+            status: verified
+        });
     });
 
     app.post('/change_2faAuthVerified_status', async (req,res) => {
@@ -696,18 +770,19 @@ module.exports = function (app, passport, models, User) {
 
 
 
-    app.post('/two_factor_auth_checking_for_login', (req,res) => {
-        var userToken = req.body.user_token;
+    // app.post('/two_factor_auth_checking_for_login', (req,res) => {
+    //     var userToken = req.body.user_token;
 
-        var verified = speakeasy.totp.verify({
-          secret: req.user.two_factorAuth_secret_key,
-          encoding: 'base32',
-          token: userToken
-        });
-        res.json({
-            status: verified
-        });
-    });
+    //     var verified = speakeasy.totp.verify({
+    //       secret: req.user.two_factorAuth_secret_key,
+    //       encoding: 'base32',
+    //       token: userToken,
+    //       window: 6
+    //     });
+    //     res.json({
+    //         status: verified
+    //     });
+    // });
 
     app.post('/signup', passport.authenticate('local-signup', {
             successRedirect: '/signup',

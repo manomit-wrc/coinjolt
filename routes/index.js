@@ -714,6 +714,7 @@ module.exports = function (app, passport, models, User) {
                 User.findById(req.user.id).then(user_update_result => {
                     var data = JSON.parse(JSON.stringify(user_update_result));
                     res.render('two_factior_authentication_from_dashboard', {
+                        layout: 'dashboard',
                         user_details: data,
                         two_factorAuth_status: data.two_factorAuth_status,
                         title:"2FA Verification"
@@ -731,7 +732,8 @@ module.exports = function (app, passport, models, User) {
       User.update({
           two_factorAuth_secret_key: '',
           two_factorAuth_qr_code_image: '',
-          two_factorAuth_scan_verified: 0
+          two_factorAuth_scan_verified: 0,
+          two_factorAuth_verified : 'Inactive'
       },{
           where:{
               id: req.user.id

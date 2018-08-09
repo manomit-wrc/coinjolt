@@ -1,3 +1,11 @@
+CKEDITOR.replace( 'email_users_subject_body' );
+$(".emailContent").each(function(i){
+	var len=$(this).text().trim().length;
+	if(len>25)
+	{
+		$(this).text($(this).text().substr(0,25)+'...');
+	}
+});
 $(document).ready(function (e) {
 	$('#all_user_list_table').DataTable({
         "bSort" : false
@@ -10,8 +18,11 @@ $(document).ready(function (e) {
 	CKEDITOR.replace( 'editor100' );
 	CKEDITOR.replace( 'editor1000' );
 	CKEDITOR.replace( 'email_marketing_subject_body' );
+	//CKEDITOR.replace( 'email_users_subject_body' );
 	
 	//CKEDITOR.replace( 'editor1', {allowedContent : "html head title meta link style body"} );
+
+	
 
 	$('#submit_email_template').on('click', function () {
 
@@ -402,6 +413,45 @@ $(document).ready(function (e) {
         });
     }
 });
+
+// send email to any number of users
+$('#emailAnyusersBtn').on('click', function () {
+
+	$(':input[type="button"]').prop('disabled', true);
+	var subject = $('#email_users_subject_line').val();
+	var body = CKEDITOR.instances['email_users_subject_body'].getData();
+	var emailsOfUsers = $('#email_addresses_users').val();
+	//var body = $('#email_users_subject_body').val();
+
+	
+	$.ajax({
+		type: "POST",
+		url: "/admin/email-any-users",
+		data: {
+			subject: subject,
+			body: body,
+			emailsOfUsers: emailsOfUsers
+		},
+		success: function (resp) {
+			$(':input[type="button"]').prop('disabled', false);
+			if(resp.status == true){
+				swal({
+					title: 'Email Users Confirmation',
+					text: resp.msg,
+					type: "success",
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "CONFIRM"
+				},  function() {
+					$('#subject').val('');
+					$('#email_addresses_users').val('');
+					CKEDITOR.instances['email_users_subject_body'].setData('');
+					window.location.href = '/admin/email-any-users';
+				});
+			}
+		}
+	});
+});
+// end script
 
 $('#send_multiple_email').on('click', function () {
 	var checked_ids = [];

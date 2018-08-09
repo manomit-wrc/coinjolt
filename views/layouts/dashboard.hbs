@@ -2725,7 +2725,31 @@ function remove(event){
             }
         }
     }
+    /*
+    function appendEmailTextBox(event){
+        event.preventDefault();
+        var shareholder = document.getElementById('test');
 
+        $('#shareholder_div').append('<div class="multiple_div row"><div class="col-md-4" id="name"><div class="form-group appnd"><label for="user_email_address">Email Address:</label><input type="text" name="user_email_address[]" class="form-control user_email_address" id="user_email_address" value=""></div></div></div>');
+        document.getElementById('remove').removeAttribute('disabled','disabled');
+    }
+
+    function removeEmailTextBox(event){
+        event.preventDefault();
+        var multiple_div = document.getElementsByClassName('multiple_div');
+        var x = multiple_div.length; 
+        if(x == 1 ){
+            document.getElementById('remove').setAttribute('disabled','disabled');
+            multiple_div[x-1].parentNode.removeChild(multiple_div[x-1]);
+                // multiple_div[0].style.display = "block";
+            }else if(x > 1){               
+                multiple_div[x-1].parentNode.removeChild(multiple_div[x-1]);
+                if(x == 1){
+                    document.getElementById('remove').setAttribute('disabled','disabled');
+                }
+            }
+    }
+    */
 </script>
 <!--Starts Script for Auto Height -->
 

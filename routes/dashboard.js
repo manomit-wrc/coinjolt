@@ -165,75 +165,85 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             // console.log(JSON.stringify(blogPosts, undefined, 2));
             User.findById(req.user.id).then( function (result) {
                 var result = JSON.parse(JSON.stringify(result));
+                res.render('dashboard', {
+                    layout: 'dashboard',
+                    blogPosts: blogPosts,
+                    // two_factorAuth_status: 1,
+                    title:"Dashboard"
+                });
 
-                if(result.two_factorAuth_status == 1){
-                    // res.render('two_factor_authentication');
-                    res.render('dashboard', {
-                        layout: 'dashboard',
-                        blogPosts: blogPosts,
-                        two_factorAuth_status: 1,
-                        title:"Dashboard"
-                    });
-                }else if (result.two_factorAuth_status == 2) {
-                    //two factor authentication
-                    var secret = speakeasy.generateSecret({
-                        issuer: 'Coin Jolt',
-                        length: 20,
-                        name: 'Coin Jolt'
-                    });
+                // if(result.two_factorAuth_status == 1){
+                //     // res.render('two_factor_authentication');
+                //     res.render('dashboard', {
+                //         layout: 'dashboard',
+                //         blogPosts: blogPosts,
+                //         two_factorAuth_status: 1,
+                //         title:"Dashboard"
+                //     });
+                // }else if (result.two_factorAuth_status == 2) {
+                //     //two factor authentication
+                //     var secret = speakeasy.generateSecret({
+                //         issuer: 'Coin Jolt',
+                //         length: 30,
+                //         name: 'Coin Jolt'
+                //     });
 
-                    QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
-                        User.update({
-                            two_factorAuth_secret_key: secret.base32,
-                            two_factorAuth_qr_code_image: image_data
-                        },{
-                            where:{
-                                id: req.user.id
-                            }
-                        }).then( result => {
-                            if(result) {
-                                User.findById(req.user.id).then(user_update_result => {
-                                    var data = JSON.parse(JSON.stringify(user_update_result));
-                                    res.render('dashboard', {
-                                        layout: 'dashboard',
-                                        blogPosts: blogPosts,
-                                        user_details: data,
-                                        two_factorAuth_status: data.two_factorAuth_status,
-                                        title:"Dashboard"
-                                    });
-                                });
-                            }
-                        });
-                    });
-                }
+                //     QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
+                //         User.update({
+                //             two_factorAuth_secret_key: secret.base32,
+                //             two_factorAuth_qr_code_image: image_data
+                //         },{
+                //             where:{
+                //                 id: req.user.id
+                //             }
+                //         }).then( result => {
+                //             if(result) {
+                //                 User.findById(req.user.id).then(user_update_result => {
+                //                     var data = JSON.parse(JSON.stringify(user_update_result));
+                //                     res.render('dashboard', {
+                //                         layout: 'dashboard',
+                //                         blogPosts: blogPosts,
+                //                         user_details: data,
+                //                         two_factorAuth_status: data.two_factorAuth_status,
+                //                         title:"Dashboard"
+                //                     });
+                //                 });
+                //             }
+                //         });
+                //     });
+                // }
             });
         });
     });
 
-    app.post('/check_two_factor_authentication', (req,res) => {
-        var two_factor_auth_secret_key = req.body.two_factor_auth_secret_key;
-        var userToken = req.body.user_secret_key;
+    // app.post('/check_two_factor_authentication', async (req,res) => {
+    //     var two_factor_auth_secret_key = req.body.two_factor_auth_secret_key;
+    //     var userToken = req.body.user_secret_key;
 
-        var verified = speakeasy.totp.verify({
-          secret: two_factor_auth_secret_key,
-          encoding: 'base32',
-          token: userToken
-        });
+    //     // var verified = await speakeasy.totp.verify({
+    //     //   secret: two_factor_auth_secret_key,
+    //     //   encoding: 'base32',
+    //     //   token: userToken
+    //     // });
 
-        if(verified == true) {
-            User.update({
-                two_factorAuth_status: 1
-            },{
-                where:{
-                    id: req.user.id
-                }
-            });
-        }
+    //     var verified = await twoFactor.verifyToken(two_factor_auth_secret_key, userToken, 6);
+    //     console.log(verified);
+    //     return false;
 
-        res.json({
-            status: verified
-        });
-    });
+    //     if(verified == true) {
+    //         User.update({
+    //             two_factorAuth_status: 1
+    //         },{
+    //             where:{
+    //                 id: req.user.id
+    //             }
+    //         });
+    //     }
+
+    //     res.json({
+    //         status: verified
+    //     });
+    // });
 
     app.post('/two_factor_auth_enable_disable', async (req,res) => {
         var option = req.body.value;

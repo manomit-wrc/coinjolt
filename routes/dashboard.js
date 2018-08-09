@@ -255,7 +255,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         if(option == 'false'){
             if(two_factorAuth_status == 1){
                 User.update({
-                    two_factorAuth_status: 2
+                    two_factorAuth_status: 2,
+                    two_factorAuth_secret_key: '',
+                    two_factorAuth_qr_code_image: '',
+                    two_factorAuth_scan_verified: 0                                               
                 },{
                     where:{
                         id: req.user.id
@@ -272,7 +275,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }else if (option == 'true') {
             if(two_factorAuth_status == 2){
                 User.update({
-                    two_factorAuth_status: 1,
+                    // two_factorAuth_status: 1,
                     two_factorAuth_verified : 'Active'
                 },{
                     where:{
@@ -282,7 +285,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     if(result_data){
                         res.json({
                             status: option,
-                            msg:"Your two factor authentication is enable. "
+                            msg:" Your two factor authentication is enabled. "
                         });
                     }
                 });
@@ -1709,7 +1712,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var ssn = '4344';
 
         request({
-            uri: "https://www.coinjolt.com/ecorepay.php",
+            uri: "http://www.coinjolt.com/ecorepay.php",
             //uri: "http://localhost:8080/ecorepay.php",
             method: "POST",
             //json: true,
@@ -2019,8 +2022,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
               "payment_method": "paypal"
           },
           "redirect_urls": {
-              "return_url": "https://www.coinjolt.com/account/paypal-success",
-              "cancel_url": "https://www.coinjolt.com/account/paypal-cancel"
+              "return_url": "http://www.coinjolt.com/account/paypal-success",
+              "cancel_url": "http://www.coinjolt.com/account/paypal-cancel"
           },
           "transactions": [{
               "item_list": {

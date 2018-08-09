@@ -235,8 +235,8 @@
         //var baseURL = "http://ec2-54-224-110-112.compute-1.amazonaws.com/admin/";
         //var baseURL = "http://localhost:8080/admin/";
         //var baseURL = "https://www.coinjolt.com/";
-        var baseURL = "http://ec2-34-230-81-205.compute-1.amazonaws.com/";
-        //var baseURL = "https://www.coinjolt.com/";
+        //var baseURL = "http://ec2-34-230-81-205.compute-1.amazonaws.com/";
+        var baseURL = "http://www.coinjolt.com/";
         function deleteBlog(blogId){
 
             swal({
@@ -486,7 +486,8 @@
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: "Confirm"
                         },  function() {
-                            window.location.reload();
+                            // window.location.reload();
+                            window.location.href = "/scan/2FA-Verification";
                         });
                     }
                     
@@ -2373,19 +2374,30 @@ $('.deleteShareholderInfo').on('click', function(){
     <!-- Starts Script for Propagation & Sliding -->
     <script type="text/javascript">
         $(document).ready(function () {
-          $(".balance-box .left").addClass("dblock");
-          $(".rates-box .right").addClass("dblock");
+            if(window.matchMedia('screen and (min-width: 1367px)').matches){
+              $(".balance-box .left").css('display','block');
+              $(".rates-box .right").css('display','block');
+           }
 
           $("#clickme").click(function (e) {
-            $(".balance-box .left").addClass("dblock");
-            $(".rates-box .right").addClass("dblock");
+            if(window.matchMedia('screen and (max-width: 1366px)').matches){
+                //alert(1);
+             $(".balance-box .left").css('display','none');
+             $(".rates-box .right").css('display','none');
+            }
         });
 
           $("#bal-anchor").click(function () {
+            if(window.matchMedia('screen and (max-width: 1366px)').matches){
+                //alert(2);
             $(".balance-box .left").slideToggle();
+            }
         });
           $("#rate-anchor").click(function () {
+            //alert(3);
+            if(window.matchMedia('screen and (max-width: 1366px)').matches){
             $(".rates-box .right").slideToggle();
+           }
         });
       });
 
@@ -2398,18 +2410,24 @@ $('.deleteShareholderInfo').on('click', function(){
         //});
 
         $("#bal-anchor").click(function (e) {
+            if(window.matchMedia('screen and (max-width: 1366px)').matches){
             $(".rates-box .right").slideUp();
             $(".dropdown").removeClass("open");
+          }
         });
 
         $("#rate-anchor").click(function (e) {
+            if(window.matchMedia('screen and (max-width: 1366px)').matches){
             $(".balance-box .left").slideUp();
             $(".dropdown").removeClass("open");
+           }
         });
 
         $("#clickme").click(function (e) {
+            if(window.matchMedia('screen and (max-width: 1366px)').matches){
             $(".balance-box .left").slideUp();
             $(".rates-box .right").slideUp();
+           }
         });
     </script>
     <!-- Ends Script for Propagation & Sliding -->
@@ -2568,7 +2586,6 @@ $('.deleteShareholderInfo').on('click', function(){
             // slices: [{color: '#fc7c59'}, {color: '#ed5565'}, {color: '#ec87c0'}, {color: '#5d9cec'}],
             tooltip:{'text':'percentage'},
             fontSize: 12
-            
 
         };
         var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));

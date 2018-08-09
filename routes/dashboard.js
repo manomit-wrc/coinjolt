@@ -255,7 +255,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         if(option == 'false'){
             if(two_factorAuth_status == 1){
                 User.update({
-                    two_factorAuth_status: 2
+                    two_factorAuth_status: 2,
+                    two_factorAuth_secret_key: '',
+                    two_factorAuth_qr_code_image: '',
+                    two_factorAuth_scan_verified: 0                                               
                 },{
                     where:{
                         id: req.user.id
@@ -271,20 +274,25 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }
         }else if (option == 'true') {
             if(two_factorAuth_status == 2){
-                User.update({
-                    two_factorAuth_status: 1,
-                    two_factorAuth_verified : 'Active'
-                },{
-                    where:{
-                        id: req.user.id
-                    }
-                }).then(result_data => {
-                    if(result_data){
-                        res.json({
-                            status: option,
-                            msg:"Your two factor authentication is enable. "
-                        });
-                    }
+                // User.update({
+                //     two_factorAuth_status: 1,
+                //     two_factorAuth_verified : 'Active'
+                // },{
+                //     where:{
+                //         id: req.user.id
+                //     }
+                // }).then(result_data => {
+                //     if(result_data){
+                //         res.json({
+                //             status: option,
+                //             msg:" Your two factor authentication is enabled. "
+                //         });
+                //     }
+                // });
+
+                res.json({
+                    status: option,
+                    msg:" Your two factor authentication is enabled. "
                 });
             }
 

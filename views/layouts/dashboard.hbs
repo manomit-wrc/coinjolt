@@ -253,17 +253,17 @@
             },
             function(isConfirm) {
                 if (isConfirm) {
-                    
-                            $.ajax({
-                                type: "POST",
-                                url: '/admin/remove_blog_content',
-                                data: {blogId: blogId},
-                                success: function (response) {
-                                    if(response.status == true){
-                                        sweetAlertSuccessPopUp('Success',response.msg);
-                                    }
-                                }
-                            });
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/admin/remove_blog_content',
+                        data: {blogId: blogId},
+                        success: function (response) {
+                            if(response.status == true){
+                                sweetAlertSuccessPopUp('Success',response.msg);
+                            }
+                        }
+                    });
                     
                 } else {
                     swal("Cancelled", "You cancelled deleting this blog post.", "error");
@@ -381,7 +381,7 @@
 
         function deleteAuthor(authorId){
             //alert(authorId);
-             swal({
+            swal({
                 title: "Confirm Deletion of Author",
                 text: "Are you sure?",
                 type: "warning",
@@ -395,17 +395,17 @@
             },
             function(isConfirm) {
                 if (isConfirm) {
-                    
-                            $.ajax({
-                                type: "POST",
-                                url: '/admin/remove_author',
-                                data: {authorId: authorId},
-                                success: function (response) {
-                                    if(response.status == true){
-                                        sweetAlertAuthorSuccessPopUp('Success',response.msg);
-                                    }
-                                }
-                            });
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/admin/remove_author',
+                        data: {authorId: authorId},
+                        success: function (response) {
+                            if(response.status == true){
+                                sweetAlertAuthorSuccessPopUp('Success',response.msg);
+                            }
+                        }
+                    });
                     
                 } else {
                     swal("Cancelled", "You cancelled deleting this author.", "error");
@@ -579,7 +579,7 @@
                             // socket.on('pushNotification', function(msg){
                             //   $('#messages').append($('<li>').text(msg));
                             //   window.scrollTo(0, document.body.scrollHeight);
-                              
+
                             //   pushNotification.notify(msg);
                             // });
                             //end
@@ -621,7 +621,7 @@
         // })(); 
         //end
 
-       
+
 
         $(function () {
             $('#example2').DataTable({
@@ -810,12 +810,12 @@
                     
                 },
                 submitHandler:function(form) {
-                    
-                   
-                     
+
+
+
 
                     // start
-                     $.ajax({
+                    $.ajax({
                         type: "POST",
                         url: "/account-settings",
                         data: form_data,
@@ -831,10 +831,10 @@
                             $("#updatesubmit").prop('disabled', false);
                             if(response.success == 'true'){
                                 swal({
-                                icon: "success",
-                                title: response.msg,
-                                confirmButtonClass: "btn-success",
-                                confirmButtonText: "Confirm"
+                                    icon: "success",
+                                    title: response.msg,
+                                    confirmButtonClass: "btn-success",
+                                    confirmButtonText: "Confirm"
                                 },function(isConfirm){
                                     if(isConfirm){
                                         window.location.href = "/account/account-settings";
@@ -911,7 +911,7 @@
                     
                     form_data.append('proof_of_address', JSON.stringify(proof_of_address)); 
 
-                      $.ajax({
+                    $.ajax({
                         type: "POST",
                         url: "/save-shareholderData",
                         data: form_data,
@@ -927,10 +927,10 @@
                             $("#updateshareholderdata").prop('disabled', false);
                             if(response.success == 'true'){
                                 swal({
-                                icon: "success",
-                                title: response.msg,
-                                confirmButtonClass: "btn-success",
-                                confirmButtonText: "Confirm"
+                                    icon: "success",
+                                    title: response.msg,
+                                    confirmButtonClass: "btn-success",
+                                    confirmButtonText: "Confirm"
                                 },function(isConfirm){
                                     if(isConfirm){
                                         window.location.href = "/account/account-settings";
@@ -2063,12 +2063,12 @@ $('.deleteShareholderInfo').on('click', function(){
                         required: "Please enter country of bank account."
                     },
                     account_number: {
-                     required: "Please enter account number.",
-                     number: "Only numbers are accepted.",
-                     minlength: "Account number should have exactly 7 digits.",
-                     maxlength: "Account number should have exactly 7 digits."
-                 },
-                 routing_number: {
+                       required: "Please enter account number.",
+                       number: "Only numbers are accepted.",
+                       minlength: "Account number should have exactly 7 digits.",
+                       maxlength: "Account number should have exactly 7 digits."
+                   },
+                   routing_number: {
                     required: "Please enter routing number.",
                     number: "Only numbers are accepted.",
                     minlength: "Routing number should have exactly 9 digits.",
@@ -2191,7 +2191,7 @@ $('.deleteShareholderInfo').on('click', function(){
             });
 
             $('#individualModalForm').validate({
-               rules: {
+             rules: {
                 account_name_individual: {
                     required: true
                 },
@@ -2227,12 +2227,12 @@ $('.deleteShareholderInfo').on('click', function(){
                     required: "Please enter country of bank account."
                 },
                 account_number_individual: {
-                 required: "Please enter account number.",
-                 number: "Only numbers are accepted.",
-                 minlength: "Account number should have exactly 7 digits.",
-                 maxlength: "Account number should have exactly 7 digits."
-             },
-             routing_number_individual: {
+                   required: "Please enter account number.",
+                   number: "Only numbers are accepted.",
+                   minlength: "Account number should have exactly 7 digits.",
+                   maxlength: "Account number should have exactly 7 digits."
+               },
+               routing_number_individual: {
                 required: "Please enter routing number.",
                 number: "Only numbers are accepted.",
                 minlength: "Routing number should have exactly 9 digits.",
@@ -2302,18 +2302,18 @@ $('.deleteShareholderInfo').on('click', function(){
     function load_donut_chart(chart_data) {
         var colorArray = ['#991AFF', '#E666FF', '#4DB3FF', '#1AB399', '#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC', '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC', '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399', '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680', '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933', '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF', '#B366CC', '#4D8000', '#B33300', '#CC80CC', '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399', '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680'];
         var donut = new Morris.Donut({ 
-           element: 'sales-chart', 
-           resize: false,              
-           colors: colorArray, 
-           data: chart_data, 
-           hideHover: 'auto',
-           formatter: function (value, data) { 
+         element: 'sales-chart', 
+         resize: false,              
+         colors: colorArray, 
+         data: chart_data, 
+         hideHover: 'auto',
+         formatter: function (value, data) { 
             return nFormatter(value, 2); 
         } 
     }); 
     }
     $(function () {
-       "use strict"; 
+     "use strict"; 
                  //DONUT CHART 
                  $.get("/account/get-donut-chart", function( data ) {
                     load_donut_chart(data.chart_array);
@@ -2373,13 +2373,21 @@ $('.deleteShareholderInfo').on('click', function(){
     <!-- Starts Script for Propagation & Sliding -->
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#bal-anchor").click(function () {
-                $(".balance-box .left").slideToggle();
-            });
-            $("#rate-anchor").click(function () {
-                $(".rates-box .right").slideToggle();
-            });
+          $(".balance-box .left").addClass("dblock");
+          $(".rates-box .right").addClass("dblock");
+
+          $("#clickme").click(function (e) {
+            $(".balance-box .left").addClass("dblock");
+            $(".rates-box .right").addClass("dblock");
         });
+
+          $("#bal-anchor").click(function () {
+            $(".balance-box .left").slideToggle();
+        });
+          $("#rate-anchor").click(function () {
+            $(".rates-box .right").slideToggle();
+        });
+      });
 
         $("#bal-anchor,#rate-anchor").click(function (e) {
             e.stopPropagation();
@@ -2550,7 +2558,7 @@ $('.deleteShareholderInfo').on('click', function(){
             // chartArea:{left: '0', top: '0%',height: '80%', width: '80%'}
             // legend: 'none',
             pieSliceText: 'none',
-			fontSize: '4',
+            fontSize: '4',
             title: '',
             // pieStartAngle: 100,
             
@@ -2779,7 +2787,7 @@ function remove(event){
 <!-- Starts  Script for Active Menu -->
 <script type="text/javascript">
     $(document).ready(function () {
-        
+
 
         $('.wallet_create').on('click', function () {
             var currency_id = $(this).data('datac'); 
@@ -2822,7 +2830,7 @@ function remove(event){
 
                             }
                         });
-                        
+
                 } else {
                     swal("Cancelled", "You cancelled creating a Coin Jolt wallet.", "error");
                 }
@@ -2902,7 +2910,7 @@ function remove(event){
         <!-- Ends Script for Active Menu -->
 
         <script>
-           $(document).ready(function () {
+         $(document).ready(function () {
             $( "#amount_deposit" ).click(function() {
                 $( "#depositerrormsg" ).empty();
                 $( "#depositerrormsg" ).hide();
@@ -2910,39 +2918,39 @@ function remove(event){
 
 
             $('#curncy_select').on('change', function () {
-            var currencyTypeString = $("#curncy_select option:selected").text();
-            var currencyTypeOnly = currencyTypeString.match(/\((.*)\)/);
-            var currencyType = currencyTypeOnly[1];
-            var msg = "Current Rate(" + currencyTypeString + ")" + ": " + "$ ";
-            var currencyTypeName = currencyTypeString.split("(");
-            var currencyTypeFullName = currencyTypeName[0];
-            var coin_amount = parseFloat(jQuery("#amount_deposit").val());
-            
+                var currencyTypeString = $("#curncy_select option:selected").text();
+                var currencyTypeOnly = currencyTypeString.match(/\((.*)\)/);
+                var currencyType = currencyTypeOnly[1];
+                var msg = "Current Rate(" + currencyTypeString + ")" + ": " + "$ ";
+                var currencyTypeName = currencyTypeString.split("(");
+                var currencyTypeFullName = currencyTypeName[0];
+                var coin_amount = parseFloat(jQuery("#amount_deposit").val());
 
-            if (currencyType != '0' && currencyType != 'Please select an option') {
-                $.ajax({
-                    type: 'GET',
-                    url: "https://coincap.io/page/" + currencyType,
-                    dataType: "json",
-                    success: function (result) {
-                        $('#coin_rate3').val(result.price_usd);
-                        var roundUpPrice = parseFloat(Math.round(result.price_usd * 100) / 100).toFixed(2);
-                        $('#currentratetext3').addClass('alert alert-danger');
-                        $('#currentratetext3').show();
-                        $('#currentratetext3').html('Current Rate (' + currencyTypeFullName + '- ' + currencyType + ')' + ': $' + result.price_usd);
-                        
 
-                        $('#currentratetext3').addClass('alert alert-danger');
-                        $('#calculatedamount3').addClass('alert alert-success');
-                        jQuery('#calculatedamount3').show();
-                        jQuery('#calculatedamount3').html('Calculated USD Value: $'+  parseFloat(coin_amount/result.price_usd) );
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
-            }
-            else {
+                if (currencyType != '0' && currencyType != 'Please select an option') {
+                    $.ajax({
+                        type: 'GET',
+                        url: "https://coincap.io/page/" + currencyType,
+                        dataType: "json",
+                        success: function (result) {
+                            $('#coin_rate3').val(result.price_usd);
+                            var roundUpPrice = parseFloat(Math.round(result.price_usd * 100) / 100).toFixed(2);
+                            $('#currentratetext3').addClass('alert alert-danger');
+                            $('#currentratetext3').show();
+                            $('#currentratetext3').html('Current Rate (' + currencyTypeFullName + '- ' + currencyType + ')' + ': $' + result.price_usd);
+
+
+                            $('#currentratetext3').addClass('alert alert-danger');
+                            $('#calculatedamount3').addClass('alert alert-success');
+                            jQuery('#calculatedamount3').show();
+                            jQuery('#calculatedamount3').html('Calculated USD Value: $'+  parseFloat(coin_amount/result.price_usd) );
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                }
+                else {
                     $('#currentratetext3').removeClass('alert alert-danger');
                     $('#currentratetext3').html('');
 
@@ -2997,13 +3005,13 @@ function remove(event){
                             $('#calculatedamount3').addClass('alert alert-success');
                             jQuery('#calculatedamount3').show();
                             jQuery('#calculatedamount3').html('Calculated USD Value: $'+  parseFloat(coin_amount4/coin_rate4) );
+                        }
+
+
+                        $('#depositerrormsg').hide();
+                        $('#depositerrormsg').html('');
                     }
-
-
-                    $('#depositerrormsg').hide();
-                    $('#depositerrormsg').html('');
-                }
-            });
+                });
 
             $( "#amt_deposit_btn" ).click(function() {
                 var amountdeposit = $( "#amount_deposit" ).val();
@@ -3019,12 +3027,12 @@ function remove(event){
                 //console.log(amountdeposit);
                 //console.log("-----------------------------------------------------------------------------------");
                 if (currency_id == "") {
-                     $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please select an option to send funds.</p>');
-                    return false;
-                } else if (amountdeposit <= 0) {
-                    $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be greater than 0.</p>');
-                    return false;
-                } else {
+                   $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please select an option to send funds.</p>');
+                   return false;
+               } else if (amountdeposit <= 0) {
+                $( "#depositerrormsg" ).append('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Amount should be greater than 0.</p>');
+                return false;
+            } else {
                     if (currency_id != "0") { // if cryptocurrency deposited
                         $.ajax({
                             type: "POST",
@@ -3096,22 +3104,22 @@ function remove(event){
                 }
             });
 
-            $('#investsuccessmsg').delay(2000).fadeOut();
-        });    
-    </script>
+$('#investsuccessmsg').delay(2000).fadeOut();
+});    
+</script>
 
-    <script>
-       $(document).ready(function() {
-           $('.main-sidebar').slimScroll({
-                color: '#455A64',
-                size: '10px',
-				alwaysVisible: false,
-                width: '250px',
-                allowPageScroll: true
-            });
+<script>
+ $(document).ready(function() {
+     $('.main-sidebar').slimScroll({
+        color: '#455A64',
+        size: '10px',
+        alwaysVisible: false,
+        width: '250px',
+        allowPageScroll: true
+    });
 
-           $(".sidebar-toggle").click(function() {
-               if ( $(".sidebar-collapse").length == 0 ) {
+     $(".sidebar-toggle").click(function() {
+         if ( $(".sidebar-collapse").length == 0 ) {
                     //alert(123);
                     $(".slimScrollBar").hide();
                     $(".slimScrollBar").addClass("op-0");
@@ -3121,115 +3129,115 @@ function remove(event){
                     $(".slimScrollBar").hide();
                     $(".slimScrollBar").removeClass("op-0");
                 }
-           });
-            
- 
-          });
-      </script>
+            });
 
-      {{!-- Wallet Send Coins starts --}}
-      <script>
-       $(document).ready(function () {
-        $( "#coin_amount" ).click(function() {
-            $( "#coinsenderrormsg" ).empty();
-            $( "#coinsenderrormsg" ).hide();
-        });
 
-        $('#currency_send_id').on('change', function () {
-            var currencyTypeString = $("#currency_send_id option:selected").text();
-            var currencyTypeOnly = currencyTypeString.match(/\((.*)\)/);
-            var currencyType = currencyTypeOnly[1];
-            var msg = "Current Rate(" + currencyTypeString + ")" + ": " + "$ ";
-            var currencyTypeName = currencyTypeString.split("(");
-            var currencyTypeFullName = currencyTypeName[0];
-            var coin_amount = parseFloat(jQuery("#coin_amount").val());
-            
+ });
+</script>
 
-            if (currencyType !== '' && currencyType !== 'Please selet an option') {
-                $.ajax({
-                    type: 'GET',
-                    url: "https://coincap.io/page/" + currencyType,
-                    dataType: "json",
-                    success: function (result) {
-                        $('#coin_rate').val(result.price_usd);
-                        var roundUpPrice = parseFloat(Math.round(result.price_usd * 100) / 100).toFixed(2);
-                        $('#currentratetext2').addClass('alert alert-danger');
-                        $('#currentratetext2').show();
-                        $('#currentratetext2').html('Current Rate (' + currencyTypeFullName + '- ' + currencyType + ')' + ': $' + result.price_usd);
-                        $('#addresstext').addClass('alert alert-danger');
-                        $('#addresstext').show();
-                        $('#addresstext').html('Be sure to enter the proper recipient address respective to the cryptocurrency selected');
+{{!-- Wallet Send Coins starts --}}
+<script>
+ $(document).ready(function () {
+    $( "#coin_amount" ).click(function() {
+        $( "#coinsenderrormsg" ).empty();
+        $( "#coinsenderrormsg" ).hide();
+    });
 
-                        $('#currentratetext2').addClass('alert alert-danger');
-                        $('#calculatedamount2').addClass('alert alert-success');
-                        jQuery('#calculatedamount2').show();
-                        jQuery('#calculatedamount2').html('Calculated USD Value: $'+  parseFloat(coin_amount/result.price_usd) );
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
+    $('#currency_send_id').on('change', function () {
+        var currencyTypeString = $("#currency_send_id option:selected").text();
+        var currencyTypeOnly = currencyTypeString.match(/\((.*)\)/);
+        var currencyType = currencyTypeOnly[1];
+        var msg = "Current Rate(" + currencyTypeString + ")" + ": " + "$ ";
+        var currencyTypeName = currencyTypeString.split("(");
+        var currencyTypeFullName = currencyTypeName[0];
+        var coin_amount = parseFloat(jQuery("#coin_amount").val());
+
+
+        if (currencyType !== '' && currencyType !== 'Please selet an option') {
+            $.ajax({
+                type: 'GET',
+                url: "https://coincap.io/page/" + currencyType,
+                dataType: "json",
+                success: function (result) {
+                    $('#coin_rate').val(result.price_usd);
+                    var roundUpPrice = parseFloat(Math.round(result.price_usd * 100) / 100).toFixed(2);
+                    $('#currentratetext2').addClass('alert alert-danger');
+                    $('#currentratetext2').show();
+                    $('#currentratetext2').html('Current Rate (' + currencyTypeFullName + '- ' + currencyType + ')' + ': $' + result.price_usd);
+                    $('#addresstext').addClass('alert alert-danger');
+                    $('#addresstext').show();
+                    $('#addresstext').html('Be sure to enter the proper recipient address respective to the cryptocurrency selected');
+
+                    $('#currentratetext2').addClass('alert alert-danger');
+                    $('#calculatedamount2').addClass('alert alert-success');
+                    jQuery('#calculatedamount2').show();
+                    jQuery('#calculatedamount2').html('Calculated USD Value: $'+  parseFloat(coin_amount/result.price_usd) );
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        else {
+            $('#currentratetext2').removeClass('alert alert-danger');
+            $('#currentratetext2').html('');
+            $('#addresstext').removeClass('alert alert-danger');
+            $('#addresstext').html('');
+
+            $('#calculatedamount2').html('');
+            $('#calculatedamount2').removeClass('alert alert-success');
+            $('#calculatedamount2').hide();
+            var coin_rate = parseFloat(jQuery('#coin_rate').val());
+            var amtExpect = parseFloat(coin_amount / coin_rate);
+            if (isNaN(amtExpect)) {
+                $('#calculatedamount2').html('');
+                $('#calculatedamount2').removeClass('alert alert-success');
+                $('#calculatedamount2').css('display','none');
             }
-            else {
-                $('#currentratetext2').removeClass('alert alert-danger');
-                $('#currentratetext2').html('');
-                $('#addresstext').removeClass('alert alert-danger');
-                $('#addresstext').html('');
+        }
+    });
 
+    $('#coin_amount').on('keyup', function(event) {
+        $(this).val($(this).val().replace(/[^0-9\.]/g,''));
+        if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
+            event.preventDefault();
+            $( "#coinsenderrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number</p>');
+            $('#coinsenderrormsg').show();
+        } else {
+
+            var coin_amount = parseFloat(jQuery("#coin_amount").val());
+            var coin_rate = parseFloat(jQuery('#coin_rate').val());
+            var currencyTypeString2 =  $("#currency_send_id option:selected").text();
+            var currencyTypeOnly2 = currencyTypeString2.match(/\((.*)\)/);
+            var currencyType2 = currencyTypeOnly2[1];
+            var currencyTypeName2 = currencyTypeString2.split("("); 
+            var currencyTypeFullName2 = currencyTypeName2[0];
+
+            if (currencyType2 === '') {
                 $('#calculatedamount2').html('');
                 $('#calculatedamount2').removeClass('alert alert-success');
                 $('#calculatedamount2').hide();
-                var coin_rate = parseFloat(jQuery('#coin_rate').val());
                 var amtExpect = parseFloat(coin_amount / coin_rate);
                 if (isNaN(amtExpect)) {
                     $('#calculatedamount2').html('');
                     $('#calculatedamount2').removeClass('alert alert-success');
                     $('#calculatedamount2').css('display','none');
                 }
-            }
-        });
-
-        $('#coin_amount').on('keyup', function(event) {
-            $(this).val($(this).val().replace(/[^0-9\.]/g,''));
-            if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57) || (event.keyCode < 96 && event.keyCode > 105)) {
-                event.preventDefault();
-                $( "#coinsenderrormsg" ).html('<p style="color: #a94442; background-color: #f2dede;border-color: #ebccd1; padding: 6px 10px; margin-top: 11px;">Please enter a valid number</p>');
-                $('#coinsenderrormsg').show();
             } else {
-
-                var coin_amount = parseFloat(jQuery("#coin_amount").val());
-                var coin_rate = parseFloat(jQuery('#coin_rate').val());
-                var currencyTypeString2 =  $("#currency_send_id option:selected").text();
-                var currencyTypeOnly2 = currencyTypeString2.match(/\((.*)\)/);
-                var currencyType2 = currencyTypeOnly2[1];
-                var currencyTypeName2 = currencyTypeString2.split("("); 
-                var currencyTypeFullName2 = currencyTypeName2[0];
-
-                if (currencyType2 === '') {
-                    $('#calculatedamount2').html('');
-                    $('#calculatedamount2').removeClass('alert alert-success');
-                    $('#calculatedamount2').hide();
-                    var amtExpect = parseFloat(coin_amount / coin_rate);
-                    if (isNaN(amtExpect)) {
-                        $('#calculatedamount2').html('');
-                        $('#calculatedamount2').removeClass('alert alert-success');
-                        $('#calculatedamount2').css('display','none');
-                    }
-                } else {
-                    var amtExpect = parseFloat(coin_amount/coin_rate);
-                    $('#currentratetext2').addClass('alert alert-danger');
-                    $('#calculatedamount2').addClass('alert alert-success');
-                    jQuery('#calculatedamount2').show();
-                    jQuery('#calculatedamount2').html('Calculated USD Value: $'+  parseFloat(coin_amount/coin_rate) );
-                }
-
-
-                $('#coinsenderrormsg').hide();
-                $('#coinsenderrormsg').html('');
+                var amtExpect = parseFloat(coin_amount/coin_rate);
+                $('#currentratetext2').addClass('alert alert-danger');
+                $('#calculatedamount2').addClass('alert alert-success');
+                jQuery('#calculatedamount2').show();
+                jQuery('#calculatedamount2').html('Calculated USD Value: $'+  parseFloat(coin_amount/coin_rate) );
             }
-        });
 
-        $( "#coin-send-btn" ).click(function(event) {
+
+            $('#coinsenderrormsg').hide();
+            $('#coinsenderrormsg').html('');
+        }
+    });
+
+    $( "#coin-send-btn" ).click(function(event) {
                     //event.preventDefault();
                     var coin_name = $( "#currency_send_id" ).val();	
                     var coin_address = $( "#coin_address" ).val();	
@@ -3280,19 +3288,46 @@ function remove(event){
                     }
                 });
 
-    });    
+});    
 </script>
 {{!-- Wallet Send Coins ends --}}
 
 <script>
-    $(document).ready(function () {
-        $('#amt_deposit_btn').click(function () {
-            var errorHeight2 = $('#depositerrormsg').height();
-            var boxHeight2 = $('.equalize-box1').height();
-            var calculateHeight2 = boxHeight2 + errorHeight2;
-            $('.equalize-box1').height(calculateHeight2);
-        });
+   var boxHeight2 = $('.equalize-box1').height();
+   var walletMsgHeight = $(".wallet_cal_display").height();
+   var depErrMsgHeight = $("#depositerrormsg").height();
+   $(document).ready(function () {
+    $('#amt_deposit_btn').click(function () {
+        var errorHeight2 = $('#depositerrormsg').height();
+        var boxHeight2 = $('.equalize-box1').height();
+        var calculateHeight2 = boxHeight2 + errorHeight2;
+        $('.equalize-box1').height(calculateHeight2);
     });
+
+    $('#curncy_select').on('change', function (e) {
+        // alert(this.value);
+        var calculateHeight2 = 0;
+        var selected =  $(this).val();
+        if(selected) {
+
+             calculateHeight2 =boxHeight2 + 135 + 53;
+             // alert(boxHeight2);
+             // alert(walletMsgHeight);
+             // alert(calculateHeight2);
+             $('.equalize-box1').height(calculateHeight2);
+         }
+     });
+
+    $('#amount_deposit').on('keyup', function (e) {
+        var calculateHeight2 = 0;
+        calculateHeight2 = boxHeight2 + 135 + 53;
+        $('.equalize-box1').height(calculateHeight2);
+    });
+    
+
+
+
+});
 </script>
 <script>
     var mcpMaxHeight = 0;

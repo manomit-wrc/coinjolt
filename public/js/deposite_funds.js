@@ -54,11 +54,11 @@ $(document).ready(function (e) {
 			$(".expecteder").empty();
 			$(".expecteder").append("Enter a valid number.");
 		}
-		else if(enterval < 1){
+		else if(enterval < 500){
 			$(".expected").hide();
 			$(".expecteder").show();
 			$(".expecteder").empty();
-			$(".expecteder").append("Deposit amount must be at least $1.");
+			$(".expecteder").append("Deposit amount must be at least $500.");
 		}
 		else{
 			$(".expecteder").hide();

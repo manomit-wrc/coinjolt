@@ -642,7 +642,7 @@ module.exports = function (app, passport, models, User) {
     });
 
     app.get('/login/2FA-Verification', async (req,res) => {
-      var user = await User.findOne({id:req.user.id});
+      var user = await User.findById(req.user.id);
 
       var secret = speakeasy.generateSecret({
           issuer: 'Coin Jolt',

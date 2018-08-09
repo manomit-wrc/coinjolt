@@ -2582,6 +2582,10 @@ h3.post-title {
     	.col-md-6.paddingleft.recent_post_box img {
     		height: auto;
     	}
+
+    	.col-md-6.paddingleft.recent_post_box:nth-child(2), .col-md-6.paddingleft.recent_post_box:nth-child(4), .col-md-6.paddingleft.recent_post_box:nth-child(1), .col-md-6.paddingleft.recent_post_box:nth-child(3) {
+    		padding-right: 0;
+    	}
     }
 
     @media screen and (max-width: 767px) {

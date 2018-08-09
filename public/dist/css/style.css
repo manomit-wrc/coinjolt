@@ -2151,6 +2151,21 @@ h3.post-title {
     		border: 1px solid #ccc;
     	}
 
+    	#datetimepicker_blog_create {
+    		display: block;
+    	}
+
+    	#blog_publish_date {
+    		width: 95% !important;
+    	}
+
+    	span.input-group-addon.blog_date_span:last-child {
+    		background: #232c3d none repeat scroll 0 0;
+    		color: #fff;
+    		display: table-cell;
+    		height: 40px;
+    	}
+
 
     	/*Ends on css 08-08-2018*/
 
@@ -2539,6 +2554,18 @@ h3.post-title {
       		} */
       	}
 
+      	@media screen and (max-width: 1079px) {
+      		span.input-group-addon.blog_date_span:last-child {
+      			display: table;
+      			line-height: 25px;
+      			width: 45px;
+      		}
+
+      		#blog_publish_date {
+      			width: 89% !important;
+      		}
+      	}
+
       	@media screen and (max-width: 1024px) {
 
     /* .content-wrapper,
@@ -2591,6 +2618,10 @@ h3.post-title {
     		margin-left: 0;
     		text-align: center;
     	}
+
+    	#blog_publish_date {
+    		width: 85% !important;
+    	}
     }
 
     @media screen and (max-width: 370px) {
@@ -2604,6 +2635,10 @@ h3.post-title {
 
     	.para-list .para-content ol {
     		padding: 0 0 0 15px;
+    	}
+
+    	#blog_publish_date {
+    		width: 83% !important;
     	}
     }
 

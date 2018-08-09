@@ -215,6 +215,71 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		});
 	});
 
+	app.get('/admin/email-any-users', acl, async(req, res) =>{
+		var mailList = await send_email.findAll({
+			order: [
+				['id', 'DESC']
+			]
+		});
+		res.render('admin/email/email_anyuser',{layout: 'dashboard', title:"Email All Users", mailList: mailList});
+
+	});
+
+	app.post('/admin/email-any-users', acl, async(req, res) =>{
+		
+		var emailsOfUsers = req.body.emailsOfUsers;
+		if(emailsOfUsers !== undefined){
+			var userEmail_array = emailsOfUsers.split(",");			
+			
+			for(var i = 0; i< userEmail_array.length; i++) {
+			
+				var newEmailArray = new Array();
+			
+				newEmailArray.push(userEmail_array[i]);
+	
+				var ses = new AWS.SES({apiVersion: '2010-12-01'});
+				ses.sendEmail({
+					Source: keys.senderEmail, 
+					Destination: { ToAddresses: newEmailArray },
+					
+					Message: {
+						Subject: {
+							Data: req.body.subject
+						},
+						Body: {
+							Html: {
+								Charset: "UTF-8",
+								Data: req.body.body
+							}
+						}
+					}
+				}, function(err, data) {
+
+					send_email.create({
+						
+						email_sub: req.body.subject,
+						email_desc: req.body.body,
+						send_by_id: req.user.id,
+						send_email_address: userEmail_array[i]
+					});
+				});
+	    	
+				if(i === userEmail_array.length - 1) {
+					res.json({
+						status: true,
+						msg: "Email sent to all users successfully."
+					});
+					
+				}
+				
+
+			}
+
+		}
+			
+
+	});
+
 	app.post('/admin/send-email-markeitng', acl, async (req,res) => {
 		var all_user_email = [];
 		

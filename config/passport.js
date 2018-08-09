@@ -200,7 +200,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                     }
 
                     if(user.status != "1") {
-                        return done(null, false, req.flash('loginMessage', 'Account not activated. Please contact support.')); 
+                        return done(null, false, req.flash('loginMessage', 'Account not activated. Please resend activation email.')); 
                     }
 
                     var userinfo = user.get();
@@ -280,7 +280,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 var editor_content_body = resp[0].template_desc;
                                 var ses = new AWS.SES({apiVersion: '2010-12-01'});
                                 var user_email = req.body.email;
-                                var subject = 'Registration Complete';
+                                var subject = 'Registration request received. Please activate your account.';
 
                                 email_key = activation_key+"/";
                                 
@@ -365,7 +365,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 
                                   <!-- HIDDEN PREHEADER TEXT -->
                                   <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'AvenirNextLTPro-Regular', sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-                                    Registration successful, please check your email for instructions on how to activate your account.
+                                    This is information is sensitive and intended to be read only by the recipient who had submitted the request.
                                   </div>
                                 
                                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -381,7 +381,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                               <tr>
                                                 <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
                                                   <a href="#" target="_blank">
-                                                    <img alt="Logo" src="${keys.BASE_URL}dist/img/template_logo.png" width="200" height="27" style="display: block; width: 200px; max-width: 200px; min-width: 200px; font-family: 'AvenirNextLTPro-Regular', sans-serif; color: #ffffff; font-size: 18px; filter: invert(1);" border="0">
+                                                    <img alt="Display images for support@coinjolt.com" src="${keys.BASE_URL}dist/img/template_logo.png" width="200" height="27" style="display: block; width: 200px; max-width: 200px; min-width: 200px; font-family: 'AvenirNextLTPro-Regular', sans-serif; color: #ffffff; font-size: 18px; filter: invert(1);" border="0">
                                                   </a>
                                                 </td>
                                               </tr>
@@ -461,47 +461,41 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                     <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
                                     
-                                    <p> 
+									<p style="text-align: center;"> 
                                         <a href="${keys.BASE_URL}activated/${email_key}">
-                                        Alternatively, you can click here to take the same action.
+                                        Or you can click here to to activate your account.
                                         </a>
                                     </p>
                                     </td>
                                 </tr> <!-- Static Content -->
                                 <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">If you have any questions, just reply to this email — we're always happy to help out.</p>
+                                    <p style="margin: 0;">If you have any questions, just reply to this email — we're always willing to help out.</p>
                                     </td>
                                 </tr> <!-- Static Content -->
                                 
                                 <!-- Starts Footer Sec -->
                                 <tr>
-                                  <td bgcolor="#ffffff" style="text-align: center;"><a href="#" target="_blank">
-                                      <img alt="Logo" src="${keys.BASE_URL}dist/img/template_logo_black.png" style="display: table;  max-width: 100%; height: auto, font-family: 'AvenirNextLTPro-Regular', sans-serif; color: #ffffff; font-size: 16px; filter: invert(1);margin: 0 auto;" border="0">
-                                    </a>
-                                  </td>
-                                </tr>
-                                <tr>
                                   <td  bgcolor="#ffffff" style="text-align: center;"> 
                                     <ul style="list-style-type: none;margin: 30px 0 30px 0; padding: 0;">
                                       <li style="display: inline-block;margin-right: 10px">
                                         <a href="https://www.facebook.com/coinjolt" style="text-decoration: none; display: block;">
-                                            <img  src="${keys.BASE_URL}dist/img/fb-icon.png" alt="">
+                                            <img  src="${keys.BASE_URL}dist/img/email/facebook.png" alt="">
                                         </a>
                                       </li>
                                       <li style="display: inline-block;margin-right: 10px">
                                         <a href="https://www.linkedin.com/in/coinjolt/" style="text-decoration: none; display: block;">
-                                            <img  src="${keys.BASE_URL}dist/img/li-icon.png" alt="">
+                                            <img  src="${keys.BASE_URL}dist/img/email/linkedin.png" alt="">
                                         </a>
                                       </li>
                                     <li style="display: inline-block;margin-right: 10px">
                                      <a href="https://twitter.com/coinjolt" style="text-decoration: none; display: block;">
-                                       <img  src="${keys.BASE_URL}dist/img/tw-icon.png" alt="">
+                                       <img  src="${keys.BASE_URL}dist/img/email/twitter.png" alt="">
                                       </a>
                                     </li>
                                      <li style="display: inline-block;">
-                                       <a href="tel:1-888-998-9980" style="text-decoration: none; display: block;">
-                                          <img  src="${keys.BASE_URL}dist/img/sk-icon.png" alt="">
+                                       <a href="https://drive.google.com/file/d/1zlzS47bXd7584wBizqyfnfLAHVif1Ftz/view" style="text-decoration: none; display: block;">
+                                          <img  src="${keys.BASE_URL}dist/img/email/youtube.png" alt="">
                                         </a>
                                       </li>
                                     </ul>
@@ -509,39 +503,25 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 </tr>
                                 <tr>
                                   <td bgcolor="#ffffff" style="text-align: center;">
-                                    <p style="margin-bottom: 30px; font-size: 16px;">
-                                        
-                                    Copyright &copy; 2018   <strong style="font-size: 16px;">Coin Jolt</strong>. All Rights Reserved.
-                                    </p>
+                                    <p style="margin-bottom: 30px; font-size: 14px;">Copyright &copy; CoinJolt.com. All rights reserved.</p>
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td bgcolor="#ffffff" style="text-align: center;">
-                                   <p style="font-size: 14px; ">
-                                     <strong style="font-size: 16px; margin-bottom: 10px;display: block;">
-                                       Our mailing address is:
-                                     </strong>
-                                      Ontario,Canada
-                                   </p> 
-                                  </td>
-                                </tr>
-                                
                                 <tr>
                                   <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
-                                      <p style="font-size: 14px; ">
-                                         These Website Terms and Conditions of Use (“Terms”) are effective as of July 11, 2018.
-                                        <br>
-                                        COINJOLT.COM (“Coin Jolt,” “we” or “us”) reserves the right to change, modify, add or remove portions of the Terms at any time for any reason and in our sole discretion. We suggest that you (“you,” “your” or “User”) periodically review the Terms for amendments.
-                                      
+										<p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">By using this website, you understand the information being presented is provided for informational purposes only and agree to our Terms of Services and Privacy Policy. We occationally rely on information from various sources, including clients and third parties, but cannot guarantee the accuracy and completeness of that information.</p>
+
+										<p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">Any information provided is not intended to be, nor should it be construed or used as investment, tax or legal advice, a recommendation, or an offer to sell, or a solicitation of an offer to buy, an interest in cryptocurrency. An investment in cryptocurrency is not suitable for all investors.</p>
+
+										<p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">The information on this website is for general information purposes only. It is not intended as legal, financial or investment advice and should not be construed or relied on as such. Before making any commitment of a legal or financial nature you should seek advice from a qualified and registered legal practitioner or financial or investment adviser.</p>
                                     </p>
                                      
                                   </td>
                                 </tr>
                                 <tr>
                                  <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
-                                    <a href="http://www.coinjolt.com/terms-of-service" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Terms of Service</a>
-                                       <a href="http://www.coinjolt.com/privacy-policy" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Privacy Policy</a>
-                                        <a href="http://www.coinjolt.com/risk-disclosures" style="color: #025fdf; font-size: 14px;">Risk Disclosure</a>
+                                    <a href="${keys.BASE_URL}/terms-of-service" style="color: #f5f5f5; font-size: 14px; margin-right: 10px;">Terms of Service</a>
+                                       <a href="${keys.BASE_URL}/privacy-policy" style="color: #f5f5f5; font-size: 14px; margin-right: 10px;">Privacy Policy</a>
+                                        <a href="${keys.BASE_URL}/risk-disclosures" style="color: #f5f5f5; font-size: 14px;">Risk Disclosure</a>
                                   </td>
                                 </tr>
                                 <!-- Ends Footer Sec -->
@@ -616,7 +596,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 });
                             });
     
-                            return done(null, false, req.flash('signupMessage', 'Registration completed successfully. Please check your email for instructions on how to activate your account'));
+                            return done(null, false, req.flash('signupMessage', 'Registration request sent. Please check your email for instructions on how to activate your account.'));
 
                         }).catch(function(err){
                             console.log(err);
@@ -679,7 +659,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 var editor_content_body = resp[0].template_desc;
                                 var ses = new AWS.SES({apiVersion: '2010-12-01'});
                                 var user_email = req.body.email;
-                                var subject = 'Registration Complete';
+                                var subject = 'Registration request. Please activate your account.';
 
                                 
 
@@ -766,7 +746,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 
                                   <!-- HIDDEN PREHEADER TEXT -->
                                   <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'AvenirNextLTPro-Regular', sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-                                    Registration completed successfully, please activate your account.
+                                    This is information is sensitive and intended to be read only by the recipient who had submitted the request.
                                   </div>
                                 
                                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -862,48 +842,41 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                     <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
                                     
-                                    <p> 
+                                    <p style="text-align: center;"> 
                                         <a href="${keys.BASE_URL}activated/${email_key}">
-                                        Alternatively, you can click here to take the same action.
+                                        Or you can click here to take the same action.
                                         </a>
                                     </p>
                                     </td>
                                 </tr> <!-- Static Content -->
                                 <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">If you have any questions, just reply to this email — we're always happy to help out.</p>
+                                    <p style="margin: 0;">If you have any questions, just reply to this email — we're always willing to help out.</p>
                                     </td>
                                 </tr> <!-- Static Content -->
                                 
                                 <!-- Starts Footer Sec -->
-                                <tr>
-                                  <td bgcolor="#ffffff" style="text-align: center;"><a href="#" target="_blank">
-                                      <img alt="Logo" src="${keys.BASE_URL}dist/img/template_logo_black.png" style="display: table;  max-width: 100%; height: auto, font-family: 'AvenirNextLTPro-Regular', sans-serif; color: #ffffff; font-size: 16px; filter: invert(1);margin: 0 auto;" border="0">
-                                     
-                                    </a>
-                                  </td>
-                                </tr>
-                                <tr>
+                              <tr>
                                   <td  bgcolor="#ffffff" style="text-align: center;"> 
                                     <ul style="list-style-type: none;margin: 30px 0 30px 0; padding: 0;">
                                       <li style="display: inline-block;margin-right: 10px">
                                         <a href="https://www.facebook.com/coinjolt" style="text-decoration: none; display: block;">
-                                            <img  src="${keys.BASE_URL}dist/img/fb-icon.png" alt="">
+                                            <img  src="${keys.BASE_URL}dist/img/email/facebook.png" alt="">
                                         </a>
                                       </li>
                                       <li style="display: inline-block;margin-right: 10px">
                                         <a href="https://www.linkedin.com/in/coinjolt/" style="text-decoration: none; display: block;">
-                                            <img  src="${keys.BASE_URL}dist/img/li-icon.png" alt="">
+                                            <img  src="${keys.BASE_URL}dist/img/email/linkedin.png" alt="">
                                         </a>
                                       </li>
                                     <li style="display: inline-block;margin-right: 10px">
                                      <a href="https://twitter.com/coinjolt" style="text-decoration: none; display: block;">
-                                       <img  src="${keys.BASE_URL}dist/img/tw-icon.png" alt="">
+                                       <img  src="${keys.BASE_URL}dist/img/email/twitter.png" alt="">
                                       </a>
                                     </li>
                                      <li style="display: inline-block;">
-                                       <a href="tel:1-888-998-9980" style="text-decoration: none; display: block;">
-                                          <img  src="${keys.BASE_URL}dist/img/sk-icon.png" alt="">
+                                       <a href="https://drive.google.com/file/d/1zlzS47bXd7584wBizqyfnfLAHVif1Ftz/view" style="text-decoration: none; display: block;">
+                                          <img  src="${keys.BASE_URL}dist/img/email/youtube.png" alt="">
                                         </a>
                                       </li>
                                     </ul>
@@ -911,39 +884,25 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 </tr>
                                 <tr>
                                   <td bgcolor="#ffffff" style="text-align: center;">
-                                    <p style="margin-bottom: 30px; font-size: 16px;">
-                                        
-                                    Copyright &copy; 2018   <strong style="font-size: 16px;">Coin Jolt</strong>. All Rights Reserved.
-                                    </p>
+                                    <p style="margin-bottom: 30px; font-size: 14px;">Copyright &copy; CoinJolt.com. All rights reserved.</p>
                                   </td>
-                                </tr>
-                                <tr>
-                                  <td bgcolor="#ffffff" style="text-align: center;">
-                                   <p style="font-size: 14px; ">
-                                     <strong style="font-size: 16px; margin-bottom: 10px;display: block;">
-                                       Our mailing address is:
-                                     </strong>
-                                      Ontario,Canada
-                                   </p> 
-                                  </td>
-                                </tr>
-                               
+                                </tr>    
                                 <tr>
                                   <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
-                                      <p style="font-size: 14px; ">
-                                         These Website Terms and Conditions of Use (“Terms”) are effective as of July 11, 2018.
-                                        <br>
-                                        COINJOLT.COM (“Coin Jolt,” “we” or “us”) reserves the right to change, modify, add or remove portions of the Terms at any time for any reason and in our sole discretion. We suggest that you (“you,” “your” or “User”) periodically review the Terms for amendments.
-                                      
+                                    <p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">By using this website, you understand the information being presented is provided for informational purposes only and agree to our Terms of Services and Privacy Policy. We occationally rely on information from various sources, including clients and third parties, but cannot guarantee the accuracy and completeness of that information.</p>
+
+									<p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">Any information provided is not intended to be, nor should it be construed or used as investment, tax or legal advice, a recommendation, or an offer to sell, or a solicitation of an offer to buy, an interest in cryptocurrency. An investment in cryptocurrency is not suitable for all investors.</p>
+
+									<p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">The information on this website is for general information purposes only. It is not intended as legal, financial or investment advice and should not be construed or relied on as such. Before making any commitment of a legal or financial nature you should seek advice from a qualified and registered legal practitioner or financial or investment adviser.</p>
                                     </p>
                                      
                                   </td>
                                 </tr>
                                 <tr>
                                  <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
-                                    <a href="http://www.coinjolt.com/terms-of-service" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Terms of Service</a>
-                                       <a href="http://www.coinjolt.com/privacy-policy" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Privacy Policy</a>
-                                        <a href="http://www.coinjolt.com/risk-disclosures" style="color: #025fdf; font-size: 14px;">Risk Disclosure</a>
+                                    <a href="${keys.BASE_URL}/terms-of-service" style="color: #f5f5f5; font-size: 14px; margin-right: 10px;">Terms of Service</a>
+                                       <a href="${keys.BASE_URL}/privacy-policy" style="color: #f5f5f5; font-size: 14px; margin-right: 10px;">Privacy Policy</a>
+                                        <a href="${keys.BASE_URL}/risk-disclosures" style="color: #f5f5f5; font-size: 14px;">Risk Disclosure</a>
                                   </td>
                                 </tr>
                                 <!-- Ends Footer Sec -->

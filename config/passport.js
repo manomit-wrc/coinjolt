@@ -538,9 +538,9 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 </tr>
                                 <tr>
                                  <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
-                                    <a href="http://ec2-34-230-81-205.compute-1.amazonaws.com/terms-of-service" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Terms of Service</a>
-                                       <a href="http://ec2-34-230-81-205.compute-1.amazonaws.com/privacy-policy" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Privacy Policy</a>
-                                        <a href="http://ec2-34-230-81-205.compute-1.amazonaws.com/risk-disclosures" style="color: #025fdf; font-size: 14px;">Risk Disclosure</a>
+                                    <a href="http://www.coinjolt.com/terms-of-service" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Terms of Service</a>
+                                       <a href="http://www.coinjolt.com/privacy-policy" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Privacy Policy</a>
+                                        <a href="http://www.coinjolt.com/risk-disclosures" style="color: #025fdf; font-size: 14px;">Risk Disclosure</a>
                                   </td>
                                 </tr>
                                 <!-- Ends Footer Sec -->
@@ -939,9 +939,9 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 </tr>
                                 <tr>
                                  <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
-                                    <a href="http://ec2-34-230-81-205.compute-1.amazonaws.com/terms-of-service" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Terms of Service</a>
-                                       <a href="http://ec2-34-230-81-205.compute-1.amazonaws.com/privacy-policy" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Privacy Policy</a>
-                                        <a href="http://ec2-34-230-81-205.compute-1.amazonaws.com/risk-disclosures" style="color: #025fdf; font-size: 14px;">Risk Disclosure</a>
+                                    <a href="http://www.coinjolt.com/terms-of-service" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Terms of Service</a>
+                                       <a href="http://www.coinjolt.com/privacy-policy" style="color: #025fdf; font-size: 14px; margin-right: 10px;">Privacy Policy</a>
+                                        <a href="http://www.coinjolt.com/risk-disclosures" style="color: #025fdf; font-size: 14px;">Risk Disclosure</a>
                                   </td>
                                 </tr>
                                 <!-- Ends Footer Sec -->

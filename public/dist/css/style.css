@@ -345,8 +345,8 @@ body {
 }
 
 .main-sidebar .sidebar-menu li a .fa.fa-angle-right.pull-right {
-    position: absolute;
-    right: 0;
+	position: absolute;
+	right: 0;
 }
 
 .main-sidebar .sidebar-menu li a:hover,
@@ -1797,518 +1797,532 @@ h3.post-title {
 
     /* .sidebar-menu.tree {
     	height: 640px !important;
-    } */
+    	} */
 
     /* .slimScrollDiv {
     	height: 640px !important;
-    } */
+    	} */
 
 
 
-    .sidebar-menu li>a>.fa-angle-left, .sidebar-menu li>a>.pull-right-container>.fa-angle-left {
-    	line-height: 17px;
-    }
-
-    /* Ends on css 13-06-2018 */
-
-    /*Starts on css 15-06-2018*/
-
-    .barcode img {
-    	display: table;
-    	margin: 0 auto;
-    }
-
-    .barcode p {
-    	text-align: center;
-    	margin: 0;
-    	font-size: 18px;
-    }
-
-    .modal.barcode {
-    	background: rgba(0,0,0,0.97);
-    }
-
-    /*Closed on css 15-06-2018*/
-
-    /*Starts on css 25-06-2018*/
-
-
-    .login-box .bot-sign a {
-    	color: #000 !important;
-    }
-
-    #terms-modal .modal-content strong {
-    	font-weight: 600;
-    }
-
-    #terms-modal .modal-content {
-    	border: 1px solid rgba(0, 0, 0, 0.2);
-    	border-radius: 6px;
-    	-webkit-border-radius: 6px;
-    	-moz-border-radius: 6px;
-    	-ms-border-radius: 6px;
-    	-o-border-radius: 6px;
-    	box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-    	-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-    	-moz-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-    	-ms-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-    	-o-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-    	/*font-family: "Open Sans",​sans-serif !important;*/
-    }
-
-    #terms-modal .modal-title {
-    	font-size: 20px;
-    	margin-top: 15px;
-    	text-align: center;
-    }
-
-    #terms-modal .modal-content p {
-    	font-size: 16px !important;
-    	line-height: 28px;
-    }
-
-    #terms-modal .modal-body ul {
-    	list-style: outside none circle;
-    	padding-left: 37px;
-    	/*font-family: "Open Sans",​sans-serif !important;*/
-    }
-
-    #terms-modal .modal-body ul li {
-    	font-size: 16px;
-    	line-height: 28px;
-    }
-
-    ul.strategy ol {
-    	list-style-type: none;
-    }
-
-    input#cc-submit, input#cc-submit1 {
-    	background: #2a2f40 none repeat scroll 0 0 !important;
-    	border: medium none;
-    }
-
-    .box-body .scroll-dashboard.buy-and-sell-coins .table td img {
-    	float: left;
-    	margin-left: 0;
-    }
-
-    .box.equal-hgt.symbol-box .box-body .table th {
-    	padding-left: 0 !important;
-    	text-align: left;
-    }
-
-    .box.equal-hgt.symbol-box .box-body .table td {
-    	text-align: left;
-    	vertical-align: middle;
-    }
-
-    .symbol-box .scroll-dashboard.buy-and-sell-coins .currency-logo-sprite {
-    	margin-left: 0;
-    }
-
-    .symbol-box .scroll-dashboard .currency-logo-sprite {
-    	margin-left: 0;
-    }
-
-    .balnrecent .box.equal-hgt .buy-section td {
-    	width: 13%;
-    	vertical-align: middle;
-    }
-
-    #piechart_3d + p {
-    	font-weight: bold;
-    }
-
-    input[type="submit"], input[type="button"] {
-    	border: 0 none;
-    }
-
-    .login-box .login-box-body button {
-    	background: #000 none repeat scroll 0 0 !important;
-    }
-
-    .login-box .login-box-body button:hover {
-    	background: #000 none repeat scroll 0 0 !important;
-    }
-
-    .deposit-funds .btn-info {
-    	background: #2a2f40 none repeat scroll 0 0;
-    	transition: all 0.25s ease-in-out 0s;
-    	-webkit-transition: all 0.25s ease-in-out 0s;
-    	-moz-transition: all 0.25s ease-in-out 0s;
-    	-ms-transition: all 0.25s ease-in-out 0s;
-    	-o-transition: all 0.25s ease-in-out 0s;
-    }
-
-    .deposit-funds .btn-info a:hover {
-    	background: #4d5776 none repeat scroll 0 0;
-    }
-
-    .admin-tp-box .btn-success {
-    	background: #2a2f40 none repeat scroll 0 0;
-    	transition: all 0.25s ease-in-out 0s;
-    	-webkit-transition: all 0.25s ease-in-out 0s;
-    	-moz-transition: all 0.25s ease-in-out 0s;
-    	-ms-transition: all 0.25s ease-in-out 0s;
-    	-o-transition: all 0.25s ease-in-out 0s;
-    	border: 0 none;
-    }
-
-    .admin-tp-box .btn-success:hover {
-    	background: #4d5776 none repeat scroll 0 0;
-    }
-
-    .admin-tp-box.btn-success {
-    	background: #2a2f40 none repeat scroll 0 0;
-    	transition: all 0.25s ease-in-out 0s;
-    	-webkit-transition: all 0.25s ease-in-out 0s;
-    	-moz-transition: all 0.25s ease-in-out 0s;
-    	-ms-transition: all 0.25s ease-in-out 0s;
-    	-o-transition: all 0.25s ease-in-out 0s;
-    	border: 0 none;
-    }
-
-    .admin-tp-box.btn-success:hover, .admin-tp-box.btn-success:active, .admin-tp-box.btn-success:focus {
-    	background: #4d5776 none repeat scroll 0 0;
-    }
-
-    .deleteBlogBtn {
-    	background: #2a2f40 none repeat scroll 0 0 !important;
-    	transition: all 0.25s ease-in-out 0s;
-    	-webkit-transition: all 0.25s ease-in-out 0s;
-    	-moz-transition: all 0.25s ease-in-out 0s;
-    	-ms-transition: all 0.25s ease-in-out 0s;
-    	-o-transition: all 0.25s ease-in-out 0s;
-    	border: 0 none !important;
-    }
-
-    .deleteBlogBtn:hover {
-    	background: #4d5776 none repeat scroll 0 0 !important;
-    }
-
-    #cms-about-us input[type="file"], #terms_of_service_form input[type="file"], #risk_disclosures_form input[type="file"], #privacy_policy_form input[type="file"] {
-    	height: 25px;
-    }
-
-    #blog_categories_wrapper, #admin_blog {
-    	margin-top: 25px;
-    }
-
-
-    /*Closed on css 25-06-2018*/
-
-    /*Starts on css 02-07-2018*/
-
-    .marketcap-crypto {
-    	margin-top: 18px;
-    	text-align: center;
-    }
-
-    /*Closed on css 02-07-2018*/
-
-    /*Starts on css 04-07-2018*/
-
-    .main-footer .pull-right {
-    	margin-top: 10px;
-    }
-
-    .main-footer .pull-right br {
-    	display: none;
-    }
-
-    .email-marketing-view-scroll .table-responsive td button:nth-child(1) {
-    	margin-left: 0;
-    }
-
-    .email-marketing-view-scroll .table-responsive th:nth-child(2) {
-    	width: 20%;
-    }
-
-    /*Ends on css 04-07-2018*/
-
-    .dashboard-top .box-body .table>thead>tr>th,
-    .dashboard-top .box-body .table>tbody>tr>th,
-    .dashboard-top .box-body .table>tfoot>tr>th,
-    .dashboard-top .box-body .table>thead>tr>td,
-    .dashboard-top .box-body .table>tbody>tr>td,
-    .dashboard-top .box-body .table>tfoot>tr>td {
-    	vertical-align: middle;
-    }
-
-    /*Starts on css 10-07-2018*/
-
-    .box-title.pull-left.authen {
-    	margin-top: 6px;
-    }
-
-	/*Ends on css 10-07-2018*/
-
-	/*Starts on css 11-07-2018*/
-	.kyc_list th:nth-child(3), .kyc_list td:nth-child(3) {
-		width: 300px !important;
-	}
-	/*Ends on css 11-07-2018*/
-
-
-	/*Starts on css 03-08-2018*/
-
-	.total-usd-bal {
-		background: #2a2f40;
-		width: 260px;
-		position: absolute;
-		right: 30px;
-		top: 20px;
-		color: #fff;
-		-webkit-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
-		-moz-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
-		-ms-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
-		-o-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
-		box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
-		padding: 15px 20px;
-		border-radius: 50px;
-		font-size: 14px;
-		text-align: center;
-	}
-
-	.total-usd-bal strong {
-		margin-right: 10px;
-	}
-
-	.total-usd-bal span {
-		font-weight: bold;
-	}
-
-	/*Ends on css 03-08-2018*/
-
-	/*Starts on css 06-08-2018*/
-
-	span.usd_wallet_blnc {
-		display: table;
-		color: #ccc;
-		font-size: 16px !important;
-	}
-
-	.wallet_cal_display .alert.alert-danger {
-		background: #B5E61D !important;
-		border: 1px solid #B5E61D;
-	}
-
-	.wallet_cal_display .alert.alert-success {
-		background: #FFAEC9 !important;
-		border: 1px solid #FFAEC9;
-	}
-
-	#addresstext {
-		width: 50%;
-	}
-
-	/*Ends on css 06-08-2018*/
-
-	/*Ends on css 08-08-2018*/	
-	span.input-group-addon.blog_date_span:last-child {
-		/* padding: 5px; */
-		border: 1px solid #ccc;
-	}
-	/*Ends on css 08-08-2018*/
-
-
-
-    @media screen and (max-width: 1366px) {
-    	.balance-box {
-    		display: block;
+    	.sidebar-menu li>a>.fa-angle-left, .sidebar-menu li>a>.pull-right-container>.fa-angle-left {
+    		line-height: 17px;
     	}
-    	.rates-box {
-    		display: block;
+
+    	/* Ends on css 13-06-2018 */
+
+    	/*Starts on css 15-06-2018*/
+
+    	.barcode img {
+    		display: table;
+    		margin: 0 auto;
     	}
-    	.balance-content,
-    	.rates-boxs1 {
-    		display: none;
-    	}
-    	.balance-box {
-    		position: relative;
-    	}
-    	.toggle-nav {
-    		display: block;
-    		cursor: pointer;
-    	}
-    	.balance-box a.toggle-nav {
-    		position: absolute;
-    		right: 210px;
-    		top: 30px;
-    		color: #000000;
-    		font-size: 16px;
-    		font-weight: bold;
-    	}
-    	.balnrates {
-    		position: absolute;
-    		margin-left: 0;
-    		right: 210px;
-    		top: 56px;
-    		padding: 0;
-    	}
-    	.balance-box a.toggle-nav .fa,
-    	.rates-box a.toggle-nav .fa {
-    		font-size: 16px;
-    		margin-right: 5px;
-    		display: inline-block;
-    	}
-    	.balnrates .left,
-    	.rates .right {
-    		display: none;
+
+    	.barcode p {
+    		text-align: center;
     		margin: 0;
-    		background: #426bb1;
-    		padding: 10px;
-    		width: 200px;
-    		border: 2px solid #6286c4;
-    		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
-    		-webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
-    		-moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
-    		-ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
-    		-o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
-    		border-radius: 3px;
-    		-webkit-border-radius: 3px;
-    		-moz-border-radius: 3px;
-    		-ms-border-radius: 3px;
-    		-o-border-radius: 3px;
-    		height: 185px;
-    		overflow-y: auto;
-    		overflow-x: hidden;
+    		font-size: 18px;
     	}
-    	.balnrates .left .list,
-    	.rates .right .list {
-    		display: block;
+
+    	.modal.barcode {
+    		background: rgba(0,0,0,0.97);
+    	}
+
+    	/*Closed on css 15-06-2018*/
+
+    	/*Starts on css 25-06-2018*/
+
+
+    	.login-box .bot-sign a {
+    		color: #000 !important;
+    	}
+
+    	#terms-modal .modal-content strong {
+    		font-weight: 600;
+    	}
+
+    	#terms-modal .modal-content {
+    		border: 1px solid rgba(0, 0, 0, 0.2);
+    		border-radius: 6px;
+    		-webkit-border-radius: 6px;
+    		-moz-border-radius: 6px;
+    		-ms-border-radius: 6px;
+    		-o-border-radius: 6px;
+    		box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    		-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    		-moz-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    		-ms-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    		-o-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    		/*font-family: "Open Sans",​sans-serif !important;*/
+    	}
+
+    	#terms-modal .modal-title {
+    		font-size: 20px;
+    		margin-top: 15px;
+    		text-align: center;
+    	}
+
+    	#terms-modal .modal-content p {
+    		font-size: 16px !important;
+    		line-height: 28px;
+    	}
+
+    	#terms-modal .modal-body ul {
+    		list-style: outside none circle;
+    		padding-left: 37px;
+    		/*font-family: "Open Sans",​sans-serif !important;*/
+    	}
+
+    	#terms-modal .modal-body ul li {
+    		font-size: 16px;
+    		line-height: 28px;
+    	}
+
+    	ul.strategy ol {
+    		list-style-type: none;
+    	}
+
+    	input#cc-submit, input#cc-submit1 {
+    		background: #2a2f40 none repeat scroll 0 0 !important;
+    		border: medium none;
+    	}
+
+    	.box-body .scroll-dashboard.buy-and-sell-coins .table td img {
+    		float: left;
+    		margin-left: 0;
+    	}
+
+    	.box.equal-hgt.symbol-box .box-body .table th {
+    		padding-left: 0 !important;
     		text-align: left;
     	}
-    	.balnrates .left .list li,
-    	.rates .right .list li {
-    		display: block;
-    		color: #fff;
-    		border-bottom: 1px dashed #fff;
-    		line-height: 32px;
+
+    	.box.equal-hgt.symbol-box .box-body .table td {
+    		text-align: left;
+    		vertical-align: middle;
     	}
-    	.balnrates .left .list li:last-child,
-    	.rates .right .list li:last-child {
-    		border: none;
+
+    	.symbol-box .scroll-dashboard.buy-and-sell-coins .currency-logo-sprite {
+    		margin-left: 0;
     	}
-    	.balnrates .left .list li:nth-last-child(2),
-    	.rates .right .list li:nth-last-child(2) {
-    		border: none;
+
+    	.symbol-box .scroll-dashboard .currency-logo-sprite {
+    		margin-left: 0;
     	}
-    	.balnrates .left h6,
-    	.rates .right h6 {
-    		display: none !important;
+
+    	.balnrecent .box.equal-hgt .buy-section td {
+    		width: 13%;
+    		vertical-align: middle;
     	}
-    	.balnrates .left .list li.border,
-    	.rates .right .list li.border {
-    		display: none;
-    	}
-    	.balnrates .left h6,
-    	.rates .right h6 {
-    		display: block;
-    		color: #fff;
-    	}
-    	.rates .right {
-    		display: none;
-    	}
-    	.rates-box a.toggle-nav {
-    		position: absolute;
-    		right: 130px;
-    		top: 30px;
-    		color: #000000;
-    		font-size: 16px;
+
+    	#piechart_3d + p {
     		font-weight: bold;
     	}
-    	.rates {
-    		position: absolute;
-    		margin-left: 0;
-    		right: 130px;
-    		top: 56px;
-    		padding: 0;
+
+    	input[type="submit"], input[type="button"] {
+    		border: 0 none;
     	}
+
+    	.login-box .login-box-body button {
+    		background: #000 none repeat scroll 0 0 !important;
+    	}
+
+    	.login-box .login-box-body button:hover {
+    		background: #000 none repeat scroll 0 0 !important;
+    	}
+
+    	.deposit-funds .btn-info {
+    		background: #2a2f40 none repeat scroll 0 0;
+    		transition: all 0.25s ease-in-out 0s;
+    		-webkit-transition: all 0.25s ease-in-out 0s;
+    		-moz-transition: all 0.25s ease-in-out 0s;
+    		-ms-transition: all 0.25s ease-in-out 0s;
+    		-o-transition: all 0.25s ease-in-out 0s;
+    	}
+
+    	.deposit-funds .btn-info a:hover {
+    		background: #4d5776 none repeat scroll 0 0;
+    	}
+
+    	.admin-tp-box .btn-success {
+    		background: #2a2f40 none repeat scroll 0 0;
+    		transition: all 0.25s ease-in-out 0s;
+    		-webkit-transition: all 0.25s ease-in-out 0s;
+    		-moz-transition: all 0.25s ease-in-out 0s;
+    		-ms-transition: all 0.25s ease-in-out 0s;
+    		-o-transition: all 0.25s ease-in-out 0s;
+    		border: 0 none;
+    	}
+
+    	.admin-tp-box .btn-success:hover {
+    		background: #4d5776 none repeat scroll 0 0;
+    	}
+
+    	.admin-tp-box.btn-success {
+    		background: #2a2f40 none repeat scroll 0 0;
+    		transition: all 0.25s ease-in-out 0s;
+    		-webkit-transition: all 0.25s ease-in-out 0s;
+    		-moz-transition: all 0.25s ease-in-out 0s;
+    		-ms-transition: all 0.25s ease-in-out 0s;
+    		-o-transition: all 0.25s ease-in-out 0s;
+    		border: 0 none;
+    	}
+
+    	.admin-tp-box.btn-success:hover, .admin-tp-box.btn-success:active, .admin-tp-box.btn-success:focus {
+    		background: #4d5776 none repeat scroll 0 0;
+    	}
+
+    	.deleteBlogBtn {
+    		background: #2a2f40 none repeat scroll 0 0 !important;
+    		transition: all 0.25s ease-in-out 0s;
+    		-webkit-transition: all 0.25s ease-in-out 0s;
+    		-moz-transition: all 0.25s ease-in-out 0s;
+    		-ms-transition: all 0.25s ease-in-out 0s;
+    		-o-transition: all 0.25s ease-in-out 0s;
+    		border: 0 none !important;
+    	}
+
+    	.deleteBlogBtn:hover {
+    		background: #4d5776 none repeat scroll 0 0 !important;
+    	}
+
+    	#cms-about-us input[type="file"], #terms_of_service_form input[type="file"], #risk_disclosures_form input[type="file"], #privacy_policy_form input[type="file"] {
+    		height: 25px;
+    	}
+
+    	#blog_categories_wrapper, #admin_blog {
+    		margin-top: 25px;
+    	}
+
+
+    	/*Closed on css 25-06-2018*/
+
+    	/*Starts on css 02-07-2018*/
+
+    	.marketcap-crypto {
+    		margin-top: 18px;
+    		text-align: center;
+    	}
+
+    	/*Closed on css 02-07-2018*/
+
+    	/*Starts on css 04-07-2018*/
+
+    	.main-footer .pull-right {
+    		margin-top: 10px;
+    	}
+
+    	.main-footer .pull-right br {
+    		display: none;
+    	}
+
+    	.email-marketing-view-scroll .table-responsive td button:nth-child(1) {
+    		margin-left: 0;
+    	}
+
+    	.email-marketing-view-scroll .table-responsive th:nth-child(2) {
+    		width: 20%;
+    	}
+
+    	/*Ends on css 04-07-2018*/
+
+    	.dashboard-top .box-body .table>thead>tr>th,
+    	.dashboard-top .box-body .table>tbody>tr>th,
+    	.dashboard-top .box-body .table>tfoot>tr>th,
+    	.dashboard-top .box-body .table>thead>tr>td,
+    	.dashboard-top .box-body .table>tbody>tr>td,
+    	.dashboard-top .box-body .table>tfoot>tr>td {
+    		vertical-align: middle;
+    	}
+
+    	/*Starts on css 10-07-2018*/
+
+    	.box-title.pull-left.authen {
+    		margin-top: 6px;
+    	}
+
+    	/*Ends on css 10-07-2018*/
+
+    	/*Starts on css 11-07-2018*/
+    	.kyc_list th:nth-child(3), .kyc_list td:nth-child(3) {
+    		width: 300px !important;
+    	}
+    	/*Ends on css 11-07-2018*/
+
+
+    	/*Starts on css 03-08-2018*/
+
+    	.total-usd-bal {
+    		background: #2a2f40;
+    		width: 260px;
+    		position: absolute;
+    		right: 30px;
+    		top: 20px;
+    		color: #fff;
+    		-webkit-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+    		-moz-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+    		-ms-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+    		-o-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+    		box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+    		padding: 15px 20px;
+    		border-radius: 50px;
+    		font-size: 14px;
+    		text-align: center;
+    	}
+
+    	.total-usd-bal strong {
+    		margin-right: 10px;
+    	}
+
+    	.total-usd-bal span {
+    		font-weight: bold;
+    	}
+
+    	/*Ends on css 03-08-2018*/
+
+    	/*Starts on css 06-08-2018*/
+
+    	span.usd_wallet_blnc {
+    		display: table;
+    		color: #ccc;
+    		font-size: 16px !important;
+    	}
+
+    	.wallet_cal_display .alert.alert-danger {
+    		background: #B5E61D !important;
+    		border: 1px solid #B5E61D;
+    	}
+
+    	.wallet_cal_display .alert.alert-success {
+    		background: #FFAEC9 !important;
+    		border: 1px solid #FFAEC9;
+    	}
+
+    	#addresstext {
+    		width: 50%;
+    	}
+
+    	/*Ends on css 06-08-2018*/
+
+    	/*Ends on css 08-08-2018*/	
+    	span.input-group-addon.blog_date_span:last-child {
+    		/* padding: 5px; */
+    		border: 1px solid #ccc;
+    	}
+
+
+    	/*Ends on css 08-08-2018*/
+
+
+
+    	@media screen and (min-width: 1367px) {
+    		.balance-box .left.dblock {
+    			display: block !important;
+    		}
+
+    		.rates-box .right.dblock {
+    			display: block !important;
+    		}
+    	}
+
+
+
+    	@media screen and (max-width: 1366px) {
+    		.balance-box {
+    			display: block;
+    		}
+    		.rates-box {
+    			display: block;
+    		}
+    		.balance-content,
+    		.rates-boxs1 {
+    			display: none;
+    		}
+    		.balance-box {
+    			position: relative;
+    		}
+    		.toggle-nav {
+    			display: block;
+    			cursor: pointer;
+    		}
+    		.balance-box a.toggle-nav {
+    			position: absolute;
+    			right: 210px;
+    			top: 30px;
+    			color: #000000;
+    			font-size: 16px;
+    			font-weight: bold;
+    		}
+    		.balnrates {
+    			position: absolute;
+    			margin-left: 0;
+    			right: 210px;
+    			top: 56px;
+    			padding: 0;
+    		}
+    		.balance-box a.toggle-nav .fa,
+    		.rates-box a.toggle-nav .fa {
+    			font-size: 16px;
+    			margin-right: 5px;
+    			display: inline-block;
+    		}
+    		.balnrates .left,
+    		.rates .right {
+    			display: none;
+    			margin: 0;
+    			background: #426bb1;
+    			padding: 10px;
+    			width: 200px;
+    			border: 2px solid #6286c4;
+    			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
+    			-webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
+    			-moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
+    			-ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
+    			-o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
+    			border-radius: 3px;
+    			-webkit-border-radius: 3px;
+    			-moz-border-radius: 3px;
+    			-ms-border-radius: 3px;
+    			-o-border-radius: 3px;
+    			height: 185px;
+    			overflow-y: auto;
+    			overflow-x: hidden;
+    		}
+    		.balnrates .left .list,
+    		.rates .right .list {
+    			display: block;
+    			text-align: left;
+    		}
+    		.balnrates .left .list li,
+    		.rates .right .list li {
+    			display: block;
+    			color: #fff;
+    			border-bottom: 1px dashed #fff;
+    			line-height: 32px;
+    		}
+    		.balnrates .left .list li:last-child,
+    		.rates .right .list li:last-child {
+    			border: none;
+    		}
+    		.balnrates .left .list li:nth-last-child(2),
+    		.rates .right .list li:nth-last-child(2) {
+    			border: none;
+    		}
+    		.balnrates .left h6,
+    		.rates .right h6 {
+    			display: none !important;
+    		}
+    		.balnrates .left .list li.border,
+    		.rates .right .list li.border {
+    			display: none;
+    		}
+    		.balnrates .left h6,
+    		.rates .right h6 {
+    			display: block;
+    			color: #fff;
+    		}
+    		.rates .right {
+    			display: none;
+    		}
+    		.rates-box a.toggle-nav {
+    			position: absolute;
+    			right: 130px;
+    			top: 30px;
+    			color: #000000;
+    			font-size: 16px;
+    			font-weight: bold;
+    		}
+    		.rates {
+    			position: absolute;
+    			margin-left: 0;
+    			right: 130px;
+    			top: 56px;
+    			padding: 0;
+    		}
 
     	/* .slimScrollDiv {
     		height: 500px !important;
-    	} */
+    		} */
 
     	/* .sidebar-menu.tree {
     		height: 500px !important;
-    	} */
-    }
+    		} */
+    	}
 
 
-    /* Starts css on 2018-05-29 */
+    	/* Starts css on 2018-05-29 */
 
-    .register-box p,
-    .register-box .terms label,
-    .register-box .form-control,
-    .register-box .intitution,
-    .register-box .intitution-radio,
-    .login-box .checkbox label
-    {
-    	color: #000;
-    }
+    	.register-box p,
+    	.register-box .terms label,
+    	.register-box .form-control,
+    	.register-box .intitution,
+    	.register-box .intitution-radio,
+    	.login-box .checkbox label
+    	{
+    		color: #000;
+    	}
 
-    .register-box a,
-    .register-box a:hover,
-    .register-box a:active,
-    .register-box a:visited,
-    .register-box a:link,
-    .login-box a,
-    .login-box a:hover,
-    .login-box a:active,
-    .login-box a:visited,
-    .login-box a:link
-    {
-    	color: #0092ff;
-    	font-size: 16px;
-    }
+    	.register-box a,
+    	.register-box a:hover,
+    	.register-box a:active,
+    	.register-box a:visited,
+    	.register-box a:link,
+    	.login-box a,
+    	.login-box a:hover,
+    	.login-box a:active,
+    	.login-box a:visited,
+    	.login-box a:link
+    	{
+    		color: #0092ff;
+    		font-size: 16px;
+    	}
 
-    .ltnews .recent_post_box  img {
-    	-webkit-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
-    	-moz-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
-    	-ms-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
-    	-o-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
-    	box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
-    }
+    	.ltnews .recent_post_box  img {
+    		-webkit-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
+    		-moz-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
+    		-ms-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
+    		-o-box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
+    		box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.23) !important;
+    	}
 
 
-    .register-box .form-control,
-    .login-box .form-control
+    	.register-box .form-control,
+    	.login-box .form-control
 
-    { /* Chrome/Opera/Safari */
-    	font-size: 16px !important;
-    }
+    	{ /* Chrome/Opera/Safari */
+    		font-size: 16px !important;
+    	}
 
-    .register-box ::-webkit-input-placeholder,
-    .login-box ::-webkit-input-placeholder
+    	.register-box ::-webkit-input-placeholder,
+    	.login-box ::-webkit-input-placeholder
 
-    { /* Chrome/Opera/Safari */
-    	font-size: 16px;
-    }
-    .register-box  ::-moz-placeholder,
-    .logn-box  ::-moz-placeholder
-    { /* Firefox 19+ */
-    	font-size: 16px;
-    }
+    	{ /* Chrome/Opera/Safari */
+    		font-size: 16px;
+    	}
+    	.register-box  ::-moz-placeholder,
+    	.logn-box  ::-moz-placeholder
+    	{ /* Firefox 19+ */
+    		font-size: 16px;
+    	}
 
-    .register-box :-ms-input-placeholder,
-    .login-box :-ms-input-placeholder
-    {  /* IE 10+ */
-    	font-size: 16px;
-    }
+    	.register-box :-ms-input-placeholder,
+    	.login-box :-ms-input-placeholder
+    	{  /* IE 10+ */
+    		font-size: 16px;
+    	}
 
-    .register-box :-moz-placeholder,
-    .login-box :-moz-placeholder
+    	.register-box :-moz-placeholder,
+    	.login-box :-moz-placeholder
 
-    { /* Firefox 18- */
-    	font-size: 16px;
-    }
+    	{ /* Firefox 18- */
+    		font-size: 16px;
+    	}
 
-    .register-box ::placeholder,
-    .login-box ::placeholder
-    {
-    	font-size: 16px;
-    }
+    	.register-box ::placeholder,
+    	.login-box ::placeholder
+    	{
+    		font-size: 16px;
+    	}
 
 
   /* .column-pr-0 {
@@ -2317,33 +2331,35 @@ h3.post-title {
 
 
 
-	  /* Ends css on 2018-05-29 */
+      /* Ends css on 2018-05-29 */
 
 
 
-	  /* Starts Custom styles */
+      /* Starts Custom styles */
+
 
 	  .slimScrollBar {
 		  z-index: 999998 !important;
 	  }
 
-	  .sidebar-collapse  .slimScrollBar {
-		z-index: 0 !important;
-		display: none !important;
-	}
 
-	.slimScrollBar.op-0 {
-		opacity: 0 !important;
-	}
+      .sidebar-collapse  .slimScrollBar {
+      	z-index: 0 !important;
+      	display: none !important;
+      }
 
-	.slimScrollBar.op-1 {
-		opacity: 1 !important;
-		right: 0 !important;
-	}
+      .slimScrollBar.op-0 {
+      	opacity: 0 !important;
+      }
 
-	.content-wrapper{
-		margin-top: -250px;
-	}
+      .slimScrollBar.op-1 {
+      	opacity: 1 !important;
+      	right: 0 !important;
+      }
+
+      .content-wrapper{
+      	margin-top: -250px;
+      }
 
 
 
@@ -2475,10 +2491,10 @@ h3.post-title {
 
       	.slimScrollDiv {
       		height: 500px !important;
-      	} */
-      }
+      		} */
+      	}
 
-      @media screen and (max-width: 1024px) {
+      	@media screen and (max-width: 1024px) {
 
     /* .content-wrapper,
     .main-footer {
@@ -3087,12 +3103,12 @@ h3.post-title {
     #update_company_settings .max-250 {
     	max-width: 250px;
     	margin: 0 auto 15px;
-	}
+    }
 
-	.uppertext{
-		text-transform: uppercase !important;
-	}
+    .uppertext{
+    	text-transform: uppercase !important;
+    }
 
-	/* Ends css on 2018-07-04 */
+    /* Ends css on 2018-07-04 */
 
 

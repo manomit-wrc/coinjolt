@@ -1709,7 +1709,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var ssn = '4344';
 
         request({
-            uri: "https://www.coinjolt.com/ecorepay.php",
+            uri: "http://www.coinjolt.com/ecorepay.php",
             //uri: "http://localhost:8080/ecorepay.php",
             method: "POST",
             //json: true,
@@ -2019,8 +2019,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
               "payment_method": "paypal"
           },
           "redirect_urls": {
-              "return_url": "https://www.coinjolt.com/account/paypal-success",
-              "cancel_url": "https://www.coinjolt.com/account/paypal-cancel"
+              "return_url": "http://www.coinjolt.com/account/paypal-success",
+              "cancel_url": "http://www.coinjolt.com/account/paypal-cancel"
           },
           "transactions": [{
               "item_list": {

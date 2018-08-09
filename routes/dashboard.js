@@ -274,25 +274,20 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }
         }else if (option == 'true') {
             if(two_factorAuth_status == 2){
-                // User.update({
-                //     two_factorAuth_status: 1,
-                //     two_factorAuth_verified : 'Active'
-                // },{
-                //     where:{
-                //         id: req.user.id
-                //     }
-                // }).then(result_data => {
-                //     if(result_data){
-                //         res.json({
-                //             status: option,
-                //             msg:" Your two factor authentication is enabled. "
-                //         });
-                //     }
-                // });
-
-                res.json({
-                    status: option,
-                    msg:" Your two factor authentication is enabled. "
+                User.update({
+                    // two_factorAuth_status: 1,
+                    two_factorAuth_verified : 'Active'
+                },{
+                    where:{
+                        id: req.user.id
+                    }
+                }).then(result_data => {
+                    if(result_data){
+                        res.json({
+                            status: option,
+                            msg:" Your two factor authentication is enabled. "
+                        });
+                    }
                 });
             }
 

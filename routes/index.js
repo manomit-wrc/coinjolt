@@ -625,7 +625,7 @@ module.exports = function (app, passport, models, User) {
             failureFlash: true
     }),
     function (req, res) {
-        console.log('User email:: ', req.body.email);
+        
         if (req.user.type === '1') {
             res.redirect('/admin/dashboard');
         } else {

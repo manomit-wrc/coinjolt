@@ -217,6 +217,11 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 
 	app.get('/admin/email-any-users', acl, async(req, res) =>{
 		var mailList = await send_email.findAll({
+			where: {
+				send_email_address: {
+					[Op.ne]: null
+				}
+			},
 			order: [
 				['id', 'DESC']
 			]
@@ -231,16 +236,11 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		if(emailsOfUsers !== undefined){
 			var userEmail_array = emailsOfUsers.split(",");			
 			
-			for(var i = 0; i< userEmail_array.length; i++) {
 			
-				var newEmailArray = new Array();
-			
-				newEmailArray.push(userEmail_array[i]);
-	
 				var ses = new AWS.SES({apiVersion: '2010-12-01'});
 				ses.sendEmail({
 					Source: keys.senderEmail, 
-					Destination: { ToAddresses: newEmailArray },
+					Destination: { ToAddresses: userEmail_array },
 					
 					Message: {
 						Subject: {
@@ -254,29 +254,44 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 						}
 					}
 				}, function(err, data) {
-					send_email.create({
-						
-						email_sub: req.body.subject,
-						email_desc: req.body.body,
-						send_by_id: req.user.id,
-						send_email_address: userEmail_array[i]
+
+					res.json({
+						status: true
 					});
 
 				});
 	    	
+				
+		}
+			
+
+	});
+
+	app.post('/admin/save-to-db-email-any-users', acl, (req, res) =>{
+		
+		var emailsOfUsers = req.body.emailsOfUsers;
+		if(emailsOfUsers !== undefined){
+			var userEmail_array = emailsOfUsers.split(",");			
+			
+			for(var i = 0; i< userEmail_array.length; i++) {
+				send_email.create({
+					
+					email_sub: req.body.subject,
+					email_desc: req.body.body,
+					send_by_id: req.user.id,
+					send_email_address: userEmail_array[i]
+				});
+
 				if(i === userEmail_array.length - 1) {
 					res.json({
 						status: true,
 						msg: "Email sent to all users successfully."
 					});
-					
+
 				}
-				
-
 			}
-
 		}
-			
+
 
 	});
 

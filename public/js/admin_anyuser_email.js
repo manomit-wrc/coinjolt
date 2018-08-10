@@ -62,7 +62,36 @@ $(document).ready(function(){
 					emailsOfUsers: emailsOfUsers
 				},
 				success: function (resp) {
-					$(':input[type="button"]').prop('disabled', false);
+
+
+					if(resp.status == true){
+						$.ajax({
+							type: "POST",
+							url: "/admin/save-to-db-email-any-users",
+							data: {
+								subject: subject,
+								body: body,
+								emailsOfUsers: emailsOfUsers
+							},	
+							success: function (response) {
+								if(response.status == true){
+									$(':input[type="button"]').prop('disabled', false);
+				  					swal({
+							            title: 'Send Email Confirmation',
+							            text: response.msg,
+							            type: "success",
+							            confirmButtonColor: "#DD6B55",
+							            confirmButtonText: "CONFIRM"
+							        },  function() {
+							            window.location.href = '/admin/email-any-users';
+							        });
+								}
+							}
+
+						});
+					}
+
+					/* $(':input[type="button"]').prop('disabled', false);
 					if(resp.status == true){
 						swal({
 							title: 'Email Users Confirmation',
@@ -76,7 +105,7 @@ $(document).ready(function(){
 							CKEDITOR.instances['email_users_subject_body'].setData('');
 							window.location.href = '/admin/email-any-users';
 						});
-					}
+					} */
 				
 				}
 			});

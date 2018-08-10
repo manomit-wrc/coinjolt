@@ -254,7 +254,6 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 						}
 					}
 				}, function(err, data) {
-
 					send_email.create({
 						
 						email_sub: req.body.subject,
@@ -262,6 +261,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 						send_by_id: req.user.id,
 						send_email_address: userEmail_array[i]
 					});
+
 				});
 	    	
 				if(i === userEmail_array.length - 1) {

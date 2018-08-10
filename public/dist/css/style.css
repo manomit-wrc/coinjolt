@@ -721,9 +721,9 @@ h3.post-title {
     	opacity: 0;
     	padding: 0 !important;
     	position: relative;
-    	top: 30px;
+    	top: 0;
     	width: 171px !important;
-    	z-index: 999999;
+    	z-index: 111;
     }
 
     .account-settings .account-upload .brsw-btn {
@@ -2169,6 +2169,26 @@ h3.post-title {
 
     	/*Ends on css 08-08-2018*/
 
+    	/*Starts on css 10-08-2018*/
+
+    	#shareholder_div {
+    		margin-bottom: 10px;
+    	}
+
+    	#shareholderForm .form-control {
+    		height: auto !important;
+    	}
+
+    	.scroll-dashboard.buy-and-sell-coins .table td:nth-child(3) {
+    		padding: 4px 4px 4px 10px !important;
+    	}
+
+    	.deposit-funds .scroll-dashboard .table td:nth-child(3) {
+    		padding: 4px 4px 4px 10px !important;
+    	}
+
+    	/*Ends on css 10-08-2018*/
+
 
 
     	@media screen and (min-width: 1367px) {
@@ -2581,6 +2601,10 @@ h3.post-title {
 
     	.col-md-6.paddingleft.recent_post_box img {
     		height: auto;
+    	}
+
+    	.col-md-6.paddingleft.recent_post_box:nth-child(2), .col-md-6.paddingleft.recent_post_box:nth-child(4), .col-md-6.paddingleft.recent_post_box:nth-child(1), .col-md-6.paddingleft.recent_post_box:nth-child(3) {
+    		padding-right: 0;
     	}
     }
 

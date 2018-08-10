@@ -224,6 +224,7 @@
 <script src="/js/admin_blog_manage.js"></script>
 <script src="/js/admin_blogcategory_manage.js"></script>
 <script src="/js/admin_blog_author.js"></script>
+<script src="/js/admin_anyuser_email.js"></script>
 
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
@@ -2723,7 +2724,7 @@ $('.deleteShareholderInfo').on('click', function(){
     event.preventDefault();
     var shareholder = document.getElementById('test');
 
-    $('#shareholder_div').append('<div class="multiple_div row"><div class="col-md-4" id="name"><div class="form-group appnd"><label for="shareholder_name">Name:</label><input type="text" name="shareholder_name[]" class="form-control shareholder_name" id="shareholder_name" value=""><label for="shareholder_name" generated="true" class="error"></label></div></div><div class="col-md-4 " id="address"><div class="form-group articles_incorporation_div appnd" ><label>Proof of Address:</label><input type="file" name="proof_of_address[]" class="form-control articles_incorporation file-dynmc" id="" data-temp-name="address_proof"><label for="articles_incorporation" generated="true" class="error"></label></div></div><div class="col-md-4 " id="government_id"  ><div class="form-group appnd"><label>Government Issued ID:</label><input type="file" name="shareholder_id[]" class="form-control shareholder_id file-dynmc-1" id="shareholder_id" value="" data-temp-name="govt_id"><label for="shareholder_id" generated="true" class="error"></label></div></div></div>');
+    $('#shareholder_div').append('<div class="multiple_div"><div class="row"><div class="col-md-4" id="name"><div class="form-group appnd"><label for="shareholder_name">Name:</label><input type="text" name="shareholder_name[]" class="form-control shareholder_name" id="shareholder_name" value=""><label for="shareholder_name" generated="true" class="error"></label></div></div><div class="col-md-4 " id="address"><div class="form-group articles_incorporation_div appnd" ><label>Proof of Address:</label><input type="file" name="proof_of_address[]" class="form-control articles_incorporation file-dynmc" id="" data-temp-name="address_proof"><label for="articles_incorporation" generated="true" class="error"></label></div></div><div class="col-md-4 " id="government_id"  ><div class="form-group appnd"><label>Government Issued ID:</label><input type="file" name="shareholder_id[]" class="form-control shareholder_id file-dynmc-1" id="shareholder_id" value="" data-temp-name="govt_id"><label for="shareholder_id" generated="true" class="error"></label></div></div></div></div>');
     document.getElementById('remove').removeAttribute('disabled','disabled');
 }
 

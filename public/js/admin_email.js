@@ -454,14 +454,21 @@ $('#examplecBox0').on('click', function () {
 
 $(".email_send_details").on('click', function () {
 	var email_send_id = $(this).data('send_email_id');
+	var send_email_user_id = $(this).data('send_email_user_id');
 	$.ajax({
 		type: "POST",
 		url: "/admin/send-email-details",
 		data:{
-			email_send_id: email_send_id
+			email_send_id: email_send_id,
+			send_email_user_id: send_email_user_id
 		},
 		success: function (resp) {
-			$('#to').val(resp.data.User.email);
+			if(send_email_user_id != "0"){
+				$('#to').val(resp.data.User.email);
+			} else {
+				$('#to').val(resp.data.send_email_address);
+			}
+			
 			$('#subject').val(resp.data.email_sub);
 			// $('#select_email_template').val(resp.data.email_template.template_name);
 			CKEDITOR.instances['editor1'].setData(resp.data.email_desc);

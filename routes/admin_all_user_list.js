@@ -107,21 +107,39 @@ module.exports = function (app, email_template, User, AWS, send_email) {
 		send_email.belongsTo(User, {foreignKey: 'user_id'});
 		send_email.belongsTo(email_template, {foreignKey: 'email_template_id'});
 
-		send_email.findById(req.body.email_send_id,{
-	  		include: [
-		    {
-		     model: User
-		    },
-		    {
-		     model: email_template
-		    }
-		   ]
-		}).then(function (result) {
-			res.json({
-				status: true,
-				data: result
+		if(req.body.send_email_user_id != "0"){
+
+			send_email.findById(req.body.email_send_id,{
+				include: [
+				{
+				model: User
+				},
+				{
+				model: email_template
+				}
+			]
+			}).then(function (result) {
+				res.json({
+					status: true,
+					data: result
+				});
 			});
-		});
+
+		} else {
+			send_email.findById(req.body.email_send_id,{
+				include: [
+				{
+				model: email_template
+				}
+			]
+			}).then(function (result) {
+				res.json({
+					status: true,
+					data: result
+				});
+			});
+		}	
+
 	});
 
 	app.post('/admin/send-multiple-email', acl, async (req,res) => {

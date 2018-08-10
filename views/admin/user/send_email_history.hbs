@@ -39,7 +39,7 @@
 									<td>{{this.email_sub}}</td>
 									<td>{{dateFormat this.createdAt "MM-DD-YY"}}</td>
 									<td>
-										<button type="button" class="btn btn-primary tbl-common-btn email_send_details" data-toggle="modal" data-send_email_id="{{this.id}}">View Details</button>
+										<button type="button" class="btn btn-primary tbl-common-btn email_send_details" data-toggle="modal" data-send_email_id="{{this.id}}" data-send_email_user_id="{{this.user_id}}">View Details</button>
 										<button type="button" class="btn btn-danger tbl-common-btn delete_emails_send_details" sent-email-id="{{this.id}}">Delete</button>
 									</td>
 								</tr>

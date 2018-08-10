@@ -86,19 +86,16 @@
                               <tbody>
                                 <tr>
                                   <th>Email Subject</th>
-                                  <th>Email Description</th>
-
+                                  {{!-- <th>Email Description</th> --}}
+                                  <th>Email Address</th>
                                   {{!-- <th>Action</th> --}}
                                 </tr>
 
                                 {{#each mailList}}
                                 <tr>
                                   <td> {{this.email_sub}}</td>
-                                  <td class="emailContent">{{{this.email_desc}}}</td>
-                                  <td>
-                                    {{!-- <button type="button" class="btn btn-primary tbl-common-btn recent_send_email_list" user_row_id="{{this.id}}">View</button> --}}
-                                    {{!-- <button type="button" class="btn btn-danger tbl-common-btn delete_recent_send_email_list" user_row_id="{{this.id}}">Delete</button> --}}
-                                  </td>
+                                 {{!--  <td class="emailContent">{{{this.email_desc}}}</td> --}}
+                                  <td>{{this.send_email_address}}</td>  
                                 </tr>
                                 {{/each}}
 

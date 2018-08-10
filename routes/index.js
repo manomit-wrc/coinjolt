@@ -643,6 +643,7 @@ module.exports = function (app, passport, models, User) {
 
     app.get('/login/2FA-Verification', async (req,res) => {
       var user = await User.findById(req.user.id);
+      console.log(JSON.stringify(user, undefined, 2));
 
       var secret = speakeasy.generateSecret({
           issuer: 'Coin Jolt',
@@ -654,7 +655,7 @@ module.exports = function (app, passport, models, User) {
 
       QRCode.toDataURL(secret.otpauth_url, function(err, image_data) {
         if(user.two_factorAuth_scan_verified == 1){
-            //console.log(user.two_factorAuth_scan_verified);
+            console.log(user.two_factorAuth_scan_verified);
             //return false;
 
           res.render('two_factor_authentication', {
@@ -665,7 +666,7 @@ module.exports = function (app, passport, models, User) {
           });
 
         }else{
-            //console.log("ok");
+            console.log("ok");
             //return false;
           User.update({
               two_factorAuth_secret_key: secret.base32,
@@ -714,7 +715,7 @@ module.exports = function (app, passport, models, User) {
                 User.findById(req.user.id).then(user_update_result => {
                     var data = JSON.parse(JSON.stringify(user_update_result));
                     res.render('two_factior_authentication_from_dashboard', {
-                        layout: 'dashboard',
+                        // layout: 'dashboard',
                         user_details: data,
                         two_factorAuth_status: data.two_factorAuth_status,
                         title:"2FA Verification"

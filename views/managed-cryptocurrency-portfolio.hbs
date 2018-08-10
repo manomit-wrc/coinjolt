@@ -137,7 +137,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">×</button>
-							<h4 class="modal-title" id="myModalLabel">Upload The Following  Documents</h4>
+							<h4 class="modal-title" id="myModalLabel">Upload The Following Documents</h4>
 						</div>
 						<div class="modal-body">
 							<form class="form" id="instituteModalForm" method="POST" enctype="multipart/form-data">
@@ -221,7 +221,6 @@
 									</div>
 									<div id="shareholder_div">
 										<div class="">
-											
 											<div class="col-md-12"><label class="shareholders-box">Add or Remove Shareholders</label>
 											<button class="btn btn-primary" onclick="append(event)">+</button>
 											<button class="btn btn-primary" id="remove" disabled="disabled" onclick="remove(event)">-</button>
@@ -291,7 +290,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">×</button>
-						<h4 class="modal-title" id="myModalLabel">Upload The Following  Documents</h4>
+						<h4 class="modal-title" id="myModalLabel">Upload The Following Documents</h4>
 					</div>
 					<div class="modal-body">
 						<form class="form" id="individualModalForm" enctype="multipart/form-data">
@@ -418,7 +417,7 @@
                             <br> ${{formatCurrency (twoDecimalPoint firstYearEarning)}}
                         </p>
                         <p>
-                            <strong>Interest Earned (0.05%/Month):</strong>
+                            <strong>Interest Earned (0.05% Per Month):</strong>
                             <br> ${{formatCurrency (twoDecimalPoint interestEarned)}}
                         </p>
                         <p>
@@ -430,6 +429,7 @@
                             <br> $0
                         </p>
                     </div>
+					<p style="text-align: center;"><span style="font-weight: bold;">Terms:</span> 6.5% annual management fee and 50% of all profits.</p>
                 </div>
             </div>
             <div class="col-md-6">
@@ -482,7 +482,7 @@
 										</div>
 										<div class="col-md-12">
 											<div class="form-group">
-												<input type="text" name="amount_deposit" id="amount_deposit" class="form-control" placeholder="0.00000000">
+												<input type="text" name="amount_deposit" id="amount_deposit" class="form-control" placeholder="Enter USD value">
 												{{!-- <input type="hidden" name="current_usd_balance" id="current_usd_balance" class="form-control" value="{{user.currentUsdBalance}}"> --}}
 											</div>
 											<input type="hidden" id="coin_rate3" name="coin_rate3" value="" />
@@ -548,7 +548,7 @@
                                 <canvas id="barChart2" style="height:230px"></canvas>
                             </div> --}}
                             <p>The following is a chart that displays the annual averages of traditional asset classes. At the pinnacle the highest return was 79% in a single year, whereas our managed cryptocurrency portfolio has performed at a bare minimum of 200% each year since 2011.</p>
-                            {{!-- <p>At the pinnacle, the highest return was 79% , whereas our managed cryptocurrency portfolio does a conservative minimum of 200% each year, since 2011. We're glad to present our managed cryptocurrency portfolio as one of the leading investment opportunities in the world.</p> --}}
+                            {{!-- <p>At the pinnacle, the highest return was 79%, whereas our managed cryptocurrency portfolio does a conservative minimum of 200% each year, since 2011. We're glad to present our managed cryptocurrency portfolio as one of the leading investment opportunities in the world.</p> --}}
                             <center><img src="/dist/img/asset-class-returns.png" width="75%"></center>
                             {{!-- <br>
                             <p>The following is another chart just with Bitcoin.</p>
@@ -578,7 +578,7 @@
                                 <li>Verify your identification by uploading a government issued ID.</li>
 								<li>Fill out your personal or institutional information.</li>
 								<li>Deposit funds into your account using one of the available options.</li>
-								<li>Earn an above average return of 0.05% daily interest.</li>
+								<li>Earn an above average return of 0.05% monthly interest up to $10,000,000 USD.</li>
 								<li>Get paid out annual dividends from the returns we're able to generate from our trading and investment strategies.</li>
                                 <p></p>
 								<p>More coming soon...</p>

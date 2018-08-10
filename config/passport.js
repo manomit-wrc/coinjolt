@@ -259,6 +259,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             two_factorAuth_qr_code_image: '',
                             two_factorAuth_status: 2,
                             // investor_type: req.body.investor_type
+                            two_factorAuth_verified: 'Inactive',
                             two_factorAuth_scan_verified: 0,
                             investor_type: 2
     
@@ -637,6 +638,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 two_factorAuth_qr_code_image: '',
                                 two_factorAuth_status: 2,
                                 // investor_type: req.body.investor_type
+                                two_factorAuth_verified: 'Inactive',
                                 two_factorAuth_scan_verified: 0,
                                 investor_type: 2
         

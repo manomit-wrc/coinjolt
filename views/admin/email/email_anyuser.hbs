@@ -21,7 +21,7 @@
               <h3 class="box-title">Email Any Users</h3>
             </div>
             <div class="box-body">
-                <form name="email_anyusers_form" id="email_anyusers_form" action="javascript:void(0)" method="POST">
+                <form name="email_anyusers_form" id="email_anyusers_form" action="" method="POST">
              
               <div class="row">
                 
@@ -87,13 +87,14 @@
                                 <tr>
                                   <th>Email Subject</th>
                                   <th>Email Description</th>
+
                                   {{!-- <th>Action</th> --}}
                                 </tr>
 
                                 {{#each mailList}}
                                 <tr>
                                   <td> {{this.email_sub}}</td>
-                                  <td class="emailContent">{{this.email_desc}}</td>
+                                  <td class="emailContent">{{{this.email_desc}}}</td>
                                   <td>
                                     {{!-- <button type="button" class="btn btn-primary tbl-common-btn recent_send_email_list" user_row_id="{{this.id}}">View</button> --}}
                                     {{!-- <button type="button" class="btn btn-danger tbl-common-btn delete_recent_send_email_list" user_row_id="{{this.id}}">Delete</button> --}}

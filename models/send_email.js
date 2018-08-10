@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     email_sub: DataTypes.STRING,
     email_desc: DataTypes.TEXT,
     send_by_id: DataTypes.INTEGER,
-    send_email_address: DataTypes.INTEGER
+    send_email_address: DataTypes.STRING
   }, {});
   send_email.associate = function(models) {
     // associations can be defined here

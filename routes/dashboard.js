@@ -258,7 +258,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     two_factorAuth_status: 2,
                     two_factorAuth_secret_key: '',
                     two_factorAuth_qr_code_image: '',
-                    two_factorAuth_scan_verified: 0                                               
+                    two_factorAuth_scan_verified: 0 ,
+                    two_factorAuth_verified : 'Inactive'                                              
                 },{
                     where:{
                         id: req.user.id

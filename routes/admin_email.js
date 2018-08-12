@@ -234,32 +234,82 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		
 		var emailsOfUsers = req.body.emailsOfUsers;
 		if(emailsOfUsers !== undefined){
-			var userEmail_array = emailsOfUsers.split(",");			
-			
-			
-				var ses = new AWS.SES({apiVersion: '2010-12-01'});
-				ses.sendEmail({
-					Source: keys.senderEmail, 
-					Destination: { ToAddresses: userEmail_array },
-					
-					Message: {
-						Subject: {
-							Data: req.body.subject
-						},
-						Body: {
-							Html: {
-								Charset: "UTF-8",
-								Data: req.body.body
-							}
-						}
-					}
-				}, function(err, data) {
+			var userEmail_array = emailsOfUsers.split(",");
+			console.log(userEmail_array);
+			// return false;		
 
-					res.json({
-						status: true
+			//new implemenet by sobhan 12-08-18
+			for(var i = 0; i< userEmail_array.length; i++) {
+				var newEmailArray = new Array();
+				
+				newEmailArray.push(userEmail_array[i]);
+
+		    	// const user_details = await User.findAll({ where:{ email: userEmail_array[i]} });
+		    	// if(user_details) {
+		    		
+		    		
+			    	var ses = new AWS.SES({apiVersion: '2010-12-01'});
+					ses.sendEmail({
+					   	Source: keys.senderEmail, 
+					   	Destination: { ToAddresses: newEmailArray },
+					   	// Destination: { ToAddresses: ['support@coinjolt.com'] },
+					   	Message: {
+					       	Subject: {
+					          	Data: req.body.subject
+					       	},
+					       	Body: {
+					           	Html: {
+					           		Charset: "UTF-8",
+					               	Data: req.body.body
+					           	}
+					        }
+					   }
+					}, function(err, data) {
+						console.log(userEmail_array[i]);
+						// return false;
+						send_email.create({
+				    		email_sub: req.body.subject,
+							email_desc: req.body.body,
+							send_by_id: req.user.id,
+							send_email_address: userEmail_array[i]
+			    		});
 					});
+		    	// }
+		    	
+		    	if(i === userEmail_array.length - 1) {
+					res.json({
+						status: true,
+						msg: "Email sent to the user successfully."
+					});
+					// return res.send(true);
+				}
+			}	
+			//end
+			
+			
+				// var ses = new AWS.SES({apiVersion: '2010-12-01'});
+				// ses.sendEmail({
+				// 	Source: keys.senderEmail, 
+				// 	Destination: { ToAddresses: userEmail_array },
+					
+				// 	Message: {
+				// 		Subject: {
+				// 			Data: req.body.subject
+				// 		},
+				// 		Body: {
+				// 			Html: {
+				// 				Charset: "UTF-8",
+				// 				Data: req.body.body
+				// 			}
+				// 		}
+				// 	}
+				// }, function(err, data) {
 
-				});
+				// 	res.json({
+				// 		status: true
+				// 	});
+
+				// });
 	    	
 				
 		}

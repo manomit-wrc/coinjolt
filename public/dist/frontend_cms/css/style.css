@@ -465,7 +465,7 @@ canvas{
 .price-wrap .price-item ul {
 	list-style-type: none;
 	margin: 25px 0 0;
-	padding: 0 11px;
+	padding: 0 25px;
 }
 
 .price-wrap .price-item ul li {
@@ -756,7 +756,7 @@ canvas{
 }
 
 .service-section .item span p {
-  font-family: AvenirNextLTPro-Regular;
+	font-family: AvenirNextLTPro-Regular;
 }
 
 /*Ends Service Section */
@@ -899,7 +899,7 @@ canvas{
 }
 
 .security-section .item span p {
-  font-family: "AvenirNextLTPro-Regular";
+	font-family: "AvenirNextLTPro-Regular";
 }
 
 .security-section .item span {
@@ -1595,132 +1595,132 @@ footer {
 /*Ends on css 13-07-2018*/
 
 
-	/* Starts on css 30-7-2018 */
+/* Starts on css 30-7-2018 */
 
-	.saboxplugin-wrap {
-		border: 1px solid #EEE;
-		overflow: hidden;
-		clear: both;
-		padding: 8px;
-	}
+.saboxplugin-wrap {
+	border: 1px solid #EEE;
+	overflow: hidden;
+	clear: both;
+	padding: 8px;
+}
 
-	.saboxplugin-wrap .logo-box {
-		width: 16%;
-		float: left;
-	}
+.saboxplugin-wrap .logo-box {
+	width: 16%;
+	float: left;
+}
 
-	.saboxplugin-wrap .logo-box img {
-		max-width: 100px;
-		float: left;
-	}
+.saboxplugin-wrap .logo-box img {
+	max-width: 100px;
+	float: left;
+}
 
-	.saboxplugin-wrap .authorname {
-		width: 84%;
-		float: right;
-		padding: 25px 0;
-	}
+.saboxplugin-wrap .authorname {
+	width: 84%;
+	float: right;
+	padding: 25px 0;
+}
 
-	.saboxplugin-wrap .authorname a {
-		font-size: 18px;
-		line-height: 25px;
-		color: #000;
-		text-decoration: none !important;
-	}
+.saboxplugin-wrap .authorname a {
+	font-size: 18px;
+	line-height: 25px;
+	color: #000;
+	text-decoration: none !important;
+}
 
-	.saboxplugin-wrap .authorname p {
-		font-size: 14px;
-		line-height: 17px;
-		margin-bottom: 0;
-		margin-top: 8px;
-	}
+.saboxplugin-wrap .authorname p {
+	font-size: 14px;
+	line-height: 17px;
+	margin-bottom: 0;
+	margin-top: 8px;
+}
 
-	.saboxplugin-wrap .authorname p a {
-		font-size: 14px;
-		color: #025fdf;
-	}
-
-
+.saboxplugin-wrap .authorname p a {
+	font-size: 14px;
+	color: #025fdf;
+}
 
 
 
-	/* Ends on css 30-7-2018 */
 
-	/* Starts css on 2018-08-08 */
 
-	.whitepaper-box {
-		-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-		-moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-		-ms-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-		-o-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-		box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-		padding: 20px;
-		margin-top: 10px;
-	}
+/* Ends on css 30-7-2018 */
 
-	.whitepaper-box .whitepaper-box-cover {
-		background: #025FDF;
-		margin: -20px -20px 20px -20px;
-		padding: 20px;
-		text-align: center;
-		color: #fff;
-	}
+/* Starts css on 2018-08-08 */
 
-	.whitepaper-box .whitepaper-box-cover p {
-		margin: 0;
-		font-style: italic;
-		font-size: 14px;
-		font-weight: bold;
-	}
+.whitepaper-box {
+	-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	-moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	-ms-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	-o-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	padding: 20px;
+	margin-top: 10px;
+}
 
-	.whitepaper-box .para-list  {
-		margin-bottom: 30px;
-		border: 1px solid  #025fdf;
-		padding: 0;
-		background: #fff;
-	}
+.whitepaper-box .whitepaper-box-cover {
+	background: #025FDF;
+	margin: -20px -20px 20px -20px;
+	padding: 20px;
+	text-align: center;
+	color: #fff;
+}
 
-	.whitepaper-box .para-list .heading {
-		margin-bottom: 0;
-		font-size: 16px;
-		color: #fff;
-		margin: 0;
-		padding: 10px 20px;
-		background:  #025fdf;
-		font-weight: bold;
-	}
+.whitepaper-box .whitepaper-box-cover p {
+	margin: 0;
+	font-style: italic;
+	font-size: 14px;
+	font-weight: bold;
+}
 
-	.whitepaper-box .para-list .heading .number {
-		background: #fff;
-		color: #025fdf;
-		height: 25px;
-		width: 25px;
-		line-height: 25px;
-		-webkit-border-radius: 50%;
-		-moz-border-radius: 50%;
-		-ms-border-radius: 50%;
-		-o-border-radius: 50%;
-		border-radius: 50%;
-		display: inline-block;
-		text-align: center;
-		margin-right: 10px;
-	}
+.whitepaper-box .para-list  {
+	margin-bottom: 30px;
+	border: 1px solid  #025fdf;
+	padding: 0;
+	background: #fff;
+}
 
-	.whitepaper-box .para-list .para-content {
-		padding: 20px;
-	}
+.whitepaper-box .para-list .heading {
+	margin-bottom: 0;
+	font-size: 16px;
+	color: #fff;
+	margin: 0;
+	padding: 10px 20px;
+	background:  #025fdf;
+	font-weight: bold;
+}
 
-	.whitepaper-box .para-list .para-content p {
-		margin-bottom: 20px;
-	}
+.whitepaper-box .para-list .heading .number {
+	background: #fff;
+	color: #025fdf;
+	height: 25px;
+	width: 25px;
+	line-height: 25px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+	display: inline-block;
+	text-align: center;
+	margin-right: 10px;
+}
 
-	#whitepaperV1Modal h3,
-	#whitepaperVModal h3
-	{
-		font-size: 14px;
-		font-weight: bold;
-	}
+.whitepaper-box .para-list .para-content {
+	padding: 20px;
+}
 
-	/* Ends css on 2018-08-08 */
+.whitepaper-box .para-list .para-content p {
+	margin-bottom: 20px;
+}
+
+#whitepaperV1Modal h3,
+#whitepaperVModal h3
+{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+/* Ends css on 2018-08-08 */
 
 
 
@@ -2150,10 +2150,14 @@ footer {
 		line-height: 20px;
 	}
 
+	.price-wrap .price-item ul {
+		padding: 0 0 0 25px;
+	}
+
 	.price-wrap .price-item ul li {
 		font-size: 15px;
 		line-height: 32px;
-		text-indent: -12px;
+		text-indent: 0;
 	}
 
 	.buy-section .buy-box p {
@@ -2247,6 +2251,10 @@ footer {
 
 	.about-section h4::after {
 		border: 0 none;
+	}
+
+	.about-section h4 {
+		margin-bottom: 10px;
 	}
 }
 
@@ -2375,6 +2383,10 @@ footer {
 
   	.features-item-s2 {
   		height: 120px;
+  	}
+
+  	.welcome-section .heading h4::after {
+  		top: 40px;
   	}
   }
 

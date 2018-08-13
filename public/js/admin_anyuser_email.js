@@ -65,18 +65,7 @@ $(document).ready(function(){
 
 
 					if(resp.status == true){
-						// $(':input[type="button"]').prop('disabled', false);
-	  					// swal({
-				        //     title: 'Send Email Confirmation',
-				        //     text: response.msg,
-				        //     type: "success",
-				        //     confirmButtonColor: "#DD6B55",
-				        //     confirmButtonText: "CONFIRM"
-				        // },  function() {
-				        //     window.location.href = '/admin/email-any-users';
-				        // });
-
-
+						
 
 						$.ajax({
 							type: "POST",
@@ -104,28 +93,11 @@ $(document).ready(function(){
 						});
 					}
 
-					/* $(':input[type="button"]').prop('disabled', false);
-					if(resp.status == true){
-						swal({
-							title: 'Email Users Confirmation',
-							text: resp.msg,
-							type: "success",
-							confirmButtonColor: "#DD6B55",
-							confirmButtonText: "CONFIRM"
-						},  function() {
-							$('#subject').val('');
-							$('#email_addresses_users').val('');
-							CKEDITOR.instances['email_users_subject_body'].setData('');
-							window.location.href = '/admin/email-any-users';
-						});
-					} */
-				
 				}
 			});
 	
 		}
 	
 	});
-	// end script
 
 });

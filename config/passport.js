@@ -91,7 +91,25 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 }, 
                                 include: [ { model: Currency, required: true, attributes: ['alt_name','currency_id','display_name'] } 
                                 ] 
-                            });                 
+                            });   
+
+                        // new codes
+                        /* let notPurchasedCurrBalance = await Deposit.findAll(
+                            { 
+                                attributes: ['id','balance'], 
+                                //logging: notOnlyALogger,
+                                order: [ ['id', 'DESC'], ], 
+                                where: { user_id: id, 
+                                    id: { $notIn: sequelize.literal('(' + tempSQL + ')') } 
+                                }, 
+                                include: [ { model: Currency, required: true, attributes: ['alt_name','currency_id','display_name'] } 
+                                ] 
+                            });     
+                            console.log('Not purchased currency balance:: ', JSON.stringify(notPurchasedCurrBalance, undefined, 2)); */
+                        // end new codes
+
+                        //console.log('Currency balance listings...', JSON.stringify(currencyBalance, undefined, 2));        
+
                        var currency_list = await Currency.findAll();
 
                        
@@ -140,6 +158,8 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                        user.mcpTotalBalance = mcp_final_blnc;
                        user.bankInfo = bank_details[0];
                        user.kycApproved = kyc_status;
+
+                       //user.notPurchasedCurrBalance = notPurchasedCurrBalance;
 
                        done(null, user);
 

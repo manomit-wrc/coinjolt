@@ -24,7 +24,8 @@
                         </table>
 
                         <div class="scroll-dashboard">
-                            <table class="table">
+                            <table class="table" id="currencyListTbl">
+                                
                                 <tr>
                                     <td class="col-xs-2">
                                         <img src="../dist/img/usd.png" alt="">
@@ -67,9 +68,11 @@
                                         <span style="color:red;">({{toUpperCase this.alt_name}})</span>
                                     </td>
                                     <td class="col-xs-3 padding16 wallet_crp">
+
                                         {{formatCurrency (twoDecimalPoint ( checkCurrencies this.alt_name ../user.currencyBalance))}}
+
                                     </td>
-                                    <td class="col-xs-3 padding16 wallet_dollar_{{this.currency_id}}">
+                                    <td class="col-xs-3 padding16 dl_value wallet_dollar_{{this.currency_id}}">
 
                                     </td>
                                 </tr>

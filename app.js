@@ -196,7 +196,8 @@ helpers: {
     },
     checkCurrencies: function(value, arr) {
       var tempArr = lodash.filter(arr, x => x.Currency.alt_name === value);
-      return tempArr.length > 0 ? tempArr[0].balance : '';
+      //return tempArr.length > 0 ? tempArr[0].balance : '';
+      return tempArr.length > 0 ? tempArr[0].balance : '0.00';
     },
     checkAnswer: function(value, arr) {
       var tempArr = lodash.filter(arr, x => x.option_id === value);

@@ -2187,6 +2187,10 @@ h3.post-title {
     		padding: 4px 4px 4px 10px !important;
     	}
 
+    	.email_anyuser tbody th:nth-child(1) {
+    		width: 20%;
+    	}
+
     	/*Ends on css 10-08-2018*/
 
 

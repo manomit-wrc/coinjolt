@@ -234,32 +234,46 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		
 		var emailsOfUsers = req.body.emailsOfUsers;
 		if(emailsOfUsers !== undefined){
-			var userEmail_array = emailsOfUsers.split(",");			
+			var userEmail_array = emailsOfUsers.split(",");
 			
-			
-				var ses = new AWS.SES({apiVersion: '2010-12-01'});
-				ses.sendEmail({
-					Source: keys.senderEmail, 
-					Destination: { ToAddresses: userEmail_array },
-					
-					Message: {
-						Subject: {
-							Data: req.body.subject
-						},
-						Body: {
-							Html: {
-								Charset: "UTF-8",
-								Data: req.body.body
-							}
-						}
-					}
-				}, function(err, data) {
+		
+			for(var i = 0; i< userEmail_array.length; i++) {
+				var newEmailArray = new Array();
+				
+				newEmailArray.push(userEmail_array[i]);
 
-					res.json({
-						status: true
+		    		
+		    		
+			    	var ses = new AWS.SES({apiVersion: '2010-12-01'});
+					ses.sendEmail({
+					   	Source: keys.senderEmail, 
+					   	Destination: { ToAddresses: newEmailArray },
+					   	// Destination: { ToAddresses: ['support@coinjolt.com'] },
+					   	Message: {
+					       	Subject: {
+					          	Data: req.body.subject
+					       	},
+					       	Body: {
+					           	Html: {
+					           		Charset: "UTF-8",
+					               	Data: req.body.body
+					           	}
+					        }
+					   }
+					}, function(err, data) {
+						
 					});
-
-				});
+		    	
+		    	
+		    	if(i === userEmail_array.length - 1) {
+					res.json({
+						status: true,
+						msg: "Email sent to the user successfully."
+					});
+					
+				}
+			}	
+			
 	    	
 				
 		}

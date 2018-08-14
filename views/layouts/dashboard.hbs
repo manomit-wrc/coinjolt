@@ -2472,6 +2472,7 @@ $('.deleteShareholderInfo').on('click', function(){
                         success: function (resp) {
                             
                             usdPrice = parseFloat({{this.balance}} * resp.price_usd).toFixed(2);
+                            $(".wallet_dollar_{{this.Currency.currency_id}}").text('');
                             $(".wallet_dollar_{{this.Currency.currency_id}}").append('$' + formatNumber(usdPrice));                       
 
                         },

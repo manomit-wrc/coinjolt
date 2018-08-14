@@ -2472,8 +2472,8 @@ $('.deleteShareholderInfo').on('click', function(){
                         success: function (resp) {
                             
                             usdPrice = parseFloat({{this.balance}} * resp.price_usd).toFixed(2);
-                            $(".wallet_dollar_{{this.Currency.currency_id}}").append('$' + formatNumber(usdPrice));
-                          
+                            $(".wallet_dollar_{{this.Currency.currency_id}}").append('$' + formatNumber(usdPrice));                       
+
                         },
                         error: function (xhr) {
                         }
@@ -3459,9 +3459,10 @@ $('#investsuccessmsg').delay(2000).fadeOut();
                 //});
         /*
                 $('.dl_value').each(function() {
- 		if($.trim($(this).text() == '')){  
- 			$(this).text('$0.00');
- 		}
+                    if($.trim($(this).text() == '')){  
+                        $(this).text('$0.00');
+                    }
+                });
 
          */
 });

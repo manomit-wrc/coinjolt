@@ -77,6 +77,9 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                         const tempSQL = models.sequelize.dialect.QueryGenerator.selectQuery('Deposits',
                             { 
                             attributes: [ [sequelize.fn('MAX',sequelize.col('id')),'deposit_id'] ], 
+                            where: { user_id: id
+                               
+                            },
                             group: ['currency_id'] 
                             })
                             .slice(0,-1); 

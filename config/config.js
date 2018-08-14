@@ -2,7 +2,7 @@ module.exports = {
     development: {
     username: "testuser",
     password: "grass1=!",
-    database: "cj_coinbase_dev",
+    database: "cj_coinbase_dev_live_2018-08-14",
     host: "192.168.1.109",
     dialect: "mysql",
     logging: false
@@ -10,21 +10,21 @@ module.exports = {
     production: {
     username: "testuser",
     password: "grass1=!",
-    database: "cj_coinbase_dev",
+    database: "cj_coinbase_dev_live_2018-08-14",
     host: "192.168.1.109",
     dialect: "mysql"
   },
     staging: {
     username: "testuser",
     password: "grass1=!",
-    database: "cj_coinbase_dev",
+    database: "cj_coinbase_dev_live_2018-08-14",
     host: "192.168.1.109",
     dialect: "mysql"
   },
     test: {
     username: "testuser",
     password: "grass1=!",
-    database: "cj_coinbase_dev",
+    database: "cj_coinbase_dev_live_2018-08-14",
     host: "192.168.1.109",
     dialect: "mysql"
   }

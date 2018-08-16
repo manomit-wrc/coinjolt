@@ -52,48 +52,31 @@ $(document).ready(function(){
 			var subject = $('#email_users_subject_line').val();
 			var body = CKEDITOR.instances['email_users_subject_body'].getData();
 			var emailsOfUsers = $('#email_addresses_users').val();
-	
+
+
 			$.ajax({
 				type: "POST",
-				url: "/admin/email-any-users",
+				url: "/admin/save-to-db-email-any-users",
 				data: {
 					subject: subject,
 					body: body,
 					emailsOfUsers: emailsOfUsers
-				},
-				success: function (resp) {
-
-
-					if(resp.status == true){
-						
-
-						$.ajax({
-							type: "POST",
-							url: "/admin/save-to-db-email-any-users",
-							data: {
-								subject: subject,
-								body: body,
-								emailsOfUsers: emailsOfUsers
-							},	
-							success: function (response) {
-								if(response.status == true){
-									$(':input[type="button"]').prop('disabled', false);
-				  					swal({
-							            title: 'Send Email Confirmation',
-							            text: response.msg,
-							            type: "success",
-							            confirmButtonColor: "#DD6B55",
-							            confirmButtonText: "CONFIRM"
-							        },  function() {
-							            window.location.href = '/admin/email-any-users';
-							        });
-								}
-							}
-
-						});
+				},	
+				success: function (response) {
+					if(response.status == true){
+						$(':input[type="button"]').prop('disabled', false);
+	  					swal({
+				            title: 'Send Email Confirmation',
+				            text: response.msg,
+				            type: "success",
+				            confirmButtonColor: "#DD6B55",
+				            confirmButtonText: "CONFIRM"
+				        },  function() {
+				            window.location.href = '/admin/email-any-users';
+				        });
 					}
-
 				}
+
 			});
 	
 		}

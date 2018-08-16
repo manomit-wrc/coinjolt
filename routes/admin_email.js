@@ -295,12 +295,9 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 					send_by_id: req.user.id,
 					send_email_address: email,
 					email_send_status : 0
-				})
+				});
 				return email;
-			})
-
-			console.log("End");
-			console.log(emails);
+			});
 
 			_.chunk(emails, 10).map(email => {
 				var ses = new AWS.SES({apiVersion: '2010-12-01'});

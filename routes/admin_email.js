@@ -4,6 +4,7 @@ var bcrypt = require('bcrypt-nodejs');
 const acl = require('../middlewares/acl');
 const Op = require('sequelize').Op;
 const async = require('async');
+const _ = require('lodash');
 module.exports = function (app, email_template, User, AWS, send_email, email_draft, Deposit, email_template_type){
 	app.get('/admin/email-template', acl, (req,res) => {
 		email_template.findAll({
@@ -231,51 +232,50 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 	});
 
 	app.post('/admin/email-any-users', acl, async(req, res) =>{
-		
-		var emailsOfUsers = req.body.emailsOfUsers;
-		if(emailsOfUsers !== undefined){
-			var userEmail_array = emailsOfUsers.split(",");
-			
-		
-			for(var i = 0; i< userEmail_array.length; i++) {
+		var all_unsent_emails_user = await send_email.findAll({
+			email_send_status : 0,
+			limit: 10
+		});
+
+		if(all_unsent_emails_user){
+			for(var i = 0; i< all_unsent_emails_user.length; i++) {
 				var newEmailArray = new Array();
 				
-				newEmailArray.push(userEmail_array[i]);
+				var user_email = all_unsent_emails_user[i].send_email_address;
 
+				newEmailArray.push(user_email);
+				console.log(newEmailArray, i );
 		    		
 		    		
-			    	var ses = new AWS.SES({apiVersion: '2010-12-01'});
-					ses.sendEmail({
-					   	Source: keys.senderEmail, 
-					   	Destination: { ToAddresses: newEmailArray },
-					   	// Destination: { ToAddresses: ['support@coinjolt.com'] },
-					   	Message: {
-					       	Subject: {
-					          	Data: req.body.subject
-					       	},
-					       	Body: {
-					           	Html: {
-					           		Charset: "UTF-8",
-					               	Data: req.body.body
-					           	}
-					        }
-					   }
-					}, function(err, data) {
-						
-					});
-		    	
-		    	
-		    	if(i === userEmail_array.length - 1) {
-					res.json({
-						status: true,
-						msg: "Email sent to the user successfully."
-					});
-					
+		    	var ses = new AWS.SES({apiVersion: '2010-12-01'});
+
+				var succesfullsend_email = await ses.sendEmail({
+				   	Source: keys.senderEmail, 
+				   	Destination: { ToAddresses: newEmailArray },
+				   	// Destination: { ToAddresses: ['support@coinjolt.com'] },
+				   	Message: {
+				       	Subject: {
+				          	Data: req.body.subject
+				       	},
+				       	Body: {
+				           	Html: {
+				           		Charset: "UTF-8",
+				               	Data: req.body.body
+				           	}
+				        }
+				   }
+				}); 
+
+				if(succesfullsend_email) {
+					send_email.update({
+			    		email_send_status : 1
+			    	}, {
+			    		where:{
+			    			id: all_unsent_emails_user[i].id
+			    		}
+			    	});
 				}
 			}	
-			
-	    	
-				
 		}
 			
 
@@ -285,25 +285,49 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 		
 		var emailsOfUsers = req.body.emailsOfUsers;
 		if(emailsOfUsers !== undefined){
-			var userEmail_array = emailsOfUsers.split(",");			
-			
-			for(var i = 0; i< userEmail_array.length; i++) {
-				send_email.create({
+			var userEmail_array = emailsOfUsers.split(",");	
+
+			const emails = _.map(userEmail_array, email => {
+				const response  = send_email.create({
 					
 					email_sub: req.body.subject,
 					email_desc: req.body.body,
 					send_by_id: req.user.id,
-					send_email_address: userEmail_array[i]
-				});
+					send_email_address: email,
+					email_send_status : 0
+				})
+				return email;
+			})
 
-				if(i === userEmail_array.length - 1) {
-					res.json({
-						status: true,
-						msg: "Email sent to all users successfully."
-					});
+			console.log("End");
+			console.log(emails);
 
-				}
-			}
+			_.chunk(emails, 10).map(email => {
+				var ses = new AWS.SES({apiVersion: '2010-12-01'});
+
+				ses.sendEmail({
+				   	Source: keys.senderEmail, 
+				   	Destination: { ToAddresses: email },
+				   	// Destination: { ToAddresses: ['support@coinjolt.com'] },
+				   	Message: {
+				       	Subject: {
+				          	Data: req.body.subject
+				       	},
+				       	Body: {
+				           	Html: {
+				           		Charset: "UTF-8",
+				               	Data: req.body.body
+				           	}
+				        }
+				   }
+				},function(err, data) {
+					// console.log(err);
+				}); 
+			});
+			res.json({
+				status: true,
+				msg: "Email send successfully to the user."
+			});
 		}
 
 

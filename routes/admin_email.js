@@ -307,7 +307,7 @@ module.exports = function (app, email_template, User, AWS, send_email, email_dra
 
 				ses.sendEmail({
 				   	Source: keys.senderEmail, 
-				   	Destination: { ToAddresses: email },
+				   	Destination: { BccAddresses: email },
 				   	// Destination: { ToAddresses: ['support@coinjolt.com'] },
 				   	Message: {
 				       	Subject: {

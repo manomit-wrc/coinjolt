@@ -2220,7 +2220,13 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
 
               var rate = crypto_info.data;
-              //console.log(rate);
+              console.log(rate);
+              var usd_price_for_single_crupto = 0;
+                var result = lodash.filter(rate, function(value, key) {
+                  usd_price_for_single_crypto = value.quote.USD.price;
+                });
+                console.log(usd_price_for_single_crypto);
+                return false;
               // console.log(typeof(cryptoValue)); //string
 
               //var cryptoValue = crypto_info+'.'+currencyType.quote.USD.price;

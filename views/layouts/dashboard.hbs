@@ -709,7 +709,10 @@
                     },
                     async_upload: {
                         extension: 'jpg|JPG|jpeg|JPEG|png|PNG|tiff|TIFF'
-                    },
+                    }//,
+
+                    /*
+
                     business_name: {
                         required: true
                     },
@@ -740,6 +743,8 @@
                         required: true,
                         email: true
                     }
+
+                    */
                     
                 },
                 messages: {
@@ -778,7 +783,10 @@
                     },
                     async_upload: {
                         extension: 'Must be image type.'
-                    },
+                    }//,
+
+
+                    /*
                     business_name: {
                         required: "Please enter registered business name."
                     },
@@ -808,7 +816,7 @@
                     email_address: {
                         required: "Please enter a valid email address.",
                         email: "Please enter a valid email address."
-                    }
+                    }  */
                     
                 },
                 submitHandler:function(form) {
@@ -1149,20 +1157,72 @@
 
             // Script for showing current currency type purchase type selection
             $('#currency_purchased').on('change', function () {
+                
                 var currencyTypeString =  $("#currency_purchased option:selected").text();
                 var currencyTypeOnly = currencyTypeString.match(/\((.*)\)/);
                 var currencyType = currencyTypeOnly[1];
+                
                 var msg = "Current Rate("+currencyTypeString+")"+": "+"$ ";
                 var amtVal = parseFloat(jQuery("#payAmount").val());
 
                 var currencyTypeName = currencyTypeString.split("("); 
 
                 var currencyTypeFullName = currencyTypeName[0]; 
-
                 if (currencyType !== '' && currencyType !=='Please select a option.') {
                     $('.expected').removeClass('alert alert-danger');
                     $('.expected').html('');
                     $('.expected').hide();
+                    //alert(currencyType);
+                    $.ajax({
+                        type: "POST",
+                        url: "/get_singleCrypto_blnc",
+                        data: { currencyType: currencyType  }, 
+                        dataType: "json",
+                        success: function(result) {
+
+                            if(result.success == "true"){
+                                // crypto_info.data.BTC.quote.USD.price
+                                //alert('crypto_value: '+result.crypto_info);
+                                var cryptoEqUsdValue = `result.crypto_info.data.${currencyType}.quote.USD.price`;
+
+                                //console.log(cryptoEqUsdValue);
+
+                                
+                                $('#coinRate').val(cryptoEqUsdValue);
+                                var roundUpPrice = parseFloat(Math.round(cryptoEqUsdValue * 100) / 100).toFixed(2);
+                                $('.currentrateexpected').html(msg+roundUpPrice);
+                                $('#currentratetext').addClass('alert alert-danger');
+                                $('#currentratetext').show();
+
+                                $('#currentratetext').html('Current Rate ('+currencyTypeFullName+'- '+currencyType+')'+': $'+cryptoEqUsdValue);
+
+                                $('.currentrateexpected').show();
+                                
+                            }   
+
+
+                            /*
+
+                            $('#coinRate').val(result.price_usd);
+                            var roundUpPrice = parseFloat(Math.round(result.price_usd * 100) / 100).toFixed(2);
+                            $('.currentrateexpected').html(msg+roundUpPrice);
+                            $('#currentratetext').addClass('alert alert-danger');
+                            $('#currentratetext').show();
+
+                            $('#currentratetext').html('Current Rate ('+currencyTypeFullName+'- '+currencyType+')'+': $'+result.price_usd);
+
+                            $('.currentrateexpected').show();
+
+                            */
+
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+
+
+                    /*
                     $.ajax({
                         type: 'GET',
                         url: "https://coincap.io/page/"+currencyType, 
@@ -1182,6 +1242,9 @@
                             console.log(error);
                         }
                     });
+                    */
+
+
                 }
                 else{
                     $('#currentratetext').removeClass('alert alert-danger');

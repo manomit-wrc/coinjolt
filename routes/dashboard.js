@@ -2196,4 +2196,88 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         res.render('shareholders', {layout: 'dashboard', title:"Shareholders"});
     });
 
+    app.post('/get_singleCrypto_blnc', user_acl, two_factor_checking, (req, res) => {
+        const coincap_key = keys.COINCAP_KEY;
+
+        var currencyType = req.body.currencyType;
+
+        //console.log(currencyType);
+
+        var options = {
+            url: `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${currencyType}`,
+            method: "GET",
+            headers: {
+              'X-CMC_PRO_API_KEY': coincap_key
+            }
+          };
+           
+          function callback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+
+              var crypto_info = JSON.parse(body);
+
+
+
+
+              var rate = crypto_info.data;
+              //console.log(rate);
+              // console.log(typeof(cryptoValue)); //string
+
+              //var cryptoValue = crypto_info+'.'+currencyType.quote.USD.price;
+
+              //cryptoValue = JSON.parse(cryptoValue);
+              
+              //console.log('Price Value: ', cryptoValue);  
+
+              //console.log('DATA ARRAY: ', JSON.stringify(cryptoValue, undefined, 2));
+
+              //console.log(JSON.stringify(crypto_info, undefined, 2));
+
+              //console.log('Curency type:: ', currencyType);
+              //console.log('Curency typeof:: ', typeof(currencyType)); // string
+              //var testVar = crypto_info.data.BTC.quote.USD.price;
+
+              //var testVar = crypto_info.data+'.'+currencyType+'.'+crypto_info.data.quote.USD.price;
+
+              //console.log('TEST VALUE: ', testVar);
+                
+              //var crypto_value = parseFloat(crypto_info.data.BTC.quote.USD.price);
+              
+              //var crypto_value = parseFloat(crypto_info.data+'.'+currencyType+'.'+quote.USD.price);  
+
+               
+              res.json({success: "true", crypto_info: crypto_info });
+
+            }
+          }
+           
+          request(options, callback);
+
+    });
+
+    app.get('/account/get_allCrypto_blnc', user_acl, two_factor_checking, async (req, res) =>{
+
+        //var currencyArr = [];
+        var splitElement = '';
+        var currencyValues = await Currency.findAll({
+            attributes: ['currency_id']
+        });
+
+        //currencyArr.push(currencyValues);
+
+        for(var i=0;i< currencyValues.length; i++){
+            splitElement = currencyValues[i].split(':');
+            console.log('Currency ids are as follows...', splitElement[1]);
+        }
+
+        //currencyArr.push(JSON.stringify(values, undefined, 2));
+        
+        //console.log('Showing currency array: ', JSON.stringify(values,undefined, 2));
+        
+
+
+
+
+    });
+
 };

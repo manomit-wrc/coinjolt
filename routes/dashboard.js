@@ -2220,39 +2220,13 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
 
               var rate = crypto_info.data;
-              console.log(rate);
+
               var usd_price_for_single_crupto = 0;
                 var result = lodash.filter(rate, function(value, key) {
                   usd_price_for_single_crypto = value.quote.USD.price;
                 });
-                console.log(usd_price_for_single_crypto);
-                return false;
-              // console.log(typeof(cryptoValue)); //string
-
-              //var cryptoValue = crypto_info+'.'+currencyType.quote.USD.price;
-
-              //cryptoValue = JSON.parse(cryptoValue);
-              
-              //console.log('Price Value: ', cryptoValue);  
-
-              //console.log('DATA ARRAY: ', JSON.stringify(cryptoValue, undefined, 2));
-
-              //console.log(JSON.stringify(crypto_info, undefined, 2));
-
-              //console.log('Curency type:: ', currencyType);
-              //console.log('Curency typeof:: ', typeof(currencyType)); // string
-              //var testVar = crypto_info.data.BTC.quote.USD.price;
-
-              //var testVar = crypto_info.data+'.'+currencyType+'.'+crypto_info.data.quote.USD.price;
-
-              //console.log('TEST VALUE: ', testVar);
-                
-              //var crypto_value = parseFloat(crypto_info.data.BTC.quote.USD.price);
-              
-              //var crypto_value = parseFloat(crypto_info.data+'.'+currencyType+'.'+quote.USD.price);  
-
                
-              res.json({success: "true", crypto_info: crypto_info });
+                res.json({success: "true", crypto_info: usd_price_for_single_crypto });
 
             }
           }

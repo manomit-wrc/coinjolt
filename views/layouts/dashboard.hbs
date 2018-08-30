@@ -1181,13 +1181,9 @@
                         success: function(result) {
 
                             if(result.success == "true"){
-                                // crypto_info.data.BTC.quote.USD.price
-                                //alert('crypto_value: '+result.crypto_info);
-                                var cryptoEqUsdValue = `result.crypto_info.data.${currencyType}.quote.USD.price`;
+                               
+                                var cryptoEqUsdValue = result.crypto_info;
 
-                                //console.log(cryptoEqUsdValue);
-
-                                
                                 $('#coinRate').val(cryptoEqUsdValue);
                                 var roundUpPrice = parseFloat(Math.round(cryptoEqUsdValue * 100) / 100).toFixed(2);
                                 $('.currentrateexpected').html(msg+roundUpPrice);
@@ -1451,6 +1447,53 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                     $('.expected').removeClass('alert alert-danger');
                     $('.expected').html('');
                     $('.expected').hide();
+
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "/get_singleCrypto_blnc", 
+                        data: { currencyType: currencyType },
+                        dataType: "json",
+                        success: function(result){
+                            if(result.success == "true"){
+
+                                var cryptoEqUsdValue = result.crypto_info;
+
+                                $('#sell_coinRate').val(cryptoEqUsdValue);
+                                var roundUpPrice = parseFloat(Math.round(cryptoEqUsdValue * 100) / 100).toFixed(2);
+                                $('.currentrateexpected').html(msg+roundUpPrice);
+                                $('#sell_currentratetext').addClass('alert alert-danger');
+                                $('#sell_currentratetext').show();
+
+                                $('#sell_currentratetext').html('Current Rate ('+currencyTypeSoldFullName+'- '+currencyType+')'+': $'+cryptoEqUsdValue);
+
+                                $('.currentrateexpected').show();
+
+                            }
+
+                            /*
+                            $('#sell_coinRate').val(result.price_usd);
+                            var roundUpPrice = parseFloat(Math.round(result.price_usd * 100) / 100).toFixed(2);
+                            $('.currentrateexpected').html(msg+roundUpPrice);
+                            $('#sell_currentratetext').addClass('alert alert-danger');
+                            $('#sell_currentratetext').show();
+
+                            //$('#sell_currentratetext').html('Current Rate('+currencyTypeString+')'+': $'+roundUpPrice);
+                            $('.currentrateexpected').show();
+
+                            $('#sell_currentratetext').html('Current Rate ('+currencyTypeSoldFullName+'- '+currencyType+')'+': $'+roundUpPrice);
+
+                            */
+
+                        },
+                        error: function(error){
+                            console.log(error);
+                        }
+                    });
+                    // end script
+
+                    /*    
+
                     $.ajax({
                         type: 'GET',
                         url: "https://coincap.io/page/"+currencyType, 
@@ -1471,6 +1514,8 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                             console.log(error);
                         }
                     });
+
+                    */
                 }
                 else{
                     $('#sell_currentratetext').removeClass('alert alert-danger');

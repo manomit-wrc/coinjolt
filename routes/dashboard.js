@@ -2201,8 +2201,6 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
         var currencyType = req.body.currencyType;
 
-        //console.log(currencyType);
-
         var options = {
             url: `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${currencyType}`,
             method: "GET",
@@ -2216,12 +2214,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
               var crypto_info = JSON.parse(body);
 
-
-
-
               var rate = crypto_info.data;
 
-              var usd_price_for_single_crupto = 0;
                 var result = lodash.filter(rate, function(value, key) {
                   usd_price_for_single_crypto = value.quote.USD.price;
                 });
@@ -2235,27 +2229,11 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     });
 
-    app.get('/account/get_allCrypto_blnc', user_acl, two_factor_checking, async (req, res) =>{
+    app.post('/get_allCrypto_blnc', user_acl, two_factor_checking, async (req, res) =>{
+        const coincap_key = keys.COINCAP_KEY;
+        var currency_list = await Currency.findAll();
 
-        //var currencyArr = [];
-        var splitElement = '';
-        var currencyValues = await Currency.findAll({
-            attributes: ['currency_id']
-        });
-
-        //currencyArr.push(currencyValues);
-
-        for(var i=0;i< currencyValues.length; i++){
-            splitElement = currencyValues[i].split(':');
-            console.log('Currency ids are as follows...', splitElement[1]);
-        }
-
-        //currencyArr.push(JSON.stringify(values, undefined, 2));
         
-        //console.log('Showing currency array: ', JSON.stringify(values,undefined, 2));
-        
-
-
 
 
     });

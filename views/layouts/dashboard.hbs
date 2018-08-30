@@ -2543,21 +2543,21 @@ $('.deleteShareholderInfo').on('click', function(){
 
     <!-- Starts Script for Header Rates & Balances -->
     {{#each user.currency}}
-    <script type="text/javascript">
-                //Rates
-                $.ajax({
-                    type: "GET",
-                    crossDomain: true,
-                    dataType: 'json',
-                    url: "https://coincap.io/page/{{this.currency_id}}",
-                    success: function (resp) {
-                        $(".cr_{{this.currency_id}}").append(' ' + resp.price_usd.toFixed(2));
-                    },
-                    error: function (xhr) {
-                    }
-                });
-            </script>
-            {{/each}}
+        <script type="text/javascript">
+            //Rates
+            $.ajax({
+                type: "GET",
+                crossDomain: true,
+                dataType: 'json',
+                url: "https://coincap.io/page/{{this.currency_id}}",
+                success: function (resp) {
+                    $(".cr_{{this.currency_id}}").append(' ' + resp.price_usd.toFixed(2));
+                },
+                error: function (xhr) {
+                }
+            });
+        </script>
+    {{/each}}
             <!-- Ends Script for Header Rates & Balances -->
 
             {{!-- Script for calculating balance in the dashboard page --}}

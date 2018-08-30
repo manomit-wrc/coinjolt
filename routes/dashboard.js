@@ -2196,4 +2196,97 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         res.render('shareholders', {layout: 'dashboard', title:"Shareholders"});
     });
 
+    app.post('/get_singleCrypto_blnc', user_acl, two_factor_checking, (req, res) => {
+        const coincap_key = keys.COINCAP_KEY;
+
+        var currencyType = req.body.currencyType;
+
+        var options = {
+            url: `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${currencyType}`,
+            method: "GET",
+            headers: {
+              'X-CMC_PRO_API_KEY': coincap_key
+            }
+          };
+           
+          function callback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+
+              var crypto_info = JSON.parse(body);
+
+              var rate = crypto_info.data;
+
+                var result = lodash.filter(rate, function(value, key) {
+                  usd_price_for_single_crypto = value.quote.USD.price;
+                });
+               
+                res.json({success: "true", crypto_info: usd_price_for_single_crypto });
+
+            }
+          }
+           
+          request(options, callback);
+
+    });
+
+    app.get('/account/get_allCrypto_blnc', user_acl, two_factor_checking, async (req, res) =>{
+        const coincap_key = keys.COINCAP_KEY;
+        var currency_list = await Currency.findAll({
+            where: {
+                currency_id: {
+                    [Op.ne]: "RMG"
+                }
+            },
+            order: [
+                ['id', 'ASC']
+            ]
+        });
+
+        var currencyIdArr = [];
+
+        var currencyType = '';
+
+        currency_list.forEach(function(element) {
+    
+            currencyIdArr.push(element.currency_id);
+          
+        });
+
+        lodash.join(currencyIdArr, ',');
+
+        currencyType =  currencyIdArr.toString();
+
+
+        var options = {
+            url: `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${currencyType}`,
+            method: "GET",
+            headers: {
+              'X-CMC_PRO_API_KEY': coincap_key
+            }
+          };
+           
+          function callback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+
+                var all_crypto_info = JSON.parse(body);
+
+                var rate = all_crypto_info.data;
+
+                var usd_price_for_all_crypto = [];
+
+                var result = lodash.filter(rate, function(value, key) {
+
+                    usd_price_for_all_crypto.push({[value.symbol] : value.quote.USD.price});
+
+                });
+               
+                res.json({success: "true", all_crypto_info: usd_price_for_all_crypto });
+                
+            }
+          }
+
+          request(options, callback);
+
+    });
+
 };

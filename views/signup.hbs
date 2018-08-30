@@ -488,6 +488,16 @@
 
         <script type="text/javascript">
           $(document).ready(function(){
+
+            $.get("/get_crypto_rates", function( data ) {
+                 $('#btc').text(data.btc_usd_value.toFixed(2));
+                 $('#eth').text(data.eth_usd_value.toFixed(2));
+                 $('#xrp').text(data.xrp_usd_value.toFixed(2));
+                 $('#ltc').text(data.ltc_usd_value.toFixed(2));
+                 $('#bch').text(data.bch_usd_value.toFixed(2));   
+            });
+
+            /*
             $.get("https://coincap.io/page/BTC", function(data, status){
               $('#btc').text(data.price_usd.toFixed(2));
             }); 
@@ -507,6 +517,11 @@
 
               $('#bch').text(data.price_usd.toFixed(2));
             });
+
+            */
+
+
+
           });
         </script>
 

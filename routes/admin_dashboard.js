@@ -6,6 +6,7 @@ const unix = require('to-unix-timestamp');
 const dateFormat = require('dateformat');
 var request = require('sync-request');
 const acl = require('../middlewares/acl');
+const keys = require('../config/key');
 
 module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Option, Answer, currency_balance, send_email, deposit_method, company_setting, blog_post, blog_category, portfolio_composition, deposit_method_type, author) {
 	const styles = {
@@ -127,6 +128,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 	});
 
 	app.get('/admin/managed-cryptocurrency-portfolio', acl, (req, res) => {
+		const coincap_key = keys.COINCAP_KEY;
 		currency_balance.belongsTo(Currency, {foreignKey: 'currency_id'});
 		currency_balance.findAll({
 			attributes: [ 'Currency.display_name', [sequelize.fn('SUM',sequelize.col('balance')),'total_balance'] ],
@@ -144,6 +146,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 			var balance = 0;
 			var total_amt = 0;
 			for (var i = 0; i < result.length; i++) {
+
 				var coin_name = result[i].Currency.alt_name.toUpperCase();
 				var response = request(
 				    'GET',
@@ -159,6 +162,7 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 					coin_rate: coin_rate,
 					total_amt: total_amt
 				});
+
 			}
 			res.render('admin/crypto_investments/index', { layout: 'dashboard', 'all_data': coin_list_arr, title:"Managed Cryptocurrency Portfolio" });
 		});

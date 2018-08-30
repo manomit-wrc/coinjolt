@@ -14,6 +14,7 @@ AWS.config.update({region: 'us-east-1'});
 const bCrypt = require('bcrypt-nodejs');
 var speakeasy = require('speakeasy');
 var QRCode = require('qrcode');
+const request = require('request');
 
 // var twoFactor = require('node-2fa');
 
@@ -147,6 +148,43 @@ module.exports = function (app, passport, models, User) {
         }
 
         
+    });
+
+    app.get('/get_crypto_rates', function(req, res){
+        const coincap_key = keys.COINCAP_KEY;
+        
+        var options = {
+            url: 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC,ETH,XRP,LTC,BCH',
+            method: "GET",
+            headers: {
+              'X-CMC_PRO_API_KEY': coincap_key
+            }
+          };
+           
+          function callback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+
+              var crypto_info = JSON.parse(body);
+                
+              var btc_usd_value = parseFloat(crypto_info.data.BTC.quote.USD.price);
+              
+              var eth_usd_value = parseFloat(crypto_info.data.ETH.quote.USD.price);
+
+              var xrp_usd_value = parseFloat(crypto_info.data.XRP.quote.USD.price);
+
+              var ltc_usd_value = parseFloat(crypto_info.data.LTC.quote.USD.price);
+
+              var bch_usd_value =  parseFloat(crypto_info.data.BCH.quote.USD.price); 
+
+               
+              res.json({success: "true", btc_usd_value: btc_usd_value, eth_usd_value: eth_usd_value, xrp_usd_value: xrp_usd_value, ltc_usd_value: ltc_usd_value, bch_usd_value: bch_usd_value });
+
+            }
+          }
+           
+          request(options, callback); 
+
+
     });
 
     app.get('/forgot-password', (req, res) =>{

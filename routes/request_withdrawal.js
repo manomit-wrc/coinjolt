@@ -40,13 +40,13 @@ module.exports = function (app, withdraw, bank_details, Deposit, models){
 				}).then(function (result) {
 					res.json({
 						status: true,
-						msg:'submit successfully'
+						msg:'Submission successful.'
 					});
 				});
 			}else{
 				res.json({
 					status: true,
-					msg:'submit successfully'
+					msg:'Submission successful.'
 				});
 			}		
 		});

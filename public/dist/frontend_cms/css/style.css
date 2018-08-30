@@ -1351,7 +1351,7 @@ footer {
 
 .about-section a {
 	color: #025fdf;
-	text-decoration: underline !important;
+	text-decoration: none !important;
 }
 
 .about-section .rgt-box .latest-works-widget {

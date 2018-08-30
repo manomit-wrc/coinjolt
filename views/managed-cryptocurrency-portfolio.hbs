@@ -21,8 +21,8 @@
                     <!-- /.box-header -->
                     <div class="box-body pch">
                         <div id="piechart_3d"></div>
-                        <p style="text-align: left;">Currently $3.82bn in assets under management.</p>
-                        <p style="text-align: left; font-weight: bold;"></p>
+                        <center><span style="font-weight: bold;">Terms:</span> 3.5% annual management fee and 30% profit share.</center>
+<br/>
                         <ul>
                             <li>Bitcoin: 55.6%</li>
                             <li>Ethereum: 16.7%</li>
@@ -110,10 +110,10 @@
 						<div class="form-group">
 							<label for="investques">How Much Are You Looking To Invest? <span style="color: red;">*</span></label>
 							<select name="investques" class="form-control" id="investques">
-								<option value="0 - $100,000+" {{#if_eq p_institutional_arr.0.field_4 '0 - $100,000+'}} selected="selected" {{/if_eq}}>0 - $100,000+</option>
-								<option value="1,000,000+" {{#if_eq p_institutional_arr.0.field_4 '1,000,000+'}} selected="selected" {{/if_eq}}>$1,000,000+</option>
-								<option value="10,000,000+" {{#if_eq p_institutional_arr.0.field_4 '10,000,000+'}} selected="selected" {{/if_eq}}>$10,000,000+</option>
-								<option value="100,000,000+" {{#if_eq p_institutional_arr.0.field_4 '100,000,000+'}} selected="selected" {{/if_eq}}>$100,000,000+</option>
+								<option value="$0 - $10,000" {{#if_eq p_institutional_arr.0.field_4 '$0 - $10,000'}} selected="selected" {{/if_eq}}>$0 - $10,000</option>
+								<option value="$10,000 - $250,000" {{#if_eq p_institutional_arr.0.field_4 '$10,000 - $250,000'}} selected="selected" {{/if_eq}}>$10,000 - $250,000</option>
+								<option value="$250,000 - $10,000,000" {{#if_eq p_institutional_arr.0.field_4 '$250,000 - $10,000,000'}} selected="selected" {{/if_eq}}>$250,000 - $10,000,000</option>
+								<option value="$10,000,000 or more" {{#if_eq p_institutional_arr.0.field_4 '$10,000,000 or more'}} selected="selected" {{/if_eq}}>$10,000,000 or more</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -269,10 +269,10 @@
 					<div class="form-group">
 						<label for="investques_individual">How Much Are You Looking To Invest? <span style="color: red">*</span></label>
 						<select name="investques_individual" class="form-control" id="investques_individual">
-							<option value="0 - $100,000+" {{#if_eq p_individual_arr.0.field_4 '0 - $100,000+'}} selected="selected" {{/if_eq}}>0 - $100,000+</option>
-								<option value="1,000,000+" {{#if_eq p_individual_arr.0.field_4 '1,000,000+'}} selected="selected" {{/if_eq}}>$1,000,000+</option>
-								<option value="10,000,000+" {{#if_eq p_individual_arr.0.field_4 '10,000,000+'}} selected="selected" {{/if_eq}}>$10,000,000+</option>
-								<option value="100,000,000+" {{#if_eq p_individual_arr.0.field_4 '100,000,000+'}} selected="selected" {{/if_eq}}>$100,000,000+</option>
+							<option value="$0 - $10,000" {{#if_eq p_individual_arr.0.field_4 '$0 - $10,000'}} selected="selected" {{/if_eq}}>$0 - $10,000</option>
+								<option value="$10,000 - $250,000" {{#if_eq p_individual_arr.0.field_4 '$10,000 - $250,000'}} selected="selected" {{/if_eq}}>$10,000 - $250,000</option>
+								<option value="$250,000 - $10,000,000" {{#if_eq p_individual_arr.0.field_4 '$250,000 - $10,000,000'}} selected="selected" {{/if_eq}}>$250,000 - $10,000,000</option>
+								<option value="$10,000,000 or more" {{#if_eq p_individual_arr.0.field_4 '$10,000,000 or more'}} selected="selected" {{/if_eq}}>$10,000,000 or more</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -421,10 +421,6 @@
                             <br> ${{formatCurrency (twoDecimalPoint firstYearEarning)}}
                         </p>
                         <p>
-                            <strong>Interest Earned (0.05% Per Month):</strong>
-                            <br> ${{formatCurrency (twoDecimalPoint interestEarned)}}
-                        </p>
-                        <p>
                             <strong>Dividend Payouts:</strong>
                             <br> $0
                         </p>
@@ -433,7 +429,6 @@
                             <br> $0
                         </p>
                     </div>
-					<p style="text-align: center;"><span style="font-weight: bold;">Terms:</span> 6.5% annual management fee and 50% of all profits.</p>
                 </div>
             </div>
             <div class="col-md-6">
@@ -473,8 +468,8 @@
 											<div class="form-group">
 												{{!-- <label>Deposit Funds with Currency</label> --}}
 												<select class="form-control curncy-select" id="curncy_select" name="curncy_select">
-													<option value="">Please select an option</option>
-													<option value="0">USD</option>
+													<option value="">Please select an option.</option>
+													<option value="0">US Dollar (USD)</option>
 													<option value="1">Bitcoin (BTC)</option>
 													<option value="2">Ethereum (ETH)</option>
 													<option value="3">Litecoin (LTC)</option>
@@ -486,7 +481,7 @@
 										</div>
 										<div class="col-md-12">
 											<div class="form-group">
-												<input type="text" name="amount_deposit" id="amount_deposit" class="form-control" placeholder="Enter USD value">
+												<input type="text" name="amount_deposit" id="amount_deposit" class="form-control" placeholder="Enter USD amount">
 												{{!-- <input type="hidden" name="current_usd_balance" id="current_usd_balance" class="form-control" value="{{user.currentUsdBalance}}"> --}}
 											</div>
 											<input type="hidden" id="coin_rate3" name="coin_rate3" value="" />
@@ -499,7 +494,7 @@
 									<div class="gap">
 										<div class="col-md-12">
 											<div class="form-group">
-												<input class="btn btn-block btn-primary" id="amt_deposit_btn" name="DepositCurrency" type="button" value="Invest Funds" />
+												<input class="btn btn-block btn-primary" id="amt_deposit_btn" name="DepositCurrency" type="button" value="Invest" />
 											</div>
 										</div>
 									</div>
@@ -582,7 +577,6 @@
                                 <li>Verify your identification by uploading a government issued ID.</li>
 								<li>Fill out your personal or institutional information.</li>
 								<li>Deposit funds into your account using one of the available options.</li>
-								<li>Earn an above average return of 0.05% monthly interest up to $10,000,000 USD.</li>
 								<li>Get paid out annual dividends from the returns we're able to generate from our trading and investment strategies.</li>
                                 <p></p>
 								<p>More coming soon...</p>

@@ -67,7 +67,7 @@
                 <form action="" method="post">
                   <div class="form-group">
                     <select class="form-control" id="currency_sold" name="currency_sold">
-                      <option value="">Please select an option.</option>
+                      <option value="">Please select an currency option.</option>
                       {{#each contents}}
                       <option class="uppertext" value="{{this.alt_name}}">{{this.display_name}} ({{this.currency_id}})</option>
                       {{/each}}

@@ -255,11 +255,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         if(option == 'false'){
             if(two_factorAuth_status == 1){
                 User.update({
-                    two_factorAuth_status: 2,
-                    two_factorAuth_secret_key: '',
-                    two_factorAuth_qr_code_image: '',
-                    two_factorAuth_scan_verified: 0 ,
-                    two_factorAuth_verified : 'Inactive'                                              
+                    two_factorAuth_status: 2
                 },{
                     where:{
                         id: req.user.id
@@ -268,7 +264,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     if(result_data){
                         res.json({
                             status: option,
-                            msg:"Two factor authentication is disabled. "
+                            msg:"Your two factor authentication is disabled. "
                         });
                     }
                 });
@@ -276,7 +272,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }else if (option == 'true') {
             if(two_factorAuth_status == 2){
                 User.update({
-                    // two_factorAuth_status: 1,
+                    two_factorAuth_status: 1,
                     two_factorAuth_verified : 'Active'
                 },{
                     where:{
@@ -286,7 +282,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     if(result_data){
                         res.json({
                             status: option,
-                            msg:"Two factor authentication is enabled. "
+                            msg:"Your two factor authentication is enable. "
                         });
                     }
                 });
@@ -295,7 +291,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
             // res.json({
             //     status: option,
-            //     msg:"Two factor authentication is disabled. "
+            //     msg:"Your two factor authentication is disabled. "
             // });
         }
     });
@@ -448,7 +444,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             }).then(function (result) {
                 res.json({
                     success: true,
-                    message: 'Password updated successfully.'
+                    message: 'Password updated successfully'
                 });
             }).catch(function (err) {
 
@@ -457,7 +453,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         } else {
             res.json({
                 success: false,
-                message: 'Old password doesn\'t match.'
+                message: 'Old password doesn\'t matched'
             });
         }
     });
@@ -470,7 +466,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }).then(function (result) {
             res.json({
                 success: true,
-                message: 'ID proof uploaded successfully.',
+                message: 'ID Proof uploaded successfully',
                 file_name: fileName
             });
         }).catch(function (err) {
@@ -489,7 +485,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         }).then(function(result) {
             res.json({
                 success: true,
-                message: 'Profile pic uploaded successfully.',
+                message: 'profile pic uploaded successfully',
                 file_name: fileName
             });
         }).catch(function(err) {
@@ -573,7 +569,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     });
                 }
             }).then(function(result){
-                    req.flash('profileMessage', 'Profile updated successfully.');
+                    req.flash('profileMessage', 'Profile updated successfully');
                     res.redirect('/account/account-settings');
             });
         }).catch(function (err) {
@@ -601,10 +597,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
             s3bucket.upload(params, function(err, data) {
                 if (err) {
-                    console.log("Error uploading data.", err);
+                    console.log("Error uploading data. ", err);
                     cb(err)
                 } else {
-                    console.log("Success uploading data.");
+                    console.log("Success uploading data");
                     cb()
                 }
             })
@@ -634,10 +630,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
                 s3bucket.upload(params, function(err, data) {
                     if (err) {
-                        console.log("Error uploading data.", err);
+                        console.log("Error uploading data. ", err);
                         cb(err)
                     } else {
-                        console.log("Success uploading data.");
+                        console.log("Success uploading data");
                         cb()
                     }
                 })
@@ -668,7 +664,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             if(count > 0) {
                 res.json({
                     status: 'false',
-                    message: 'User already exists, please try again.'
+                    message: 'User already exists, please enter another username'
                 });
             } else {
                 User.update({
@@ -712,7 +708,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         res.render('submit-a-request', {
             layout: 'dashboard',
             message: msg,
-            title: 'Submit a Request'
+            title: 'Submit A Request'
         });
     });
 
@@ -1228,7 +1224,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
             status: status,
 			withdraw_type: type
         }).then(function (result) {
-            req.flash('investStatusMessage', 'Your withdraw request has been received successfully!');
+            req.flash('investStatusMessage', 'Your withdraw request received successfully!');
             res.redirect('/account/managed-cryptocurrency-portfolio');
         }).catch(function (err) {
         });
@@ -1282,7 +1278,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
                     question_id: financeData.name,
                     option_id: financeData.value
                 }).then(function (result) {
-                    res.json({success: 1, msg: 'Questionaire saved successfully!'});
+                    res.json({success: 1, msg: 'Questionaire saved successfully'});
                 }).catch(function (err) {
                     console.log(err);
                 });
@@ -1433,10 +1429,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
                 s3bucket.upload(params, function(err, data) {
                     if (err) {
-                        console.log("Error uploading data.", err);
+                        console.log("Error uploading data. ", err);
                         cb(err)
                     } else {
-                        console.log("Success uploading data.");
+                        console.log("Success uploading data");
                         cb()
                     }
                 })
@@ -1450,10 +1446,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
                     s3bucket.upload(params, function(err, data) {
                         if (err) {
-                            console.log("Error uploading data.", err);
+                            console.log("Error uploading data. ", err);
                             cb(err)
                         } else {
-                            console.log("Success uploading data.");
+                            console.log("Success uploading data");
                             cb()
                         }
                     })
@@ -1482,10 +1478,10 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
                         s3bucket.upload(params, function(err, data) {
                             if (err) {
-                                console.log("Error uploading data.", err);
+                                console.log("Error uploading data. ", err);
                                 cb(err)
                             } else {
-                                console.log("Success uploading data.");
+                                console.log("Success uploading data");
                                 cb()
                             }
                         })
@@ -1706,8 +1702,8 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var amount = req.body.amount;
         var userID = req.body.userID;
         var IPAddress = '127.0.0.1';
-        var AccountID = 12088682;
-        var AccountAuth = "tIhBgFWNGDmpxxpQ";
+        var AccountID = 33628851;
+        var AccountAuth = "oEPOveFHGjcyCtPP";
         var Reference = "X53222389-21";
         var currency = "USD";
         var ssn = '4344';

@@ -225,6 +225,7 @@
 <script src="/js/admin_blogcategory_manage.js"></script>
 <script src="/js/admin_blog_author.js"></script>
 <script src="/js/admin_anyuser_email.js"></script>
+<script src="/js/user_crypto_balance.js"></script>
 
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
@@ -709,7 +710,8 @@
                     },
                     async_upload: {
                         extension: 'jpg|JPG|jpeg|JPEG|png|PNG|tiff|TIFF'
-                    },
+                    }
+                    /*,
                     business_name: {
                         required: true
                     },
@@ -740,6 +742,7 @@
                         required: true,
                         email: true
                     }
+                    */
                     
                 },
                 messages: {
@@ -778,7 +781,8 @@
                     },
                     async_upload: {
                         extension: 'Must be image type.'
-                    },
+                    }
+                    /*,
                     business_name: {
                         required: "Please enter registered business name."
                     },
@@ -809,6 +813,7 @@
                         required: "Please enter a valid email address.",
                         email: "Please enter a valid email address."
                     }
+                    */
                     
                 },
                 submitHandler:function(form) {
@@ -2454,59 +2459,30 @@ $('.deleteShareholderInfo').on('click', function(){
 
             {{!-- Script for calculating balance in the dashboard page --}}
             {{#each user.currencyBalance}}
-                
             <script type="text/javascript">
-                    function formatNumber(num) {
-                        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 
-                    }
+                function formatNumber(num) {
+                    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 
-                    var usdPrice = 0;
-                    
-                    //console.log('Loop test');
-                    $.ajax({
-                        type: "GET",
-                        crossDomain: true,
-                        dataType: 'json',
-                        url: "https://coincap.io/page/{{this.Currency.currency_id}}",
-                        success: function (resp) {
-                            
-                            usdPrice = parseFloat({{this.balance}} * resp.price_usd).toFixed(2);
-                            $(".wallet_dollar_{{this.Currency.currency_id}}").text('');
-                            $(".wallet_dollar_{{this.Currency.currency_id}}").append('$' + formatNumber(usdPrice));
-                          
-                        },
-                        error: function (xhr) {
-                        }
-                    });
-                
-            </script>
-            
-            {{/each}}
-            {{!-- Ends Script for calculating balance in the dashboard page --}}
+                }
 
-            {{!-- {{#empty_array user.notPurchasedCurrBalance}}
-                {{#each user.currencyBalance}}
-            <script type="text/javascript">
-                 $.ajax({
+                var usdPrice = 0;
+                $.ajax({
                     type: "GET",
                     crossDomain: true,
                     dataType: 'json',
                     url: "https://coincap.io/page/{{this.Currency.currency_id}}",
                     success: function (resp) {
-                        
                         usdPrice = parseFloat({{this.balance}} * resp.price_usd).toFixed(2);
-                        $(".wallet_dollar_{{this.Currency.currency_id}}").append('$0.00');
-                        
+                        $(".wallet_dollar_{{this.Currency.currency_id}}").text('');
+                        $(".wallet_dollar_{{this.Currency.currency_id}}").append('$' + formatNumber(usdPrice));
                     },
                     error: function (xhr) {
                     }
                 });
             </script>
-                {{/each}}
-            {{/empty_array}} --}}
-
-        
+            {{/each}}
+            {{!-- Ends Script for calculating balance in the dashboard page --}}
 
             {{!-- Format numbers starts --}}
             <script>
@@ -3015,7 +2991,7 @@ function remove(event){
                             $('#currentratetext3').addClass('alert alert-danger');
                             $('#calculatedamount3').addClass('alert alert-success');
                             jQuery('#calculatedamount3').show();
-                            jQuery('#calculatedamount3').html('Calculated Amount: $'+  parseFloat(coin_amount/result.price_usd) );
+                            jQuery('#calculatedamount3').html('Calculated USD Value: $'+  parseFloat(coin_amount/result.price_usd) );
                         },
                         error: function (error) {
                             console.log(error);
@@ -3076,7 +3052,7 @@ function remove(event){
                             $('#currentratetext3').addClass('alert alert-danger');
                             $('#calculatedamount3').addClass('alert alert-success');
                             jQuery('#calculatedamount3').show();
-                            jQuery('#calculatedamount3').html('Calculated Amount: $'+  parseFloat(coin_amount4/coin_rate4) );
+                            jQuery('#calculatedamount3').html('Calculated USD Value: $'+  parseFloat(coin_amount4/coin_rate4) );
                         }
 
 
@@ -3446,28 +3422,5 @@ $('#investsuccessmsg').delay(2000).fadeOut();
 
       $('.action-box').height(maxHeight);
     </script>
-
-        <script>
-                //$(document).ready(function(){
-                  
-                    /*
-                    $('td.dl_value').each(function() {
-                        if (jQuery.trim ($(this).text()) == ""){
-                        //$(this).css('border','solid 1px red');
-                            $(this).text('empty');
-                        }
-                    });  */
-                //});
-        /*
-                $('.dl_value').each(function() {
- 		if($.trim($(this).text() == '')){  
- 			$(this).text('$0.00');
- 		}
-
-         */
-});
-
-
-            </script>
 </body>
 </html>>

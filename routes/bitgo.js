@@ -48,7 +48,7 @@ module.exports = (app, models) => {
 
     app.get('/bitgo/create-wallet', (req, res) => {
         var data = {
-            "passphrase": "Mmitra!@#4",
+            "passphrase": "COinjolt123!!",
             "label": "My Second Wallet"
         }
         bitgo.wallets().createWalletWithKeychains(data, function (err, result) {
@@ -828,7 +828,7 @@ module.exports = (app, models) => {
                             console.log("walletBalance");
                             console.log(walletBalance);
                             if((walletBalance == 0) || (walletBalance < amountSatoshis)){
-                                res.json({success: "3", message: "You have not enough wallet balance to send coin."});
+                                res.json({success: "3", message: "You do not enough balance to send this payment."});
                             } else {
                                 wallet.sendCoins({
                                     address: destinationAddress,
@@ -836,7 +836,7 @@ module.exports = (app, models) => {
                                     walletPassphrase: walletPassphrase
                                 }, function (err, result) {
                                     if (err) {
-                                        console.log("Error sending coins!");
+                                        console.log("Error sending payment!");
                                         console.dir(err);
                                         return process.exit(-1);
                                     }
@@ -851,7 +851,7 @@ module.exports = (app, models) => {
                                         amount: amountSatoshis,
                                         type: type
                                     }).then(function (result) {
-                                        res.json({success: "1", message: "You have sent coin successfully."});
+                                        res.json({success: "1", message: "You have sent this payment successfully."});
                                     });
                                 });
                             }
@@ -862,7 +862,7 @@ module.exports = (app, models) => {
                 });
             }
             else{
-                res.json({success: "0", message: "Wallet not found. Please create wallet."});
+                res.json({success: "0", message: "Wallet not found. Please create a wallet."});
             }
         });
     });
@@ -948,7 +948,7 @@ module.exports = (app, models) => {
                             console.log("walletBalance");
                             console.log(walletBalance);
                             if((walletBalance == 0) || (walletBalance < amountSatoshis)){
-                                res.json({success: "3", message: "You have not enough wallet balance to send coin."});
+                                res.json({success: "3", message: "You do not enough balance to send this payment."});
                             } else {
                                 let params = {
                                     amount: amountSatoshis,
@@ -967,7 +967,7 @@ module.exports = (app, models) => {
                                         amount: amountSatoshis,
                                         type: type
                                     }).then(function (result) {
-                                        res.json({success: "1", message: "You have sent coin successfully."});
+                                        res.json({success: "1", message: "You have sent this payment successfully."});
                                     });
                                 });
                             }
@@ -978,7 +978,7 @@ module.exports = (app, models) => {
                 });
             }
             else{
-                res.json({success: "0", message: "Wallet not found. Please create wallet."});
+                res.json({success: "0", message: "Wallet not found. Please create a wallet."});
             }
         });
     });

@@ -1,7 +1,7 @@
 <header class="main-header">
     <!-- Logo -->
     <a {{#if_eq user.type 1}} href="/admin/dashboard" {{/if_eq}} {{#if_eq user.type 2}} href="/account/dashboard" {{/if_eq}} class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <!-- mini logo for sidebar mini 100x100 pixels -->
         <span class="logo-mini">
             <img alt="-lg-logo" src="/dist/img/mini-logo.png">
         </span>
@@ -17,31 +17,28 @@
             <span class="sr-only">Toggle navigation</span>
         </a>
         <a href="" class="logo-mob-767">
-            <img  src="/dist/img/logo.png" alt="logo">
+            <img src="/dist/img/logo.png" alt="logo">
         </a>
-        
         {{!-- {{#if_eq user.type 2}} --}}
         <!-- Starts Balances & Rates -->
         <div class="balance-box">
             <a class="toggle-nav" id="bal-anchor">
-                <i class="fa fa-caret-down"></i>Balances
+                <i class="fa fa-caret-down"></i><span style="font-size: 14.5px; font-weight: bold;">Balances</span>
             </a>
-            <div class="balnrates">
-                <div class="left">
+            <div style="margin-left: 5%;" class="balnrates">
+                <div style="font-size: 14px;" class="left">
                     <h6>
-                        <strong>Balances:</strong>
+                        <span style="font-size: 14.5px; font-weight: bold;">Balances</span>
                     </h6>
                     <ul class="list" id="blc">
                         <li>
-                            <strong>USD:</strong> {{nFormatter user.currentUsdBalance 1}}</li>
-                        <li class="border">|</li>
+                            USD: <span font-size: 14.5px; font-weight: 100;">{{nFormatter user.currentUsdBalance 1}}</span></li>
+                        <li class="border">•</li>
                         <li>
-                            <strong>MCP:</strong> {{nFormatter user.mcpTotalBalance 1}}</li>
-                        <li class="border">|</li>
+                            MCP: <span font-size: 14.5px; font-weight: 100;">{{nFormatter user.mcpTotalBalance 1}}</span></li>
                         {{#each user.currencyBalance}}
                         <li id="blc_{{this.Currency.currency_id}}">
-                            <strong>{{this.Currency.currency_id}}:</strong> {{nFormatter this.balance 2}}</li>
-                        <li class="border">|</li>
+                            <strong>{{this.Currency.currency_id}}:</strong> <span font-size: 14.5px; font-weight: 100;">{{nFormatter this.balance 2}}</span></li>
                         {{/each}}
                     </ul>
                 </div>
@@ -50,25 +47,24 @@
 
         <div class="rates-box">
             <a class="toggle-nav" id="rate-anchor">
-                <i class="fa fa-caret-down"></i>Rates
+                <i class="fa fa-caret-down"></i><span style="font-size: 14.5px; font-weight: bold;">Rates</span>
             </a>
             <div class="rates">
                 <div class="right">
                     <h6>
-                        <strong>Rates:</strong>
+                        <span style="font-size: 14.5px; font-weight: bold;">Rates</span>
                     </h6>
                     <ul class="list" id="rtc">
-                        {{#each user.currency}}
+                      {{#each user.currency}}
                         <li class="cr_{{this.currency_id}}">
-                            <strong>{{this.currency_id}}:</strong></li>
-                        <li class="border">|</li>
-                        {{/each}}
+                            {{this.currency_id}}:</li>
+                        <li class="border">•</li>
+                       {{/each}}
                     </ul>
                 </div>
             </div>
         </div>
         {{!-- {{/if_eq}} --}}
-
         <!-- Ends Balances & Rates -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">

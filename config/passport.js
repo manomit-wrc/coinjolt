@@ -92,25 +92,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 }, 
                                 include: [ { model: Currency, required: true, attributes: ['alt_name','currency_id','display_name'] } 
                                 ] 
-                            });   
-
-                        // new codes
-                        /* let notPurchasedCurrBalance = await Deposit.findAll(
-                            { 
-                                attributes: ['id','balance'], 
-                                //logging: notOnlyALogger,
-                                order: [ ['id', 'DESC'], ], 
-                                where: { user_id: id, 
-                                    id: { $notIn: sequelize.literal('(' + tempSQL + ')') } 
-                                }, 
-                                include: [ { model: Currency, required: true, attributes: ['alt_name','currency_id','display_name'] } 
-                                ] 
-                            });     
-                            console.log('Not purchased currency balance:: ', JSON.stringify(notPurchasedCurrBalance, undefined, 2)); */
-                        // end new codes
-
-                        //console.log('Currency balance listings...', JSON.stringify(currencyBalance, undefined, 2));        
-
+                            });                 
                        var currency_list = await Currency.findAll();
 
                        
@@ -160,8 +142,6 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                        user.bankInfo = bank_details[0];
                        user.kycApproved = kyc_status;
 
-                       //user.notPurchasedCurrBalance = notPurchasedCurrBalance;
-
                        done(null, user);
 
                     } catch (err) {
@@ -202,7 +182,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                 }
 
                 if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-                    return done(null, false, req.flash('loginMessage', 'Please select captcha.'));
+                    return done(null, false, req.flash('loginMessage', 'Select captcha to continue.'));
                 }
 
                 User.findOne({
@@ -221,7 +201,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                     }
 
                     if(user.status != "1") {
-                        return done(null, false, req.flash('loginMessage', 'Account not activated. Please resend activation email.')); 
+                        return done(null, false, req.flash('loginMessage', 'Account not activated. Resend verification email.')); 
                     }
 
                     var userinfo = user.get();
@@ -232,7 +212,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
 
                     console.log("Error:", err);
 
-                    return done(null, false, req.flash('loginMessage', 'Something went wrong. Please try again.'));
+                    return done(null, false, req.flash('loginMessage', 'Something went wrong. Try again.'));
 
                 });
             }
@@ -302,7 +282,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 var editor_content_body = resp[0].template_desc;
                                 var ses = new AWS.SES({apiVersion: '2010-12-01'});
                                 var user_email = req.body.email;
-                                var subject = 'Registration request received. Please activate your account.';
+                                var subject = 'Registration successful. You are only a click away from activating your account.';
 
                                 email_key = activation_key+"/";
                                 
@@ -387,7 +367,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 
                                   <!-- HIDDEN PREHEADER TEXT -->
                                   <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'AvenirNextLTPro-Regular', sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-                                    This is information is sensitive and intended to be read only by the recipient who had submitted the request.
+                                    Copyright © CoinJolt.com | All rights reserved.
                                   </div>
                                 
                                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -467,7 +447,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                         <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
                                             <table border="0" cellspacing="0" cellpadding="0">
                                             <tr>
-                                                <td align="center" style="border-radius: 3px;" bgcolor="#025fdf"><a href="${keys.BASE_URL}activated/${email_key}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #025fdf; display: inline-block;">Activate Account</a></td>
+                                                <td align="center" style="border-radius: 3px;" bgcolor="#025fdf"><a href="${keys.BASE_URL}activated/${email_key}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #025fdf; display: inline-block;">Click Here To Activate Your Account</a></td>
                                             </tr>
                                             </table>
                                         </td>
@@ -485,14 +465,21 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                     
 									<p style="text-align: center;"> 
                                         <a href="${keys.BASE_URL}activated/${email_key}">
-                                        Or you can click here to to activate your account.
+                                        Images not being displayed? Click this link to activate your account.
                                         </a>
                                     </p>
+									 <p style="text-align: center;">You can also copy and paste the following link onto your browser:
+                                        </a>
+                                    </p>
+									<p style="text-align: center;"> 
+                                        <a href="${keys.BASE_URL}activated/${email_key}">
+                                        ${keys.BASE_URL}activated/${email_key}
+                                        </a>
                                     </td>
                                 </tr> <!-- Static Content -->
                                 <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">If you have any questions, just reply to this email — we're always willing to help out.</p>
+                                    <p style="margin: 0;">If you have any questions, just reply to this email —  there has never been a better time to invest in the future!</p>
                                     </td>
                                 </tr> <!-- Static Content -->
                                 
@@ -516,7 +503,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                       </a>
                                     </li>
                                      <li style="display: inline-block;">
-                                       <a href="https://drive.google.com/file/d/1zlzS47bXd7584wBizqyfnfLAHVif1Ftz/view" style="text-decoration: none; display: block;">
+                                       <a href="https://www.youtube.com/channel/UCHLEeVwkxNNadZU9ESoCEdw" style="text-decoration: none; display: block;">
                                           <img  src="${keys.BASE_URL}dist/img/email/youtube.png" alt="">
                                         </a>
                                       </li>
@@ -526,17 +513,6 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 <tr>
                                   <td bgcolor="#ffffff" style="text-align: center;">
                                     <p style="margin-bottom: 30px; font-size: 14px;">Copyright &copy; CoinJolt.com. All rights reserved.</p>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
-										<p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">By using this website, you understand the information being presented is provided for informational purposes only and agree to our Terms of Services and Privacy Policy. We occationally rely on information from various sources, including clients and third parties, but cannot guarantee the accuracy and completeness of that information.</p>
-
-										<p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">Any information provided is not intended to be, nor should it be construed or used as investment, tax or legal advice, a recommendation, or an offer to sell, or a solicitation of an offer to buy, an interest in cryptocurrency. An investment in cryptocurrency is not suitable for all investors.</p>
-
-										<p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">The information on this website is for general information purposes only. It is not intended as legal, financial or investment advice and should not be construed or relied on as such. Before making any commitment of a legal or financial nature you should seek advice from a qualified and registered legal practitioner or financial or investment adviser.</p>
-                                    </p>
-                                     
                                   </td>
                                 </tr>
                                 <tr>
@@ -618,7 +594,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 });
                             });
     
-                            return done(null, false, req.flash('signupMessage', 'Registration request sent. Please check your email for instructions on how to activate your account.'));
+                            return done(null, false, req.flash('signupMessage', 'Registration successfully completed. Check your email and activate your account.'));
 
                         }).catch(function(err){
                             console.log(err);
@@ -682,7 +658,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 var editor_content_body = resp[0].template_desc;
                                 var ses = new AWS.SES({apiVersion: '2010-12-01'});
                                 var user_email = req.body.email;
-                                var subject = 'Registration request. Please activate your account.';
+                                var subject = 'Registration successful. Check your email to activate your account.';
 
                                 
 
@@ -769,7 +745,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 
                                   <!-- HIDDEN PREHEADER TEXT -->
                                   <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'AvenirNextLTPro-Regular', sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-                                    This is information is sensitive and intended to be read only by the recipient who had submitted the request.
+                                    Copyright © CoinJolt.com | All rights reserved.
                                   </div>
                                 
                                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -849,7 +825,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                         <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
                                             <table border="0" cellspacing="0" cellpadding="0">
                                             <tr>
-                                                <td align="center" style="border-radius: 3px;" bgcolor="#025fdf"><a href="${keys.BASE_URL}activated/${email_key}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #025fdf; display: inline-block;">Activate Account</a></td>
+                                                <td align="center" style="border-radius: 3px;" bgcolor="#025fdf"><a href="${keys.BASE_URL}activated/${email_key}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #025fdf; display: inline-block;">Click Here To Activate Your Account</a></td>
                                             </tr>
                                             </table>
                                         </td>
@@ -870,11 +846,17 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                         Or you can click here to take the same action.
                                         </a>
                                     </p>
+									 <p style="text-align: center;">You can also copy and paste the following link onto your browser:
+                                        </a>
+                                    </p>
+									  <p style="text-align: center;"> 
+                                        <a href="${keys.BASE_URL}activated/${email_key}">${keys.BASE_URL}activated/${email_key}</a>
+                                    </p>
                                     </td>
                                 </tr> <!-- Static Content -->
                                 <tr>
                                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
-                                    <p style="margin: 0;">If you have any questions, just reply to this email — we're always willing to help out.</p>
+                                    <p style="margin: 0;">If you have any questions, just reply to this email — there has never been a better time to invest in the future!</p>
                                     </td>
                                 </tr> <!-- Static Content -->
                                 
@@ -898,7 +880,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                       </a>
                                     </li>
                                      <li style="display: inline-block;">
-                                       <a href="https://drive.google.com/file/d/1zlzS47bXd7584wBizqyfnfLAHVif1Ftz/view" style="text-decoration: none; display: block;">
+                                       <a href="https://www.youtube.com/channel/UCHLEeVwkxNNadZU9ESoCEdw" style="text-decoration: none; display: block;">
                                           <img  src="${keys.BASE_URL}dist/img/email/youtube.png" alt="">
                                         </a>
                                       </li>
@@ -908,17 +890,6 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 <tr>
                                   <td bgcolor="#ffffff" style="text-align: center;">
                                     <p style="margin-bottom: 30px; font-size: 14px;">Copyright &copy; CoinJolt.com. All rights reserved.</p>
-                                  </td>
-                                </tr>    
-                                <tr>
-                                  <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
-                                    <p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">By using this website, you understand the information being presented is provided for informational purposes only and agree to our Terms of Services and Privacy Policy. We occationally rely on information from various sources, including clients and third parties, but cannot guarantee the accuracy and completeness of that information.</p>
-
-									<p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">Any information provided is not intended to be, nor should it be construed or used as investment, tax or legal advice, a recommendation, or an offer to sell, or a solicitation of an offer to buy, an interest in cryptocurrency. An investment in cryptocurrency is not suitable for all investors.</p>
-
-									<p style="font-size: 14px; font-color: #d3d3d3; text-align: center;">The information on this website is for general information purposes only. It is not intended as legal, financial or investment advice and should not be construed or relied on as such. Before making any commitment of a legal or financial nature you should seek advice from a qualified and registered legal practitioner or financial or investment adviser.</p>
-                                    </p>
-                                     
                                   </td>
                                 </tr>
                                 <tr>
@@ -1000,7 +971,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 });
                             });
 
-                                return done(null, false, req.flash('signupMessage', 'Registration successful. Please check your email to activate your account.'));
+                                return done(null, false, req.flash('signupMessage', 'Registration successful. Check your email to activate your account.'));
 
                             }).catch(function(err){
                                 console.log('error');
@@ -1011,7 +982,7 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
         
                             console.log("Error:", err);
         
-                            return done(null, false, req.flash('loginMessage', 'Something went wrong. Please try again.'));
+                            return done(null, false, req.flash('loginMessage', 'Something went wrong. Try again.'));
         
                         });
                         // end find

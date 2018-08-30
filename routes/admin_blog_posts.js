@@ -95,7 +95,7 @@ module.exports = function (app, models) {
 
         var blog_categories = await models.blog_category.findAll({where: {status: 1}});
         var authors = await models.author.findAll();
-        res.render('admin/blog/blog_edit', { layout: 'dashboard', blogDetail: blogDetail, blog_categories: blog_categories, title:"Edit Blog Post", authors: authors});
+        res.render('admin/blog/blog_edit', { layout: 'dashboard', blogDetail: blogDetail, blog_categories: blog_categories, title:"Edit blog post", authors: authors});
             
 
     });
@@ -155,7 +155,7 @@ module.exports = function (app, models) {
             }).then(function(resp){
                 res.json({
                     status:true,
-                    msg: "Blog post saved and updated."
+                    msg: "Blog post successfully saved and updated."
                 });
             });
         }

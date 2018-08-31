@@ -1182,7 +1182,8 @@
 
                             if(result.success == "true"){
                                
-                                var cryptoEqUsdValue = result.crypto_info;
+                                //var cryptoEqUsdValue = result.crypto_info;
+                                var cryptoEqUsdValue = parseFloat(Math.round(result.crypto_info * 100) / 100).toFixed(2);
 
                                 $('#coinRate').val(cryptoEqUsdValue);
                                 var roundUpPrice = parseFloat(Math.round(cryptoEqUsdValue * 100) / 100).toFixed(2);
@@ -1457,7 +1458,8 @@ function buyFormSubmit(amtVal, currency_purchased, coinRate, actualAmtExpect, ba
                         success: function(result){
                             if(result.success == "true"){
 
-                                var cryptoEqUsdValue = result.crypto_info;
+                                //var cryptoEqUsdValue = result.crypto_info;
+                                var cryptoEqUsdValue = parseFloat(Math.round(result.crypto_info * 100) / 100).toFixed(2);
 
                                 $('#sell_coinRate').val(cryptoEqUsdValue);
                                 var roundUpPrice = parseFloat(Math.round(cryptoEqUsdValue * 100) / 100).toFixed(2);

@@ -1,0 +1,100 @@
+<title>Managed Cryptocurrency Portfolio</title>
+<section class="content-header">
+	<h1>Cryptocurrency Balances</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="/admin/dashboard"><i class="fa fa-dashboard"></i>Home</a>
+		</li>
+		<li class="active">Cryptocurrency Balances</li>
+	</ol>
+</section>
+
+<section class="content container-fluid">
+	<!-- Starts Deposit Funds -->
+	<div class="deposit-funds">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">User Balances</h3>
+					</div>
+					<div class="box-body">
+						<table id="pending_investments_table" class="table table-striped res-table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Email</th>
+									<th>Currency</th>
+									<th>Balance ($)</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each currency_balances}}
+								<tr>
+									<td>{{inc @index}}</td>
+									<td>{{this.User.email}}</td>
+									<td>{{this.Currency.display_name}} ({{this.Currency.currency_id}})</td>
+									<td>{{this.balance}}</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+					</div><!-- /.box-body -->
+				</div><!-- /.box -->
+
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Edit User Balances</h3>
+					</div>
+					<div class="box-body">
+						<form name="update_cryptobalance_form" id="update_cryptobalance_form" action="/admin/cryptobalance-update" method="POST">
+							{{#if message}}
+								<div class="alert alert-success">{{message}}</div>
+							{{/if}}
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="user_email">User Email:</label>
+										<select class="form-control" id="user_id" name="user_id">
+											<option value="">Please select an option</option>
+											{{#each all_users}}
+												<option value="{{this.id}}">{{this.email}}</option>
+											{{/each}}
+										</select>
+									</div>
+								</div>								
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="currency_id">Currency Name:</label>
+										<select class="form-control" id="currency_id" name="currency_id">
+											<option value="">Please select an option</option>
+											{{#each all_currencies}}
+												<option class="uppertext" value="{{this.id}}">{{this.display_name}} ({{this.currency_id}})</option>
+											{{/each}}
+										</select>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="currency_balance">Currency Balance</label>
+										<input type="text" class="form-control input-lg" id="currency_balance" name="currency_balance" placeholder="Currency Balance" value="">
+									</div>
+								</div>
+								<div class="col-md-2 col-md-offset-5">
+									<div class="form-group">
+										<input class="btn btn-primary save_balance" id="save_balance" value="Update User Balance" type="submit">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div><!-- /.box-body -->
+				</div><!-- /.box -->
+
+
+			</div>
+			
+		</div>
+		
+	</div>
+	<!-- Ends Deposit Funds -->
+</section>

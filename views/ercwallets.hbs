@@ -1,0 +1,290 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="title-with-btn pd-612">
+    <div class="pull-left">
+      <h1Wallets</h1>
+    </div>
+    {{!-- {{#if_eq count 0}}
+    <div class="pull-left">
+      <button class="btn btn-primary wallet-btn" id="wallet_create">Generate Wallet Address</button>
+    </div>
+    {{/if_eq}} --}}
+    <div class="clearfix"></div>
+  </div>
+ 
+  <ol class="breadcrumb">
+    <li>
+      <a href="/account/dashboard">
+        <i class="fa fa-dashboard"></i> Home</a>
+    </li>
+    <li class="active">Wallets</li>
+  </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box tabs">
+        <div class="total-usd-bal">
+          <strong>Total USD Balance:</strong> <span>$
+            {{!-- {{formatCurrency (twoDecimalPoint totalUsdBlnc)}} --}}
+            </span>
+        </div>
+        <div class="panel with-nav-tabs">
+          <div class="panel-heading">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#tab1primary" data-toggle="tab">
+                  <span class="glyphicon glyphicon-btc"></span>Deposit Funds</a>
+              </li>
+              {{!-- <li>
+                <a href="#tabHotWallet" data-toggle="tab">
+                  <span class="glyphicon"><i class="fa fa-fire"></i></span>Hot Wallet
+                </a>
+              </li>
+              <li>
+                <a href="#tabColdWallet" data-toggle="tab">
+                  <span class="glyphicon"><i class="fa fa-snowflake-o"></i></span>Cold Wallet
+                </a>
+              </li> --}}
+              <li>
+                <a href="#tab2primary" data-toggle="tab">
+                  <span class="glyphicon glyphicon-export"></span>Send Funds</a>
+              </li>
+              {{!-- <li>
+                <a href="#tab3primary" data-toggle="tab">
+                  <span class="glyphicon glyphicon-retweet"></span>Transfer</a>
+              </li> --}}
+              <li>
+                <a href="#tab4primary" data-toggle="tab">
+                  <span class="glyphicon glyphicon-time"></span>Activity</a>
+              </li>
+            </ul>
+          </div>
+          <div class="panel-body">
+            <div class="tab-content">
+              <!-- tab part one -->
+              <div class="tab-pane fade in active" id="tab1primary">
+                <div class="body-wallets">
+                  <div class="row">
+                    <div class="col-md-12">
+					<p>Generate a wallet address to deposit cryptocurrencies, transact and enjoy using Coin Jolt applications.</p>
+                      
+                      <!--ETH tabs starts-->
+                      <div class="bit-tabs">
+                        <div class="content-box">
+                          <div class="collaps pull-left">
+                            <div class="s-s-ethereum currency-logo-sprite"></div>
+                            <a data-toggle="collapse" data-target="#ethereum">Ethereum</a>
+                          </div>
+                          <div class="fltrgt-box pull-right">
+                            <div class="claculate">
+                              <span>
+                                {{!-- {{ethBalance}} --}}
+                                <strong>ETH</strong> <span class="usd_wallet_blnc">$
+                                  {{!-- {{formatCurrency (twoDecimalPoint totalEthUsd)}}  --}}
+                                  USD</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="ethereum" class="collapse">
+                          <div class="mywallt">
+                            <div class="middle">
+                              <div class="all-btn">
+                                {{!-- {{#if_eq ethWallet.count 0}} --}}
+                                  <button type="button" class="btn btn-primary wallet_create" data-datac="2" data-code="eth">
+                                  <i class="fa fa-plus"></i>Generate Wallet Address</button>
+                                {{!-- {{else}} --}}
+                                  <ul class="list-group">
+                                    <li class="list-group-item">
+                                      <strong>Wallet Address: </strong>
+                                      {{!-- {{ethWallet.rows.0.bitgo_wallet_id}} --}}
+                                    </li> 
+                                  </ul>       
+                                {{!-- {{/if_eq}}   --}}
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--ETH tabs ends-->
+                      
+                      
+                      
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- tab part one -->
+
+              <!-- tab part two -->
+              <div class="tab-pane fade" id="tab2primary">
+                <div class="send-box">
+                  <p>You can send cryptocurrency directly to another person or merchandise without any third parties. Just enter
+                    a payment address of the recipient and the amount you wish to send. All payments are irreversible once
+                    sent.
+                  </p>
+                  {{!-- <form method="post" action="" id="btc-send"> --}}
+                    <div class="form-group">
+                      
+                      <label for="exampleInputPassword1">Send Cryptocurrency</label>
+                    </div>
+                    <div id="addresstext" role="alert"></div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">To the address</label>
+                          <input type="text" class="form-control" id="coin_address" name="coin_address" placeholder="Enter recipient address">
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Amount</label>
+                          <input type="text" class="form-control" id="coin_amount" name="coin_amount" placeholder="min 0.0001 BTC">
+                        </div>
+                        <input type="hidden" id="coin_rate" name="coin_rate" value="" />
+                        <div class="wallet_cal_display">
+                          <div class="" id="currentratetext2" role="alert"></div>
+                          <div class="" id="calculatedamount2" role="alert"></div>
+                        </div>  
+                      </div>
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12" id="coinsenderrormsg" style="display:none;"> </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        
+                        <img src="/ajax-loader-1.gif" class="loader-gif" style="display: none;">
+                        <input class="btn btn-primary btn-lg" id="coin-send-btn" type="button" value="Send Coin">
+                      </div>
+                    </div>
+                  {{!-- </form> --}}
+                </div>
+              </div>
+
+              <!-- tab part two -->
+
+              <!-- tab part four -->
+
+              <div class="tab-pane fade" id="tab4primary">
+                <div class="table-responsive">
+                  <table id="wallet_transaction" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Action</th>
+                        <th>Receiver Name</th>
+                        <th>Currency</th>
+                        <th>Amount</th>
+                        <th>Date & Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{#each walletTransaction}}
+                      <tr>
+                        <td>{{this.id}}</td>
+                        <td>
+                          {{#if_eq this.type 1}}
+                            Send Coin
+                          {{/if_eq}}
+                          {{#if_eq this.type 2}}
+                            MCP Investment
+                          {{/if_eq}}
+                        </td>
+                        <td>{{this.User.email}}</td>
+                        <td>Bitcoin</td>
+                        <td>{{this.amount}}</td>
+                        <td>{{dateFormat this.createdAt "DD-MM-YYYY h:mm:ss a"}}</td>
+                      </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- tab part four -->
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  </div>
+  <!-- Modal -->
+
+  <!-- Generate Model Starts -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="preview-transaction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Preview Transaction</h4>
+        </div>
+        <div class="modal-body">
+          <p>You are to send 0.0408 to the address 19ku6syMgMqHapuwaeHJMHWBuJxMCLPfdc. This action is irreversible!</p>
+          <p>Please confirm by entering verification code generated by an OTP-application on your mobile device.</p>
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Verification Code</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Confirm &amp; Send</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="bitconaddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form method="post" action="/generate-address">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Generate Bitcoin Address</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="">Address Label
+                <i class="fa fa-question-circle"></i>
+              </label>
+              <input type="text" class="form-control" id="address" placeholder="Bitcoin address" name="wallet_address">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Create new Bitcoin address</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generate Model Ends -->
+
+</section>
+<!-- /.content -->

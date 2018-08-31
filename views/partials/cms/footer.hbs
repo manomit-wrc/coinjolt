@@ -13,10 +13,10 @@
               <div class="footer-sec seconds">
                 <h3>Quick Links</h3>
                 <ul>
-                  <li><a href="/about-us">About Us</a></li>
-                  <li><a href="/charts">Charts</a></li>
-                  <li><a href="/signup">Create Account</a></li>
-                  <li><a href="/login">Sign In</a></li>
+	 	  <li><a href="/signup">Create an Account</a></li>
+                  <li><a href="/login">Login</a></li>
+		  <li><a href="/charts">Charts</a></li>
+		  <li><a href="/about-us">About Us</a></li>
                 </ul>
               </div>
             </div>
@@ -37,7 +37,7 @@
                 <h3>Contact Us</h3>
                 <ul>
                   <li><i class="fa fa-envelope"></i><a href="mailto:{{companySettingsData.0.email}}" target="_blank">{{companySettingsData.0.email}}</a></li>
-                  <li><i class="fa fa-phone"></i>{{companySettingsData.0.phone_number}}</li>
+                  <li><i style=“color: fff;” 	class="fa fa-phone"></i>{{companySettingsData.0.phone_number}}</li>
                 </ul>
 
                 <div class="social-box">
@@ -45,9 +45,6 @@
                     <li><a title="Facebook" href="{{companySettingsData.0.facebook_url}}" target="_blank"><i class="fa fa-facebook"></i></a></li>
                     <li><a title="Twitter" href="{{companySettingsData.0.twitter_url}}" target="_blank"><i class="fa fa-twitter"></i></a></li>
                     <li><a title="Linkedin" href="{{companySettingsData.0.linkedin_url}}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a title="Skype" href="tel:{{companySettingsData.0.phone_number}}"><i class="fa fa-skype"></i></a></li>
-                    <li><a title="Instagram" href="{{companySettingsData.0.instagram_url}}" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                    <li><a title="Mail" href="mailto:{{companySettingsData.0.email}}" target="_blank"><i class="fa fa-envelope-o"></i></a></li>
                   </ul>
                 </div>
               </div>
@@ -60,9 +57,19 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <p>Copyright &copy; 2018 CoinJolt.com <span>|</span>All rights reserved.</p>
+              <p>Copyright &copy CoinJolt.com <span>|</span>All rights reserved.</p>
             </div>
           </div>
         </div>
       </div>
+	  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109818460-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-109818460-1');
+</script>
+
     </footer>

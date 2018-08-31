@@ -304,6 +304,8 @@ require('./routes/cms')(app, models);
 require('./routes/admin_blog_posts')(app, models);
 require('./routes/admin_blog_categories')(app, models);
 require('./routes/admin_blog_author')(app, models);
+require('./routes/erctoken')(app, models);
+require('./routes/admin_currency_balances')(app, models);
 
 
 app.listen(port);

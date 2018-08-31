@@ -6,7 +6,7 @@
     </div>
     {{!-- {{#if_eq count 0}}
     <div class="pull-left">
-      <button class="btn btn-primary wallet-btn" id="wallet_create">Generate Wallet Address</button>
+      <button class="btn btn-primary wallet-btn" id="wallet_create">Create a Secure Hot Wallet</button>
     </div>
     {{/if_eq}} --}}
     <div class="clearfix"></div>
@@ -35,7 +35,7 @@
             <ul class="nav nav-tabs">
               <li class="active">
                 <a href="#tab1primary" data-toggle="tab">
-                  <span class="glyphicon glyphicon-btc"></span>Deposit Funds</a>
+                  <span class="glyphicon glyphicon-btc"></span>Balances</a>
               </li>
               <li>
                 <a href="#tabHotWallet" data-toggle="tab">
@@ -68,7 +68,7 @@
                 <div class="body-wallets">
                   <div class="row">
                     <div class="col-md-12">
-					<p>Generate a wallet address to deposit cryptocurrencies, transact and enjoy using Coin Jolt applications.</p>
+					<p>Create a secure wallet to deposit and send funds seemlessly on our proprietary and trusted industry leading technology.</p>
                       <!--BTC tabs starts-->
                       <div class="bit-tabs">
                         <div class="content-box">
@@ -91,22 +91,22 @@
                               <div class="all-btn">
                                 {{#if_eq btcWallet.count 0}}
                                   <button type="button" class="btn btn-primary wallet_create" data-datac="1" data-code="btc">
-                                  <i class="fa fa-plus"></i>Generate Wallet Address</button>
+                                  <i class="fa fa-plus"></i>Create a Secure Hot Wallet</button>
                                 {{else}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Wallet ID: </strong>{{btcWallet.rows.0.bitgo_wallet_id}}
+                                      Wallet serial number: {{btcWallet.rows.0.bitgo_wallet_id}}
                                     </li>
                                   </ul>      
                                 {{/if_eq}}  
                                 {{#if_neq btcWallet.count 0}} {{#if_eq btcAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="1" data-code="btc">
-                                  <i class="fa fa-plus"></i>Generate Bitcoin address</button>
+                                  <i class="fa fa-plus"></i>Generate a Bitcoin wallet address</button>
                                 {{/if_eq}} {{/if_neq}}
                                 {{#if_neq btcAddressDetails.count 0}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Bitcoin Address: </strong>{{btcAddressDetails.rows.0.address}}
+                                      Bitcoin address: <span style="font-color: black;">{{btcAddressDetails.rows.0.address}}</span>
                                     </li>
                                   </ul>
                                 {{/if_neq}}
@@ -137,22 +137,22 @@
                               <div class="all-btn">
                                 {{#if_eq ethWallet.count 0}}
                                   <button type="button" class="btn btn-primary wallet_create" data-datac="2" data-code="eth">
-                                  <i class="fa fa-plus"></i>Generate Wallet Address</button>
+                                  <i class="fa fa-plus"></i>Create a Secure Hot Wallet</button>
                                 {{else}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Wallet ID: </strong>{{ethWallet.rows.0.bitgo_wallet_id}}
+                                      Wallet serial number: {{ethWallet.rows.0.bitgo_wallet_id}}
                                     </li> 
                                   </ul>       
                                 {{/if_eq}}  
                                 {{#if_neq ethWallet.count 0}} {{#if_eq ethAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="2" data-code="eth">
-                                  <i class="fa fa-plus"></i>Generate Ethereum address</button>
+                                  <i class="fa fa-plus"></i>Generate a Ethereum wallet address</button>
                                 {{/if_eq}} {{/if_neq}}
                                 {{#if_neq ethAddressDetails.count 0}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Ethereum Address: </strong>{{ethAddressDetails.rows.0.address}}
+                                      Ethereum address: <strong>{{ethAddressDetails.rows.0.address}}
                                     </li>
                                   </ul>
                                 {{/if_neq}} 
@@ -183,22 +183,22 @@
                               <div class="all-btn">
                                 {{#if_eq ltcWallet.count 0}}
                                   <button type="button" class="btn btn-primary wallet_create" data-datac="3" data-code="ltc">
-                                  <i class="fa fa-plus"></i>Generate Wallet Address</button>
+                                  <i class="fa fa-plus"></i>Create a Secure Hot Wallet</button>
                                 {{else}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Wallet ID: </strong>{{ltcWallet.rows.0.bitgo_wallet_id}} 
+                                      Wallet serial number: {{ltcWallet.rows.0.bitgo_wallet_id}} 
                                     </li>
                                   </ul>       
                                 {{/if_eq}}  
                                 {{#if_neq ltcWallet.count 0}} {{#if_eq ltccAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="3" data-code="ltc">
-                                  <i class="fa fa-plus"></i>Generate Litecoin address</button>
+                                  <i class="fa fa-plus"></i>Generate a Litecoin wallet address</button>
                                 {{/if_eq}} {{/if_neq}}
                                 {{#if_neq ltccAddressDetails.count 0}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Litecoin Address: </strong>{{ltccAddressDetails.rows.0.address}}
+                                      Litecoin address: <strong>{{ltccAddressDetails.rows.0.address}}
                                     </li>
                                   </ul>
                                 {{/if_neq}} 
@@ -229,22 +229,22 @@
                               <div class="all-btn">
                                 {{#if_eq bchWallet.count 0}}
                                   <button type="button" class="btn btn-primary wallet_create" data-datac="5" data-code="bch">
-                                  <i class="fa fa-plus"></i>Generate Wallet Address</button>
+                                  <i class="fa fa-plus"></i>Create a Secure Hot Wallet</button>
                                 {{else}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Wallet ID: </strong>{{bchWallet.rows.0.bitgo_wallet_id}}    
+                                      Wallet serial number: {{bchWallet.rows.0.bitgo_wallet_id}}    
                                     </li>
                                   </ul>    
                                 {{/if_eq}}  
                                 {{#if_neq bchWallet.count 0}} {{#if_eq bchAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="5" data-code="bch">
-                                  <i class="fa fa-plus"></i>Generate Bitcoin Cash address</button>
+                                  <i class="fa fa-plus"></i>Generate a Bitcoin Cash wallet address</button>
                                 {{/if_eq}} {{/if_neq}}
                                 {{#if_neq bchAddressDetails.count 0}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Bitcoin Cash Address: </strong>{{bchAddressDetails.rows.0.address}}
+                                      Bitcoin Cash address: {{bchAddressDetails.rows.0.address}}
                                     </li>
                                   </ul>
                                 {{/if_neq}}
@@ -275,22 +275,22 @@
                               <div class="all-btn">
                                 {{#if_eq rmgWallet.count 0}}
                                   <button type="button" class="btn btn-primary wallet_create" data-datac="46" data-code="rmg">
-                                  <i class="fa fa-plus"></i>Generate Wallet Address</button>
+                                  <i class="fa fa-plus"></i>Create a Secure Hot Wallet</button>
                                 {{else}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Wallet ID: </strong>{{rmgWallet.rows.0.bitgo_wallet_id}}
+                                      Wallet serial number: {{rmgWallet.rows.0.bitgo_wallet_id}}
                                     </li>
                                   </ul>    
                                 {{/if_eq}}  
                                 {{#if_neq rmgWallet.count 0}} {{#if_eq rmgAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="46" data-code="rmg">
-                                  <i class="fa fa-plus"></i>Generate Royal Mint Gold address</button>
+                                  <i class="fa fa-plus"></i>Generate a Royal Mint Gold wallet address</button>
                                 {{/if_eq}} {{/if_neq}}
                                 {{#if_neq rmgAddressDetails.count 0}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Royal Mint Gold Address: </strong>{{rmgAddressDetails.rows.0.address}}
+                                      Royal Mint Gold address: <strong>{{rmgAddressDetails.rows.0.address}}
                                     </li>
                                   </ul>
                                 {{/if_neq}}
@@ -321,22 +321,22 @@
                               <div class="all-btn">
                                 {{#if_eq xrpWallet.count 0}}
                                   <button type="button" class="btn btn-primary wallet_create" data-datac="4" data-code="xrp">
-                                  <i class="fa fa-plus"></i>Generate Wallet Address</button>
+                                  <i class="fa fa-plus"></i>Create a Secure Hot Wallet</button>
                                 {{else}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Wallet ID: </strong>{{xrpWallet.rows.0.bitgo_wallet_id}}
+                                      Wallet serial number: {{xrpWallet.rows.0.bitgo_wallet_id}}
                                     </li>
                                   </ul>    
                                 {{/if_eq}}  
                                 {{#if_neq xrpWallet.count 0}} {{#if_eq xrpAddressDetails.count 0}}
                                 <button type="button" class="btn btn-primary address_btn" data-datac="4" data-code="xrp">
-                                  <i class="fa fa-plus"></i>Generate Ripple address</button>
+                                  <i class="fa fa-plus"></i>Generate a Ripple wallet address</button>
                                 {{/if_eq}} {{/if_neq}}
                                 {{#if_neq xrpAddressDetails.count 0}}
                                   <ul class="list-group">
                                     <li class="list-group-item">
-                                      <strong>Ripple Address: </strong>{{xrpAddressDetails.rows.0.address}}
+                                      Ripple address: <strong>{{xrpAddressDetails.rows.0.address}}
                                     </li>
                                   </ul>
                                 {{/if_neq}}
@@ -984,7 +984,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">Generate Bitcoin Address</h4>
+            <h4 class="modal-title" id="myModalLabel">Generate Bitcoin Wallet</h4>
           </div>
           <div class="modal-body">
             <div class="form-group">

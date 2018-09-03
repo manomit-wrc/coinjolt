@@ -115,6 +115,8 @@ $(document).ready(function (e) {
 			var country = $("#country").val();
 			var userID = $("#userId").val();
 			//end
+			console.log('dob');
+			console.log(dob);
 			
 			if(amount == ''){
 				$(".creditCardFormErrorMsg").show();

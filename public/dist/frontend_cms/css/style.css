@@ -1722,6 +1722,15 @@ footer {
 
 /* Ends css on 2018-08-08 */
 
+/*Starts css on 2018-09-03*/
+
+.blog_share_box a {
+    color: #ffffff;
+	text-decoration: none !important;
+}
+
+/*Ends css on 2018-09-03*/
+
 
 
 /*Starts Responsive CSS*/

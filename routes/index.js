@@ -88,7 +88,7 @@ module.exports = function (app, passport, models, User) {
 
             models.blog_post.findAll({  // featured 
                 where: {
-                    //post_category_id: 1
+                    post_category_id: 1,
                     createdAt: {
                         lte: new Date()
                     }
@@ -101,7 +101,7 @@ module.exports = function (app, passport, models, User) {
 
             models.blog_post.findAll({  // latest news
                 where: {
-                    //post_category_id: 3
+                    post_category_id: 3,
                     createdAt: {
                         lte: new Date()
                     }
@@ -1082,7 +1082,7 @@ module.exports = function (app, passport, models, User) {
     
                 models.blog_post.findAll({  // featured 
                     where: {
-                        //post_category_id: 1
+                        post_category_id: 1,
                         createdAt: {
                             lte: new Date()
                         }
@@ -1095,7 +1095,7 @@ module.exports = function (app, passport, models, User) {
     
                 models.blog_post.findAll({  // latest news
                     where: {
-                        //post_category_id: 3
+                        post_category_id: 3,
                         createdAt: {
                             lte: new Date()
                         }
@@ -1136,7 +1136,28 @@ module.exports = function (app, passport, models, User) {
 
     });
     
-    
+     
+    app.post('/verify_resend_email', (req, res) =>{
+        
+        var verifiedEmail = req.body.verifyEmail;
+
+        if(verifiedEmail != ''){
+
+            User.findOne({
+                where: {
+                    email: verifiedEmail,
+                    status: '0'
+                }
+            }).then(function (user) {
+                res.json({ status: "true"});
+            });
+
+            
+        }
+
+
+    });
+
 
     function encrypt(text) {
         var cipher = crypto.createCipher(algorithm, password)

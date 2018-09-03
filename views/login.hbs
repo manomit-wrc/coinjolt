@@ -136,7 +136,7 @@
 
         <div class="sgn-main">
           
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat" id="signInBtn">Sign In</button>
         </div>
       </form>
       <div class="bot-sign">
@@ -172,14 +172,57 @@
   </script>
   <script>
     $(document).ready(function () {
+
+      $('#signInBtn').on('click', function(){
+
+          var verifyEmail =  $.trim($('#email').val());
+
+          var emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
+          var emailVerifiedResult = emailRegex.test(verifyEmail);
+
+            if(emailVerifiedResult){
+             
+              $.ajax({
+                type: "POST",
+                url: "/verify_resend_email",
+                data: {
+                  verifyEmail: verifyEmail
+                },
+              
+                success: function (resp) {
+                  console.log(resp);
+                  if(resp.status == 'true'){
+
+                    console.log('Success for storing in local storage');
+
+                    localStorage.setItem("verifiedEmail", verifyEmail);
+
+                  }
+                }
+                
+
+              });
+            
+          }
+          
+        });
+
       $('.login-box-body').show();
       $('.login-box-body').animate({
         'top': '0px'
       }, 500);
 
+
+
+       // previous code
+       /*
        $(".alert").fadeTo(2000, 500).slideUp(500, function(){
             $(".alert").slideUp(500);
         });
+       */
+
+
        $("#frmLogin").validate({
             rules: {
                 email: {
@@ -198,6 +241,9 @@
                 }
             }
         });
+
+        
+
     });
   </script>
   <!-- Starts Scriptd for Responsive Navigation -->

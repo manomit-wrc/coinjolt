@@ -131,6 +131,11 @@ module.exports = function (app, passport, models, User) {
 
         var msg = req.flash('loginMessage')[0];
         var loginActivationMessage = req.flash('loginActivationMessage')[0];
+        var resendActivationMessage = req.flash('resendActivationMessage')[0];
+
+        var resendEmailSuccessMessage = req.flash('resendEmailSuccessMessage')[0]; 
+        
+        console.log(resendEmailSuccessMessage);
 
         if(req.user != undefined && req.user.type == '2'){
             res.redirect('/account/dashboard');
@@ -143,7 +148,9 @@ module.exports = function (app, passport, models, User) {
         else{
             res.render('login', {
                 message: msg,
-                loginActivationMessage: loginActivationMessage
+                loginActivationMessage: loginActivationMessage,
+                resendActivationMessage: resendActivationMessage,
+                resendEmailSuccessMessage: resendEmailSuccessMessage
             });
         }
 
@@ -1015,6 +1022,366 @@ module.exports = function (app, passport, models, User) {
         });
     });
 
+    app.get('/resend_request/:resend_email', (req, res) =>{
+        const resendEmail = req.params['resend_email'];
+        var activation_key = encrypt(resendEmail);
+       
+        models.email_template.belongsTo(models.email_template_type, {foreignKey: 'template_type'});
+                            models.email_template.findAll({
+                                where: {
+                                    template_type: 4 // for Account Activation template
+                                },
+                                include: [{
+                                    model: models.email_template_type
+                                }],
+                                    order: [
+                                    ['id', 'DESC']
+                                ]
+                            }).then(function(resp){
+                                
+                                
+                                models.User.update({
+                                    activation_key: activation_key
+                                }, {
+                                    where: {
+                                        status: 0
+                                    }
+                                }).then(function (result) {
+                                    
+                                    
+                                    var editor_content_body = resp[0].template_desc;
+                                    var ses = new AWS.SES({apiVersion: '2010-12-01'});
+                                    var user_email = resendEmail;
+                                    var subject = 'Account Activation Email. You are only a click away from activating your account.';
+                                    
+                                    var complete_mail_content = ''; 
+
+                                    var activate_btn_content = '';
+
+                                    var lower_static_content = '';
+
+                                    var activation_key = encrypt(user_email);
+
+                                    email_key = activation_key+"/";
+                                    var upper_static_content = `
+                                    <!DOCTYPE html>
+                                    <html>
+                                    <head>
+                                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                                    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                                    <!-- Favicon -->
+                                    <link rel="shortcut icon" href="/dist/img/favicon.ico" type="image/x-icon">
+                                    <link rel="icon" href="/dist/img/favicon.ico" type="image/x-icon">
+                                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+                                    <style type="text/css">
+                                    /* FONTS */
+                                    @media screen {
+                                        @font-face {
+                                    font-family: 'AvenirNextLTPro-Regular';
+                                    src: url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.eot');
+                                    src: url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.woff2') format('woff2'),
+                                    url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.woff') format('woff'),
+                                    url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.ttf') format('truetype'),
+                                    url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.svg#AvenirNextLTPro-Regular') format('svg'),
+                                    url('/email_template_fonts/fonts/AvenirNextLTPro-Regular.eot?#iefix') format('embedded-opentype');
+                                    font-weight: normal;
+                                    font-style: normal;
+                                    }
+                                    
+                                    @font-face {
+                                    font-family: 'AvenirNextLTProBold';
+                                    src: url('/email_template_fonts/fonts/AvenirNextLTProBold.eot');
+                                    src: url('/email_template_fonts/fonts/AvenirNextLTProBold.eot') 
+                                    format('embedded-opentype'), url('/email_template_fonts/fonts/AvenirNextLTProBold.woff2') 
+                                    format('woff2'), url('/email_template_fonts/fonts/AvenirNextLTProBold.woff') 
+                                    format('woff'), url('/email_template_fonts/fonts/AvenirNextLTProBold.ttf') 
+                                    format('truetype'), url('/email_template_fonts/fonts/AvenirNextLTProBold.svg#AvenirNextLTProBold') 
+                                    format('svg');
+                                    }
+                                    }
+                                    
+                                    /* CLIENT-SPECIFIC STYLES */
+                                    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: 'AvenirNextLTPro-Regular', sans-serif; }
+                                    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+                                    img { -ms-interpolation-mode: bicubic; }
+                                    
+                                    /* RESET STYLES */
+                                    img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+                                    table { border-collapse: collapse !important; }
+                                    body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+                                    
+                                    /* iOS BLUE LINKS */
+                                    a[x-apple-data-detectors] {
+                                        color: inherit !important;
+                                        text-decoration: none !important;
+                                        font-size: inherit !important;
+                                        font-family: inherit !important;
+                                        font-weight: inherit !important;
+                                        line-height: inherit !important;
+                                    }
+                                    
+                                    /* MOBILE STYLES */
+                                    @media screen and (max-width:600px){
+                                        h1 {
+                                        font-size: 32px !important;
+                                        line-height: 32px !important;
+                                        }
+                                    }
+                                    
+                                    /* ANDROID CENTER FIX */
+                                    div[style*="margin: 16px 0;"] { margin: 0 !important; }
+                                    </style>
+                                    </head>
+                                    <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+                                    
+                                    <!-- HIDDEN PREHEADER TEXT -->
+                                    <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'AvenirNextLTPro-Regular', sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+                                        Copyright © CoinJolt.com | All rights reserved.
+                                    </div>
+                                    
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        
+                                        <tr>
+                                        <td bgcolor="#025fdf" align="center">
+                                                <!--[if (gte mso 9)|(IE)]>
+                                                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                                <tr>
+                                                <td align="center" valign="top" width="600">
+                                                <![endif]-->
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                                <tr>
+                                                    <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
+                                                    <a href="#" target="_blank">
+                                                        <img alt="Display images for support@coinjolt.com" src="${keys.BASE_URL}dist/img/template_logo.png" width="200" height="27" style="display: block; width: 200px; max-width: 200px; min-width: 200px; font-family: 'AvenirNextLTPro-Regular', sans-serif; color: #ffffff; font-size: 18px; filter: invert(1);" border="0">
+                                                    </a>
+                                                    </td>
+                                                </tr>
+                                                </table>
+                                                <!--[if (gte mso 9)|(IE)]>
+                                                </td>
+                                                </tr>
+                                                </table>
+                                            <![endif]-->
+                                            </td>
+                                        </tr> <!-- Static Content -->
+                                        
+                                        <tr>
+                                            <td bgcolor="#025fdf" align="center" style="padding: 0px 10px 0px 10px;">
+                                                <!--[if (gte mso 9)|(IE)]>
+                                                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                                <tr>
+                                                <td align="center" valign="top" width="600">
+                                                <![endif]-->
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                                <tr>
+                                                    <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
+                                                    <h1 style="font-size: 48px; font-weight: bold; margin: 0;"></h1>
+                                                    </td>
+                                                </tr>
+                                                </table>
+                                                <!--[if (gte mso 9)|(IE)]>
+                                                </td>
+                                                </tr>
+                                                </table>
+                                            <![endif]-->
+                                            </td>
+                                        </tr> <!-- Static Content -->
+                                        
+                                        <tr>
+                                            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                                                <!--[if (gte mso 9)|(IE)]>
+                                                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                                <tr>
+                                                <td align="center" valign="top" width="600">
+                                                <![endif]-->
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
+                                                
+                                                <tr>
+                                                    <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                    `;
+                                    
+                                    complete_mail_content += upper_static_content;
+                                    
+                                    var mid_dynamic_content = editor_content_body;
+
+                                    complete_mail_content += mid_dynamic_content;
+                                    
+                                    complete_mail_content += `</td></tr>`;
+                                    
+                                    activate_btn_content = `
+                                        <tr>
+                                        <td bgcolor="#ffffff" align="left">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                            <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
+                                                <table border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td align="center" style="border-radius: 3px;" bgcolor="#025fdf"><a href="${keys.BASE_URL}activated/${email_key}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #025fdf; display: inline-block;">Click Here To Activate Your Account</a></td>
+                                                </tr>
+                                                </table>
+                                            </td>
+                                            </tr>
+                                        </table>
+                                        </td>
+                                    </tr>
+                                    `;
+
+                                    complete_mail_content += activate_btn_content;
+
+                                    lower_static_content = `
+                                        <tr>
+                                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                        
+                                        <p style="text-align: center;"> 
+                                            <a href="${keys.BASE_URL}activated/${email_key}">
+                                            Images not being displayed? Click this link to activate your account.
+                                            </a>
+                                        </p>
+                                        <p style="text-align: center;">You can also copy and paste the following link onto your browser:
+                                            </a>
+                                        </p>
+                                        <p style="text-align: center;"> 
+                                            <a href="${keys.BASE_URL}activated/${email_key}">
+                                            ${keys.BASE_URL}activated/${email_key}
+                                            </a>
+                                        </td>
+                                    </tr> <!-- Static Content -->
+                                    <tr>
+                                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                                        <p style="margin: 0;">If you have any questions, just reply to this email —  there has never been a better time to invest in the future!</p>
+                                        </td>
+                                    </tr> <!-- Static Content -->
+                                    
+                                    <!-- Starts Footer Sec -->
+                                    <tr>
+                                    <td  bgcolor="#ffffff" style="text-align: center;"> 
+                                        <ul style="list-style-type: none;margin: 30px 0 30px 0; padding: 0;">
+                                        <li style="display: inline-block;margin-right: 10px">
+                                            <a href="https://www.facebook.com/coinjolt" style="text-decoration: none; display: block;">
+                                                <img  src="${keys.BASE_URL}dist/img/email/facebook.png" alt="">
+                                            </a>
+                                        </li>
+                                        <li style="display: inline-block;margin-right: 10px">
+                                            <a href="https://www.linkedin.com/in/coinjolt/" style="text-decoration: none; display: block;">
+                                                <img  src="${keys.BASE_URL}dist/img/email/linkedin.png" alt="">
+                                            </a>
+                                        </li>
+                                        <li style="display: inline-block;margin-right: 10px">
+                                        <a href="https://twitter.com/coinjolt" style="text-decoration: none; display: block;">
+                                        <img  src="${keys.BASE_URL}dist/img/email/twitter.png" alt="">
+                                        </a>
+                                        </li>
+                                        <li style="display: inline-block;">
+                                        <a href="https://www.youtube.com/channel/UCHLEeVwkxNNadZU9ESoCEdw" style="text-decoration: none; display: block;">
+                                            <img  src="${keys.BASE_URL}dist/img/email/youtube.png" alt="">
+                                            </a>
+                                        </li>
+                                        </ul>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td bgcolor="#ffffff" style="text-align: center;">
+                                        <p style="margin-bottom: 30px; font-size: 14px;">Copyright &copy; CoinJolt.com. All rights reserved.</p>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 30px 30px; border-radius: 0px 0px 4px 4px; color: #000000; font-family: 'AvenirNextLTPro-Regular', sans-serif; font-size: 11px; font-weight: 400; line-height: 20px;" >
+                                        <a href="${keys.BASE_URL}/terms-of-service" style="color: #f5f5f5; font-size: 14px; margin-right: 10px;">Terms of Service</a>
+                                        <a href="${keys.BASE_URL}/privacy-policy" style="color: #f5f5f5; font-size: 14px; margin-right: 10px;">Privacy Policy</a>
+                                            <a href="${keys.BASE_URL}/risk-disclosures" style="color: #f5f5f5; font-size: 14px;">Risk Disclosure</a>
+                                    </td>
+                                    </tr>
+                                    <!-- Ends Footer Sec -->
+                        
+                                    </table>
+                        
+                        
+                                    <!--[if (gte mso 9)|(IE)]>
+                                    </td>
+                                    </tr>
+                                    </table>
+                                <![endif]-->
+                                </td>
+                            </tr>
+                            <!-- SUPPORT CALLOUT -->
+                            <tr>
+                                <td bgcolor="#f4f4f4" align="center" style="padding: 30px 10px 0px 10px;">
+                                    <!--[if (gte mso 9)|(IE)]>
+                                    <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                    <tr>
+                                    <td align="center" valign="top" width="600">
+                                    <![endif]-->
+                                    
+                                    <!--[if (gte mso 9)|(IE)]>
+                                    </td>
+                                    </tr>
+                                    </table>
+                                <![endif]-->
+                                </td>
+                            </tr> <!-- Static Content -->
+                            <!-- FOOTER -->
+                            <tr>
+                                <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                                    <!--[if (gte mso 9)|(IE)]>
+                                    <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                    <tr>
+                                    <td align="center" valign="top" width="600">
+                                    <![endif]-->
+                                    
+                                    <!--[if (gte mso 9)|(IE)]>
+                                    </td>
+                                    </tr>
+                                    </table>
+                                <![endif]-->
+                                </td>
+                            </tr> <!-- Static Content -->
+                            </table>
+                            
+                        </body>
+                        </html>
+                                    `;
+
+                        complete_mail_content += lower_static_content;
+
+                        
+                        ses.sendEmail({ 
+                            Source: keys.senderEmail, 
+                            Destination: { ToAddresses: [user_email] },
+                            Message: {
+                                Subject: {
+                                    Data: subject
+                                },
+                                Body: {
+                                    Html: {
+                                        Charset: "UTF-8",
+                                        Data: complete_mail_content
+                                    }
+                                }
+                            }
+                            }, function(err, data) {
+                            if(err) throw err;
+                            
+                            else{
+                                req.flash('resendEmailSuccessMessage', 'An account activation email has been sent successfully. Please check your email and activate account.');
+                                res.redirect('/login');
+                            }
+                        
+                        });
+                                   
+
+                        });
+                                
+                    });
+    });
+
+    function encrypt(text) {
+        var cipher = crypto.createCipher(algorithm, password)
+        var crypted = cipher.update(text, 'utf8', 'hex')
+        crypted += cipher.final('hex');
+        return crypted;
+    }
+
     app.get('/about-us', auth, (req,res) => {
 
         Promise.all([
@@ -1135,7 +1502,6 @@ module.exports = function (app, passport, models, User) {
         }
 
     });
-    
     
 
     function encrypt(text) {

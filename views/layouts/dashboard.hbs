@@ -2552,14 +2552,9 @@ $('.deleteShareholderInfo').on('click', function(){
                     dataType: 'json',
                     url: "/account/get_allCrypto_blnc",
                     success: function (resp) {
-                        //$(".cr_{{this.currency_id}}").append(' ' + resp.price_usd.toFixed(2));
-                        //console.log(resp.all_crypto_info);
-                        
+                                  
                         $.each(resp.all_crypto_info, function(key,value) {
-                            //console.log(typeof(value)); // object
-                            //console.log(Object.keys(value)[0]);
-                            //console.log(value[Object.keys(value)[0]]);
-                            //console.log("Currency code: "+Object.keys(value)[0]+ " "+"Currency rate: "+value[Object.keys(value)[0]]);
+                           
 
                             $(".cr_"+Object.keys(value)[0]).append(' ' + value[Object.keys(value)[0]].toFixed(2));
 

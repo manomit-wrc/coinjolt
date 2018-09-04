@@ -94,57 +94,66 @@
     <div class="login-box-body" style="display: none; top: -70px;">
       <form action="/login" name="frmLogin" id="frmLogin" method="post">
         <img src="/dist/img/logo-icon.png" alt="logo">
-        <h4 style="color: #000;">Welcome Back! Sign In</h4>
+        <h4 style="color: #000; {{#if message}} display:none{{/if}}">Welcome Back! Sign In</h4>
           {{#if message}}
-            <div class="alert alert-danger">{{message}}</div>
+            <div class="alert alert-danger display-alert">{{message}}</div>
           {{/if}}
           {{#if loginActivationMessage}}
-            <div class="alert alert-success">{{loginActivationMessage}}</div>
+            <div class="alert alert-success display-alert">{{loginActivationMessage}}</div>
           {{/if}}
 
-        
-        <div class="form-group has-feedback">
-          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-          <input type="email" class="form-control" placeholder="Email" name="email" id="email">
-        </div>
-        <div class="form-group has-feedback">
-          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-          <input type="password" class="form-control" placeholder="Password" id="password" name="password">
-        </div>
-        <div class="row">
-          <div class="col-xs-6">
-            <div class="checkbox icheck">
-              <label>
-                <input type="checkbox" name="remember_me" id="remember_me"> Remember Me
-              </label>
+          {{#if resendActivationMessage}}
+            <div class="alert alert-danger" id="resendMailFailureText">Account not activated. <a href="/resend_request/{{resendActivationMessage}}">Resend verification email.</a></div>
+          {{/if}}
+
+          {{#if resendEmailSuccessMessage}}
+            <div class="alert alert-success" id="resendMailSuccessText">{{resendEmailSuccessMessage}}</div>
+          {{/if}}
+
+        <div id = "showLoginFrm" {{#if resendEmailSuccessMessage}} style="display:none;"{{/if}}>
+          <div class="form-group has-feedback">
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <input type="email" class="form-control" placeholder="Email" name="email" id="email">
+          </div>
+          <div class="form-group has-feedback">
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="checkbox icheck">
+                <label>
+                  <input type="checkbox" name="remember_me" id="remember_me"> Remember Me
+                </label>
+              </div>
+            </div>
+            <!-- /.col -->
+            {{!-- <div class="col-xs-6">
+              <p class="forgot">Forgot Your Password?</p>
+            </div> --}}
+            <!-- /.col -->
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+                <div class="g-recaptcha" data-sitekey="6Ld_G18UAAAAAEmKMVQ6Yjd8or8pglVWwiTfsesz"></div>
             </div>
           </div>
-          <!-- /.col -->
-          {{!-- <div class="col-xs-6">
-            <p class="forgot">Forgot Your Password?</p>
-          </div> --}}
-          <!-- /.col -->
-        </div>
+        
+        <!-- /.social-auth-links -->
 
-        <div class="row">
-          <div class="col-md-12">
-              <div class="g-recaptcha" data-sitekey="6Ld_G18UAAAAAEmKMVQ6Yjd8or8pglVWwiTfsesz"></div>
+          <div class="sgn-main">
+            
+            <button type="submit" class="btn btn-primary btn-block btn-flat" id="signInBtn">Sign In</button>
           </div>
         </div>
-      
-      <!-- /.social-auth-links -->
-
-        <div class="sgn-main">
-          
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-        </div>
       </form>
-      <div class="bot-sign">
+      <div class="bot-sign"{{#if resendEmailSuccessMessage}} style="display:none;"{{/if}}>
         <a href="/signup">Don't have an account?
           <span>Sign up</span>
         </a>
       </div>
-      <div class="bot-sign">
+      <div class="bot-sign"{{#if resendEmailSuccessMessage}} style="display:none;"{{/if}}>
         <a href="/forgot-password">Forgot Password?
         </a>
       </div>
@@ -172,14 +181,19 @@
   </script>
   <script>
     $(document).ready(function () {
+
       $('.login-box-body').show();
       $('.login-box-body').animate({
         'top': '0px'
       }, 500);
 
-       $(".alert").fadeTo(2000, 500).slideUp(500, function(){
-            $(".alert").slideUp(500);
+
+
+       $(".display-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $(".display-alert").slideUp(500);
         });
+
+
        $("#frmLogin").validate({
             rules: {
                 email: {
@@ -198,6 +212,9 @@
                 }
             }
         });
+
+        
+
     });
   </script>
   <!-- Starts Scriptd for Responsive Navigation -->

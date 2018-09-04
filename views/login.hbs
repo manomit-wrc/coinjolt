@@ -103,7 +103,9 @@
           {{/if}}
 
           {{#if resendActivationMessage}}
-            <div class="alert alert-danger" id="resendMailFailureText">Account not activated. <a href="/resend_request/{{resendActivationMessage}}">Resend verification email.</a></div>
+            <div class="alert alert-danger" id="resendMailFailureText">Account not activated.
+              <br>
+              <a href="/resend_request/{{resendActivationMessage}}">Resend verification email</a></div>
           {{/if}}
 
           {{#if resendEmailSuccessMessage}}

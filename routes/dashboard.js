@@ -2229,7 +2229,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
 
     });
 
-    app.get('/account/get_allCrypto_blnc', user_acl, two_factor_checking, async (req, res) =>{
+    app.get('/account/get_allCrypto_blnc', async (req, res) =>{
         const coincap_key = keys.COINCAP_KEY;
         var currency_list = await Currency.findAll({
             where: {

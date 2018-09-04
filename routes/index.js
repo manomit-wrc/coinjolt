@@ -135,8 +135,6 @@ module.exports = function (app, passport, models, User) {
 
         var resendEmailSuccessMessage = req.flash('resendEmailSuccessMessage')[0]; 
         
-        console.log(resendEmailSuccessMessage);
-
         if(req.user != undefined && req.user.type == '2'){
             res.redirect('/account/dashboard');
         }

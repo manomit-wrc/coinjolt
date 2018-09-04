@@ -201,7 +201,10 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                     }
 
                     if(user.status != "1") {
-                        return done(null, false, req.flash('loginMessage', 'Account not activated. Resend verification email.')); 
+
+                        //return done(null, false, req.flash('loginMessage', 'Account not activated. Resend verification email.')); 
+
+                        return done(null, false, req.flash('resendActivationMessage', `${user.email}`));
                     }
 
                     var userinfo = user.get();
@@ -262,7 +265,8 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                             // investor_type: req.body.investor_type
                             two_factorAuth_verified: 'Inactive',
                             two_factorAuth_scan_verified: 0,
-                            investor_type: 2
+                            investor_type: 2,
+                            status: 0
     
                         }).then(function(result){
 
@@ -637,7 +641,8 @@ module.exports = (passport, User, Deposit, Currency, models, AWS) => {
                                 // investor_type: req.body.investor_type
                                 two_factorAuth_verified: 'Inactive',
                                 two_factorAuth_scan_verified: 0,
-                                investor_type: 2
+                                investor_type: 2,
+                                status: 0
         
                             }).then(function(result){
                             

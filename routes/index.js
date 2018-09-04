@@ -134,8 +134,6 @@ module.exports = function (app, passport, models, User) {
         var resendActivationMessage = req.flash('resendActivationMessage')[0];
 
         var resendEmailSuccessMessage = req.flash('resendEmailSuccessMessage')[0]; 
-        
-        console.log(resendEmailSuccessMessage);
 
         if(req.user != undefined && req.user.type == '2'){
             res.redirect('/account/dashboard');
@@ -1052,7 +1050,7 @@ module.exports = function (app, passport, models, User) {
                                     var editor_content_body = resp[0].template_desc;
                                     var ses = new AWS.SES({apiVersion: '2010-12-01'});
                                     var user_email = resendEmail;
-                                    var subject = 'Account Activation Email. You are only a click away from activating your account.';
+                                    var subject = 'Account Activation Notification. You are only a click away from activating your account.';
                                     
                                     var complete_mail_content = ''; 
 

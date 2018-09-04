@@ -2191,7 +2191,25 @@ h3.post-title {
     		width: 20%;
     	}
 
-    	/*Ends on css 10-08-2018*/
+		/*Ends on css 10-08-2018*/
+		
+		/*Starts on css 04-09-2018*/
+
+		#resendMailFailureText a {
+			color: #ffffff;
+			transition: all 0.4s ease;
+			-moz-transition: all 0.4s ease;
+			-o-transition: all 0.4s ease;
+			-ms-transition: all 0.4s ease;
+			-webkit-transition: all 0.4s ease;
+		}
+
+		#resendMailFailureText a:hover {
+			color: #0092ff;
+		}
+
+		/*Ends on css 04-09-2018*/
+
 
 
 

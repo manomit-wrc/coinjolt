@@ -34,11 +34,18 @@ const paypal = require('paypal-rest-sdk');
 const fs = require('fs');
 
 
+// paypal.configure({
+//     'mode': 'sandbox', //sandbox or live
+//     'client_id': 'AUATycL0pSdb7ivwQB2fBA8w-rTO68U_GwxTfVhg4U7DisEnADJ1KBisL1DJkwlbaH59BVBx8SDhHUNN',
+//     'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
+// });
+
 paypal.configure({
-    'mode': 'sandbox', //sandbox or live
-    'client_id': 'AUATycL0pSdb7ivwQB2fBA8w-rTO68U_GwxTfVhg4U7DisEnADJ1KBisL1DJkwlbaH59BVBx8SDhHUNN',
-    'client_secret': 'EPLeyHfz7ZBN304lgZT3NDHiLCjnKJpOnWpFyrTIXi9WF8bcbyU2Bky39FRzaDVDiUm64GAo7O1ZRVQo'
+    'mode': 'live', //sandbox or live
+    'client_id': 'AfxyAmhXxtaNTyOmaFUH20Dcm8a1zSrsNvO59YJXaiTCiL-G97qLWImkkVbAwVGdVqTDL3z7z0pjYRaD',
+    'client_secret': 'ENsovEFhydYQ6fsfRlFaOSs-CqwRsZIEghWfAE0ELnXExZ4QD62rbbRcRMGA1_E-5x88m0q6LfNs6poz'
 });
+
 
 module.exports = function (app, Country, User, Currency, Support, Deposit, Referral_data, withdraw, Question, Option, Answer, AWS, Kyc_details, portfolio_composition, currency_balance, shareholder, wallet, wallet_address, wallet_transaction, portfolio_calculation, blog_post, email_template, email_template_type, author, cold_wallet_balance, deposit_method_type, WireTransfer) {
 
@@ -1713,7 +1720,7 @@ module.exports = function (app, Country, User, Currency, Support, Deposit, Refer
         var ssn = '4344';
 
         request({
-            uri: "http://www.coinjolt.com/ecorepay.php",
+            uri: "https://www.coinjolt.com/ecorepay.php",
             //uri: "http://localhost:8080/ecorepay.php",
             method: "POST",
             //json: true,

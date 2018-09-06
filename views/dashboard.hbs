@@ -5,9 +5,8 @@
                 <div class="box box-default">
                     <div class="box-header with-border">
                         <h3 class="box-title">Wallets</h3>
-          
+                        
                     </div>
-
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table scroll-minus">
@@ -32,7 +31,7 @@
                                         <img src="../dist/img/usd.png" alt="">
                                     </td>
                                     <td class="col-xs-4 padding16">US DOLLAR
-                                        <span style="color: #4165b4; font-size: 14.5px; font-weight: 100;"> (USD)</span>
+                                        <span style="color: red;"> (USD)</span>
                                     </td>
                                     <td class="col-xs-3 padding16">
                                         {{formatCurrency (twoDecimalPoint user.currentUsdBalance)}}
@@ -47,7 +46,7 @@
                                     </td>
                                     <td class="col-xs-4 padding16">MANAGED CRYPTOCURRENCY
 									<br/>PORTFOLIO
-                                        <span style="color: #4165b4; font-size: 14.5px; font-weight: 100;"> (MCP)</span>
+                                        <span style="color: red"> (MCP)</span>
                                     </td>
                                     <td class="col-xs-3 padding16">
                                         {{formatCurrency (twoDecimalPoint user.mcpTotalBalance)}}
@@ -66,7 +65,7 @@
                                         {{/if_eq}}    
                                     </td>
                                     <td class="col-xs-4 padding16 uppertext">{{this.display_name}}
-                                        <span style="color: #4165b4; font-size: 14.5px; font-weight: 100;"> ({{toUpperCase this.alt_name}})</span>
+                                        <span style="color: red"> ({{toUpperCase this.alt_name}})</span>
                                     </td>
                                     <td class="col-xs-3 padding16 wallet_crp">
 
@@ -118,7 +117,7 @@
                                     {{#if_neq this.author null}}
                                         {{this.author.author_name}}
                                     {{else}} 
-                                        Coinjolt.com
+                                        CoinJolt.com
                                     {{/if_neq}}      
                                 </p>
                             </div>

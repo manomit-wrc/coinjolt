@@ -145,64 +145,6 @@ module.exports = function (app, Deposit, Withdraw, User, Currency, Question, Opt
 			var coin_rate = 0;
 			var balance = 0;
 			var total_amt = 0;
-
-			/* for (var i = 0; i < result.length; i++) {
-
-				var coin_name = result[i].Currency.alt_name.toUpperCase();
-				console.log(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${coin_name}`);
-				// start
-				var options = {
-					url: `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${coin_name}`,
-					method: 'GET',
-					headers: {
-					  'X-CMC_PRO_API_KEY': coincap_key
-					}
-				};
-
-				function callback(error, response, body) {
-					if (!error && response.statusCode == 200) {
-		
-					  var crypto_info = JSON.parse(body);
-		
-					  var rate = crypto_info.data;
-		
-						var crypto_price_result = lodash.filter(rate, function(value, key) {
-						  usd_price_for_single_crypto = value.quote.USD.price;
-						});
-					   
-						//res.json({success: "true", crypto_info: usd_price_for_single_crypto });
-						
-
-
-					}
-				  }
-				   
-				  request(options, callback);
-
-				let coin_rate_res = usd_price_for_single_crypto;
-				coin_rate = coin_rate_res;
-				balance = result[i].total_balance;
-				total_amt = parseFloat(coin_rate) * parseFloat(balance);
-				coin_list_arr.push({
-					coin_name: result[i].Currency.display_name,
-					total_balance: result[i].total_balance,
-					coin_rate: coin_rate,
-					total_amt: total_amt
-				});
-
-
-				// end
-
-
-				/* var response = request(
-				    'GET',
-				    `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${coin_name}`
-				); */
-				
-			    
-			//} 
-
-			// prev
 			for (var i = 0; i < result.length; i++) {
 
 				var coin_name = result[i].Currency.alt_name.toUpperCase();

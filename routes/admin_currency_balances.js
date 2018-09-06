@@ -31,58 +31,9 @@ module.exports = function (app, models) {
 		var currency_id = req.body.currency_id;
 		var currency_balance = req.body.currency_balance;
 
-		/// ------------------- currency_balances table ------------------------------- ///
-		var balance_count = await models.currency_balance.count({
-            where: {
-                user_id: user_id,
-                currency_id: currency_id
-            }
-		});
-		
-        if(balance_count > 0) { // if user balance exists for that currency update the record in the currency_balances table
-			var update_currency_balance = await models.currency_balance.update({
-				balance: currency_balance	
-			}, {
-				where: {
-					user_id: user_id, currency_id: currency_id
-				}
-			});
-		} else { // if user balance doesn't exist for that currency create a record  in the currency_balances table
-			var create_currency_balance = await models.currency_balance.create({
-				user_id: user_id,
-				currency_id: currency_id,
-				balance: currency_balance
-			});
-		}
-
-		/// --------------------------- deposits table ----------------------------------------- ///	
-		var deposit_count = await models.Deposit.count({
-            where: {
-                user_id: user_id,
-                currency_id: currency_id
-            }
-		});
-
-		if(deposit_count > 0) { // if user balance exists for that currency update the record in the Deposits table
-			var currencyBalance = await models.Deposit.findAll(
-				{ 
-					attributes: ['id'],
-					where: { 
-						user_id: user_id, currency_id: currency_id
-					},
-					order: [ ['id', 'DESC'], ], 
-					limit: 1
-				}); 
-			var deposit_id = currencyBalance[0].id;
-			var update_deposit_currency_balance = await models.Deposit.update({
-				balance: currency_balance
-			}, {
-				where: {
-					id: deposit_id
-				}
-			});
 			
-		} else { // if user balance doesn't exist for that currency create a record in the Deposits table
+		if(currency_id == "0"){ ///---- If USD -----///
+			var usd_amt = req.body.usd_amt;
 			var digits = 9;	
 			var numfactor = Math.pow(10, parseInt(digits-1));	
 			var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
@@ -90,15 +41,82 @@ module.exports = function (app, models) {
 				user_id: user_id,
 				transaction_id: randomNum,
 				checkout_id: randomNum,
-				amount: '',
-				current_rate: '',
-				converted_amount: currency_balance,
-				type: 1,
-				balance: currency_balance,
-				currency_id: currency_id,
-				payment_method: 0
+				amount: usd_amt,
+				type: 0,
+				payment_method: 2,
+				balance: 0,
+				currency_id: 0
 			});
-		}
+		} else { ///---- If not USD -----///
+			/// ------------------- currency_balances table ------------------------------- ///
+			var balance_count = await models.currency_balance.count({
+				where: {
+					user_id: user_id,
+					currency_id: currency_id
+				}
+			});
+			
+			if(balance_count > 0) { // if user balance exists for that currency update the record in the currency_balances table
+				var update_currency_balance = await models.currency_balance.update({
+					balance: currency_balance	
+				}, {
+					where: {
+						user_id: user_id, currency_id: currency_id
+					}
+				});
+			} else { // if user balance doesn't exist for that currency create a record  in the currency_balances table
+				var create_currency_balance = await models.currency_balance.create({
+					user_id: user_id,
+					currency_id: currency_id,
+					balance: currency_balance
+				});
+			}
+
+			/// --------------------------- deposits table ----------------------------------------- ///	
+			var deposit_count = await models.Deposit.count({
+				where: {
+					user_id: user_id,
+					currency_id: currency_id
+				}
+			});
+
+			if(deposit_count > 0) { // if user balance exists for that currency update the record in the Deposits table
+				var currencyBalance = await models.Deposit.findAll(
+					{ 
+						attributes: ['id'],
+						where: { 
+							user_id: user_id, currency_id: currency_id
+						},
+						order: [ ['id', 'DESC'], ], 
+						limit: 1
+					}); 
+				var deposit_id = currencyBalance[0].id;
+				var update_deposit_currency_balance = await models.Deposit.update({
+					balance: currency_balance
+				}, {
+					where: {
+						id: deposit_id
+					}
+				});
+				
+			} else { // if user balance doesn't exist for that currency create a record in the Deposits table
+				var digits = 9;	
+				var numfactor = Math.pow(10, parseInt(digits-1));	
+				var randomNum =  Math.floor(Math.random() * numfactor) + 1;	
+				var create_deposit_balance = await models.Deposit.create({
+					user_id: user_id,
+					transaction_id: randomNum,
+					checkout_id: randomNum,
+					amount: '',
+					current_rate: '',
+					converted_amount: currency_balance,
+					type: 1,
+					balance: currency_balance,
+					currency_id: currency_id,
+					payment_method: 0
+				});
+			}
+		}	
 
 		req.flash('currencyBalanceMessage', 'Balance updated successfully');
 		res.redirect('/admin/user-currency-balances');

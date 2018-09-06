@@ -68,16 +68,23 @@
 										<label for="currency_id">Currency Name:</label>
 										<select class="form-control" id="currency_id" name="currency_id">
 											<option value="">Please select an option</option>
+											<option value="0">USD</option>
 											{{#each all_currencies}}
 												<option class="uppertext" value="{{this.id}}">{{this.display_name}} ({{this.currency_id}})</option>
 											{{/each}}
 										</select>
 									</div>
 								</div>
-								<div class="col-md-12">
+								<div class="col-md-12" id="currency_balance_box">
 									<div class="form-group">
-										<label for="currency_balance">Currency Balance</label>
+										<label for="currency_balance">Currency Balance:</label>
 										<input type="text" class="form-control input-lg" id="currency_balance" name="currency_balance" placeholder="Currency Balance" value="">
+									</div>
+								</div>
+								<div class="col-md-12"  id="usd_amt_box" style="display:none;">
+									<div class="form-group">
+										<label for="usd_amt">Add USD:</label>
+										<input type="text" class="form-control input-lg" id="usd_amt" name="usd_amt" placeholder="USD" value="">
 									</div>
 								</div>
 								<div class="col-md-2 col-md-offset-5">
